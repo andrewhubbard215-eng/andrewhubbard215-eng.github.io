@@ -2,6 +2,7 @@
   "use strict";
 
   const SAVE = "lt-hvac-allstars-html-v1";
+  const ACCOUNTS = "lt-hvac-allstars-accounts-v1";
   const RANKS = [
     { id: "helper", title: "Helper", min: 0 },
     { id: "apprentice", title: "Apprentice", min: 180 },
@@ -32,6 +33,8 @@
     seenTip: false,
     seenTutorial: false,
     hubAuthed: false,
+    passHash: "",
+    sessionOk: false,
     activeUnit: null,
   };
 
@@ -116,8 +119,85 @@
         seenTip: state.seenTip,
         seenTutorial: state.seenTutorial,
         hubAuthed: state.hubAuthed,
+        passHash: state.passHash || "",
       })
     );
+    persistCurrentAccount();
+  }
+
+  function accountKey(name) {
+    return String(name || "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function loadAccounts() {
+    try {
+      return JSON.parse(localStorage.getItem(ACCOUNTS) || "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  function writeAccounts(map) {
+    localStorage.setItem(ACCOUNTS, JSON.stringify(map));
+  }
+
+  function persistCurrentAccount() {
+    const key = accountKey(state.callsign);
+    if (!key || !state.passHash) return;
+    const map = loadAccounts();
+    map[key] = {
+      callsign: state.callsign,
+      passHash: state.passHash,
+      spec: state.spec,
+      campus: state.campus,
+      classSection: state.classSection,
+      look: state.look,
+      photo: state.photo,
+      xp: state.xp,
+      cash: state.cash,
+      jobsCompleted: state.jobsCompleted,
+      lifetimeEarnings: state.lifetimeEarnings,
+      gaugesOfGod: state.gaugesOfGod,
+      raptureSeen: state.raptureSeen,
+      spicy: state.spicy,
+      seenTip: state.seenTip,
+      seenTutorial: state.seenTutorial,
+      hubAuthed: !!state.hubAuthed && isHubName(state.callsign),
+    };
+    writeAccounts(map);
+  }
+
+  function applyAccount(rec) {
+    if (!rec) return;
+    state.callsign = rec.callsign || "";
+    state.passHash = rec.passHash || "";
+    state.spec = rec.spec || "residential";
+    state.campus = rec.campus || "levittown";
+    state.classSection = rec.classSection || "";
+    state.look = rec.look || "hardhat";
+    state.photo = rec.photo || "";
+    state.xp = rec.xp || 0;
+    state.cash = rec.cash || 0;
+    state.jobsCompleted = rec.jobsCompleted || 0;
+    state.lifetimeEarnings = rec.lifetimeEarnings || 0;
+    state.gaugesOfGod = !!rec.gaugesOfGod;
+    state.raptureSeen = !!rec.raptureSeen;
+    state.spicy = !!rec.spicy;
+    state.seenTip = !!rec.seenTip;
+    state.seenTutorial = !!rec.seenTutorial;
+    state.hubAuthed = !!rec.hubAuthed && isHubName(rec.callsign);
+  }
+
+  function logoutAccount() {
+    state.callsign = "";
+    state.passHash = "";
+    state.hubAuthed = false;
+    state.sessionOk = false;
+    save();
+    show("title");
+    toast("Logged out", "ok");
   }
 
   function addXp(n, label) {
@@ -1486,35 +1566,24 @@
     const btnCont = document.getElementById("btn-continue");
     if (btnCont && state.callsign) {
       btnCont.classList.remove("hidden");
-      btnCont.textContent = "Continue as " + state.callsign;
+      btnCont.textContent = "Log in as " + state.callsign;
       btnCont.onclick = () => {
         ac();
-        if (isHubName(state.callsign) && !state.hubAuthed) {
-          show("character");
-          const wrap = document.getElementById("hub-pass-wrap");
-          if (wrap) wrap.classList.remove("hidden");
-          toast("Instructor login needs a password", "bad");
-          return;
+        state.sessionOk = false;
+        show("character");
+        if (inp) {
+          inp.value = state.callsign;
+          refreshAcctHint();
+          btnIn.disabled = !inp.value.trim();
         }
-        refreshHub();
-        show("hub");
-        toast("Welcome back, " + state.callsign, "ok");
+        toast("Enter your locker password", "ok");
       };
     }
 
     document.getElementById("btn-start").onclick = () => {
       ac();
-      if (state.callsign) {
-        if (isHubName(state.callsign) && !state.hubAuthed) {
-          show("character");
-          const wrap = document.getElementById("hub-pass-wrap");
-          if (wrap) wrap.classList.remove("hidden");
-          toast("Instructor login needs a password", "bad");
-          return;
-        }
-        refreshHub();
-        show("hub");
-      } else show("character");
+      state.sessionOk = false;
+      show("character");
     };
     const closeClock = document.getElementById("btn-close-clockin");
     const miniIn = document.getElementById("btn-clockin-mini");
@@ -1587,14 +1656,32 @@
     }
     inp.oninput = () => {
       btnIn.disabled = !inp.value.trim();
-      const wrap = document.getElementById("hub-pass-wrap");
-      if (wrap) wrap.classList.toggle("hidden", !isHubName(inp.value));
+      refreshAcctHint();
     };
+    function refreshAcctHint() {
+      const name = inp.value.trim();
+      const key = accountKey(name);
+      const existing = loadAccounts()[key];
+      const wrap2 = document.getElementById("acct-pass2-wrap");
+      const hint = document.getElementById("acct-hint");
+      const isHubLogin = isHubName(name);
+      if (wrap2) wrap2.classList.toggle("hidden", !!(existing && existing.passHash) && !isHubLogin);
+      if (hint) {
+        if (isHubLogin) hint.textContent = "Instructor locker. Use the HUB password.";
+        else if (existing && existing.passHash) hint.textContent = "Locker found. Enter your password to clock in.";
+        else hint.textContent = "New locker. Pick a password and confirm it. Min 4 characters. Stored as a hash on this device.";
+      }
+      btnIn.textContent = existing && existing.passHash ? "Log in · clock in" : "Create locker · clock in";
+    }
+    refreshAcctHint();
     btnIn.onclick = () => {
       const name = inp.value.trim();
       if (!name) return;
-      const finishClock = () => {
-        state.callsign = name;
+      const pwEl = document.getElementById("acct-pass");
+      const pw2El = document.getElementById("acct-pass2");
+      const pw = pwEl ? pwEl.value : "";
+      const pw2 = pw2El ? pw2El.value : "";
+      if (state.sessionOk && accountKey(name) === accountKey(state.callsign) && !pw) {
         state.spec = document.getElementById("spec").value;
         const camp = document.getElementById("campus");
         if (camp) state.campus = camp.value;
@@ -1602,37 +1689,74 @@
         if (sec) state.classSection = sec.value.trim();
         const onLook = document.querySelector(".char-look.on");
         if (onLook) state.look = onLook.dataset.look;
+        save();
+        refreshHub();
+        show("hub");
+        toast("Locker saved", "ok");
+        return;
+      }
+      if (!pw || pw.length < 4) {
+        toast("Password must be at least 4 characters", "bad");
+        return;
+      }
+      if (!window.crypto || !crypto.subtle) {
+        toast("This browser can't store passwords safely", "bad");
+        return;
+      }
+      const key = accountKey(name);
+      const map = loadAccounts();
+      const existing = map[key];
+      sha256hex(pw).then((h) => {
+        if (isHubName(name) && h !== HUB_PASS_SHA256) {
+          toast("Wrong instructor password", "bad");
+          return;
+        }
+        if (existing && existing.passHash) {
+          if (h !== existing.passHash) {
+            toast("Wrong password for that locker", "bad");
+            return;
+          }
+          applyAccount(existing);
+          state.sessionOk = true;
+          if (isHubName(name)) state.hubAuthed = true;
+          if (pwEl) pwEl.value = "";
+          if (pw2El) pw2El.value = "";
+          save();
+          refreshHub();
+          if (isHub() && !state.raptureSeen) openRapture();
+          else show("hub");
+          toast("Welcome back, " + state.callsign, "ok");
+          return;
+        }
+        if (pw !== pw2) {
+          toast("Passwords don't match", "bad");
+          return;
+        }
+        state.callsign = name;
+        state.passHash = h;
+        state.spec = document.getElementById("spec").value;
+        const camp = document.getElementById("campus");
+        if (camp) state.campus = camp.value;
+        const sec = document.getElementById("class-section");
+        if (sec) state.classSection = sec.value.trim();
+        const onLook = document.querySelector(".char-look.on");
+        if (onLook) state.look = onLook.dataset.look;
+        state.hubAuthed = isHubName(name);
+        state.sessionOk = true;
         if (isHub()) state.pendingRapture = true;
+        if (pwEl) pwEl.value = "";
+        if (pw2El) pw2El.value = "";
         save();
         if (window.Badges) window.Badges.unlock("first_clock");
         postCompete("profile");
         refreshHub();
         if (isHub() && !state.raptureSeen) openRapture();
         else show("hub");
-      };
-      if (isHubName(name)) {
-        const passEl = document.getElementById("hub-pass");
-        const pw = passEl ? passEl.value : "";
-        const wrap = document.getElementById("hub-pass-wrap");
-        if (wrap) wrap.classList.remove("hidden");
-        if (!window.crypto || !crypto.subtle) {
-          toast("This browser can't check the instructor password", "bad");
-          return;
-        }
-        sha256hex(pw).then((h) => {
-          if (h !== HUB_PASS_SHA256) {
-            toast("Wrong instructor password", "bad");
-            return;
-          }
-          state.hubAuthed = true;
-          if (passEl) passEl.value = "";
-          finishClock();
-        });
-        return;
-      }
-      state.hubAuthed = false;
-      finishClock();
+        toast("Locker created for " + name, "ok");
+      });
     };
+    const logoutBtn = document.getElementById("hub-logout");
+    if (logoutBtn) logoutBtn.onclick = () => logoutAccount();
     const locker = document.getElementById("hub-locker");
     if (locker) {
       locker.onclick = () => {
@@ -1641,6 +1765,7 @@
           inp.value = state.callsign;
           btnIn.disabled = false;
           btnIn.textContent = "Save locker · back to shop";
+          refreshAcctHint();
         }
       };
     }

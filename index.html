@@ -60,9 +60,13 @@
         <label>Callsign / name
           <input id="callsign" maxlength="16" placeholder="Your name on the floor" value="" />
         </label>
-        <label id="hub-pass-wrap" class="hidden">Instructor password
-          <input id="hub-pass" type="password" autocomplete="off" placeholder="Required for HUB login" />
+        <label>Password
+          <input id="acct-pass" type="password" autocomplete="off" placeholder="Min 4 characters" />
         </label>
+        <label id="acct-pass2-wrap">Confirm password
+          <input id="acct-pass2" type="password" autocomplete="off" placeholder="Re-type to create locker" />
+        </label>
+        <p class="char-photo-hint" id="acct-hint">New name creates a locker. Existing name logs you in. HUB / Hubbard uses the instructor password.</p>
         <label>Campus
           <select id="campus">
             <option value="levittown" selected>Levittown, PA — Philly area</option>
@@ -131,6 +135,7 @@
           <span id="hub-xp">0 XP</span>
           <span id="hub-rank">Helper</span>
           <button type="button" class="btn" id="hub-locker">Locker</button>
+          <button type="button" class="btn" id="hub-logout">Log out</button>
         </div>
       </header>
       <div id="hub-tip" class="hub-tip hidden">
