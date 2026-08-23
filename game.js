@@ -284,14 +284,90 @@
     return cur;
   }
 
-  const HUB_PASS_SHA256 = "6bf1f6537cf327986333ccca2ad0d046ebdf74acf722b1036efc6169925708f9";
+  const HUB_KDF = {
+    v: 2,
+    algo: "PBKDF2",
+    hash: "SHA-256",
+    iter: 150000,
+    salt: textToHex("lt-allstars-hub-salt-v1"),
+    hashHex: "693ba1162376081c07f494e8447df11fd89f8245dc351f7936c12fe63ef64b9f",
+  };
+  const HUB_PASS_SHA256_LEGACY = "6bf1f6537cf327986333ccca2ad0d046ebdf74acf722b1036efc6169925708f9";
+  const KDF_ITER = 150000;
 
-  function sha256hex(s) {
-    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then((buf) =>
-      Array.from(new Uint8Array(buf))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("")
+  function textToHex(s) {
+    return Array.from(new TextEncoder().encode(s))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function bufToHex(buf) {
+    return Array.from(new Uint8Array(buf))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function hexToBuf(hex) {
+    const clean = String(hex || "").replace(/[^0-9a-f]/gi, "");
+    const out = new Uint8Array(clean.length / 2);
+    for (let i = 0; i < out.length; i++) out[i] = parseInt(clean.substr(i * 2, 2), 16);
+    return out;
+  }
+
+  function randomSaltHex(bytes) {
+    const a = new Uint8Array(bytes || 16);
+    crypto.getRandomValues(a);
+    return bufToHex(a);
+  }
+
+  async function sha256hex(s) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+    return bufToHex(buf);
+  }
+
+  async function pbkdf2Hex(password, saltHex, iter) {
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits(
+      { name: "PBKDF2", hash: "SHA-256", salt: hexToBuf(saltHex), iterations: iter },
+      key,
+      256
     );
+    return bufToHex(bits);
+  }
+
+  async function makePassRecord(password) {
+    const salt = randomSaltHex(16);
+    const hashHex = await pbkdf2Hex(password, salt, KDF_ITER);
+    return { v: 2, algo: "PBKDF2", hash: "SHA-256", iter: KDF_ITER, salt, hashHex };
+  }
+
+  function timingSafeEq(a, b) {
+    const x = String(a || "");
+    const y = String(b || "");
+    if (x.length !== y.length) return false;
+    let d = 0;
+    for (let i = 0; i < x.length; i++) d |= x.charCodeAt(i) ^ y.charCodeAt(i);
+    return d === 0;
+  }
+
+  async function verifyPassRecord(password, rec) {
+    if (!rec) return false;
+    if (typeof rec === "string") {
+      const h = await sha256hex(password);
+      return timingSafeEq(h, rec);
+    }
+    if (rec.algo === "PBKDF2" && rec.salt && rec.hashHex) {
+      const got = await pbkdf2Hex(password, rec.salt, rec.iter || KDF_ITER);
+      return timingSafeEq(got, rec.hashHex);
+    }
+    return false;
+  }
+
+  async function verifyHubPassword(password) {
+    const kdf = await pbkdf2Hex(password, HUB_KDF.salt, HUB_KDF.iter);
+    if (timingSafeEq(kdf, HUB_KDF.hashHex)) return true;
+    const legacy = await sha256hex(password);
+    return timingSafeEq(legacy, HUB_PASS_SHA256_LEGACY);
   }
   function isHubName(n) {
     const s = String(n || "")
@@ -1706,17 +1782,19 @@
       const key = accountKey(name);
       const map = loadAccounts();
       const existing = map[key];
-      sha256hex(pw).then((h) => {
-        if (isHubName(name) && h !== HUB_PASS_SHA256) {
+      (async () => {
+        if (isHubName(name) && !(await verifyHubPassword(pw))) {
           toast("Wrong instructor password", "bad");
           return;
         }
         if (existing && existing.passHash) {
-          if (h !== existing.passHash) {
+          const ok = await verifyPassRecord(pw, existing.passHash);
+          if (!ok) {
             toast("Wrong password for that locker", "bad");
             return;
           }
           applyAccount(existing);
+          state.passHash = await makePassRecord(pw);
           state.sessionOk = true;
           if (isHubName(name)) state.hubAuthed = true;
           if (pwEl) pwEl.value = "";
@@ -1733,7 +1811,7 @@
           return;
         }
         state.callsign = name;
-        state.passHash = h;
+        state.passHash = await makePassRecord(pw);
         state.spec = document.getElementById("spec").value;
         const camp = document.getElementById("campus");
         if (camp) state.campus = camp.value;
@@ -1753,7 +1831,7 @@
         if (isHub() && !state.raptureSeen) openRapture();
         else show("hub");
         toast("Locker created for " + name, "ok");
-      });
+      })().catch(() => toast("Password check failed", "bad"));
     };
     const logoutBtn = document.getElementById("hub-logout");
     if (logoutBtn) logoutBtn.onclick = () => logoutAccount();
