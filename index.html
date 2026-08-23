@@ -140,6 +140,13 @@
       <div id="hub-commandments" class="hub-commandments"></div>
       <p class="hub-section">Training floor · Kahoot · system sim · AI</p>
       <div class="hub-grid">
+        <button class="mode-card mode-card-featured" data-mode="tutorial">
+          <div class="mode-icon" aria-hidden="true">👷</div>
+          <div>
+            <h3>HUB tutorial</h3>
+            <p>Professor Hubbard walks you through the whole site — quiz, sim, AI, class PIN</p>
+          </div>
+        </button>
         <button class="mode-card mode-card-featured" data-mode="quiz">
           <div class="mode-icon" aria-hidden="true">🎯</div>
           <div>
@@ -313,8 +320,9 @@
     </section>
 
 
-  <p class="version-strip">HVAC Allstars · v3.0 · sim · quiz · AI · no arcade</p>
+  <p class="version-strip">HVAC Allstars · v3.1 · tutorial · Kahoot · sim · AI</p>
   </div>
+  <div id="tutorial-root" class="tut-overlay hidden"></div>
   <script>
     window.ltCloseCard = function () {
       var c = document.getElementById("title-card");
@@ -348,7 +356,8 @@
   <script src="badges.js"></script>
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
-  <script src="game.js?v=31"></script>
+  <script src="tutorial.js"></script>
+  <script src="game.js?v=32"></script>
   <script>
     (function () {
       function killWanted() {

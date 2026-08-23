@@ -30,6 +30,7 @@
     vehicle: "falcon", // "falcon" | "van"
     spicy: false,
     seenTip: false,
+    seenTutorial: false,
     activeUnit: null,
   };
 
@@ -86,7 +87,7 @@
     if (typeof state.jobsCompleted !== "number") state.jobsCompleted = 0;
     if (typeof state.lifetimeEarnings !== "number") state.lifetimeEarnings = 0;
     if (typeof state.spicy !== "boolean") state.spicy = false;
-    if (typeof state.seenTip !== "boolean") state.seenTip = false;
+    if (typeof state.seenTutorial !== "boolean") state.seenTutorial = false;
     if (state.vehicle !== "van" && state.vehicle !== "falcon") state.vehicle = "falcon";
   }
   function save() {
@@ -111,6 +112,7 @@
         vehicle: state.vehicle,
         spicy: state.spicy,
         seenTip: state.seenTip,
+        seenTutorial: state.seenTutorial,
       })
     );
   }
@@ -226,7 +228,10 @@
     // show first-day tip once on hub
     if (id === "hub") {
       const tip = document.getElementById("hub-tip");
-      if (tip && !state.seenTip) tip.classList.remove("hidden");
+      if (tip && !state.seenTip && state.seenTutorial) tip.classList.remove("hidden");
+      if (!state.seenTutorial && window.HubTutorial) {
+        setTimeout(startTutorial, 400);
+      }
     }
   }
 
@@ -1587,6 +1592,7 @@
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
         else if (m === "commandments") startCommandments();
+        else if (m === "tutorial") startTutorial();
         else if (m === "rapture") {
           openRapture();
         }
@@ -1863,6 +1869,32 @@
         window.parent.postMessage(payload, "*");
       }
     } catch (_) {}
+  }
+
+  function startTutorial() {
+    show("hub");
+    const host = document.getElementById("tutorial-root");
+    if (!host || !window.HubTutorial) {
+      toast("Tutorial failed to load", "bad");
+      return;
+    }
+    window.HubTutorial.start(host, {
+      onDone() {
+        state.seenTutorial = true;
+        state.seenTip = true;
+        save();
+      },
+      onLaunch(mode) {
+        state.seenTutorial = true;
+        save();
+        if (mode === "quiz") startQuizArena();
+        else if (mode === "sandbox") startSandbox();
+        else if (mode === "electrical") startElectrical();
+        else if (mode === "aihelper") startAIHelper();
+        else if (mode === "commandments") startCommandments();
+        else if (mode === "compete") startCompete();
+      },
+    });
   }
 
   function startCompete() {

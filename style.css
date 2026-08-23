@@ -1942,3 +1942,43 @@ select:focus-visible {
   cursor: pointer;
 }
 .qa-pack-btn.on { border-color: var(--lt-red); background: rgba(206,0,52,0.18); }
+
+.tut-overlay {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 80;
+  padding: 12px;
+  pointer-events: none;
+}
+.tut-overlay.hidden { display: none !important; }
+.tut-card {
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(12, 16, 22, 0.96);
+  border: 1px solid rgba(206,0,52,0.45);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+.tut-face {
+  width: 72px; height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center 12%;
+  flex-shrink: 0;
+  border: 2px solid #CE0034;
+}
+.tut-body { flex: 1; min-width: 0; }
+.tut-body h3 { margin: 2px 0 6px; font-size: 18px; }
+.tut-say { font-size: 14px; line-height: 1.45; color: #f3ead8; margin-bottom: 10px; }
+.tut-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tut-hi {
+  outline: 3px solid #CE0034 !important;
+  box-shadow: 0 0 0 6px rgba(206,0,52,0.35) !important;
+  position: relative;
+  z-index: 6;
+}
