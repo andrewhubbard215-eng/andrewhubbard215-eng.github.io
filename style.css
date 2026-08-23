@@ -2099,3 +2099,31 @@ select:focus-visible {
 .sb-leak-steps { margin: 10px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.45; color: var(--muted, #8b98a5); }
 .sb-leak-steps li { margin: 3px 0; }
 .sb-leak-steps li.done { color: #7fd99a; text-decoration: line-through; }
+
+.n2-banner {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #3b0d10;
+  border: 1px solid #CE0034;
+  color: #ffd6d6;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.n2-modal {
+  position: fixed; inset: 0; z-index: 220;
+  background: rgba(0,0,0,0.72);
+  display: grid; place-items: center;
+  padding: 16px;
+}
+.n2-modal.hidden { display: none; }
+.n2-modal h3 { margin: 0 0 10px; color: #fff; }
+.n2-modal > ul, .n2-modal h3, .n2-modal .btn {
+  max-width: 520px;
+}
+.n2-modal ul {
+  background: #141a22; color: #f2f5f8; padding: 16px 16px 16px 32px;
+  border-radius: 12px; border: 1px solid #CE0034; line-height: 1.45; font-size: 14px;
+}
+.n2-modal .btn { margin: 8px 8px 0 0; }

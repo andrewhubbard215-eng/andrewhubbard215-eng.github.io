@@ -561,6 +561,7 @@
   let jobAttempts = 0;
   let jobSolved = false;
   let leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
+  let n2Acked = false;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -890,7 +891,20 @@
               <li data-k="vac">6. Evacuate to microns</li>
               <li data-k="charge">7. Weigh in nameplate charge — never top off a leaker</li>
             </ol>
-            <p id="sb-coils" class="sb-coils">ODU coil: clean · IDU coil: clean</p>
+            <p class="n2-banner" id="sb-n2-banner">N₂ SAFETY — regulator on the cylinder · dry nitrogen gas only · NEVER oxygen or shop air (oil + O₂ detonates) · N₂ displaces oxygen (asphyxiation) · stay at or below OEM test pressure · no liquid nitrogen on a lineset</p>
+            <div id="sb-n2-modal" class="n2-modal hidden">
+              <h3>Nitrogen safety — read it</h3>
+              <ul>
+                <li>Cylinder is ~2200+ psig. <strong>Regulator required.</strong> Never crack a bottle into a hose.</li>
+                <li><strong>Dry nitrogen gas only.</strong> Not oxygen. Not shop air. Oil + oxygen can explode.</li>
+                <li>Do not exceed the equipment / OEM test pressure. Watch the gauge. Relief path on the regulator.</li>
+                <li>N₂ is inert — it will <strong>asphyxiate</strong> you in a closet, crawl, or van with no air.</li>
+                <li>Purge while brazing at low flow. Standing test is a hold, not a fill-until-it-pops.</li>
+                <li>This is not liquid nitrogen. Freeze burns and over-pressure are both on you.</li>
+              </ul>
+              <button type="button" class="btn primary" id="sb-n2-go">Regulator on · dry N₂ only · continue</button>
+              <button type="button" class="btn" id="sb-n2-no">Cancel</button>
+            </div>
           </div>
           <div class="dmm-panel" id="sb-dmm">
             <div class="dmm-head">
@@ -1149,6 +1163,31 @@
     return coilsOk && fault === "none" && chargeOk && leakOk;
   }
 
+  function requestNitrogen(onOk) {
+    const modal = document.getElementById("sb-n2-modal");
+    if (!modal) {
+      if (n2Acked || window.confirm("N₂ SAFETY: regulator, dry nitrogen only, never oxygen or shop air, asphyxiation hazard. Continue?")) {
+        n2Acked = true;
+        if (onOk) onOk();
+      }
+      return;
+    }
+    modal.classList.remove("hidden");
+    const go = document.getElementById("sb-n2-go");
+    const no = document.getElementById("sb-n2-no");
+    const done = (ok) => {
+      modal.classList.add("hidden");
+      if (ok) {
+        n2Acked = true;
+        if (onOk) onOk();
+      } else {
+        document.getElementById("sb-status").textContent = "N₂ cancelled. No standing test without a regulator and dry nitrogen.";
+      }
+    };
+    if (go) go.onclick = () => done(true);
+    if (no) no.onclick = () => done(false);
+  }
+
   function applyRepair(kind) {
     jobAttempts += 1;
     if (kind === "clean-odu") coilCond = "clean";
@@ -1168,8 +1207,14 @@
       document.getElementById("sb-status").textContent = "Sniffer hit. Move 1–2 in/s, from below — refrigerant is heavier than air.";
     }
     if (kind === "leak-n2") {
-      leak.nitrogen = true;
-      document.getElementById("sb-status").textContent = "Standing N₂ pressure. Dry nitrogen only — oxygen + oil is a bomb. Watch for decay.";
+      requestNitrogen(function () {
+        leak.nitrogen = true;
+        document.getElementById("sb-status").textContent =
+          "Standing N₂. Regulator on. Dry gas only. Never oxygen/shop air. Watch decay — then repair.";
+        paintLeak();
+        paintCoils();
+      });
+      return;
     }
     if (kind === "leak-repair") {
       if (!leakLocated()) {
@@ -1350,6 +1395,11 @@
           const panel = document.getElementById("sb-dmm");
           if (panel) panel.classList.add("on");
           updateDmm(simulate());
+        } else if (c.id === "nitrogen") {
+          requestNitrogen(function () {
+            document.getElementById("sb-status").textContent =
+              "Dry N₂ on the cart. Regulator on. Purge while brazing; standing test for leaks. Never oxygen. Never shop air.";
+          });
         }
       });
       box.appendChild(el);

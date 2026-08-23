@@ -198,10 +198,10 @@
         "Use a torque wrench. Typical training ballparks (confirm OEM): ~12–13 ft-lb on 1/4″, higher on larger sizes. Backup wrench on the body. Over-tight cracks flares; under-tight weeps refrigerant all summer.",
     },
     {
-      tags: ["nitrogen", "n2", "pressure test"],
-      topic: "Nitrogen pressure test",
+      tags: ["nitrogen", "n2", "pressure test", "oxygen", "asphyxiation", "regulator"],
+      topic: "Nitrogen safety",
       answer:
-        "Dry nitrogen only. Service valves closed so you don't push N₂ into the compressor charge incorrectly — test the field lines + IDU. 450–550 psig common band (OEM rules). Soap everything. Hold. Fix leaks before vacuum. Oxygen/air = moisture and danger.",
+        "N₂ SAFETY, not a suggestion: 1) Regulator on the cylinder — bottles are ~2200+ psig. Never open a bottle into a hose. 2) Dry nitrogen GAS only. Never oxygen. Never shop compressed air. Oil + oxygen can detonate. 3) Stay at or below OEM test pressure; watch the gauge; use the regulator relief. 4) Nitrogen displaces oxygen — confined space / van / crawl = asphyxiation. 5) Low-flow purge while brazing; standing test is a hold, not 'fill until it pops.' 6) This is not liquid nitrogen. If someone hands you an O2 bottle for a leak test, send them to class.",
     },
     {
       tags: ["vacuum", "micron", "evacuate", "decay"],
