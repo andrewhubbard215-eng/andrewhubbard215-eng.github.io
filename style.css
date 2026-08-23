@@ -1982,3 +1982,12 @@ select:focus-visible {
   position: relative;
   z-index: 6;
 }
+
+.kahoot-card {
+  grid-column: 1 / -1;
+  min-height: 92px;
+  border-color: #CE0034 !important;
+  background: linear-gradient(90deg, rgba(226,27,112,.25), rgba(19,104,206,.2), rgba(216,158,0,.2), rgba(38,137,12,.2));
+}
+.kahoot-card h3 { font-size: 22px; }
+.title-dock { flex-wrap: wrap; }

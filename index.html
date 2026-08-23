@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=33" />
+  <link rel="stylesheet" href="style.css?v=34" />
 </head>
 <body>
   <div id="app">
@@ -28,6 +28,7 @@
           <strong>HVAC Allstars</strong>
           <span>Professor Hubbard · Lincoln Tech</span>
         </div>
+        <button class="btn" id="btn-kahoot-title" type="button">Kahoot quiz</button>
         <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
         <button class="btn hidden" id="btn-continue">Continue</button>
       </div>
@@ -149,21 +150,20 @@
       <div id="hub-commandments" class="hub-commandments"></div>
       <p class="hub-section">Training floor · Kahoot · system sim · AI</p>
       <div class="hub-grid">
+        <button class="mode-card mode-card-featured kahoot-card" data-mode="quiz">
+          <div class="mode-icon" aria-hidden="true">🎯</div>
+          <div>
+            <h3>Kahoot Quiz Arena</h3>
+            <p>EPA 608 · OSHA 30 · Lincoln Tech · tap here · four colors · PIN class</p>
+          </div>
+        </button>
         <button class="mode-card mode-card-featured" data-mode="tutorial">
           <div class="mode-icon" aria-hidden="true">👷</div>
           <div>
             <h3>HUB tutorial</h3>
-            <p>Professor Hubbard walks you through the whole site — quiz, sim, AI, class PIN</p>
+            <p>Professor Hubbard walks you through the shop</p>
           </div>
         </button>
-        <button class="mode-card mode-card-featured" data-mode="quiz">
-          <div class="mode-icon" aria-hidden="true">🎯</div>
-          <div>
-            <h3>Kahoot Quiz Arena</h3>
-            <p>EPA 608 · OSHA 30 · Lincoln Tech curriculum · PIN classroom · live board</p>
-          </div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="sandbox">
           <div class="mode-icon" aria-hidden="true">🔄</div>
           <div>
             <h3>System sandbox</h3>
@@ -366,7 +366,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js"></script>
-  <script src="game.js?v=33"></script>
+  <script src="game.js?v=34"></script>
   <script>
     (function () {
       function killWanted() {

@@ -412,9 +412,7 @@
     if (id === "hub") {
       const tip = document.getElementById("hub-tip");
       if (tip && !state.seenTip && state.seenTutorial) tip.classList.remove("hidden");
-      if (!state.seenTutorial && window.HubTutorial) {
-        setTimeout(startTutorial, 400);
-      }
+      /* tutorial is opt-in from the HUB tutorial card */
     }
   }
 
@@ -1661,6 +1659,13 @@
       state.sessionOk = false;
       show("character");
     };
+    const kahootTitle = document.getElementById("btn-kahoot-title");
+    if (kahootTitle) {
+      kahootTitle.onclick = () => {
+        ac();
+        startQuizArena();
+      };
+    }
     const closeClock = document.getElementById("btn-close-clockin");
     const miniIn = document.getElementById("btn-clockin-mini");
     if (closeClock) {
