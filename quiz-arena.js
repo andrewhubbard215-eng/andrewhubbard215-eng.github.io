@@ -102,6 +102,36 @@
         a: 1,
         why: "15 pounds or more of a refrigerant containing an HFC (or certain high-GWP substitutes). 1,500 lb is related to some automatic leak detection (ALD) triggers, not the basic 15 lb leak-repair scope.",
       },
+      {
+        q: "Type I certification covers:",
+        choices: ["All comfort cooling", "Small appliances with 5 lb or less of refrigerant", "Low-pressure chillers only", "MVAC on cars"],
+        a: 1,
+        why: "Type I is small appliances (typically 5 lb or less).",
+      },
+      {
+        q: "Type III certification covers:",
+        choices: ["Window units only", "Low-pressure appliances such as many centrifugal chillers", "Domestic refrigerators only", "MVAC recovery"],
+        a: 1,
+        why: "Type III is low-pressure appliances.",
+      },
+      {
+        q: "Universal 608 certification means you passed:",
+        choices: ["Core only", "Core plus Types I, II, and III", "OSHA 30 only", "A manufacturer class"],
+        a: 1,
+        why: "Universal = Core + I + II + III.",
+      },
+      {
+        q: "A recovery cylinder should be filled to no more than about:",
+        choices: ["100% liquid", "80% of its capacity by weight (leave headspace)", "Until the relief valve dumps", "Whatever fits"],
+        a: 1,
+        why: "Leave vapor headspace. Weigh it. Never fill solid liquid.",
+      },
+      {
+        q: "Disposable cylinders (like some virgin refrigerant jugs) should be:",
+        choices: ["Reused as recovery tanks", "Used as designed, then properly recycled — not used for recovery", "Heated with a torch to empty", "Vent-purged into the alley"],
+        a: 1,
+        why: "Don't recover into disposable cylinders.",
+      },
     ],
     osha30: [
       {
@@ -175,6 +205,30 @@
         choices: ["PPE only", "Eliminating the hazard when feasible", "Warning signs only", "Worker attitude"],
         a: 1,
         why: "Eliminate/substitute before relying on PPE as last line.",
+      },
+      {
+        q: "On a roof, fall protection is generally required when working how high (construction, typical OSHA)?",
+        choices: ["Any height", "6 feet or more when exposed to a fall hazard", "Only above 30 feet", "Never if you feel confident"],
+        a: 1,
+        why: "Construction fall protection commonly triggers at 6 feet. Use guardrails, PFAS, or covers.",
+      },
+      {
+        q: "Lockout devices should be removed by:",
+        choices: ["Anyone in a hurry", "The authorized worker who applied them (or following employer procedure)", "The customer", "Whoever has pliers"],
+        a: 1,
+        why: "Don't pull someone else's lock. Follow the LOTO program.",
+      },
+      {
+        q: "A fire extinguisher class for energized electrical equipment is typically:",
+        choices: ["Class A water only", "Class C (or multi-class rated for energized electrical)", "Class K kitchen only", "Dirt from the truck"],
+        a: 1,
+        why: "Class C is electrical. Don't throw water on live gear.",
+      },
+      {
+        q: "Scaffolding should be inspected:",
+        choices: ["Never — it's always fine", "Before use / by a competent person as required", "Only after a collapse", "Once a year in January"],
+        a: 1,
+        why: "Inspect before use. Don't climb damaged scaffold.",
       },
     ],
     curriculum: [
@@ -250,6 +304,36 @@
         a: 1,
         why: "POE + moisture is trouble. Cap the oil.",
       },
+      {
+        q: "Lincoln Tech shop standard: after brazing a copper joint you should:",
+        choices: ["Charge immediately while it's hot", "N₂ purge while brazing, then pressure test and vacuum", "Skip the vacuum if it looks pretty", "Use R-22 leftover to push moisture"],
+        a: 1,
+        why: "Purge with nitrogen while brazing, then test and evacuate.",
+      },
+      {
+        q: "On a voltmeter, to check 24V control you typically measure:",
+        choices: ["Across the run capacitor only", "Between the 24V transformer secondary (R to C) with the right scale", "L1 to ground on the 480V tap", "The crankcase heater in amps mode"],
+        a: 1,
+        why: "R to C on the transformer / control circuit. Right scale. Don't put the meter in amps across voltage.",
+      },
+      {
+        q: "Manifold gauges: the blue hose is typically:",
+        choices: ["Liquid / high side", "Suction / low side", "The vacuum pump exhaust", "The condensate drain"],
+        a: 1,
+        why: "Blue = low/suction. Red = high/liquid. Yellow = utility.",
+      },
+      {
+        q: "Target superheat on a fixed-orifice system is mainly a function of:",
+        choices: ["Indoor wet-bulb and outdoor dry-bulb (OEM chart)", "Whatever 20°F you like", "Head pressure only", "The color of the paint"],
+        a: 0,
+        why: "Use the OEM / P-T target SH chart for piston systems.",
+      },
+      {
+        q: "A contactor that chatters on a call for cool often has:",
+        choices: ["Perfect 24V", "Low control voltage, pitted points, or a failing coil", "Too much superheat only", "A happy condenser"],
+        a: 1,
+        why: "Measure 24V at the coil. Clean/replace the contactor. Don't keep it chattering.",
+      },
     ],
     commandments: [
       {
@@ -317,9 +401,9 @@
   }
 
   const PACKS = [
-    { id: "epa608", name: "EPA 608", blurb: "Recovery, vacuum, cylinders, certification rules" },
+    { id: "epa608", name: "EPA 608", blurb: "Recovery, vacuum, cylinders, Type I / II / III / Universal" },
     { id: "osha30", name: "OSHA 30", blurb: "Falls, LOTO, PPE, electrical, heat, SDS" },
-    { id: "curriculum", name: "LT Curriculum", blurb: "Cycle, SH/SC, install, airflow, ductless" },
+    { id: "curriculum", name: "Lincoln Tech Curriculum", blurb: "Cycle, SH/SC, gauges, DMM, mini-split, airflow" },
     { id: "commandments", name: "HVAC Commandments", blurb: "The ten shop laws — recover, flare, N₂, microns, SH/SC" },
     { id: "mixed", name: "Mixed All-Star", blurb: "EPA + OSHA + curriculum + commandments" },
   ];
@@ -802,7 +886,13 @@
             <button class="btn" id="qa-hub">Shop floor</button>
           </header>
           <div class="qa-lobby">
-            <p class="qa-lede">Timed questions. Points for speed + accuracy. HUB talks trash. Bring your cert brain.</p>
+            <p class="qa-lede">Kahoot-style. Four colors. Speed + accuracy. Pick a pack or mix them.</p>
+            <div class="qa-pack-row" id="qa-pack-row">
+              <button type="button" class="qa-pack-btn" data-pack="epa608">EPA 608</button>
+              <button type="button" class="qa-pack-btn" data-pack="osha30">OSHA 30</button>
+              <button type="button" class="qa-pack-btn" data-pack="curriculum">Lincoln Tech</button>
+              <button type="button" class="qa-pack-btn" data-pack="mixed">Mix all</button>
+            </div>
             <label>Nickname<input id="qa-nick" maxlength="14" value="${nickname}" placeholder="Your name"/></label>
             <label>Question pack
               <select id="qa-pack">
@@ -825,6 +915,13 @@
       root.querySelector("#qa-solo").onclick = startSolo;
       root.querySelector("#qa-host").onclick = startHost;
       root.querySelector("#qa-join").onclick = joinRoom;
+      const packSel = root.querySelector("#qa-pack");
+      root.querySelectorAll(".qa-pack-btn").forEach((b) => {
+        b.onclick = () => {
+          if (packSel) packSel.value = b.dataset.pack;
+          root.querySelectorAll(".qa-pack-btn").forEach((x) => x.classList.toggle("on", x === b));
+        };
+      });
       return;
     }
 

@@ -1930,3 +1930,15 @@ select:focus-visible {
 .title-dock-copy span { font-size: 11px; color: var(--muted); }
 .title-dock .btn { flex-shrink: 0; }
 .char-panel { position: relative; }
+
+.qa-pack-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
+.qa-pack-btn {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--fg);
+  border-radius: 10px;
+  padding: 12px 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qa-pack-btn.on { border-color: var(--lt-red); background: rgba(206,0,52,0.18); }
