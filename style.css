@@ -2142,3 +2142,11 @@ select:focus-visible {
 
 .sb-slot.coil-frost { outline: 3px solid #7ec8d3; }
 .sb-slot.coil-frost::after { content: "FROST"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #7ec8d3; }
+
+.sb-defrost-d { margin: 0 0 12px; }
+.sb-defrost-d svg { width: 100%; height: auto; background: #0c141c; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); }
+.df-node rect { fill: #141a22; stroke: #3a4654; stroke-width: 1.2; }
+.df-node text { fill: #c5ced6; font-family: inherit; }
+.df-wire { stroke: #3a4654; stroke-width: 2; }
+.df-node.live rect { fill: #3b2a08; stroke: #ffd54a; }
+.df-node.live text { fill: #ffe082; }

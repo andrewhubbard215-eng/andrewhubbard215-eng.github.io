@@ -1004,6 +1004,67 @@
             <div><span>Comp amps</span><b id="g-amps">—</b></div>
           </div>
           <p class="sb-fp" id="sb-fp">HUB: close the loop, start the compressor, then read SH and SC together.</p>
+          <p class="eyebrow">Defrost control circuit</p>
+          <div id="sb-defrost-d" class="sb-defrost-d">
+            <svg viewBox="0 0 340 230" xmlns="http://www.w3.org/2000/svg" aria-label="Heat pump defrost control diagram">
+              <text x="8" y="16" fill="#8b98a5" font-size="11">24VAC control · heat pump ODU</text>
+              <g id="df-r" class="df-node">
+                <rect x="8" y="28" width="70" height="52" rx="6"/>
+                <text x="43" y="48" text-anchor="middle" font-size="10">R / C</text>
+                <text x="43" y="64" text-anchor="middle" font-size="9">24V xfmr</text>
+              </g>
+              <g id="df-stat" class="df-node">
+                <rect x="98" y="28" width="78" height="52" rx="6"/>
+                <text x="137" y="46" text-anchor="middle" font-size="10">T-stat</text>
+                <text x="137" y="62" text-anchor="middle" font-size="9">Y  W  O/B</text>
+              </g>
+              <g id="df-board" class="df-node">
+                <rect x="198" y="22" width="134" height="64" rx="6"/>
+                <text x="265" y="42" text-anchor="middle" font-size="10">DEFROST BOARD</text>
+                <text id="df-board-mode" x="265" y="58" text-anchor="middle" font-size="9">HEAT</text>
+                <text id="df-board-led" x="265" y="74" text-anchor="middle" font-size="9">LED off</text>
+              </g>
+              <line class="df-wire" x1="78" y1="54" x2="98" y2="54"/>
+              <line class="df-wire" x1="176" y1="54" x2="198" y2="54"/>
+              <g id="df-coil" class="df-node">
+                <rect x="8" y="108" width="96" height="48" rx="6"/>
+                <text x="56" y="126" text-anchor="middle" font-size="10">ODU coil sensor</text>
+                <text x="56" y="142" text-anchor="middle" font-size="9">terminate ~50–70°F</text>
+              </g>
+              <g id="df-amb" class="df-node">
+                <rect x="118" y="108" width="90" height="48" rx="6"/>
+                <text x="163" y="126" text-anchor="middle" font-size="10">Outdoor air</text>
+                <text x="163" y="142" text-anchor="middle" font-size="9">enable < ~40°F</text>
+              </g>
+              <g id="df-rv" class="df-node">
+                <rect x="224" y="108" width="108" height="48" rx="6"/>
+                <text x="278" y="126" text-anchor="middle" font-size="10">RV solenoid O/B</text>
+                <text id="df-rv-st" x="278" y="142" text-anchor="middle" font-size="9">de-energized</text>
+              </g>
+              <line class="df-wire" x1="56" y1="86" x2="56" y2="108"/>
+              <line class="df-wire" x1="163" y1="86" x2="163" y2="108"/>
+              <line class="df-wire" x1="265" y1="86" x2="265" y2="108"/>
+              <g id="df-fan" class="df-node">
+                <rect x="8" y="172" width="96" height="48" rx="6"/>
+                <text x="56" y="190" text-anchor="middle" font-size="10">ODU fan</text>
+                <text id="df-fan-st" x="56" y="206" text-anchor="middle" font-size="9">ON in heat/cool</text>
+              </g>
+              <g id="df-cc" class="df-node">
+                <rect x="118" y="172" width="90" height="48" rx="6"/>
+                <text x="163" y="190" text-anchor="middle" font-size="10">Contactor / Y</text>
+                <text id="df-cc-st" x="163" y="206" text-anchor="middle" font-size="9">compressor</text>
+              </g>
+              <g id="df-aux" class="df-node">
+                <rect x="224" y="172" width="108" height="48" rx="6"/>
+                <text x="278" y="190" text-anchor="middle" font-size="10">Aux / strips W</text>
+                <text id="df-aux-st" x="278" y="206" text-anchor="middle" font-size="9">off</text>
+              </g>
+              <line class="df-wire" x1="56" y1="156" x2="56" y2="172"/>
+              <line class="df-wire" x1="163" y1="156" x2="163" y2="172"/>
+              <line class="df-wire" x1="278" y1="156" x2="278" y2="172"/>
+            </svg>
+            <p class="sb-ph-cap">Live: gold = energized. Defrost = RV in cool + ODU fan OFF + aux often ON. Sensors feed the board — not the charge.</p>
+          </div>
           <p class="eyebrow">P-H diagram (training sketch)</p>
           <canvas id="sb-ph" width="280" height="170"></canvas>
           <p class="sb-ph-cap">Coolselector-style: 1 suction · 2 discharge · 3 liquid · 4 after TXV. Not a design program.</p>
@@ -1720,6 +1781,39 @@
     refreshSlots();
   }
 
+  function paintDefrostDiagram(sim) {
+    const root = document.getElementById("sb-defrost-d");
+    if (!root) return;
+    const on = (id, live) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("live", !!live);
+    };
+    const set = (id, t) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = t;
+    };
+    const run = !!(sim && sim.running);
+    const df = !!(sim && sim.defrosting);
+    const heat = !!(sim && sim.hpMode === "heat" && !df);
+    const cool = !!(sim && sim.hpMode === "cool" && !df);
+    const fail = fault === "defrost_fail";
+    on("df-r", run);
+    on("df-stat", run);
+    on("df-board", run);
+    on("df-coil", run && (heat || df || fail));
+    on("df-amb", run && outdoorF < 42);
+    on("df-rv", run && (cool || df));
+    on("df-fan", run && !df);
+    on("df-cc", run);
+    on("df-aux", run && (df || frost > 70));
+    set("df-board-mode", !run ? "OFF" : df ? "DEFROST" : heat ? "HEAT" : "COOL");
+    set("df-board-led", !run ? "LED off" : fail ? "NO DEFROST FAULT" : df ? "LED ON · fan off" : "standby");
+    set("df-rv-st", run && (cool || df) ? "ENERGIZED (O)" : "de-energized");
+    set("df-fan-st", !run ? "off" : df ? "OFF for defrost" : "ON");
+    set("df-cc-st", run ? "Y pulled in" : "open");
+    set("df-aux-st", run && (df || frost > 70) ? "W ON" : "off");
+  }
+
   function updateGauges(sim) {
     const fmt = (n, d = 0) => (sim.running ? n.toFixed(d) : "—");
     document.getElementById("g-plow").textContent = fmt(sim.pLow, 1);
@@ -1744,6 +1838,7 @@
     if (dt) dt.textContent = sim.running ? sim.deltaT.toFixed(0) + " °F" : "—";
     if (gl) gl.textContent = sim.running ? sim.glass : "—";
     if (fp) fp.textContent = sim.running ? sim.fp : "HUB: close the loop, start the compressor, then read SH and SC together.";
+    paintDefrostDiagram(sim);
     const cap = document.getElementById("g-cap");
     const cop = document.getElementById("g-cop");
     const amps = document.getElementById("g-amps");
