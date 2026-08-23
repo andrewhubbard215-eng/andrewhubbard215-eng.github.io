@@ -402,6 +402,105 @@
     },
   ];
 
+  const FIELD_JOBS = [
+    {
+      id: "dirty-odu",
+      name: "Rooftop high head",
+      complaint: "Unit trips on high pressure. 98°F sun, condenser looks furry.",
+      outdoor: 98,
+      indoor: 78,
+      charge: 100,
+      coilCond: "dirty",
+      coilEvap: "clean",
+      fault: "none",
+      fix: "Wash the outdoor coil. Don't add gas.",
+    },
+    {
+      id: "dirty-idu",
+      name: "Iced evaporator",
+      complaint: "Blows cool then ices the A-coil. Filter was a carpet.",
+      outdoor: 88,
+      indoor: 74,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "dirty",
+      fault: "none",
+      fix: "Clean indoor coil / filter / blower. Airflow before charge.",
+    },
+    {
+      id: "leak",
+      name: "Slow leak, not cooling",
+      complaint: "Not cooling. Ice on suction. Gauges look starved.",
+      outdoor: 92,
+      indoor: 76,
+      charge: 62,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "undercharge",
+      fix: "Find leak, repair, recover leftover, evacuate, weigh in. Don't top off.",
+    },
+    {
+      id: "overcharge",
+      name: "Someone dumped a jug",
+      complaint: "High head, high SC, compressor hot. Last tech 'added a little.'",
+      outdoor: 90,
+      indoor: 75,
+      charge: 128,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "overcharge",
+      fix: "Recover to nameplate weight. Don't keep adding.",
+    },
+    {
+      id: "drier",
+      name: "Restriction after drier",
+      complaint: "High SH, high SC, cold drier outlet. Sight glass flashing.",
+      outdoor: 95,
+      indoor: 75,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "restricted",
+      fix: "Replace the filter-drier, then evacuate and weigh in.",
+    },
+    {
+      id: "txv-bulb",
+      name: "TXV lost its mind",
+      complaint: "Starved coil, hunting then stuck high SH. Bulb looks kicked.",
+      outdoor: 94,
+      indoor: 76,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "txv_closed",
+      fix: "Replace the TXV (and bulb on the suction line, insulated).",
+    },
+    {
+      id: "txv-flood",
+      name: "Flooding compressor",
+      complaint: "Low SH, liquid hammer on start. TXV won't shut down.",
+      outdoor: 85,
+      indoor: 72,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "txv_open",
+      fix: "Replace the TXV. Don't just add a hard-start.",
+    },
+    {
+      id: "air",
+      name: "Air in the circuit",
+      complaint: "High head, low SC after a sloppy braze with no nitrogen / no vac.",
+      outdoor: 95,
+      indoor: 75,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "noncondensables",
+      fix: "Recover, replace drier, deep vac, weigh in. You can't 'bleed air' from a 410 system.",
+    },
+  ];
+
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
   // compressor → condenser → filter → metering → evaporator → accumulator → compressor
   const FLOW_PATH = [
@@ -455,6 +554,12 @@
   let chargePct = 100;
   let fault = "none";
   let txvTarget = 12;
+  let coilCond = "clean";
+  let coilEvap = "clean";
+  let jobMode = null; // null | recreate | mystery
+  let activeJob = null;
+  let jobAttempts = 0;
+  let jobSolved = false;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -531,6 +636,9 @@
       condSat += (chargeFactor - 1) * 15;
     }
 
+    if (coilCond === "dirty") condSat += 16;
+    if (coilEvap === "dirty") evapSat -= 10;
+
     const pHigh = satP(refrigerant, condSat);
     const pLow = Math.max(0, satP(refrigerant, evapSat));
     const tSatHigh = satT(refrigerant, pHigh);
@@ -575,6 +683,12 @@
       sh = 2;
     }
 
+    if (coilCond === "dirty") {
+      sc = Math.min(sc, 7);
+    }
+    if (coilEvap === "dirty") {
+      sh = Math.min(sh, 7);
+    }
     const tLiquid = tSatHigh - sc;
     const tSuction = tSatLow + sh;
 
@@ -590,6 +704,8 @@
     else if (fault === "noncondensables") status = "High head + low SC — non-condensables (air) in the condenser";
     else if (fault === "txv_closed") status = "Starved coil — TXV stuck closed / bulb lost charge";
     else if (fault === "txv_open") status = "Flooding — TXV stuck open. Watch liquid slugging.";
+    else if (coilCond === "dirty") status = "High head — outdoor coil is dirty. Wash it before you add gas.";
+    else if (coilEvap === "dirty") status = "Low SH / ice risk — indoor coil or filter is dirty.";
 
     const tonsBase = activeSystem ? activeSystem.tons : 3;
     const load = Math.max(0.35, Math.min(1.25, ((indoorF - 65) / 15) * ((115 - outdoorF) / 40 + 0.55)));
@@ -639,6 +755,7 @@
           <div class="sb-tabs">
             <button class="sb-tab active" data-tab="parts">Parts</button>
             <button class="sb-tab" data-tab="challenges">CoolGame</button>
+            <button class="sb-tab" data-tab="field">Field jobs</button>
             <button class="sb-tab" data-tab="electrical">Electrical</button>
             <button class="sb-tab" data-tab="systems">OEM packs</button>
             <button class="sb-tab" data-tab="tools">Tools</button>
@@ -743,6 +860,23 @@
             <span class="ph lv">Low vapor</span>
           </div>
           <p class="sb-status" id="sb-status">Place the four core components to close the loop.</p>
+          <div id="sb-field" class="sb-field">
+            <p class="eyebrow">Field / troubleshoot</p>
+            <p id="sb-job-talk" class="sb-job-talk">Recreate a job you saw, or take a mystery call. Clean coils and swap parts — the sim tells you if you actually fixed it.</p>
+            <div class="sb-repairs" id="sb-repairs">
+              <button type="button" class="btn" data-fix="clean-odu">Clean ODU coil</button>
+              <button type="button" class="btn" data-fix="clean-idu">Clean IDU coil</button>
+              <button type="button" class="btn" data-fix="dirty-odu">Dirty ODU (recreate)</button>
+              <button type="button" class="btn" data-fix="dirty-idu">Dirty IDU (recreate)</button>
+              <button type="button" class="btn" data-fix="weigh-in">Recover + weigh-in</button>
+              <button type="button" class="btn" data-fix="add-charge">Add 6% charge</button>
+              <button type="button" class="btn" data-fix="pull-charge">Recover 6% charge</button>
+              <button type="button" class="btn" data-fix="replace-txv">Replace TXV</button>
+              <button type="button" class="btn" data-fix="replace-drier">Replace drier</button>
+              <button type="button" class="btn" data-fix="vac-air">Recover / vac (air)</button>
+            </div>
+            <p id="sb-coils" class="sb-coils">ODU coil: clean · IDU coil: clean</p>
+          </div>
           <div class="dmm-panel" id="sb-dmm">
             <div class="dmm-head">
               <img src="parts/dmm.png" alt="" />
@@ -891,6 +1025,145 @@
     running = true;
   }
 
+  function paintCoils() {
+    const el = document.getElementById("sb-coils");
+    if (el) el.textContent = "ODU coil: " + coilCond + " · IDU coil: " + coilEvap;
+    document.querySelectorAll(".sb-slot").forEach((s) => {
+      s.classList.toggle("coil-dirty", (s.dataset.slot === "condenser" && coilCond === "dirty") || (s.dataset.slot === "evaporator" && coilEvap === "dirty"));
+    });
+    const talk = document.getElementById("sb-job-talk");
+    if (talk && activeJob && jobMode === "mystery" && !jobSolved) {
+      talk.textContent = "CUSTOMER: " + activeJob.complaint + "  ·  HUB: Gauges + SH/SC. Clean coils or swap the part. Don't shotgun.";
+    }
+  }
+
+  function loadBasePack() {
+    const sys = SYSTEMS.find((s) => s.id === "goodman-gsx") || SYSTEMS[0];
+    applySystem(sys);
+  }
+
+  function startRecreate() {
+    jobMode = "recreate";
+    activeJob = null;
+    jobSolved = false;
+    jobAttempts = 0;
+    loadBasePack();
+    running = true;
+    const faultEl = document.getElementById("sb-fault");
+    if (faultEl) faultEl.disabled = false;
+    const talk = document.getElementById("sb-job-talk");
+    if (talk) {
+      talk.textContent =
+        "RECREATE: set outdoor/indoor and charge to what you saw. Toggle dirty coils. Swap TXV/drier/charge and watch SH/SC. This is your truck, not a mystery.";
+    }
+    paintCoils();
+    document.getElementById("sb-status").textContent = "Field recreate · match the job you just left.";
+  }
+
+  function startMystery(job) {
+    jobMode = "mystery";
+    activeJob = job;
+    jobSolved = false;
+    jobAttempts = 0;
+    loadBasePack();
+    outdoorF = job.outdoor;
+    indoorF = job.indoor;
+    chargePct = job.charge;
+    coilCond = job.coilCond;
+    coilEvap = job.coilEvap;
+    fault = job.fault;
+    running = true;
+    const set = (id, v) => {
+      const el = document.getElementById(id);
+      if (el) el.value = String(v);
+    };
+    set("sb-out", outdoorF);
+    set("sb-in", indoorF);
+    set("sb-charge", chargePct);
+    const ov = document.getElementById("sb-out-v");
+    const iv = document.getElementById("sb-in-v");
+    const cv = document.getElementById("sb-charge-v");
+    if (ov) ov.textContent = outdoorF;
+    if (iv) iv.textContent = indoorF;
+    if (cv) cv.textContent = chargePct;
+    const faultEl = document.getElementById("sb-fault");
+    if (faultEl) {
+      faultEl.value = "none";
+      faultEl.disabled = true;
+    }
+    paintCoils();
+    document.getElementById("sb-status").textContent = "Mystery call. Diagnose, then repair. Fault list is locked.";
+  }
+
+  function jobIsHealthy() {
+    const chargeOk = chargePct >= 94 && chargePct <= 108;
+    return coilCond === "clean" && coilEvap === "clean" && fault === "none" && chargeOk;
+  }
+
+  function applyRepair(kind) {
+    jobAttempts += 1;
+    if (kind === "clean-odu") coilCond = "clean";
+    if (kind === "clean-idu") coilEvap = "clean";
+    if (kind === "dirty-odu") coilCond = "dirty";
+    if (kind === "dirty-idu") coilEvap = "dirty";
+    if (kind === "weigh-in") {
+      chargePct = 100;
+      if (fault === "undercharge" || fault === "overcharge") fault = "none";
+      const c = document.getElementById("sb-charge");
+      if (c) c.value = "100";
+      const cv = document.getElementById("sb-charge-v");
+      if (cv) cv.textContent = "100";
+    }
+    if (kind === "add-charge") {
+      chargePct = Math.min(130, chargePct + 6);
+      const c = document.getElementById("sb-charge");
+      if (c) c.value = String(chargePct);
+      const cv = document.getElementById("sb-charge-v");
+      if (cv) cv.textContent = chargePct;
+    }
+    if (kind === "pull-charge") {
+      chargePct = Math.max(50, chargePct - 6);
+      const c = document.getElementById("sb-charge");
+      if (c) c.value = String(chargePct);
+      const cv = document.getElementById("sb-charge-v");
+      if (cv) cv.textContent = chargePct;
+    }
+    if (kind === "replace-txv") {
+      placed.metering = "metering";
+      if (fault === "txv_closed" || fault === "txv_open") fault = "none";
+      refreshSlots();
+    }
+    if (kind === "replace-drier") {
+      placed.filter = "filter";
+      if (fault === "restricted") fault = "none";
+      refreshSlots();
+    }
+    if (kind === "vac-air") {
+      if (fault === "noncondensables") fault = "none";
+    }
+    paintCoils();
+    if (jobMode === "mystery" && activeJob && !jobSolved && jobIsHealthy()) {
+      jobSolved = true;
+      const xp = Math.max(20, 80 - jobAttempts * 8);
+      if (onXp) onXp(xp);
+      document.getElementById("sb-status").textContent =
+        "FIXED in " + jobAttempts + " moves · +" + xp + " XP. HUB: " + activeJob.fix;
+      const talk = document.getElementById("sb-job-talk");
+      if (talk) talk.textContent = "Job closed. " + activeJob.fix;
+      const faultEl = document.getElementById("sb-fault");
+      if (faultEl) {
+        faultEl.disabled = false;
+        faultEl.value = "none";
+      }
+    } else if (jobMode === "mystery" && activeJob && !jobSolved) {
+      document.getElementById("sb-status").textContent =
+        "Still broken (" + jobAttempts + "). Read SH and SC together. HUB: airflow and charge before you condemn the TXV.";
+    } else {
+      document.getElementById("sb-status").textContent =
+        "Repair applied · ODU " + coilCond + " · IDU " + coilEvap + " · charge " + chargePct + "%";
+    }
+  }
+
   function renderPalette(tab) {
     const box = document.getElementById("sb-items");
     box.innerHTML = "";
@@ -901,6 +1174,21 @@
         el.innerHTML =
           `<span class="ico">⏱</span><div><strong>${ch.name}</strong><small>${ch.time}s · ${ch.need.length} parts · ${ch.hint}</small></div>`;
         el.onclick = () => startChallenge(ch);
+        box.appendChild(el);
+      });
+      return;
+    }
+    if (tab === "field") {
+      const rec = document.createElement("div");
+      rec.className = "sb-item system";
+      rec.innerHTML = `<span class="ico">📋</span><div><strong>Recreate field job</strong><small>Set temps, dirty/clean coils, charge — match what you saw</small></div>`;
+      rec.onclick = startRecreate;
+      box.appendChild(rec);
+      FIELD_JOBS.forEach((j) => {
+        const el = document.createElement("div");
+        el.className = "sb-item system";
+        el.innerHTML = `<span class="ico">🔧</span><div><strong>${j.name}</strong><small>${j.complaint}</small></div>`;
+        el.onclick = () => startMystery(j);
         box.appendChild(el);
       });
       return;
@@ -1017,6 +1305,7 @@
         if (!requiredComplete()) running = false;
       };
     });
+    paintCoils();
   }
 
   function layoutSlots() {
@@ -1431,12 +1720,21 @@
     if (dmmModeEl) dmmModeEl.onchange = (e) => { dmmMode = e.target.value; updateDmm(simulate()); };
     if (dmmProbeEl) dmmProbeEl.onchange = (e) => { dmmProbe = e.target.value; updateDmm(simulate()); };
     document.getElementById("sb-dmm").classList.add("on");
+    document.querySelectorAll("#sb-repairs [data-fix]").forEach((b) => {
+      b.onclick = () => applyRepair(b.dataset.fix);
+    });
     document.getElementById("sb-clear").onclick = () => {
       placed = {};
       running = false;
       particles = [];
       gaugesEquipped = false;
       activeSystem = null;
+      coilCond = "clean";
+      coilEvap = "clean";
+      jobMode = null;
+      activeJob = null;
+      const faultEl = document.getElementById("sb-fault");
+      if (faultEl) faultEl.disabled = false;
       document.getElementById("sb-manifold").classList.remove("on");
       delete host.dataset.loopXp;
       refreshSlots();
@@ -1455,6 +1753,11 @@
     indoorF = 75;
     chargePct = 100;
     fault = "none";
+    coilCond = "clean";
+    coilEvap = "clean";
+    jobMode = null;
+    activeJob = null;
+    jobSolved = false;
     gaugesEquipped = false;
     activeSystem = null;
     buildUI(root);

@@ -2087,3 +2087,11 @@ select:focus-visible {
 .sb-bom { list-style: none; margin: 0 0 12px; padding: 0; font-size: 12px; }
 .sb-bom li { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .sb-bom small { color: var(--muted, #8b98a5); }
+
+.sb-field { margin: 10px 0 14px; padding: 10px; border: 1px solid rgba(206,0,52,0.35); border-radius: 12px; }
+.sb-job-talk { font-size: 13px; line-height: 1.4; margin: 0 0 8px; }
+.sb-repairs { display: flex; flex-wrap: wrap; gap: 6px; }
+.sb-repairs .btn { margin: 0; font-size: 12px; }
+.sb-coils { font-size: 12px; color: var(--muted, #8b98a5); margin: 8px 0 0; }
+.sb-slot.coil-dirty { outline: 3px dashed #d89e00; }
+.sb-slot.coil-dirty::after { content: "DIRTY"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #d89e00; }
