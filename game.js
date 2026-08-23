@@ -1470,6 +1470,23 @@
         show("hub");
       } else show("character");
     };
+    const closeClock = document.getElementById("btn-close-clockin");
+    const miniIn = document.getElementById("btn-clockin-mini");
+    if (closeClock) {
+      closeClock.onclick = (e) => {
+        e.stopPropagation();
+        const card = document.getElementById("title-card");
+        if (card) card.classList.add("hidden");
+        if (miniIn) miniIn.classList.remove("hidden");
+      };
+    }
+    if (miniIn) {
+      miniIn.onclick = () => {
+        const card = document.getElementById("title-card");
+        if (card) card.classList.remove("hidden");
+        miniIn.classList.add("hidden");
+      };
+    }
 
     const tipDismiss = document.getElementById("hub-tip-dismiss");
     if (tipDismiss) {

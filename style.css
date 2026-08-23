@@ -262,7 +262,32 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   background: rgba(14, 20, 28, 0.72);
   border-top: 3px solid var(--lt-red);
   padding: 14px 16px 16px;
+  position: relative;
 }
+#screen-title .title-card.hidden { display: none !important; }
+.card-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.clockin-mini {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+.clockin-mini.hidden { display: none !important; }
 #screen-title .hub-face {
   width: 72px;
   height: 72px;

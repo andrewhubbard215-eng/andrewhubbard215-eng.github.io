@@ -22,7 +22,8 @@
     <section id="screen-title" class="screen active">
       <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
-      <div class="title-card">
+      <div class="title-card" id="title-card">
+        <button type="button" class="card-close" id="btn-close-clockin" aria-label="Close">×</button>
         <div class="brand-bar">
           <div class="brand-mark">LT</div>
           <div class="brand-word">
@@ -42,6 +43,8 @@
         <p class="lede">Build the cycle. Quiz 608. Probe it. Ask HUB.</p>
         <button class="btn primary" id="btn-start">Clock In</button>
         <button class="btn hidden" id="btn-continue">Continue</button>
+      </div>
+      <button type="button" class="btn primary clockin-mini hidden" id="btn-clockin-mini">Clock In</button>
         <p class="hint">v2.9 · Clock In here to play</p>
       </div>
       <p class="lt-disclaimer">Lincoln Tech HVAC Allstars · Built with Grok · Instructor: Professor Andrew Hubbard · Unofficial student training simulation</p>
@@ -343,7 +346,7 @@
   <script src="badges.js"></script>
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
-  <script src="game.js?v=28"></script>
+  <script src="game.js?v=31"></script>
   <script>
     (function () {
       function killWanted() {
