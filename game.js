@@ -1741,11 +1741,10 @@
       const wrap2 = document.getElementById("acct-pass2-wrap");
       const hint = document.getElementById("acct-hint");
       const isHubLogin = isHubName(name);
-      if (wrap2) wrap2.classList.toggle("hidden", !!(existing && existing.passHash) && !isHubLogin);
+      if (wrap2) wrap2.classList.toggle("hidden", !!(existing && existing.passHash));
       if (hint) {
-        if (isHubLogin) hint.textContent = "Instructor locker. Use the HUB password.";
-        else if (existing && existing.passHash) hint.textContent = "Locker found. Enter your password to clock in.";
-        else hint.textContent = "New locker. Pick a password and confirm it. Min 4 characters. Stored as a hash on this device.";
+        if (existing && existing.passHash) hint.textContent = "Locker found. Enter your password. Forgot it? Reset this locker on this device.";
+        else hint.textContent = "New locker. Type a password, confirm it, then Create locker. Min 4 characters. HUB picks a password too.";
       }
       btnIn.textContent = existing && existing.passHash ? "Log in · clock in" : "Create locker · clock in";
     }
@@ -1783,10 +1782,6 @@
       const map = loadAccounts();
       const existing = map[key];
       (async () => {
-        if (isHubName(name) && !(await verifyHubPassword(pw))) {
-          toast("Wrong instructor password", "bad");
-          return;
-        }
         if (existing && existing.passHash) {
           const ok = await verifyPassRecord(pw, existing.passHash);
           if (!ok) {
@@ -1835,6 +1830,33 @@
     };
     const logoutBtn = document.getElementById("hub-logout");
     if (logoutBtn) logoutBtn.onclick = () => logoutAccount();
+    const resetBtn = document.getElementById("acct-reset");
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        const name = inp.value.trim();
+        if (!name) {
+          toast("Type the locker name first", "bad");
+          return;
+        }
+        const map = loadAccounts();
+        const key = accountKey(name);
+        if (!map[key]) {
+          toast("No locker with that name on this device", "ok");
+          return;
+        }
+        delete map[key];
+        writeAccounts(map);
+        if (accountKey(state.callsign) === key) {
+          state.passHash = "";
+          state.sessionOk = false;
+          state.hubAuthed = false;
+        }
+        const p2 = document.getElementById("acct-pass2-wrap");
+        if (p2) p2.classList.remove("hidden");
+        refreshAcctHint();
+        toast("Locker cleared. Create a new password.", "ok");
+      };
+    }
     const locker = document.getElementById("hub-locker");
     if (locker) {
       locker.onclick = () => {
@@ -1920,8 +1942,12 @@
 
     // keyboard
     window.addEventListener("keydown", (e) => {
-      keys.add(e.code);
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Space", "KeyW", "KeyA", "KeyS", "KeyD", "KeyF", "KeyJ", "KeyG", "KeyR", "KeyK"].includes(e.code)) {
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || "");
+      if (!typing) keys.add(e.code);
+      if (
+        !typing &&
+        ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Space", "KeyW", "KeyA", "KeyS", "KeyD", "KeyF", "KeyJ", "KeyG", "KeyR", "KeyK"].includes(e.code)
+      ) {
         e.preventDefault();
       }
       if (e.code === "Escape") {
