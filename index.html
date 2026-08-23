@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=34" />
+  <link rel="stylesheet" href="style.css?v=35" />
 </head>
 <body>
   <div id="app">
@@ -148,15 +148,14 @@
       <div id="badge-rack"></div>
       <div id="daily-root"></div>
       <div id="hub-commandments" class="hub-commandments"></div>
-      <p class="hub-section">Training floor · Kahoot · system sim · AI</p>
+      <p class="hub-section">Quiz Game</p>
+      <button type="button" class="quiz-launch" data-mode="quiz" id="btn-quiz-box">
+        <span class="quiz-launch-kicker">Lincoln Tech · Kahoot-style</span>
+        <span class="quiz-launch-title">Quiz Game</span>
+        <span class="quiz-launch-sub">EPA 608 · OSHA 30 · Lincoln Tech curriculum · tap this box</span>
+      </button>
+      <p class="hub-section">Training floor · system sim · AI</p>
       <div class="hub-grid">
-        <button class="mode-card mode-card-featured kahoot-card" data-mode="quiz">
-          <div class="mode-icon" aria-hidden="true">🎯</div>
-          <div>
-            <h3>Kahoot Quiz Arena</h3>
-            <p>EPA 608 · OSHA 30 · Lincoln Tech · tap here · four colors · PIN class</p>
-          </div>
-        </button>
         <button class="mode-card mode-card-featured" data-mode="tutorial">
           <div class="mode-icon" aria-hidden="true">👷</div>
           <div>
@@ -366,7 +365,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js"></script>
-  <script src="game.js?v=34"></script>
+  <script src="game.js?v=35"></script>
   <script>
     (function () {
       function killWanted() {

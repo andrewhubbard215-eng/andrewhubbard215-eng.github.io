@@ -1875,7 +1875,7 @@
       };
     }
 
-    document.querySelectorAll(".mode-card").forEach((card) => {
+    document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
       card.onclick = () => {
         const m = card.dataset.mode;
         ac();
