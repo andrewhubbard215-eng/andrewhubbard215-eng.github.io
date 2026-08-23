@@ -695,34 +695,55 @@
     root.querySelectorAll(".qa-choice, .qa-k-btn").forEach((btn, i) => {
       btn.classList.add("locked");
       if (i === correct) btn.classList.add("correct");
-      if (selected === i && i !== correct) btn.classList.add("wrong");
+      else btn.classList.add("wrong");
+      if (selected === i) btn.classList.add("picked");
     });
-    const letter = "ABCD"[correct];
-    const correctText = item.choices[correct] || "";
+    const explain = why || item.why || "Review this in EPA 608 / OSHA 30 / Lincoln Tech notes.";
     const ok = selected === correct;
-    const explain = why || item.why || "Review this topic in your EPA / OSHA / curriculum notes.";
+    const rows = item.choices
+      .map((c, i) => {
+        const letter = SHAPES[i] || "ABCD"[i];
+        if (i === correct) {
+          return (
+            '<li class="qa-break right"><strong>' +
+            letter +
+            " RIGHT</strong> — " +
+            c +
+            "<br><em>Why it's right:</em> " +
+            explain +
+            "</li>"
+          );
+        }
+        const miss =
+          (item.wrong && item.wrong[i]) ||
+          "Why it's wrong: this is not the shop answer. " + explain;
+        return (
+          '<li class="qa-break miss"><strong>' +
+          letter +
+          " WRONG</strong> — " +
+          c +
+          "<br><em>" +
+          miss +
+          "</em></li>"
+        );
+      })
+      .join("");
     const fb = root.querySelector(".qa-feedback");
     if (fb) {
       fb.innerHTML =
-        '<div class="qa-explain-card">' +
+        '<div class="qa-explain-card qa-explain-dark">' +
         '<p class="qa-explain-result">' +
-        (ok
-          ? "✅ Correct · +" + lastAward + " pts"
-          : "❌ Not quite · +0 pts") +
+        (ok ? "✅ You got it · +" + lastAward + " pts" : "❌ Missed it · +0 pts") +
         "</p>" +
-        '<p class="qa-explain-answer"><strong>Correct answer:</strong> ' +
-        letter +
-        " — " +
-        correctText +
-        "</p>" +
-        '<p class="qa-explain-why"><strong>Why:</strong> ' +
-        explain +
-        "</p>" +
+        "<ol class=\"qa-break-list\">" +
+        rows +
+        "</ol>" +
         '<p class="qa-explain-hub">HUB: ' +
         (ok ? hubLine("ok") : hubLine("bad")).trim() +
         "</p>" +
         "</div>";
       fb.className = "qa-feedback " + (ok ? "good" : "bad");
+      fb.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
     const next = root.querySelector(".qa-next");
     if (next) {

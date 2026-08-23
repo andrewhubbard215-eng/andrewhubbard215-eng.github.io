@@ -2059,3 +2059,20 @@ select:focus-visible {
 .qa-k-btn.correct { outline: 4px solid #7fff9a; filter: brightness(1.15); }
 .qa-k-btn.wrong { filter: grayscale(.4) brightness(.7); }
 .qa-k-btn.locked { pointer-events: none; }
+
+.qa-explain-dark {
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+.qa-break-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.qa-break { margin: 0 0 10px; font-size: 14px; line-height: 1.4; padding: 8px 10px; border-radius: 8px; }
+.qa-break.right { background: rgba(38,137,12,0.35); }
+.qa-break.miss { background: rgba(226,27,112,0.28); }
+.qa-break em { font-style: normal; display: block; margin-top: 4px; opacity: 0.95; }
+#screen-quiz .qa-next { display: inline-block; margin-top: 10px; }
+#screen-quiz .qa-next.hidden { display: none; }
+#screen-quiz .qa-feedback { color: #fff; min-height: 0; }
