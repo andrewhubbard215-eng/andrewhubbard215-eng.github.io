@@ -540,6 +540,32 @@
       hpMode: "cool",
       fix: "Internal leak in the 4-way. Temp on the three tubes. If bypassing, replace the valve — not a charge problem.",
     },
+    {
+      id: "no-defrost",
+      name: "Iced solid in heat",
+      complaint: "28°F, outdoor coil is a glacier, house is cold. Board never goes to defrost.",
+      outdoor: 28,
+      indoor: 68,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "defrost_fail",
+      hpMode: "heat",
+      fix: "Defrost sensor / board. Force defrost: RV to cool, ODU fan OFF. If it never terminates, sensor or time/temp board.",
+    },
+    {
+      id: "stuck-defrost",
+      name: "Stuck in defrost",
+      complaint: "Steaming outdoor unit, blowing cool in winter, aux heat screaming.",
+      outdoor: 35,
+      indoor: 70,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "stuck_defrost",
+      hpMode: "heat",
+      fix: "Terminate defrost. Check coil sensor (should open ~50–70°F). Don't leave it in cool with the fan off all night.",
+    },
   ];
 
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
@@ -605,6 +631,8 @@
   let n2Acked = false;
   let capBad = false;
   let hpMode = "cool"; // cool | heat
+  let frost = 0;
+  let defrosting = false;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -652,6 +680,7 @@
     let effectiveMode = hpMode;
     if (fault === "rv_stuck_heat") effectiveMode = "heat";
     if (fault === "rv_stuck_cool") effectiveMode = "cool";
+    if (defrosting || fault === "stuck_defrost") effectiveMode = "cool";
     let condSat, evapSat;
     if (effectiveMode === "heat") {
       condSat = indoorF + ac;
@@ -659,6 +688,12 @@
     } else {
       condSat = outdoorF + ac;
       evapSat = indoorF - ae;
+    }
+    if (defrosting || fault === "stuck_defrost") {
+      condSat = outdoorF + ac + 22;
+    }
+    if (frost > 55 && effectiveMode === "heat" && !defrosting && fault !== "stuck_defrost") {
+      evapSat -= Math.min(18, (frost - 55) * 0.4);
     }
 
     // Faults & charge
@@ -771,6 +806,8 @@
     else if (fault === "rv_stuck_heat" && hpMode === "cool") status = "Calling COOL but the 4-way is stuck in HEAT. Indoor coil is the condenser.";
     else if (fault === "rv_stuck_cool" && hpMode === "heat") status = "Calling HEAT but the 4-way is stuck in COOL.";
     else if (fault === "rv_bleed") status = "4-way bleeding internally — suction warm, low capacity, pressures closer together.";
+    else if (fault === "stuck_defrost" || defrosting) status = "DEFROST: 4-way in cool, ODU fan OFF, outdoor coil steaming. Aux heat should cover the house.";
+    else if (frost > 70 && hpMode === "heat") status = "Outdoor coil iced. Need defrost — sensor/board or force it. Don't add gas.";
 
     const tonsBase = activeSystem ? activeSystem.tons : 3;
     const load = Math.max(0.35, Math.min(1.25, ((indoorF - 65) / 15) * ((115 - outdoorF) / 40 + 0.55)));
@@ -810,6 +847,8 @@
     else if (capBad) fp = "HUB: pressures can look fine. Meter the cap. Humming isn't a charge problem.";
     else if (fault === "rv_stuck_heat" || fault === "rv_stuck_cool") fp = "HUB: 24V on O/B? Click? If the solenoid is energized and the slider didn't move, it's the valve, not the compressor.";
     else if (fault === "rv_bleed") fp = "HUB: 4-way bypass. Discharge and suction temps closer than they should be. Replace the reversing valve.";
+    else if (defrosting || fault === "stuck_defrost") fp = "HUB: Defrost is COOL with the outdoor fan off. If it never ends, coil sensor / board. If it never starts, same sensors.";
+    else if (frost > 60 && hpMode === "heat") fp = "HUB: Glacier on the ODU. Force defrost. If the RV doesn't shift and the fan doesn't stop, it's defrost control — not charge.";
     else if (shOk && scOk && coilCond === "clean" && coilEvap === "clean") fp = "HUB: SH/SC in band. That's a charged, breathing system.";
 
     return {
@@ -836,6 +875,9 @@
       deltaT,
       glass,
       fp,
+      frost,
+      defrosting: !!(defrosting || fault === "stuck_defrost"),
+      hpMode: effectiveMode,
     };
   }
 
@@ -895,6 +937,7 @@
                 <select id="sb-mode">
                   <option value="cool">Cool</option>
                   <option value="heat">Heat (HP)</option>
+                  <option value="defrost">Defrost (force)</option>
                 </select>
               </label>
               <label>Fault
@@ -982,7 +1025,9 @@
               <button type="button" class="btn" data-fix="replace-filter">Replace air filter</button>
               <button type="button" class="btn" data-fix="replace-rv">Replace reversing valve</button>
               <button type="button" class="btn" data-fix="shift-heat">Call HEAT (O/B)</button>
-              <button type="button" class="btn" data-fix="shift-cool">Call COOL</button>
+              <button type="button" class="btn" data-fix="force-defrost">Force defrost</button>
+              <button type="button" class="btn" data-fix="end-defrost">Terminate defrost</button>
+              <button type="button" class="btn" data-fix="replace-defrost">Replace defrost sensor</button>
               <button type="button" class="btn" data-fix="dirty-odu">Dirty ODU (recreate)</button>
               <button type="button" class="btn" data-fix="dirty-idu">Dirty IDU (recreate)</button>
               <button type="button" class="btn" data-fix="leak-visual">1 Visual leak</button>
@@ -1172,9 +1217,10 @@
 
   function paintCoils() {
     const el = document.getElementById("sb-coils");
-    if (el) el.textContent = "ODU coil: " + coilCond + " · IDU coil: " + coilEvap;
+    if (el) el.textContent = "ODU coil: " + coilCond + " · IDU: " + coilEvap + " · frost " + Math.round(frost) + "% · " + (defrosting || fault === "stuck_defrost" ? "DEFROST" : hpMode);
     document.querySelectorAll(".sb-slot").forEach((s) => {
       s.classList.toggle("coil-dirty", (s.dataset.slot === "condenser" && coilCond === "dirty") || (s.dataset.slot === "evaporator" && coilEvap === "dirty"));
+      s.classList.toggle("coil-frost", s.dataset.slot === "condenser" && frost > 50 && hpMode === "heat");
     });
     const talk = document.getElementById("sb-job-talk");
     if (talk && activeJob && jobMode === "mystery" && !jobSolved) {
@@ -1252,6 +1298,8 @@
     fault = job.fault;
     capBad = !!job.capBad;
     hpMode = job.hpMode || "cool";
+    frost = job.fault === "defrost_fail" ? 88 : job.fault === "stuck_defrost" ? 20 : 0;
+    defrosting = job.fault === "stuck_defrost";
     running = true;
     const set = (id, v) => {
       const el = document.getElementById(id);
@@ -1281,7 +1329,11 @@
     const coilsOk = coilCond === "clean" && coilEvap === "clean";
     const leakOk = !activeJob || activeJob.fault !== "undercharge" || leakReadyToCharge();
     const capOk = !activeJob || !activeJob.capBad || !capBad;
-    return coilsOk && fault === "none" && chargeOk && leakOk && capOk;
+    const defrostOk =
+      !activeJob ||
+      (activeJob.fault !== "defrost_fail" && activeJob.fault !== "stuck_defrost") ||
+      (fault === "none" && frost < 25 && !defrosting);
+    return coilsOk && fault === "none" && chargeOk && leakOk && capOk && defrostOk;
   }
 
   function requestNitrogen(onOk) {
@@ -1331,8 +1383,28 @@
     }
     if (kind === "shift-cool") {
       hpMode = "cool";
+      defrosting = false;
       const m = document.getElementById("sb-mode");
       if (m) m.value = "cool";
+    }
+    if (kind === "force-defrost") {
+      defrosting = true;
+      hpMode = "heat";
+      const m = document.getElementById("sb-mode");
+      if (m) m.value = "defrost";
+      document.getElementById("sb-status").textContent = "Forced defrost. RV → cool, ODU fan OFF. Watch frost % drop.";
+    }
+    if (kind === "end-defrost") {
+      defrosting = false;
+      if (fault === "stuck_defrost") fault = "none";
+      hpMode = "heat";
+      const m = document.getElementById("sb-mode");
+      if (m) m.value = "heat";
+    }
+    if (kind === "replace-defrost") {
+      if (fault === "defrost_fail" || fault === "stuck_defrost") fault = "none";
+      defrosting = frost > 40;
+      document.getElementById("sb-status").textContent = "Defrost sensor/board replaced. Force a defrost if the coil is still a brick.";
     }
     if (kind === "dirty-odu") coilCond = "dirty";
     if (kind === "dirty-idu") coilEvap = "dirty";
@@ -1993,6 +2065,24 @@
     updateGauges(sim);
 
     if (running && requiredComplete()) {
+      if (hpMode === "heat" && outdoorF < 42 && !defrosting && fault !== "stuck_defrost") {
+        const rate = fault === "defrost_fail" ? 0.55 : 0.22;
+        frost = Math.min(100, frost + rate);
+      }
+      if (defrosting && fault !== "stuck_defrost") {
+        frost = Math.max(0, frost - 1.1);
+        if (frost <= 4) {
+          defrosting = false;
+          hpMode = "heat";
+          const m = document.getElementById("sb-mode");
+          if (m) m.value = "heat";
+        }
+      }
+      if (fault === "stuck_defrost") {
+        defrosting = true;
+        frost = Math.max(0, frost - 0.4);
+      }
+      if (fault === "defrost_fail") defrosting = false;
       // spawn particles
       if (particles.length < 28 && Math.random() < 0.4) {
         particles.push({ t: Math.random(), r: 3 + Math.random() * 2.5, speed: 0.08 + Math.random() * 0.06 });
@@ -2005,7 +2095,7 @@
     } else {
       particles = [];
     }
-
+    paintCoils();
     draw();
     raf = requestAnimationFrame(tick);
   }
@@ -2043,7 +2133,14 @@
     const modeEl = document.getElementById("sb-mode");
     if (modeEl) {
       modeEl.onchange = (e) => {
-        hpMode = e.target.value;
+        const v = e.target.value;
+        if (v === "defrost") {
+          defrosting = true;
+          hpMode = "heat";
+        } else {
+          defrosting = false;
+          hpMode = v;
+        }
       };
     }
     const txvEl = document.getElementById("sb-txv");
@@ -2108,6 +2205,8 @@
     leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
     capBad = false;
     hpMode = "cool";
+    frost = 0;
+    defrosting = false;
     gaugesEquipped = false;
     activeSystem = null;
     buildUI(root);

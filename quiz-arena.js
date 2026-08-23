@@ -275,6 +275,18 @@
         why: "Solenoid is alive; the slider didn't move. Don't condemn the compressor first.",
       },
       {
+        q: "During a heat-pump defrost, the outdoor fan should be:",
+        choices: ["High speed to melt faster", "OFF so head heat stays in the outdoor coil", "Locked on with the RV in heat", "Replaced with nitrogen flow"],
+        a: 1,
+        why: "Fan off, RV in cool: hot gas sits in the iced outdoor coil and melts it.",
+      },
+      {
+        q: "An iced-solid outdoor coil in heat with no defrost is usually:",
+        choices: ["Low on 410A — add gas", "Defrost sensor/board, not a charge problem first", "TXV stuck open", "Dirty indoor filter only"],
+        a: 1,
+        why: "Force defrost. Confirm RV shift and fan stop. Then sensors/board. Don't top off a glacier.",
+      },
+      {
         q: "Ice on the suction line with near-zero superheat often points first to:",
         choices: ["Need more refrigerant immediately", "Low airflow or overcharge issues — diagnose before adding gas", "Failed crankcase heater only", "Wrong thermostat color wires"],
         a: 1,

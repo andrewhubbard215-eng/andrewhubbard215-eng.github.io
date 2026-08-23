@@ -2139,3 +2139,6 @@ select:focus-visible {
   font-size: 13px;
   line-height: 1.4;
 }
+
+.sb-slot.coil-frost { outline: 3px solid #7ec8d3; }
+.sb-slot.coil-frost::after { content: "FROST"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #7ec8d3; }

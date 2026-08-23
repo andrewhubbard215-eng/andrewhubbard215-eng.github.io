@@ -198,7 +198,13 @@
         "Use a torque wrench. Typical training ballparks (confirm OEM): ~12–13 ft-lb on 1/4″, higher on larger sizes. Backup wrench on the body. Over-tight cracks flares; under-tight weeps refrigerant all summer.",
     },
     {
-      tags: ["reversing", "reversing valve", "4-way", "4 way", "heat pump", "o/b", "stuck in heat", "defrost"],
+      tags: ["defrost", "frost", "ice outdoor", "heat pump defrost", "defrost sensor", "glacier"],
+      topic: "Heat pump defrost",
+      answer:
+        "In HEAT the outdoor coil is the evaporator — it ices below ~40°F. Defrost: board puts the 4-way into COOL, outdoor FAN OFF, compressor on, indoor often aux heat so the house isn't dumped with cold air. Time/temp or demand (coil vs outdoor). Terminate when the outdoor coil hits ~50–70°F or max time (~10 min). Never starts: bad coil sensor, outdoor sensor, or board. Never ends (steaming, cool air inside): sensor/board stuck. Don't add refrigerant to an iced ODU. Force defrost from the board, confirm RV shift + fan stop.",
+    },
+    {
+      tags: ["reversing", "reversing valve", "4-way", "4 way", "heat pump", "o/b", "stuck in heat"],
       topic: "Heat pump reversing valve",
       answer:
         "The 4-way (reversing) valve swaps which coil is the condenser. Discharge is always the middle tube. Most brands energize O in COOL; Rheem/Ruud often energize B in HEAT. Diagnose: 1) 24V at the solenoid when the mode should shift. 2) Listen/feel the click. 3) Pressures and indoor vs outdoor coil roles must swap. Stuck slider = 24V present, no shift — replace the valve. Internal bleed = suction warm, capacity gone, discharge/suction closer than they should be — also replace the valve, not a charge problem. Don't condemn the compressor first.",
