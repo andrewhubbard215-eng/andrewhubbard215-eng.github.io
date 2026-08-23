@@ -2127,3 +2127,15 @@ select:focus-visible {
   border-radius: 12px; border: 1px solid #CE0034; line-height: 1.45; font-size: 14px;
 }
 .n2-modal .btn { margin: 8px 8px 0 0; }
+
+#g-sh.in, #g-sc.in { color: #7fd99a; }
+#g-sh.out, #g-sc.out { color: #f07178; }
+.sb-fp {
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(206,0,52,0.12);
+  border: 1px solid rgba(206,0,52,0.35);
+  font-size: 13px;
+  line-height: 1.4;
+}

@@ -499,6 +499,19 @@
       fault: "noncondensables",
       fix: "Recover, replace drier, deep vac, weigh in. You can't 'bleed air' from a 410 system.",
     },
+    {
+      id: "bad-cap",
+      name: "Humming compressor",
+      complaint: "Humming, hard start, might trip. If it runs, pressures aren't wild.",
+      outdoor: 90,
+      indoor: 75,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "none",
+      capBad: true,
+      fix: "Lock out. Read HERM–C µF vs nameplate. Replace the dual run capacitor.",
+    },
   ];
 
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
@@ -562,6 +575,7 @@
   let jobSolved = false;
   let leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
   let n2Acked = false;
+  let capBad = false;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -719,7 +733,33 @@
     const copCarnot = tE / Math.max(1, tC - tE);
     const cop = Math.max(1.2, copCarnot * 0.42);
     const kw = (btuh / 12000) * 3.517 / cop;
-    const amps = kw / (240 * 0.85) * 1000;
+    let amps = kw / (240 * 0.85) * 1000;
+    if (capBad) amps *= 1.4;
+
+    const tgtSH = txvTarget;
+    const tgtSC = activeSystem ? activeSystem.targetSC : 10;
+    const shOk = Math.abs(sh - tgtSH) <= 4;
+    const scOk = Math.abs(sc - tgtSC) <= 4;
+    let deltaT = 20;
+    if (coilEvap === "dirty") deltaT = 8;
+    else if (fault === "undercharge" || chargeFactor < 0.85) deltaT = 11;
+    else if (fault === "restricted" || fault === "txv_closed") deltaT = 9;
+    else if (fault === "txv_open" || chargeFactor > 1.15) deltaT = 15;
+    else if (coilCond === "dirty") deltaT = 14;
+    let glass = "Clear";
+    if (fault === "undercharge" || chargeFactor < 0.85) glass = "Bubbles / flashing — starved";
+    else if (fault === "restricted") glass = "Flashing after the drier";
+    else if (fault === "overcharge" || chargeFactor > 1.15) glass = "Solid — could be overcharged";
+    else if (coilCond === "dirty") glass = "Clear (don't trust it — check head)";
+    let fp = "SH/SC in the conversation. Confirm delta T and airflow.";
+    if (coilCond === "dirty") fp = "HUB: high head. Wash the outdoor coil before you add gas.";
+    else if (coilEvap === "dirty") fp = "HUB: low split / low SH. Filter and indoor coil before charge.";
+    else if (sh > 20 && sc < 7) fp = "HUB fingerprint: HIGH SH + LOW SC → leak / undercharge. Don't top off.";
+    else if (sh < 6 && sc > 15) fp = "HUB fingerprint: LOW SH + HIGH SC → overcharge or flooding TXV.";
+    else if (sh > 20 && sc > 15) fp = "HUB fingerprint: HIGH SH + HIGH SC → restriction (drier / TXV).";
+    else if (fault === "noncondensables") fp = "HUB: high head + low SC after a sloppy vac = air in the condenser.";
+    else if (capBad) fp = "HUB: pressures can look fine. Meter the cap. Humming isn't a charge problem.";
+    else if (shOk && scOk && coilCond === "clean" && coilEvap === "clean") fp = "HUB: SH/SC in band. That's a charged, breathing system.";
 
     return {
       running: true,
@@ -738,6 +778,13 @@
       btuh,
       cop,
       amps,
+      tgtSH,
+      tgtSC,
+      shOk,
+      scOk,
+      deltaT,
+      glass,
+      fp,
     };
   }
 
@@ -846,10 +893,14 @@
             <div><span>Liquid temp</span><b id="g-tliq">—</b></div>
             <div><span>Superheat</span><b id="g-sh">—</b></div>
             <div><span>Subcooling</span><b id="g-sc">—</b></div>
+            <div><span>Target SH / SC</span><b id="g-tgt">—</b></div>
+            <div><span>Delta T (split)</span><b id="g-dt">—</b></div>
+            <div><span>Sight glass</span><b id="g-glass">—</b></div>
             <div><span>Capacity</span><b id="g-cap">—</b></div>
             <div><span>COP</span><b id="g-cop">—</b></div>
             <div><span>Comp amps</span><b id="g-amps">—</b></div>
           </div>
+          <p class="sb-fp" id="sb-fp">HUB: close the loop, start the compressor, then read SH and SC together.</p>
           <p class="eyebrow">P-H diagram (training sketch)</p>
           <canvas id="sb-ph" width="280" height="170"></canvas>
           <p class="sb-ph-cap">Coolselector-style: 1 suction · 2 discharge · 3 liquid · 4 after TXV. Not a design program.</p>
@@ -868,6 +919,8 @@
             <div class="sb-repairs" id="sb-repairs">
               <button type="button" class="btn" data-fix="clean-odu">Clean ODU coil</button>
               <button type="button" class="btn" data-fix="clean-idu">Clean IDU coil</button>
+              <button type="button" class="btn" data-fix="replace-filter">Replace air filter</button>
+              <button type="button" class="btn" data-fix="replace-cap">Replace run cap</button>
               <button type="button" class="btn" data-fix="dirty-odu">Dirty ODU (recreate)</button>
               <button type="button" class="btn" data-fix="dirty-idu">Dirty IDU (recreate)</button>
               <button type="button" class="btn" data-fix="leak-visual">1 Visual leak</button>
@@ -1107,6 +1160,7 @@
     jobSolved = false;
     jobAttempts = 0;
     resetLeak();
+    capBad = false;
     loadBasePack();
     running = true;
     const faultEl = document.getElementById("sb-fault");
@@ -1133,6 +1187,7 @@
     coilCond = job.coilCond;
     coilEvap = job.coilEvap;
     fault = job.fault;
+    capBad = !!job.capBad;
     running = true;
     const set = (id, v) => {
       const el = document.getElementById(id);
@@ -1160,7 +1215,8 @@
     const chargeOk = chargePct >= 94 && chargePct <= 108;
     const coilsOk = coilCond === "clean" && coilEvap === "clean";
     const leakOk = !activeJob || activeJob.fault !== "undercharge" || leakReadyToCharge();
-    return coilsOk && fault === "none" && chargeOk && leakOk;
+    const capOk = !activeJob || !activeJob.capBad || !capBad;
+    return coilsOk && fault === "none" && chargeOk && leakOk && capOk;
   }
 
   function requestNitrogen(onOk) {
@@ -1192,6 +1248,12 @@
     jobAttempts += 1;
     if (kind === "clean-odu") coilCond = "clean";
     if (kind === "clean-idu") coilEvap = "clean";
+    if (kind === "replace-filter") coilEvap = "clean";
+    if (kind === "replace-cap") {
+      capBad = false;
+      placed.capacitor = "capacitor";
+      refreshSlots();
+    }
     if (kind === "dirty-odu") coilCond = "dirty";
     if (kind === "dirty-idu") coilEvap = "dirty";
     if (kind === "leak-visual") {
@@ -1516,6 +1578,20 @@
     document.getElementById("g-tliq").textContent = sim.running ? sim.tLiquid.toFixed(0) + " °F" : "—";
     document.getElementById("g-sh").textContent = sim.running ? sim.sh.toFixed(0) + " °F" : "—";
     document.getElementById("g-sc").textContent = sim.running ? sim.sc.toFixed(0) + " °F" : "—";
+    const shEl = document.getElementById("g-sh");
+    const scEl = document.getElementById("g-sc");
+    if (shEl) shEl.classList.toggle("out", !!(sim.running && sim.shOk === false));
+    if (shEl) shEl.classList.toggle("in", !!(sim.running && sim.shOk));
+    if (scEl) scEl.classList.toggle("out", !!(sim.running && sim.scOk === false));
+    if (scEl) scEl.classList.toggle("in", !!(sim.running && sim.scOk));
+    const tgt = document.getElementById("g-tgt");
+    const dt = document.getElementById("g-dt");
+    const gl = document.getElementById("g-glass");
+    const fp = document.getElementById("sb-fp");
+    if (tgt) tgt.textContent = sim.running ? sim.tgtSH + " / " + sim.tgtSC + " °F" : "—";
+    if (dt) dt.textContent = sim.running ? sim.deltaT.toFixed(0) + " °F" : "—";
+    if (gl) gl.textContent = sim.running ? sim.glass : "—";
+    if (fp) fp.textContent = sim.running ? sim.fp : "HUB: close the loop, start the compressor, then read SH and SC together.";
     const cap = document.getElementById("g-cap");
     const cop = document.getElementById("g-cop");
     const amps = document.getElementById("g-amps");
@@ -1674,8 +1750,12 @@
         val = "OL";
         note = "Never ohm a live circuit. Stop the compressor and lock it out.";
       } else if (probe === "cap") {
-        val = has("capacitor") ? "12.4" : "OL";
-        note = has("capacitor") ? "Cap reads like a short then climbs — this is a training snapshot." : "No capacitor in the circuit.";
+        val = has("capacitor") ? (capBad ? "8.1" : "35.4") : "OL";
+        note = !has("capacitor")
+          ? "No capacitor in the circuit."
+          : capBad
+            ? "µF is low vs nameplate. Replace the cap. Lock out first."
+            : "HERM–C in the training band. Still confirm the can vs OEM.";
       } else if (probe === "wind") {
         val = has("compressor") ? "1.8" : "OL";
         note = has("compressor") ? "Common–run winding in spec. Compare C-S and C-R." : "No compressor to meg.";
@@ -1931,6 +2011,7 @@
     activeJob = null;
     jobSolved = false;
     leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
+    capBad = false;
     gaugesEquipped = false;
     activeSystem = null;
     buildUI(root);
