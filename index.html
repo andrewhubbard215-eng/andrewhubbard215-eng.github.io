@@ -22,31 +22,15 @@
     <section id="screen-title" class="screen active">
       <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
-      <div class="title-card" id="title-card">
-        <button type="button" class="card-close" id="btn-close-clockin" aria-label="Close" onclick="window.ltCloseCard && window.ltCloseCard()">×</button>
-        <div class="brand-bar">
-          <div class="brand-mark">LT</div>
-          <div class="brand-word">
-            <strong>LINCOLN TECH</strong>
-            <span>Hands-on training since 1946</span>
-          </div>
+      <div class="title-dock">
+        <img src="hub-portrait.jpg" alt="" class="title-dock-face" />
+        <div class="title-dock-copy">
+          <strong>HVAC Allstars</strong>
+          <span>Professor Hubbard · Lincoln Tech</span>
         </div>
-        <div class="hub-face-wrap">
-          <img src="hub-portrait.jpg" alt="Professor Andrew Hubbard" class="hub-face" />
-          <div class="hub-face-meta">
-            <strong>Professor Andrew Hubbard</strong>
-            <span>Lincoln Tech · HVAC Allstars</span>
-          </div>
-        </div>
-        <p class="eyebrow">System sim · EPA 608 Kahoot · AI · Commandments</p>
-        <h1>HVAC <span class="lt-red">Allstars</span></h1>
-        <p class="lede">Build the cycle. Quiz 608. Probe it. Ask HUB.</p>
         <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
         <button class="btn hidden" id="btn-continue">Continue</button>
-        <p class="hint">v3.0 · Clock In to play</p>
       </div>
-      <button type="button" class="btn primary clockin-mini hidden" id="btn-clockin-mini">Clock In</button>
-      <p class="lt-disclaimer">Lincoln Tech HVAC Allstars · Built with Grok · Instructor: Professor Andrew Hubbard · Unofficial student training simulation</p>
     </section>
 
     <!-- CHARACTER -->
@@ -54,6 +38,7 @@
       <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
       <div class="panel char-panel">
+        <button type="button" class="card-close" id="btn-char-back" aria-label="Close" onclick="window.ltGo && window.ltGo('title')">×</button>
         <div class="brand-bar" style="justify-content:flex-start;margin-bottom:10px">
           <div class="brand-mark">LT</div>
           <div class="brand-word">

@@ -1902,3 +1902,31 @@ select:focus-visible {
   pointer-events: none !important;
   opacity: 0 !important;
 }
+
+.title-dock {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 14, 20, 0.82);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.title-dock-face {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center 12%;
+  flex-shrink: 0;
+}
+.title-dock-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.title-dock-copy strong { font-size: 16px; }
+.title-dock-copy span { font-size: 11px; color: var(--muted); }
+.title-dock .btn { flex-shrink: 0; }
+.char-panel { position: relative; }
