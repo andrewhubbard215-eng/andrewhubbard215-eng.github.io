@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=32" />
 </head>
 <body>
   <div id="app">
@@ -23,7 +23,7 @@
       <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
       <div class="title-card" id="title-card">
-        <button type="button" class="card-close" id="btn-close-clockin" aria-label="Close">×</button>
+        <button type="button" class="card-close" id="btn-close-clockin" aria-label="Close" onclick="window.ltCloseCard && window.ltCloseCard()">×</button>
         <div class="brand-bar">
           <div class="brand-mark">LT</div>
           <div class="brand-word">
@@ -41,7 +41,7 @@
         <p class="eyebrow">System sim · EPA 608 Kahoot · AI · Commandments</p>
         <h1>HVAC <span class="lt-red">Allstars</span></h1>
         <p class="lede">Build the cycle. Quiz 608. Probe it. Ask HUB.</p>
-        <button class="btn primary" id="btn-start">Clock In</button>
+        <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
         <button class="btn hidden" id="btn-continue">Continue</button>
         <p class="hint">v3.0 · Clock In to play</p>
       </div>
@@ -330,6 +330,24 @@
 
   <p class="version-strip">HVAC Allstars · v3.0 · sim · quiz · AI · no arcade</p>
   </div>
+  <script>
+    window.ltCloseCard = function () {
+      var c = document.getElementById("title-card");
+      if (c) {
+        c.classList.add("hidden");
+        c.style.display = "none";
+      }
+      var m = document.getElementById("btn-clockin-mini");
+      if (m) m.classList.remove("hidden");
+    };
+    window.ltGo = function (id) {
+      document.querySelectorAll(".screen").forEach(function (s) {
+        s.classList.remove("active");
+      });
+      var el = document.getElementById("screen-" + id);
+      if (el) el.classList.add("active");
+    };
+  </script>
   <script src="commandments.js"></script>
   <script src="dragdrop.js"></script>
   <script src="electrical.js"></script>

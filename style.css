@@ -20,8 +20,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font); overflow: hidden; touch-action: manipulation; }
 #app, .screen { position: absolute; inset: 0; }
-.screen { display: none; }
-.screen.active { display: block; }
+.screen { display: none !important; }
+.screen.active { display: block !important; }
+#screen-title.screen.active { display: flex !important; }
+#screen-title:not(.active) { display: none !important; }
 
 .bg-plate {
   pointer-events: none;
@@ -267,18 +269,18 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 #screen-title .title-card.hidden { display: none !important; }
 .card-close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
+  top: 6px;
+  right: 6px;
+  width: 44px;
+  height: 44px;
   border: 0;
-  border-radius: 8px;
-  background: rgba(0,0,0,0.45);
+  border-radius: 10px;
+  background: #CE0034;
   color: #fff;
-  font-size: 22px;
+  font-size: 28px;
   line-height: 1;
   cursor: pointer;
-  z-index: 2;
+  z-index: 20;
 }
 .clockin-mini {
   position: absolute;
