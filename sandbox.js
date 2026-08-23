@@ -79,6 +79,7 @@
     { id: "accumulator", name: "Suction accumulator", group: "parts", icon: "🛢", img: "parts/accumulator.png", slot: "accumulator", required: false, desc: "Protects compressor from liquid slug" },
     { id: "receiver", name: "Liquid receiver", group: "parts", icon: "🫙", img: null, slot: "receiver", required: false, desc: "Stores liquid after the condenser" },
     { id: "solenoid", name: "Liquid solenoid", group: "parts", icon: "🧲", img: "parts/relay.png", slot: "solenoid", required: false, desc: "Pump-down valve in the liquid line" },
+    { id: "revvalve", name: "Reversing valve (4-way)", group: "parts", icon: "🔀", img: "parts/relay.png", slot: "revvalve", required: false, desc: "Heat pump changeover · discharge in the middle" },
     { id: "sightglass", name: "Sight glass", group: "parts", icon: "👁", img: null, slot: "sightglass", required: false, desc: "Moisture / flash gas in the liquid line" },
     // Electrical
     { id: "disconnect", name: "Fused disconnect", group: "electrical", icon: "🔌", img: "parts/disconnect.png", slot: "disconnect", required: false, desc: "Outdoor disconnect · L1/L2" },
@@ -130,7 +131,7 @@
       metering: "txv",
       seer: "16",
       notes: "Communicating furnace air handler with cased coil · TXV indoor",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 18,
       approachEvap: 30,
       targetSH: 10,
@@ -162,7 +163,7 @@
       metering: "eev",
       seer: "24+",
       notes: "Variable-speed inverter · Greenspeed · tight SH control",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 14,
       approachEvap: 28,
       targetSH: 8,
@@ -178,7 +179,7 @@
       metering: "eev",
       seer: "20",
       notes: "Daikin Fit inverter heat pump · swing compressor · EEV",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 15,
       approachEvap: 28,
       targetSH: 8,
@@ -258,7 +259,7 @@
       metering: "txv",
       seer: "17",
       notes: "Climatuff compressor · Spine Fin coil · dual-fuel ready",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 16,
       approachEvap: 30,
       targetSH: 10,
@@ -290,7 +291,7 @@
       metering: "eev",
       seer: "26",
       notes: "Precise Comfort variable capacity · true communicating system",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 13,
       approachEvap: 27,
       targetSH: 7,
@@ -306,7 +307,7 @@
       metering: "eev",
       seer: "24",
       notes: "Variable-speed · Evolution control · sister platform to Carrier Infinity",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 14,
       approachEvap: 28,
       targetSH: 8,
@@ -338,7 +339,7 @@
       metering: "orifice",
       seer: "10",
       notes: "Training only · legacy R-22 piston system for recovery practice",
-      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator" },
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", revvalve: "revvalve" },
       approachCond: 25,
       approachEvap: 35,
       targetSH: 15,
@@ -355,6 +356,7 @@
     { id: "accumulator", x: 0.34, y: 0.70, label: "Accumulator" },
     { id: "receiver", x: 0.62, y: 0.28, label: "Receiver" },
     { id: "solenoid", x: 0.76, y: 0.44, label: "Solenoid" },
+    { id: "revvalve", x: 0.34, y: 0.40, label: "Rev. valve" },
     { id: "sightglass", x: 0.68, y: 0.40, label: "Sight glass" },
     { id: "disconnect", x: 0.08, y: 0.18, label: "Disconnect" },
     { id: "contactor", x: 0.08, y: 0.38, label: "Contactor" },
@@ -512,6 +514,32 @@
       capBad: true,
       fix: "Lock out. Read HERM–C µF vs nameplate. Replace the dual run capacitor.",
     },
+    {
+      id: "rv-stuck",
+      name: "Heat pump stuck in heat",
+      complaint: "It's 90°F and it's still blowing hot. O at the board, valve never shifted.",
+      outdoor: 90,
+      indoor: 76,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "rv_stuck_heat",
+      hpMode: "cool",
+      fix: "24V at the solenoid (O or B). Click? If coil is hot and slider didn't move, replace the 4-way. Don't condemn the compressor first.",
+    },
+    {
+      id: "rv-bleed",
+      name: "Reversing valve bleeding",
+      complaint: "Runs in both modes but no capacity. Suction line warm. Discharge and suction close.",
+      outdoor: 88,
+      indoor: 75,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "rv_bleed",
+      hpMode: "cool",
+      fix: "Internal leak in the 4-way. Temp on the three tubes. If bypassing, replace the valve — not a charge problem.",
+    },
   ];
 
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
@@ -576,6 +604,7 @@
   let leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
   let n2Acked = false;
   let capBad = false;
+  let hpMode = "cool"; // cool | heat
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -620,8 +649,17 @@
     // Base design targets from ambients + active OEM package
     const ac = activeSystem ? activeSystem.approachCond : 18;
     const ae = activeSystem ? activeSystem.approachEvap : 30;
-    let condSat = outdoorF + ac;
-    let evapSat = indoorF - ae;
+    let effectiveMode = hpMode;
+    if (fault === "rv_stuck_heat") effectiveMode = "heat";
+    if (fault === "rv_stuck_cool") effectiveMode = "cool";
+    let condSat, evapSat;
+    if (effectiveMode === "heat") {
+      condSat = indoorF + ac;
+      evapSat = outdoorF - ae;
+    } else {
+      condSat = outdoorF + ac;
+      evapSat = indoorF - ae;
+    }
 
     // Faults & charge
     let chargeFactor = chargePct / 100;
@@ -641,6 +679,10 @@
     }
     if (fault === "txv_open") {
       evapSat += 8;
+    }
+    if (fault === "rv_bleed") {
+      evapSat += 12;
+      condSat -= 10;
     }
 
     // Charge effects
@@ -698,6 +740,10 @@
       sc = 6;
       sh = 2;
     }
+    if (fault === "rv_bleed") {
+      sc = 5;
+      sh = 4;
+    }
 
     if (coilCond === "dirty") {
       sc = Math.min(sc, 7);
@@ -722,6 +768,9 @@
     else if (fault === "txv_open") status = "Flooding — TXV stuck open. Watch liquid slugging.";
     else if (coilCond === "dirty") status = "High head — outdoor coil is dirty. Wash it before you add gas.";
     else if (coilEvap === "dirty") status = "Low SH / ice risk — indoor coil or filter is dirty.";
+    else if (fault === "rv_stuck_heat" && hpMode === "cool") status = "Calling COOL but the 4-way is stuck in HEAT. Indoor coil is the condenser.";
+    else if (fault === "rv_stuck_cool" && hpMode === "heat") status = "Calling HEAT but the 4-way is stuck in COOL.";
+    else if (fault === "rv_bleed") status = "4-way bleeding internally — suction warm, low capacity, pressures closer together.";
 
     const tonsBase = activeSystem ? activeSystem.tons : 3;
     const load = Math.max(0.35, Math.min(1.25, ((indoorF - 65) / 15) * ((115 - outdoorF) / 40 + 0.55)));
@@ -759,6 +808,8 @@
     else if (sh > 20 && sc > 15) fp = "HUB fingerprint: HIGH SH + HIGH SC → restriction (drier / TXV).";
     else if (fault === "noncondensables") fp = "HUB: high head + low SC after a sloppy vac = air in the condenser.";
     else if (capBad) fp = "HUB: pressures can look fine. Meter the cap. Humming isn't a charge problem.";
+    else if (fault === "rv_stuck_heat" || fault === "rv_stuck_cool") fp = "HUB: 24V on O/B? Click? If the solenoid is energized and the slider didn't move, it's the valve, not the compressor.";
+    else if (fault === "rv_bleed") fp = "HUB: 4-way bypass. Discharge and suction temps closer than they should be. Replace the reversing valve.";
     else if (shOk && scOk && coilCond === "clean" && coilEvap === "clean") fp = "HUB: SH/SC in band. That's a charged, breathing system.";
 
     return {
@@ -840,6 +891,12 @@
                 <input id="sb-charge" type="range" min="50" max="130" value="100" />
                 <span id="sb-charge-v">100</span>
               </label>
+              <label>Mode
+                <select id="sb-mode">
+                  <option value="cool">Cool</option>
+                  <option value="heat">Heat (HP)</option>
+                </select>
+              </label>
               <label>Fault
                 <select id="sb-fault">
                   <option value="none">None (healthy)</option>
@@ -851,6 +908,9 @@
                   <option value="noncondensables">Non-condensables (air)</option>
                   <option value="txv_closed">TXV stuck closed / lost bulb</option>
                   <option value="txv_open">TXV stuck open</option>
+                  <option value="rv_stuck_heat">RV stuck in heat</option>
+                  <option value="rv_stuck_cool">RV stuck in cool</option>
+                  <option value="rv_bleed">RV internal bleed</option>
                 </select>
               </label>
               <label>TXV SH target
@@ -920,7 +980,9 @@
               <button type="button" class="btn" data-fix="clean-odu">Clean ODU coil</button>
               <button type="button" class="btn" data-fix="clean-idu">Clean IDU coil</button>
               <button type="button" class="btn" data-fix="replace-filter">Replace air filter</button>
-              <button type="button" class="btn" data-fix="replace-cap">Replace run cap</button>
+              <button type="button" class="btn" data-fix="replace-rv">Replace reversing valve</button>
+              <button type="button" class="btn" data-fix="shift-heat">Call HEAT (O/B)</button>
+              <button type="button" class="btn" data-fix="shift-cool">Call COOL</button>
               <button type="button" class="btn" data-fix="dirty-odu">Dirty ODU (recreate)</button>
               <button type="button" class="btn" data-fix="dirty-idu">Dirty IDU (recreate)</button>
               <button type="button" class="btn" data-fix="leak-visual">1 Visual leak</button>
@@ -980,6 +1042,7 @@
                 <option value="l1l2">L1–L2 at disconnect</option>
                 <option value="load">Load side of disconnect</option>
                 <option value="coil">Contactor coil C–Y</option>
+                <option value="ob">Reversing valve O/B solenoid</option>
                 <option value="rc">Thermostat R–C</option>
                 <option value="comp">Compressor amps</option>
                 <option value="cap">Capacitor HERM–C</option>
@@ -1188,6 +1251,7 @@
     coilEvap = job.coilEvap;
     fault = job.fault;
     capBad = !!job.capBad;
+    hpMode = job.hpMode || "cool";
     running = true;
     const set = (id, v) => {
       const el = document.getElementById(id);
@@ -1196,6 +1260,7 @@
     set("sb-out", outdoorF);
     set("sb-in", indoorF);
     set("sb-charge", chargePct);
+    set("sb-mode", hpMode);
     const ov = document.getElementById("sb-out-v");
     const iv = document.getElementById("sb-in-v");
     const cv = document.getElementById("sb-charge-v");
@@ -1253,6 +1318,21 @@
       capBad = false;
       placed.capacitor = "capacitor";
       refreshSlots();
+    }
+    if (kind === "replace-rv") {
+      placed.revvalve = "revvalve";
+      if (fault === "rv_stuck_heat" || fault === "rv_stuck_cool" || fault === "rv_bleed") fault = "none";
+      refreshSlots();
+    }
+    if (kind === "shift-heat") {
+      hpMode = "heat";
+      const m = document.getElementById("sb-mode");
+      if (m) m.value = "heat";
+    }
+    if (kind === "shift-cool") {
+      hpMode = "cool";
+      const m = document.getElementById("sb-mode");
+      if (m) m.value = "cool";
     }
     if (kind === "dirty-odu") coilCond = "dirty";
     if (kind === "dirty-idu") coilEvap = "dirty";
@@ -1718,8 +1798,17 @@
         note = has("disconnect") ? "Load side hot." : "No disconnect — load is dead. Do not jump it.";
       } else if (probe === "coil") {
         val = live ? "26.4" : has("transformer") && has("thermostat") ? "0.12" : "0.00";
-        unit = "VAC";
         note = live ? "Y is calling. Coil pulled in." : "No 24V call — check R/C, stat, and transformer.";
+      } else if (probe === "ob") {
+        const energized = (hpMode === "cool"); // training: O energized in cool (most brands)
+        val = live && has("revvalve") ? (energized ? "26.1" : "0.08") : live ? "0.00" : "0.00";
+        note = !has("revvalve")
+          ? "No reversing valve on the board — drop a 4-way for a heat pump."
+          : fault === "rv_stuck_heat" && hpMode === "cool"
+            ? "24V at the coil, slider didn't move. That's a stuck valve, not a dead solenoid."
+            : energized
+              ? "O energized (most brands shift in COOL). Listen for the click. Rheem/Ruud often use B in heat."
+              : "O/B de-energized. Call the other mode and watch pressures swap.";
       } else if (probe === "rc") {
         val = has("transformer") ? "27.1" : "0.00";
         note = has("transformer") ? "Control transformer healthy." : "No transformer — C and R are dead.";
@@ -1951,6 +2040,12 @@
     document.getElementById("sb-fault").onchange = (e) => {
       fault = e.target.value;
     };
+    const modeEl = document.getElementById("sb-mode");
+    if (modeEl) {
+      modeEl.onchange = (e) => {
+        hpMode = e.target.value;
+      };
+    }
     const txvEl = document.getElementById("sb-txv");
     if (txvEl) {
       txvEl.oninput = (e) => {
@@ -2012,6 +2107,7 @@
     jobSolved = false;
     leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
     capBad = false;
+    hpMode = "cool";
     gaugesEquipped = false;
     activeSystem = null;
     buildUI(root);

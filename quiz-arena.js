@@ -263,6 +263,18 @@
         why: "Nut on first — classic mistake to flare then realize the nut is missing.",
       },
       {
+        q: "On most heat pumps, the reversing-valve solenoid is energized in:",
+        choices: ["Heat (B on every brand)", "Cool (O on most brands; some use B in heat)", "Defrost only", "Anytime Y is calling"],
+        a: 1,
+        why: "Most brands use O energized in COOL. Rheem/Ruud often energize B in HEAT. Know the board.",
+      },
+      {
+        q: "24V at the reversing-valve coil, no click, indoor still heating on a cool call means:",
+        choices: ["Add 410A", "Stuck 4-way slider — replace the valve", "TXV is flooding", "Capacitor is open"],
+        a: 1,
+        why: "Solenoid is alive; the slider didn't move. Don't condemn the compressor first.",
+      },
+      {
         q: "Ice on the suction line with near-zero superheat often points first to:",
         choices: ["Need more refrigerant immediately", "Low airflow or overcharge issues — diagnose before adding gas", "Failed crankcase heater only", "Wrong thermostat color wires"],
         a: 1,

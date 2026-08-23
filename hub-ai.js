@@ -198,6 +198,12 @@
         "Use a torque wrench. Typical training ballparks (confirm OEM): ~12–13 ft-lb on 1/4″, higher on larger sizes. Backup wrench on the body. Over-tight cracks flares; under-tight weeps refrigerant all summer.",
     },
     {
+      tags: ["reversing", "reversing valve", "4-way", "4 way", "heat pump", "o/b", "stuck in heat", "defrost"],
+      topic: "Heat pump reversing valve",
+      answer:
+        "The 4-way (reversing) valve swaps which coil is the condenser. Discharge is always the middle tube. Most brands energize O in COOL; Rheem/Ruud often energize B in HEAT. Diagnose: 1) 24V at the solenoid when the mode should shift. 2) Listen/feel the click. 3) Pressures and indoor vs outdoor coil roles must swap. Stuck slider = 24V present, no shift — replace the valve. Internal bleed = suction warm, capacity gone, discharge/suction closer than they should be — also replace the valve, not a charge problem. Don't condemn the compressor first.",
+    },
+    {
       tags: ["nitrogen", "n2", "pressure test", "oxygen", "asphyxiation", "regulator"],
       topic: "Nitrogen safety",
       answer:
