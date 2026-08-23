@@ -453,7 +453,8 @@
   let outdoorF = 95;
   let indoorF = 75;
   let chargePct = 100;
-  let fault = "none"; // none | undercharge | overcharge | dirty_cond | dirty_evap | restricted
+  let fault = "none";
+  let txvTarget = 12;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -508,9 +509,17 @@
     if (fault === "dirty_cond") condSat += 18;
     if (fault === "dirty_evap") evapSat -= 12;
     if (fault === "restricted") {
-      // liquid line restriction: high SC, high SH, low suction
       evapSat -= 15;
       condSat += 5;
+    }
+    if (fault === "noncondensables") {
+      condSat += 22;
+    }
+    if (fault === "txv_closed") {
+      evapSat -= 18;
+    }
+    if (fault === "txv_open") {
+      evapSat += 8;
     }
 
     // Charge effects
@@ -529,7 +538,10 @@
 
     // SC / SH targets — OEM package targets when healthy
     let sc = activeSystem ? activeSystem.targetSC : 10;
-    let sh = activeSystem ? activeSystem.targetSH : 12;
+    let sh = activeSystem ? activeSystem.targetSH : txvTarget;
+    if (fault === "none" && chargeFactor >= 0.9 && chargeFactor <= 1.1) {
+      sh = txvTarget;
+    }
     if (fault === "undercharge" || chargeFactor < 0.85) {
       sc = 3;
       sh = 28;
@@ -550,6 +562,18 @@
       sc = 12;
       sh = 6;
     }
+    if (fault === "noncondensables") {
+      sc = 4;
+      sh = 13;
+    }
+    if (fault === "txv_closed") {
+      sc = 18;
+      sh = 36;
+    }
+    if (fault === "txv_open") {
+      sc = 6;
+      sh = 2;
+    }
 
     const tLiquid = tSatHigh - sc;
     const tSuction = tSatLow + sh;
@@ -563,6 +587,21 @@
     else if (sh > 22 && sc > 16) status = "Possible liquid-line restriction";
     else if (fault === "dirty_cond") status = "High head — check condenser airflow";
     else if (fault === "dirty_evap") status = "Low SH — check evaporator airflow";
+    else if (fault === "noncondensables") status = "High head + low SC — non-condensables (air) in the condenser";
+    else if (fault === "txv_closed") status = "Starved coil — TXV stuck closed / bulb lost charge";
+    else if (fault === "txv_open") status = "Flooding — TXV stuck open. Watch liquid slugging.";
+
+    const tonsBase = activeSystem ? activeSystem.tons : 3;
+    const load = Math.max(0.35, Math.min(1.25, ((indoorF - 65) / 15) * ((115 - outdoorF) / 40 + 0.55)));
+    const derate = Math.max(0.4, 1 - (condSat - (outdoorF + 18)) / 80 - ( (indoorF - 30) - evapSat ) / 80);
+    const tons = +(tonsBase * load * derate * (0.7 + 0.3 * Math.min(1, chargeFactor))).toFixed(2);
+    const btuh = Math.round(tons * 12000);
+    const tC = condSat + 460;
+    const tE = evapSat + 460;
+    const copCarnot = tE / Math.max(1, tC - tE);
+    const cop = Math.max(1.2, copCarnot * 0.42);
+    const kw = (btuh / 12000) * 3.517 / cop;
+    const amps = kw / (240 * 0.85) * 1000;
 
     return {
       running: true,
@@ -577,6 +616,10 @@
       status,
       condSat,
       evapSat,
+      tons,
+      btuh,
+      cop,
+      amps,
     };
   }
 
@@ -639,7 +682,14 @@
                   <option value="dirty_cond">Dirty condenser</option>
                   <option value="dirty_evap">Dirty evaporator</option>
                   <option value="restricted">Liquid-line restriction</option>
+                  <option value="noncondensables">Non-condensables (air)</option>
+                  <option value="txv_closed">TXV stuck closed / lost bulb</option>
+                  <option value="txv_open">TXV stuck open</option>
                 </select>
+              </label>
+              <label>TXV SH target
+                <input id="sb-txv" type="range" min="6" max="18" value="12" />
+                <span id="sb-txv-v">12</span>
               </label>
             </div>
             <div class="sb-actions">
@@ -677,7 +727,15 @@
             <div><span>Liquid temp</span><b id="g-tliq">—</b></div>
             <div><span>Superheat</span><b id="g-sh">—</b></div>
             <div><span>Subcooling</span><b id="g-sc">—</b></div>
+            <div><span>Capacity</span><b id="g-cap">—</b></div>
+            <div><span>COP</span><b id="g-cop">—</b></div>
+            <div><span>Comp amps</span><b id="g-amps">—</b></div>
           </div>
+          <p class="eyebrow">P-H diagram (training sketch)</p>
+          <canvas id="sb-ph" width="280" height="170"></canvas>
+          <p class="sb-ph-cap">Coolselector-style: 1 suction · 2 discharge · 3 liquid · 4 after TXV. Not a design program.</p>
+          <p class="eyebrow">Bill of materials</p>
+          <ul id="sb-bom" class="sb-bom"></ul>
           <div class="phase-legend">
             <span class="ph hv">High vapor</span>
             <span class="ph hl">High liquid</span>
@@ -997,11 +1055,104 @@
     document.getElementById("g-tliq").textContent = sim.running ? sim.tLiquid.toFixed(0) + " °F" : "—";
     document.getElementById("g-sh").textContent = sim.running ? sim.sh.toFixed(0) + " °F" : "—";
     document.getElementById("g-sc").textContent = sim.running ? sim.sc.toFixed(0) + " °F" : "—";
+    const cap = document.getElementById("g-cap");
+    const cop = document.getElementById("g-cop");
+    const amps = document.getElementById("g-amps");
+    if (cap) cap.textContent = sim.running ? sim.tons.toFixed(1) + " t · " + sim.btuh.toLocaleString() + " Btuh" : "—";
+    if (cop) cop.textContent = sim.running ? sim.cop.toFixed(2) : "—";
+    if (amps) amps.textContent = sim.running ? sim.amps.toFixed(1) + " A" : "—";
     document.getElementById("sb-status").textContent = sim.status;
     document.getElementById("man-low").textContent = sim.running ? Math.round(sim.pLow) : "0";
     document.getElementById("man-high").textContent = sim.running ? Math.round(sim.pHigh) : "0";
     document.getElementById("sb-run").textContent = running ? "Stop compressor" : "Start compressor";
     updateDmm(sim);
+    drawPH(sim);
+    updateBom();
+  }
+
+  function updateBom() {
+    const ul = document.getElementById("sb-bom");
+    if (!ul) return;
+    const ids = Object.values(placed);
+    if (!ids.length) {
+      ul.innerHTML = "<li>Empty board</li>";
+      return;
+    }
+    ul.innerHTML = ids
+      .map((id) => {
+        const c = COMPONENTS.find((x) => x.id === id);
+        return "<li>" + (c ? c.name : id) + (c && c.desc ? " <small>" + c.desc + "</small>" : "") + "</li>";
+      })
+      .join("");
+  }
+
+  function drawPH(sim) {
+    const c = document.getElementById("sb-ph");
+    if (!c) return;
+    const g = c.getContext("2d");
+    const w = c.width;
+    const h = c.height;
+    g.clearRect(0, 0, w, h);
+    g.fillStyle = "#0c141c";
+    g.fillRect(0, 0, w, h);
+    g.strokeStyle = "rgba(255,255,255,0.12)";
+    g.strokeRect(0.5, 0.5, w - 1, h - 1);
+    // dome
+    g.beginPath();
+    g.strokeStyle = "rgba(255,213,74,0.55)";
+    for (let i = 0; i <= 40; i++) {
+      const t = i / 40;
+      const x = 24 + t * (w - 48);
+      const y = h - 18 - Math.sin(t * Math.PI) * (h * 0.62);
+      if (i === 0) g.moveTo(x, y);
+      else g.lineTo(x, y);
+    }
+    g.stroke();
+    g.fillStyle = "rgba(242,245,248,0.45)";
+    g.font = "9px sans-serif";
+    g.fillText("h →", w - 28, h - 6);
+    g.save();
+    g.translate(10, h / 2);
+    g.rotate(-Math.PI / 2);
+    g.fillText("P", 0, 0);
+    g.restore();
+    if (!sim.running) {
+      g.fillStyle = "#8b98a5";
+      g.fillText("Start compressor to plot 1-2-3-4", 40, h / 2);
+      return;
+    }
+    const pMin = 0;
+    const pMax = Math.max(400, sim.pHigh * 1.15);
+    const yP = (p) => h - 16 - ((p - pMin) / (pMax - pMin)) * (h - 32);
+    const xH = (n) => 28 + n * (w - 56); // 0-1 enthalpy param
+    // 1 suction vapor, 2 discharge, 3 liquid, 4 after TXV
+    const pts = [
+      { n: 1, x: 0.62, p: sim.pLow },
+      { n: 2, x: 0.88, p: sim.pHigh },
+      { n: 3, x: 0.28, p: sim.pHigh },
+      { n: 4, x: 0.32, p: sim.pLow },
+    ];
+    g.strokeStyle = "#CE0034";
+    g.lineWidth = 2;
+    g.beginPath();
+    pts.concat([pts[0]]).forEach((pt, i) => {
+      const x = xH(pt.x);
+      const y = yP(pt.p);
+      if (i === 0) g.moveTo(x, y);
+      else g.lineTo(x, y);
+    });
+    g.stroke();
+    pts.forEach((pt) => {
+      const x = xH(pt.x);
+      const y = yP(pt.p);
+      g.fillStyle = "#fff";
+      g.beginPath();
+      g.arc(x, y, 4, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = "#ffd54a";
+      g.fillText(String(pt.n), x + 6, y - 6);
+    });
+  }
   }
 
   function elecReady() {
@@ -1260,6 +1411,13 @@
     document.getElementById("sb-fault").onchange = (e) => {
       fault = e.target.value;
     };
+    const txvEl = document.getElementById("sb-txv");
+    if (txvEl) {
+      txvEl.oninput = (e) => {
+        txvTarget = +e.target.value;
+        document.getElementById("sb-txv-v").textContent = txvTarget;
+      };
+    }
     document.getElementById("sb-run").onclick = () => {
       if (!requiredComplete()) {
         document.getElementById("sb-status").textContent = "Need compressor, condenser, metering device, and evaporator.";

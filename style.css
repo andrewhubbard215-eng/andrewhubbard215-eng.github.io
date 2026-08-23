@@ -2081,3 +2081,9 @@ select:focus-visible {
 #screen-quiz .qa-next { display: inline-block; margin-top: 10px; }
 #screen-quiz .qa-next.hidden { display: none; }
 #screen-quiz .qa-feedback { color: #fff; min-height: 0; }
+
+#sb-ph { width: 100%; height: auto; border-radius: 8px; background: #0c141c; margin: 6px 0; }
+.sb-ph-cap { font-size: 11px; color: var(--muted, #8b98a5); line-height: 1.35; margin: 0 0 10px; }
+.sb-bom { list-style: none; margin: 0 0 12px; padding: 0; font-size: 12px; }
+.sb-bom li { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sb-bom small { color: var(--muted, #8b98a5); }
