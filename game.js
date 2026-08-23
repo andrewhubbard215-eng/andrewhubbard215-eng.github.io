@@ -204,6 +204,15 @@
     return cur;
   }
 
+  const HUB_PASS_SHA256 = "6bf1f6537cf327986333ccca2ad0d046ebdf74acf722b1036efc6169925708f9";
+
+  function sha256hex(s) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then((buf) =>
+      Array.from(new Uint8Array(buf))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("")
+    );
+  }
   function isHubName(n) {
     const s = String(n || "")
       .trim()
@@ -1584,38 +1593,45 @@
     btnIn.onclick = () => {
       const name = inp.value.trim();
       if (!name) return;
+      const finishClock = () => {
+        state.callsign = name;
+        state.spec = document.getElementById("spec").value;
+        const camp = document.getElementById("campus");
+        if (camp) state.campus = camp.value;
+        const sec = document.getElementById("class-section");
+        if (sec) state.classSection = sec.value.trim();
+        const onLook = document.querySelector(".char-look.on");
+        if (onLook) state.look = onLook.dataset.look;
+        if (isHub()) state.pendingRapture = true;
+        save();
+        if (window.Badges) window.Badges.unlock("first_clock");
+        postCompete("profile");
+        refreshHub();
+        if (isHub() && !state.raptureSeen) openRapture();
+        else show("hub");
+      };
       if (isHubName(name)) {
         const passEl = document.getElementById("hub-pass");
         const pw = passEl ? passEl.value : "";
-        if (pw !== "Falcon1964#") {
-          const wrap = document.getElementById("hub-pass-wrap");
-          if (wrap) wrap.classList.remove("hidden");
-          toast("Wrong instructor password", "bad");
+        const wrap = document.getElementById("hub-pass-wrap");
+        if (wrap) wrap.classList.remove("hidden");
+        if (!window.crypto || !crypto.subtle) {
+          toast("This browser can't check the instructor password", "bad");
           return;
         }
-        state.hubAuthed = true;
-        if (passEl) passEl.value = "";
-      } else {
-        state.hubAuthed = false;
+        sha256hex(pw).then((h) => {
+          if (h !== HUB_PASS_SHA256) {
+            toast("Wrong instructor password", "bad");
+            return;
+          }
+          state.hubAuthed = true;
+          if (passEl) passEl.value = "";
+          finishClock();
+        });
+        return;
       }
-      state.callsign = name;
-      state.spec = document.getElementById("spec").value;
-      const camp = document.getElementById("campus");
-      if (camp) state.campus = camp.value;
-      const sec = document.getElementById("class-section");
-      if (sec) state.classSection = sec.value.trim();
-      const onLook = document.querySelector(".char-look.on");
-      if (onLook) state.look = onLook.dataset.look;
-      if (isHub()) {
-        state.pendingRapture = true;
-      }
-      save();
-      if (window.Badges) window.Badges.unlock("first_clock");
-      postCompete("profile");
-      refreshHub();
-      if (isHub() && !state.raptureSeen) {
-        openRapture();
-      } else show("hub");
+      state.hubAuthed = false;
+      finishClock();
     };
     const locker = document.getElementById("hub-locker");
     if (locker) {
