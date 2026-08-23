@@ -1431,16 +1431,9 @@
   }
 
   function startMode(m) {
-    if (m === "street") m = "arena";
-    mode = m;
-    const ov = document.getElementById("overlay");
-    if (ov) ov.classList.add("hidden");
-    show("game");
-    ac();
-    resetArena();
-    startRockMusic();
-    last = performance.now();
-    raf = requestAnimationFrame(loop);
+    toast("Driving is retired. Use sandbox, quiz, and AI helper.", "ok");
+    refreshHub();
+    show("hub");
   }
 
   // ---- UI wiring ----
@@ -1577,8 +1570,6 @@
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
         else if (m === "commandments") startCommandments();
-        else if (m === "bros") startBros();
-        else if (m === "arena") startMode("arena");
         else if (m === "rapture") {
           openRapture();
         }
@@ -1875,33 +1866,9 @@
   }
 
   function startBros() {
-    if (brosCtl) {
-      brosCtl.stop();
-      brosCtl = null;
-    }
-    show("bros");
-    const root = document.getElementById("bros-root");
-    brosCtl = window.HVACBros.start(root, {
-      onHub() {
-        if (brosCtl) {
-          brosCtl.stop();
-          brosCtl = null;
-        }
-        refreshHub();
-        show("hub");
-      },
-      onOver({ score, coins, win }) {
-        const xp = win ? 120 : 25;
-        state.xp += xp;
-        if (win) {
-          state.jobsCompleted += 1;
-          pay(80, "bros");
-        }
-        save();
-        postCompete("score", { mode: "bros", score: score || 0 });
-        toast((win ? "RTU commissioned" : "Call for backup") + " · " + (score || 0) + " pts · +" + xp + " XP", win ? "ok" : "bad");
-      },
-    });
+    toast("HVAC BROS is retired. Use sandbox, quiz, and AI helper.", "ok");
+    refreshHub();
+    show("hub");
   }
 
   function startQuizArena() {
