@@ -1009,7 +1009,7 @@
     enableFabDrag(fab, () => {
       dragged = true;
     });
-    document.getElementById("app").appendChild(fab);
+    document.body.appendChild(fab);
     restoreFabPos(fab);
   }
 
@@ -1061,10 +1061,12 @@
       sy = 0,
       ox = 0,
       oy = 0,
-      moving = false;
-    let press = false;
+      moving = false,
+      press = false;
     const down = (e) => {
-      if (e.button != null && e.button !== 0) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
       const r = fab.getBoundingClientRect();
       sx = e.clientX;
       sy = e.clientY;
@@ -1072,29 +1074,26 @@
       oy = r.top;
       moving = false;
       press = true;
-      try {
-        fab.setPointerCapture(e.pointerId);
-      } catch (_) {}
+      fab.classList.add("dragging");
     };
     const move = (e) => {
       if (!press) return;
       const dx = e.clientX - sx;
       const dy = e.clientY - sy;
-      if (!moving && dx * dx + dy * dy < 64) return;
+      if (!moving && dx * dx + dy * dy < 9) return;
       moving = true;
+      e.preventDefault();
       if (onDrag) onDrag();
       clampFab(fab, ox + dx, oy + dy);
     };
-    const up = (e) => {
+    const up = () => {
       press = false;
-      try {
-        fab.releasePointerCapture(e.pointerId);
-      } catch (_) {}
+      fab.classList.remove("dragging");
     };
     fab.addEventListener("pointerdown", down);
-    fab.addEventListener("pointermove", move);
-    fab.addEventListener("pointerup", up);
-    fab.addEventListener("pointercancel", up);
+    window.addEventListener("pointermove", move, { passive: false });
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
     window.addEventListener("resize", () => {
       const r = fab.getBoundingClientRect();
       clampFab(fab, r.left, r.top);
