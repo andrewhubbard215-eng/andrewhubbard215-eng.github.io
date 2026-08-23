@@ -31,6 +31,7 @@
     spicy: false,
     seenTip: false,
     seenTutorial: false,
+    hubAuthed: false,
     activeUnit: null,
   };
 
@@ -87,6 +88,7 @@
     if (typeof state.jobsCompleted !== "number") state.jobsCompleted = 0;
     if (typeof state.lifetimeEarnings !== "number") state.lifetimeEarnings = 0;
     if (typeof state.spicy !== "boolean") state.spicy = false;
+    if (typeof state.hubAuthed !== "boolean") state.hubAuthed = false;
     if (typeof state.seenTutorial !== "boolean") state.seenTutorial = false;
     if (state.vehicle !== "van" && state.vehicle !== "falcon") state.vehicle = "falcon";
   }
@@ -113,6 +115,7 @@
         spicy: state.spicy,
         seenTip: state.seenTip,
         seenTutorial: state.seenTutorial,
+        hubAuthed: state.hubAuthed,
       })
     );
   }
@@ -201,8 +204,23 @@
     return cur;
   }
 
+  function isHubName(n) {
+    const s = String(n || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+    return (
+      s === "hub" ||
+      s === "professor hub" ||
+      s === "hubbard" ||
+      s === "andrew hubbard" ||
+      s === "professor hubbard" ||
+      s === "professor andrew hubbard"
+    );
+  }
+
   function isHub() {
-    return /hub/i.test(state.callsign || "");
+    return !!state.hubAuthed && isHubName(state.callsign);
   }
 
   function raptureUnlocked() {
@@ -1462,6 +1480,13 @@
       btnCont.textContent = "Continue as " + state.callsign;
       btnCont.onclick = () => {
         ac();
+        if (isHubName(state.callsign) && !state.hubAuthed) {
+          show("character");
+          const wrap = document.getElementById("hub-pass-wrap");
+          if (wrap) wrap.classList.remove("hidden");
+          toast("Instructor login needs a password", "bad");
+          return;
+        }
         refreshHub();
         show("hub");
         toast("Welcome back, " + state.callsign, "ok");
@@ -1471,6 +1496,13 @@
     document.getElementById("btn-start").onclick = () => {
       ac();
       if (state.callsign) {
+        if (isHubName(state.callsign) && !state.hubAuthed) {
+          show("character");
+          const wrap = document.getElementById("hub-pass-wrap");
+          if (wrap) wrap.classList.remove("hidden");
+          toast("Instructor login needs a password", "bad");
+          return;
+        }
         refreshHub();
         show("hub");
       } else show("character");
@@ -1546,9 +1578,27 @@
     }
     inp.oninput = () => {
       btnIn.disabled = !inp.value.trim();
+      const wrap = document.getElementById("hub-pass-wrap");
+      if (wrap) wrap.classList.toggle("hidden", !isHubName(inp.value));
     };
     btnIn.onclick = () => {
-      state.callsign = inp.value.trim();
+      const name = inp.value.trim();
+      if (!name) return;
+      if (isHubName(name)) {
+        const passEl = document.getElementById("hub-pass");
+        const pw = passEl ? passEl.value : "";
+        if (pw !== "Falcon1964#") {
+          const wrap = document.getElementById("hub-pass-wrap");
+          if (wrap) wrap.classList.remove("hidden");
+          toast("Wrong instructor password", "bad");
+          return;
+        }
+        state.hubAuthed = true;
+        if (passEl) passEl.value = "";
+      } else {
+        state.hubAuthed = false;
+      }
+      state.callsign = name;
       state.spec = document.getElementById("spec").value;
       const camp = document.getElementById("campus");
       if (camp) state.campus = camp.value;
