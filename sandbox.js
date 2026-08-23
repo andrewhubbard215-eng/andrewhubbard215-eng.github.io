@@ -560,6 +560,7 @@
   let activeJob = null;
   let jobAttempts = 0;
   let jobSolved = false;
+  let leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -868,13 +869,27 @@
               <button type="button" class="btn" data-fix="clean-idu">Clean IDU coil</button>
               <button type="button" class="btn" data-fix="dirty-odu">Dirty ODU (recreate)</button>
               <button type="button" class="btn" data-fix="dirty-idu">Dirty IDU (recreate)</button>
-              <button type="button" class="btn" data-fix="weigh-in">Recover + weigh-in</button>
+              <button type="button" class="btn" data-fix="leak-visual">1 Visual leak</button>
+              <button type="button" class="btn" data-fix="leak-soap">2 Soap bubbles</button>
+              <button type="button" class="btn" data-fix="leak-sniffer">3 Sniffer</button>
+              <button type="button" class="btn" data-fix="leak-n2">4 N₂ standing test</button>
+              <button type="button" class="btn" data-fix="leak-repair">5 Repair leak</button>
               <button type="button" class="btn" data-fix="add-charge">Add 6% charge</button>
               <button type="button" class="btn" data-fix="pull-charge">Recover 6% charge</button>
               <button type="button" class="btn" data-fix="replace-txv">Replace TXV</button>
               <button type="button" class="btn" data-fix="replace-drier">Replace drier</button>
-              <button type="button" class="btn" data-fix="vac-air">Recover / vac (air)</button>
+              <button type="button" class="btn" data-fix="vac-air">Evacuate / vac</button>
+              <button type="button" class="btn" data-fix="weigh-in">7 Weigh-in charge</button>
             </div>
+            <ol id="sb-leak-steps" class="sb-leak-steps">
+              <li data-k="visual">1. Visual — oil stain, mechanical joint, schrader</li>
+              <li data-k="soap">2. Soap bubbles on joints</li>
+              <li data-k="sniffer">3. Electronic detector (slow, below the joint)</li>
+              <li data-k="nitrogen">4. Dry nitrogen standing pressure (no oxygen)</li>
+              <li data-k="repair">5. Repair — braze / replace the leaking part</li>
+              <li data-k="vac">6. Evacuate to microns</li>
+              <li data-k="charge">7. Weigh in nameplate charge — never top off a leaker</li>
+            </ol>
             <p id="sb-coils" class="sb-coils">ODU coil: clean · IDU coil: clean</p>
           </div>
           <div class="dmm-panel" id="sb-dmm">
@@ -1037,6 +1052,36 @@
     }
   }
 
+  function resetLeak() {
+    leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
+    paintLeak();
+  }
+
+  function leakLocated() {
+    return !!(leak.visual || leak.soap || leak.sniffer);
+  }
+
+  function leakReadyToCharge() {
+    return leakLocated() && leak.nitrogen && leak.repair && leak.vac;
+  }
+
+  function paintLeak() {
+    const ol = document.getElementById("sb-leak-steps");
+    if (!ol) return;
+    const done = {
+      visual: leak.visual,
+      soap: leak.soap,
+      sniffer: leak.sniffer,
+      nitrogen: leak.nitrogen,
+      repair: leak.repair,
+      vac: leak.vac,
+      charge: leakReadyToCharge() && chargePct >= 94 && chargePct <= 108 && fault === "none",
+    };
+    ol.querySelectorAll("li").forEach((li) => {
+      li.classList.toggle("done", !!done[li.dataset.k]);
+    });
+  }
+
   function loadBasePack() {
     const sys = SYSTEMS.find((s) => s.id === "goodman-gsx") || SYSTEMS[0];
     applySystem(sys);
@@ -1047,6 +1092,7 @@
     activeJob = null;
     jobSolved = false;
     jobAttempts = 0;
+    resetLeak();
     loadBasePack();
     running = true;
     const faultEl = document.getElementById("sb-fault");
@@ -1065,6 +1111,7 @@
     activeJob = job;
     jobSolved = false;
     jobAttempts = 0;
+    resetLeak();
     loadBasePack();
     outdoorF = job.outdoor;
     indoorF = job.indoor;
@@ -1097,7 +1144,9 @@
 
   function jobIsHealthy() {
     const chargeOk = chargePct >= 94 && chargePct <= 108;
-    return coilCond === "clean" && coilEvap === "clean" && fault === "none" && chargeOk;
+    const coilsOk = coilCond === "clean" && coilEvap === "clean";
+    const leakOk = !activeJob || activeJob.fault !== "undercharge" || leakReadyToCharge();
+    return coilsOk && fault === "none" && chargeOk && leakOk;
   }
 
   function applyRepair(kind) {
@@ -1106,7 +1155,45 @@
     if (kind === "clean-idu") coilEvap = "clean";
     if (kind === "dirty-odu") coilCond = "dirty";
     if (kind === "dirty-idu") coilEvap = "dirty";
+    if (kind === "leak-visual") {
+      leak.visual = true;
+      document.getElementById("sb-status").textContent = "Oil at the schrader / flare. Visual is step 1 — confirm with soap or a sniffer.";
+    }
+    if (kind === "leak-soap") {
+      leak.soap = true;
+      document.getElementById("sb-status").textContent = "Bubbles on the joint. Mark it. Don't bury it in dye and walk away.";
+    }
+    if (kind === "leak-sniffer") {
+      leak.sniffer = true;
+      document.getElementById("sb-status").textContent = "Sniffer hit. Move 1–2 in/s, from below — refrigerant is heavier than air.";
+    }
+    if (kind === "leak-n2") {
+      leak.nitrogen = true;
+      document.getElementById("sb-status").textContent = "Standing N₂ pressure. Dry nitrogen only — oxygen + oil is a bomb. Watch for decay.";
+    }
+    if (kind === "leak-repair") {
+      if (!leakLocated()) {
+        document.getElementById("sb-status").textContent = "HUB: you haven't found it. Visual, soap, or sniffer first.";
+        paintLeak();
+        return;
+      }
+      leak.repair = true;
+      document.getElementById("sb-status").textContent = "Leak repaired (braze / new schrader / new TXV). Now N₂ prove-out if you haven't, then evacuate.";
+    }
     if (kind === "weigh-in") {
+      const leakJob = (fault === "undercharge") || (activeJob && activeJob.fault === "undercharge");
+      if (leakJob && !leakReadyToCharge()) {
+        chargePct = Math.min(90, chargePct + 8);
+        const c = document.getElementById("sb-charge");
+        if (c) c.value = String(chargePct);
+        const cv = document.getElementById("sb-charge-v");
+        if (cv) cv.textContent = chargePct;
+        document.getElementById("sb-status").textContent =
+          "Top-off of a leaker. Charge will bleed down. Locate → N₂ → repair → vac → weigh-in. Commandment 5.";
+        paintLeak();
+        paintCoils();
+        return;
+      }
       chargePct = 100;
       if (fault === "undercharge" || fault === "overcharge") fault = "none";
       const c = document.getElementById("sb-charge");
@@ -1139,9 +1226,14 @@
       refreshSlots();
     }
     if (kind === "vac-air") {
+      leak.vac = true;
       if (fault === "noncondensables") fault = "none";
+      if (leak.repair && !leak.nitrogen) {
+        document.getElementById("sb-status").textContent = "You pulled a vacuum without an N₂ proof. HUB: standing pressure first, then microns.";
+      }
     }
     paintCoils();
+    paintLeak();
     if (jobMode === "mystery" && activeJob && !jobSolved && jobIsHealthy()) {
       jobSolved = true;
       const xp = Math.max(20, 80 - jobAttempts * 8);
@@ -1306,6 +1398,36 @@
       };
     });
     paintCoils();
+  }
+
+  function resetLeak() {
+    leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
+    paintLeak();
+  }
+
+  function leakLocated() {
+    return !!(leak.visual || leak.soap || leak.sniffer);
+  }
+
+  function leakReadyToCharge() {
+    return leakLocated() && leak.nitrogen && leak.repair && leak.vac;
+  }
+
+  function paintLeak() {
+    const ol = document.getElementById("sb-leak-steps");
+    if (!ol) return;
+    const done = {
+      visual: leak.visual,
+      soap: leak.soap,
+      sniffer: leak.sniffer,
+      nitrogen: leak.nitrogen,
+      repair: leak.repair,
+      vac: leak.vac,
+      charge: leakReadyToCharge() && chargePct >= 94 && chargePct <= 108 && fault === "none",
+    };
+    ol.querySelectorAll("li").forEach((li) => {
+      li.classList.toggle("done", !!done[li.dataset.k]);
+    });
   }
 
   function layoutSlots() {
@@ -1758,6 +1880,7 @@
     jobMode = null;
     activeJob = null;
     jobSolved = false;
+    leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
     gaugesEquipped = false;
     activeSystem = null;
     buildUI(root);
