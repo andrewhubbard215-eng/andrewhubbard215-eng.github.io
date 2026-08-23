@@ -771,7 +771,8 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   background: var(--lt-red); color: #fff; border: none;
   border-radius: 999px; padding: 12px 16px 12px 12px;
   font-family: var(--font); font-weight: 600; font-size: 13px;
-  cursor: pointer; box-shadow: 0 8px 28px rgba(206,0,52,0.45);
+  cursor: grab; touch-action: none; user-select: none;
+  box-shadow: 0 8px 28px rgba(206,0,52,0.45);
 }
 .hub-ai-fab:hover { background: var(--lt-red-dark); }
 .hub-ai-panel {

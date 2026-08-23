@@ -969,6 +969,8 @@
   function open() {
     ensurePanel();
     panel.classList.remove("hidden");
+    const fab = document.getElementById("hub-ai-fab");
+    if (fab) parkPanel(fab);
     if (global.Badges) global.Badges.unlock("hub_friend");
     setTimeout(() => {
       const input = panel.querySelector("#hub-ai-input");
@@ -992,10 +994,111 @@
     fab.id = "hub-ai-fab";
     fab.className = "hub-ai-fab";
     fab.type = "button";
-    fab.title = "Ask Professor HUB";
+    fab.title = "Drag to move · tap to Ask HUB";
     fab.innerHTML = '<img src="hub-portrait.jpg" alt="" /><span>Ask HUB</span>';
-    fab.onclick = toggle;
+    let dragged = false;
+    fab.addEventListener("click", (e) => {
+      if (dragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragged = false;
+        return;
+      }
+      toggle();
+    });
+    enableFabDrag(fab, () => {
+      dragged = true;
+    });
     document.getElementById("app").appendChild(fab);
+    restoreFabPos(fab);
+  }
+
+  function restoreFabPos(fab) {
+    try {
+      const raw = localStorage.getItem("lt-hub-fab-pos");
+      if (!raw) return;
+      const p = JSON.parse(raw);
+      if (typeof p.x === "number" && typeof p.y === "number") clampFab(fab, p.x, p.y);
+    } catch (_) {}
+  }
+
+  function clampFab(fab, x, y) {
+    const pad = 8;
+    const w = fab.offsetWidth || 128;
+    const h = fab.offsetHeight || 48;
+    x = Math.max(pad, Math.min(window.innerWidth - w - pad, x));
+    y = Math.max(pad, Math.min(window.innerHeight - h - pad, y));
+    fab.style.left = x + "px";
+    fab.style.top = y + "px";
+    fab.style.right = "auto";
+    fab.style.bottom = "auto";
+    try {
+      localStorage.setItem("lt-hub-fab-pos", JSON.stringify({ x, y }));
+    } catch (_) {}
+    parkPanel(fab);
+    return { x, y };
+  }
+
+  function parkPanel(fab) {
+    if (!panel || panel.classList.contains("hidden")) return;
+    const r = fab.getBoundingClientRect();
+    const pw = Math.min(400, window.innerWidth - 24);
+    const ph = Math.min(520, window.innerHeight - 100);
+    let left = r.left;
+    if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+    if (left < 8) left = 8;
+    let top = r.top - ph - 10;
+    if (top < 8) top = r.bottom + 10;
+    if (top + 200 > window.innerHeight) top = 8;
+    panel.style.left = left + "px";
+    panel.style.top = top + "px";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+  }
+
+  function enableFabDrag(fab, onDrag) {
+    let sx = 0,
+      sy = 0,
+      ox = 0,
+      oy = 0,
+      moving = false;
+    let press = false;
+    const down = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      const r = fab.getBoundingClientRect();
+      sx = e.clientX;
+      sy = e.clientY;
+      ox = r.left;
+      oy = r.top;
+      moving = false;
+      press = true;
+      try {
+        fab.setPointerCapture(e.pointerId);
+      } catch (_) {}
+    };
+    const move = (e) => {
+      if (!press) return;
+      const dx = e.clientX - sx;
+      const dy = e.clientY - sy;
+      if (!moving && dx * dx + dy * dy < 64) return;
+      moving = true;
+      if (onDrag) onDrag();
+      clampFab(fab, ox + dx, oy + dy);
+    };
+    const up = (e) => {
+      press = false;
+      try {
+        fab.releasePointerCapture(e.pointerId);
+      } catch (_) {}
+    };
+    fab.addEventListener("pointerdown", down);
+    fab.addEventListener("pointermove", move);
+    fab.addEventListener("pointerup", up);
+    fab.addEventListener("pointercancel", up);
+    window.addEventListener("resize", () => {
+      const r = fab.getBoundingClientRect();
+      clampFab(fab, r.left, r.top);
+    });
   }
 
   function coachUnit(unitId, coach) {
