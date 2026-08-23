@@ -241,9 +241,11 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .overlay .panel { text-align: center; }
 
 #screen-title {
-  display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+#screen-title.active {
+  display: flex;
 }
 #screen-title .bg-plate {
   opacity: 1;
