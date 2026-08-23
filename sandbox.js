@@ -886,6 +886,9 @@
       el.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", c.id);
         e.dataTransfer.effectAllowed = "copy";
+        if (window.LtDrag && window.LtDrag.setHtml5Image) {
+          window.LtDrag.setHtml5Image(e, { html: partThumb(c), label: c.name });
+        }
       });
       if (window.LtDrag && c.slot) {
         window.LtDrag.bindSource(el, {

@@ -232,6 +232,10 @@
       el.innerHTML = thumb(p) + "<div><strong>" + p.name + "</strong><small>" + p.desc + "</small></div>";
       el.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", p.id);
+        e.dataTransfer.effectAllowed = "copy";
+        if (window.LtDrag && window.LtDrag.setHtml5Image) {
+          window.LtDrag.setHtml5Image(e, { html: thumb(p), label: p.name });
+        }
       });
       if (window.LtDrag && p.slot) {
         window.LtDrag.bindSource(el, {

@@ -1556,7 +1556,9 @@ select:focus-visible {
 .lt-drag-ghost.on { display: block; }
 .lt-drag-ghost .part-img { width: 56px; height: 56px; object-fit: contain; }
 .lt-drag-ghost .ico { font-size: 28px; display: block; }
-.lt-drag-ghost strong { display: block; margin-top: 4px; font-size: 11px; }
+.lt-custom-drag-img .part-img { width: 64px; height: 64px; object-fit: contain; display: block; margin: 0 auto; }
+.lt-custom-drag-img .ico { font-size: 32px; display: block; }
+.lt-custom-drag-img strong { display: block; margin-top: 4px; color: #fff; }
 
 /* Real equipment part photos */
 .sb-item .part-img {

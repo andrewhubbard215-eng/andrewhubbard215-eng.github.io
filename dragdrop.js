@@ -1,4 +1,4 @@
-/* Pointer drag-and-drop — mouse + touch. Works in the live preview iframe. */
+/* Pointer drag-and-drop + HTML5 custom drag images */
 (function (global) {
   "use strict";
 
@@ -11,6 +11,34 @@
     ghost.setAttribute("aria-hidden", "true");
     document.body.appendChild(ghost);
     return ghost;
+  }
+
+  function makeCustomImage(opts) {
+    const node = document.createElement("div");
+    node.className = "lt-custom-drag-img";
+    node.setAttribute("aria-hidden", "true");
+    const html = (opts && opts.html) || "";
+    const label = (opts && opts.label) || "";
+    node.innerHTML = html + (label ? "<strong>" + label + "</strong>" : "");
+    node.style.cssText =
+      "position:absolute;left:-9999px;top:0;width:96px;padding:8px;border-radius:12px;" +
+      "background:rgba(14,20,28,0.95);border:2px solid #CE0034;color:#fff;text-align:center;" +
+      "font:700 11px/1.2 system-ui,sans-serif;box-shadow:0 12px 28px rgba(0,0,0,.45);z-index:99998;";
+    document.body.appendChild(node);
+    return node;
+  }
+
+  /** HTML5 DnD: custom drag ghost (compressor photo, not the default grey box). */
+  function setHtml5Image(e, opts) {
+    if (!e || !e.dataTransfer || !e.dataTransfer.setDragImage) return;
+    const node = makeCustomImage(opts || {});
+    void node.offsetWidth;
+    try {
+      e.dataTransfer.setDragImage(node, 48, 40);
+    } catch (_) {}
+    setTimeout(function () {
+      if (node && node.parentNode) node.parentNode.removeChild(node);
+    }, 0);
   }
 
   function slotUnder(x, y, selector) {
@@ -82,5 +110,5 @@
     });
   }
 
-  global.LtDrag = { bindSource, slotUnder };
+  global.LtDrag = { bindSource, slotUnder, setHtml5Image, makeCustomImage };
 })(window);
