@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Lincoln Tech HVAC Allstars</title>
+  <meta name="description" content="Lincoln Tech HVAC Allstars — daily vocational training sim with Professor Andrew Hubbard. Mini-split install, sandbox, EPA 608, service calls." />
+  <meta name="theme-color" content="#CE0034" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="HVAC Allstars" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- TITLE -->
+    <section id="screen-title" class="screen active">
+      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="vignette"></div>
+      <div class="title-card">
+        <div class="brand-bar">
+          <div class="brand-mark">LT</div>
+          <div class="brand-word">
+            <strong>LINCOLN TECH</strong>
+            <span>Hands-on training since 1946</span>
+          </div>
+        </div>
+        <div class="hub-face-wrap">
+          <img src="hub-portrait.jpg" alt="Professor Andrew Hubbard" class="hub-face" />
+          <div class="hub-face-meta">
+            <strong>Professor Andrew Hubbard</strong>
+            <span>Lincoln Tech · HVAC Allstars</span>
+          </div>
+        </div>
+        <p class="eyebrow">System sim · EPA 608 Kahoot · HVAC BROS · Driving</p>
+        <h1>HVAC <span class="lt-red">Allstars</span></h1>
+        <p class="lede">Build the cycle. Quiz 608. Rooftop BROS. Falcon yard.</p>
+        <button class="btn primary" id="btn-start">Clock In</button>
+        <button class="btn hidden" id="btn-continue">Continue</button>
+        <p class="hint">v2.9 · Clock In here to play</p>
+      </div>
+      <p class="lt-disclaimer">Lincoln Tech HVAC Allstars · Built with Grok · Instructor: Professor Andrew Hubbard · Unofficial student training simulation</p>
+    </section>
+
+    <!-- CHARACTER -->
+    <section id="screen-character" class="screen">
+      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="vignette"></div>
+      <div class="panel char-panel">
+        <div class="brand-bar" style="justify-content:flex-start;margin-bottom:10px">
+          <div class="brand-mark">LT</div>
+          <div class="brand-word">
+            <strong>LINCOLN TECH</strong>
+            <span>Create your student account</span>
+          </div>
+        </div>
+        <p class="eyebrow">Locker · photo · campus</p>
+        <h2>Build your tech</h2>
+        <div class="char-photo-row">
+          <img id="char-preview" class="char-preview" src="hub-portrait.jpg" alt="Your photo" />
+          <div>
+            <label class="btn char-photo-btn">Add your picture
+              <input id="char-photo" type="file" accept="image/*" hidden />
+            </label>
+            <p class="char-photo-hint">Selfie or school ID. Stays on this device.</p>
+          </div>
+        </div>
+        <label>Callsign / name
+          <input id="callsign" maxlength="16" placeholder="Your name on the floor" value="" />
+        </label>
+        <label>Campus
+          <select id="campus">
+            <option value="levittown" selected>Levittown, PA — Philly area</option>
+            <option value="mahwah">Mahwah, NJ</option>
+            <option value="union">Union, NJ</option>
+            <option value="moorestown">Moorestown, NJ</option>
+            <option value="eastwindsor">East Windsor, CT</option>
+            <option value="newbritain">New Britain, CT</option>
+            <option value="shelton">Shelton, CT</option>
+            <option value="lincolnri">Lincoln, RI</option>
+            <option value="columbia">Columbia, MD</option>
+            <option value="indianapolis">Indianapolis, IN</option>
+            <option value="melrose">Melrose Park, IL</option>
+            <option value="denver">Denver, CO</option>
+            <option value="nashville">Nashville, TN</option>
+            <option value="houston">Houston, TX</option>
+            <option value="grandprairie">Grand Prairie, TX</option>
+            <option value="other">Other Lincoln Tech campus</option>
+          </select>
+        </label>
+        <label>Class / section (optional)
+          <input id="class-section" maxlength="24" placeholder="HCR1 AM · evening · etc." />
+        </label>
+        <label>Specialization
+          <select id="spec">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="refrigeration">Refrigeration</option>
+          </select>
+        </label>
+        <p class="eyebrow">Look</p>
+        <div class="char-looks" id="char-looks">
+          <button type="button" class="char-look on" data-look="hardhat">Hard hat</button>
+          <button type="button" class="char-look" data-look="hoodie">Hoodie</button>
+          <button type="button" class="char-look" data-look="coveralls">Coveralls</button>
+          <button type="button" class="char-look" data-look="glasses">Safety glasses</button>
+        </div>
+        <button class="btn primary" id="btn-clockin" disabled>Create account · clock in</button>
+      </div>
+    </section>
+
+    <!-- HUB -->
+    <section id="screen-hub" class="screen">
+      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="vignette"></div>
+      <header class="hub-head">
+        <div class="hub-head-left">
+          <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-avatar" />
+          <img id="hub-student" class="hub-student-av hidden" alt="Student" />
+          <div>
+            <div class="brand-bar" style="justify-content:flex-start;margin-bottom:6px">
+              <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
+              <div class="brand-word">
+                <strong style="font-size:15px">LINCOLN TECH</strong>
+                <span>Shop floor · Professor Andrew Hubbard</span>
+              </div>
+            </div>
+            <p class="eyebrow">On the clock</p>
+            <h2 id="hub-name">Tech</h2>
+            <p id="hub-meta" class="hub-meta"></p>
+          </div>
+        </div>
+        <div class="hub-stats">
+          <span id="hub-cash">$0</span>
+          <span id="hub-jobs">0 jobs</span>
+          <span id="hub-xp">0 XP</span>
+          <span id="hub-rank">Helper</span>
+          <button type="button" class="btn" id="hub-locker">Locker</button>
+        </div>
+      </header>
+      <div id="hub-tip" class="hub-tip hidden">
+        <strong>First day tip</strong>
+        <p>Core path: Sandbox · Electrical · Commandments · Quiz · Ask HUB. Mini-split and service after that.</p>
+        <button type="button" class="btn" id="hub-tip-dismiss">Got it</button>
+      </div>
+      <div id="badge-rack"></div>
+      <div id="daily-root"></div>
+      <div id="hub-commandments" class="hub-commandments"></div>
+      <p class="hub-section">Training floor · system sim · quiz · AI</p>
+      <div class="hub-grid">
+        <button class="mode-card mode-card-featured" data-mode="sandbox">
+          <div class="mode-icon" aria-hidden="true">🔄</div>
+          <div>
+            <h3>System sandbox</h3>
+            <p>CoolGame circuit builder · drag-drop · live pressures · SH/SC · flow</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="electrical">
+          <div class="mode-icon" aria-hidden="true">📟</div>
+          <div>
+            <h3>Electrical sim</h3>
+            <p>240 / 24V · contactor · cap · safeties · DMM probe · amps · µF</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="aihelper">
+          <div class="mode-icon" aria-hidden="true">🦸</div>
+          <div>
+            <h3>AI Install & Troubleshoot</h3>
+            <p>Step-by-step install · diagnostic checklists · Ask HUB on every tip</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="quiz">
+          <div class="mode-icon" aria-hidden="true">🎯</div>
+          <div>
+            <h3>Kahoot Quiz Arena</h3>
+            <p>Timed MCQs · EPA 608 · OSHA · install · PIN · live leaderboard</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="commandments">
+          <div class="mode-icon" aria-hidden="true">📜</div>
+          <div>
+            <h3>HVAC Commandments</h3>
+            <p>Ten shop laws · recover · flare · N₂ · microns · SH/SC · LOTO</p>
+          </div>
+        </button>
+        <button class="mode-card" data-mode="minisplit">
+          <div class="mode-icon" aria-hidden="true">❄️</div>
+          <div>
+            <h3>Mini-split install</h3>
+            <p>11-step lab · flare · N₂ · vacuum · commission · get paid</p>
+          </div>
+        </button>
+        <button class="mode-card" data-mode="service">
+          <div class="mode-icon" aria-hidden="true">🔧</div>
+          <div>
+            <h3>Service calls</h3>
+            <p>Field troubleshoot · customers · gauges · AI walkthrough</p>
+          </div>
+        </button>
+        <button class="mode-card" data-mode="curriculum">
+          <div class="mode-icon" aria-hidden="true">📚</div>
+          <div>
+            <h3>Curriculum</h3>
+            <p>HCR units · AI coach per lesson · practice before lab</p>
+          </div>
+        </button>
+        <button class="mode-card" data-mode="compete">
+          <div class="mode-icon" aria-hidden="true">🏆</div>
+          <div>
+            <h3>Online All-Star Arena</h3>
+            <p>Class PIN quizzes · shop chat · live leaderboard</p>
+          </div>
+        </button>
+      </div>
+      <p class="hub-section">Arcade · HVAC BROS · driving</p>
+      <div class="vehicle-pick" id="vehicle-pick">
+        <p class="eyebrow">Choose your ride</p>
+        <div class="vehicle-row">
+          <button type="button" class="vehicle-card selected" data-vehicle="falcon" id="veh-falcon">
+            <img src="falcon-red.png" alt="1964 Falcon" class="contain" />
+            <div>
+              <h4>1964 Falcon V8</h4>
+              <p>Red · black stripe · convertible · Twisted yard</p>
+            </div>
+          </button>
+          <button type="button" class="vehicle-card" data-vehicle="van" id="veh-van">
+            <img src="hvac-van.png" alt="HVAC van" class="contain" />
+            <div>
+              <h4>HVAC service van</h4>
+              <p>Roof racks · tanks · tanky</p>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="hub-grid">
+        <button class="mode-card mode-card-featured" data-mode="bros">
+          <div class="mode-icon" aria-hidden="true">👷</div>
+          <div>
+            <h3>HVAC BROS</h3>
+            <p>Rooftop run · stomp iced coils · commission the RTU</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="arena" id="card-arena">
+          <img src="arena.jpg" alt="" />
+          <div>
+            <h3 id="arena-title">Falcon arena</h3>
+            <p id="arena-copy">1964 Falcon V8 · Twisted yard driving</p>
+          </div>
+        </button>
+        <button class="mode-card" data-mode="rapture" id="card-rapture">
+          <img src="jesus.png" alt="" class="contain" />
+          <div>
+            <h3>HVAC Jesus · The Rapture</h3>
+            <p id="rapture-copy">He lists the Commandments. All-Star techs receive the Gauges of God.</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- HVAC BROS -->
+    <section id="screen-bros" class="screen">
+      <div id="bros-root"></div>
+    </section>
+
+
+    <!-- ELECTRICAL SIM -->
+    <section id="screen-electrical" class="screen">
+      <div id="electrical-root"></div>
+    </section>
+
+    <!-- HVAC SANDBOX -->
+    <section id="screen-sandbox" class="screen">
+      <div id="sandbox-root"></div>
+    </section>
+
+    <!-- AI INSTALL / TROUBLESHOOT HELPER -->
+    <section id="screen-aihelper" class="screen">
+      <div id="aihelper-root"></div>
+    </section>
+
+    <!-- MINI-SPLIT INSTALL -->
+    <section id="screen-minisplit" class="screen">
+      <div id="minisplit-root"></div>
+    </section>
+
+    <!-- CURRICULUM TRAINING -->
+    <section id="screen-curriculum" class="screen">
+      <div id="curriculum-root"></div>
+    </section>
+
+    <!-- QUIZ ARENA -->
+    <section id="screen-quiz" class="screen">
+      <div id="quiz-root"></div>
+    </section>
+
+    <!-- ONLINE COMPETE -->
+    <section id="screen-compete" class="screen">
+      <div id="compete-root"></div>
+    </section>
+
+    <section id="screen-commandments" class="screen">
+      <div id="commandments-root"></div>
+    </section>
+
+    <!-- RAPTURE -->
+    <section id="screen-rapture" class="screen">
+      <video id="heaven-vid" src="heaven.mp4" muted playsinline loop></video>
+      <div class="vignette"></div>
+      <img id="jesus-sprite" src="jesus.png" alt="HVAC Jesus" />
+      <div class="panel bottom rapture-lore">
+        <p class="eyebrow">HVAC Jesus · Lincoln Tech roof</p>
+        <h2>Hear the HVAC Commandments</h2>
+        <blockquote class="jesus-speak" id="jesus-speak">
+          “I am HVAC Jesus. Recover, don’t vent. These ten are the law of the shop. Repeat them until your manifold dreams in P/T.”
+        </blockquote>
+        <ol class="cmd-list" id="rapture-commandments"></ol>
+        <div class="row" style="margin-top:12px">
+          <button class="btn primary" id="btn-accept">I receive the Gauges of God</button>
+          <button class="btn" id="btn-rapture-hub">Shop floor</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE CALLS -->
+    <section id="screen-service" class="screen">
+      <div class="bg-plate dark"></div>
+      <div class="svc-wrap">
+        <header class="svc-top">
+          <div>
+            <p class="eyebrow" id="svc-eyebrow">Service call</p>
+            <h2 id="svc-title">Dispatch</h2>
+          </div>
+          <div class="svc-meters">
+            <span id="svc-score">Call 0</span>
+            <span id="svc-rating">★ ★ ★ ★ ★</span>
+            <label class="spicy-toggle" title="Spicy mode: funnier, slightly inappropriate customers">
+              <input type="checkbox" id="svc-spicy" />
+              <span>🌶️ Spicy</span>
+            </label>
+          </div>
+        </header>
+        <div class="svc-card">
+          <div class="svc-customer">
+            <div class="svc-avatar" id="svc-avatar">👤</div>
+            <div>
+              <p class="svc-name" id="svc-name">Customer</p>
+              <p class="svc-job" id="svc-job">Address · complaint</p>
+            </div>
+          </div>
+          <blockquote class="svc-quote" id="svc-quote">“…”</blockquote>
+          <div class="svc-vitals" id="svc-vitals"></div>
+          <p class="svc-prompt" id="svc-prompt">What do you do?</p>
+          <div id="svc-choices" class="svc-choices"></div>
+          <p id="svc-feedback" class="svc-feedback"></p>
+          <div class="svc-nav">
+            <button class="btn" id="btn-svc-hub">Shop floor</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME CANVAS — driving arena -->
+    <section id="screen-game" class="screen">
+      <canvas id="game"></canvas>
+      <div id="hud">
+        <div class="hud-top">
+          <span id="hud-mode">Arena</span>
+          <span id="hud-wave">Wave 1</span>
+          <span id="hud-score">0</span>
+        </div>
+        <div class="hud-bars">
+          <div class="bar"><i id="hp-fill"></i><span id="hp-txt">100</span></div>
+          <div class="bar ammo"><i id="ammo-fill"></i><span id="ammo-txt">12 / 12</span></div>
+        </div>
+        <div id="hud-msg"></div>
+      </div>
+      <div id="touch" class="touch">
+        <button data-k="KeyA">←</button>
+        <button data-k="KeyD">→</button>
+        <button data-k="KeyW">↑</button>
+        <button data-k="KeyS">↓</button>
+        <button data-k="KeyF" class="fire">Gun</button>
+        <button data-k="KeyJ">Flame</button>
+        <button data-k="KeyG">Ice</button>
+        <button data-k="KeyR">Reload</button>
+        <button id="btn-pause">Menu</button>
+      </div>
+      <div id="overlay" class="overlay hidden">
+        <div class="panel">
+          <h2 id="ov-title">Paused</h2>
+          <p id="ov-body"></p>
+          <div class="row">
+            <button class="btn primary" id="ov-resume">Resume</button>
+            <button class="btn" id="ov-hub">Shop floor</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <p class="version-strip">HVAC Allstars · v2.9 · sim · quiz · BROS · driving</p>
+  </div>
+  <script src="commandments.js"></script>
+  <script src="dragdrop.js"></script>
+  <script src="hvac-bros.js"></script>
+  <script src="electrical.js"></script>
+  <script src="sandbox.js"></script>
+  <script src="minisplit.js"></script>
+  <script src="ai-helper.js"></script>
+  <script src="service.js"></script>
+  <script src="instructor.js"></script>
+  <script src="hub-ai.js"></script>
+  <script src="quiz-arena.js"></script>
+  <script src="compete.js"></script>
+  <script src="chat.js"></script>
+  <script src="badges.js"></script>
+  <script src="curriculum.js"></script>
+  <script src="daily.js"></script>
+  <script src="game.js?v=28"></script>
+  <script>
+    (function () {
+      function killWanted() {
+        document.querySelectorAll("#epa-wanted, .epa-wanted, .epa-stars, .epa-actions").forEach(function (n) {
+          n.remove();
+        });
+      }
+      killWanted();
+      setInterval(killWanted, 400);
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (rs) {
+          rs.forEach(function (r) { r.unregister(); });
+        });
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

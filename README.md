@@ -1,2 +1,1 @@
-# andrewhubbard215-eng.github.io
-Lincoln Tech HVAC Allstars — play in the browser
+Lincoln Tech HVAC Allstars. Play: https://andrewhubbard215-eng.github.io/
