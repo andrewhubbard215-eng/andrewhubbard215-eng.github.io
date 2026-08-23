@@ -1153,7 +1153,6 @@
       g.fillText(String(pt.n), x + 6, y - 6);
     });
   }
-  }
 
   function elecReady() {
     return !!(placed.disconnect && placed.contactor && placed.capacitor && placed.transformer && placed.thermostat);
