@@ -404,11 +404,11 @@
     { id: "epa608", name: "EPA 608", blurb: "Recovery, vacuum, cylinders, Type I / II / III / Universal" },
     { id: "osha30", name: "OSHA 30", blurb: "Falls, LOTO, PPE, electrical, heat, SDS" },
     { id: "curriculum", name: "Lincoln Tech Curriculum", blurb: "Cycle, SH/SC, gauges, DMM, mini-split, airflow" },
-    { id: "commandments", name: "HVAC Commandments", blurb: "The ten shop laws — recover, flare, N₂, microns, SH/SC" },
-    { id: "mixed", name: "Mixed All-Star", blurb: "EPA + OSHA + curriculum + commandments" },
+    { id: "mixed", name: "Quiz Game mix", blurb: "EPA 608 + OSHA 30 + Lincoln Tech only" },
   ];
 
-  const COLORS = ["#e21b70", "#1368ce", "#d89e00", "#26890c"]; // Kahoot-ish
+  const COLORS = ["#e21b70", "#1368ce", "#d89e00", "#26890c"];
+  const SHAPES = ["▲", "◆", "●", "■"];
 
   let root = null;
   let hooks = {};
@@ -692,7 +692,7 @@
   function renderReveal(correct, why) {
     const item = questions[qi];
     if (!item) return;
-    root.querySelectorAll(".qa-choice").forEach((btn, i) => {
+    root.querySelectorAll(".qa-choice, .qa-k-btn").forEach((btn, i) => {
       btn.classList.add("locked");
       if (i === correct) btn.classList.add("correct");
       if (selected === i && i !== correct) btn.classList.add("wrong");
@@ -736,8 +736,8 @@
     role = "solo";
     nickname = (root.querySelector("#qa-nick") && root.querySelector("#qa-nick").value.trim()) || "Tech";
     packId = (root.querySelector("#qa-pack") && root.querySelector("#qa-pack").value) || "mixed";
-    const keys = packId === "mixed" ? ["epa608", "osha30", "curriculum", "commandments"] : [packId];
-    questions = mixBanks(keys).slice(0, 10);
+    const keys = packId === "mixed" ? ["epa608", "osha30", "curriculum"] : [packId];
+    questions = mixBanks(keys).slice(0, 12);
     qi = 0;
     scores = {};
     scores[nickname] = 0;
@@ -771,8 +771,8 @@
   }
 
   async function hostBegin() {
-    const keys = packId === "mixed" ? ["epa608", "osha30", "curriculum", "commandments"] : [packId];
-    questions = mixBanks(keys).slice(0, 10);
+    const keys = packId === "mixed" ? ["epa608", "osha30", "curriculum"] : [packId];
+    questions = mixBanks(keys).slice(0, 12);
     qi = 0;
     mode = "play";
     selected = null;
@@ -834,7 +834,7 @@
         fb.textContent = "Answer locked in. Waiting for timer…";
         fb.className = "qa-feedback";
       }
-      root.querySelectorAll(".qa-choice").forEach((b, idx) => {
+      root.querySelectorAll(".qa-choice, .qa-k-btn").forEach((b, idx) => {
         b.classList.add("locked");
         if (idx === i) b.classList.add("picked");
       });
@@ -842,7 +842,7 @@
       // solo waits for timer OR allow instant resolve for snappy feel
       finishQuestion();
     } else if (role === "host") {
-      root.querySelectorAll(".qa-choice").forEach((b, idx) => {
+      root.querySelectorAll(".qa-choice, .qa-k-btn").forEach((b, idx) => {
         b.classList.add("locked");
         if (idx === i) b.classList.add("picked");
       });
@@ -881,7 +881,7 @@
           <header class="qa-head">
             <div class="brand-bar" style="justify-content:flex-start">
               <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
-              <div class="brand-word"><strong style="font-size:15px">LINCOLN TECH QUIZ ARENA</strong><span>Professor HUB · Kahoot-style · EPA · OSHA · Curriculum</span></div>
+              <div class="brand-word"><strong style="font-size:15px">QUIZ GAME</strong><span>Kahoot clone · EPA 608 · OSHA 30 · Lincoln Tech curriculum</span></div>
             </div>
             <button class="btn" id="qa-hub">Shop floor</button>
           </header>
@@ -980,30 +980,28 @@
       return;
     }
     root.innerHTML = `
-      <div class="qa-shell">
-        <header class="qa-head">
-          <div>
-            <p class="eyebrow">${(item.pack || packId || "").toUpperCase()} · Q ${qi + 1}/${questions.length}</p>
-            <div class="qa-timer-text">${Math.ceil(timer)}s</div>
-          </div>
-          <div class="qa-score-chip">${nickname}: ${scores[nickname] || 0}</div>
+      <div class="qa-kahoot">
+        <header class="qa-k-top">
+          <span class="qa-k-pack">${(item.pack || packId || "").replace("curriculum","Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
+          <span class="qa-k-q">Q ${qi + 1} / ${questions.length}</span>
+          <span class="qa-k-time">${Math.ceil(timer)}</span>
+          <span class="qa-k-score">${scores[nickname] || 0}</span>
           <button class="btn" id="qa-hub">Shop floor</button>
         </header>
-        <div class="qa-timer-bar"><i style="width:${(timer / timerMax) * 100}%"></i></div>
-        <h2 class="qa-question">${item.q}</h2>
-        <div class="qa-choices">
+        <div class="qa-k-bar"><i style="width:${(timer / timerMax) * 100}%"></i></div>
+        <h2 class="qa-k-question">${item.q}</h2>
+        <div class="qa-k-grid">
           ${item.choices
             .map(
               (c, i) =>
-                `<button class="qa-choice" data-i="${i}" style="--qa:${COLORS[i]}"><span>${"ABCD"[i]}</span>${c}</button>`
+                `<button class="qa-k-btn" data-i="${i}" style="background:${COLORS[i]}"><span class="qa-k-shape">${SHAPES[i]}</span><span class="qa-k-txt">${c}</span></button>`
             )
             .join("")}
         </div>
         <p class="qa-feedback"></p>
         <button class="btn primary qa-next hidden">Next</button>
-        <div class="qa-side-lb">${leaderboardHtml()}</div>
       </div>`;
-    root.querySelectorAll(".qa-choice").forEach((btn) => {
+    root.querySelectorAll(".qa-k-btn").forEach((btn) => {
       btn.onclick = () => pick(+btn.dataset.i);
     });
     const hubBtn = root.querySelector("#qa-hub");

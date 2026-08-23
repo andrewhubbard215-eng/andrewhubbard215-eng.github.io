@@ -2023,3 +2023,39 @@ select:focus-visible {
 }
 .quiz-launch-sub { display: block; font-size: 14px; opacity: 0.95; }
 .quiz-launch:hover { filter: brightness(1.08); }
+
+#screen-quiz { background: #1c1147; }
+.qa-kahoot { min-height: 100%; display: flex; flex-direction: column; padding: 10px 12px 16px; }
+.qa-k-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: #fff; }
+.qa-k-pack { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #ffd54a; }
+.qa-k-q { margin-left: auto; font-size: 13px; }
+.qa-k-time {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #fff; color: #1c1147; font-weight: 800; font-size: 20px;
+}
+.qa-k-score { font-weight: 800; }
+.qa-k-bar { height: 8px; background: rgba(255,255,255,.2); border-radius: 99px; margin: 10px 0 14px; overflow: hidden; }
+.qa-k-bar i { display: block; height: 100%; background: #fff; }
+.qa-k-question {
+  color: #fff; font-size: clamp(22px, 4vw, 36px); line-height: 1.2;
+  text-align: center; margin: 8px 8px 16px; min-height: 3.2em;
+}
+.qa-k-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 280px;
+}
+.qa-k-btn {
+  border: 0; border-radius: 8px; color: #fff; cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px; text-align: left; font-weight: 700; font-size: 16px;
+}
+.qa-k-shape { font-size: 28px; line-height: 1; }
+.qa-k-txt { flex: 1; }
+.qa-k-btn.picked { outline: 4px solid #fff; }
+.qa-k-btn.correct { outline: 4px solid #7fff9a; filter: brightness(1.15); }
+.qa-k-btn.wrong { filter: grayscale(.4) brightness(.7); }
+.qa-k-btn.locked { pointer-events: none; }
