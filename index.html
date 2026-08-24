@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=59" />
+  <link rel="stylesheet" href="style.css?v=63" />
 </head>
 <body>
   <div id="app">
@@ -26,10 +26,9 @@
         <img src="hub-portrait.jpg" alt="" class="title-dock-face" />
         <div class="title-dock-copy">
           <strong>HVAC Allstars</strong>
-          <span>Clock in, then pick your game on the shop floor</span>
+          <span>Clock in first. Games are on the shop floor after that.</span>
         </div>
         <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
-        <button class="btn hidden" id="btn-continue">Continue</button>
       </div>
     </section>
 
@@ -49,12 +48,12 @@
         <p class="eyebrow">Locker · photo · campus</p>
         <h2>Build your tech</h2>
         <div class="char-photo-row">
-          <img id="char-preview" class="char-preview" src="hub-portrait.jpg" alt="Your photo" />
+          <img id="char-preview" class="char-preview char-preview-empty" alt="No photo yet" />
           <div>
             <label class="btn char-photo-btn">Add your picture
               <input id="char-photo" type="file" accept="image/*" hidden />
             </label>
-            <p class="char-photo-hint">Selfie or school ID. Stays on this device.</p>
+            <p class="char-photo-hint">Optional. Starts blank — not Professor HUB. Selfie stays on this device.</p>
           </div>
         </div>
         <label>Callsign / name
@@ -105,7 +104,8 @@
           <button type="button" class="char-look" data-look="coveralls">Coveralls</button>
           <button type="button" class="char-look" data-look="glasses">Safety glasses</button>
         </div>
-        <button class="btn primary" id="btn-clockin" disabled>Create account · clock in</button>
+        <button class="btn primary" id="btn-clockin" disabled>Create locker · clock in to shop floor</button>
+        <p class="char-photo-hint">No games on this screen. After clock in you land on the shop floor — sandbox, quiz, electrical.</p>
       </div>
     </section>
 
@@ -359,7 +359,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=62"></script>
+  <script src="game.js?v=63"></script>
   <script>
     (function () {
       function killWanted() {

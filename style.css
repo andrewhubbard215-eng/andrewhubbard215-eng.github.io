@@ -1881,6 +1881,14 @@ select:focus-visible {
 .char-preview {
   width: 88px; height: 88px; border-radius: 50%;
   object-fit: cover; border: 3px solid #CE0034; flex-shrink: 0;
+  background: #1a222c;
+}
+.char-preview-empty {
+  border-style: dashed;
+  border-color: #5a6570;
+  background:
+    linear-gradient(#1a222c, #1a222c) padding-box,
+    repeating-linear-gradient(45deg, #2a333c 0 6px, #1a222c 6px 12px);
 }
 .char-photo-btn { display: inline-block; cursor: pointer; }
 .char-photo-hint { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.35; }

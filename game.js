@@ -1736,7 +1736,11 @@
     const btnIn = document.getElementById("btn-clockin");
     const photoInp = document.getElementById("char-photo");
     const preview = document.getElementById("char-preview");
-    if (state.photo && preview) preview.src = state.photo;
+    if (preview) {
+      preview.removeAttribute("src");
+      preview.classList.add("char-preview-empty");
+      preview.alt = "No photo yet";
+    }
     if (state.campus) {
       const csel = document.getElementById("campus");
       if (csel) csel.value = state.campus;
@@ -1767,7 +1771,10 @@
           const m = Math.min(img.width, img.height);
           ctx.drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, 256, 256);
           state.photo = canvas.toDataURL("image/jpeg", 0.82);
-          if (preview) preview.src = state.photo;
+          if (preview) {
+            preview.src = state.photo;
+            preview.classList.remove("char-preview-empty");
+          }
           URL.revokeObjectURL(url);
         };
         img.src = url;
@@ -1810,7 +1817,7 @@
         save();
         refreshHub();
         show("hub");
-        toast("Locker saved", "ok");
+        toast("Shop floor · pick a game", "ok");
         return;
       }
       if (!pw || pw.length < 4) {
@@ -1841,7 +1848,7 @@
           refreshHub();
           if (isHub() && !state.raptureSeen) openRapture();
           else show("hub");
-          toast("Welcome back, " + state.callsign, "ok");
+          toast("Shop floor · pick a game (sandbox, quiz, electrical)", "ok");
           return;
         }
         if (pw !== pw2) {
@@ -1868,7 +1875,7 @@
         refreshHub();
         if (isHub() && !state.raptureSeen) openRapture();
         else show("hub");
-        toast("Locker created for " + name, "ok");
+        toast("Shop floor · pick a game (sandbox, quiz, electrical)", "ok");
       })().catch(() => toast("Password check failed", "bad"));
     };
     const logoutBtn = document.getElementById("hub-logout");
