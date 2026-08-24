@@ -1,6 +1,4 @@
-/* All-Star Quiz Arena — Kahoot-style
-   EPA 608 · OSHA 30 · Lincoln Tech HVAC curriculum
-   Solo + Classroom party (PIN lobby via BroadcastChannel on same origin) */
+/* All-Star Exam Board — EPA 608 · OSHA 30 · Lincoln Tech HVAC */
 (function (global) {
   "use strict";
 
@@ -464,8 +462,7 @@
     { id: "mixed", name: "Quiz Game mix", blurb: "EPA 608 + OSHA 30 + Lincoln Tech only" },
   ];
 
-  const COLORS = ["#e21b70", "#1368ce", "#d89e00", "#26890c"];
-  const SHAPES = ["▲", "◆", "●", "■"];
+  const LETTERS = ["A", "B", "C", "D"];
 
   let root = null;
   let hooks = {};
@@ -763,7 +760,7 @@
     }
     const rows = item.choices
       .map((c, i) => {
-        const letter = SHAPES[i] || "ABCD"[i];
+        const letter = LETTERS[i] || String(i + 1);
         if (i === correct) {
           return (
             '<li class="qa-break right"><strong>' +
@@ -963,12 +960,12 @@
           <header class="qa-head">
             <div class="brand-bar" style="justify-content:flex-start">
               <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
-              <div class="brand-word"><strong style="font-size:15px">QUIZ GAME</strong><span>Kahoot clone · EPA 608 · OSHA 30 · Lincoln Tech curriculum</span></div>
+              <div class="brand-word"><strong style="font-size:15px">ALL-STAR EXAM</strong><span>EPA 608 · OSHA 30 · Lincoln Tech · timed shop quiz</span></div>
             </div>
             <button class="btn" id="qa-hub">Shop floor</button>
           </header>
           <div class="qa-lobby">
-            <p class="qa-lede">Kahoot-style. Four colors. Speed + accuracy. Pick a pack or mix them.</p>
+            <p class="qa-lede">Timed exam board. Pick a pack. Speed still pays — wrong answers still cost. Not a party-game clone.</p>
             <div class="qa-pack-row" id="qa-pack-row">
               <button type="button" class="qa-pack-btn" data-pack="epa608">EPA 608</button>
               <button type="button" class="qa-pack-btn" data-pack="osha30">OSHA 30</button>
@@ -1062,26 +1059,26 @@
       return;
     }
     root.innerHTML = `
-      <div class="qa-kahoot">
-        <header class="qa-k-top">
-          <span class="qa-k-pack">${(item.pack || packId || "").replace("curriculum","Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
-          <span class="qa-k-q">Q ${qi + 1} / ${questions.length}</span>
-          <span class="qa-k-time">${Math.ceil(timer)}</span>
-          <span class="qa-k-score">${scores[nickname] || 0}</span>
+      <div class="qa-exam">
+        <header class="qa-exam-top">
+          <span class="qa-exam-pack">${(item.pack || packId || "").replace("curriculum","Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
+          <span class="qa-exam-qnum">Item ${qi + 1} / ${questions.length}</span>
+          <span class="qa-timer-text qa-exam-time">${Math.ceil(timer)}s</span>
+          <span class="qa-exam-score">${scores[nickname] || 0} pts</span>
           <button class="btn" id="qa-hub">Shop floor</button>
         </header>
-        <div class="qa-k-bar"><i style="width:${(timer / timerMax) * 100}%"></i></div>
-        <h2 class="qa-k-question">${item.q}</h2>
-        <div class="qa-k-grid">
+        <div class="qa-timer-bar qa-exam-bar"><i style="width:${(timer / timerMax) * 100}%"></i></div>
+        <h2 class="qa-exam-question">${item.q}</h2>
+        <div class="qa-exam-grid">
           ${item.choices
             .map(
               (c, i) =>
-                `<button class="qa-k-btn" data-i="${i}" style="background:${COLORS[i]}"><span class="qa-k-shape">${SHAPES[i]}</span><span class="qa-k-txt">${c}</span></button>`
+                `<button class="qa-k-btn qa-exam-btn" data-i="${i}"><span class="qa-exam-letter">${LETTERS[i]}</span><span class="qa-k-txt">${c}</span></button>`
             )
             .join("")}
         </div>
         <p class="qa-feedback"></p>
-        <button class="btn primary qa-next hidden">Next</button>
+        <button class="btn primary qa-next hidden">Next item</button>
       </div>`;
     root.querySelectorAll(".qa-k-btn").forEach((btn) => {
       btn.onclick = () => pick(+btn.dataset.i);

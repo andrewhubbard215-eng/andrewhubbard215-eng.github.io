@@ -12,12 +12,12 @@
     {
       id: "locker",
       title: "Your locker",
-      say: "Top right: Locker. Put your name, campus, and a photo. That's how the Kahoot board and the shop know you. Callsign HUB if you want the Rapture unlocked like an instructor.",
+      say: "Top right: Locker. Put your name, campus, and a photo. That's how the exam board and the shop know you. Callsign HUB if you want the Rapture unlocked like an instructor.",
       highlight: "#hub-locker",
     },
     {
       id: "quiz",
-      title: "Kahoot Quiz Arena",
+      title: "All-Star Exam",
       say: "First card. EPA 608, OSHA 30, and Lincoln Tech curriculum. Four colors, timer, points for speed. Host a class with a 6-digit PIN — students join on their phones. Solo works too. This is how you prove 608 recovery, LOTO, and SH/SC.",
       highlight: '[data-mode="quiz"]',
       launch: "quiz",
@@ -59,14 +59,14 @@
     {
       id: "class",
       title: "Class compete",
-      say: "Online All-Star Arena: PIN quizzes, shop chat, leaderboard. You host. They join. Same site. That's how a Lincoln Tech class plays Kahoot against each other.",
+      say: "Online All-Star Arena: PIN exams, shop chat, leaderboard. You host. They join. Same site. Class vs class on phones.",
       highlight: '[data-mode="compete"]',
       launch: "compete",
     },
     {
       id: "done",
       title: "You're on the clock",
-      say: "That's the site. Kahoot first if you're studying 608. Sandbox if you want pressures. Ask me anything with Ask HUB. Recover, don't vent. Now get to work.",
+      say: "That's the site. All-Star Exam first if you're studying 608. Sandbox if you want pressures. Ask me anything with Ask HUB. Recover, don't vent. Now get to work.",
       highlight: null,
     },
   ];

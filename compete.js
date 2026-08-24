@@ -101,7 +101,7 @@
             </ol>
           </section>
         </div>
-        <p class="comp-how">How to compete: 1) Sign in  2) Clock in with your callsign  3) Finish Quiz Arena, mini-split, sandbox, or service  4) Scores post to this board. Host a Kahoot PIN so the whole class can play on their phones.</p>
+        <p class="comp-how">How to compete: 1) Sign in  2) Clock in  3) Finish All-Star Exam, mini-split, sandbox, or service  4) Scores post here. Host a class PIN so phones can join the same exam.</p>
       </div>`;
     root.querySelector("#comp-login").onclick = signIn;
     root.querySelector("#comp-refresh").onclick = loadBoard;

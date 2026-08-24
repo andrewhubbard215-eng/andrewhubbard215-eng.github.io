@@ -60,7 +60,7 @@
     {
       id: "quiz_champ",
       name: "Quiz Champion",
-      desc: "Took first on a Kahoot-style Quiz Game.",
+      desc: "Took first on the All-Star Exam.",
       icon: "🥇",
     },
     {
