@@ -608,6 +608,8 @@
   let host = null;
   let canvas = null;
   let ctx = null;
+  let glCtl = null;
+  let glView = false;
   let raf = 0;
   let placed = {}; // slotId -> componentId
   let challenge = null;
@@ -964,6 +966,7 @@
             <div class="sb-actions">
               <span id="sb-clock" class="sb-clock"></span>
               <button class="btn primary" id="sb-run">Start compressor</button>
+              <button class="btn" id="sb-3d" type="button">3D WebGL</button>
               <button class="btn" id="sb-clear">Clear board</button>
               <button class="btn" id="sb-hub">Shop floor</button>
             </div>
@@ -971,6 +974,7 @@
           <div id="sb-sysbanner" class="sb-sysbanner">Custom build — drop parts or load a system pack</div>
           <div class="sb-stage-wrap">
             <canvas id="sb-canvas"></canvas>
+            <canvas id="sb-gl" class="sb-gl hidden"></canvas>
             <div id="sb-slots" class="sb-slots"></div>
           </div>
         </main>
@@ -2251,7 +2255,11 @@
         lastFrostUi = fi;
         paintCoils();
       }
-      draw();
+      if (glView && glCtl && glCtl.draw) {
+        glCtl.draw({ running: running && requiredComplete(), t: animT });
+      } else {
+        draw();
+      }
     } catch (err) {
       if (typeof console !== "undefined") console.warn("sandbox tick", err);
     }
@@ -2318,6 +2326,29 @@
       if (running && onXp) onXp(15);
       updateDmm(simulate());
     };
+    const btn3d = document.getElementById("sb-3d");
+    if (btn3d) {
+      btn3d.onclick = () => {
+        const glc = document.getElementById("sb-gl");
+        if (!glView) {
+          if (!glCtl && window.LtWebGLCycle && glc) glCtl = window.LtWebGLCycle.attach(glc);
+          if (!glCtl) {
+            const st = document.getElementById("sb-status");
+            if (st) st.textContent = "WebGL not available on this device — staying on Canvas 2D.";
+            return;
+          }
+          glView = true;
+          glc.classList.remove("hidden");
+          canvas.classList.add("hidden");
+          btn3d.textContent = "2D shop";
+        } else {
+          glView = false;
+          if (glc) glc.classList.add("hidden");
+          canvas.classList.remove("hidden");
+          btn3d.textContent = "3D WebGL";
+        }
+      };
+    }
     const dmmModeEl = document.getElementById("dmm-mode");
     const dmmProbeEl = document.getElementById("dmm-probe");
     if (dmmModeEl) dmmModeEl.onchange = (e) => { dmmMode = e.target.value; updateDmm(simulate()); };
@@ -2372,6 +2403,8 @@
     gaugeAcc = 0;
     staticLayer = null;
     staticKey = "";
+    glCtl = null;
+    glView = false;
     particles = [];
     activeSystem = null;
     buildUI(root);

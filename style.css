@@ -345,7 +345,8 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .sb-stage-wrap {
   position: relative; flex: 1; min-height: 360px;
 }
-#sb-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#sb-canvas, #sb-gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+#sb-gl.hidden, #sb-canvas.hidden { display: none; }
 .sb-slots { position: absolute; inset: 0; pointer-events: none; }
 .sb-slot { pointer-events: auto; }
 .sb-slot {
