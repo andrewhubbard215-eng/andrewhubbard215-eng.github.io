@@ -1545,6 +1545,7 @@
       press = false;
       win.classList.remove("dragging");
     });
+    if (window.innerWidth < 700) win.classList.add("collapsed");
   }
 
   function applySystem(sys) {
@@ -1622,17 +1623,18 @@
       .join(" ");
     if (labId === "tu601") {
       el.innerHTML =
-        "<div class='lab-head'><strong>iConnect TU-601</strong> · Multi-head mini-split HP · R-410A ONLY · 208/240V 20A</div>" +
+        "<div class='lab-head'><strong>iConnect TU-601</strong> · Multi-head mini-split · R-410A ONLY <button type='button' class='btn' id='lab-fold'>Board</button></div>" +
         "<div class='lab-tu601'>" +
         "<div class='lab-odu'>DAIKIN ODU</div>" +
         "<div class='lab-glass-row'><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span></div>" +
         "<div class='lab-idu'>Cassette IDU</div>" +
         "<p class='lab-note'>Four sight-glass lines (liq/suc × zones). Flash in a glass = starved or restriction. Flares, not sweat. Nameplate law: R-410A only.</p>" +
         "</div><div class='lab-yt-row'>" + vidHtml + "</div>";
+      wireLabFold(el);
       return;
     }
     el.innerHTML =
-      "<div class='lab-head'><strong>iConnect TU-102</strong> · H-Block AC trainer · Lincoln Tech shop</div>" +
+      "<div class='lab-head'><strong>iConnect TU-102</strong> · H-Block <button type='button' class='btn' id='lab-fold'>Board</button></div>" +
       "<div class='lab-hblock'>" +
       "<div class='lab-coil ev'>EVAPORATOR<div class='lab-sg'>sight glass</div></div>" +
       "<div class='lab-fans'>" +
@@ -1712,6 +1714,14 @@
     el.querySelectorAll("[data-labf]").forEach((b) => {
       b.onclick = () => applyLabFault(b.getAttribute("data-labf"));
     });
+    wireLabFold(el);
+  }
+
+  function wireLabFold(el) {
+    if (!el) return;
+    if (window.innerWidth < 700) el.classList.add("collapsed");
+    const b = document.getElementById("lab-fold");
+    if (b) b.onclick = () => el.classList.toggle("collapsed");
   }
 
   function applyLabFault(kind) {
