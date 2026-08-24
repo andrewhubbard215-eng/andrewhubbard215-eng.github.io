@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=66" />
+  <link rel="stylesheet" href="style.css?v=68" />
 </head>
 <body>
   <div id="app">
@@ -137,16 +137,9 @@
           <span id="hub-rank">Helper</span>
           <button type="button" class="btn" id="hub-locker">Locker</button>
           <button type="button" class="btn" id="hub-logout">Log out</button>
+          <button type="button" class="btn primary" id="hub-open-sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
         </div>
       </header>
-      <div id="hub-tip" class="hub-tip hidden">
-        <strong>First day tip</strong>
-        <p>Core path: Sandbox · Electrical · Commandments · Quiz · Ask HUB. Mini-split and service after that.</p>
-        <button type="button" class="btn" id="hub-tip-dismiss">Got it</button>
-      </div>
-      <div id="badge-rack"></div>
-      <div id="daily-root"></div>
-      <div id="hub-commandments" class="hub-commandments"></div>
       <p class="hub-section">Games</p>
       <div class="game-name-btns" id="game-name-btns">
         <button type="button" class="game-name-btn" data-mode="sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
@@ -162,7 +155,15 @@
         <button type="button" class="game-name-btn" data-mode="rapture" onclick="window.ltPlay('rapture')">HVAC Jesus</button>
         <button type="button" class="game-name-btn" data-mode="character" onclick="window.ltPlay('character')">Locker</button>
       </div>
-      <p class="hub-section">Game options</p>
+      <div id="hub-tip" class="hub-tip hidden">
+        <strong>First day tip</strong>
+        <p>Core path: Sandbox · Electrical · Commandments · Quiz · Ask HUB. Mini-split and service after that.</p>
+        <button type="button" class="btn" id="hub-tip-dismiss">Got it</button>
+      </div>
+      <div id="badge-rack"></div>
+      <div id="daily-root"></div>
+      <div id="hub-commandments" class="hub-commandments"></div>
+      <p class="hub-section">More options</p>
       <div class="hub-grid" id="hub-options">
         <button class="mode-card mode-card-featured" data-mode="tutorial">
           <div class="mode-icon" aria-hidden="true">👷</div>
@@ -382,7 +383,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=67"></script>
+  <script src="game.js?v=68"></script>
   <script>
     (function () {
       function killWanted() {

@@ -2163,35 +2163,44 @@
   }
 
   function startSandbox() {
-    if (!window.HVACSandbox) {
-      toast("Sandbox script didn't load. Hard-refresh (Ctrl+Shift+R).", "bad");
-      return;
-    }
-    if (sandboxCtl) {
-      sandboxCtl.stop();
-      sandboxCtl = null;
-    }
     show("sandbox");
     const root = document.getElementById("sandbox-root");
-    sandboxCtl = window.HVACSandbox.start(root, {
-      onXp(n) {
-        state.xp += n;
-        save();
-        if (window.Badges) window.Badges.unlock("sandbox_tech");
-        markDaily("sandbox");
-        postCompete("score", { mode: "sandbox", score: 400 + n });
-      },
-    });
-    if (window.EpaHeat) window.EpaHeat.showLurk(true);
-    const hubSb = sandboxCtl && sandboxCtl.getHubBtn && sandboxCtl.getHubBtn();
-    if (hubSb) hubSb.onclick = () => {
+    if (!root) {
+      toast("Sandbox screen missing.", "bad");
+      return;
+    }
+    if (!window.HVACSandbox || !window.HVACSandbox.start) {
+      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Script did not load. Hard-refresh (Ctrl+Shift+R).</p><button class='btn' onclick=\"window.ltPlay('hub')\">Shop floor</button></div>";
+      toast("Sandbox script didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    try {
       if (sandboxCtl) {
         sandboxCtl.stop();
         sandboxCtl = null;
       }
-      refreshHub();
-      show("hub");
-    };
+      sandboxCtl = window.HVACSandbox.start(root, {
+        onXp(n) {
+          state.xp += n;
+          save();
+          if (window.Badges) window.Badges.unlock("sandbox_tech");
+          markDaily("sandbox");
+          postCompete("score", { mode: "sandbox", score: 400 + n });
+        },
+      });
+      const hubSb = sandboxCtl && sandboxCtl.getHubBtn && sandboxCtl.getHubBtn();
+      if (hubSb) hubSb.onclick = () => {
+        if (sandboxCtl) {
+          sandboxCtl.stop();
+          sandboxCtl = null;
+        }
+        refreshHub();
+        show("hub");
+      };
+    } catch (err) {
+      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>" + String(err && err.message ? err.message : err) + "</p><button class='btn' onclick=\"window.ltPlay('hub')\">Shop floor</button></div>";
+      toast("Sandbox failed to start.", "bad");
+    }
   }
 
   function startAIHelper() {

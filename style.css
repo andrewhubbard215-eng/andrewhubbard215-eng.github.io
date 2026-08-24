@@ -144,9 +144,15 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   border-radius: 14px; overflow: hidden; cursor: pointer; color: inherit;
   transition: border-color 0.15s, transform 0.12s;
 }
+#screen-hub.screen.active {
+  display: block !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
 .game-name-btns {
   position: relative;
-  z-index: 3;
+  z-index: 5;
+}
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
