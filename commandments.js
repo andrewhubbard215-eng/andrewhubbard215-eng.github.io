@@ -146,6 +146,8 @@
     pEl.oninput = paint;
     paint();
   }
+
+  function listHtml() {
     return COMMANDMENTS.map(
       (c) =>
         `<li>

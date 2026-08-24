@@ -2214,7 +2214,13 @@ select:focus-visible {
 @media (max-width: 860px) {
   .hub-law-row { grid-template-columns: 1fr; margin: 12px 12px 8px; }
 }
-.hub-law-row .hub-commandments { margin: 0; }
+.hub-law-row .hub-commandments {
+  margin: 0;
+  padding: 16px 18px 18px;
+  background: rgba(14,20,28,0.92);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
 .hub-pt {
   padding: 16px 18px 18px;
   background: rgba(14,20,28,0.92);
