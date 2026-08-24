@@ -74,6 +74,8 @@
       uMVP: gl.getUniformLocation(prog, "uMVP"),
     };
   }
+
+  function compile(gl, type, src) {
     const s = gl.createShader(type);
     gl.shaderSource(s, src);
     gl.compileShader(s);
