@@ -366,7 +366,53 @@
       targetSH: 15,
       targetSC: 10,
     },
+    {
+      id: "iconnect-tu102",
+      brand: "iConnect / Lincoln Tech",
+      name: "TU-102 H-Block AC trainer",
+      type: "split",
+      tons: 1,
+      ref: "R-410A",
+      metering: "txv",
+      seer: "lab",
+      notes: "Shop-floor H-block: visible evap + condenser, sight glasses, receiver, accumulator, hermetic, TXV, drier. Vari-speed fans. Match the Lincoln Tech trainer.",
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", accumulator: "accumulator", receiver: "receiver" },
+      approachCond: 20,
+      approachEvap: 30,
+      targetSH: 10,
+      targetSC: 10,
+      lab: "tu102",
+    },
+    {
+      id: "iconnect-tu601",
+      brand: "iConnect / Lincoln Tech",
+      name: "TU-601 Multi-head mini-split HP",
+      type: "minisplit-multi",
+      tons: 2,
+      ref: "R-410A",
+      metering: "eev",
+      seer: "lab",
+      notes: "Daikin dual-zone lab: cassette + wall, four sight-glass linesets, R-410A ONLY, 208/240V 20A. Flares, not sweat.",
+      parts: { compressor: "compressor", condenser: "condenser", metering: "metering", evaporator: "evaporator", filter: "filter", revvalve: "revvalve" },
+      approachCond: 14,
+      approachEvap: 26,
+      targetSH: 8,
+      targetSC: 8,
+      lab: "tu601",
+    },
   ];
+
+  const LAB_VIDEOS = {
+    tu102: [
+      { t: "TU-100 H-block intro (iConnect)", url: "https://www.youtube.com/watch?v=zxEDlowCQ4c" },
+      { t: "iConnect video library", url: "https://iconnecttraining.com/videos/" },
+    ],
+    tu601: [
+      { t: "TU-601 lesson ideas (4 min)", url: "https://www.youtube.com/watch?v=zaTZ2biRINc" },
+      { t: "TU-601 teaching opportunities", url: "https://www.youtube.com/watch?v=tNCLHfJMXFE" },
+      { t: "iConnect TU-601 page", url: "https://iconnecttraining.com/training-units/tu-601-multi-head-mini-split-heat-pump-training-unit/" },
+    ],
+  };
 
   function chargeSop(sys) {
     const m = (sys && sys.metering) || (placed.metering === "piston" || placed.metering === "capillary" ? "orifice" : "txv");
@@ -736,6 +782,9 @@
   let guidedStep = 0;
   let lastGuideTab = "";
   let chargeChecks = {};
+  let labId = null;
+  let labFanEvap = 100;
+  let labFanCond = 100;
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -908,6 +957,8 @@
 
     if (coilCond === "dirty") condSat += 16;
     if (coilEvap === "dirty") evapSat -= 10;
+    if (labFanCond < 90) condSat += (90 - labFanCond) * 0.28;
+    if (labFanEvap < 90) evapSat -= (90 - labFanEvap) * 0.22;
 
     const pHigh = satP(refrigerant, condSat);
     const pLow = Math.max(0, satP(refrigerant, evapSat));
@@ -1085,6 +1136,7 @@
             <button class="sb-tab" data-tab="challenges">CoolGame</button>
             <button class="sb-tab" data-tab="field">Field jobs</button>
             <button class="sb-tab" data-tab="systems">OEM packs</button>
+            <button class="sb-tab" data-tab="lab">Lab trainers</button>
           </div>
           <div id="sb-items" class="sb-items"></div>
           <p class="sb-hint" id="sb-hint">HUB guided: one drop box at a time, real install order. Follow the glowing box.</p>
@@ -1163,6 +1215,7 @@
             <canvas id="sb-canvas"></canvas>
             <canvas id="sb-gl" class="sb-gl hidden"></canvas>
             <div id="sb-slots" class="sb-slots"></div>
+            <div id="sb-labboard" class="sb-labboard hidden"></div>
             <div id="sb-charge-win" class="sb-float-win">
               <div class="sb-float-head" id="sb-charge-drag">
                 <span id="sb-charge-title">OEM charging SOP</span>
@@ -1484,6 +1537,7 @@
 
   function applySystem(sys) {
     activeSystem = sys;
+    labId = sys.lab || null;
     placed = Object.assign({}, sys.parts);
     refrigerant = sys.ref;
     running = false;
@@ -1505,9 +1559,99 @@
     syncGuidedStep();
     layoutSlots();
     paintHubCoach(sys.brand + " pack on the board. Finish HUB steps or tap Free build.");
+    paintLabBoard();
     document.getElementById("sb-status").textContent =
       sys.brand + " package loaded — start compressor to run the sim.";
     if (onXp) onXp(10);
+  }
+
+  function loadLab(sys) {
+    labId = sys.lab || sys.id;
+    guidedOn = false;
+    applySystem(sys);
+    placed.gauges = "gauges";
+    placed.copper = "lineset";
+    if (sys.lab === "tu102") {
+      placed.receiver = "receiver";
+      placed.accumulator = "accumulator";
+    }
+    placed.chargecan = "r410a";
+    placed.vacpump = "vacpump";
+    placed.nitrogen = "nitrogen";
+    refrigerant = "R-410A";
+    chargePct = 100;
+    fault = "none";
+    labFanEvap = 100;
+    labFanCond = 100;
+    gaugesEquipped = true;
+    layoutSlots();
+    paintLabBoard();
+    const man = document.getElementById("sb-manifold");
+    if (man) man.classList.add("on");
+    paintHubCoach(
+      sys.lab === "tu601"
+        ? "TU-601 on the stand. R-410A only. Two indoor heads, sight glasses on every lineset. Watch the glasses for flash. How-to is on YouTube — links in Lab trainers."
+        : "TU-102 H-block. You can SEE the cycle. Vari-speed fans starve a coil like dirt. Sight glasses tell the truth. Start it and read SH/SC."
+    );
+  }
+
+  function paintLabBoard() {
+    const el = document.getElementById("sb-labboard");
+    if (!el) return;
+    if (!labId) {
+      el.classList.add("hidden");
+      el.innerHTML = "";
+      return;
+    }
+    el.classList.remove("hidden");
+    const vids = LAB_VIDEOS[labId] || [];
+    const vidHtml = vids
+      .map((v) => '<a class="lab-yt" href="' + v.url + '" target="_blank" rel="noopener">' + v.t + "</a>")
+      .join(" ");
+    if (labId === "tu601") {
+      el.innerHTML =
+        "<div class='lab-head'><strong>iConnect TU-601</strong> · Multi-head mini-split HP · R-410A ONLY · 208/240V 20A</div>" +
+        "<div class='lab-tu601'>" +
+        "<div class='lab-odu'>DAIKIN ODU</div>" +
+        "<div class='lab-glass-row'><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span><span class='lab-sg'>SG</span></div>" +
+        "<div class='lab-idu'>Cassette IDU</div>" +
+        "<p class='lab-note'>Four sight-glass lines (liq/suc × zones). Flash in a glass = starved or restriction. Flares, not sweat. Nameplate law: R-410A only.</p>" +
+        "</div><div class='lab-yt-row'>" + vidHtml + "</div>";
+      return;
+    }
+    el.innerHTML =
+      "<div class='lab-head'><strong>iConnect TU-102</strong> · H-Block AC trainer · Lincoln Tech shop</div>" +
+      "<div class='lab-hblock'>" +
+      "<div class='lab-coil ev'>EVAPORATOR<div class='lab-sg'>sight glass</div></div>" +
+      "<div class='lab-fans'>" +
+      "<label>Evap fan <input id='lab-fe' type='range' min='20' max='100' value='" +
+      labFanEvap +
+      "' /><span id='lab-fe-v'>" +
+      labFanEvap +
+      "%</span></label>" +
+      "<label>Cond fan <input id='lab-fc' type='range' min='20' max='100' value='" +
+      labFanCond +
+      "' /><span id='lab-fc-v'>" +
+      labFanCond +
+      "%</span></label>" +
+      "</div>" +
+      "<div class='lab-mid'>TXV · drier · service valves</div>" +
+      "<div class='lab-coil cd'>CONDENSER<div class='lab-sg'>sight glass</div></div>" +
+      "<div class='lab-bottom'><span>Receiver</span><span>Accumulator</span><span>Hermetic</span></div>" +
+      "<p class='lab-note'>Turn a fan down = dirty coil fingerprint. Glasses: bubbles on liquid = starved. Clear isn't always fully charged — check SH/SC.</p>" +
+      "</div><div class='lab-yt-row'>" + vidHtml + "</div>";
+    const fe = document.getElementById("lab-fe");
+    const fc = document.getElementById("lab-fc");
+    if (fe)
+      fe.oninput = () => {
+        labFanEvap = +fe.value;
+        document.getElementById("lab-fe-v").textContent = labFanEvap + "%";
+      };
+    if (fc)
+      fc.oninput = () => {
+        labFanCond = +fc.value;
+        document.getElementById("lab-fc-v").textContent = labFanCond + "%";
+      };
   }
 
   function canForRef(ref) {
@@ -1973,8 +2117,28 @@
       });
       return;
     }
+    if (tab === "lab") {
+      [
+        { id: "iconnect-tu102", title: "TU-102 H-Block AC", sub: "Visible evap + condenser · sight glasses · receiver · accumulator · hermetic" },
+        { id: "iconnect-tu601", title: "TU-601 Multi-head mini-split", sub: "Daikin dual-zone · cassette + linesets · R-410A only · 208/240V 20A" },
+      ].forEach((L) => {
+        const el = document.createElement("div");
+        el.className = "sb-item system";
+        el.innerHTML = `<span class="ico">🏫</span><div><strong>${L.title}</strong><small>${L.sub}</small></div>`;
+        el.onclick = () => {
+          const sys = SYSTEMS.find((s) => s.id === L.id);
+          if (sys) loadLab(sys);
+        };
+        box.appendChild(el);
+      });
+      const yt = document.createElement("p");
+      yt.className = "sb-hint";
+      yt.innerHTML =
+        'How-to videos (iConnect): <a href="https://www.youtube.com/watch?v=zxEDlowCQ4c" target="_blank" rel="noopener">H-block intro</a> · <a href="https://www.youtube.com/watch?v=zaTZ2biRINc" target="_blank" rel="noopener">TU-601 lessons</a> · <a href="https://www.youtube.com/@iconnecttraining" target="_blank" rel="noopener">YouTube channel</a>';
+      box.appendChild(yt);
+      return;
+    }
     if (tab === "systems") {
-      // group by brand
       const brands = [];
       SYSTEMS.forEach((s) => {
         if (!brands.includes(s.brand)) brands.push(s.brand);
@@ -2987,9 +3151,13 @@
       guidedStep = 0;
       lastGuideTab = "";
       chargeChecks = {};
+      labId = null;
+      labFanEvap = 100;
+      labFanCond = 100;
       layoutSlots();
       updateSysBanner();
       paintHubCoach("Board clear. Compressor first. Always.");
+      paintLabBoard();
     };
     } catch (err) {
       if (typeof console !== "undefined") console.warn("sandbox wire", err);
@@ -3031,6 +3199,9 @@
     guidedStep = 0;
     lastGuideTab = "";
     chargeChecks = {};
+    labId = null;
+    labFanEvap = 100;
+    labFanCond = 100;
     buildUI(root);
     canvas = document.getElementById("sb-canvas");
     ctx = canvas && canvas.getContext("2d");
