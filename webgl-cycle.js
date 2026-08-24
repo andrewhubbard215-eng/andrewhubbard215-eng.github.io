@@ -17,7 +17,10 @@
   const FS = [
     "precision mediump float;",
     "varying vec3 vCol;",
-    "void main(){ gl_FragColor = vec4(vCol,1.0); }",
+    "void main(){",
+    "  // vCol is GPU-interpolated (perspective-correct) between vertices",
+    "  gl_FragColor = vec4(vCol, 1.0);",
+    "}",
   ].join("\n");
 
   function compile(gl, type, src) {
@@ -172,6 +175,13 @@
       })
     );
 
+    const floor = meshFrom([
+      {
+        pos: [-1.15, -0.72, -1.15, 1.15, -0.72, -1.15, 0.0, -0.72, 1.2],
+        col: [1, 0.12, 0.12, 0.12, 1, 0.2, 0.15, 0.35, 1],
+      },
+    ]);
+
     const loopPos = [];
     const loopCol = [];
     const N = 48;
@@ -235,6 +245,9 @@
       const ez = Math.cos(eyeA) * 2.4;
       const mvp = mul(perspective(0.9, aspect, 0.1, 20), lookAt(ex, 1.15, ez, 0, 0, 0));
       gl.uniformMatrix4fv(uMVP, false, mvp);
+
+      bindMesh(floor);
+      gl.drawArrays(gl.TRIANGLES, 0, floor.n);
 
       bindMesh(boxes);
       gl.drawArrays(gl.TRIANGLES, 0, boxes.n);
