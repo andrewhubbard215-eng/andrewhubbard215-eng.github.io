@@ -1788,9 +1788,11 @@
       };
     }
     inp.oninput = () => {
-      btnIn.disabled = !inp.value.trim();
+      if (btnIn) btnIn.disabled = !inp.value.trim();
       refreshAcctHint();
     };
+    const passListen = document.getElementById("acct-pass");
+    if (passListen) passListen.oninput = () => { if (btnIn && inp.value.trim()) btnIn.disabled = false; };
     function refreshAcctHint() {
       const name = inp.value.trim();
       const key = accountKey(name);
@@ -2116,8 +2118,10 @@
     const v = document.getElementById("heaven-vid");
     if (v) {
       try {
-        v.currentTime = 0;
-        v.play().catch(function () {});
+        if (v.play) {
+          const p = v.play();
+          if (p && typeof p.catch === "function") p.catch(function () {});
+        }
       } catch (_) {}
     }
   }
@@ -2154,19 +2158,32 @@
   }
 
   function startElectrical() {
+    if (!window.ElectricalLab || !window.ElectricalLab.start) {
+      toast("Electrical sim didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("electrical-root");
+    if (!root) {
+      toast("Electrical screen missing.", "bad");
+      return;
+    }
     if (electricalCtl) {
       electricalCtl.stop();
       electricalCtl = null;
     }
     show("electrical");
-    const root = document.getElementById("electrical-root");
-    electricalCtl = window.ElectricalLab.start(root, {
-      onXp(n) {
-        state.xp += n;
-        save();
-        postCompete("score", { mode: "electrical", score: 350 + n });
-      },
-    });
+    try {
+      electricalCtl = window.ElectricalLab.start(root, {
+        onXp(n) {
+          state.xp += n;
+          save();
+          postCompete("score", { mode: "electrical", score: 350 + n });
+        },
+      });
+    } catch (err) {
+      toast("Electrical sim failed to start.", "bad");
+      return;
+    }
     const hubEl = electricalCtl && electricalCtl.getHubBtn && electricalCtl.getHubBtn();
     if (hubEl) hubEl.onclick = () => {
       if (electricalCtl) {
@@ -2220,12 +2237,17 @@
   }
 
   function startAIHelper() {
+    if (!window.AIHelper || !window.AIHelper.start) {
+      toast("AI helper didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("aihelper-root");
+    if (!root) return;
     if (aiHelperCtl) {
       aiHelperCtl.stop();
       aiHelperCtl = null;
     }
     show("aihelper");
-    const root = document.getElementById("aihelper-root");
     aiHelperCtl = window.AIHelper.start(root, {
       onHub() {
         aiHelperCtl = null;
@@ -2236,13 +2258,18 @@
   }
 
   function startMiniSplit() {
+    if (!window.MiniSplitInstall || !window.MiniSplitInstall.start) {
+      toast("Mini-split lab didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("minisplit-root");
+    if (!root) return;
     if (window.EpaHeat) window.EpaHeat.showLurk(true);
     if (minisplitCtl) {
       minisplitCtl.stop();
       minisplitCtl = null;
     }
     show("minisplit");
-    const root = document.getElementById("minisplit-root");
     minisplitCtl = window.MiniSplitInstall.start(root, {
       systemName: "Daikin Aurora · Single-zone mini-split",
       onXp(n) {
@@ -2334,12 +2361,17 @@
   }
 
   function startCompete() {
+    if (!window.CompeteArena || !window.CompeteArena.start) {
+      toast("Arena didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("compete-root");
+    if (!root) return;
     if (competeCtl) {
       competeCtl.stop();
       competeCtl = null;
     }
     show("compete");
-    const root = document.getElementById("compete-root");
     competeCtl = window.CompeteArena.start(root, {
       onHub() {
         competeCtl = null;
