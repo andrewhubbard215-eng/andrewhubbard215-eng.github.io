@@ -411,12 +411,35 @@
     ],
   };
 
+  function shuffleQuestion(q) {
+    const n = (q.choices || []).length;
+    if (n < 2) return Object.assign({}, q);
+    const order = [];
+    for (let i = 0; i < n; i++) order.push(i);
+    for (let i = n - 1; i > 0; i--) {
+      const j = (Math.random() * (i + 1)) | 0;
+      const t = order[i];
+      order[i] = order[j];
+      order[j] = t;
+    }
+    const choices = order.map((i) => q.choices[i]);
+    const a = order.indexOf(q.a);
+    let wrong = q.wrong;
+    if (wrong && typeof wrong === "object") {
+      const nw = {};
+      order.forEach((oldI, newI) => {
+        if (wrong[oldI] != null) nw[newI] = wrong[oldI];
+      });
+      wrong = nw;
+    }
+    return Object.assign({}, q, { choices: choices, a: a, wrong: wrong });
+  }
+
   function mixBanks(keys) {
     let all = [];
     keys.forEach((k) => {
-      (BANK[k] || []).forEach((q) => all.push(Object.assign({ pack: k }, q)));
+      (BANK[k] || []).forEach((q) => all.push(shuffleQuestion(Object.assign({ pack: k }, q))));
     });
-    // shuffle
     for (let i = all.length - 1; i > 0; i--) {
       const j = (Math.random() * (i + 1)) | 0;
       [all[i], all[j]] = [all[j], all[i]];

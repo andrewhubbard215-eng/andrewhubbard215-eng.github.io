@@ -21,6 +21,14 @@
       "Your callsign is showing. Wear it like a cape.",
       "Sandbox is therapy. Service calls are character development.",
       "I break the fourth wall so you don't break the compressor.",
+      "Maximum effort. Minimum venting. I'm basically Deadpool with a recovery machine.",
+      "Fourth wall? Shattered. Your 80% tank fill? Not so much. Leave headspace, hero.",
+      "I'd do a chimichanga bit, but EPA 608 said no food on the manifold.",
+      "You're not the main character yet. Recover, then we'll talk origin story.",
+      "Spoiler: the dirty filter was the villain the whole time.",
+      "I know I'm an NPC. I still won't let you ohm a live circuit.",
+      "Red suit optional. Safety glasses not optional. That's the joke and the law.",
+      "If this were a Marvel movie I'd regenerate. Your compressor will not. LOTO.",
     ],
 
     // Curriculum unit openers keyed loosely by id
