@@ -386,16 +386,22 @@
       body.querySelector("#ptool-mic").onclick = () => startMic();
     } else {
       body.innerHTML =
-        "<h3>What a phone can (and can't) test</h3>" +
-        "<ul class='ptool-ideas'>" +
-        "<li><strong>Solenoid / contactor coil</strong> — magnetometer. That's this tab. 24V coil field, not voltage.</li>" +
-        "<li><strong>Level / drain slope</strong> — gyro. Mini-split head, furnace, condensate.</li>" +
-        "<li><strong>Running / quiet</strong> — mic. Compressor or blower making noise.</li>" +
-        "<li><strong>Flashlight + camera</strong> — dirty coil, oil stain (leak), clogged filter. Use your eyes, not an app.</li>" +
-        "<li><strong>Compass near a transformer</strong> — same mag trick as the coil.</li>" +
-        "<li><strong>Job GPS / notes / photo of the nameplate</strong> — MCA, MOP, charge. Commandment 7.</li>" +
-        "</ul>" +
-        "<p class='ptool-warn'>A phone is <em>not</em>: a voltmeter, clamp-on amp, micron gauge, refrigerant identifier, or IR thermometer (battery temp ≠ air). Don't fake those. Use the DMM and manifold in the sim — and real tools on the job.</p>";
+        "<h3>Phone vs real instruments</h3>" +
+        "<p>The phone is a <strong>clue</strong>. A listed meter is a <strong>measurement</strong>. OSHA 30 and 608 don't care that you have an iPhone.</p>" +
+        "<table class='ptool-cmp'><thead><tr><th>Job</th><th>Phone</th><th>True sensor</th></tr></thead><tbody>" +
+        "<tr><td>Is the 24V coil pulled in?</td><td>Magnetometer Δ / compass jitter. Field, not volts. Misses an open coil that still has residual magnetism.</td><td>DMM on the coil (24V). Amp probe on the 24V loop. Solenoid tester / mag wand listed for HVAC.</td></tr>" +
+        "<tr><td>Line / load voltage</td><td><strong>No.</strong> Magnetometer is µT. Battery-temp is not air. Don't probe a disconnect with a phone.</td><td>Cat III/IV DMM. Know your CAT rating.</td></tr>" +
+        "<tr><td>Current</td><td>No Hall clamp in the phone. Speaker magnet ≠ a current transformer.</td><td>Clamp-on. Inrush vs running.</td></tr>" +
+        "<tr><td>Capacitor µF</td><td>No.</td><td>DMM in capacitance, discharged first. LOTO.</td></tr>" +
+        "<tr><td>SH / SC / sat</td><td>P/T chart on this site is math. Phone has no pressure port.</td><td>Manifold or probes + P/T. Commandment 8.</td></tr>" +
+        "<tr><td>Vacuum</td><td>No.</td><td>Micron gauge on the system. Compound gauge is cosplay.</td></tr>" +
+        "<tr><td>Leak</td><td>Camera for oil stain. Mic won't hear a leak.</td><td>Soap, electronic sniffer, nitrogen standing test, UV dye per OEM.</td></tr>" +
+        "<tr><td>Air / pipe temp</td><td>Phone “thermometer” is battery/SoC. Useless for SH.</td><td>Pipe clamp thermistor, psychrometer, real IR gun aimed right.</td></tr>" +
+        "<tr><td>Level / drain</td><td>Gyro is decent for “is it racked.” ±1° ish, not a machinist level.</td><td>Torpedo level, laser, ¼″ per foot on the drain.</td></tr>" +
+        "<tr><td>Is it running?</td><td>Mic is relative loudness. Not dB(A), not RPM, not a bad bearing call.</td><td>Eyes, amp draw, manifold, tach if you need RPM.</td></tr>" +
+        "<tr><td>Refrigerant ID</td><td>No.</td><td>Identifier. Nameplate is law until the tank is proven.</td></tr>" +
+        "</tbody></table>" +
+        "<p class='ptool-warn'>Use the phone to <em>point</em>. Use the DMM, gauges, micron gauge, and clamp to <em>sign the job</em>.</p>";
     }
   }
 
