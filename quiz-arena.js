@@ -724,6 +724,10 @@
     });
     const explain = why || item.why || "Review this in EPA 608 / OSHA 30 / Lincoln Tech notes.";
     const ok = selected === correct;
+    if (window.LtSfx) {
+      if (ok) window.LtSfx.correct();
+      else window.LtSfx.wrong();
+    }
     const rows = item.choices
       .map((c, i) => {
         const letter = SHAPES[i] || "ABCD"[i];

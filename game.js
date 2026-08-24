@@ -572,7 +572,9 @@
     if (actx.state === "suspended") actx.resume();
     return actx;
   }
+  let muted = false;
   function beep(type, f0, f1, dur, vol) {
+    if (muted) return;
     const a = ac();
     const o = a.createOscillator();
     const g = a.createGain();
@@ -581,7 +583,7 @@
     g.gain.value = vol;
     o.connect(g).connect(a.destination);
     o.start();
-    if (f1) o.frequency.exponentialRampToValueAtTime(f1, a.currentTime + dur);
+    if (f1) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), a.currentTime + dur);
     g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + dur);
     o.stop(a.currentTime + dur + 0.02);
   }
@@ -593,10 +595,32 @@
     reload: () => beep("triangle", 400, 220, 0.15, 0.03),
     hit: () => beep("square", 90, 40, 0.1, 0.04),
     pickup: () => beep("sine", 520, 880, 0.12, 0.04),
+    click: () => beep("square", 720, 480, 0.04, 0.03),
+    drop: () => beep("triangle", 220, 140, 0.08, 0.04),
+    correct: () => {
+      [523, 659, 784].forEach((f, i) => setTimeout(() => beep("sine", f, f * 1.02, 0.16, 0.05), i * 80));
+    },
+    wrong: () => beep("sawtooth", 160, 70, 0.22, 0.05),
+    tick: () => beep("square", 880, 880, 0.03, 0.025),
+    compressor: () => beep("sawtooth", 55, 48, 0.45, 0.04),
+    compressorOff: () => beep("triangle", 70, 40, 0.2, 0.03),
+    badge: () => {
+      [392, 523, 659, 784].forEach((f, i) => setTimeout(() => beep("triangle", f, f, 0.14, 0.04), i * 90));
+    },
+    rapture: () => {
+      [261, 329, 392, 523].forEach((f, i) => setTimeout(() => beep("sine", f, f * 2, 0.55, 0.035), i * 140));
+    },
     win: () => {
-      [440, 554, 659].forEach((f, i) => setTimeout(() => beep("sine", f, f, 0.18, 0.04), i * 70));
+      [440, 554, 659, 880].forEach((f, i) => setTimeout(() => beep("sine", f, f, 0.2, 0.045), i * 70));
+    },
+    setMuted(on) {
+      muted = !!on;
+    },
+    isMuted() {
+      return muted;
     },
   };
+  window.LtSfx = sfx;
 
   // ---- classic rock driving music (procedural) ----
   // 120 BPM garage / classic rock: kick-snare, walking bass, power-chord stabs
@@ -614,6 +638,25 @@
     for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
     return buf;
   }
+
+  function hiss(dur, vol, freq, type) {
+    if (muted) return;
+    const a = ac();
+    const src = a.createBufferSource();
+    src.buffer = noiseBuf(a, dur);
+    const f = a.createBiquadFilter();
+    f.type = type || "highpass";
+    f.frequency.value = freq || 2200;
+    const g = a.createGain();
+    g.gain.setValueAtTime(vol, a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + dur);
+    src.connect(f).connect(g).connect(a.destination);
+    src.start();
+    src.stop(a.currentTime + dur + 0.02);
+  }
+  sfx.leak = () => hiss(0.4, 0.04, 2600, "highpass");
+  sfx.n2 = () => hiss(0.5, 0.045, 1400, "bandpass");
+  sfx.fan = () => hiss(0.35, 0.03, 800, "bandpass");
 
   function rockHit(kind) {
     const a = ac();
@@ -1893,10 +1936,19 @@
         toast(state.spicy ? "Spicy customers ON." : "Spicy customers off.", "ok");
       };
     }
+    const hubSfx = document.getElementById("hub-sfx");
+    if (hubSfx) {
+      hubSfx.checked = !sfx.isMuted();
+      hubSfx.onchange = () => {
+        sfx.setMuted(!hubSfx.checked);
+        toast(hubSfx.checked ? "SFX on." : "SFX muted.", "ok");
+      };
+    }
     document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
       card.onclick = () => {
         const m = card.dataset.mode;
         ac();
+        if (sfx.click) sfx.click();
         if (m === "service") startQuiz();
         else if (m === "sandbox") startSandbox();
         else if (m === "minisplit") startMiniSplit();
@@ -2057,6 +2109,8 @@
     }
     save();
     toast("Quiz Champion · HVAC Jesus · Gauges of God · +" + bonus + " XP", "xp");
+    if (sfx.rapture) sfx.rapture();
+    else sfx.win();
     setTimeout(function () {
       openRapture(true);
     }, 900);

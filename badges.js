@@ -109,6 +109,7 @@
     map[id] = Date.now();
     save(map);
     showUnlock(def);
+    if (window.LtSfx && window.LtSfx.badge) window.LtSfx.badge();
     return true;
   }
 

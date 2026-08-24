@@ -1419,6 +1419,7 @@
       modal.classList.add("hidden");
       if (ok) {
         n2Acked = true;
+        if (window.LtSfx && window.LtSfx.n2) window.LtSfx.n2();
         if (onOk) onOk();
       } else {
         document.getElementById("sb-status").textContent = "N₂ cancelled. No standing test without a regulator and dry nitrogen.";
@@ -1485,6 +1486,7 @@
     }
     if (kind === "leak-sniffer") {
       leak.sniffer = true;
+      if (window.LtSfx && window.LtSfx.leak) window.LtSfx.leak();
       document.getElementById("sb-status").textContent = "Sniffer hit. Move 1–2 in/s, from below — refrigerant is heavier than air.";
     }
     if (kind === "leak-n2") {
@@ -1695,6 +1697,7 @@
     if (!def || !def.slot) return;
     placed[slotId] = compId;
     activeSystem = null;
+    if (window.LtSfx && window.LtSfx.drop) window.LtSfx.drop();
     refreshSlots();
     updateSysBanner();
     if (challenge) checkChallenge();
@@ -2208,6 +2211,10 @@
     else particles = [];
     const btn = document.getElementById("sb-run");
     if (btn) btn.textContent = running ? "Stop compressor" : "Start compressor";
+    if (window.LtSfx) {
+      if (running) window.LtSfx.compressor();
+      else window.LtSfx.compressorOff();
+    }
   }
 
   function tick(now) {
