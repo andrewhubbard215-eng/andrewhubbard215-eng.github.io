@@ -2216,7 +2216,7 @@ select:focus-visible {
 }
 .hub-law-row .hub-commandments {
   margin: 0;
-  padding: 12px 12px 14px;
+  padding: 14px 14px 16px;
   background: rgba(14,20,28,0.92);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -2225,41 +2225,49 @@ select:focus-visible {
 .hub-commandments .cmd-list.compact {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 8px;
 }
 .hub-commandments .cmd-list.compact li {
-  padding: 6px 8px;
-  gap: 8px;
-  grid-template-columns: 26px 1fr;
+  padding: 10px 12px;
+  gap: 10px;
+  grid-template-columns: 32px 1fr;
   align-items: start;
 }
 .hub-commandments .cmd-list.compact .cmd-num {
-  width: 24px;
-  height: 24px;
-  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
 }
 .hub-commandments .cmd-list.compact .cmd-title {
-  font-size: 13px;
-  margin: 0 0 2px;
+  font-size: 16px;
+  margin: 0 0 4px;
+  line-height: 1.25;
 }
 .hub-commandments .cmd-list.compact .cmd-line {
-  font-size: 11px;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
 }
 @media (max-width: 640px) {
-  .hub-commandments .cmd-list.compact { grid-template-columns: 1fr 1fr; }
+  .hub-commandments .cmd-list.compact { grid-template-columns: 1fr; }
+  .hub-commandments .cmd-list.compact .cmd-title { font-size: 16px; }
+  .hub-commandments .cmd-list.compact .cmd-line { font-size: 14px; }
 }
 .cmd-shell .cmd-list {
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 10px;
 }
+.cmd-shell .cmd-title { font-size: 17px; }
+.cmd-shell .cmd-line { font-size: 15px; line-height: 1.45; }
 @media (max-width: 640px) {
   .cmd-shell .cmd-list { grid-template-columns: 1fr; }
 }
+.hub-pt h3 { font-family: var(--display); font-size: 28px; margin: 0 0 6px; }
+.hub-pt label { font-size: 14px; }
+.hub-pt .pt-sat { font-size: 32px; }
+.hub-pt .pt-note, .hub-pt .pt-row { font-size: 14px; }
 .hub-pt {
   padding: 16px 18px 18px;
   background: rgba(14,20,28,0.92);
