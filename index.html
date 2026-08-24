@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=58" />
+  <link rel="stylesheet" href="style.css?v=59" />
 </head>
 <body>
   <div id="app">
@@ -149,82 +149,62 @@
       <div id="badge-rack"></div>
       <div id="daily-root"></div>
       <div id="hub-commandments" class="hub-commandments"></div>
-      <p class="hub-section">Quiz Game</p>
-      <button type="button" class="quiz-launch" data-mode="quiz" id="btn-quiz-box">
-        <span class="quiz-launch-kicker">Lincoln Tech · Kahoot-style</span>
-        <span class="quiz-launch-title">Quiz Game</span>
-        <span class="quiz-launch-sub">EPA 608 · OSHA 30 · Lincoln Tech curriculum · tap this box</span>
-      </button>
-      <button type="button" class="quiz-launch sandbox-launch" data-mode="sandbox" id="btn-sandbox-box">
-        <span class="quiz-launch-kicker">System sim · drag-drop · live gauges</span>
-        <span class="quiz-launch-title">System sandbox</span>
-        <span class="quiz-launch-sub">Build the cycle · SH/SC · field jobs · compressor flow · tap this box</span>
-      </button>
-      <p class="hub-section">Training floor · AI</p>
-      <div class="hub-grid">
-        <button class="mode-card mode-card-featured" data-mode="tutorial">
-          <div class="mode-icon" aria-hidden="true">👷</div>
-          <div>
-            <h3>HUB tutorial</h3>
-            <p>Professor Hubbard walks you through the shop</p>
-          </div>
+      <p class="hub-section">Game options</p>
+      <div class="game-options" id="hub-options">
+        <button type="button" class="quiz-launch opt-wide" data-mode="sandbox" id="btn-sandbox-box">
+          <span class="quiz-launch-kicker">Option 1 · system sim</span>
+          <span class="quiz-launch-title">System sandbox</span>
+          <span class="quiz-launch-sub">Drag-drop cycle · gauges · SH/SC · field jobs · compressor</span>
         </button>
-        <button class="mode-card mode-card-featured" data-mode="sandbox" id="btn-sandbox-card">
-          <div class="mode-icon" aria-hidden="true">🔄</div>
-          <div>
-            <h3>System sandbox</h3>
-            <p>CoolGame circuit builder · drag-drop · live pressures · SH/SC · flow</p>
-          </div>
+        <button type="button" class="quiz-launch opt-wide" data-mode="quiz" id="btn-quiz-box">
+          <span class="quiz-launch-kicker">Option 2 · Kahoot-style</span>
+          <span class="quiz-launch-title">Quiz Game</span>
+          <span class="quiz-launch-sub">EPA 608 · OSHA 30 · Lincoln Tech curriculum</span>
         </button>
         <button class="mode-card mode-card-featured" data-mode="electrical">
           <div class="mode-icon" aria-hidden="true">📟</div>
-          <div>
-            <h3>Electrical sim</h3>
-            <p>240 / 24V · contactor · cap · safeties · DMM probe · amps · µF</p>
-          </div>
+          <div><h3>Electrical sim</h3><p>240 / 24V · DMM · cap · contactor</p></div>
         </button>
         <button class="mode-card mode-card-featured" data-mode="aihelper">
           <div class="mode-icon" aria-hidden="true">🦸</div>
-          <div>
-            <h3>AI Install & Troubleshoot</h3>
-            <p>Step-by-step install · diagnostic checklists · Ask HUB on every tip</p>
-          </div>
+          <div><h3>AI helper</h3><p>Install + troubleshoot with HUB</p></div>
         </button>
         <button class="mode-card mode-card-featured" data-mode="commandments">
           <div class="mode-icon" aria-hidden="true">📜</div>
-          <div>
-            <h3>HVAC Commandments</h3>
-            <p>Ten shop laws · recover · flare · N₂ · microns · SH/SC · LOTO</p>
-          </div>
+          <div><h3>HVAC Commandments</h3><p>Ten shop laws</p></div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="tutorial">
+          <div class="mode-icon" aria-hidden="true">👷</div>
+          <div><h3>HUB tutorial</h3><p>Walk through the shop</p></div>
         </button>
         <button class="mode-card" data-mode="minisplit">
           <div class="mode-icon" aria-hidden="true">❄️</div>
-          <div>
-            <h3>Mini-split install</h3>
-            <p>11-step lab · flare · N₂ · vacuum · commission · get paid</p>
-          </div>
+          <div><h3>Mini-split install</h3><p>11-step lab · get paid</p></div>
         </button>
         <button class="mode-card" data-mode="service">
           <div class="mode-icon" aria-hidden="true">🔧</div>
-          <div>
-            <h3>Service calls</h3>
-            <p>Field troubleshoot · customers · gauges · AI walkthrough</p>
-          </div>
+          <div><h3>Service calls</h3><p>Customers · gauges · diagnose</p></div>
         </button>
         <button class="mode-card" data-mode="curriculum">
           <div class="mode-icon" aria-hidden="true">📚</div>
-          <div>
-            <h3>Curriculum</h3>
-            <p>HCR units · AI coach per lesson · practice before lab</p>
-          </div>
+          <div><h3>Curriculum</h3><p>HCR units · practice before lab</p></div>
         </button>
         <button class="mode-card" data-mode="compete">
           <div class="mode-icon" aria-hidden="true">🏆</div>
-          <div>
-            <h3>Online All-Star Arena</h3>
-            <p>Class PIN quizzes · shop chat · live leaderboard</p>
-          </div>
+          <div><h3>Online arena</h3><p>Class PIN · chat · leaderboard</p></div>
         </button>
+        <button class="mode-card" type="button" id="opt-locker" data-mode="character">
+          <div class="mode-icon" aria-hidden="true">🪪</div>
+          <div><h3>Locker</h3><p>Photo · password · campus</p></div>
+        </button>
+        <label class="mode-card opt-spicy" title="Spicy customer mode">
+          <div class="mode-icon" aria-hidden="true">🌶️</div>
+          <div>
+            <h3>Spicy customers</h3>
+            <p>Funny / inappropriate service quotes</p>
+            <input type="checkbox" id="hub-spicy" />
+          </div>
+        </label>
       </div>
       <p class="hub-section">HVAC Jesus</p>
       <div class="hub-grid">
@@ -373,7 +353,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=58"></script>
+  <script src="game.js?v=59"></script>
   <script>
     (function () {
       function killWanted() {

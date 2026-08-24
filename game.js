@@ -464,6 +464,8 @@
     if (window.HvacCommandments && window.HvacCommandments.paintHub) {
       window.HvacCommandments.paintHub(document.getElementById("screen-hub"));
     }
+    const hubSpicy = document.getElementById("hub-spicy");
+    if (hubSpicy) hubSpicy.checked = !!state.spicy;
     // sync vehicle picker UI
     if (document.querySelector(".vehicle-card")) setVehicle(state.vehicle || "falcon");
 
@@ -1882,6 +1884,15 @@
       };
     }
 
+    const hubSpicy = document.getElementById("hub-spicy");
+    if (hubSpicy) {
+      hubSpicy.checked = !!state.spicy;
+      hubSpicy.onchange = () => {
+        state.spicy = !!hubSpicy.checked;
+        save();
+        toast(state.spicy ? "Spicy customers ON." : "Spicy customers off.", "ok");
+      };
+    }
     document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
       card.onclick = () => {
         const m = card.dataset.mode;
@@ -1896,6 +1907,7 @@
         else if (m === "electrical") startElectrical();
         else if (m === "commandments") startCommandments();
         else if (m === "tutorial") startTutorial();
+        else if (m === "character") show("character");
         else if (m === "rapture") {
           openRapture();
         }

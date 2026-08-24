@@ -2029,9 +2029,29 @@ select:focus-visible {
 }
 .quiz-launch-sub { display: block; font-size: 14px; opacity: 0.95; }
 .quiz-launch:hover { filter: brightness(1.08); }
-.sandbox-launch {
-  border-color: #2dd4bf;
-  background: linear-gradient(90deg, #0e7490 0%, #CE0034 55%, #134e4a 100%);
+.game-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 12px 20px;
+  position: relative;
+  z-index: 2;
+}
+.game-options .opt-wide,
+.game-options .quiz-launch {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+}
+.opt-spicy {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.opt-spicy input { width: 22px; height: 22px; accent-color: #CE0034; }
+@media (max-width: 640px) {
+  .game-options { grid-template-columns: 1fr; }
 }
 
 #screen-quiz { background: #1c1147; }
