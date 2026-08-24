@@ -1858,7 +1858,8 @@
     document.getElementById("sb-status").textContent = sim.status;
     document.getElementById("man-low").textContent = sim.running ? Math.round(sim.pLow) : "0";
     document.getElementById("man-high").textContent = sim.running ? Math.round(sim.pHigh) : "0";
-    document.getElementById("sb-run").textContent = running ? "Stop compressor" : "Start compressor";
+    const runBtn = document.getElementById("sb-run");
+    if (runBtn) runBtn.textContent = running ? "Stop compressor" : "Start compressor";
     updateDmm(sim);
     drawPH(sim);
     updateBom();
@@ -2150,14 +2151,28 @@
       const y = ny * h;
       ctx.beginPath();
       ctx.fillStyle = PHASE_COLOR[phaseAt(p.t)];
-      ctx.globalAlpha = 0.9;
+      ctx.globalAlpha = 0.95;
       ctx.arc(x, y, p.r, 0, Math.PI * 2);
       ctx.fill();
-      // glow
-      ctx.globalAlpha = 0.25;
-      ctx.arc(x, y, p.r * 2.2, 0, Math.PI * 2);
+      ctx.beginPath();
+      ctx.globalAlpha = 0.28;
+      ctx.arc(x, y, p.r * 2.4, 0, Math.PI * 2);
       ctx.fill();
       ctx.globalAlpha = 1;
+    }
+
+    if (running && requiredComplete()) {
+      const cx = FLOW_PATH[0][0] * w;
+      const cy = FLOW_PATH[0][1] * h;
+      const pulse = 10 + Math.sin((animT || 0) / 120) * 4;
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(206,0,52,0.55)";
+      ctx.lineWidth = 2;
+      ctx.arc(cx, cy, pulse, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = "#CE0034";
+      ctx.font = "bold 11px IBM Plex Sans, sans-serif";
+      ctx.fillText("COMP ON", cx - 24, cy - 16);
     }
 
     // title
@@ -2166,45 +2181,69 @@
     ctx.fillText("Vapor-compression cycle · refrigerant flow", 16, 22);
   }
 
+  let lastTick = 0;
+  let lastFrostUi = -1;
+
+  function seedFlow() {
+    particles = [];
+    for (let i = 0; i < 20; i++) {
+      particles.push({
+        t: i / 20,
+        r: 3.2 + (i % 3),
+        speed: 0.22 + (i % 5) * 0.03,
+      });
+    }
+  }
+
+  function setCompressor(on) {
+    running = !!on;
+    if (running && requiredComplete()) seedFlow();
+    else particles = [];
+    const btn = document.getElementById("sb-run");
+    if (btn) btn.textContent = running ? "Stop compressor" : "Start compressor";
+  }
+
   function tick(now) {
+    const dt = lastTick ? Math.min(0.05, (now - lastTick) / 1000) : 0.016;
+    lastTick = now;
     animT = now;
     try {
       const sim = simulate();
       updateGauges(sim);
 
       if (running && requiredComplete()) {
-      if (hpMode === "heat" && outdoorF < 42 && !defrosting && fault !== "stuck_defrost") {
-        const rate = fault === "defrost_fail" ? 0.55 : 0.22;
-        frost = Math.min(100, frost + rate);
-      }
-      if (defrosting && fault !== "stuck_defrost") {
-        frost = Math.max(0, frost - 1.1);
-        if (frost <= 4) {
-          defrosting = false;
-          hpMode = "heat";
-          const m = document.getElementById("sb-mode");
-          if (m) m.value = "heat";
+        if (hpMode === "heat" && outdoorF < 42 && !defrosting && fault !== "stuck_defrost") {
+          const rate = fault === "defrost_fail" ? 8 : 3.2;
+          frost = Math.min(100, frost + rate * dt);
         }
+        if (defrosting && fault !== "stuck_defrost") {
+          frost = Math.max(0, frost - 18 * dt);
+          if (frost <= 4) {
+            defrosting = false;
+            hpMode = "heat";
+            const m = document.getElementById("sb-mode");
+            if (m) m.value = "heat";
+          }
+        }
+        if (fault === "stuck_defrost") {
+          defrosting = true;
+          frost = Math.max(0, frost - 6 * dt);
+        }
+        if (fault === "defrost_fail") defrosting = false;
+        if (!particles.length) seedFlow();
+        for (const p of particles) {
+          p.t += p.speed * dt;
+          if (p.t >= 1) p.t -= Math.floor(p.t);
+        }
+      } else if (!running) {
+        particles = [];
       }
-      if (fault === "stuck_defrost") {
-        defrosting = true;
-        frost = Math.max(0, frost - 0.4);
+      const fi = Math.round(frost);
+      if (fi !== lastFrostUi) {
+        lastFrostUi = fi;
+        paintCoils();
       }
-      if (fault === "defrost_fail") defrosting = false;
-      // spawn particles
-      if (particles.length < 28 && Math.random() < 0.4) {
-        particles.push({ t: Math.random(), r: 3 + Math.random() * 2.5, speed: 0.08 + Math.random() * 0.06 });
-      }
-      const dt = 0.016;
-      for (const p of particles) {
-        p.t += p.speed * dt;
-        if (p.t >= 1) p.t -= 1;
-      }
-    } else {
-      particles = [];
-    }
-    paintCoils();
-    draw();
+      draw();
     } catch (err) {
       if (typeof console !== "undefined") console.warn("sandbox tick", err);
     }
@@ -2263,10 +2302,11 @@
     }
     document.getElementById("sb-run").onclick = () => {
       if (!requiredComplete()) {
-        document.getElementById("sb-status").textContent = "Need compressor, condenser, metering device, and evaporator.";
+        const st = document.getElementById("sb-status");
+        if (st) st.textContent = "Need compressor, condenser, metering device, and evaporator.";
         return;
       }
-      running = !running;
+      setCompressor(!running);
       if (running && onXp) onXp(15);
       updateDmm(simulate());
     };
@@ -2319,6 +2359,9 @@
     frost = 0;
     defrosting = false;
     gaugesEquipped = false;
+    lastTick = 0;
+    lastFrostUi = -1;
+    particles = [];
     activeSystem = null;
     buildUI(root);
     canvas = document.getElementById("sb-canvas");
