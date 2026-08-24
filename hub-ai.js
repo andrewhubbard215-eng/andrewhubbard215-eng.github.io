@@ -1055,6 +1055,7 @@
   }
 
   function open() {
+    if (!enabled) return;
     ensurePanel();
     panel.classList.remove("hidden");
     const fab = document.getElementById("hub-ai-fab");
@@ -1071,6 +1072,7 @@
   }
 
   function toggle() {
+    if (!enabled) return;
     ensurePanel();
     if (panel.classList.contains("hidden")) open();
     else close();
@@ -1216,11 +1218,25 @@
     }
   }
 
+  let enabled = true;
+
+  function setEnabled(on) {
+    enabled = on !== false;
+    const fab = document.getElementById("hub-ai-fab");
+    if (fab) fab.classList.toggle("hub-ai-off", !enabled);
+    if (!enabled) close();
+  }
+
+  function isEnabled() {
+    return enabled;
+  }
+
   function init(opts) {
     if (opts && opts.getContext) getContext = opts.getContext;
     mountButton();
     ensurePanel();
     close();
+    setEnabled(enabled);
   }
 
   global.HubAI = {
@@ -1229,6 +1245,8 @@
     close,
     toggle,
     ask,
+    setEnabled,
+    isEnabled,
     KB,
     parseNameplate,
     readLabelImage,

@@ -36,6 +36,7 @@
     passHash: "",
     sessionOk: false,
     activeUnit: null,
+    hubAiOn: true,
   };
 
   const VEHICLES = {
@@ -93,6 +94,7 @@
     if (typeof state.spicy !== "boolean") state.spicy = false;
     if (typeof state.hubAuthed !== "boolean") state.hubAuthed = false;
     if (typeof state.seenTutorial !== "boolean") state.seenTutorial = false;
+    if (typeof state.hubAiOn !== "boolean") state.hubAiOn = true;
     if (state.vehicle !== "van" && state.vehicle !== "falcon") state.vehicle = "falcon";
   }
   function save() {
@@ -118,11 +120,32 @@
         spicy: state.spicy,
         seenTip: state.seenTip,
         seenTutorial: state.seenTutorial,
+        hubAiOn: state.hubAiOn !== false,
         hubAuthed: state.hubAuthed,
         passHash: state.passHash || "",
       })
     );
     persistCurrentAccount();
+  }
+
+  function applyHubAiPref() {
+    const on = state.hubAiOn !== false;
+    window.LtHubAiOn = on;
+    if (window.HubAI && window.HubAI.setEnabled) window.HubAI.setEnabled(on);
+    document.querySelectorAll("[data-hubai-toggle]").forEach((b) => {
+      b.textContent = on ? "HUB AI · On" : "HUB AI · Off";
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    try {
+      window.dispatchEvent(new CustomEvent("lt-hubai", { detail: { on } }));
+    } catch (_) {}
+  }
+
+  function toggleHubAi() {
+    state.hubAiOn = !(state.hubAiOn !== false);
+    save();
+    applyHubAiPref();
+    toast(state.hubAiOn !== false ? "Professor HUB is on. Ask away." : "Professor HUB muted. Turn him back on anytime.", "ok");
   }
 
   function accountKey(name) {
@@ -2541,5 +2564,14 @@
       console.warn("HubAI init skipped", err);
     }
   }
+  applyHubAiPref();
+  window.toggleHubAi = toggleHubAi;
+  document.querySelectorAll("[data-hubai-toggle]").forEach((b) => {
+    b.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleHubAi();
+    };
+  });
 
 })();

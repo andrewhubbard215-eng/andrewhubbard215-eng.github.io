@@ -568,7 +568,8 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   outline: 2px solid #EAB308;
   background: rgba(234,179,8,0.12);
 }
-.sb-hub-coach p { margin: 4px 0 0; font-size: 13px; line-height: 1.35; }
+.hub-ai-fab.hub-ai-off { display: none !important; }
+.sb-hub-coach.hub-muted { opacity: 0.45; filter: grayscale(0.4); }
 .sb-slot.over { border-color: var(--accent); background: rgba(206,0,52,0.14); }
 .sb-slot.filled {
   border-style: solid; border-color: var(--accent);

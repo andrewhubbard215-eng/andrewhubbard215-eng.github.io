@@ -702,6 +702,18 @@
   }
 
   function paintHubCoach(extra) {
+    const coach = document.getElementById("sb-hub-coach");
+    const aiOn = window.LtHubAiOn !== false;
+    if (coach) coach.classList.toggle("hub-muted", !aiOn);
+    const sbT = document.getElementById("sb-hubai-toggle");
+    if (sbT) sbT.textContent = aiOn ? "HUB AI · On" : "HUB AI · Off";
+    if (!aiOn) {
+      const title = document.getElementById("sb-hub-title");
+      const line = document.getElementById("sb-hub-line");
+      if (title) title.textContent = "Professor HUB · muted";
+      if (line) line.textContent = "AI is off. Use HUB AI · On on the shop floor or here to bring me back. Free build still works.";
+      return;
+    }
     const title = document.getElementById("sb-hub-title");
     const line = document.getElementById("sb-hub-line");
     const hint = document.getElementById("sb-hint");
@@ -992,6 +1004,7 @@
           <div class="sb-guide-bar">
             <button type="button" class="btn primary" id="sb-guide-on">HUB guided</button>
             <button type="button" class="btn" id="sb-guide-free">Free build</button>
+            <button type="button" class="btn" id="sb-hubai-toggle">HUB AI · On</button>
           </div>
           <div class="sb-tabs">
             <button class="sb-tab active" data-tab="parts">Cycle</button>
@@ -2547,6 +2560,15 @@
       layoutSlots();
       paintHubCoach();
     };
+    const sbAi = document.getElementById("sb-hubai-toggle");
+    if (sbAi) sbAi.onclick = () => {
+      if (window.toggleHubAi) window.toggleHubAi();
+      else {
+        window.LtHubAiOn = window.LtHubAiOn === false;
+        paintHubCoach();
+      }
+    };
+    window.addEventListener("lt-hubai", () => paintHubCoach());
 
     document.getElementById("sb-ref").onchange = (e) => {
       refrigerant = e.target.value;
