@@ -363,6 +363,62 @@
     },
   ];
 
+  function chargeSop(sys) {
+    const m = (sys && sys.metering) || (placed.metering === "piston" || placed.metering === "capillary" ? "orifice" : "txv");
+    const type = (sys && sys.type) || "split";
+    const ref = (sys && sys.ref) || refrigerant || "R-410A";
+    const brand = (sys && sys.brand) || "Custom build";
+    const name = (sys && sys.name) || "DX loop";
+    const tgtSH = (sys && sys.targetSH) || 12;
+    const tgtSC = (sys && sys.targetSC) || 10;
+    const pre = [
+      { id: "air", t: "1 · Airflow first", d: "Filter, blower, coil, static. Commandment 9. Don't charge a starved evaporator." },
+      { id: "plate", t: "2 · Nameplate", d: brand + " · " + name + " · " + ref + ". Factory charge + lineset adder. MCA/MOP. OCR is a hint — your eyes are final." },
+      { id: "recover", t: "3 · Recover if you open it", d: "EPA 608. Never vent. Recovery cylinder DOT, labeled, 80% by weight." },
+      { id: "n2", t: "4 · Dry nitrogen proof", d: "Standing pressure. Regulator on. Never oxygen. Never shop air. Soap + sniffer after a drop." },
+      { id: "vac", t: "5 · Evacuate", d: "Micron gauge at the system, not the pump alone. ≤500 microns and a decay hold. Cores out to pull, cores in to finish." },
+    ];
+    let method;
+    if (type.indexOf("minisplit") >= 0 || m === "eev") {
+      method = [
+        { id: "weigh", t: "6 · Weigh-in only", d: "ODU factory charge covers the standard lineset. Extra length = oz/ft from the " + brand + " chart. Scale on the tank. Not a gauge guess." },
+        { id: "valves", t: "7 · Open service valves", d: "Only after a passing vacuum. Back-seat. Torque flares / caps. Then power and comms." },
+        { id: "run", t: "8 · Run cooling, wait for stable", d: "Inverter/EEV ramps. Low suction on start-up is not 'add gas.' Wait for stable Hz / outdoor RPM." },
+        { id: "confirm", t: "9 · Confirm, don't trim by SH", d: "SH/SC are a health check. Additional charge is weight + OEM. Target SH ~" + tgtSH + "°F · SC ~" + tgtSC + "°F once stable." },
+        { id: "codes", t: "10 · Commission", d: "Codes, ΔT, drain, line insulation, customer education. Mini-split: wall sleeve sealed, pitch out." },
+      ];
+    } else if (m === "orifice") {
+      method = [
+        { id: "weigh", t: "6 · Weigh near nameplate", d: "Get close to factory " + ref + " charge on the scale first." },
+        { id: "sh", t: "7 · Charge by superheat", d: "Piston/orifice method. SH = suction line T − evap sat (" + ref + " P/T). Target ~" + tgtSH + "°F. Use indoor WB / outdoor DB chart." },
+        { id: "highsh", t: "8 · High SH → add vapor", d: "Starved coil. Add vapor into suction in small shots. Wait 5–10 min. Recheck SH." },
+        { id: "lowsh", t: "9 · Low SH → recover", d: "Floodback risk. Recover a little. If SH is on the floor, prove airflow before you pull more gas." },
+        { id: "scchk", t: "10 · SC is a check only", d: "Expect SC near " + tgtSC + "°F. Do not charge a piston by subcooling. Wild SC + 'ok' SH = restriction or condenser." },
+      ];
+    } else {
+      method = [
+        { id: "weigh", t: "6 · Weigh nameplate + adder", d: "TXV: scale first. Factory " + ref + " + lineset adder per " + brand + "." },
+        { id: "sc", t: "7 · Trim by subcooling", d: "SC = cond sat − liquid line T. Target ~" + tgtSC + "°F. Probe on liquid line, out of the sun." },
+        { id: "lowsc", t: "8 · Low SC → add", d: "Undercharge. Add per OEM (often liquid into liquid line, or slow vapor). Recheck SC after it settles." },
+        { id: "highsc", t: "9 · High SC → recover", d: "Overcharge — or dirty condenser / non-condensables (high head + high SC + high amps). Don't just dump gas." },
+        { id: "shchk", t: "10 · SH is the TXV's job", d: "Expect SH ~" + tgtSH + "°F. Good SC + wild SH = bulb, charge, or airflow — not 'top off.'" },
+      ];
+    }
+    if (/\bhp\b|heat/.test(type)) {
+      method.push({
+        id: "hp",
+        t: "HP · Charge in cooling",
+        d: "When outdoor allows, charge in cool. Then verify heat and defrost. One-mode-only SH/SC fail = RV, sensors, or defrost — not a new charge.",
+      });
+    }
+    method.push({
+      id: "log",
+      t: "Log it",
+      d: "Pressures, SH, SC, amps, indoor/outdoor, weighed charge. Lincoln Tech: if it isn't written, it didn't happen.",
+    });
+    return { title: brand + " · charging SOP", name, metering: m, type, ref, steps: pre.concat(method) };
+  }
+
   const SLOTS = [
     { id: "compressor", x: 0.22, y: 0.55, label: "Compressor" },
     { id: "condenser", x: 0.52, y: 0.20, label: "Condenser" },
@@ -666,6 +722,7 @@
   let guidedOn = true;
   let guidedStep = 0;
   let lastGuideTab = "";
+  let chargeChecks = {};
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -1083,6 +1140,7 @@
               <button class="btn" id="sb-3d" type="button">3D WebGL</button>
               <button class="btn hidden" id="sb-flat" type="button">GLSL: smooth</button>
               <button class="btn" id="sb-clear">Clear board</button>
+              <button class="btn" id="sb-charge-open">Charging SOP</button>
               <button class="btn" id="sb-hub">Shop floor</button>
             </div>
           </header>
@@ -1091,6 +1149,13 @@
             <canvas id="sb-canvas"></canvas>
             <canvas id="sb-gl" class="sb-gl hidden"></canvas>
             <div id="sb-slots" class="sb-slots"></div>
+            <div id="sb-charge-win" class="sb-float-win">
+              <div class="sb-float-head" id="sb-charge-drag">
+                <span id="sb-charge-title">OEM charging SOP</span>
+                <button type="button" id="sb-charge-min" title="Collapse">–</button>
+              </div>
+              <div class="sb-float-body" id="sb-charge-body"></div>
+            </div>
           </div>
         </main>
         <aside class="sb-gauges">
@@ -1324,6 +1389,83 @@
       ban.textContent = "Custom build — drop parts or load a system pack";
       info.innerHTML = `<p class="sys-empty">Load Goodman, Carrier, Daikin, Mitsubishi, LG, Samsung, Trane, Rheem, Lennox, Bryant, York — or a mini-split package.</p>`;
     }
+    paintChargeWin();
+  }
+
+  function paintChargeWin() {
+    const body = document.getElementById("sb-charge-body");
+    const title = document.getElementById("sb-charge-title");
+    if (!body) return;
+    const sop = chargeSop(activeSystem);
+    if (title) title.textContent = sop.title;
+    const nDone = sop.steps.filter((s) => chargeChecks[s.id]).length;
+    body.innerHTML =
+      "<p class='sb-charge-meta'>" +
+      sop.ref +
+      " · " +
+      String(sop.metering).toUpperCase() +
+      " · " +
+      sop.type +
+      " · " +
+      nDone +
+      "/" +
+      sop.steps.length +
+      " done</p><ol class='sb-charge-steps'>" +
+      sop.steps
+        .map(function (s) {
+          const on = !!chargeChecks[s.id];
+          return (
+            "<li class='" +
+            (on ? "done" : "") +
+            "'><label><input type='checkbox' data-ch='" +
+            s.id +
+            "'" +
+            (on ? " checked" : "") +
+            "/> <strong>" +
+            s.t +
+            "</strong></label><span>" +
+            s.d +
+            "</span></li>"
+          );
+        })
+        .join("") +
+      "</ol><p class='sb-charge-foot'>Training SOP — OEM install guide still wins on ounces and torque.</p>";
+    body.querySelectorAll("input[data-ch]").forEach((inp) => {
+      inp.onchange = () => {
+        chargeChecks[inp.getAttribute("data-ch")] = inp.checked;
+        paintChargeWin();
+      };
+    });
+  }
+
+  function bindChargeDrag() {
+    const win = document.getElementById("sb-charge-win");
+    const handle = document.getElementById("sb-charge-drag");
+    if (!win || !handle) return;
+    let press = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.target && e.target.closest && e.target.closest("button")) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      press = true;
+      const r = win.getBoundingClientRect();
+      sx = e.clientX;
+      sy = e.clientY;
+      ox = r.left;
+      oy = r.top;
+      win.classList.add("dragging");
+      try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (!press) return;
+      win.style.left = Math.max(8, ox + e.clientX - sx) + "px";
+      win.style.top = Math.max(8, oy + e.clientY - sy) + "px";
+      win.style.right = "auto";
+      win.style.bottom = "auto";
+    });
+    handle.addEventListener("pointerup", () => {
+      press = false;
+      win.classList.remove("dragging");
+    });
   }
 
   function applySystem(sys) {
@@ -2546,6 +2688,19 @@
     layoutSlots();
     updateSysBanner();
     paintHubCoach();
+    paintChargeWin();
+    bindChargeDrag();
+    const chMin = document.getElementById("sb-charge-min");
+    const chWin = document.getElementById("sb-charge-win");
+    const chOpen = document.getElementById("sb-charge-open");
+    if (chMin && chWin) chMin.onclick = (e) => {
+      e.stopPropagation();
+      chWin.classList.toggle("collapsed");
+    };
+    if (chOpen && chWin) chOpen.onclick = () => {
+      chWin.classList.remove("hidden", "collapsed");
+      paintChargeWin();
+    };
     const gOn = document.getElementById("sb-guide-on");
     const gFree = document.getElementById("sb-guide-free");
     if (gOn) gOn.onclick = () => {
@@ -2701,6 +2856,7 @@
       delete host.dataset.loopXp;
       guidedStep = 0;
       lastGuideTab = "";
+      chargeChecks = {};
       layoutSlots();
       updateSysBanner();
       paintHubCoach("Board clear. Compressor first. Always.");
@@ -2744,6 +2900,7 @@
     guidedOn = true;
     guidedStep = 0;
     lastGuideTab = "";
+    chargeChecks = {};
     buildUI(root);
     canvas = document.getElementById("sb-canvas");
     ctx = canvas && canvas.getContext("2d");
