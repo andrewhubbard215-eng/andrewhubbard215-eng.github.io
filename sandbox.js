@@ -2054,131 +2054,133 @@
     }
   }
 
-  function draw() {
-    if (!canvas || !ctx) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const w = canvas.clientWidth || 640;
-    const h = canvas.clientHeight || 360;
-    if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-    }
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
+  let staticLayer = null;
+  let staticKey = "";
+  let pxPath = [];
+  let gaugeAcc = 0;
 
-    // board background
-    const g = ctx.createLinearGradient(0, 0, 0, h);
+  function rebuildStatic(w, h, dpr) {
+    staticKey = w + "x" + h + "@" + dpr;
+    staticLayer = document.createElement("canvas");
+    staticLayer.width = Math.max(1, Math.floor(w * dpr));
+    staticLayer.height = Math.max(1, Math.floor(h * dpr));
+    const s = staticLayer.getContext("2d");
+    s.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const g = s.createLinearGradient(0, 0, 0, h);
     g.addColorStop(0, "#0e1620");
     g.addColorStop(1, "#121c28");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-
-    // grid
-    ctx.strokeStyle = "rgba(45,212,191,0.05)";
-    ctx.lineWidth = 1;
+    s.fillStyle = g;
+    s.fillRect(0, 0, w, h);
+    s.strokeStyle = "rgba(45,212,191,0.05)";
+    s.lineWidth = 1;
+    s.beginPath();
     for (let x = 0; x < w; x += 40) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, h);
-      ctx.stroke();
+      s.moveTo(x, 0);
+      s.lineTo(x, h);
     }
     for (let y = 0; y < h; y += 40) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(w, y);
-      ctx.stroke();
+      s.moveTo(0, y);
+      s.lineTo(w, y);
     }
-
-    // pipe loop
-    ctx.lineWidth = 14;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.strokeStyle = "#2a3644";
-    ctx.beginPath();
-    FLOW_PATH.forEach((p, i) => {
-      const x = p[0] * w;
-      const y = p[1] * h;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    s.stroke();
+    pxPath = FLOW_PATH.map(function (p) {
+      return [p[0] * w, p[1] * h];
     });
-    ctx.closePath();
-    ctx.stroke();
+    s.lineWidth = 14;
+    s.lineCap = "round";
+    s.lineJoin = "round";
+    s.strokeStyle = "#2a3644";
+    s.beginPath();
+    pxPath.forEach(function (p, i) {
+      if (i === 0) s.moveTo(p[0], p[1]);
+      else s.lineTo(p[0], p[1]);
+    });
+    s.closePath();
+    s.stroke();
+    s.fillStyle = "rgba(139,154,171,0.7)";
+    s.font = "12px IBM Plex Sans, sans-serif";
+    s.fillText("Vapor-compression cycle · refrigerant flow", 16, 22);
+  }
 
-    // colored phase pipes when running
-    if (requiredComplete()) {
-      const segs = FLOW_PATH.length;
+  function drawArrow(x, y, ang) {
+    const c = Math.cos(ang);
+    const s = Math.sin(ang);
+    ctx.beginPath();
+    ctx.moveTo(x + 8 * c, y + 8 * s);
+    ctx.lineTo(x - 5 * c + 5 * s, y - 5 * s - 5 * c);
+    ctx.lineTo(x - 5 * c - 5 * s, y - 5 * s + 5 * c);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function draw() {
+    if (!canvas || !ctx) return;
+    const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    const w = canvas.clientWidth || 640;
+    const h = canvas.clientHeight || 360;
+    const bw = Math.max(1, Math.floor(w * dpr));
+    const bh = Math.max(1, Math.floor(h * dpr));
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+      staticKey = "";
+    }
+    const key = w + "x" + h + "@" + dpr;
+    if (!staticLayer || staticKey !== key) rebuildStatic(w, h, dpr);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, bw, bh);
+    ctx.drawImage(staticLayer, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const segs = pxPath.length;
+    if (requiredComplete() && segs) {
+      ctx.lineCap = "round";
+      ctx.lineWidth = 8;
+      ctx.globalAlpha = running ? 0.9 : 0.4;
       for (let i = 0; i < segs; i++) {
-        const t0 = i / segs;
-        const a = FLOW_PATH[i];
-        const b = FLOW_PATH[(i + 1) % segs];
+        const a = pxPath[i];
+        const b = pxPath[(i + 1) % segs];
         ctx.beginPath();
-        ctx.moveTo(a[0] * w, a[1] * h);
-        ctx.lineTo(b[0] * w, b[1] * h);
-        ctx.strokeStyle = running ? PHASE_COLOR[phaseAt(t0)] : "#3a4a5c";
-        ctx.lineWidth = 8;
-        ctx.globalAlpha = running ? 0.85 : 0.4;
+        ctx.moveTo(a[0], a[1]);
+        ctx.lineTo(b[0], b[1]);
+        ctx.strokeStyle = running ? PHASE_COLOR[phaseAt(i / segs)] : "#3a4a5c";
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
     }
 
-    // direction arrows
-    if (running) {
-      for (let i = 0; i < FLOW_PATH.length; i += 2) {
-        const a = FLOW_PATH[i];
-        const b = FLOW_PATH[(i + 1) % FLOW_PATH.length];
-        const mx = ((a[0] + b[0]) / 2) * w;
-        const my = ((a[1] + b[1]) / 2) * h;
-        const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
-        ctx.save();
-        ctx.translate(mx, my);
-        ctx.rotate(ang);
-        ctx.fillStyle = "rgba(255,255,255,0.55)";
-        ctx.beginPath();
-        ctx.moveTo(8, 0);
-        ctx.lineTo(-5, -5);
-        ctx.lineTo(-5, 5);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
+    if (running && segs) {
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      for (let i = 0; i < segs; i += 3) {
+        const a = pxPath[i];
+        const b = pxPath[(i + 1) % segs];
+        drawArrow((a[0] + b[0]) * 0.5, (a[1] + b[1]) * 0.5, Math.atan2(b[1] - a[1], b[0] - a[0]));
       }
     }
 
-    // particles
-    for (const p of particles) {
-      const [nx, ny] = lerpPath(p.t);
-      const x = nx * w;
-      const y = ny * h;
-      ctx.beginPath();
+    const n = particles.length;
+    for (let i = 0; i < n; i++) {
+      const p = particles[i];
+      const pt = lerpPath(p.t);
       ctx.fillStyle = PHASE_COLOR[phaseAt(p.t)];
-      ctx.globalAlpha = 0.95;
-      ctx.arc(x, y, p.r, 0, Math.PI * 2);
-      ctx.fill();
       ctx.beginPath();
-      ctx.globalAlpha = 0.28;
-      ctx.arc(x, y, p.r * 2.4, 0, Math.PI * 2);
+      ctx.arc(pt[0] * w, pt[1] * h, p.r, 0, 6.283185);
       ctx.fill();
-      ctx.globalAlpha = 1;
     }
 
-    if (running && requiredComplete()) {
-      const cx = FLOW_PATH[0][0] * w;
-      const cy = FLOW_PATH[0][1] * h;
+    if (running && requiredComplete() && pxPath[0]) {
+      const cx = pxPath[0][0];
+      const cy = pxPath[0][1];
       const pulse = 10 + Math.sin((animT || 0) / 120) * 4;
       ctx.beginPath();
       ctx.strokeStyle = "rgba(206,0,52,0.55)";
       ctx.lineWidth = 2;
-      ctx.arc(cx, cy, pulse, 0, Math.PI * 2);
+      ctx.arc(cx, cy, pulse, 0, 6.283185);
       ctx.stroke();
       ctx.fillStyle = "#CE0034";
       ctx.font = "bold 11px IBM Plex Sans, sans-serif";
       ctx.fillText("COMP ON", cx - 24, cy - 16);
     }
-
-    // title
-    ctx.fillStyle = "rgba(139,154,171,0.7)";
-    ctx.font = "12px IBM Plex Sans, sans-serif";
-    ctx.fillText("Vapor-compression cycle · refrigerant flow", 16, 22);
   }
 
   let lastTick = 0;
@@ -2186,11 +2188,11 @@
 
   function seedFlow() {
     particles = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 14; i++) {
       particles.push({
-        t: i / 20,
-        r: 3.2 + (i % 3),
-        speed: 0.22 + (i % 5) * 0.03,
+        t: i / 14,
+        r: 3.4 + (i % 2),
+        speed: 0.24 + (i % 4) * 0.04,
       });
     }
   }
@@ -2207,10 +2209,11 @@
     const dt = lastTick ? Math.min(0.05, (now - lastTick) / 1000) : 0.016;
     lastTick = now;
     animT = now;
+    if (typeof document !== "undefined" && document.hidden) {
+      raf = requestAnimationFrame(tick);
+      return;
+    }
     try {
-      const sim = simulate();
-      updateGauges(sim);
-
       if (running && requiredComplete()) {
         if (hpMode === "heat" && outdoorF < 42 && !defrosting && fault !== "stuck_defrost") {
           const rate = fault === "defrost_fail" ? 8 : 3.2;
@@ -2237,6 +2240,11 @@
         }
       } else if (!running) {
         particles = [];
+      }
+      gaugeAcc += dt;
+      if (gaugeAcc >= 0.12 || !running) {
+        gaugeAcc = 0;
+        updateGauges(simulate());
       }
       const fi = Math.round(frost);
       if (fi !== lastFrostUi) {
@@ -2361,6 +2369,9 @@
     gaugesEquipped = false;
     lastTick = 0;
     lastFrostUi = -1;
+    gaugeAcc = 0;
+    staticLayer = null;
+    staticKey = "";
     particles = [];
     activeSystem = null;
     buildUI(root);
