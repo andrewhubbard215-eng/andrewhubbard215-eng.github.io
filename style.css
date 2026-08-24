@@ -2681,5 +2681,5 @@ select:focus-visible {
   position: absolute; left: 50%; top: 50%; width: 28px; height: 28px; margin: -14px;
   border-radius: 50%; background: #2dd4bf; box-shadow: 0 0 12px #2dd4bf;
 }
-.ptool-ideas { margin: 8px 0 12px 18px; line-height: 1.45; }
+.ptool-xyz { display: flex; flex-wrap: wrap; gap: 8px 12px; font-variant-numeric: tabular-nums; font-size: 13px; color: #9ad4e6; margin: 6px 0 10px; }
 .ptool-ideas li { margin: 8px 0; }

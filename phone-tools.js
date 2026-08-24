@@ -14,6 +14,11 @@
   let raf = 0;
   let baseline = 0;
   let lastB = 0;
+  let magX = 0;
+  let magY = 0;
+  let magZ = 0;
+  let magBuf = [];
+  let magSrc = "off";
   let headingBuf = [];
   let levelBeta = 0;
   let levelGamma = 0;
@@ -61,6 +66,7 @@
         v += d;
       }
       lastB = headingBuf.length > 2 ? v : lastB;
+      magSrc = magSrc === "magnetometer" ? magSrc : "compass";
     }
     if (e.beta != null) levelBeta = e.beta;
     if (e.gamma != null) levelGamma = e.gamma;
@@ -88,7 +94,13 @@
     try {
       mag = new Magnetometer({ frequency: 20 });
       mag.addEventListener("reading", () => {
+        magX = mag.x;
+        magY = mag.y;
+        magZ = mag.z;
         lastB = hypot3(mag.x, mag.y, mag.z);
+        magBuf.push(lastB);
+        if (magBuf.length > 40) magBuf.shift();
+        magSrc = "magnetometer";
       });
       mag.addEventListener("error", () => {});
       mag.start();
@@ -152,6 +164,19 @@
       lab.className = "ptool-st " + st.cls;
     }
     if (why) why.textContent = st.d;
+    const xyz = root.querySelector("#ptool-xyz");
+    if (xyz) {
+      let ripple = 0;
+      if (magBuf.length > 4) {
+        const mean = magBuf.reduce((a, b) => a + b, 0) / magBuf.length;
+        ripple = Math.sqrt(magBuf.reduce((a, b) => a + (b - mean) * (b - mean), 0) / magBuf.length);
+      }
+      xyz.innerHTML = mag
+        ? "<span>X " + magX.toFixed(1) + "</span><span>Y " + magY.toFixed(1) + "</span><span>Z " + magZ.toFixed(1) + "</span><span>|B| " +
+          lastB.toFixed(1) + " µT</span><span>Δ " + Math.abs(lastB - baseline).toFixed(1) + "</span><span>ripple " +
+          ripple.toFixed(1) + "</span>"
+        : "<span>compass jitter " + lastB.toFixed(1) + "</span><span>Δ " + Math.abs(lastB - baseline).toFixed(1) + "</span><span>Earth ~25–65 µT</span>";
+    }
     if (bar) {
       const pct = mag ? Math.min(100, (Math.abs(lastB - baseline) / 200) * 100) : Math.min(100, lastB);
       bar.style.width = pct + "%";
@@ -233,6 +258,7 @@
         '<p class="ptool-st dead" id="ptool-st">ZERO FIRST</p>' +
         '<p class="pt-sat" id="ptool-b">—</p>' +
         '<div class="ptool-meter" id="ptool-bar"><i></i></div>' +
+        '<p class="ptool-xyz" id="ptool-xyz">X — Y — Z — |B| —</p>' +
         '<p id="ptool-why" class="pt-note"></p>' +
         '<div class="row"><button class="btn primary" id="ptool-zero">Zero here</button>' +
         '<button class="btn" id="ptool-go">Enable sensors</button></div>' +
