@@ -58,6 +58,18 @@
       icon: "🦸",
     },
     {
+      id: "quiz_champ",
+      name: "Quiz Champion",
+      desc: "Took first on a Kahoot-style Quiz Game.",
+      icon: "🥇",
+    },
+    {
+      id: "gauges_of_god",
+      name: "Gauges of God",
+      desc: "Won the Quiz Game. HVAC Jesus seated the gauges.",
+      icon: "⚖️",
+    },
+    {
       id: "allstar_rank",
       name: "All-Star Rank",
       desc: "Reached 2000 XP All-Star rank.",

@@ -1915,9 +1915,10 @@
     });
 
     document.getElementById("btn-accept").onclick = () => {
+      if (!state.gaugesOfGod) state.xp += 100;
       state.gaugesOfGod = true;
       state.raptureSeen = true;
-      state.xp += 100;
+      if (window.Badges) window.Badges.unlock("gauges_of_god");
       save();
       sfx.win();
       toast("Gauges of God seated. SH/SC will never be a coin flip again.", "ok");
@@ -2026,14 +2027,39 @@
     }
   }
 
-  function openRapture() {
+  function openRapture(fromQuiz) {
     show("rapture");
     if (window.HvacCommandments && window.HvacCommandments.paintRapture) {
       window.HvacCommandments.paintRapture(document.getElementById("screen-rapture"));
     }
+    const speak = document.getElementById("jesus-speak");
+    if (speak && fromQuiz) {
+      speak.textContent =
+        "“You won the Quiz Game. I am HVAC Jesus. Receive the Gauges of God — SH and SC will never be a coin flip again.”";
+    }
     const v = document.getElementById("heaven-vid");
-    v.currentTime = 0;
-    v.play().catch(() => {});
+    if (v) {
+      try {
+        v.currentTime = 0;
+        v.play().catch(function () {});
+      } catch (_) {}
+    }
+  }
+
+  function grantQuizVictory() {
+    const bonus = 250;
+    state.xp += bonus;
+    state.gaugesOfGod = true;
+    state.raptureSeen = true;
+    if (window.Badges) {
+      window.Badges.unlock("quiz_champ");
+      window.Badges.unlock("gauges_of_god");
+    }
+    save();
+    toast("Quiz Champion · HVAC Jesus · Gauges of God · +" + bonus + " XP", "xp");
+    setTimeout(function () {
+      openRapture(true);
+    }, 900);
   }
 
   function startCommandments() {
@@ -2265,7 +2291,8 @@
         show("hub");
       },
       onComplete({ scores, winner, packId }) {
-        const my = scores[state.callsign] || scores[Object.keys(scores)[0]] || 0;
+        const myName = state.callsign || "Tech";
+        const my = scores[myName] != null ? scores[myName] : scores[Object.keys(scores)[0]] || 0;
         const xp = Math.min(200, Math.round(my / 25) + 40);
         state.xp += xp;
         const payAmt = Math.min(300, Math.round(my / 20));
@@ -2275,15 +2302,17 @@
         }
         save();
         toast("Quiz done · +" + xp + " XP", "xp");
-        if (winner && winner[0]) {
-          toast("🏆 " + winner[0] + " · " + winner[1] + " pts", "ok");
-        }
         if (window.Badges) {
           if (packId === "epa608" || packId === "mixed") window.Badges.unlock("epa_quiz");
           if (packId === "osha30" || packId === "mixed") window.Badges.unlock("osha_quiz");
         }
         markDaily("quiz", { pack: packId });
         postCompete("score", { mode: "quiz", score: my });
+        const names = Object.keys(scores);
+        const winName = winner && winner[0];
+        const iWon = !winName || winName === myName || names.length <= 1;
+        if (iWon) grantQuizVictory();
+        else if (winName) toast("🏆 " + winName + " took first. Run it back.", "ok");
       },
     });
   }
