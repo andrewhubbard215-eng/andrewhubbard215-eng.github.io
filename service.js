@@ -14,6 +14,8 @@
         pro: "It's been blowing warm since yesterday and the baby's room is a sauna. Can you fix it today?",
         spicy:
           "If this house gets any hotter I'm walking around in nothing but a thermostat. Get me cold air before I melt into the hardwood.",
+        extra:
+          "It's so hot I could fry an egg on this tstat and I am not wearing enough clothes for your leak search. Fix the charge before I file a noise complaint about my own AC.",
       },
       prompt: "High SH + low SC. Best fix path?",
       choices: [
@@ -32,6 +34,10 @@
           ok: "Bless you. Pants go back on when the supply air drops.",
           bad: "Top it off and bounce and I will review you like a Yelp demon.",
         },
+        extra: {
+          ok: "Air's dropping. I might even put pants back on. Might.",
+          bad: "You top off a leaker and I will write a review that makes your manifold blush.",
+        },
       },
     },
     {
@@ -43,6 +49,8 @@
         pro: "The pipe in the closet is a popsicle and the shop smells musty.",
         spicy:
           "Copper's frozen like a gas-station Otter Pop and my barber chair is sweating. Fix it before the fade clients revolt.",
+        extra:
+          "That suction line is an Otter Pop and my last customer left because the shop smells like a wet gym sock. Don't add gas. Un-ice my life.",
       },
       prompt: "Iced suction + low SH. First move?",
       choices: [
@@ -61,6 +69,10 @@
           ok: "MVP. Free fade if you want that helmet hair sorted.",
           bad: "My clippers got more airflow than this coil, man.",
         },
+        extra: {
+          ok: "You're a hero. Fade's on me. Keep the helmet hair jokes to yourself.",
+          bad: "You added gas to an ice sculpture. Bold. Stupid. Kind of hot in the worst way.",
+        },
       },
     },
     {
@@ -72,6 +84,8 @@
         pro: "Conference room is unbearable. Client pitch in two hours.",
         spicy:
           "If my boss melts in there I will rate you one star and a crayon drawing of a sad compressor.",
+        extra:
+          "If that conference room stays a sauna I will describe your TXV skills in the company Slack with GIFs. Fix the starved zone. I have a pitch and a migraine.",
       },
       prompt: "High SH, healthy SC on one zone — best theory?",
       choices: [
@@ -90,6 +104,10 @@
           ok: "Bagels and residual panic sweat await you at the debrief.",
           bad: "I can hear the PowerPoint of doom from here.",
         },
+        extra: {
+          ok: "Pitch saved. There's leftover bagels and shame in the break room.",
+          bad: "They're in the lobby. I am one wrong TXV away from becoming a LinkedIn story.",
+        },
       },
     },
     {
@@ -101,6 +119,8 @@
         pro: "It runs all day and never catches up. Bushes grew into the box.",
         spicy:
           "That condenser lost a fight with a hedge and my electric bill is dating a loan shark.",
+        extra:
+          "The bushes ate my condenser and the power company is texting me like an ex. Wash the coil. Don't steal my charge. Ray didn't survive '78 to get robbed by junipers.",
       },
       prompt: "High head + dirty outdoor coil. Best action?",
       choices: [
@@ -119,6 +139,10 @@
           ok: "You and a coil brush just saved my marriage to the power company.",
           bad: "Touch that charge without cleaning and Ray will haunt your manifold.",
         },
+        extra: {
+          ok: "Coil's naked again. Electric bill can sleep in the guest room.",
+          bad: "You pulled charge instead of weeds. Ray's ghost just grabbed a manifold.",
+        },
       },
     },
     {
@@ -130,6 +154,8 @@
         pro: "I took the valve apart to see if it was clogged. Can you just recharge it?",
         spicy:
           "I YouTubed it. Refrigerant went psshh into the sky. You got a can of 410 I can borrow?",
+        extra:
+          "I vented it like a soda can and now I want you to make it rain 410A. Extra spicy news, Dave: that's a federal vibe and also dumb.",
       },
       prompt: "Opened without recovery. Correct path?",
       choices: [
@@ -148,6 +174,10 @@
           ok: "Teach me like I'm five and slightly radioactive.",
           bad: "The atmosphere says thanks for nothing, Dave.",
         },
+        extra: {
+          ok: "Okay I'll recover like a grown-up. Don't tell OSHA I had feelings.",
+          bad: "You handed Dave a can. The atmosphere and your cert just unswiped you.",
+        },
       },
     },
     {
@@ -159,6 +189,8 @@
         pro: "It worked two days then quit. We're on her mom's couch. Please.",
         spicy:
           "One more tech says 'give it time' and you're getting a one-star review in all caps.",
+        extra:
+          "We're on her mom's couch, the lineset is long, and nobody's getting lucky until this SC comes up. Weigh it in. I'm begging in two languages.",
       },
       prompt: "Low SC after a long-lineset install. Likely issue?",
       choices: [
@@ -177,6 +209,10 @@
           ok: "You saved a relationship and a very loud floor fan.",
           bad: "Her mom's couch has springs with names. Don't make us go back.",
         },
+        extra: {
+          ok: "Mom's couch is retired. The floor fan can finally shut up. Thank you.",
+          bad: "Guess without the chart again and you're sleeping on that couch with us.",
+        },
       },
     },
   ];
@@ -187,8 +223,24 @@
   let locked = false;
   let stars = 5;
   let spicy = false;
+  let extraSpicy = false;
   let hooks = {};
   let deck = [];
+
+  function heat() {
+    return extraSpicy ? 2 : spicy ? 1 : 0;
+  }
+  function quoteOf(c) {
+    if (heat() >= 2 && c.quote.extra) return c.quote.extra;
+    if (heat() >= 1 && c.quote.spicy) return c.quote.spicy;
+    return c.quote.pro;
+  }
+  function replyOf(c, ok) {
+    const k = ok ? "ok" : "bad";
+    if (heat() >= 2 && c.reply.extra) return c.reply.extra[k];
+    if (heat() >= 1 && c.reply.spicy) return c.reply.spicy[k];
+    return c.reply.pro[k];
+  }
 
   function starsStr(n) {
     const full = Math.max(0, Math.min(5, Math.round(n)));
@@ -244,13 +296,13 @@
     }
 
     const c = deck[callI];
-    root.querySelector("#svc-eyebrow").textContent = spicy ? "Service call · 🌶️ Spicy" : "Service call";
+    root.querySelector("#svc-eyebrow").textContent =
+      extraSpicy ? "Service call · 🌶️ Extra spicy" : spicy ? "Service call · 🌶️ Spicy" : "Service call";
     root.querySelector("#svc-title").textContent = "On site";
     root.querySelector("#svc-avatar").textContent = c.avatar;
     root.querySelector("#svc-name").textContent = c.name;
     root.querySelector("#svc-job").textContent = c.job;
-    root.querySelector("#svc-quote").textContent =
-      "“" + (spicy ? c.quote.spicy : c.quote.pro) + "”";
+    root.querySelector("#svc-quote").textContent = "“" + quoteOf(c) + "”";
     root.querySelector("#svc-vitals").textContent = c.vitals;
     root.querySelector("#svc-prompt").textContent = c.prompt;
 
@@ -267,10 +319,10 @@
           callRight++;
           b.classList.add("correct");
           let hub = "";
-          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-ok");
+          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-ok", { extra: extraSpicy });
           fb.innerHTML =
             "<strong>Correct.</strong> " + c.why.ok +
-            "<br/><em>" + (spicy ? c.reply.spicy.ok : c.reply.pro.ok) + "</em>" +
+            "<br/><em>" + replyOf(c, true) + "</em>" +
             (hub ? "<br/><span class='svc-hub-line'>" + hub + "</span>" : "");
           fb.className = "svc-feedback good";
           if (hooks.onSfx) hooks.onSfx("win");
@@ -278,12 +330,12 @@
           stars = Math.max(1, stars - 1);
           b.classList.add("wrong");
           let hub = "";
-          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-bad");
+          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-bad", { extra: extraSpicy });
           const right = (c.choices || []).find(function(x){ return x.ok; });
           fb.innerHTML =
             "<strong>Not the best call.</strong> " + c.why.bad +
             (right ? "<br/><strong>Better:</strong> " + (right.t || right.label) : "") +
-            "<br/><em>" + (spicy ? c.reply.spicy.bad : c.reply.pro.bad) + "</em>" +
+            "<br/><em>" + replyOf(c, false) + "</em>" +
             (hub ? "<br/><span class='svc-hub-line'>" + hub + "</span>" : "");
           fb.className = "svc-feedback bad";
           root.querySelector("#svc-rating").textContent = starsStr(stars);
@@ -306,7 +358,8 @@
     callRight = 0;
     locked = false;
     stars = 5;
-    spicy = !!(opts && opts.spicy);
+    spicy = !!(opts && opts.spicy) || !!(opts && opts.extraSpicy);
+    extraSpicy = !!(opts && opts.extraSpicy);
     deck = shuffle(CALLS);
 
     // ensure structure exists (in case host is empty root)
@@ -319,7 +372,22 @@
       spicyEl.checked = spicy;
       spicyEl.onchange = () => {
         spicy = spicyEl.checked;
+        if (!spicy) extraSpicy = false;
+        if (extraEl) extraEl.checked = extraSpicy;
         if (hooks.onSpicy) hooks.onSpicy(spicy);
+        if (hooks.onExtra) hooks.onExtra(extraSpicy);
+        render();
+      };
+    }
+    const extraEl = document.getElementById("svc-extra");
+    if (extraEl) {
+      extraEl.checked = extraSpicy;
+      extraEl.onchange = () => {
+        extraSpicy = extraEl.checked;
+        if (extraSpicy) spicy = true;
+        if (spicyEl) spicyEl.checked = spicy;
+        if (hooks.onSpicy) hooks.onSpicy(spicy);
+        if (hooks.onExtra) hooks.onExtra(extraSpicy);
         render();
       };
     }

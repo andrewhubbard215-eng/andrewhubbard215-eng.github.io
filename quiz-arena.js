@@ -484,6 +484,7 @@
   let players = [];
   let pollId = 0;
   let net = "local"; // local BroadcastChannel | server PIN rooms
+  let extraSpicy = false;
 
   function pinGen() {
     return String((Math.random() * 900000 + 100000) | 0);
@@ -556,9 +557,10 @@
 
   function hubLine(kind) {
     if (!global.ProfessorHUB) return "";
-    if (kind === "ok") return " " + global.ProfessorHUB.banter("service-ok");
-    if (kind === "bad") return " " + global.ProfessorHUB.banter("service-bad");
-    return " " + global.ProfessorHUB.banter("hub");
+    const ctx = extraSpicy ? { extra: true } : {};
+    if (kind === "ok") return " " + global.ProfessorHUB.banter("service-ok", ctx);
+    if (kind === "bad") return " " + global.ProfessorHUB.banter("service-bad", ctx);
+    return " " + global.ProfessorHUB.banter("hub", ctx);
   }
 
   function broadcast(msg) {
@@ -965,7 +967,8 @@
             <button class="btn" id="qa-hub">Shop floor</button>
           </header>
           <div class="qa-lobby">
-            <p class="qa-lede">Timed exam board. Pick a pack. Speed still pays — wrong answers still cost. Not a party-game clone.</p>
+            <p class="qa-lede">Timed exam board. Pick a pack. Speed still pays — wrong answers still cost.</p>
+            <label class="spicy-toggle qa-heat"><input type="checkbox" id="qa-extra" ${extraSpicy ? "checked" : ""}/> <span>🌶️ Extra spicy HUB (jokes only — 608 stays clean)</span></label>
             <div class="qa-pack-row" id="qa-pack-row">
               <button type="button" class="qa-pack-btn" data-pack="epa608">EPA 608</button>
               <button type="button" class="qa-pack-btn" data-pack="osha30">OSHA 30</button>
@@ -994,6 +997,11 @@
       root.querySelector("#qa-solo").onclick = startSolo;
       root.querySelector("#qa-host").onclick = startHost;
       root.querySelector("#qa-join").onclick = joinRoom;
+      const extraEl = root.querySelector("#qa-extra");
+      if (extraEl) extraEl.onchange = () => {
+        extraSpicy = extraEl.checked;
+        if (hooks.onExtra) hooks.onExtra(extraSpicy);
+      };
       const packSel = root.querySelector("#qa-pack");
       root.querySelectorAll(".qa-pack-btn").forEach((b) => {
         b.onclick = () => {
@@ -1096,6 +1104,7 @@
     mode = "lobby";
     role = "solo";
     nickname = (opts && opts.nickname) || "Tech";
+    extraSpicy = !!(opts && opts.extraSpicy);
     scores = {};
     players = [];
     stopTimer();

@@ -95,6 +95,29 @@
       "Bank it. Future you needs tools and slightly better decisions.",
     ],
 
+    extraOk: [
+      "Correct. I'd kiss the manifold but that's a lawsuit and also unsanitary.",
+      "Nailed it. Put your shirt back on, hero — the SH is decent now.",
+      "That's the one. Save the victory dance for off the customer's lawn.",
+      "Hot take: you're actually good at this. Don't let it go to your... gauges.",
+      "Yes. Maximum effort. Minimum pants-on-head. I'm proud in a weird way.",
+    ],
+    extraBad: [
+      "Wrong. That answer needs a cigarette and a better lawyer.",
+      "Nope. You just tried to pick up the compressor. It said it's not that drunk.",
+      "That's not a diagnosis, that's a booty call with a recovery machine.",
+      "Incorrect. Even HVAC Jesus looked away. Recover your dignity.",
+      "You selected chaos. Chaos unbuttoned. Try the book.",
+    ],
+    extraHub: [
+      "Extra spicy is ON. Keep the 608 answers clean. Keep the jokes filthy. That's the brand.",
+      "LOTO isn't a safe word. Tag it anyway.",
+      "If the TXV's stuck open, that's flooding. If you're stuck open, that's HR.",
+      "Recover before you open it. That's 608 and also dating advice.",
+      "Subcooling first, then superheat, then whatever you do on Friday. In that order.",
+      "I'm Deadpool with a micron gauge. You're the intern. Don't vent.",
+    ],
+
     roastRank(title) {
       const map = {
         Helper: "Helper rank. Adorable. Like training wheels with a death wish.",
@@ -117,12 +140,12 @@
 
   function banter(kind, ctx) {
     switch (kind) {
-      case "hub":
-        return pick(HUB.hubLines);
       case "service-ok":
-        return pick(HUB.serviceOk);
+        return pick(ctx && ctx.extra ? HUB.extraOk : HUB.serviceOk);
       case "service-bad":
-        return pick(HUB.serviceBad);
+        return pick(ctx && ctx.extra ? HUB.extraBad : HUB.serviceBad);
+      case "hub":
+        return pick(ctx && ctx.extra ? HUB.extraHub.concat(HUB.hubLines) : HUB.hubLines);
       case "paid":
         return pick(HUB.paid);
       case "unit":

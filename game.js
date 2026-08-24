@@ -30,6 +30,7 @@
     bestArena: 0,
     vehicle: "falcon", // "falcon" | "van"
     spicy: false,
+    extraSpicy: false,
     seenTip: false,
     seenTutorial: false,
     hubAuthed: false,
@@ -91,7 +92,7 @@
     if (typeof state.cash !== "number") state.cash = 0;
     if (typeof state.jobsCompleted !== "number") state.jobsCompleted = 0;
     if (typeof state.lifetimeEarnings !== "number") state.lifetimeEarnings = 0;
-    if (typeof state.spicy !== "boolean") state.spicy = false;
+    if (typeof state.extraSpicy !== "boolean") state.extraSpicy = false;
     if (typeof state.hubAuthed !== "boolean") state.hubAuthed = false;
     if (typeof state.seenTutorial !== "boolean") state.seenTutorial = false;
     if (typeof state.hubAiOn !== "boolean") state.hubAiOn = true;
@@ -118,6 +119,7 @@
         bestArena: state.bestArena,
         vehicle: state.vehicle,
         spicy: state.spicy,
+        extraSpicy: !!state.extraSpicy,
         seenTip: state.seenTip,
         seenTutorial: state.seenTutorial,
         hubAiOn: state.hubAiOn !== false,
@@ -185,6 +187,7 @@
       gaugesOfGod: state.gaugesOfGod,
       raptureSeen: state.raptureSeen,
       spicy: state.spicy,
+      extraSpicy: !!state.extraSpicy,
       seenTip: state.seenTip,
       seenTutorial: state.seenTutorial,
       hubAuthed: !!state.hubAuthed && isHubName(state.callsign),
@@ -208,6 +211,7 @@
     state.gaugesOfGod = !!rec.gaugesOfGod;
     state.raptureSeen = !!rec.raptureSeen;
     state.spicy = !!rec.spicy;
+    state.extraSpicy = !!rec.extraSpicy;
     state.seenTip = !!rec.seenTip;
     state.seenTutorial = !!rec.seenTutorial;
     state.hubAuthed = !!rec.hubAuthed && isHubName(rec.callsign);
@@ -490,6 +494,8 @@
     }
     const hubSpicy = document.getElementById("hub-spicy");
     if (hubSpicy) hubSpicy.checked = !!state.spicy;
+    const hubExtraSync = document.getElementById("hub-extra");
+    if (hubExtraSync) hubExtraSync.checked = !!state.extraSpicy;
     // sync vehicle picker UI
     if (document.querySelector(".vehicle-card")) setVehicle(state.vehicle || "falcon");
 
@@ -503,7 +509,7 @@
       if (grid) grid.parentNode.insertBefore(chip, grid);
     }
     if (window.ProfessorHUB) {
-      const line = window.ProfessorHUB.banter("hub");
+      const line = window.ProfessorHUB.banter("hub", { extra: !!state.extraSpicy });
       const roast = window.ProfessorHUB.banter("rank", { title: rank.title });
       chip.innerHTML = '<img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" /><div><strong>Professor Andrew Hubbard</strong><p>' + line + " " + roast + "</p></div>";
     }
@@ -914,8 +920,14 @@
     const host = document.getElementById("screen-service");
     serviceCtl = window.ServiceCalls.start(host, {
       spicy: !!state.spicy,
+      extraSpicy: !!state.extraSpicy,
       onSpicy(v) {
         state.spicy = !!v;
+        save();
+      },
+      onExtra(v) {
+        state.extraSpicy = !!v;
+        if (v) state.spicy = true;
         save();
       },
       onSfx(kind) {
@@ -2045,6 +2057,19 @@
         toast(state.spicy ? "Spicy customers ON." : "Spicy customers off.", "ok");
       };
     }
+    const hubExtra = document.getElementById("hub-extra");
+    if (hubExtra) {
+      hubExtra.checked = !!state.extraSpicy;
+      hubExtra.onchange = () => {
+        state.extraSpicy = !!hubExtra.checked;
+        if (state.extraSpicy) {
+          state.spicy = true;
+          if (hubSpicy) hubSpicy.checked = true;
+        }
+        save();
+        toast(state.extraSpicy ? "Extra spicy ON. 608 still clean." : "Extra spicy off.", "ok");
+      };
+    }
     const hubSfx = document.getElementById("hub-sfx");
     if (hubSfx) {
       hubSfx.checked = !sfx.isMuted();
@@ -2554,6 +2579,11 @@
     const root = document.getElementById("quiz-root");
     quizCtl = window.QuizArena.start(root, {
       nickname: state.callsign || "Tech",
+      extraSpicy: !!state.extraSpicy,
+      onExtra(v) {
+        state.extraSpicy = !!v;
+        save();
+      },
       onHub() {
         if (quizCtl) {
           quizCtl.stop();
