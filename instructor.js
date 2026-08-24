@@ -29,6 +29,8 @@
       "I know I'm an NPC. I still won't let you ohm a live circuit.",
       "Red suit optional. Safety glasses not optional. That's the joke and the law.",
       "If this were a Marvel movie I'd regenerate. Your compressor will not. LOTO.",
+      "EPA 608, OSHA 30, Lincoln Tech. That's the holy trinity. Everything else is DLC.",
+      "Occasional dirty joke: LOTO isn't a kink. Tag it, then eat your sandwich.",
     ],
 
     // Curriculum unit openers keyed loosely by id

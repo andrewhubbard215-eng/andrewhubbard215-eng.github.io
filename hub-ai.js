@@ -314,10 +314,89 @@
   ];
 
   const FALLBACKS = [
-    "I understood the assignment emotionally, not technically. Try keywords like: superheat, vacuum, flare, ice, undercharge, TXV, EPA, torque.",
-    "My genius has limits; your question wandered off the manifold. Ask about install steps or fault fingerprints.",
-    "Rephrase that like a tech on a roof, not a poet. Example: 'high SH low SC' or 'how to vacuum a mini-split'.",
+    "Stay on the three packs: EPA 608, OSHA 30, or Lincoln Tech curriculum. Try: recover, vacuum, LOTO, fall protection, superheat, TXV, mini-split.",
+    "That's off the manifold. Ask 608 recovery, OSHA LOTO/falls/PPE, or LT cycle/SH-SC/gauges.",
+    "I only coach EPA 608, OSHA 30, and Lincoln Tech HCR. Rephrase like a tech: 'Type II recovery' or '6-foot fall rule'.",
   ];
+
+  const TOPIC_TIPS = {
+    epa608: [
+      "EPA 608: recover before you open it. Venting is illegal — not a personality.",
+      "608: evacuate to 500 microns or less on most high-pressure work, measured with a micron gauge at the system.",
+      "608: recovery cylinders — DOT, labeled, 80% fill by weight. Leave headspace or the tank becomes a pipe bomb with paperwork.",
+      "608 Type I is small appliances (5 lb or less). Type II high-pressure, Type III low-pressure. Universal is Core + I + II + III.",
+      "608: never mix refrigerants. Never use oxygen or shop air for leak tests. Dry nitrogen, regulator on.",
+      "608: a leak gets repaired, then recover/repair/evac/weigh-in. Top-off of a known leaker is how you fail the exam and the planet.",
+    ],
+    osha30: [
+      "OSHA 30: lockout/tagout — verify dead with a meter. The only person who pulls the lock is the one who hung it (or the written procedure).",
+      "OSHA: fall protection when you're exposed at 6 feet or more in construction. Tie off. Heroics are for movies.",
+      "OSHA: GFCI for tools in wet/outdoor work. Jewelry + live 240 is how we write accident reports.",
+      "OSHA hierarchy: eliminate the hazard when you can. PPE is last, not first.",
+      "OSHA: SDS exists so you don't drink the coil cleaner. Read it. Heat illness = water, rest, shade, don't be a martyr.",
+      "OSHA: damaged cords out of service. Class C (or rated multi-class) extinguisher for energized electrical — not the kitchen K can.",
+    ],
+    lincoln: [
+      "Lincoln Tech: SH = suction temp minus evap sat. SC = cond sat minus liquid temp. Read both or you're guessing.",
+      "LT curriculum: airflow before charge. Iced suction + near-zero SH is usually filter/blower/coil, not 'add gas.'",
+      "LT: nut on the tube before you flare. Deburr. Torque. That's HCR lab, not optional flavor.",
+      "LT: nameplate is law — refrigerant, charge, MCA/MOP. OCR is a hint; your eyes are the final.",
+      "LT: TXV is often charged by subcooling + weigh-in. Fixed orifice by superheat chart. OEM still wins.",
+      "LT: four core parts close the cycle — compressor, condenser, metering, evaporator. Sandbox it before you torch a real unit.",
+    ],
+  };
+
+  const TOPIC_LABEL = {
+    epa608: "EPA 608",
+    osha30: "OSHA 30",
+    lincoln: "Lincoln Tech curriculum",
+  };
+
+  const DIRTY = [
+    "Your TXV is starving. Join the club. Weigh in, don't just top off.",
+    "Don't blow in the lineset. That's not nitrogen and it's a weird look on a roof.",
+    "LOTO isn't a kink. Tag the disconnect, then take your break.",
+    "If you're gonna tighten something till it squeals, make it a flare nut to torque spec.",
+    "Keep it in the recovery cylinder. 80% fill. Not a metaphor.",
+    "Venting is illegal. Oversharing with the customer is just tacky.",
+    "Maximum effort. Minimum pants-optional humor on the customer's lawn.",
+    "I'm Deadpool with a manifold. Save the filthy jokes for the van — after LOTO.",
+  ];
+
+  function randomPackTip() {
+    const keys = ["epa608", "osha30", "lincoln"];
+    const k = keys[(Math.random() * keys.length) | 0];
+    const list = TOPIC_TIPS[k];
+    const tip = list[(Math.random() * list.length) | 0];
+    return { key: k, label: TOPIC_LABEL[k], tip: tip };
+  }
+
+  const JOKES = [
+    "Chimichanga later. Microns now.",
+    "Maximum effort. Minimum venting.",
+    "I'm Deadpool with a manifold. You're the sequel.",
+    "Fourth wall's gone. Your charge still has to be weighed.",
+    "Spoiler: it's the filter. It's always the filter until it isn't.",
+    "I'd break more walls but OSHA already wrote me up for the last one.",
+    "Plot twist: nitrogen isn't for lungs. Dry N₂ only.",
+    "Regeneration is for mutants. Compressors just seize. LOTO.",
+    "Red leather optional. Recovery cylinder labeled. Always.",
+    "This answer is canon. Your 'just add gas' theory is fanfic.",
+  ];
+
+  function dress(answer) {
+    let out = answer;
+    const roll = Math.random();
+    if (roll < 0.16) {
+      out = answer + " " + DIRTY[(Math.random() * DIRTY.length) | 0];
+    } else if (roll < 0.5) {
+      const joke = JOKES[(Math.random() * JOKES.length) | 0];
+      out = Math.random() < 0.45 ? joke + " — " + answer : answer + " " + joke;
+    }
+    const pre = WIT_PREFIX[(Math.random() * WIT_PREFIX.length) | 0];
+    const suf = WIT_SUFFIX[(Math.random() * WIT_SUFFIX.length) | 0];
+    return pre + out + suf;
+  }
 
   const WIT_PREFIX = [
     "",
@@ -428,17 +507,20 @@
 
   function ask(query, ctx) {
     const q = normalize(query);
-    if (!q) {
+    const wantRandom = !q || /^(joke|jokes|random|teach|teach me|quiz|quiz me|anything|go|hit me|another)$/.test(q) || q.length < 3;
+    if (wantRandom) {
+      const r = randomPackTip();
       return {
-        topic: "Empty",
-        text: "You sent me silence. Even Deadpool needs a prompt. Try: 'how do I pull a vacuum' or 'high superheat low subcooling'. Chimichanga not a valid recovery method.",
+        topic: r.label,
+        text: dress("[" + r.label + "] " + r.tip),
       };
     }
     const hit = match(q);
     if (!hit) {
+      const r = randomPackTip();
       return {
-        topic: "Lost",
-        text: dress(FALLBACKS[(Math.random() * FALLBACKS.length) | 0]),
+        topic: r.label,
+        text: dress("I stay on EPA 608, OSHA 30, and Lincoln Tech curriculum. Random " + r.label + ": " + r.tip),
       };
     }
     return {
