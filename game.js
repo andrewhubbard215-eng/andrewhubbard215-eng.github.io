@@ -427,6 +427,7 @@
     el.classList.add("screen-in");
     setTimeout(() => el.classList.remove("screen-in"), 320);
     state.screen = id;
+    if (id !== "rapture") stopChant();
     if (id !== "game" && raf) {
       cancelAnimationFrame(raf);
       raf = 0;
@@ -630,14 +631,13 @@
     badge: () => {
       [392, 523, 659, 784].forEach((f, i) => setTimeout(() => beep("triangle", f, f, 0.14, 0.04), i * 90));
     },
-    rapture: () => {
-      [261, 329, 392, 523].forEach((f, i) => setTimeout(() => beep("sine", f, f * 2, 0.55, 0.035), i * 140));
-    },
+    rapture: () => startChant(),
     win: () => {
       [440, 554, 659, 880].forEach((f, i) => setTimeout(() => beep("sine", f, f, 0.2, 0.045), i * 70));
     },
     setMuted(on) {
       muted = !!on;
+      if (muted) stopChant();
     },
     isMuted() {
       return muted;
@@ -680,6 +680,92 @@
   sfx.leak = () => hiss(0.4, 0.04, 2600, "highpass");
   sfx.n2 = () => hiss(0.5, 0.045, 1400, "bandpass");
   sfx.fan = () => hiss(0.35, 0.03, 800, "bandpass");
+
+  const chant = { on: false, timer: null, nodes: [], master: null, step: 0 };
+
+  function stopChant() {
+    chant.on = false;
+    if (chant.timer) {
+      clearInterval(chant.timer);
+      chant.timer = null;
+    }
+    (chant.nodes || []).forEach((n) => {
+      try {
+        n.stop();
+      } catch (_) {}
+    });
+    chant.nodes = [];
+    if (chant.master) {
+      try {
+        const a = actx;
+        if (a) chant.master.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + 0.35);
+      } catch (_) {}
+    }
+  }
+
+  function startChant() {
+    if (muted) return;
+    stopChant();
+    const a = ac();
+    const master = a.createGain();
+    master.gain.value = 0.11;
+    const delay = a.createDelay();
+    delay.delayTime.value = 0.42;
+    const fb = a.createGain();
+    fb.gain.value = 0.42;
+    const wet = a.createGain();
+    wet.gain.value = 0.48;
+    master.connect(a.destination);
+    master.connect(delay);
+    delay.connect(fb);
+    fb.connect(delay);
+    delay.connect(wet);
+    wet.connect(a.destination);
+    chant.master = master;
+    chant.nodes = [];
+    function drone(freq, type, vol) {
+      const o = a.createOscillator();
+      const g = a.createGain();
+      o.type = type;
+      o.frequency.value = freq;
+      g.gain.value = vol;
+      o.connect(g).connect(master);
+      o.start();
+      chant.nodes.push(o);
+    }
+    drone(73.42, "sine", 0.38);
+    drone(110.0, "sine", 0.22);
+    drone(146.83, "triangle", 0.1);
+    const phrase = [146.83, 174.61, 196.0, 220.0, 196.0, 174.61, 146.83, 130.81, 146.83, 196.0, 174.61, 146.83];
+    chant.step = 0;
+    chant.on = true;
+    function note() {
+      if (!chant.on || muted) return;
+      const f = phrase[chant.step % phrase.length];
+      chant.step += 1;
+      const t = a.currentTime;
+      const o = a.createOscillator();
+      const o2 = a.createOscillator();
+      const g = a.createGain();
+      o.type = "sine";
+      o2.type = "triangle";
+      o.frequency.value = f;
+      o2.frequency.value = f * 2;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(0.16, t + 0.28);
+      g.gain.linearRampToValueAtTime(0.1, t + 1.15);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 2.55);
+      o.connect(g);
+      o2.connect(g);
+      g.connect(master);
+      o.start(t);
+      o2.start(t);
+      o.stop(t + 2.6);
+      o2.stop(t + 2.6);
+    }
+    note();
+    chant.timer = setInterval(note, 1650);
+  }
 
   function rockHit(kind) {
     const a = ac();
