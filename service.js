@@ -188,10 +188,22 @@
   let stars = 5;
   let spicy = false;
   let hooks = {};
+  let deck = [];
 
   function starsStr(n) {
     const full = Math.max(0, Math.min(5, Math.round(n)));
     return "★".repeat(full) + "☆".repeat(5 - full);
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
   }
 
   function render() {
@@ -199,26 +211,26 @@
     fb.textContent = "";
     fb.className = "svc-feedback";
     root.querySelector("#svc-score").textContent =
-      "Call " + Math.min(callI + 1, CALLS.length) + " / " + CALLS.length;
+      "Call " + Math.min(callI + 1, deck.length || CALLS.length) + " / " + (deck.length || CALLS.length);
     root.querySelector("#svc-rating").textContent = starsStr(stars);
 
-    if (callI >= CALLS.length) {
+    if (callI >= deck.length) {
       root.querySelector("#svc-title").textContent = "Route complete";
       root.querySelector("#svc-name").textContent = "Dispatch";
       root.querySelector("#svc-job").textContent = "Back to the shop";
       root.querySelector("#svc-quote").textContent =
-        callRight >= CALLS.length - 1
+        callRight >= deck.length - 1
           ? "Solid day. Customers didn't eat you alive."
           : "Rough route — review the misses and run it again.";
       root.querySelector("#svc-vitals").textContent = "";
       root.querySelector("#svc-prompt").textContent = "";
       root.querySelector("#svc-choices").innerHTML = "";
       root.querySelector("#svc-avatar").textContent = "📋";
-      if (hooks.onComplete) hooks.onComplete({ right: callRight, total: CALLS.length, stars });
+      if (hooks.onComplete) hooks.onComplete({ right: callRight, total: deck.length, stars });
       return;
     }
 
-    const c = CALLS[callI];
+    const c = deck[callI];
     root.querySelector("#svc-eyebrow").textContent = spicy ? "Service call · 🌶️ Spicy" : "Service call";
     root.querySelector("#svc-title").textContent = "On site";
     root.querySelector("#svc-avatar").textContent = c.avatar;
@@ -231,7 +243,7 @@
 
     const box = root.querySelector("#svc-choices");
     box.innerHTML = "";
-    c.choices.forEach((ch) => {
+    shuffle(c.choices).forEach((ch) => {
       const b = document.createElement("button");
       b.className = "svc-choice";
       b.textContent = ch.t;
@@ -257,7 +269,7 @@
           const right = (c.choices || []).find(function(x){ return x.ok; });
           fb.innerHTML =
             "<strong>Not the best call.</strong> " + c.why.bad +
-            (right ? "<br/><strong>Better:</strong> " + right.label : "") +
+            (right ? "<br/><strong>Better:</strong> " + (right.t || right.label) : "") +
             "<br/><em>" + (spicy ? c.reply.spicy.bad : c.reply.pro.bad) + "</em>" +
             (hub ? "<br/><span class='svc-hub-line'>" + hub + "</span>" : "");
           fb.className = "svc-feedback bad";
@@ -282,6 +294,7 @@
     locked = false;
     stars = 5;
     spicy = !!(opts && opts.spicy);
+    deck = shuffle(CALLS);
 
     // ensure structure exists (in case host is empty root)
     if (!root.querySelector("#svc-choices")) {
