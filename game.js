@@ -1961,7 +1961,7 @@
         else if (m === "quiz") startQuizArena();
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
-        else if (m === "commandments") startCommandments();
+        else if (m === "commandments") openRapture(false);
         else if (m === "tutorial") startTutorial();
         else if (m === "character") show("character");
         else if (m === "rapture") openRapture();
@@ -2140,7 +2140,7 @@
     show("rapture");
     const root = document.getElementById("screen-rapture");
     if (window.HvacCommandments && window.HvacCommandments.playWinCutscene) {
-      window.HvacCommandments.playWinCutscene(root, { fromQuiz: !!fromQuiz || true });
+      window.HvacCommandments.playWinCutscene(root, { fromQuiz: !!fromQuiz });
     } else if (window.HvacCommandments && window.HvacCommandments.paintRapture) {
       window.HvacCommandments.paintRapture(root);
     }
@@ -2176,16 +2176,7 @@
   }
 
   function startCommandments() {
-    if (cmdCtl && cmdCtl.stop) cmdCtl.stop();
-    show("commandments");
-    const root = document.getElementById("commandments-root");
-    cmdCtl = window.HvacCommandments.start(root, {
-      onHub() {
-        cmdCtl = null;
-        refreshHub();
-        show("hub");
-      },
-    });
+    openRapture(false);
   }
 
   function startElectrical() {

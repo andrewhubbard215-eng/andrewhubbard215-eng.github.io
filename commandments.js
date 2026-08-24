@@ -112,7 +112,7 @@
     if (speak) {
       speak.textContent = fromQuiz
         ? "“You won the Quiz Game. I am HVAC Jesus. Kneel if you want — I’m here for the Gauges of God. SH and SC will never be a coin flip again.”"
-        : "“I am HVAC Jesus. Recover, don’t vent. These ten are the law of the shop. Receive the Gauges of God.”";
+        : "“I am HVAC Jesus. You opened the HVAC Commandments. Recover, don’t vent. These ten are the law of the shop. Repeat them. Then receive the Gauges of God.”";
     }
     root.classList.remove("cut-open", "cut-jesus", "cut-gauges", "cut-lore");
     const timers = [];
