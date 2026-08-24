@@ -144,9 +144,30 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   border-radius: 14px; overflow: hidden; cursor: pointer; color: inherit;
   transition: border-color 0.15s, transform 0.12s;
 }
-#screen-hub.screen.active {
-  overflow-y: auto !important;
+.game-name-btns {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 16px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
+.game-name-btn {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: #CE0034;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.game-name-btn[data-mode="sandbox"] { background: #0e7490; }
+.game-name-btn[data-mode="quiz"] { background: #1368ce; }
+.game-name-btn:hover { filter: brightness(1.1); }
 #btn-sandbox-card {
   border: 2px solid #2dd4bf;
 }

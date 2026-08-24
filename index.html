@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=65" />
+  <link rel="stylesheet" href="style.css?v=66" />
 </head>
 <body>
   <div id="app">
@@ -147,6 +147,21 @@
       <div id="badge-rack"></div>
       <div id="daily-root"></div>
       <div id="hub-commandments" class="hub-commandments"></div>
+      <p class="hub-section">Games</p>
+      <div class="game-name-btns" id="game-name-btns">
+        <button type="button" class="game-name-btn" data-mode="sandbox">System sandbox</button>
+        <button type="button" class="game-name-btn" data-mode="quiz">Quiz Game</button>
+        <button type="button" class="game-name-btn" data-mode="electrical">Electrical sim</button>
+        <button type="button" class="game-name-btn" data-mode="service">Service calls</button>
+        <button type="button" class="game-name-btn" data-mode="aihelper">AI helper</button>
+        <button type="button" class="game-name-btn" data-mode="minisplit">Mini-split install</button>
+        <button type="button" class="game-name-btn" data-mode="commandments">HVAC Commandments</button>
+        <button type="button" class="game-name-btn" data-mode="tutorial">HUB tutorial</button>
+        <button type="button" class="game-name-btn" data-mode="curriculum">Curriculum</button>
+        <button type="button" class="game-name-btn" data-mode="compete">Online arena</button>
+        <button type="button" class="game-name-btn" data-mode="rapture">HVAC Jesus</button>
+        <button type="button" class="game-name-btn" data-mode="character">Locker</button>
+      </div>
       <p class="hub-section">Game options</p>
       <div class="hub-grid" id="hub-options">
         <button class="mode-card mode-card-featured" data-mode="tutorial">
@@ -363,7 +378,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=64"></script>
+  <script src="game.js?v=66"></script>
   <script>
     (function () {
       function killWanted() {

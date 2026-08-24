@@ -1935,7 +1935,7 @@
         toast(hubSfx.checked ? "SFX on." : "SFX muted.", "ok");
       };
     }
-    document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
+    document.querySelectorAll(".mode-card, .quiz-launch, .game-name-btn").forEach((card) => {
       card.onclick = () => {
         const m = card.dataset.mode;
         ac();
