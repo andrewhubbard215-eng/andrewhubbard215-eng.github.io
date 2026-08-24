@@ -1636,6 +1636,15 @@
       "%</span></label>" +
       "</div>" +
       "<div class='lab-mid'>TXV · drier · service valves</div>" +
+      "<div class='lab-txv'>" +
+      "<strong>TXV stem</strong>" +
+      "<button type='button' class='btn' id='lab-txv-ccw'>↺ CCW open · lower SH</button>" +
+      "<span id='lab-txv-v'>target " +
+      txvTarget +
+      "° SH</span>" +
+      "<button type='button' class='btn' id='lab-txv-cw'>CW close · raise SH ↻</button>" +
+      "<p class='lab-note'>¼ turn, then re-read. CW = spring tighter = less feed = <em>higher</em> SH. CCW = more feed = <em>lower</em> SH. Do not touch the stem until fans are 100% and SC is in band.</p>" +
+      "</div>" +
       "<div class='lab-coil cd'>CONDENSER<div class='lab-sg'>sight glass</div></div>" +
       "<div class='lab-bottom'><span>Receiver</span><span>Accumulator</span><span>Hermetic</span></div>" +
       "<p class='lab-note'>Turn a fan down = dirty coil fingerprint. Glasses: bubbles on liquid = starved. Clear isn't always fully charged — check SH/SC.</p>" +
@@ -1652,6 +1661,50 @@
         labFanCond = +fc.value;
         document.getElementById("lab-fc-v").textContent = labFanCond + "%";
       };
+    wireTxvStem();
+  }
+
+  function wireTxvStem() {
+    const cw = document.getElementById("lab-txv-cw");
+    const ccw = document.getElementById("lab-txv-ccw");
+    if (!cw && !ccw) return;
+    const bump = (d) => {
+      txvTarget = Math.max(6, Math.min(18, txvTarget + d));
+      const sl = document.getElementById("sb-txv");
+      const sv = document.getElementById("sb-txv-v");
+      if (sl) sl.value = String(txvTarget);
+      if (sv) sv.textContent = String(txvTarget);
+      const lab = document.getElementById("lab-txv-v");
+      if (lab) lab.textContent = "target " + txvTarget + "° SH";
+      const sim = simulate();
+      paintHubCoach(
+        "Stem " +
+          (d > 0 ? "CW (close)" : "CCW (open)") +
+          ". Target SH " +
+          txvTarget +
+          "°. Live SH ~" +
+          Math.round(sim.sh) +
+          "° · SC ~" +
+          Math.round(sim.sc) +
+          "°. Quarter turn, then wait — on the steel that's 10–15 min."
+      );
+    };
+    if (cw) cw.onclick = () => bump(1);
+    if (ccw) ccw.onclick = () => bump(-1);
+  }
+
+  function loadTxvLab(sys) {
+    loadLab(sys);
+    txvTarget = 16;
+    const sl = document.getElementById("sb-txv");
+    const sv = document.getElementById("sb-txv-v");
+    if (sl) sl.value = "16";
+    if (sv) sv.textContent = "16";
+    setCompressor(true);
+    paintLabBoard();
+    paintHubCoach(
+      "TXV lab: SH is high — stem too closed (or bulb starving). Prove fans 100% and SC first. Then ¼-turn CCW to open and drop SH toward ~10°. Don't charge a TXV problem."
+    );
   }
 
   function canForRef(ref) {
@@ -2121,11 +2174,17 @@
       [
         { id: "iconnect-tu102", title: "TU-102 H-Block AC", sub: "Visible evap + condenser · sight glasses · receiver · accumulator · hermetic" },
         { id: "iconnect-tu601", title: "TU-601 Multi-head mini-split", sub: "Daikin dual-zone · cassette + linesets · R-410A only · 208/240V 20A" },
+        { id: "txv-lab", title: "Master TXV superheat", sub: "Stem turns on the TU-102 · CW raises SH · CCW lowers SH · SC first" },
       ].forEach((L) => {
         const el = document.createElement("div");
         el.className = "sb-item system";
         el.innerHTML = `<span class="ico">🏫</span><div><strong>${L.title}</strong><small>${L.sub}</small></div>`;
         el.onclick = () => {
+          if (L.id === "txv-lab") {
+            const sys = SYSTEMS.find((s) => s.id === "iconnect-tu102");
+            if (sys) loadTxvLab(sys);
+            return;
+          }
           const sys = SYSTEMS.find((s) => s.id === L.id);
           if (sys) loadLab(sys);
         };

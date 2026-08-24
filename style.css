@@ -646,7 +646,8 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .lab-idu { background: #dde4ea; padding: 8px; text-align: center; }
 .lab-note { margin: 4px 0 0; color: #333; }
 .lab-yt-row { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; }
-.lab-yt { color: #CE0034; font-weight: 700; }
+.lab-txv { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #fff; border: 1px solid #CE0034; padding: 8px; border-radius: 8px; }
+.lab-txv strong { color: #CE0034; }
 .sb-slot.over { border-color: var(--accent); background: rgba(206,0,52,0.14); }
 .sb-slot.filled {
   border-style: solid; border-color: var(--accent);
