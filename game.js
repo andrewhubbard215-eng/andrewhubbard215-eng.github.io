@@ -2409,8 +2409,9 @@
         show("hub");
       };
     } catch (err) {
-      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>" + String(err && err.message ? err.message : err) + "</p><button class='btn' onclick=\"window.ltPlay('hub')\">Shop floor</button></div>";
-      toast("Sandbox failed to start.", "bad");
+      if (typeof console !== "undefined") console.warn("startSandbox", err);
+      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>" + String(err && err.message ? err.message : err) + "</p><p>Hard-refresh (Ctrl+Shift+R) then Clock In → System sandbox.</p><button class='btn' onclick=\"window.ltPlay('hub')\">Shop floor</button></div>";
+      toast("Sandbox failed to start. Hard-refresh.", "bad");
     }
   }
 

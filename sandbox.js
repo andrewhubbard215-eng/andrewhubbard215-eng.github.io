@@ -1943,8 +1943,8 @@
         raceChannel.postMessage({ type: "go", chId: ch.id, name: raceNick });
       } catch (_) {}
     }
-    document.getElementById("sb-status").textContent =
-      (racePin ? "PIN " + racePin + " · " : "") + "Place every required part. Clock is running. " + raceNick + " is on the board.";
+    document.getElementById("sb-status") && (document.getElementById("sb-status").textContent =
+      (racePin ? "PIN " + racePin + " · " : "") + "Place every required part. Clock is running. " + raceNick + " is on the board.");
   }
 
   function scoreBuild() {
@@ -3135,8 +3135,8 @@
   function draw() {
     if (!canvas || !ctx) return;
     const dpr = Math.min(1.5, window.devicePixelRatio || 1);
-    const w = canvas.clientWidth || 640;
-    const h = canvas.clientHeight || 360;
+    const w = canvas.clientWidth || canvas.parentElement && canvas.parentElement.clientWidth || window.innerWidth || 640;
+    const h = canvas.clientHeight || canvas.parentElement && canvas.parentElement.clientHeight || Math.max(280, Math.floor((window.innerHeight || 700) * 0.45));
     const bw = Math.max(1, Math.floor(w * dpr));
     const bh = Math.max(1, Math.floor(h * dpr));
     if (canvas.width !== bw || canvas.height !== bh) {
@@ -3345,7 +3345,8 @@
     };
     window.addEventListener("lt-hubai", () => paintHubCoach());
 
-    document.getElementById("sb-ref").onchange = (e) => {
+    const refEl = document.getElementById("sb-ref");
+    if (refEl) refEl.onchange = (e) => {
       refrigerant = e.target.value;
       paintPTTable();
       paintPTFromPsig();
@@ -3357,19 +3358,26 @@
     if (ptT) ptT.oninput = () => paintPTFromTemp();
     paintPTTable();
     paintPTFromPsig();
-    document.getElementById("sb-out").oninput = (e) => {
+    const outEl = document.getElementById("sb-out");
+    if (outEl) outEl.oninput = (e) => {
       outdoorF = +e.target.value;
-      document.getElementById("sb-out-v").textContent = outdoorF;
+      const v = document.getElementById("sb-out-v");
+      if (v) v.textContent = outdoorF;
     };
-    document.getElementById("sb-in").oninput = (e) => {
+    const inEl = document.getElementById("sb-in");
+    if (inEl) inEl.oninput = (e) => {
       indoorF = +e.target.value;
-      document.getElementById("sb-in-v").textContent = indoorF;
+      const v = document.getElementById("sb-in-v");
+      if (v) v.textContent = indoorF;
     };
-    document.getElementById("sb-charge").oninput = (e) => {
+    const chEl = document.getElementById("sb-charge");
+    if (chEl) chEl.oninput = (e) => {
       chargePct = +e.target.value;
-      document.getElementById("sb-charge-v").textContent = chargePct;
+      const v = document.getElementById("sb-charge-v");
+      if (v) v.textContent = chargePct;
     };
-    document.getElementById("sb-fault").onchange = (e) => {
+    const faultEl = document.getElementById("sb-fault");
+    if (faultEl) faultEl.onchange = (e) => {
       fault = e.target.value;
     };
     const modeEl = document.getElementById("sb-mode");
@@ -3392,7 +3400,8 @@
         document.getElementById("sb-txv-v").textContent = txvTarget;
       };
     }
-    document.getElementById("sb-run").onclick = () => {
+    const runBtn = document.getElementById("sb-run");
+    if (runBtn) runBtn.onclick = () => {
       if (!requiredComplete()) {
         const st = document.getElementById("sb-status");
         if (st) st.textContent = "Need compressor, condenser, metering device, and evaporator.";
@@ -3495,6 +3504,21 @@
   }
 
   function start(root, opts) {
+    try {
+      return startInner(root, opts);
+    } catch (err) {
+      if (typeof console !== "undefined") console.warn("sandbox start", err);
+      if (root) {
+        root.innerHTML =
+          "<div class='panel' style='margin:16px;padding:16px'><h2>System sandbox</h2><p>Could not start: " +
+          String(err && err.message ? err.message : err) +
+          "</p><button class='btn' type='button' onclick=\"window.ltPlay('hub')\">Shop floor</button></div>";
+      }
+      return { stop: function () {}, getHubBtn: function () { return null; } };
+    }
+  }
+
+  function startInner(root, opts) {
     host = root;
     onXp = opts && opts.onXp;
     onRace = opts && opts.onRace;
@@ -3556,7 +3580,7 @@
       },
       getSnapshot() {
         return {
-          placed: { ...placed },
+          placed: Object.assign({}, placed),
           refrigerant,
           outdoorF,
           indoorF,
@@ -3567,7 +3591,7 @@
       },
       loadSnapshot(snap) {
         if (!snap || typeof snap !== "object") return;
-        placed = snap.placed && typeof snap.placed === "object" ? { ...snap.placed } : {};
+        placed = snap.placed && typeof snap.placed === "object" ? Object.assign({}, snap.placed) : {};
         if (snap.refrigerant) refrigerant = snap.refrigerant;
         if (typeof snap.outdoorF === "number") outdoorF = snap.outdoorF;
         if (typeof snap.indoorF === "number") indoorF = snap.indoorF;
