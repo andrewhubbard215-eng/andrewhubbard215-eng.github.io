@@ -364,10 +364,33 @@
   ];
 
   const SLOTS = [
-    { id: "compressor", x: 0.22, y: 0.52, label: "Compressor" },
-    { id: "condenser", x: 0.50, y: 0.20, label: "Condenser" },
-    { id: "metering", x: 0.78, y: 0.52, label: "Metering" },
-    { id: "evaporator", x: 0.50, y: 0.82, label: "Evaporator" },
+    { id: "compressor", x: 0.22, y: 0.55, label: "Compressor" },
+    { id: "condenser", x: 0.52, y: 0.20, label: "Condenser" },
+    { id: "filter", x: 0.68, y: 0.34, label: "Filter-drier" },
+    { id: "metering", x: 0.82, y: 0.52, label: "Metering" },
+    { id: "evaporator", x: 0.52, y: 0.82, label: "Evaporator" },
+    { id: "accumulator", x: 0.32, y: 0.72, label: "Accumulator" },
+    { id: "disconnect", x: 0.08, y: 0.18, label: "Disconnect" },
+    { id: "contactor", x: 0.08, y: 0.38, label: "Contactor" },
+    { id: "capacitor", x: 0.08, y: 0.58, label: "Capacitor" },
+    { id: "transformer", x: 0.08, y: 0.78, label: "Transformer" },
+    { id: "thermostat", x: 0.92, y: 0.18, label: "Thermostat" },
+    { id: "gauges", x: 0.92, y: 0.42, label: "Gauges" },
+  ];
+
+  const BUILD_STEPS = [
+    { slot: "compressor", accept: ["compressor"], tab: "parts", title: "1 · Compressor", hub: "Heart of the DX loop. Drag the scroll compressor onto the glowing box. Discharge leaves here toward the condenser." },
+    { slot: "condenser", accept: ["condenser"], tab: "parts", title: "2 · Condenser", hub: "Outdoor coil — heat leaves the house. Drop the condenser on the high side. Fan + coil, not a hope and a prayer." },
+    { slot: "filter", accept: ["filter"], tab: "parts", title: "3 · Filter-drier", hub: "Liquid line after the condenser, before the metering device. Moisture and junk stop here. Don't skip it." },
+    { slot: "metering", accept: ["metering", "piston", "capillary"], tab: "parts", title: "4 · Metering device", hub: "TXV, piston, or cap tube. This is the pressure drop. TXV charged by SC; piston by SH. OEM still wins." },
+    { slot: "evaporator", accept: ["evaporator"], tab: "parts", title: "5 · Evaporator", hub: "Indoor A-coil. Heat into the refrigerant. Drop it and the mechanical loop is closed. Then we protect suction." },
+    { slot: "accumulator", accept: ["accumulator"], tab: "parts", title: "6 · Accumulator", hub: "Suction accumulator. Catches liquid so the compressor doesn't eat a slug. Optional on some splits — still good shop law." },
+    { slot: "disconnect", accept: ["disconnect"], tab: "electrical", title: "7 · Disconnect", hub: "Fused disconnect at the ODU. LOTO before you ohm anything. OSHA 30 isn't a suggestion." },
+    { slot: "contactor", accept: ["contactor"], tab: "electrical", title: "8 · Contactor", hub: "24V coil. Line in, load out to the compressor. No Y call = no pull-in." },
+    { slot: "capacitor", accept: ["capacitor"], tab: "electrical", title: "9 · Dual run cap", hub: "HERM / FAN / C. Humming compressor that won't start is often a weak cap. Power off. Discharge it." },
+    { slot: "transformer", accept: ["transformer"], tab: "electrical", title: "10 · 24V transformer", hub: "R and C. Control voltage. Dead R means the tstat is a wall decoration." },
+    { slot: "thermostat", accept: ["thermostat"], tab: "electrical", title: "11 · Thermostat", hub: "Y call, cool mode. That's the brain asking the contactors to work." },
+    { slot: "gauges", accept: ["gauges"], tab: "tools", title: "12 · Gauges", hub: "Manifold on the ports. Then Start compressor. Read SH and SC together — Commandment 8. I'm right here." },
   ];
 
   // CoolGame-style timed circuit builds (Lincoln Tech clone — not Danfoss IP)
@@ -640,6 +663,9 @@
   let hpMode = "cool"; // cool | heat
   let frost = 0;
   let defrosting = false;
+  let guidedOn = true;
+  let guidedStep = 0;
+  let lastGuideTab = "";
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -662,6 +688,68 @@
 
   function requiredComplete() {
     return ["compressor", "condenser", "metering", "evaporator"].every((s) => placed[s]);
+  }
+
+  function syncGuidedStep() {
+    if (!guidedOn) return;
+    let i = 0;
+    while (i < BUILD_STEPS.length && placed[BUILD_STEPS[i].slot]) i++;
+    guidedStep = i;
+  }
+
+  function currentBuildStep() {
+    return BUILD_STEPS[guidedStep] || null;
+  }
+
+  function paintHubCoach(extra) {
+    const title = document.getElementById("sb-hub-title");
+    const line = document.getElementById("sb-hub-line");
+    const hint = document.getElementById("sb-hint");
+    const prog = document.getElementById("sb-progress");
+    const gOn = document.getElementById("sb-guide-on");
+    const gFree = document.getElementById("sb-guide-free");
+    if (gOn) gOn.classList.toggle("active", guidedOn);
+    if (gFree) gFree.classList.toggle("active", !guidedOn);
+    if (!guidedOn) {
+      if (title) title.textContent = "Professor HUB · free build";
+      if (line) line.textContent = extra || "All boxes are out. Build it your way. I still want SH and SC when you start it.";
+      if (hint) hint.textContent = "Free build: every drop box is live. HUB guided puts them back in install order.";
+      if (prog) {
+        const n = ["compressor", "condenser", "metering", "evaporator"].filter((s) => placed[s]).length;
+        prog.textContent = "Free build · core " + n + " / 4" + (running ? " · running" : "");
+      }
+      return;
+    }
+    const step = currentBuildStep();
+    if (!step) {
+      if (title) title.textContent = "Professor HUB · system built";
+      if (line) line.textContent = extra || "That's a real split. Start the compressor. Gauges on. SH and SC together. Don't top off a leaker.";
+      if (hint) hint.textContent = "Guided build complete. Start compressor. Or Free build to add extras (RV, solenoid, N₂…).";
+      if (prog) prog.textContent = "HUB guided · 12 / 12 · ready to run";
+      return;
+    }
+    if (title) title.textContent = "Professor HUB · " + step.title;
+    if (line) line.textContent = extra || step.hub;
+    if (hint) hint.textContent = "Drop " + step.title + " on the glowing box. Next box appears after this one seats.";
+    if (prog) prog.textContent = "HUB guided · step " + (guidedStep + 1) + " / " + BUILD_STEPS.length;
+    const wantTab = step.tab;
+    document.querySelectorAll(".sb-tab[data-tab]").forEach((t) => {
+      t.classList.toggle("active", t.getAttribute("data-tab") === wantTab);
+    });
+    if (wantTab && wantTab !== lastGuideTab) {
+      lastGuideTab = wantTab;
+      renderPalette(wantTab);
+    } else {
+      markWantedParts();
+    }
+  }
+
+  function markWantedParts() {
+    const step = guidedOn ? currentBuildStep() : null;
+    document.querySelectorAll("#sb-items .sb-item").forEach((el) => {
+      const id = el.dataset.id;
+      el.classList.toggle("hub-want", !!(step && step.accept && step.accept.indexOf(id) >= 0));
+    });
   }
 
   function simulate() {
@@ -900,7 +988,11 @@
             </div>
           </div>
           <p class="eyebrow">Component tray</p>
-          <div class="sb-build-progress" id="sb-progress">Core cycle: 0 / 4</div>
+          <div class="sb-build-progress" id="sb-progress">HUB guided · step 1 / 12</div>
+          <div class="sb-guide-bar">
+            <button type="button" class="btn primary" id="sb-guide-on">HUB guided</button>
+            <button type="button" class="btn" id="sb-guide-free">Free build</button>
+          </div>
           <div class="sb-tabs">
             <button class="sb-tab active" data-tab="parts">Cycle</button>
             <button class="sb-tab" data-tab="electrical">Electrical</button>
@@ -912,10 +1004,13 @@
             <button class="sb-tab" data-tab="systems">OEM packs</button>
           </div>
           <div id="sb-items" class="sb-items"></div>
-          <p class="sb-hint">Four drop boxes only: compressor, condenser, metering, evaporator. Everything else stays in the tray — click to add. Clear board wipes the loop.</p>
-          <div class="hub-chip" style="margin:10px 0 0;max-width:none">
+          <p class="sb-hint" id="sb-hint">HUB guided: one drop box at a time, real install order. Follow the glowing box.</p>
+          <div class="hub-chip sb-hub-coach" id="sb-hub-coach" style="margin:10px 0 0;max-width:none">
             <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-chip-av photo" />
-            <div><strong>Professor HUB</strong><p>Four core pieces close the loop. Then start the compressor — I’ll roast your SH/SC.</p></div>
+            <div>
+              <strong id="sb-hub-title">Professor HUB · 1 · Compressor</strong>
+              <p id="sb-hub-line">Heart of the DX loop. Drag the scroll compressor onto the glowing box.</p>
+            </div>
           </div>
         </aside>
         <main class="sb-main">
@@ -1238,6 +1333,9 @@
     }
     refreshSlots();
     updateSysBanner();
+    syncGuidedStep();
+    layoutSlots();
+    paintHubCoach(sys.brand + " pack on the board. Finish HUB steps or tap Free build.");
     document.getElementById("sb-status").textContent =
       sys.brand + " package loaded — start compressor to run the sim.";
     if (onXp) onXp(10);
@@ -1688,6 +1786,13 @@
         });
       }
       el.addEventListener("click", () => {
+        if (guidedOn) {
+          const step = currentBuildStep();
+          if (step && c.slot && step.accept.indexOf(c.id) < 0 && c.slot !== step.slot) {
+            paintHubCoach("Not yet. I need " + step.title + " first. " + step.hub);
+            return;
+          }
+        }
         if (c.slot && !placed[c.slot]) {
           place(c.slot, c.id);
           activeSystem = null;
@@ -1698,6 +1803,7 @@
       });
       box.appendChild(el);
     });
+    markWantedParts();
   }
 
   function applyEquip(def) {
@@ -1769,6 +1875,19 @@
       }
     }
     applyEquip(def);
+    if (dest) {
+      const before = guidedStep;
+      syncGuidedStep();
+      layoutSlots();
+      if (guidedOn && guidedStep > before) {
+        const nxt = currentBuildStep();
+        paintHubCoach(nxt ? "Seated. Next: " + nxt.title + ". " + nxt.hub : null);
+      } else if (guidedOn && currentBuildStep() && currentBuildStep().slot === dest) {
+        paintHubCoach();
+      } else {
+        paintHubCoach();
+      }
+    }
   }
 
   function refreshSlots() {
@@ -1795,7 +1914,9 @@
       b.onclick = (e) => {
         e.stopPropagation();
         delete placed[b.dataset.rm];
-        refreshSlots();
+        syncGuidedStep();
+        layoutSlots();
+        paintHubCoach("You pulled a part. Back up the sequence — drop what I asked.");
         if (!requiredComplete()) running = false;
       };
     });
@@ -1807,11 +1928,14 @@
     if (!wrap) return;
     wrap.innerHTML = "";
     SLOTS.forEach((s) => {
+      const stepIdx = BUILD_STEPS.findIndex((b) => b.slot === s.id);
+      if (guidedOn && stepIdx > guidedStep) return;
       const el = document.createElement("div");
       el.className = "sb-slot";
       el.dataset.slot = s.id;
       el.style.left = s.x * 100 + "%";
       el.style.top = s.y * 100 + "%";
+      if (guidedOn && stepIdx === guidedStep && !placed[s.id]) el.classList.add("hub-next", "magnet");
       el.addEventListener("dragover", (e) => {
         e.preventDefault();
         el.classList.add("over");
@@ -1822,7 +1946,19 @@
         el.classList.remove("over");
         const id = e.dataTransfer.getData("text/plain");
         const def = COMPONENTS.find((c) => c.id === id);
-        if (def && def.slot === s.id) place(s.id, id);
+        if (!def) return;
+        if (guidedOn) {
+          const step = currentBuildStep();
+          if (step && s.id !== step.slot) {
+            paintHubCoach("Wrong box. Glowing one is " + step.title + ".");
+            return;
+          }
+          if (step && step.accept.indexOf(def.id) < 0 && def.slot !== step.slot) {
+            paintHubCoach("That's not " + step.title + ". " + step.hub);
+            return;
+          }
+        }
+        if (def.slot === s.id) place(s.id, id);
       });
       wrap.appendChild(el);
     });
@@ -2385,16 +2521,32 @@
 
   function wire() {
     try {
-    document.querySelectorAll(".sb-tab").forEach((tab) => {
+    document.querySelectorAll(".sb-tab[data-tab]").forEach((tab) => {
       tab.onclick = () => {
-        document.querySelectorAll(".sb-tab").forEach((t) => t.classList.remove("active"));
+        document.querySelectorAll(".sb-tab[data-tab]").forEach((t) => t.classList.remove("active"));
         tab.classList.add("active");
+        lastGuideTab = tab.dataset.tab;
         renderPalette(tab.dataset.tab);
       };
     });
     renderPalette("parts");
     layoutSlots();
     updateSysBanner();
+    paintHubCoach();
+    const gOn = document.getElementById("sb-guide-on");
+    const gFree = document.getElementById("sb-guide-free");
+    if (gOn) gOn.onclick = () => {
+      guidedOn = true;
+      syncGuidedStep();
+      lastGuideTab = "";
+      layoutSlots();
+      paintHubCoach("Guided is on. One box at a time. Follow me.");
+    };
+    if (gFree) gFree.onclick = () => {
+      guidedOn = false;
+      layoutSlots();
+      paintHubCoach();
+    };
 
     document.getElementById("sb-ref").onchange = (e) => {
       refrigerant = e.target.value;
@@ -2525,8 +2677,11 @@
       if (faultEl) faultEl.disabled = false;
       document.getElementById("sb-manifold").classList.remove("on");
       delete host.dataset.loopXp;
-      refreshSlots();
+      guidedStep = 0;
+      lastGuideTab = "";
+      layoutSlots();
       updateSysBanner();
+      paintHubCoach("Board clear. Compressor first. Always.");
     };
     } catch (err) {
       if (typeof console !== "undefined") console.warn("sandbox wire", err);
@@ -2564,6 +2719,9 @@
     glView = false;
     particles = [];
     activeSystem = null;
+    guidedOn = true;
+    guidedStep = 0;
+    lastGuideTab = "";
     buildUI(root);
     canvas = document.getElementById("sb-canvas");
     ctx = canvas && canvas.getContext("2d");
