@@ -365,44 +365,13 @@
 
   const SLOTS = [
     { id: "compressor", x: 0.22, y: 0.55, label: "Compressor" },
-    { id: "condenser", x: 0.52, y: 0.20, label: "Condenser" },
-    { id: "metering", x: 0.82, y: 0.52, label: "Metering" },
-    { id: "evaporator", x: 0.52, y: 0.82, label: "Evaporator" },
-    { id: "filter", x: 0.70, y: 0.36, label: "Filter-Drier" },
-    { id: "accumulator", x: 0.34, y: 0.70, label: "Accumulator" },
-    { id: "receiver", x: 0.62, y: 0.28, label: "Receiver" },
-    { id: "solenoid", x: 0.76, y: 0.44, label: "Solenoid" },
-    { id: "revvalve", x: 0.34, y: 0.40, label: "Rev. valve" },
-    { id: "sightglass", x: 0.68, y: 0.40, label: "Sight glass" },
-    { id: "svcvalves", x: 0.22, y: 0.40, label: "Service valves" },
-    { id: "checkvalve", x: 0.40, y: 0.28, label: "Check valve" },
-    { id: "disconnect", x: 0.08, y: 0.14, label: "Disconnect" },
-    { id: "contactor", x: 0.08, y: 0.30, label: "Contactor" },
-    { id: "capacitor", x: 0.08, y: 0.46, label: "Capacitor" },
-    { id: "startcap", x: 0.08, y: 0.62, label: "Start cap" },
-    { id: "transformer", x: 0.08, y: 0.78, label: "Transformer" },
-    { id: "thermostat", x: 0.92, y: 0.10, label: "Thermostat" },
-    { id: "hpsw", x: 0.08, y: 0.92, label: "HP switch" },
-    { id: "lpsw", x: 0.22, y: 0.92, label: "LP switch" },
-    { id: "odfan", x: 0.52, y: 0.08, label: "ODU fan" },
-    { id: "blower", x: 0.40, y: 0.92, label: "Blower" },
-    { id: "defrostboard", x: 0.34, y: 0.14, label: "Defrost board" },
-    { id: "float", x: 0.64, y: 0.92, label: "Float switch" },
-    { id: "gauges", x: 0.92, y: 0.26, label: "Gauges" },
-    { id: "dmm", x: 0.92, y: 0.42, label: "DMM" },
-    { id: "micron", x: 0.92, y: 0.58, label: "Micron" },
-    { id: "vacpump", x: 0.92, y: 0.74, label: "Vac pump" },
-    { id: "recovery", x: 0.92, y: 0.90, label: "Recovery" },
-    { id: "rectank", x: 0.78, y: 0.92, label: "Rec. tank" },
-    { id: "sniffer", x: 0.76, y: 0.18, label: "Sniffer" },
-    { id: "scale", x: 0.76, y: 0.08, label: "Scale" },
-    { id: "soltest", x: 0.64, y: 0.08, label: "Solenoid tester" },
-    { id: "copper", x: 0.22, y: 0.08, label: "Copper" },
-    { id: "nitrogen", x: 0.22, y: 0.22, label: "Nitrogen" },
-    { id: "flare", x: 0.40, y: 0.08, label: "Flares" },
-    { id: "wire", x: 0.40, y: 0.18, label: "Wire" },
-    { id: "insulation", x: 0.22, y: 0.70, label: "Insulation" },
-    { id: "schrader", x: 0.64, y: 0.70, label: "Schraders" },
+    { id: "condenser", x: 0.50, y: 0.22, label: "Condenser" },
+    { id: "metering", x: 0.78, y: 0.52, label: "Metering" },
+    { id: "evaporator", x: 0.50, y: 0.80, label: "Evaporator" },
+    { id: "filter", x: 0.68, y: 0.36, label: "Filter-drier" },
+    { id: "accumulator", x: 0.32, y: 0.70, label: "Accumulator" },
+    { id: "revvalve", x: 0.32, y: 0.38, label: "Rev. valve" },
+    { id: "sightglass", x: 0.68, y: 0.44, label: "Sight glass" },
   ];
 
   // CoolGame-style timed circuit builds (Lincoln Tech clone — not Danfoss IP)
@@ -937,17 +906,17 @@
           <p class="eyebrow">Component tray</p>
           <div class="sb-build-progress" id="sb-progress">Core cycle: 0 / 4</div>
           <div class="sb-tabs">
-            <button class="sb-tab active" data-tab="all">All parts</button>
-            <button class="sb-tab" data-tab="parts">Cycle</button>
+            <button class="sb-tab active" data-tab="parts">Cycle</button>
             <button class="sb-tab" data-tab="electrical">Electrical</button>
             <button class="sb-tab" data-tab="tools">Tools</button>
             <button class="sb-tab" data-tab="materials">Materials</button>
+            <button class="sb-tab" data-tab="all">All parts</button>
             <button class="sb-tab" data-tab="challenges">CoolGame</button>
             <button class="sb-tab" data-tab="field">Field jobs</button>
             <button class="sb-tab" data-tab="systems">OEM packs</button>
           </div>
           <div id="sb-items" class="sb-items"></div>
-          <p class="sb-hint">All parts tab: drag every component onto its labeled slot. Core 4 close the loop — compressor, condenser, metering, evaporator. Click a part to snap it if drag is picky.</p>
+          <p class="sb-hint">Board is the cycle only (4 core + drier, accumulator, RV, sight glass). Tools and electrical stay in the tray — click to equip. Clear board wipes the loop.</p>
           <div class="hub-chip" style="margin:10px 0 0;max-width:none">
             <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-chip-av photo" />
             <div><strong>Professor HUB</strong><p>Four core pieces close the loop. Then start the compressor — I’ll roast your SH/SC.</p></div>
@@ -1769,8 +1738,21 @@
   function place(slotId, compId) {
     const def = COMPONENTS.find((c) => c.id === compId);
     if (!def) return;
+    const onBoard = SLOTS.some((s) => s.id === (def.slot || slotId));
     if (def.slot && slotId && def.slot !== slotId) {
-      document.getElementById("sb-status").textContent = def.name + " belongs on " + def.slot + " — not " + slotId + ".";
+      const st = document.getElementById("sb-status");
+      if (st) {
+        st.textContent = onBoard
+          ? def.name + " belongs on " + def.slot + "."
+          : def.name + " stays in the tray — click it to equip. Not a cycle slot.";
+      }
+      applyEquip(def);
+      return;
+    }
+    if (!onBoard) {
+      applyEquip(def);
+      const st = document.getElementById("sb-status");
+      if (st) st.textContent = (def.name || compId) + " equipped. Cycle board stays clean.";
       return;
     }
     const dest = def.slot || slotId;
@@ -2412,7 +2394,7 @@
         renderPalette(tab.dataset.tab);
       };
     });
-    renderPalette("all");
+    renderPalette("parts");
     layoutSlots();
     updateSysBanner();
 
