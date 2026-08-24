@@ -2682,4 +2682,8 @@ select:focus-visible {
   border-radius: 50%; background: #2dd4bf; box-shadow: 0 0 12px #2dd4bf;
 }
 .ptool-xyz { display: flex; flex-wrap: wrap; gap: 8px 12px; font-variant-numeric: tabular-nums; font-size: 13px; color: #9ad4e6; margin: 6px 0 10px; }
+.ptool-cmp { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0 14px; }
+.ptool-cmp th, .ptool-cmp td { border: 1px solid var(--border); padding: 8px 10px; vertical-align: top; text-align: left; }
+.ptool-cmp th { background: #1a1e23; color: #e8c450; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.ptool-cmp td:first-child { font-weight: 700; }
 .ptool-ideas li { margin: 8px 0; }
