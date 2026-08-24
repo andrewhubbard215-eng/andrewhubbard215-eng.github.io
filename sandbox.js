@@ -967,6 +967,7 @@
               <span id="sb-clock" class="sb-clock"></span>
               <button class="btn primary" id="sb-run">Start compressor</button>
               <button class="btn" id="sb-3d" type="button">3D WebGL</button>
+              <button class="btn hidden" id="sb-flat" type="button">GLSL: smooth</button>
               <button class="btn" id="sb-clear">Clear board</button>
               <button class="btn" id="sb-hub">Shop floor</button>
             </div>
@@ -2327,6 +2328,7 @@
       updateDmm(simulate());
     };
     const btn3d = document.getElementById("sb-3d");
+    const btnFlat = document.getElementById("sb-flat");
     if (btn3d) {
       btn3d.onclick = () => {
         const glc = document.getElementById("sb-gl");
@@ -2341,11 +2343,36 @@
           glc.classList.remove("hidden");
           canvas.classList.add("hidden");
           btn3d.textContent = "2D shop";
+          if (btnFlat) {
+            btnFlat.classList.toggle("hidden", !glCtl.webgl2);
+            btnFlat.textContent = "GLSL: smooth";
+          }
+          const st = document.getElementById("sb-status");
+          if (st) {
+            st.textContent = glCtl.webgl2
+              ? "WebGL 2. RGB floor = interpolation. Toggle GLSL:flat — one color per triangle (provoking vertex)."
+              : "WebGL 1: smooth varyings only. Flat needs WebGL 2.";
+          }
         } else {
           glView = false;
           if (glc) glc.classList.add("hidden");
           canvas.classList.remove("hidden");
           btn3d.textContent = "3D WebGL";
+          if (btnFlat) btnFlat.classList.add("hidden");
+        }
+      };
+    }
+    if (btnFlat) {
+      btnFlat.onclick = () => {
+        if (!glCtl || !glCtl.webgl2) return;
+        const nowFlat = !glCtl.isFlat();
+        glCtl.setFlat(nowFlat);
+        btnFlat.textContent = nowFlat ? "GLSL: flat" : "GLSL: smooth";
+        const st = document.getElementById("sb-status");
+        if (st) {
+          st.textContent = nowFlat
+            ? "FLAT: no blend. Whole triangle = last (provoking) vertex. Floor goes solid blue."
+            : "SMOOTH: barycentric blend. Floor is RGB mix.";
         }
       };
     }

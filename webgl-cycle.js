@@ -23,7 +23,57 @@
     "}",
   ].join("\n");
 
-  function compile(gl, type, src) {
+  function shaders(webgl2, flat) {
+    if (!webgl2) {
+      return {
+        vs: VS,
+        fs: FS,
+      };
+    }
+    const q = flat ? "flat" : "smooth";
+    return {
+      vs: [
+        "#version 300 es",
+        "in vec3 aPos;",
+        "in vec3 aCol;",
+        "uniform mat4 uMVP;",
+        q + " out vec3 vCol;",
+        "void main(){",
+        "  gl_Position = uMVP * vec4(aPos,1.0);",
+        "  gl_PointSize = 9.0;",
+        "  vCol = aCol;",
+        "}",
+      ].join("\n"),
+      fs: [
+        "#version 300 es",
+        "precision mediump float;",
+        q + " in vec3 vCol;",
+        "out vec4 fragColor;",
+        "void main(){ fragColor = vec4(vCol, 1.0); }",
+      ].join("\n"),
+    };
+  }
+
+  function linkProg(gl, webgl2, flat) {
+    const src = shaders(webgl2, flat);
+    const vs = compile(gl, gl.VERTEX_SHADER, src.vs);
+    const fs = compile(gl, gl.FRAGMENT_SHADER, src.fs);
+    if (!vs || !fs) return null;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.warn(gl.getProgramInfoLog(prog));
+      return null;
+    }
+    return {
+      prog: prog,
+      aPos: gl.getAttribLocation(prog, "aPos"),
+      aCol: gl.getAttribLocation(prog, "aCol"),
+      uMVP: gl.getUniformLocation(prog, "uMVP"),
+    };
+  }
     const s = gl.createShader(type);
     gl.shaderSource(s, src);
     gl.compileShader(s);
@@ -137,21 +187,17 @@
 
   function attach(canvas) {
     if (!canvas) return null;
-    const gl = canvas.getContext("webgl", { antialias: true, alpha: false }) || canvas.getContext("experimental-webgl");
+    const gl =
+      canvas.getContext("webgl2", { antialias: true, alpha: false }) ||
+      canvas.getContext("webgl", { antialias: true, alpha: false }) ||
+      canvas.getContext("experimental-webgl");
     if (!gl) return null;
-    const vs = compile(gl, gl.VERTEX_SHADER, VS);
-    const fs = compile(gl, gl.FRAGMENT_SHADER, FS);
-    const prog = gl.createProgram();
-    gl.attachShader(prog, vs);
-    gl.attachShader(prog, fs);
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-      console.warn(gl.getProgramInfoLog(prog));
-      return null;
-    }
-    const aPos = gl.getAttribLocation(prog, "aPos");
-    const aCol = gl.getAttribLocation(prog, "aCol");
-    const uMVP = gl.getUniformLocation(prog, "uMVP");
+    const webgl2 = typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext;
+    const progSmooth = linkProg(gl, webgl2, false);
+    const progFlat = webgl2 ? linkProg(gl, true, true) : null;
+    if (!progSmooth) return null;
+    let loc = progSmooth;
+    let flat = false;
 
     function meshFrom(parts) {
       const pos = [];
@@ -213,11 +259,11 @@
 
     function bindMesh(m) {
       gl.bindBuffer(gl.ARRAY_BUFFER, m.pb);
-      gl.enableVertexAttribArray(aPos);
-      gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(loc.aPos);
+      gl.vertexAttribPointer(loc.aPos, 3, gl.FLOAT, false, 0, 0);
       gl.bindBuffer(gl.ARRAY_BUFFER, m.cb);
-      gl.enableVertexAttribArray(aCol);
-      gl.vertexAttribPointer(aCol, 3, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(loc.aCol);
+      gl.vertexAttribPointer(loc.aCol, 3, gl.FLOAT, false, 0, 0);
     }
 
     function resize() {
@@ -239,12 +285,12 @@
       const running = !!(opts && opts.running);
       const t = ((opts && opts.t) || 0) / 1000;
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.useProgram(prog);
+      gl.useProgram(loc.prog);
       const eyeA = t * 0.35;
       const ex = Math.sin(eyeA) * 2.4;
       const ez = Math.cos(eyeA) * 2.4;
       const mvp = mul(perspective(0.9, aspect, 0.1, 20), lookAt(ex, 1.15, ez, 0, 0, 0));
-      gl.uniformMatrix4fv(uMVP, false, mvp);
+      gl.uniformMatrix4fv(loc.uMVP, false, mvp);
 
       bindMesh(floor);
       gl.drawArrays(gl.TRIANGLES, 0, floor.n);
@@ -269,17 +315,30 @@
         }
         gl.bindBuffer(gl.ARRAY_BUFFER, ptBuf);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pos), gl.DYNAMIC_DRAW);
-        gl.enableVertexAttribArray(aPos);
-        gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(loc.aPos);
+        gl.vertexAttribPointer(loc.aPos, 3, gl.FLOAT, false, 0, 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, ptCol);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(col), gl.DYNAMIC_DRAW);
-        gl.enableVertexAttribArray(aCol);
-        gl.vertexAttribPointer(aCol, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(loc.aCol);
+        gl.vertexAttribPointer(loc.aCol, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(gl.POINTS, 0, n);
       }
     }
 
-    return { draw: draw, ok: true };
+    return {
+      draw: draw,
+      ok: true,
+      webgl2: webgl2,
+      isFlat: function () {
+        return flat;
+      },
+      setFlat: function (on) {
+        if (!webgl2 || !progFlat) return false;
+        flat = !!on;
+        loc = flat ? progFlat : progSmooth;
+        return true;
+      },
+    };
   }
 
   global.LtWebGLCycle = { attach: attach };
