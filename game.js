@@ -1846,8 +1846,7 @@
           if (pw2El) pw2El.value = "";
           save();
           refreshHub();
-          if (isHub() && !state.raptureSeen) openRapture();
-          else show("hub");
+          show("hub");
           toast("Shop floor · pick a game (sandbox, quiz, electrical)", "ok");
           return;
         }
@@ -1873,8 +1872,7 @@
         if (window.Badges) window.Badges.unlock("first_clock");
         postCompete("profile");
         refreshHub();
-        if (isHub() && !state.raptureSeen) openRapture();
-        else show("hub");
+        show("hub");
         toast("Shop floor · pick a game (sandbox, quiz, electrical)", "ok");
       })().catch(() => toast("Password check failed", "bad"));
     };
