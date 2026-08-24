@@ -31,6 +31,7 @@
     vehicle: "falcon", // "falcon" | "van"
     spicy: false,
     extraSpicy: false,
+    roastLevel: 1,
     seenTip: false,
     seenTutorial: false,
     hubAuthed: false,
@@ -83,6 +84,24 @@
   let cmdCtl = null;
 
   // ---- persistence ----
+  const ROAST_COPY = [
+    "Classroom — no jokes. Straight 608.",
+    "Mild — shop talk. 608 stays clean.",
+    "Spicy — customers get mouthy.",
+    "Extra — HUB unhinged. Answers still clean.",
+  ];
+  function applyRoast(n) {
+    const v = Math.max(0, Math.min(3, Number(n) || 0));
+    state.roastLevel = v;
+    state.spicy = v >= 2;
+    state.extraSpicy = v >= 3;
+    const lab = document.getElementById("hub-roast-label");
+    if (lab) lab.textContent = ROAST_COPY[v];
+    const sl = document.getElementById("hub-roast");
+    if (sl) sl.value = String(v);
+    return v;
+  }
+
   function load() {
     try {
       const raw = localStorage.getItem(SAVE);
@@ -92,7 +111,10 @@
     if (typeof state.cash !== "number") state.cash = 0;
     if (typeof state.jobsCompleted !== "number") state.jobsCompleted = 0;
     if (typeof state.lifetimeEarnings !== "number") state.lifetimeEarnings = 0;
-    if (typeof state.extraSpicy !== "boolean") state.extraSpicy = false;
+    if (typeof state.roastLevel !== "number") {
+      state.roastLevel = state.extraSpicy ? 3 : state.spicy ? 2 : 1;
+    }
+    applyRoast(state.roastLevel);
     if (typeof state.hubAuthed !== "boolean") state.hubAuthed = false;
     if (typeof state.seenTutorial !== "boolean") state.seenTutorial = false;
     if (typeof state.hubAiOn !== "boolean") state.hubAiOn = true;
@@ -120,6 +142,7 @@
         vehicle: state.vehicle,
         spicy: state.spicy,
         extraSpicy: !!state.extraSpicy,
+        roastLevel: state.roastLevel,
         seenTip: state.seenTip,
         seenTutorial: state.seenTutorial,
         hubAiOn: state.hubAiOn !== false,
@@ -188,6 +211,7 @@
       raptureSeen: state.raptureSeen,
       spicy: state.spicy,
       extraSpicy: !!state.extraSpicy,
+      roastLevel: state.roastLevel,
       seenTip: state.seenTip,
       seenTutorial: state.seenTutorial,
       hubAuthed: !!state.hubAuthed && isHubName(state.callsign),
@@ -212,6 +236,8 @@
     state.raptureSeen = !!rec.raptureSeen;
     state.spicy = !!rec.spicy;
     state.extraSpicy = !!rec.extraSpicy;
+    if (typeof rec.roastLevel === "number") applyRoast(rec.roastLevel);
+    else applyRoast(state.extraSpicy ? 3 : state.spicy ? 2 : 1);
     state.seenTip = !!rec.seenTip;
     state.seenTutorial = !!rec.seenTutorial;
     state.hubAuthed = !!rec.hubAuthed && isHubName(rec.callsign);
@@ -493,9 +519,7 @@
       window.HvacCommandments.paintHub(document.getElementById("screen-hub"));
     }
     const hubSpicy = document.getElementById("hub-spicy");
-    if (hubSpicy) hubSpicy.checked = !!state.spicy;
-    const hubExtraSync = document.getElementById("hub-extra");
-    if (hubExtraSync) hubExtraSync.checked = !!state.extraSpicy;
+    applyRoast(state.roastLevel);
     // sync vehicle picker UI
     if (document.querySelector(".vehicle-card")) setVehicle(state.vehicle || "falcon");
 
@@ -509,7 +533,7 @@
       if (grid) grid.parentNode.insertBefore(chip, grid);
     }
     if (window.ProfessorHUB) {
-      const line = window.ProfessorHUB.banter("hub", { extra: !!state.extraSpicy });
+      const line = window.ProfessorHUB.banter("hub", { extra: !!state.extraSpicy, level: state.roastLevel });
       const roast = window.ProfessorHUB.banter("rank", { title: rank.title });
       chip.innerHTML = '<img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" /><div><strong>Professor Andrew Hubbard</strong><p>' + line + " " + roast + "</p></div>";
     }
@@ -921,6 +945,11 @@
     serviceCtl = window.ServiceCalls.start(host, {
       spicy: !!state.spicy,
       extraSpicy: !!state.extraSpicy,
+      roastLevel: state.roastLevel,
+      onRoast(n) {
+        applyRoast(n);
+        save();
+      },
       onSpicy(v) {
         state.spicy = !!v;
         save();
@@ -2048,26 +2077,13 @@
       };
     }
 
-    const hubSpicy = document.getElementById("hub-spicy");
-    if (hubSpicy) {
-      hubSpicy.checked = !!state.spicy;
-      hubSpicy.onchange = () => {
-        state.spicy = !!hubSpicy.checked;
+    const hubRoast = document.getElementById("hub-roast");
+    if (hubRoast) {
+      applyRoast(state.roastLevel);
+      hubRoast.oninput = () => {
+        applyRoast(hubRoast.value);
         save();
-        toast(state.spicy ? "Spicy customers ON." : "Spicy customers off.", "ok");
-      };
-    }
-    const hubExtra = document.getElementById("hub-extra");
-    if (hubExtra) {
-      hubExtra.checked = !!state.extraSpicy;
-      hubExtra.onchange = () => {
-        state.extraSpicy = !!hubExtra.checked;
-        if (state.extraSpicy) {
-          state.spicy = true;
-          if (hubSpicy) hubSpicy.checked = true;
-        }
-        save();
-        toast(state.extraSpicy ? "Extra spicy ON. 608 still clean." : "Extra spicy off.", "ok");
+        toast(ROAST_COPY[state.roastLevel], "ok");
       };
     }
     const hubSfx = document.getElementById("hub-sfx");
@@ -2581,6 +2597,11 @@
     quizCtl = window.QuizArena.start(root, {
       nickname: state.callsign || "Tech",
       extraSpicy: !!state.extraSpicy,
+      roastLevel: state.roastLevel,
+      onRoast(n) {
+        applyRoast(n);
+        save();
+      },
       onExtra(v) {
         state.extraSpicy = !!v;
         save();

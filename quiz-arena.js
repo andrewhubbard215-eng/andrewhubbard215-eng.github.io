@@ -485,6 +485,7 @@
   let pollId = 0;
   let net = "local"; // local BroadcastChannel | server PIN rooms
   let extraSpicy = false;
+  let roastLevel = 1;
 
   function pinGen() {
     return String((Math.random() * 900000 + 100000) | 0);
@@ -557,7 +558,7 @@
 
   function hubLine(kind) {
     if (!global.ProfessorHUB) return "";
-    const ctx = extraSpicy ? { extra: true } : {};
+    const ctx = { extra: extraSpicy || roastLevel >= 3, level: roastLevel };
     if (kind === "ok") return " " + global.ProfessorHUB.banter("service-ok", ctx);
     if (kind === "bad") return " " + global.ProfessorHUB.banter("service-bad", ctx);
     return " " + global.ProfessorHUB.banter("hub", ctx);
@@ -968,7 +969,10 @@
           </header>
           <div class="qa-lobby">
             <p class="qa-lede">Timed exam board. Pick a pack. Speed still pays — wrong answers still cost.</p>
-            <label class="spicy-toggle qa-heat"><input type="checkbox" id="qa-extra" ${extraSpicy ? "checked" : ""}/> <span>🌶️ Extra spicy HUB (jokes only — 608 stays clean)</span></label>
+            <label class="spicy-toggle qa-heat">HUB roast
+              <input type="range" id="qa-roast" min="0" max="3" step="1" value="${roastLevel}" />
+              <span id="qa-roast-lab"></span>
+            </label>
             <div class="qa-pack-row" id="qa-pack-row">
               <button type="button" class="qa-pack-btn" data-pack="epa608">EPA 608</button>
               <button type="button" class="qa-pack-btn" data-pack="osha30">OSHA 30</button>
@@ -997,11 +1001,23 @@
       root.querySelector("#qa-solo").onclick = startSolo;
       root.querySelector("#qa-host").onclick = startHost;
       root.querySelector("#qa-join").onclick = joinRoom;
-      const extraEl = root.querySelector("#qa-extra");
-      if (extraEl) extraEl.onchange = () => {
-        extraSpicy = extraEl.checked;
-        if (hooks.onExtra) hooks.onExtra(extraSpicy);
-      };
+      const roastEl = root.querySelector("#qa-roast");
+      const roastLab = root.querySelector("#qa-roast-lab");
+      const labs = ["Classroom", "Mild", "Spicy", "Extra"];
+      function paintRoast() {
+        if (roastLab) roastLab.textContent = labs[roastLevel] || "Mild";
+      }
+      paintRoast();
+      if (roastEl) {
+        roastEl.value = String(roastLevel);
+        roastEl.oninput = () => {
+          roastLevel = +roastEl.value;
+          extraSpicy = roastLevel >= 3;
+          paintRoast();
+          if (hooks.onRoast) hooks.onRoast(roastLevel);
+          if (hooks.onExtra) hooks.onExtra(extraSpicy);
+        };
+      }
       const packSel = root.querySelector("#qa-pack");
       root.querySelectorAll(".qa-pack-btn").forEach((b) => {
         b.onclick = () => {
@@ -1104,7 +1120,8 @@
     mode = "lobby";
     role = "solo";
     nickname = (opts && opts.nickname) || "Tech";
-    extraSpicy = !!(opts && opts.extraSpicy);
+    extraSpicy = !!(opts && (opts.extraSpicy || opts.roastLevel >= 3));
+    roastLevel = typeof (opts && opts.roastLevel) === "number" ? opts.roastLevel : extraSpicy ? 3 : 1;
     scores = {};
     players = [];
     stopTimer();

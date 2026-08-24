@@ -2589,3 +2589,7 @@ select:focus-visible {
 .df-wire { stroke: #3a4654; stroke-width: 2; }
 .df-node.live rect { fill: #3b2a08; stroke: #ffd54a; }
 .df-node.live text { fill: #ffe082; }
+
+.opt-roast input[type="range"] { width: 100%; margin-top: 6px; accent-color: #CE0034; }
+.roast-ticks { display: block; font-size: 10px; color: var(--muted); letter-spacing: 0.02em; margin-top: 4px; }
+#svc-roast, #qa-roast { width: 110px; accent-color: #CE0034; vertical-align: middle; }

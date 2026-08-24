@@ -227,20 +227,13 @@
             <input type="checkbox" id="hub-sfx" checked />
           </div>
         </label>
-        <label class="mode-card opt-spicy" title="Spicy customer mode">
+        <label class="mode-card opt-spicy opt-roast" title="HUB roast intensity">
           <div class="mode-icon" aria-hidden="true">🌶️</div>
           <div>
-            <h3>Spicy customers</h3>
-            <p>Funny / inappropriate service quotes</p>
-            <input type="checkbox" id="hub-spicy" />
-          </div>
-        </label>
-        <label class="mode-card opt-spicy" title="Extra spicy">
-          <div class="mode-icon" aria-hidden="true">🌶️🌶️</div>
-          <div>
-            <h3>Extra spicy</h3>
-            <p>Exam + service · HUB goes Deadpool. 608 stays clean</p>
-            <input type="checkbox" id="hub-extra" />
+            <h3>HUB roast</h3>
+            <p id="hub-roast-label">Mild — shop talk, 608 stays clean</p>
+            <input type="range" id="hub-roast" min="0" max="3" step="1" value="1" />
+            <span class="roast-ticks">Classroom · Mild · Spicy · Extra</span>
           </div>
         </label>
       </div>
@@ -336,13 +329,9 @@
           <div class="svc-meters">
             <span id="svc-score">Call 0</span>
             <span id="svc-rating">★ ★ ★ ★ ★</span>
-            <label class="spicy-toggle" title="Spicy mode: funnier, slightly inappropriate customers">
-              <input type="checkbox" id="svc-spicy" />
-              <span>🌶️ Spicy</span>
-            </label>
-            <label class="spicy-toggle" title="Extra spicy: Deadpool shop talk. 608 answers stay clean.">
-              <input type="checkbox" id="svc-extra" />
-              <span>🌶️🌶️ Extra</span>
+            <label class="spicy-toggle" title="HUB roast intensity">
+              <span>🌶️ Roast</span>
+              <input type="range" id="svc-roast" min="0" max="3" step="1" value="1" />
             </label>
           </div>
         </header>
@@ -399,10 +388,10 @@
   <script src="sandbox.js?v=96"></script>
   <script src="minisplit.js"></script>
   <script src="ai-helper.js"></script>
-  <script src="service.js?v=95"></script>
-  <script src="instructor.js?v=95"></script>
+  <script src="service.js?v=96"></script>
+  <script src="instructor.js?v=96"></script>
   <script src="hub-ai.js?v=82"></script>
-  <script src="quiz-arena.js?v=95"></script>
+  <script src="quiz-arena.js?v=96"></script>
   <script src="compete.js?v=94"></script>
   <script src="chat.js"></script>
   <script src="badges.js?v=93"></script>

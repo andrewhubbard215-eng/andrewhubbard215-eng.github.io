@@ -109,6 +109,13 @@
       "Incorrect. Even HVAC Jesus looked away. Recover your dignity.",
       "You selected chaos. Chaos unbuttoned. Try the book.",
     ],
+    classroom: [
+      "Recover before you open it. That's 608.",
+      "Airflow before charge. SH and SC together.",
+      "LOTO. Microns, not compound gauges.",
+      "Match the nameplate cylinder. Weigh-in.",
+      "Dirty coil is not low charge. Clean it first.",
+    ],
     extraHub: [
       "Extra spicy is ON. Keep the 608 answers clean. Keep the jokes filthy. That's the brand.",
       "LOTO isn't a safe word. Tag it anyway.",
@@ -140,12 +147,16 @@
 
   function banter(kind, ctx) {
     switch (kind) {
-      case "service-ok":
-        return pick(ctx && ctx.extra ? HUB.extraOk : HUB.serviceOk);
-      case "service-bad":
-        return pick(ctx && ctx.extra ? HUB.extraBad : HUB.serviceBad);
       case "hub":
-        return pick(ctx && ctx.extra ? HUB.extraHub.concat(HUB.hubLines) : HUB.hubLines);
+        if (ctx && ctx.level === 0) return pick(HUB.classroom);
+        if (ctx && (ctx.extra || ctx.level >= 3)) return pick(HUB.extraHub.concat(HUB.hubLines));
+        return pick(HUB.hubLines);
+      case "service-ok":
+        if (ctx && ctx.level === 0) return "Correct. That's the 608 / SH-SC path.";
+        return pick(ctx && (ctx.extra || ctx.level >= 3) ? HUB.extraOk : HUB.serviceOk);
+      case "service-bad":
+        if (ctx && ctx.level === 0) return "Not that one. Check the fingerprint again.";
+        return pick(ctx && (ctx.extra || ctx.level >= 3) ? HUB.extraBad : HUB.serviceBad);
       case "paid":
         return pick(HUB.paid);
       case "unit":

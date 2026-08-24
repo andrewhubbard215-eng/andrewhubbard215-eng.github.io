@@ -358,8 +358,12 @@
     callRight = 0;
     locked = false;
     stars = 5;
-    spicy = !!(opts && opts.spicy) || !!(opts && opts.extraSpicy);
-    extraSpicy = !!(opts && opts.extraSpicy);
+    extraSpicy = !!(opts && (opts.extraSpicy || opts.roastLevel >= 3));
+    spicy = extraSpicy || !!(opts && opts.spicy) || (opts && opts.roastLevel >= 2);
+    if (typeof (opts && opts.roastLevel) === "number") {
+      extraSpicy = opts.roastLevel >= 3;
+      spicy = opts.roastLevel >= 2;
+    }
     deck = shuffle(CALLS);
 
     // ensure structure exists (in case host is empty root)
@@ -367,25 +371,14 @@
       root.innerHTML = host.innerHTML; // keep screen content
     }
 
-    const spicyEl = document.getElementById("svc-spicy");
-    if (spicyEl) {
-      spicyEl.checked = spicy;
-      spicyEl.onchange = () => {
-        spicy = spicyEl.checked;
-        if (!spicy) extraSpicy = false;
-        if (extraEl) extraEl.checked = extraSpicy;
-        if (hooks.onSpicy) hooks.onSpicy(spicy);
-        if (hooks.onExtra) hooks.onExtra(extraSpicy);
-        render();
-      };
-    }
-    const extraEl = document.getElementById("svc-extra");
-    if (extraEl) {
-      extraEl.checked = extraSpicy;
-      extraEl.onchange = () => {
-        extraSpicy = extraEl.checked;
-        if (extraSpicy) spicy = true;
-        if (spicyEl) spicyEl.checked = spicy;
+    const roastEl = document.getElementById("svc-roast");
+    if (roastEl) {
+      roastEl.value = String(heat());
+      roastEl.oninput = () => {
+        const v = +roastEl.value;
+        extraSpicy = v >= 3;
+        spicy = v >= 2;
+        if (hooks.onRoast) hooks.onRoast(v);
         if (hooks.onSpicy) hooks.onSpicy(spicy);
         if (hooks.onExtra) hooks.onExtra(extraSpicy);
         render();
