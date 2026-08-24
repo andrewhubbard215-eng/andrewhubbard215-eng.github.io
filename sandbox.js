@@ -74,6 +74,8 @@
     { id: "compressor", name: "Scroll compressor", group: "parts", icon: "⚡", img: "parts/compressor.png", slot: "compressor", required: true, desc: "Hermetic scroll · drag to compressor slot" },
     { id: "condenser", name: "Outdoor condenser", group: "parts", icon: "🔥", img: "parts/condenser.png", slot: "condenser", required: true, desc: "ODU cabinet · fan + coil" },
     { id: "metering", name: "TXV metering device", group: "parts", icon: "🔽", img: "parts/metering.png", slot: "metering", required: true, desc: "Thermostatic expansion valve" },
+    { id: "piston", name: "Piston / fixed orifice", group: "parts", icon: "⚪", img: "parts/metering.png", slot: "metering", required: false, desc: "Fixed metering · charge by superheat" },
+    { id: "capillary", name: "Capillary tube", group: "parts", icon: "〰️", img: null, slot: "metering", required: false, desc: "Cap-tube metering device" },
     { id: "evaporator", name: "Evaporator A-coil", group: "parts", icon: "❄️", img: "parts/evaporator.png", slot: "evaporator", required: true, desc: "Cased indoor coil · drain pan" },
     { id: "filter", name: "Filter-drier", group: "parts", icon: "🧪", img: "parts/filter.png", slot: "filter", required: false, desc: "Liquid-line drier" },
     { id: "accumulator", name: "Suction accumulator", group: "parts", icon: "🛢", img: "parts/accumulator.png", slot: "accumulator", required: false, desc: "Protects compressor from liquid slug" },
@@ -81,21 +83,35 @@
     { id: "solenoid", name: "Liquid solenoid", group: "parts", icon: "🧲", img: "parts/relay.png", slot: "solenoid", required: false, desc: "Pump-down valve in the liquid line" },
     { id: "revvalve", name: "Reversing valve (4-way)", group: "parts", icon: "🔀", img: "parts/relay.png", slot: "revvalve", required: false, desc: "Heat pump changeover · discharge in the middle" },
     { id: "sightglass", name: "Sight glass", group: "parts", icon: "👁", img: null, slot: "sightglass", required: false, desc: "Moisture / flash gas in the liquid line" },
-    // Electrical
+    { id: "svcvalves", name: "Service valves", group: "parts", icon: "🔷", img: null, slot: "svcvalves", required: false, desc: "Liquid + suction king valves" },
+    { id: "checkvalve", name: "Check valve", group: "parts", icon: "➡️", img: null, slot: "checkvalve", required: false, desc: "One-way in heat-pump piping" },
     { id: "disconnect", name: "Fused disconnect", group: "electrical", icon: "🔌", img: "parts/disconnect.png", slot: "disconnect", required: false, desc: "Outdoor disconnect · L1/L2" },
     { id: "contactor", name: "Contactor", group: "electrical", icon: "🧲", img: "parts/contactor.png", slot: "contactor", required: false, desc: "24V coil · line to compressor" },
     { id: "capacitor", name: "Dual run capacitor", group: "electrical", icon: "🔋", img: "parts/capacitor.png", slot: "capacitor", required: false, desc: "Herm / fan / common terminals" },
+    { id: "startcap", name: "Start capacitor", group: "electrical", icon: "⚡", img: "parts/capacitor.png", slot: "startcap", required: false, desc: "Hard-start assist · not a diagnosis" },
     { id: "transformer", name: "24V transformer", group: "electrical", icon: "🔁", img: "parts/transformer.png", slot: "transformer", required: false, desc: "Control voltage · C and R" },
     { id: "thermostat", name: "Thermostat", group: "electrical", icon: "🌡️", img: "parts/thermostat.png", slot: "thermostat", required: false, desc: "Y call · 24V control" },
-    // Tools
-    { id: "gauges", name: "Manifold gauge set", group: "tools", icon: "📊", img: "parts/gauges.png", slot: null, required: false, desc: "Blue low · red high" },
-    { id: "dmm", name: "Digital multimeter", group: "tools", icon: "📟", img: "parts/dmm.png", slot: null, required: false, desc: "VAC · AAC · ohms · continuity" },
-    { id: "micron", name: "Micron gauge", group: "tools", icon: "📉", img: null, slot: null, required: false, desc: "Deep vacuum readout" },
-    // Materials
-    { id: "copper", name: "Copper tubing", group: "materials", icon: "🔶", img: null, slot: null, required: false, desc: "Lineset / branch piping" },
-    { id: "nitrogen", name: "Dry nitrogen", group: "materials", icon: "💨", img: null, slot: null, required: false, desc: "Purge & pressure test only" },
-    { id: "flare", name: "Flare fittings", group: "materials", icon: "🔩", img: null, slot: null, required: false, desc: "Mini-split line connections" },
-    { id: "wire", name: "THHN / thermostat wire", group: "materials", icon: "🧵", img: null, slot: null, required: false, desc: "Line voltage + 18/8 control" },
+    { id: "hpsw", name: "High-pressure switch", group: "electrical", icon: "🔺", img: null, slot: "hpsw", required: false, desc: "Opens on high head · safety" },
+    { id: "lpsw", name: "Low-pressure switch", group: "electrical", icon: "🔻", img: null, slot: "lpsw", required: false, desc: "Opens on low suction · safety" },
+    { id: "odfan", name: "Condenser fan motor", group: "electrical", icon: "🌀", img: null, slot: "odfan", required: false, desc: "ODU fan · heat rejection" },
+    { id: "blower", name: "Indoor blower motor", group: "electrical", icon: "💨", img: null, slot: "blower", required: false, desc: "IDU airflow · ECM or PSC" },
+    { id: "defrostboard", name: "Defrost control board", group: "electrical", icon: "🧊", img: null, slot: "defrostboard", required: false, desc: "Heat pump defrost logic" },
+    { id: "float", name: "Condensate float switch", group: "electrical", icon: "💧", img: null, slot: "float", required: false, desc: "Breaks Y on a full pan" },
+    { id: "gauges", name: "Manifold gauge set", group: "tools", icon: "📊", img: "parts/gauges.png", slot: "gauges", required: false, equip: "gauges", desc: "Blue low · red high · drag onto Gauges" },
+    { id: "dmm", name: "Digital multimeter", group: "tools", icon: "📟", img: "parts/dmm.png", slot: "dmm", required: false, equip: "dmm", desc: "VAC · AAC · ohms · continuity" },
+    { id: "micron", name: "Micron gauge", group: "tools", icon: "📉", img: null, slot: "micron", required: false, equip: "micron", desc: "Deep vacuum readout" },
+    { id: "vacpump", name: "Vacuum pump", group: "tools", icon: "⚙", img: null, slot: "vacpump", required: false, equip: "vac", desc: "Pull microns · oil in the sight glass" },
+    { id: "recovery", name: "Recovery machine", group: "tools", icon: "♻️", img: null, slot: "recovery", required: false, equip: "recovery", desc: "Recover before you open it" },
+    { id: "rectank", name: "Recovery cylinder", group: "tools", icon: "🧯", img: null, slot: "rectank", required: false, desc: "DOT tank · 80% fill by weight" },
+    { id: "sniffer", name: "Electronic leak detector", group: "tools", icon: "📡", img: null, slot: "sniffer", required: false, equip: "sniffer", desc: "Move 1–2 in/s from below" },
+    { id: "scale", name: "Charging scale", group: "tools", icon: "⚖️", img: null, slot: "scale", required: false, desc: "Weigh-in · never guess the charge" },
+    { id: "soltest", name: "Solenoid tester", group: "tools", icon: "🧲", img: "parts/relay.png", slot: "soltest", required: false, equip: "soltest", desc: "Magnetic pull-in test · power off preferred" },
+    { id: "copper", name: "Copper tubing", group: "materials", icon: "🔶", img: null, slot: "copper", required: false, desc: "Lineset / branch piping" },
+    { id: "nitrogen", name: "Dry nitrogen", group: "materials", icon: "💨", img: null, slot: "nitrogen", required: false, equip: "nitrogen", desc: "Purge & pressure test only" },
+    { id: "flare", name: "Flare fittings", group: "materials", icon: "🔩", img: null, slot: "flare", required: false, desc: "Mini-split line connections" },
+    { id: "wire", name: "THHN / thermostat wire", group: "materials", icon: "🧵", img: null, slot: "wire", required: false, desc: "Line voltage + 18/8 control" },
+    { id: "insulation", name: "Line-set insulation", group: "materials", icon: "🧱", img: null, slot: "insulation", required: false, desc: "Suction line armaflex" },
+    { id: "schrader", name: "Schrader cores", group: "materials", icon: "🔘", img: null, slot: "schrader", required: false, desc: "Cores in / cores out for vac" },
   ];
 
   function partThumb(c) {
@@ -358,11 +374,35 @@
     { id: "solenoid", x: 0.76, y: 0.44, label: "Solenoid" },
     { id: "revvalve", x: 0.34, y: 0.40, label: "Rev. valve" },
     { id: "sightglass", x: 0.68, y: 0.40, label: "Sight glass" },
-    { id: "disconnect", x: 0.08, y: 0.18, label: "Disconnect" },
-    { id: "contactor", x: 0.08, y: 0.38, label: "Contactor" },
-    { id: "capacitor", x: 0.08, y: 0.58, label: "Capacitor" },
+    { id: "svcvalves", x: 0.22, y: 0.40, label: "Service valves" },
+    { id: "checkvalve", x: 0.40, y: 0.28, label: "Check valve" },
+    { id: "disconnect", x: 0.08, y: 0.14, label: "Disconnect" },
+    { id: "contactor", x: 0.08, y: 0.30, label: "Contactor" },
+    { id: "capacitor", x: 0.08, y: 0.46, label: "Capacitor" },
+    { id: "startcap", x: 0.08, y: 0.62, label: "Start cap" },
     { id: "transformer", x: 0.08, y: 0.78, label: "Transformer" },
-    { id: "thermostat", x: 0.92, y: 0.18, label: "Thermostat" },
+    { id: "thermostat", x: 0.92, y: 0.10, label: "Thermostat" },
+    { id: "hpsw", x: 0.08, y: 0.92, label: "HP switch" },
+    { id: "lpsw", x: 0.22, y: 0.92, label: "LP switch" },
+    { id: "odfan", x: 0.52, y: 0.08, label: "ODU fan" },
+    { id: "blower", x: 0.40, y: 0.92, label: "Blower" },
+    { id: "defrostboard", x: 0.34, y: 0.14, label: "Defrost board" },
+    { id: "float", x: 0.64, y: 0.92, label: "Float switch" },
+    { id: "gauges", x: 0.92, y: 0.26, label: "Gauges" },
+    { id: "dmm", x: 0.92, y: 0.42, label: "DMM" },
+    { id: "micron", x: 0.92, y: 0.58, label: "Micron" },
+    { id: "vacpump", x: 0.92, y: 0.74, label: "Vac pump" },
+    { id: "recovery", x: 0.92, y: 0.90, label: "Recovery" },
+    { id: "rectank", x: 0.78, y: 0.92, label: "Rec. tank" },
+    { id: "sniffer", x: 0.76, y: 0.18, label: "Sniffer" },
+    { id: "scale", x: 0.76, y: 0.08, label: "Scale" },
+    { id: "soltest", x: 0.64, y: 0.08, label: "Solenoid tester" },
+    { id: "copper", x: 0.22, y: 0.08, label: "Copper" },
+    { id: "nitrogen", x: 0.22, y: 0.22, label: "Nitrogen" },
+    { id: "flare", x: 0.40, y: 0.08, label: "Flares" },
+    { id: "wire", x: 0.40, y: 0.18, label: "Wire" },
+    { id: "insulation", x: 0.22, y: 0.70, label: "Insulation" },
+    { id: "schrader", x: 0.64, y: 0.70, label: "Schraders" },
   ];
 
   // CoolGame-style timed circuit builds (Lincoln Tech clone — not Danfoss IP)
@@ -897,16 +937,17 @@
           <p class="eyebrow">Component tray</p>
           <div class="sb-build-progress" id="sb-progress">Core cycle: 0 / 4</div>
           <div class="sb-tabs">
-            <button class="sb-tab active" data-tab="parts">Parts</button>
-            <button class="sb-tab" data-tab="challenges">CoolGame</button>
-            <button class="sb-tab" data-tab="field">Field jobs</button>
+            <button class="sb-tab active" data-tab="all">All parts</button>
+            <button class="sb-tab" data-tab="parts">Cycle</button>
             <button class="sb-tab" data-tab="electrical">Electrical</button>
-            <button class="sb-tab" data-tab="systems">OEM packs</button>
             <button class="sb-tab" data-tab="tools">Tools</button>
             <button class="sb-tab" data-tab="materials">Materials</button>
+            <button class="sb-tab" data-tab="challenges">CoolGame</button>
+            <button class="sb-tab" data-tab="field">Field jobs</button>
+            <button class="sb-tab" data-tab="systems">OEM packs</button>
           </div>
           <div id="sb-items" class="sb-items"></div>
-          <p class="sb-hint">CoolGame: drag the right part onto the right slot against the clock. Then run the sim.</p>
+          <p class="sb-hint">All parts tab: drag every component onto its labeled slot. Core 4 close the loop — compressor, condenser, metering, evaporator. Click a part to snap it if drag is picky.</p>
           <div class="hub-chip" style="margin:10px 0 0;max-width:none">
             <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-chip-av photo" />
             <div><strong>Professor HUB</strong><p>Four core pieces close the loop. Then start the compressor — I’ll roast your SH/SC.</p></div>
@@ -1643,7 +1684,7 @@
       });
       return;
     }
-    COMPONENTS.filter((c) => c.group === tab).forEach((c) => {
+    COMPONENTS.filter((c) => tab === "all" || c.group === tab).forEach((c) => {
       const el = document.createElement("div");
       el.className = "sb-item" + (c.required ? " sb-item-core" : "");
       el.draggable = true;
@@ -1656,7 +1697,7 @@
           window.LtDrag.setHtml5Image(e, { html: partThumb(c), label: c.name });
         }
       });
-      if (window.LtDrag && c.slot) {
+      if (window.LtDrag) {
         window.LtDrag.bindSource(el, {
           id: c.id,
           html: partThumb(c) + "<strong>" + c.name + "</strong>",
@@ -1671,42 +1712,68 @@
           place(c.slot, c.id);
           activeSystem = null;
           updateSysBanner();
-        } else if (c.id === "gauges") {
-          gaugesEquipped = true;
-          document.getElementById("sb-manifold").classList.add("on");
-        } else if (c.id === "dmm") {
-          const panel = document.getElementById("sb-dmm");
-          if (panel) panel.classList.add("on");
-          updateDmm(simulate());
-        } else if (c.id === "nitrogen") {
-          requestNitrogen(function () {
-            document.getElementById("sb-status").textContent =
-              "Dry N₂ on the cart. Regulator on. Purge while brazing; standing test for leaks. Never oxygen. Never shop air.";
-          });
+        } else {
+          applyEquip(c);
         }
       });
       box.appendChild(el);
     });
   }
 
+  function applyEquip(def) {
+    if (!def) return;
+    const eq = def.equip || def.id;
+    if (eq === "gauges") {
+      gaugesEquipped = true;
+      const m = document.getElementById("sb-manifold");
+      if (m) m.classList.add("on");
+      document.getElementById("sb-status").textContent = "Manifold on the ports. Read SH and SC together.";
+    } else if (eq === "dmm") {
+      const panel = document.getElementById("sb-dmm");
+      if (panel) panel.classList.add("on");
+      updateDmm(simulate());
+      document.getElementById("sb-status").textContent = "DMM on the cart. Never ohm a live circuit.";
+    } else if (eq === "micron") {
+      document.getElementById("sb-status").textContent = "Micron gauge at the system — not on the pump alone.";
+    } else if (eq === "vac") {
+      document.getElementById("sb-status").textContent = "Vacuum pump staged. N₂ proof first, then microns.";
+    } else if (eq === "recovery") {
+      document.getElementById("sb-status").textContent = "Recovery machine on the cart. Recover before you open it. 608.";
+    } else if (eq === "sniffer") {
+      document.getElementById("sb-status").textContent = "Sniffer in hand. 1–2 in/s, from below. Refrigerant is heavier than air.";
+    } else if (eq === "soltest") {
+      document.getElementById("sb-status").textContent = "Solenoid tester: magnetic pull-in. Power off preferred. Don't guess a stuck valve.";
+    } else if (eq === "nitrogen") {
+      requestNitrogen(function () {
+        document.getElementById("sb-status").textContent =
+          "Dry N₂ on the cart. Regulator on. Purge while brazing; standing test for leaks. Never oxygen. Never shop air.";
+      });
+    }
+  }
+
   function place(slotId, compId) {
     const def = COMPONENTS.find((c) => c.id === compId);
-    if (!def || !def.slot || def.slot !== slotId) {
-      if (def && def.slot && def.slot !== slotId) return;
+    if (!def) return;
+    if (def.slot && slotId && def.slot !== slotId) {
+      document.getElementById("sb-status").textContent = def.name + " belongs on " + def.slot + " — not " + slotId + ".";
+      return;
     }
-    if (!def || !def.slot) return;
-    placed[slotId] = compId;
-    activeSystem = null;
-    if (window.LtSfx && window.LtSfx.drop) window.LtSfx.drop();
-    refreshSlots();
-    updateSysBanner();
-    if (challenge) checkChallenge();
-    if (requiredComplete() && onXp) {
-      if (!host.dataset.loopXp) {
-        host.dataset.loopXp = "1";
-        onXp(25);
+    const dest = def.slot || slotId;
+    if (dest) {
+      placed[dest] = compId;
+      activeSystem = null;
+      if (window.LtSfx && window.LtSfx.drop) window.LtSfx.drop();
+      refreshSlots();
+      updateSysBanner();
+      if (challenge) checkChallenge();
+      if (requiredComplete() && onXp) {
+        if (!host.dataset.loopXp) {
+          host.dataset.loopXp = "1";
+          onXp(25);
+        }
       }
     }
+    applyEquip(def);
   }
 
   function refreshSlots() {
@@ -2282,7 +2349,7 @@
         renderPalette(tab.dataset.tab);
       };
     });
-    renderPalette("parts");
+    renderPalette("all");
     layoutSlots();
     updateSysBanner();
 

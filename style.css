@@ -438,13 +438,8 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .sb-slots { position: absolute; inset: 0; pointer-events: none; }
 .sb-slot { pointer-events: auto; }
 .sb-slot {
-  position: absolute; transform: translate(-50%, -50%);
-  width: 110px; min-height: 64px; pointer-events: auto;
-  background: rgba(20,28,36,0.88); border: 2px dashed var(--border);
-  border-radius: 12px; padding: 8px; text-align: center;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; font-size: 11px; color: var(--muted);
-  transition: border-color 0.15s, background 0.15s;
+  width: 92px; min-height: 52px; pointer-events: auto;
+  font-size: 10px; padding: 4px 6px;
 }
 .sb-slot.required { border-color: rgba(45,212,191,0.35); }
 .sb-slot.over { border-color: var(--accent); background: rgba(206,0,52,0.14); }
