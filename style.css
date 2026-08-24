@@ -2029,6 +2029,10 @@ select:focus-visible {
 }
 .quiz-launch-sub { display: block; font-size: 14px; opacity: 0.95; }
 .quiz-launch:hover { filter: brightness(1.08); }
+.sandbox-launch {
+  border-color: #2dd4bf;
+  background: linear-gradient(90deg, #0e7490 0%, #CE0034 55%, #134e4a 100%);
+}
 
 #screen-quiz { background: #1c1147; }
 .qa-kahoot { min-height: 100%; display: flex; flex-direction: column; padding: 10px 12px 16px; }

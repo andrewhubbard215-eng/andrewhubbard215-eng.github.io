@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=52" />
+  <link rel="stylesheet" href="style.css?v=58" />
 </head>
 <body>
   <div id="app">
@@ -29,6 +29,7 @@
           <span>Professor Hubbard · Lincoln Tech</span>
         </div>
         <button class="btn" id="btn-kahoot-title" type="button">Kahoot quiz</button>
+        <button class="btn" id="btn-sandbox-title" type="button">System sandbox</button>
         <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
         <button class="btn hidden" id="btn-continue">Continue</button>
       </div>
@@ -154,7 +155,12 @@
         <span class="quiz-launch-title">Quiz Game</span>
         <span class="quiz-launch-sub">EPA 608 · OSHA 30 · Lincoln Tech curriculum · tap this box</span>
       </button>
-      <p class="hub-section">Training floor · system sim · AI</p>
+      <button type="button" class="quiz-launch sandbox-launch" data-mode="sandbox" id="btn-sandbox-box">
+        <span class="quiz-launch-kicker">System sim · drag-drop · live gauges</span>
+        <span class="quiz-launch-title">System sandbox</span>
+        <span class="quiz-launch-sub">Build the cycle · SH/SC · field jobs · compressor flow · tap this box</span>
+      </button>
+      <p class="hub-section">Training floor · AI</p>
       <div class="hub-grid">
         <button class="mode-card mode-card-featured" data-mode="tutorial">
           <div class="mode-icon" aria-hidden="true">👷</div>
@@ -163,6 +169,7 @@
             <p>Professor Hubbard walks you through the shop</p>
           </div>
         </button>
+        <button class="mode-card mode-card-featured" data-mode="sandbox" id="btn-sandbox-card">
           <div class="mode-icon" aria-hidden="true">🔄</div>
           <div>
             <h3>System sandbox</h3>
@@ -366,7 +373,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=52"></script>
+  <script src="game.js?v=58"></script>
   <script>
     (function () {
       function killWanted() {

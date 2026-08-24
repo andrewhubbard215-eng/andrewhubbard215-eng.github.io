@@ -1666,6 +1666,13 @@
         startQuizArena();
       };
     }
+    const sandTitle = document.getElementById("btn-sandbox-title");
+    if (sandTitle) {
+      sandTitle.onclick = () => {
+        ac();
+        startSandbox();
+      };
+    }
     const closeClock = document.getElementById("btn-close-clockin");
     const miniIn = document.getElementById("btn-clockin-mini");
     if (closeClock) {
