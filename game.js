@@ -2138,14 +2138,14 @@
 
   function openRapture(fromQuiz) {
     show("rapture");
-    if (window.HvacCommandments && window.HvacCommandments.paintRapture) {
-      window.HvacCommandments.paintRapture(document.getElementById("screen-rapture"));
+    const root = document.getElementById("screen-rapture");
+    if (window.HvacCommandments && window.HvacCommandments.playWinCutscene) {
+      window.HvacCommandments.playWinCutscene(root, { fromQuiz: !!fromQuiz || true });
+    } else if (window.HvacCommandments && window.HvacCommandments.paintRapture) {
+      window.HvacCommandments.paintRapture(root);
     }
-    const speak = document.getElementById("jesus-speak");
-    if (speak && fromQuiz) {
-      speak.textContent =
-        "“You won the Quiz Game. I am HVAC Jesus. Receive the Gauges of God — SH and SC will never be a coin flip again.”";
-    }
+    if (sfx.rapture) sfx.rapture();
+    else if (sfx.win) sfx.win();
     const v = document.getElementById("heaven-vid");
     if (v) {
       try {

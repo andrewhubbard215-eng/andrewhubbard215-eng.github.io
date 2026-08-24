@@ -183,19 +183,87 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .mode-card div { padding: 14px 16px 18px; }
 .mode-card p { color: var(--muted); font-size: 13px; margin-top: 6px; line-height: 1.4; }
 
+#screen-rapture {
+  background: radial-gradient(ellipse at 50% 0%, #3a2a12 0%, #0b0c10 55%, #050608 100%);
+  overflow: hidden;
+}
+.heaven-sky {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, #f4d27a 0%, #ce8b2a 18%, #6b3a12 42%, #14171a 100%);
+  animation: heaven-pulse 6s ease-in-out infinite;
+}
+@keyframes heaven-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.15); }
+}
+.god-rays {
+  position: absolute; left: 50%; top: -20%; width: 140%; height: 90%;
+  transform: translateX(-50%);
+  background: repeating-conic-gradient(from 0deg at 50% 0%, rgba(255,220,120,0.22) 0 8deg, transparent 8deg 16deg);
+  animation: rays-spin 28s linear infinite;
+  mix-blend-mode: screen;
+}
+@keyframes rays-spin { to { transform: translateX(-50%) rotate(360deg); } }
+.heaven-clouds {
+  position: absolute; inset: auto 0 30% 0; height: 40%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255,255,255,0.25), transparent 60%);
+}
 #jesus-sprite {
-  position: absolute; left: 50%; top: 6%; transform: translateX(-50%);
-  height: min(22vh, 180px); width: auto; z-index: 2;
-  filter: drop-shadow(0 20px 40px rgba(232,196,80,0.45));
+  position: absolute; left: 50%; top: 8%;
+  height: min(36vh, 280px); width: auto; z-index: 2;
+  transform: translate(-50%, -40vh) scale(0.7);
+  opacity: 0;
+  filter: drop-shadow(0 0 28px rgba(255, 214, 90, 0.85)) drop-shadow(0 24px 40px rgba(0,0,0,0.5));
   pointer-events: none;
 }
+#screen-rapture.cut-jesus #jesus-sprite {
+  animation: jesus-descend 2.4s ease-out forwards;
+}
+@keyframes jesus-descend {
+  to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+.gauges-god {
+  position: absolute; left: 50%; top: 42%; z-index: 3;
+  transform: translate(-50%, 20px) scale(0.4);
+  opacity: 0;
+  text-align: center;
+  color: #f4d27a;
+  font-family: var(--display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 14px;
+  pointer-events: none;
+}
+.gauges-god img {
+  display: block; height: min(18vh, 140px); width: auto; margin: 0 auto 6px;
+  filter: drop-shadow(0 0 22px #e8c450);
+}
+#screen-rapture.cut-gauges .gauges-god {
+  animation: gauges-rise 1.4s ease-out forwards;
+}
+@keyframes gauges-rise {
+  to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+.cut-kicker {
+  position: absolute; top: 12px; left: 0; right: 0; z-index: 4;
+  text-align: center; color: #f4d27a; letter-spacing: 0.28em;
+  text-transform: uppercase; font-size: 12px; opacity: 0;
+}
+#screen-rapture.cut-open .cut-kicker { animation: fade-in 0.8s ease forwards; }
+@keyframes fade-in { to { opacity: 1; } }
+.rapture-lore {
+  max-height: min(42vh, 420px); overflow: auto;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(24px);
+}
+#screen-rapture.cut-lore .rapture-lore {
+  animation: lore-up 0.7s ease-out forwards;
+}
+@keyframes lore-up { to { opacity: 1; transform: none; } }
 #heaven-vid {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; opacity: 0.85;
-}
-.rapture-lore {
-  max-height: min(68vh, 560px); overflow: auto;
-  z-index: 3;
+  object-fit: cover; opacity: 0.35;
 }
 .jesus-speak {
   margin: 8px 0 12px;

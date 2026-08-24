@@ -98,10 +98,37 @@
     const speak = root.querySelector("#jesus-speak");
     if (speak) {
       speak.textContent =
-        "“I am HVAC Jesus. Write these ten on the truck door. Venting is sin. Guessing is not a method. Repeat after me:”";
+        "“You won the Quiz Game. I am HVAC Jesus. Receive the Gauges of God — SH and SC will never be a coin flip again. Write these ten on the truck door.”";
     }
     const ol = root.querySelector("#rapture-commandments");
     if (ol) ol.innerHTML = listHtml();
+  }
+
+  function playWinCutscene(root, opts) {
+    if (!root) return function () {};
+    const fromQuiz = !!(opts && opts.fromQuiz);
+    paintRapture(root);
+    const speak = root.querySelector("#jesus-speak");
+    if (speak) {
+      speak.textContent = fromQuiz
+        ? "“You won the Quiz Game. I am HVAC Jesus. Kneel if you want — I’m here for the Gauges of God. SH and SC will never be a coin flip again.”"
+        : "“I am HVAC Jesus. Recover, don’t vent. These ten are the law of the shop. Receive the Gauges of God.”";
+    }
+    root.classList.remove("cut-open", "cut-jesus", "cut-gauges", "cut-lore");
+    const timers = [];
+    const later = (ms, fn) => timers.push(setTimeout(fn, ms));
+    later(80, () => root.classList.add("cut-open"));
+    later(600, () => root.classList.add("cut-jesus"));
+    later(2800, () => root.classList.add("cut-gauges"));
+    later(4200, () => root.classList.add("cut-lore"));
+    function skip() {
+      timers.forEach(clearTimeout);
+      root.classList.add("cut-open", "cut-jesus", "cut-gauges", "cut-lore");
+    }
+    const skipBtn = root.querySelector("#btn-skip-cut");
+    if (skipBtn) skipBtn.onclick = skip;
+    root.addEventListener("dblclick", skip, { once: true });
+    return skip;
   }
 
   function paintHub(root) {
@@ -111,5 +138,5 @@
       `<p class="eyebrow">The HVAC Commandments</p><ol class="cmd-list compact">${listHtml()}</ol>`;
   }
 
-  global.HvacCommandments = { COMMANDMENTS, start, listHtml, paintRapture, paintHub };
+  global.HvacCommandments = { COMMANDMENTS, start, listHtml, paintRapture, paintHub, playWinCutscene };
 })(window);

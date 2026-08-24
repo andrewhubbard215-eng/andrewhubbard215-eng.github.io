@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=80" />
+  <link rel="stylesheet" href="style.css?v=81" />
 </head>
 <body>
   <div id="app">
@@ -287,18 +287,28 @@
 
     <!-- RAPTURE -->
     <section id="screen-rapture" class="screen">
-      <video id="heaven-vid" src="heaven.mp4" muted playsinline loop poster="jesus.png" onerror="this.style.display='none'"></video>
+      <div class="heaven-sky" id="heaven-sky">
+        <div class="god-rays"></div>
+        <div class="heaven-clouds"></div>
+        <video id="heaven-vid" src="heaven.mp4" muted playsinline loop poster="jesus.png" onerror="this.style.display='none'"></video>
+      </div>
       <div class="vignette"></div>
+      <p class="cut-kicker" id="cut-kicker">Lincoln Tech roof · the heavens open</p>
       <img id="jesus-sprite" src="jesus.png" alt="HVAC Jesus" />
-      <div class="panel bottom rapture-lore">
-        <p class="eyebrow">HVAC Jesus · Lincoln Tech roof</p>
-        <h2>Hear the HVAC Commandments</h2>
+      <div class="gauges-god" id="gauges-god">
+        <img src="gauges.png" alt="Gauges of God" />
+        <span>Gauges of God</span>
+      </div>
+      <div class="panel bottom rapture-lore" id="rapture-lore">
+        <p class="eyebrow">HVAC Jesus · Quiz Champion</p>
+        <h2 id="rapture-h2">The Gauges of God</h2>
         <blockquote class="jesus-speak" id="jesus-speak">
-          “I am HVAC Jesus. Recover, don’t vent. These ten are the law of the shop. Repeat them until your manifold dreams in P/T.”
+          “You won. I am HVAC Jesus. Receive the Gauges of God — SH and SC will never be a coin flip again.”
         </blockquote>
         <ol class="cmd-list" id="rapture-commandments"></ol>
         <div class="row" style="margin-top:12px">
           <button class="btn primary" id="btn-accept">I receive the Gauges of God</button>
+          <button class="btn" id="btn-skip-cut">Skip</button>
           <button class="btn" id="btn-rapture-hub">Shop floor</button>
         </div>
       </div>
@@ -368,7 +378,7 @@
       if (el) el.classList.add("active");
     };
   </script>
-  <script src="commandments.js"></script>
+  <script src="commandments.js?v=81"></script>
   <script src="dragdrop.js?v=43"></script>
   <script src="electrical.js?v=43"></script>
   <script src="webgl-cycle.js?v=57"></script>
@@ -385,7 +395,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=78"></script>
+  <script src="game.js?v=81"></script>
   <script>
     (function () {
       function killWanted() {
