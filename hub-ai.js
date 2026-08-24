@@ -446,30 +446,6 @@
     return best;
   }
 
-  const JOKES = [
-    "Chimichanga later. Microns now.",
-    "Maximum effort. Minimum venting.",
-    "I'm Deadpool with a manifold. You're the sequel.",
-    "Fourth wall's gone. Your charge still has to be weighed.",
-    "Spoiler: it's the filter. It's always the filter until it isn't.",
-    "I'd break more walls but OSHA already wrote me up for the last one.",
-    "Plot twist: nitrogen isn't for lungs. Dry N₂ only.",
-    "Regeneration is for mutants. Compressors just seize. LOTO.",
-    "Red leather optional. Recovery cylinder labeled. Always.",
-    "This answer is canon. Your 'just add gas' theory is fanfic.",
-  ];
-
-  function dress(answer) {
-    let out = answer;
-    if (Math.random() < 0.42) {
-      const joke = JOKES[(Math.random() * JOKES.length) | 0];
-      out = Math.random() < 0.45 ? joke + " — " + answer : answer + " " + joke;
-    }
-    const pre = WIT_PREFIX[(Math.random() * WIT_PREFIX.length) | 0];
-    const suf = WIT_SUFFIX[(Math.random() * WIT_SUFFIX.length) | 0];
-    return pre + out + suf;
-  }
-
   function contextHint(ctx) {
     if (!ctx) return "";
     if (ctx.unit) {
