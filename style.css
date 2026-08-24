@@ -436,7 +436,25 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 #sb-canvas, #sb-gl { position: absolute; inset: 0; width: 100%; height: 100%; }
 #sb-gl.hidden, #sb-canvas.hidden { display: none; }
 .sb-slots { position: absolute; inset: 0; pointer-events: none; }
-.sb-slot { pointer-events: auto; }
+.sb-slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 92px;
+  min-height: 52px;
+  pointer-events: auto;
+  background: rgba(20,28,36,0.88);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 4px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 10px;
+  color: var(--muted);
+}
 .pt-chart {
   margin: 10px 0 12px;
   padding: 10px;
