@@ -1982,6 +1982,37 @@
       playMode(w);
     }
 
+    let deferredInstall = null;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredInstall = e;
+    });
+    function offerInstall() {
+      const go = () => {
+        if (deferredInstall && deferredInstall.prompt) {
+          deferredInstall.prompt();
+          deferredInstall = null;
+          return;
+        }
+        const ua = navigator.userAgent || "";
+        const isAndroid = /Android/i.test(ua);
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        toast(
+          isAndroid
+            ? "Chrome menu ⋮ → Install app / Add to Home screen"
+            : isIOS
+              ? "Share → Add to Home Screen"
+              : "Edge or Chrome: Install HVAC Allstars in the address bar. Or run START-WINDOWS-APP.bat",
+          "ok"
+        );
+      };
+      go();
+    }
+    const instHub = document.getElementById("hub-install-app");
+    const instBtn = document.getElementById("btn-install-app");
+    if (instHub) instHub.onclick = (e) => { e.preventDefault(); e.stopPropagation(); offerInstall(); };
+    if (instBtn) instBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); offerInstall(); };
+
     document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
       card.addEventListener("click", () => {
         const m = card.getAttribute("data-mode");

@@ -138,11 +138,13 @@
           <button type="button" class="btn" id="hub-locker">Locker</button>
           <button type="button" class="btn" id="hub-logout">Log out</button>
           <button type="button" class="btn primary" id="hub-open-sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
+          <button type="button" class="btn" id="hub-install-app">Install app</button>
         </div>
       </header>
       <p class="hub-section">Games</p>
       <div class="game-name-btns" id="game-name-btns">
         <button type="button" class="game-name-btn" data-mode="sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
+        <button type="button" class="game-name-btn" id="btn-install-app" data-mode="install">Install app</button>
         <button type="button" class="game-name-btn" data-mode="quiz" onclick="window.ltPlay('quiz')">Quiz Game</button>
         <button type="button" class="game-name-btn" data-mode="electrical" onclick="window.ltPlay('electrical')">Electrical sim</button>
         <button type="button" class="game-name-btn" data-mode="service" onclick="window.ltPlay('service')">Service calls</button>
@@ -383,7 +385,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=77"></script>
+  <script src="game.js?v=78"></script>
   <script>
     (function () {
       function killWanted() {
@@ -394,12 +396,7 @@
       killWanted();
       setInterval(killWanted, 400);
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function (rs) {
-          rs.forEach(function (r) { r.unregister(); });
-        });
-        caches.keys().then(function (keys) {
-          keys.forEach(function (k) { caches.delete(k); });
-        });
+        navigator.serviceWorker.register("sw.js").catch(function () {});
       }
     })();
   </script>
