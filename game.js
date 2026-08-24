@@ -2056,6 +2056,10 @@
   }
 
   function startSandbox() {
+    if (!window.HVACSandbox) {
+      toast("Sandbox script didn't load. Hard-refresh (Ctrl+Shift+R).", "bad");
+      return;
+    }
     if (sandboxCtl) {
       sandboxCtl.stop();
       sandboxCtl = null;
@@ -2221,6 +2225,10 @@
   }
 
   function startQuizArena() {
+    if (!window.QuizArena) {
+      toast("Quiz Game script didn't load. Hard-refresh.", "bad");
+      return;
+    }
     if (quizCtl) {
       quizCtl.stop();
       quizCtl = null;

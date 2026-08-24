@@ -1126,6 +1126,7 @@
               <button type="button" class="btn primary" id="sb-n2-go">Regulator on · dry N₂ only · continue</button>
               <button type="button" class="btn" id="sb-n2-no">Cancel</button>
             </div>
+            <p id="sb-coils" class="sb-coils">ODU coil: clean · IDU coil: clean · frost 0%</p>
           </div>
           <div class="dmm-panel" id="sb-dmm">
             <div class="dmm-head">
@@ -1708,12 +1709,18 @@
       el.classList.toggle("required", ["compressor", "condenser", "metering", "evaporator"].includes(id));
       if (cid) {
         const def = COMPONENTS.find((c) => c.id === cid);
-        el.innerHTML = `${partThumb(def)}<strong>${def.name}</strong><button class="rm" data-rm="${id}">×</button>`;
+        if (def) el.innerHTML = `${partThumb(def)}<strong>${def.name}</strong><button class="rm" data-rm="${id}">×</button>`;
+        else el.innerHTML = `<span class="empty">Unknown part</span>`;
       } else {
         const slot = SLOTS.find((s) => s.id === id);
-        el.innerHTML = `<span class="empty">Drop ${slot.label}</span>`;
+        el.innerHTML = `<span class="empty">Drop ${slot ? slot.label : id}</span>`;
       }
     });
+    const prog = document.getElementById("sb-progress");
+    if (prog) {
+      const n = ["compressor", "condenser", "metering", "evaporator"].filter((s) => placed[s]).length;
+      prog.textContent = "Core cycle: " + n + " / 4" + (running ? " · running" : "");
+    }
     document.querySelectorAll(".rm").forEach((b) => {
       b.onclick = (e) => {
         e.stopPropagation();
@@ -1757,6 +1764,7 @@
 
   function layoutSlots() {
     const wrap = document.getElementById("sb-slots");
+    if (!wrap) return;
     wrap.innerHTML = "";
     SLOTS.forEach((s) => {
       const el = document.createElement("div");
@@ -1815,6 +1823,8 @@
   }
 
   function updateGauges(sim) {
+    if (!document.getElementById("g-plow")) return;
+    sim = sim || { running: false, status: "—" };
     const fmt = (n, d = 0) => (sim.running ? n.toFixed(d) : "—");
     document.getElementById("g-plow").textContent = fmt(sim.pLow, 1);
     document.getElementById("g-phigh").textContent = fmt(sim.pHigh, 1);
@@ -1990,8 +2000,10 @@
           val = "0.0";
           note = "Open/weak cap — compressor will not start. Hum, no amps.";
         } else if (live) {
-          val = "13.6";
-          note = "Running load amps in range for a 3-ton. Clamp one leg only.";
+          val = (sim.amps ? sim.amps.toFixed(1) : "13.6");
+          note = capBad
+            ? "Amps high / start is ugly. Cap µF first."
+            : "Running load amps. Clamp one leg only.";
         } else {
           val = "0.00";
           note = "Compressor not running. Get a Y call first.";
@@ -2042,10 +2054,10 @@
   }
 
   function draw() {
-    if (!canvas) return;
+    if (!canvas || !ctx) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
+    const w = canvas.clientWidth || 640;
+    const h = canvas.clientHeight || 360;
     if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
@@ -2156,10 +2168,11 @@
 
   function tick(now) {
     animT = now;
-    const sim = simulate();
-    updateGauges(sim);
+    try {
+      const sim = simulate();
+      updateGauges(sim);
 
-    if (running && requiredComplete()) {
+      if (running && requiredComplete()) {
       if (hpMode === "heat" && outdoorF < 42 && !defrosting && fault !== "stuck_defrost") {
         const rate = fault === "defrost_fail" ? 0.55 : 0.22;
         frost = Math.min(100, frost + rate);
@@ -2192,6 +2205,9 @@
     }
     paintCoils();
     draw();
+    } catch (err) {
+      if (typeof console !== "undefined") console.warn("sandbox tick", err);
+    }
     raf = requestAnimationFrame(tick);
   }
 
@@ -2306,7 +2322,11 @@
     activeSystem = null;
     buildUI(root);
     canvas = document.getElementById("sb-canvas");
-    ctx = canvas.getContext("2d");
+    ctx = canvas && canvas.getContext("2d");
+    if (!canvas || !ctx) {
+      root.innerHTML = "<p class='sb-status'>Sandbox canvas failed to load. Hard-refresh.</p>";
+      return { stop() {}, getHubBtn() { return null; } };
+    }
     wire();
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(tick);
