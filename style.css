@@ -2614,4 +2614,25 @@ select:focus-visible {
 
 .opt-roast input[type="range"] { width: 100%; margin-top: 6px; accent-color: #CE0034; }
 .roast-ticks { display: block; font-size: 10px; color: var(--muted); letter-spacing: 0.02em; margin-top: 4px; }
-#svc-roast, #qa-roast { width: 110px; accent-color: #CE0034; vertical-align: middle; }
+.ptool-shell { padding: 14px 16px 28px; max-width: 720px; margin: 0 auto; }
+.ptool-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ptool-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+.ptool-warn { background: rgba(206,0,52,0.15); border: 1px solid #CE0034; padding: 10px 12px; border-radius: 8px; font-size: 13px; }
+.ptool-st { font-family: var(--display); font-size: 36px; letter-spacing: 0.04em; margin: 8px 0; }
+.ptool-st.live { color: #7fd99a; }
+.ptool-st.maybe { color: #e8c450; }
+.ptool-st.dead { color: #a8b0b8; }
+.ptool-meter { height: 12px; background: #242a31; border-radius: 6px; overflow: hidden; margin: 8px 0 12px; }
+.ptool-meter i { display: block; height: 100%; width: 0; background: #CE0034; }
+.ptool-meter i.live { background: #7fd99a; }
+.ptool-meter i.maybe { background: #e8c450; }
+.ptool-level {
+  width: 160px; height: 160px; border-radius: 50%; margin: 12px auto;
+  border: 2px solid #CE0034; background: #0a1016; position: relative; overflow: hidden;
+}
+#ptool-bubble {
+  position: absolute; left: 50%; top: 50%; width: 28px; height: 28px; margin: -14px;
+  border-radius: 50%; background: #2dd4bf; box-shadow: 0 0 12px #2dd4bf;
+}
+.ptool-ideas { margin: 8px 0 12px 18px; line-height: 1.45; }
+.ptool-ideas li { margin: 8px 0; }

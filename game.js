@@ -2111,6 +2111,7 @@
         else if (m === "quiz") startQuizArena();
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
+        else if (m === "phonetools") startPhoneTools();
         else if (m === "commandments") startCommandments();
         else if (m === "tutorial") startTutorial();
         else if (m === "character") show("character");
@@ -2338,6 +2339,25 @@
     show("commandments");
     window.HvacCommandments.start(root, {
       onHub() {
+        refreshHub();
+        show("hub");
+      },
+    });
+  }
+
+  let phoneToolsCtl = null;
+  function startPhoneTools() {
+    show("phonetools");
+    const host = document.getElementById("phonetools-root");
+    if (!host || !window.PhoneTools) {
+      toast("Phone testers didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    if (phoneToolsCtl && phoneToolsCtl.stop) phoneToolsCtl.stop();
+    phoneToolsCtl = window.PhoneTools.start(host, {
+      onHub() {
+        if (phoneToolsCtl && phoneToolsCtl.stop) phoneToolsCtl.stop();
+        phoneToolsCtl = null;
         refreshHub();
         show("hub");
       },
