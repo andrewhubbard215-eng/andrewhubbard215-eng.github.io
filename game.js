@@ -1984,7 +1984,7 @@
         else if (m === "quiz") startQuizArena();
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
-        else if (m === "commandments") openRapture(false);
+        else if (m === "commandments") startCommandments();
         else if (m === "tutorial") startTutorial();
         else if (m === "character") show("character");
         else if (m === "rapture") openRapture();
@@ -2199,7 +2199,22 @@
   }
 
   function startCommandments() {
-    openRapture(false);
+    if (!window.HvacCommandments || !window.HvacCommandments.start) {
+      toast("Commandments didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("commandments-root");
+    if (!root) {
+      toast("Commandments screen missing.", "bad");
+      return;
+    }
+    show("commandments");
+    window.HvacCommandments.start(root, {
+      onHub() {
+        refreshHub();
+        show("hub");
+      },
+    });
   }
 
   function startElectrical() {
