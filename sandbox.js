@@ -104,10 +104,15 @@
     { id: "recovery", name: "Recovery machine", group: "tools", icon: "♻️", img: null, slot: "recovery", required: false, equip: "recovery", desc: "Recover before you open it" },
     { id: "rectank", name: "Recovery cylinder", group: "tools", icon: "🧯", img: null, slot: "rectank", required: false, desc: "DOT tank · 80% fill by weight" },
     { id: "sniffer", name: "Electronic leak detector", group: "tools", icon: "📡", img: null, slot: "sniffer", required: false, equip: "sniffer", desc: "Move 1–2 in/s from below" },
-    { id: "scale", name: "Charging scale", group: "tools", icon: "⚖️", img: null, slot: "scale", required: false, desc: "Weigh-in · never guess the charge" },
+    { id: "scale", name: "Charging scale", group: "tools", icon: "⚖️", img: null, slot: "chargecan", required: false, desc: "Weigh-in · never guess the charge" },
     { id: "soltest", name: "Solenoid tester", group: "tools", icon: "🧲", img: "parts/relay.png", slot: "soltest", required: false, equip: "soltest", desc: "Magnetic pull-in test · power off preferred" },
     { id: "copper", name: "Copper tubing", group: "materials", icon: "🔶", img: null, slot: "copper", required: false, desc: "Lineset / branch piping" },
+    { id: "lineset", name: "Insulated line set", group: "materials", icon: "🔶", img: null, slot: "copper", required: false, desc: "3/8 liquid + 3/4 suction · roll out, insulate suction, nitrogen while brazing" },
     { id: "nitrogen", name: "Dry nitrogen", group: "materials", icon: "💨", img: null, slot: "nitrogen", required: false, equip: "nitrogen", desc: "Purge & pressure test only" },
+    { id: "r410a", name: "R-410A cylinder", group: "materials", icon: "🧯", img: null, slot: "chargecan", required: false, desc: "Rose DOT tank · weigh-in · never mix refrigerants" },
+    { id: "r22", name: "R-22 cylinder", group: "materials", icon: "🧯", img: null, slot: "chargecan", required: false, desc: "Legacy · recover/charge only if the nameplate says R-22" },
+    { id: "r134a", name: "R-134a cylinder", group: "materials", icon: "🧯", img: null, slot: "chargecan", required: false, desc: "Medium-temp / auto / trainers · match the plate" },
+    { id: "r32", name: "R-32 cylinder", group: "materials", icon: "🧯", img: null, slot: "chargecan", required: false, desc: "A2L · weigh-in · OEM lineset adder" },
     { id: "flare", name: "Flare fittings", group: "materials", icon: "🔩", img: null, slot: "flare", required: false, desc: "Mini-split line connections" },
     { id: "wire", name: "THHN / thermostat wire", group: "materials", icon: "🧵", img: null, slot: "wire", required: false, desc: "Line voltage + 18/8 control" },
     { id: "insulation", name: "Line-set insulation", group: "materials", icon: "🧱", img: null, slot: "insulation", required: false, desc: "Suction line armaflex" },
@@ -431,22 +436,30 @@
     { id: "capacitor", x: 0.08, y: 0.58, label: "Capacitor" },
     { id: "transformer", x: 0.08, y: 0.78, label: "Transformer" },
     { id: "thermostat", x: 0.92, y: 0.18, label: "Thermostat" },
-    { id: "gauges", x: 0.92, y: 0.42, label: "Gauges" },
+    { id: "gauges", x: 0.92, y: 0.36, label: "Gauges" },
+    { id: "copper", x: 0.50, y: 0.50, label: "Line set" },
+    { id: "nitrogen", x: 0.92, y: 0.54, label: "Nitrogen" },
+    { id: "vacpump", x: 0.92, y: 0.72, label: "Vacuum" },
+    { id: "chargecan", x: 0.78, y: 0.82, label: "Charge cylinder" },
   ];
 
   const BUILD_STEPS = [
-    { slot: "compressor", accept: ["compressor"], tab: "parts", title: "1 · Compressor", hub: "Heart of the DX loop. Drag the scroll compressor onto the glowing box. Discharge leaves here toward the condenser." },
-    { slot: "condenser", accept: ["condenser"], tab: "parts", title: "2 · Condenser", hub: "Outdoor coil — heat leaves the house. Drop the condenser on the high side. Fan + coil, not a hope and a prayer." },
-    { slot: "filter", accept: ["filter"], tab: "parts", title: "3 · Filter-drier", hub: "Liquid line after the condenser, before the metering device. Moisture and junk stop here. Don't skip it." },
-    { slot: "metering", accept: ["metering", "piston", "capillary"], tab: "parts", title: "4 · Metering device", hub: "TXV, piston, or cap tube. This is the pressure drop. TXV charged by SC; piston by SH. OEM still wins." },
-    { slot: "evaporator", accept: ["evaporator"], tab: "parts", title: "5 · Evaporator", hub: "Indoor A-coil. Heat into the refrigerant. Drop it and the mechanical loop is closed. Then we protect suction." },
-    { slot: "accumulator", accept: ["accumulator"], tab: "parts", title: "6 · Accumulator", hub: "Suction accumulator. Catches liquid so the compressor doesn't eat a slug. Optional on some splits — still good shop law." },
-    { slot: "disconnect", accept: ["disconnect"], tab: "electrical", title: "7 · Disconnect", hub: "Fused disconnect at the ODU. LOTO before you ohm anything. OSHA 30 isn't a suggestion." },
-    { slot: "contactor", accept: ["contactor"], tab: "electrical", title: "8 · Contactor", hub: "24V coil. Line in, load out to the compressor. No Y call = no pull-in." },
-    { slot: "capacitor", accept: ["capacitor"], tab: "electrical", title: "9 · Dual run cap", hub: "HERM / FAN / C. Humming compressor that won't start is often a weak cap. Power off. Discharge it." },
-    { slot: "transformer", accept: ["transformer"], tab: "electrical", title: "10 · 24V transformer", hub: "R and C. Control voltage. Dead R means the tstat is a wall decoration." },
-    { slot: "thermostat", accept: ["thermostat"], tab: "electrical", title: "11 · Thermostat", hub: "Y call, cool mode. That's the brain asking the contactors to work." },
-    { slot: "gauges", accept: ["gauges"], tab: "tools", title: "12 · Gauges", hub: "Manifold on the ports. Then Start compressor. Read SH and SC together — Commandment 8. I'm right here." },
+    { slot: "compressor", accept: ["compressor"], tab: "parts", title: "1 · Compressor", hub: "Heart of the DX loop. Drag the scroll compressor onto the glowing box." },
+    { slot: "condenser", accept: ["condenser"], tab: "parts", title: "2 · Condenser", hub: "Outdoor coil — heat leaves the house. Drop the condenser on the high side." },
+    { slot: "filter", accept: ["filter"], tab: "parts", title: "3 · Filter-drier", hub: "Liquid line after the condenser, before metering. Moisture and junk stop here." },
+    { slot: "metering", accept: ["metering", "piston", "capillary"], tab: "parts", title: "4 · Metering device", hub: "TXV, piston, or cap tube. Pressure drop lives here. TXV by SC; piston by SH." },
+    { slot: "evaporator", accept: ["evaporator"], tab: "parts", title: "5 · Evaporator", hub: "Indoor A-coil. Heat into the refrigerant. Loop is almost closed — now the lineset." },
+    { slot: "accumulator", accept: ["accumulator"], tab: "parts", title: "6 · Accumulator", hub: "Suction accumulator. Stops a liquid slug from eating the compressor." },
+    { slot: "copper", accept: ["lineset", "copper", "insulation"], tab: "materials", title: "7 · Line set", hub: "Roll liquid + suction. Insulate suction. Dry N₂ while you braze. Flares on mini-splits. This is how the two boxes become one system." },
+    { slot: "disconnect", accept: ["disconnect"], tab: "electrical", title: "8 · Disconnect", hub: "Fused disconnect at the ODU. LOTO. OSHA 30." },
+    { slot: "contactor", accept: ["contactor"], tab: "electrical", title: "9 · Contactor", hub: "24V coil. Line in, load out. No Y = no pull-in." },
+    { slot: "capacitor", accept: ["capacitor"], tab: "electrical", title: "10 · Dual run cap", hub: "HERM / FAN / C. Hum with no start is often a weak cap." },
+    { slot: "transformer", accept: ["transformer"], tab: "electrical", title: "11 · 24V transformer", hub: "R and C. Dead R and the tstat is wall art." },
+    { slot: "thermostat", accept: ["thermostat"], tab: "electrical", title: "12 · Thermostat", hub: "Y call, cool. Brain of the call." },
+    { slot: "gauges", accept: ["gauges"], tab: "tools", title: "13 · Gauges", hub: "Manifold on the ports. Don't start it yet — N₂, vacuum, then charge." },
+    { slot: "nitrogen", accept: ["nitrogen"], tab: "materials", title: "14 · Nitrogen proof", hub: "Dry N₂ standing test. Regulator on. Never oxygen. Never shop air. Watch decay. Then we pull microns." },
+    { slot: "vacpump", accept: ["vacpump", "micron"], tab: "tools", title: "15 · Evacuate", hub: "Pump + micron gauge at the system. ≤500 microns and a decay hold. Cores out to pull, cores in to finish. 608." },
+    { slot: "chargecan", accept: ["r410a", "r22", "r134a", "r32", "scale"], tab: "materials", title: "16 · Charge", hub: "Match the nameplate cylinder. Scale under the tank. Weigh-in, then trim SH or SC per metering. Then Start compressor." },
   ];
 
   // CoolGame-style timed circuit builds (Lincoln Tech clone — not Danfoss IP)
@@ -794,7 +807,7 @@
       if (title) title.textContent = "Professor HUB · system built";
       if (line) line.textContent = extra || "That's a real split. Start the compressor. Gauges on. SH and SC together. Don't top off a leaker.";
       if (hint) hint.textContent = "Guided build complete. Start compressor. Or Free build to add extras (RV, solenoid, N₂…).";
-      if (prog) prog.textContent = "HUB guided · 12 / 12 · ready to run";
+      if (prog) prog.textContent = "HUB guided · " + BUILD_STEPS.length + " / " + BUILD_STEPS.length + " · evac & charge done · start it";
       return;
     }
     if (title) title.textContent = "Professor HUB · " + step.title;
@@ -1140,6 +1153,7 @@
               <button class="btn" id="sb-3d" type="button">3D WebGL</button>
               <button class="btn hidden" id="sb-flat" type="button">GLSL: smooth</button>
               <button class="btn" id="sb-clear">Clear board</button>
+              <button class="btn" id="sb-healthy">Healthy example</button>
               <button class="btn" id="sb-charge-open">Charging SOP</button>
               <button class="btn" id="sb-hub">Shop floor</button>
             </div>
@@ -1494,6 +1508,78 @@
     document.getElementById("sb-status").textContent =
       sys.brand + " package loaded — start compressor to run the sim.";
     if (onXp) onXp(10);
+  }
+
+  function canForRef(ref) {
+    if (ref === "R-22") return "r22";
+    if (ref === "R-134a") return "r134a";
+    if (ref === "R-32") return "r32";
+    return "r410a";
+  }
+
+  function loadHealthyExample() {
+    const sys = SYSTEMS.find((s) => s.id === "goodman-gsx") || SYSTEMS[0];
+    guidedOn = false;
+    applySystem(sys);
+    placed.copper = "lineset";
+    placed.nitrogen = "nitrogen";
+    placed.vacpump = "vacpump";
+    placed.gauges = "gauges";
+    placed.chargecan = canForRef(sys.ref);
+    placed.disconnect = "disconnect";
+    placed.contactor = "contactor";
+    placed.capacitor = "capacitor";
+    placed.transformer = "transformer";
+    placed.thermostat = "thermostat";
+    outdoorF = 95;
+    indoorF = 75;
+    chargePct = 100;
+    fault = "none";
+    coilCond = "clean";
+    coilEvap = "clean";
+    gaugesEquipped = true;
+    leak.vac = true;
+    leak.nitrogen = true;
+    const setv = (id, v) => {
+      const el = document.getElementById(id);
+      if (el) el.value = String(v);
+    };
+    setv("sb-out", 95);
+    setv("sb-in", 75);
+    setv("sb-charge", 100);
+    setv("sb-fault", "none");
+    const ov = document.getElementById("sb-out-v");
+    const iv = document.getElementById("sb-in-v");
+    const cv = document.getElementById("sb-charge-v");
+    if (ov) ov.textContent = "95";
+    if (iv) iv.textContent = "75";
+    if (cv) cv.textContent = "100";
+    const man = document.getElementById("sb-manifold");
+    if (man) man.classList.add("on");
+    layoutSlots();
+    setCompressor(true);
+    const sim = simulate();
+    const msg =
+      "Textbook " +
+      sys.brand +
+      " " +
+      sys.name +
+      " · " +
+      sys.ref +
+      " · 95° OD / 75° ID. Suction ~" +
+      Math.round(sim.pLow) +
+      " psig · Head ~" +
+      Math.round(sim.pHigh) +
+      " psig · SH " +
+      Math.round(sim.sh) +
+      "° · SC " +
+      Math.round(sim.sc) +
+      "°. Line set, N₂, vac, and " +
+      sys.ref +
+      " cylinder are on. That's a fully operational split.";
+    paintHubCoach(msg);
+    const st = document.getElementById("sb-status");
+    if (st) st.textContent = msg;
   }
 
   function paintClock() {
@@ -1986,9 +2072,36 @@
       document.getElementById("sb-status").textContent = "Solenoid tester: magnetic pull-in. Power off preferred. Don't guess a stuck valve.";
     } else if (eq === "nitrogen") {
       requestNitrogen(function () {
+        leak.nitrogen = true;
         document.getElementById("sb-status").textContent =
           "Dry N₂ on the cart. Regulator on. Purge while brazing; standing test for leaks. Never oxygen. Never shop air.";
       });
+    } else if (eq === "vac" || def.id === "vacpump" || def.id === "micron") {
+      leak.vac = true;
+      document.getElementById("sb-status").textContent =
+        "Vacuum on the system. Micron gauge at the ports. ≤500 µ and a decay hold. Then the cylinder.";
+    } else if (def.id === "r410a" || def.id === "r22" || def.id === "r134a" || def.id === "r32") {
+      const map = { r410a: "R-410A", r22: "R-22", r134a: "R-134a", r32: "R-32" };
+      const want = map[def.id];
+      if (activeSystem && activeSystem.ref && activeSystem.ref !== want) {
+        document.getElementById("sb-status").textContent =
+          "Wrong tank. " + activeSystem.brand + " nameplate is " + activeSystem.ref + ". Don't mix.";
+        if (window.LtHubAiOn !== false) paintHubCoach("That's " + want + ". This pack is " + activeSystem.ref + ". Match the plate.");
+        return;
+      }
+      refrigerant = want;
+      chargePct = 100;
+      const refSel = document.getElementById("sb-ref");
+      if (refSel) refSel.value = want;
+      const ch = document.getElementById("sb-charge");
+      if (ch) ch.value = "100";
+      const cv = document.getElementById("sb-charge-v");
+      if (cv) cv.textContent = "100";
+      document.getElementById("sb-status").textContent =
+        want + " cylinder on the scale. Weigh-in. Then start and read SH/SC.";
+    } else if (def.id === "lineset" || def.id === "copper" || def.id === "insulation") {
+      document.getElementById("sb-status").textContent =
+        "Line set in. Suction insulated. Nitrogen while brazing. Then electrical and evac.";
     }
   }
 
@@ -1996,7 +2109,9 @@
     const def = COMPONENTS.find((c) => c.id === compId);
     if (!def) return;
     const onBoard = SLOTS.some((s) => s.id === (def.slot || slotId));
-    if (def.slot && slotId && def.slot !== slotId) {
+    const step = guidedOn ? currentBuildStep() : null;
+    const accepted = !!(step && step.accept && step.accept.indexOf(compId) >= 0 && (!slotId || slotId === step.slot));
+    if (def.slot && slotId && def.slot !== slotId && !accepted) {
       const st = document.getElementById("sb-status");
       if (st) {
         st.textContent = onBoard
@@ -2014,7 +2129,7 @@
       if (challenge) checkChallenge();
       return;
     }
-    const dest = def.slot || slotId;
+    const dest = accepted ? slotId || def.slot : def.slot || slotId;
     if (dest) {
       placed[dest] = compId;
       activeSystem = null;
@@ -2113,7 +2228,9 @@
             return;
           }
         }
-        if (def.slot === s.id) place(s.id, id);
+        if (def.slot === s.id || (guidedOn && currentBuildStep() && currentBuildStep().accept.indexOf(def.id) >= 0 && s.id === currentBuildStep().slot)) {
+          place(s.id, id);
+        }
       });
       wrap.appendChild(el);
     });
@@ -2606,6 +2723,13 @@
   }
 
   function setCompressor(on) {
+    if (on && guidedOn && !(placed.copper && placed.vacpump && placed.chargecan)) {
+      running = false;
+      paintHubCoach("Line set, vacuum, and the right cylinder first. Then we start it.");
+      const st = document.getElementById("sb-status");
+      if (st) st.textContent = "Commission first: lineset → N₂ → evac ≤500µ → weigh-in.";
+      return;
+    }
     running = !!on;
     if (running && requiredComplete()) seedFlow();
     else particles = [];
@@ -2701,6 +2825,8 @@
       chWin.classList.remove("hidden", "collapsed");
       paintChargeWin();
     };
+    const healthy = document.getElementById("sb-healthy");
+    if (healthy) healthy.onclick = () => loadHealthyExample();
     const gOn = document.getElementById("sb-guide-on");
     const gFree = document.getElementById("sb-guide-free");
     if (gOn) gOn.onclick = () => {
@@ -2776,6 +2902,10 @@
       if (!requiredComplete()) {
         const st = document.getElementById("sb-status");
         if (st) st.textContent = "Need compressor, condenser, metering device, and evaporator.";
+        return;
+      }
+      if (guidedOn && !(placed.copper && placed.vacpump && placed.chargecan) && !running) {
+        paintHubCoach("Not a vacuum, not a charge, not a start. Finish the glowing boxes.");
         return;
       }
       setCompressor(!running);
