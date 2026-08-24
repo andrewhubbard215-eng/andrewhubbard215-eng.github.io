@@ -1037,6 +1037,21 @@
               <span class="g-sub" id="g-tsath">sat — °F</span>
             </div>
           </div>
+          <div class="pt-chart" id="sb-pt">
+            <p class="eyebrow">P/T chart · HVAC Buddy style</p>
+            <p class="pt-live" id="pt-live">Pick refrigerant. Slide pressure or sat temp. Training chart — OEM still wins.</p>
+            <label>Pressure
+              <input id="pt-psig" type="range" min="0" max="600" value="118" />
+              <span id="pt-psig-v">118 psig</span>
+            </label>
+            <p class="pt-sat" id="pt-sat">sat — °F</p>
+            <label>Saturation temp
+              <input id="pt-tf" type="range" min="-40" max="120" value="40" />
+              <span id="pt-tf-v">40°F</span>
+            </label>
+            <div id="pt-table" class="pt-table"></div>
+            <p class="pt-note">SH = suction line T − evap sat. SC = cond sat − liquid line T. Don’t charge from this table alone.</p>
+          </div>
           <div class="readouts">
             <div><span>Suction temp</span><b id="g-tsuc">—</b></div>
             <div><span>Liquid temp</span><b id="g-tliq">—</b></div>
@@ -1897,7 +1912,78 @@
     set("df-aux-st", run && (df || frost > 70) ? "W ON" : "off");
   }
 
-  function updateGauges(sim) {
+  function paintPTTable() {
+    const box = document.getElementById("pt-table");
+    if (!box) return;
+    const temps = [-20, 0, 20, 32, 40, 45, 50, 70, 80, 95, 105, 115];
+    box.innerHTML =
+      "<div class='pt-row pt-head'><span>°F sat</span><span>psig</span></div>" +
+      temps
+        .map(function (t) {
+          const p = satP(refrigerant, t);
+          return "<div class='pt-row' data-t='" + t + "'><span>" + t + "°</span><span>" + p.toFixed(1) + "</span></div>";
+        })
+        .join("");
+    const lab = document.getElementById("pt-ref-label");
+    if (lab) lab.textContent = refrigerant;
+  }
+
+  function paintPTFromPsig() {
+    const el = document.getElementById("pt-psig");
+    if (!el) return;
+    const p = +el.value;
+    const t = satT(refrigerant, p);
+    const pv = document.getElementById("pt-psig-v");
+    const sat = document.getElementById("pt-sat");
+    const tf = document.getElementById("pt-tf");
+    const tv = document.getElementById("pt-tf-v");
+    if (pv) pv.textContent = p + " psig";
+    if (sat) sat.textContent = t.toFixed(1) + " °F sat (" + refrigerant + ")";
+    if (tf) tf.value = String(Math.round(Math.max(-40, Math.min(120, t))));
+    if (tv) tv.textContent = Math.round(t) + "°F";
+  }
+
+  function paintPTFromTemp() {
+    const el = document.getElementById("pt-tf");
+    if (!el) return;
+    const t = +el.value;
+    const p = satP(refrigerant, t);
+    const tv = document.getElementById("pt-tf-v");
+    const ps = document.getElementById("pt-psig");
+    const pv = document.getElementById("pt-psig-v");
+    const sat = document.getElementById("pt-sat");
+    if (tv) tv.textContent = t + "°F";
+    if (ps) ps.value = String(Math.round(Math.max(0, Math.min(600, p))));
+    if (pv) pv.textContent = p.toFixed(1) + " psig";
+    if (sat) sat.textContent = t + " °F sat = " + p.toFixed(1) + " psig (" + refrigerant + ")";
+  }
+
+  function highlightPT(sim) {
+    const live = document.getElementById("pt-live");
+    if (live) {
+      live.textContent =
+        sim && sim.running
+          ? refrigerant +
+            " · suction " +
+            sim.pLow.toFixed(0) +
+            " psig → " +
+            sim.tSatLow.toFixed(0) +
+            "°F sat · liquid " +
+            sim.pHigh.toFixed(0) +
+            " psig → " +
+            sim.tSatHigh.toFixed(0) +
+            "°F sat · SH " +
+            sim.sh.toFixed(0) +
+            " · SC " +
+            sim.sc.toFixed(0)
+          : refrigerant + " · HVAC Buddy style P/T. Slide pressure or sat temp. Training chart — OEM still wins.";
+    }
+    const tLow = sim && sim.running ? sim.tSatLow : null;
+    document.querySelectorAll("#pt-table .pt-row[data-t]").forEach(function (row) {
+      const t = +row.getAttribute("data-t");
+      row.classList.toggle("on", tLow != null && Math.abs(t - tLow) <= 8);
+    });
+  }
     if (!document.getElementById("g-plow")) return;
     sim = sim || { running: false, status: "—" };
     const fmt = (n, d = 0) => (sim.running ? n.toFixed(d) : "—");
@@ -1930,6 +2016,8 @@
     if (cap) cap.textContent = sim.running ? sim.tons.toFixed(1) + " t · " + sim.btuh.toLocaleString() + " Btuh" : "—";
     if (cop) cop.textContent = sim.running ? sim.cop.toFixed(2) : "—";
     if (amps) amps.textContent = sim.running ? sim.amps.toFixed(1) + " A" : "—";
+    highlightPT(sim);
+  }
     document.getElementById("sb-status").textContent = sim.status;
     document.getElementById("man-low").textContent = sim.running ? Math.round(sim.pLow) : "0";
     document.getElementById("man-high").textContent = sim.running ? Math.round(sim.pHigh) : "0";
@@ -2355,7 +2443,16 @@
 
     document.getElementById("sb-ref").onchange = (e) => {
       refrigerant = e.target.value;
+      paintPTTable();
+      paintPTFromPsig();
+      highlightPT(simulate());
     };
+    const ptP = document.getElementById("pt-psig");
+    const ptT = document.getElementById("pt-tf");
+    if (ptP) ptP.oninput = () => paintPTFromPsig();
+    if (ptT) ptT.oninput = () => paintPTFromTemp();
+    paintPTTable();
+    paintPTFromPsig();
     document.getElementById("sb-out").oninput = (e) => {
       outdoorF = +e.target.value;
       document.getElementById("sb-out-v").textContent = outdoorF;
