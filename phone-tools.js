@@ -19,6 +19,12 @@
   let magZ = 0;
   let magBuf = [];
   let magSrc = "off";
+  let ox = 0;
+  let oy = 0;
+  let oz = 0;
+  let calSigma = 3;
+  let liveThresh = 80;
+  let calNote = "Not calibrated. Stand in open air, Enable, then Calibrate.";
   let headingBuf = [];
   let levelBeta = 0;
   let levelGamma = 0;
@@ -97,7 +103,7 @@
         magX = mag.x;
         magY = mag.y;
         magZ = mag.z;
-        lastB = hypot3(mag.x, mag.y, mag.z);
+        lastB = hypot3(mag.x - ox, mag.y - oy, mag.z - oz);
         magBuf.push(lastB);
         if (magBuf.length > 40) magBuf.shift();
         magSrc = "magnetometer";
@@ -139,12 +145,87 @@
     }
   }
 
+  function meanArr(a) {
+    return a.reduce((s, v) => s + v, 0) / a.length;
+  }
+  function sdArr(a, m) {
+    return Math.sqrt(a.reduce((s, v) => s + (v - m) * (v - m), 0) / a.length);
+  }
+
+  function runCalibrate() {
+    if (!mag && magSrc !== "magnetometer") {
+      calNote = "Enable sensors first (Android Chrome magnetometer). Then Calibrate in open air.";
+      paintSolenoid();
+      return;
+    }
+    calNote = "Calibrating… stay still 1s, then figure-8 the phone for 3s away from steel.";
+    paintSolenoid();
+    const raw = [];
+    const t0 = Date.now();
+    function grab() {
+      if (mag) raw.push([mag.x, mag.y, mag.z]);
+      if (Date.now() - t0 < 3500) {
+        requestAnimationFrame(grab);
+        return;
+      }
+      if (raw.length < 12) {
+        calNote = "Too few samples. Enable, hold the phone, try again.";
+        paintSolenoid();
+        return;
+      }
+      const xs = raw.map((r) => r[0]);
+      const ys = raw.map((r) => r[1]);
+      const zs = raw.map((r) => r[2]);
+      const span = Math.max.apply(null, xs) - Math.min.apply(null, xs) + (Math.max.apply(null, ys) - Math.min.apply(null, ys)) + (Math.max.apply(null, zs) - Math.min.apply(null, zs));
+      if (span > 40) {
+        ox = (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2;
+        oy = (Math.min.apply(null, ys) + Math.max.apply(null, ys)) / 2;
+        oz = (Math.min.apply(null, zs) + Math.max.apply(null, zs)) / 2;
+        const rs = raw.map((r) => hypot3(r[0] - ox, r[1] - oy, r[2] - oz));
+        const earth = meanArr(rs);
+        calSigma = Math.max(0.5, sdArr(rs, earth));
+        liveThresh = Math.max(40, 8 * calSigma + 25);
+        calNote =
+          "Hard-iron offset X " +
+          ox.toFixed(1) +
+          " Y " +
+          oy.toFixed(1) +
+          " Z " +
+          oz.toFixed(1) +
+          " µT · |Earth| " +
+          earth.toFixed(0) +
+          " µT (want 25–65) · σ " +
+          calSigma.toFixed(1) +
+          " · LIVE if Δ>" +
+          liveThresh.toFixed(0);
+      } else {
+        ox = oy = oz = 0;
+        calSigma = Math.max(
+          sdArr(xs, meanArr(xs)),
+          sdArr(ys, meanArr(ys)),
+          sdArr(zs, meanArr(zs)),
+          1
+        );
+        liveThresh = Math.max(40, 12 * calSigma);
+        calNote =
+          "Still-pose noise only · σ " +
+          calSigma.toFixed(1) +
+          " µT · LIVE if Δ>" +
+          liveThresh.toFixed(0) +
+          ". Figure-8 in open air for a real hard-iron offset.";
+      }
+      baseline = lastB;
+      paintSolenoid();
+    }
+    grab();
+  }
+
   function coilStatus() {
     const delta = Math.abs(lastB - baseline);
     const magMode = !!mag;
     if (magMode) {
-      if (delta > 80) return { t: "COIL LIVE", cls: "live", d: "Strong field vs zero. 24V coil is almost certainly energized. Confirm with a meter on the terminals if you need voltage." };
-      if (delta > 25) return { t: "FIELD UP", cls: "maybe", d: "Field rose. Get the back of the phone on the coil body — not the screws." };
+      if (delta > liveThresh) return { t: "COIL LIVE", cls: "live", d: "Δ > " + liveThresh.toFixed(0) + " µT vs cal. Coil field, not earth. Confirm voltage with a DMM." };
+      if (delta > Math.max(12, liveThresh * 0.3)) return { t: "FIELD UP", cls: "maybe", d: "Above noise floor. Closer to the coil body — not the screws." };
       return { t: "NO FIELD", cls: "dead", d: "Looks like residual earth field. Coil open, bad board, or you're too far." };
     }
     if (delta > 40) return { t: "COMPASS JUMPING", cls: "live", d: "Heading is thrashing — typical of an AC coil. Confirm with a meter." };
@@ -174,9 +255,11 @@
       xyz.innerHTML = mag
         ? "<span>X " + magX.toFixed(1) + "</span><span>Y " + magY.toFixed(1) + "</span><span>Z " + magZ.toFixed(1) + "</span><span>|B| " +
           lastB.toFixed(1) + " µT</span><span>Δ " + Math.abs(lastB - baseline).toFixed(1) + "</span><span>ripple " +
-          ripple.toFixed(1) + "</span>"
+          ripple.toFixed(1) + "</span><span>σ " + calSigma.toFixed(1) + "</span>"
         : "<span>compass jitter " + lastB.toFixed(1) + "</span><span>Δ " + Math.abs(lastB - baseline).toFixed(1) + "</span><span>Earth ~25–65 µT</span>";
     }
+    const calEl = root.querySelector("#ptool-calnote");
+    if (calEl) calEl.textContent = calNote;
     if (bar) {
       const pct = mag ? Math.min(100, (Math.abs(lastB - baseline) / 200) * 100) : Math.min(100, lastB);
       bar.style.width = pct + "%";
@@ -261,12 +344,15 @@
         '<p class="ptool-xyz" id="ptool-xyz">X — Y — Z — |B| —</p>' +
         '<p id="ptool-why" class="pt-note"></p>' +
         '<div class="row"><button class="btn primary" id="ptool-zero">Zero here</button>' +
+        '<button class="btn" id="ptool-cal">Calibrate Hall</button>' +
         '<button class="btn" id="ptool-go">Enable sensors</button></div>' +
-        "<p class='pt-note'>Chrome/Android magnetometer is best. iPhone uses compass jitter — still works next to a pulled-in coil.</p>";
+        '<p id="ptool-calnote" class="pt-note"></p>' +
+        "<p class='pt-note'>Calibrate in open air (hard-iron offset + noise). Then Zero at the job. Chrome/Android magnetometer. iPhone = compass jitter.</p>";
       body.querySelector("#ptool-zero").onclick = () => {
         baseline = lastB;
         paintSolenoid();
       };
+      body.querySelector("#ptool-cal").onclick = () => runCalibrate();
       body.querySelector("#ptool-go").onclick = async () => {
         const kind = await startMag();
         const st = root.querySelector("#ptool-why");
