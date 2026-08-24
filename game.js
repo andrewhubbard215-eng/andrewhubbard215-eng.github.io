@@ -1623,7 +1623,9 @@
   function updateHud() {
     const isStreet = mode === "street";
     const p = isStreet ? street : arena;
-    document.getElementById("hud-mode").textContent = isStreet
+    const modeEl = document.getElementById("hud-mode");
+    if (!modeEl) return;
+    modeEl.textContent = isStreet
       ? "Street"
       : currentVehicle().label;
     document.getElementById("hud-wave").textContent = "Wave " + p.wave;
@@ -1646,7 +1648,9 @@
     updateHud();
 
     const canvas = document.getElementById("game");
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -1699,11 +1703,14 @@
       };
     }
 
-    document.getElementById("btn-start").onclick = () => {
-      ac();
-      state.sessionOk = false;
-      show("character");
-    };
+    const startBtn = document.getElementById("btn-start");
+    if (startBtn) {
+      startBtn.onclick = () => {
+        ac();
+        state.sessionOk = false;
+        show("character");
+      };
+    }
     const closeClock = document.getElementById("btn-close-clockin");
     const miniIn = document.getElementById("btn-clockin-mini");
     if (closeClock) {
@@ -1940,22 +1947,29 @@
       try {
         ac();
       } catch (_) {}
-      if (sfx && sfx.click) sfx.click();
-      if (m === "service") startQuiz();
-      else if (m === "sandbox") startSandbox();
-      else if (m === "minisplit") startMiniSplit();
-      else if (m === "aihelper") startAIHelper();
-      else if (m === "curriculum") startCurriculum();
-      else if (m === "quiz") startQuizArena();
-      else if (m === "compete") startCompete();
-      else if (m === "electrical") startElectrical();
-      else if (m === "commandments") startCommandments();
-      else if (m === "tutorial") startTutorial();
-      else if (m === "character") show("character");
-      else if (m === "rapture") openRapture();
-      else if (m === "hub") {
-        refreshHub();
-        show("hub");
+      try {
+        if (sfx && sfx.click) sfx.click();
+      } catch (_) {}
+      try {
+        if (m === "service") startQuiz();
+        else if (m === "sandbox") startSandbox();
+        else if (m === "minisplit") startMiniSplit();
+        else if (m === "aihelper") startAIHelper();
+        else if (m === "curriculum") startCurriculum();
+        else if (m === "quiz") startQuizArena();
+        else if (m === "compete") startCompete();
+        else if (m === "electrical") startElectrical();
+        else if (m === "commandments") startCommandments();
+        else if (m === "tutorial") startTutorial();
+        else if (m === "character") show("character");
+        else if (m === "rapture") openRapture();
+        else if (m === "hub") {
+          refreshHub();
+          show("hub");
+        }
+      } catch (err) {
+        console.warn("playMode", m, err);
+        toast("Couldn't open " + m + ". Hard-refresh (Ctrl+Shift+R).", "bad");
       }
     }
     window.ltPlayGo = playMode;
@@ -1974,7 +1988,8 @@
       });
     });
 
-    document.getElementById("btn-accept").onclick = () => {
+    const accBtn = document.getElementById("btn-accept");
+    if (accBtn) accBtn.onclick = () => {
       if (!state.gaugesOfGod) state.xp += 100;
       state.gaugesOfGod = true;
       state.raptureSeen = true;
@@ -1991,7 +2006,8 @@
       show("hub");
     };
 
-    document.getElementById("btn-svc-hub").onclick = () => {
+    const svcHub = document.getElementById("btn-svc-hub");
+    if (svcHub) svcHub.onclick = () => {
       refreshHub();
       show("hub");
     };

@@ -1822,36 +1822,6 @@
     paintCoils();
   }
 
-  function resetLeak() {
-    leak = { visual: false, soap: false, sniffer: false, nitrogen: false, repair: false, vac: false };
-    paintLeak();
-  }
-
-  function leakLocated() {
-    return !!(leak.visual || leak.soap || leak.sniffer);
-  }
-
-  function leakReadyToCharge() {
-    return leakLocated() && leak.nitrogen && leak.repair && leak.vac;
-  }
-
-  function paintLeak() {
-    const ol = document.getElementById("sb-leak-steps");
-    if (!ol) return;
-    const done = {
-      visual: leak.visual,
-      soap: leak.soap,
-      sniffer: leak.sniffer,
-      nitrogen: leak.nitrogen,
-      repair: leak.repair,
-      vac: leak.vac,
-      charge: leakReadyToCharge() && chargePct >= 94 && chargePct <= 108 && fault === "none",
-    };
-    ol.querySelectorAll("li").forEach((li) => {
-      li.classList.toggle("done", !!done[li.dataset.k]);
-    });
-  }
-
   function layoutSlots() {
     const wrap = document.getElementById("sb-slots");
     if (!wrap) return;
@@ -2019,9 +1989,12 @@
     if (cop) cop.textContent = sim.running ? sim.cop.toFixed(2) : "—";
     if (amps) amps.textContent = sim.running ? sim.amps.toFixed(1) + " A" : "—";
     highlightPT(sim);
-    document.getElementById("sb-status").textContent = sim.status;
-    document.getElementById("man-low").textContent = sim.running ? Math.round(sim.pLow) : "0";
-    document.getElementById("man-high").textContent = sim.running ? Math.round(sim.pHigh) : "0";
+    const st = document.getElementById("sb-status");
+    if (st) st.textContent = sim.status || "";
+    const ml = document.getElementById("man-low");
+    const mh = document.getElementById("man-high");
+    if (ml) ml.textContent = sim.running ? Math.round(sim.pLow) : "0";
+    if (mh) mh.textContent = sim.running ? Math.round(sim.pHigh) : "0";
     const runBtn = document.getElementById("sb-run");
     if (runBtn) runBtn.textContent = running ? "Stop compressor" : "Start compressor";
     updateDmm(sim);
@@ -2431,6 +2404,7 @@
   }
 
   function wire() {
+    try {
     document.querySelectorAll(".sb-tab").forEach((tab) => {
       tab.onclick = () => {
         document.querySelectorAll(".sb-tab").forEach((t) => t.classList.remove("active"));
@@ -2552,11 +2526,12 @@
     const dmmProbeEl = document.getElementById("dmm-probe");
     if (dmmModeEl) dmmModeEl.onchange = (e) => { dmmMode = e.target.value; updateDmm(simulate()); };
     if (dmmProbeEl) dmmProbeEl.onchange = (e) => { dmmProbe = e.target.value; updateDmm(simulate()); };
-    document.getElementById("sb-dmm").classList.add("on");
+    document.getElementById("sb-dmm") && document.getElementById("sb-dmm").classList.add("on");
     document.querySelectorAll("#sb-repairs [data-fix]").forEach((b) => {
       b.onclick = () => applyRepair(b.dataset.fix);
     });
-    document.getElementById("sb-clear").onclick = () => {
+    const clr = document.getElementById("sb-clear");
+    if (clr) clr.onclick = () => {
       placed = {};
       running = false;
       particles = [];
@@ -2573,6 +2548,9 @@
       refreshSlots();
       updateSysBanner();
     };
+    } catch (err) {
+      if (typeof console !== "undefined") console.warn("sandbox wire", err);
+    }
   }
 
   function start(root, opts) {
