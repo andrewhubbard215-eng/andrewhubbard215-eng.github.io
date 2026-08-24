@@ -2359,12 +2359,19 @@
         sandboxCtl = null;
       }
       sandboxCtl = window.HVACSandbox.start(root, {
+        nickname: state.callsign || "Tech",
         onXp(n) {
           state.xp += n;
           save();
           if (window.Badges) window.Badges.unlock("sandbox_tech");
           markDaily("sandbox");
           postCompete("score", { mode: "sandbox", score: 400 + n });
+        },
+        onRace(pts, row) {
+          state.xp += Math.max(5, Math.round((pts || 0) / 12));
+          save();
+          postCompete("score", { mode: "sandbox-race", score: pts || 0, circuit: row && row.ch });
+          toast((row && row.name ? row.name : "Tech") + " · sandbox race " + pts + " pts", "xp");
         },
       });
       const hubSb = sandboxCtl && sandboxCtl.getHubBtn && sandboxCtl.getHubBtn();

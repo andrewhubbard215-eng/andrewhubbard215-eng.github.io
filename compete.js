@@ -55,7 +55,7 @@
               </div>
             </div>
             <h2>All-Star competition</h2>
-            <p class="comp-sub">Sign in so your quiz, install, and service scores post against other techs. Classroom PIN quizzes work across phones.</p>
+            <p class="comp-sub">Quiz, service, and sandbox races post here. Host a class PIN in System sandbox → Class race so everyone builds the same circuit against the clock.</p>
           </div>
           <div class="comp-actions">
             <button class="btn primary" id="comp-login">Sign in / create account</button>

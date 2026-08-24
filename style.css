@@ -743,7 +743,14 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .lab-yt-row { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; }
 .lab-ts { margin-top: 8px; background: #fff; border: 1px solid #bbb; padding: 8px; border-radius: 8px; max-height: 220px; overflow: auto; }
 .lab-inject { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
-.lab-inject .btn { font-size: 11px; padding: 4px 8px; }
+.sb-race-lab { display: block; font-size: 12px; color: var(--muted); margin: 8px 0; }
+.sb-race-lab input, .sb-race-row input {
+  width: 100%; margin-top: 4px; background: #0a1016; color: #fff; border: 1px solid var(--border); padding: 8px;
+}
+.sb-race-row { display: flex; gap: 6px; margin-bottom: 10px; }
+.sb-race-row input { flex: 1; margin: 0; }
+.sb-race-board { font-size: 12px; padding-left: 18px; color: #c5cdd6; }
+.sb-race-board li { margin: 4px 0; }
 .lab-txv strong { color: #CE0034; }
 .sb-slot.over { border-color: var(--accent); background: rgba(206,0,52,0.14); }
 .sb-slot.filled {

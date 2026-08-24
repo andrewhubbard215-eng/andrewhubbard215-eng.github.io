@@ -770,6 +770,11 @@
   let challengeLeft = 0;
   let challengeTimer = 0;
   let challengeWon = false;
+  let onRace = null;
+  let raceNick = "Tech";
+  let racePin = "";
+  let raceChannel = null;
+  let raceLive = {};
   let running = false;
   let refrigerant = "R-410A";
   let outdoorF = 95;
@@ -1146,6 +1151,7 @@
             <button class="sb-tab" data-tab="materials">Materials</button>
             <button class="sb-tab" data-tab="all">All parts</button>
             <button class="sb-tab" data-tab="challenges">CoolGame</button>
+            <button class="sb-tab" data-tab="race">Class race</button>
             <button class="sb-tab" data-tab="field">Field jobs</button>
             <button class="sb-tab" data-tab="systems">OEM packs</button>
             <button class="sb-tab" data-tab="lab">Lab trainers</button>
@@ -1901,10 +1907,11 @@
     el.className = "sb-clock" + (challengeWon ? " ok" : challengeLeft <= 10 ? " low" : "");
   }
 
-  function startChallenge(ch) {
+  function startChallenge(ch, fromNet) {
     challenge = ch;
     challengeWon = false;
     challengeLeft = ch.time;
+    guidedOn = false;
     placed = {};
     running = false;
     particles = [];
@@ -1919,34 +1926,145 @@
         challengeLeft = 0;
         clearInterval(challengeTimer);
         challengeTimer = 0;
-        document.getElementById("sb-status").textContent =
-          "Time. Circuit incomplete. HUB: " + ch.hint;
+        finishRace("time");
+        const st = document.getElementById("sb-status");
+        if (st) st.textContent = "Time. Circuit incomplete. HUB: " + ch.hint;
         paintClock();
       }
     }, 1000);
     refreshSlots();
+    layoutSlots();
     updateSysBanner();
     paintClock();
     const ban = document.getElementById("sb-sysbanner");
-    if (ban) ban.textContent = "CoolGame · " + ch.name + " · " + ch.hint;
-    document.getElementById("sb-status").textContent = "Place every required part. Wrong slot won't take it. Clock is running.";
+    if (ban) ban.textContent = "RACE · " + ch.name + " · " + ch.hint;
+    if (raceChannel && !fromNet) {
+      try {
+        raceChannel.postMessage({ type: "go", chId: ch.id, name: raceNick });
+      } catch (_) {}
+    }
+    document.getElementById("sb-status").textContent =
+      (racePin ? "PIN " + racePin + " · " : "") + "Place every required part. Clock is running. " + raceNick + " is on the board.";
+  }
+
+  function scoreBuild() {
+    let pts = 0;
+    const need = (challenge && challenge.need) || ["compressor", "condenser", "metering", "evaporator"];
+    need.forEach((id) => {
+      if (placed[id]) pts += 80;
+    });
+    pts += Math.max(0, challengeLeft) * 8;
+    if (placed.copper) pts += 25;
+    if (placed.vacpump) pts += 25;
+    if (placed.chargecan) pts += 25;
+    if (placed.filter) pts += 20;
+    if (running) pts += 80;
+    try {
+      const sim = simulate();
+      if (running && sim && sim.shOk && sim.scOk) pts += 150;
+    } catch (_) {}
+    return pts;
+  }
+
+  function raceBoardLoad() {
+    try {
+      return JSON.parse(localStorage.getItem("lt-sb-race-board") || "[]");
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function finishRace(why) {
+    if (challengeWon) return;
+    challengeWon = true;
+    if (challengeTimer) {
+      clearInterval(challengeTimer);
+      challengeTimer = 0;
+    }
+    const pts = scoreBuild();
+    const row = {
+      name: raceNick,
+      pts,
+      ch: (challenge && challenge.name) || "Free build",
+      why,
+      t: Date.now(),
+      pin: racePin || "",
+    };
+    const board = raceBoardLoad();
+    board.unshift(row);
+    try {
+      localStorage.setItem("lt-sb-race-board", JSON.stringify(board.slice(0, 50)));
+    } catch (_) {}
+    raceLive[raceNick] = pts;
+    if (raceChannel) {
+      try {
+        raceChannel.postMessage({ type: "score", name: raceNick, pts, ch: row.ch });
+      } catch (_) {}
+    }
+    if (typeof onRace === "function") onRace(pts, row);
+    const st = document.getElementById("sb-status");
+    if (st && why !== "time") {
+      st.textContent = "Circuit closed · " + pts + " pts · " + challengeLeft + "s left. " + raceNick + " posted.";
+    }
+    paintClock();
+    if (why !== "time" && onXp) onXp(Math.min(40, 15 + Math.round(challengeLeft / 4)));
+    if (why !== "time") running = true;
+  }
+
+  function openRaceChan(pin) {
+    racePin = String(pin || "");
+    if (raceChannel) {
+      try {
+        raceChannel.close();
+      } catch (_) {}
+      raceChannel = null;
+    }
+    if (!racePin || !window.BroadcastChannel) return;
+    raceChannel = new BroadcastChannel("lt-sb-race-" + racePin);
+    raceChannel.onmessage = (e) => {
+      const m = e.data || {};
+      if (m.type === "go" && m.chId && m.name !== raceNick) {
+        const ch = CHALLENGES.find((c) => c.id === m.chId);
+        if (ch) startChallenge(ch, true);
+      }
+      if (m.type === "score" && m.name) raceLive[m.name] = m.pts;
+    };
+  }
+
+  function hostRace() {
+    const nickEl = document.getElementById("sb-race-nick");
+    if (nickEl) raceNick = nickEl.value.trim() || "Tech";
+    racePin = String((Math.random() * 900000 + 100000) | 0);
+    const pinEl = document.getElementById("sb-race-pin");
+    if (pinEl) pinEl.value = racePin;
+    openRaceChan(racePin);
+    const st = document.getElementById("sb-status");
+    if (st) st.textContent = "PIN " + racePin + " — students Join, then you tap a circuit. GO syncs other tabs.";
+  }
+
+  function joinRace() {
+    const nickEl = document.getElementById("sb-race-nick");
+    if (nickEl) raceNick = nickEl.value.trim() || "Tech";
+    const pinEl = document.getElementById("sb-race-pin");
+    racePin = ((pinEl && pinEl.value.trim()) || "").replace(/\D/g, "");
+    if (racePin.length < 4) {
+      const st = document.getElementById("sb-status");
+      if (st) st.textContent = "Ask the host for the PIN.";
+      return;
+    }
+    openRaceChan(racePin);
+    const st = document.getElementById("sb-status");
+    if (st) st.textContent = raceNick + " joined " + racePin + ". Wait for GO or tap the same circuit.";
   }
 
   function checkChallenge() {
     if (!challenge || challengeWon) return;
     const ok = challenge.need.every((id) => placed[id] === id);
     if (!ok) return;
-    challengeWon = true;
-    if (challengeTimer) clearInterval(challengeTimer);
-    challengeTimer = 0;
-    const score = Math.max(10, challengeLeft * 10);
-    document.getElementById("sb-status").textContent =
-      "Circuit closed · +" + score + " pts · " + challengeLeft + "s left. Start the compressor — watch the flow.";
+    finishRace("win");
     const ban = document.getElementById("sb-sysbanner");
-    if (ban) ban.textContent = "CoolGame complete · " + challenge.name + " · " + score + " pts";
-    paintClock();
-    if (onXp) onXp(Math.min(40, 15 + Math.round(challengeLeft / 4)));
-    running = true;
+    if (ban) ban.textContent = "RACE complete · " + challenge.name;
+    if (running && requiredComplete()) seedFlow();
   }
 
   function paintCoils() {
@@ -2263,6 +2381,49 @@
         el.onclick = () => startChallenge(ch);
         box.appendChild(el);
       });
+      return;
+    }
+    if (tab === "race") {
+      const pinHtml =
+        "<div class='sb-item system'><div><strong>Class race</strong><small>Same circuit, clock running. Parts + speed + running SH/SC. Host a PIN so other tabs join the heat.</small></div></div>" +
+        "<label class='sb-race-lab'>Callsign <input id='sb-race-nick' maxlength='14' value='" +
+        raceNick.replace(/'/g, "") +
+        "' /></label>" +
+        "<div class='sb-race-row'><input id='sb-race-pin' maxlength='6' placeholder='PIN' value='" +
+        racePin +
+        "' /><button type='button' class='btn' id='sb-race-host'>Host</button><button type='button' class='btn primary' id='sb-race-join'>Join</button></div>";
+      box.insertAdjacentHTML("beforeend", pinHtml);
+      CHALLENGES.forEach((ch) => {
+        const el = document.createElement("div");
+        el.className = "sb-item system";
+        el.innerHTML = `<span class="ico">🏁</span><div><strong>${ch.name}</strong><small>${ch.time}s · ${ch.need.length} parts · GO</small></div>`;
+        el.onclick = () => startChallenge(ch);
+        box.appendChild(el);
+      });
+      const live = Object.keys(raceLive);
+      const board = raceBoardLoad().slice(0, 12);
+      const ol = document.createElement("ol");
+      ol.className = "sb-race-board";
+      ol.innerHTML = (live.length
+        ? live
+            .sort((a, b) => raceLive[b] - raceLive[a])
+            .map((n) => "<li><strong>" + n + "</strong> " + raceLive[n] + " pts</li>")
+            .join("")
+        : "") +
+        board
+          .map((r) => "<li>" + r.name + " · " + r.pts + " · " + (r.ch || "") + "</li>")
+          .join("");
+      const h = document.createElement("p");
+      h.className = "sb-hint";
+      h.textContent = "Scoring: 80/part · 8/sec left · +80 running · +150 SH/SC in band · extras for lineset/vac/charge.";
+      box.appendChild(h);
+      box.appendChild(ol);
+      const nickEl = box.querySelector("#sb-race-nick");
+      if (nickEl) nickEl.onchange = () => { raceNick = nickEl.value.trim() || "Tech"; };
+      const hostBtn = box.querySelector("#sb-race-host");
+      const joinBtn = box.querySelector("#sb-race-join");
+      if (hostBtn) hostBtn.onclick = () => hostRace();
+      if (joinBtn) joinBtn.onclick = () => joinRace();
       return;
     }
     if (tab === "field") {
@@ -3336,6 +3497,8 @@
   function start(root, opts) {
     host = root;
     onXp = opts && opts.onXp;
+    onRace = opts && opts.onRace;
+    if (opts && opts.nickname) raceNick = String(opts.nickname);
     placed = {};
     running = false;
     particles = [];
