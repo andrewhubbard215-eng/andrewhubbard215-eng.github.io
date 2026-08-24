@@ -424,6 +424,16 @@
     }
     const choices = order.map((i) => q.choices[i]);
     const a = order.indexOf(q.a);
+    if (a === 0 && n > 1) {
+      const j = 1 + ((Math.random() * (n - 1)) | 0);
+      const tmpC = choices[0];
+      choices[0] = choices[j];
+      choices[j] = tmpC;
+      const tmpI = order[0];
+      order[0] = order[j];
+      order[j] = tmpI;
+    }
+    const correct = order.indexOf(q.a);
     let wrong = q.wrong;
     if (wrong && typeof wrong === "object") {
       const nw = {};
@@ -432,7 +442,7 @@
       });
       wrong = nw;
     }
-    return Object.assign({}, q, { choices: choices, a: a, wrong: wrong });
+    return Object.assign({}, q, { choices: choices, a: correct, wrong: wrong });
   }
 
   function mixBanks(keys) {

@@ -206,6 +206,19 @@
     return a;
   }
 
+  function mixChoices(choices) {
+    let a = shuffle(choices);
+    let n = 0;
+    while (a[0] && a[0].ok && a.length > 1 && n++ < 12) a = shuffle(choices);
+    if (a[0] && a[0].ok && a.length > 1) {
+      const j = 1 + ((Math.random() * (a.length - 1)) | 0);
+      const tmp = a[0];
+      a[0] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
   function render() {
     const fb = root.querySelector("#svc-feedback");
     fb.textContent = "";
@@ -243,7 +256,7 @@
 
     const box = root.querySelector("#svc-choices");
     box.innerHTML = "";
-    shuffle(c.choices).forEach((ch) => {
+    mixChoices(c.choices).forEach((ch) => {
       const b = document.createElement("button");
       b.className = "svc-choice";
       b.textContent = ch.t;
