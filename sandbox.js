@@ -414,6 +414,17 @@
     ],
   };
 
+  const TU102_TS = [
+    { id: "power", t: "1 · Power & run", d: "Disconnect on. Contactor in. Hermetic humming. LOTO before you ohm windings." },
+    { id: "air", t: "2 · Fans to 100%", d: "Evap + cond knobs full. A turned-down fan on this board IS a dirty coil. Airflow before charge." },
+    { id: "glass", t: "3 · Sight glasses", d: "Liquid glass after the drier: clear vs bubbles. Suction: mostly vapor. Bubbles ≠ automatically add gas." },
+    { id: "pt", t: "4 · SH and SC together", d: "R-410A P/T. SH = suction T − evap sat. SC = cond sat − liquid T. One number is a coin flip." },
+    { id: "fp", t: "5 · Fingerprint", d: "High SH + low SC = undercharge/leak. High SH + high SC = restriction or TXV closed. Low SH + high SC = overcharge or TXV open. High head = cond fan / dirty condenser." },
+    { id: "txv", t: "6 · TXV last", d: "Bulb tight and insulated. SC in band first. Then ¼-turn: CW raises SH, CCW lowers SH." },
+    { id: "drier", t: "7 · Drier / restriction", d: "ΔT across the drier or flash after it = restriction. Replace the drier. Don't feed it more refrigerant." },
+    { id: "charge", t: "8 · Charge last", d: "Weigh-in. TXV trims by SC. Never top off a leaker (608)." },
+  ];
+
   function chargeSop(sys) {
     const m = (sys && sys.metering) || (placed.metering === "piston" || placed.metering === "capillary" ? "orifice" : "txv");
     const type = (sys && sys.type) || "split";
@@ -785,6 +796,7 @@
   let labId = null;
   let labFanEvap = 100;
   let labFanCond = 100;
+  let labTs = {};
   let particles = [];
   let animT = 0;
   let onXp = null;
@@ -1648,6 +1660,34 @@
       "<div class='lab-coil cd'>CONDENSER<div class='lab-sg'>sight glass</div></div>" +
       "<div class='lab-bottom'><span>Receiver</span><span>Accumulator</span><span>Hermetic</span></div>" +
       "<p class='lab-note'>Turn a fan down = dirty coil fingerprint. Glasses: bubbles on liquid = starved. Clear isn't always fully charged — check SH/SC.</p>" +
+      "<div class='lab-ts'><strong>TU-102 troubleshooting</strong>" +
+      "<ol class='sb-charge-steps'>" +
+      TU102_TS.map(function (s) {
+        const on = !!labTs[s.id];
+        return (
+          "<li class='" +
+          (on ? "done" : "") +
+          "'><label><input type='checkbox' data-ts='" +
+          s.id +
+          "'" +
+          (on ? " checked" : "") +
+          "/> <strong>" +
+          s.t +
+          "</strong></label><span>" +
+          s.d +
+          "</span></li>"
+        );
+      }).join("") +
+      "</ol>" +
+      "<div class='lab-inject'>" +
+      "<span>Inject a fault:</span>" +
+      "<button type='button' class='btn' data-labf='evap'>Evap fan 30%</button>" +
+      "<button type='button' class='btn' data-labf='cond'>Cond fan 30%</button>" +
+      "<button type='button' class='btn' data-labf='under'>Undercharge</button>" +
+      "<button type='button' class='btn' data-labf='txv'>TXV closed</button>" +
+      "<button type='button' class='btn' data-labf='rest'>Restriction</button>" +
+      "<button type='button' class='btn' data-labf='ok'>Reset healthy</button>" +
+      "</div></div>" +
       "</div><div class='lab-yt-row'>" + vidHtml + "</div>";
     const fe = document.getElementById("lab-fe");
     const fc = document.getElementById("lab-fc");
@@ -1662,6 +1702,66 @@
         document.getElementById("lab-fc-v").textContent = labFanCond + "%";
       };
     wireTxvStem();
+    el.querySelectorAll("input[data-ts]").forEach((inp) => {
+      inp.onchange = () => {
+        labTs[inp.getAttribute("data-ts")] = inp.checked;
+        const step = TU102_TS.find((s) => s.id === inp.getAttribute("data-ts"));
+        if (inp.checked && step) paintHubCoach(step.t + " — " + step.d);
+      };
+    });
+    el.querySelectorAll("[data-labf]").forEach((b) => {
+      b.onclick = () => applyLabFault(b.getAttribute("data-labf"));
+    });
+  }
+
+  function applyLabFault(kind) {
+    if (kind === "ok") {
+      labFanEvap = 100;
+      labFanCond = 100;
+      chargePct = 100;
+      fault = "none";
+      txvTarget = 10;
+    } else if (kind === "evap") {
+      labFanEvap = 30;
+      fault = "none";
+    } else if (kind === "cond") {
+      labFanCond = 30;
+      fault = "none";
+    } else if (kind === "under") {
+      chargePct = 70;
+      fault = "undercharge";
+    } else if (kind === "txv") {
+      fault = "txv_closed";
+    } else if (kind === "rest") {
+      fault = "restricted";
+    }
+    const fe = document.getElementById("lab-fe");
+    const fc = document.getElementById("lab-fc");
+    if (fe) fe.value = String(labFanEvap);
+    if (fc) fc.value = String(labFanCond);
+    const fev = document.getElementById("lab-fe-v");
+    const fcv = document.getElementById("lab-fc-v");
+    if (fev) fev.textContent = labFanEvap + "%";
+    if (fcv) fcv.textContent = labFanCond + "%";
+    const ch = document.getElementById("sb-charge");
+    const cv = document.getElementById("sb-charge-v");
+    const fl = document.getElementById("sb-fault");
+    if (ch) ch.value = String(chargePct);
+    if (cv) cv.textContent = String(chargePct);
+    if (fl) fl.value = fault;
+    if (!running) setCompressor(true);
+    const sim = simulate();
+    paintHubCoach(
+      "TU-102 fault in. SH ~" +
+        Math.round(sim.sh) +
+        "° · SC ~" +
+        Math.round(sim.sc) +
+        "° · suction " +
+        Math.round(sim.pLow) +
+        " / head " +
+        Math.round(sim.pHigh) +
+        ". Work the 8 steps. Don't skip airflow."
+    );
   }
 
   function wireTxvStem() {
