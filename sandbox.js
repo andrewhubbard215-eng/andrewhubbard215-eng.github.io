@@ -364,14 +364,10 @@
   ];
 
   const SLOTS = [
-    { id: "compressor", x: 0.22, y: 0.55, label: "Compressor" },
-    { id: "condenser", x: 0.50, y: 0.22, label: "Condenser" },
+    { id: "compressor", x: 0.22, y: 0.52, label: "Compressor" },
+    { id: "condenser", x: 0.50, y: 0.20, label: "Condenser" },
     { id: "metering", x: 0.78, y: 0.52, label: "Metering" },
-    { id: "evaporator", x: 0.50, y: 0.80, label: "Evaporator" },
-    { id: "filter", x: 0.68, y: 0.36, label: "Filter-drier" },
-    { id: "accumulator", x: 0.32, y: 0.70, label: "Accumulator" },
-    { id: "revvalve", x: 0.32, y: 0.38, label: "Rev. valve" },
-    { id: "sightglass", x: 0.68, y: 0.44, label: "Sight glass" },
+    { id: "evaporator", x: 0.50, y: 0.82, label: "Evaporator" },
   ];
 
   // CoolGame-style timed circuit builds (Lincoln Tech clone — not Danfoss IP)
@@ -916,7 +912,7 @@
             <button class="sb-tab" data-tab="systems">OEM packs</button>
           </div>
           <div id="sb-items" class="sb-items"></div>
-          <p class="sb-hint">Board is the cycle only (4 core + drier, accumulator, RV, sight glass). Tools and electrical stay in the tray — click to equip. Clear board wipes the loop.</p>
+          <p class="sb-hint">Four drop boxes only: compressor, condenser, metering, evaporator. Everything else stays in the tray — click to add. Clear board wipes the loop.</p>
           <div class="hub-chip" style="margin:10px 0 0;max-width:none">
             <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-chip-av photo" />
             <div><strong>Professor HUB</strong><p>Four core pieces close the loop. Then start the compressor — I’ll roast your SH/SC.</p></div>
@@ -1750,9 +1746,11 @@
       return;
     }
     if (!onBoard) {
+      if (def.slot) placed[def.slot] = def.id;
       applyEquip(def);
       const st = document.getElementById("sb-status");
-      if (st) st.textContent = (def.name || compId) + " equipped. Cycle board stays clean.";
+      if (st) st.textContent = (def.name || compId) + " on the cart / loop (no extra box).";
+      if (challenge) checkChallenge();
       return;
     }
     const dest = def.slot || slotId;
