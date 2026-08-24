@@ -144,7 +144,13 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   border-radius: 14px; overflow: hidden; cursor: pointer; color: inherit;
   transition: border-color 0.15s, transform 0.12s;
 }
-.mode-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+#screen-hub.screen.active {
+  overflow-y: auto !important;
+}
+#btn-sandbox-card {
+  border: 2px solid #2dd4bf;
+}
+#btn-sandbox-card h3 { color: #2dd4bf; }
 .mode-card img { width: 100%; height: 120px; object-fit: cover; background: #111; }
 .mode-card img.contain { object-fit: contain; padding: 12px; background: #0e141c; }
 .mode-card div { padding: 14px 16px 18px; }

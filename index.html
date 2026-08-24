@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=64" />
+  <link rel="stylesheet" href="style.css?v=65" />
 </head>
 <body>
   <div id="app">
@@ -148,16 +148,10 @@
       <div id="daily-root"></div>
       <div id="hub-commandments" class="hub-commandments"></div>
       <p class="hub-section">Game options</p>
-      <div class="game-options" id="hub-options">
-        <button type="button" class="quiz-launch opt-wide" data-mode="sandbox" id="btn-sandbox-box">
-          <span class="quiz-launch-kicker">Option 1 · system sim</span>
-          <span class="quiz-launch-title">System sandbox</span>
-          <span class="quiz-launch-sub">Drag-drop cycle · gauges · SH/SC · field jobs · compressor</span>
-        </button>
-        <button type="button" class="quiz-launch opt-wide" data-mode="quiz" id="btn-quiz-box">
-          <span class="quiz-launch-kicker">Option 2 · Kahoot-style</span>
-          <span class="quiz-launch-title">Quiz Game</span>
-          <span class="quiz-launch-sub">EPA 608 · OSHA 30 · Lincoln Tech curriculum</span>
+      <div class="hub-grid" id="hub-options">
+        <button class="mode-card mode-card-featured" data-mode="tutorial">
+          <div class="mode-icon" aria-hidden="true">👷</div>
+          <div><h3>HUB tutorial</h3><p>Walk through the shop</p></div>
         </button>
         <button class="mode-card mode-card-featured" data-mode="electrical">
           <div class="mode-icon" aria-hidden="true">📟</div>
@@ -171,10 +165,6 @@
           <div class="mode-icon" aria-hidden="true">📜</div>
           <div><h3>HVAC Commandments</h3><p>Ten shop laws</p></div>
         </button>
-        <button class="mode-card mode-card-featured" data-mode="tutorial">
-          <div class="mode-icon" aria-hidden="true">👷</div>
-          <div><h3>HUB tutorial</h3><p>Walk through the shop</p></div>
-        </button>
         <button class="mode-card" data-mode="minisplit">
           <div class="mode-icon" aria-hidden="true">❄️</div>
           <div><h3>Mini-split install</h3><p>11-step lab · get paid</p></div>
@@ -182,6 +172,20 @@
         <button class="mode-card" data-mode="service">
           <div class="mode-icon" aria-hidden="true">🔧</div>
           <div><h3>Service calls</h3><p>Customers · gauges · diagnose</p></div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="sandbox" id="btn-sandbox-card" type="button">
+          <div class="mode-icon" aria-hidden="true">🔄</div>
+          <div>
+            <h3>System sandbox</h3>
+            <p>Drag-drop cycle · live gauges · SH/SC · field jobs · compressor</p>
+          </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="quiz" id="btn-quiz-box" type="button">
+          <div class="mode-icon" aria-hidden="true">🎯</div>
+          <div>
+            <h3>Quiz Game</h3>
+            <p>Kahoot-style · EPA 608 · OSHA 30 · Lincoln Tech</p>
+          </div>
         </button>
         <button class="mode-card" data-mode="curriculum">
           <div class="mode-icon" aria-hidden="true">📚</div>
