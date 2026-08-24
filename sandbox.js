@@ -1984,6 +1984,8 @@
       row.classList.toggle("on", tLow != null && Math.abs(t - tLow) <= 8);
     });
   }
+
+  function updateGauges(sim) {
     if (!document.getElementById("g-plow")) return;
     sim = sim || { running: false, status: "—" };
     const fmt = (n, d = 0) => (sim.running ? n.toFixed(d) : "—");
@@ -2017,7 +2019,6 @@
     if (cop) cop.textContent = sim.running ? sim.cop.toFixed(2) : "—";
     if (amps) amps.textContent = sim.running ? sim.amps.toFixed(1) + " A" : "—";
     highlightPT(sim);
-  }
     document.getElementById("sb-status").textContent = sim.status;
     document.getElementById("man-low").textContent = sim.running ? Math.round(sim.pLow) : "0";
     document.getElementById("man-high").textContent = sim.running ? Math.round(sim.pHigh) : "0";
