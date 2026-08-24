@@ -149,18 +149,18 @@
       <div id="hub-commandments" class="hub-commandments"></div>
       <p class="hub-section">Games</p>
       <div class="game-name-btns" id="game-name-btns">
-        <button type="button" class="game-name-btn" data-mode="sandbox">System sandbox</button>
-        <button type="button" class="game-name-btn" data-mode="quiz">Quiz Game</button>
-        <button type="button" class="game-name-btn" data-mode="electrical">Electrical sim</button>
-        <button type="button" class="game-name-btn" data-mode="service">Service calls</button>
-        <button type="button" class="game-name-btn" data-mode="aihelper">AI helper</button>
-        <button type="button" class="game-name-btn" data-mode="minisplit">Mini-split install</button>
-        <button type="button" class="game-name-btn" data-mode="commandments">HVAC Commandments</button>
-        <button type="button" class="game-name-btn" data-mode="tutorial">HUB tutorial</button>
-        <button type="button" class="game-name-btn" data-mode="curriculum">Curriculum</button>
-        <button type="button" class="game-name-btn" data-mode="compete">Online arena</button>
-        <button type="button" class="game-name-btn" data-mode="rapture">HVAC Jesus</button>
-        <button type="button" class="game-name-btn" data-mode="character">Locker</button>
+        <button type="button" class="game-name-btn" data-mode="sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
+        <button type="button" class="game-name-btn" data-mode="quiz" onclick="window.ltPlay('quiz')">Quiz Game</button>
+        <button type="button" class="game-name-btn" data-mode="electrical" onclick="window.ltPlay('electrical')">Electrical sim</button>
+        <button type="button" class="game-name-btn" data-mode="service" onclick="window.ltPlay('service')">Service calls</button>
+        <button type="button" class="game-name-btn" data-mode="aihelper" onclick="window.ltPlay('aihelper')">AI helper</button>
+        <button type="button" class="game-name-btn" data-mode="minisplit" onclick="window.ltPlay('minisplit')">Mini-split install</button>
+        <button type="button" class="game-name-btn" data-mode="commandments" onclick="window.ltPlay('commandments')">HVAC Commandments</button>
+        <button type="button" class="game-name-btn" data-mode="tutorial" onclick="window.ltPlay('tutorial')">HUB tutorial</button>
+        <button type="button" class="game-name-btn" data-mode="curriculum" onclick="window.ltPlay('curriculum')">Curriculum</button>
+        <button type="button" class="game-name-btn" data-mode="compete" onclick="window.ltPlay('compete')">Online arena</button>
+        <button type="button" class="game-name-btn" data-mode="rapture" onclick="window.ltPlay('rapture')">HVAC Jesus</button>
+        <button type="button" class="game-name-btn" data-mode="character" onclick="window.ltPlay('character')">Locker</button>
       </div>
       <p class="hub-section">Game options</p>
       <div class="hub-grid" id="hub-options">
@@ -353,6 +353,10 @@
       var m = document.getElementById("btn-clockin-mini");
       if (m) m.classList.remove("hidden");
     };
+    window.ltPlay = function (mode) {
+      if (window.ltPlayGo) return window.ltPlayGo(mode);
+      window.__ltPlayWait = mode;
+    };
     window.ltGo = function (id) {
       document.querySelectorAll(".screen").forEach(function (s) {
         s.classList.remove("active");
@@ -378,7 +382,7 @@
   <script src="curriculum.js"></script>
   <script src="daily.js"></script>
   <script src="tutorial.js?v=40"></script>
-  <script src="game.js?v=66"></script>
+  <script src="game.js?v=67"></script>
   <script>
     (function () {
       function killWanted() {

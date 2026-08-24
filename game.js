@@ -1935,26 +1935,43 @@
         toast(hubSfx.checked ? "SFX on." : "SFX muted.", "ok");
       };
     }
-    document.querySelectorAll(".mode-card, .quiz-launch, .game-name-btn").forEach((card) => {
-      card.onclick = () => {
-        const m = card.dataset.mode;
+    function playMode(m) {
+      if (!m) return;
+      try {
         ac();
-        if (sfx.click) sfx.click();
-        if (m === "service") startQuiz();
-        else if (m === "sandbox") startSandbox();
-        else if (m === "minisplit") startMiniSplit();
-        else if (m === "aihelper") startAIHelper();
-        else if (m === "curriculum") startCurriculum();
-        else if (m === "quiz") startQuizArena();
-        else if (m === "compete") startCompete();
-        else if (m === "electrical") startElectrical();
-        else if (m === "commandments") startCommandments();
-        else if (m === "tutorial") startTutorial();
-        else if (m === "character") show("character");
-        else if (m === "rapture") {
-          openRapture();
-        }
-      };
+      } catch (_) {}
+      if (sfx && sfx.click) sfx.click();
+      if (m === "service") startQuiz();
+      else if (m === "sandbox") startSandbox();
+      else if (m === "minisplit") startMiniSplit();
+      else if (m === "aihelper") startAIHelper();
+      else if (m === "curriculum") startCurriculum();
+      else if (m === "quiz") startQuizArena();
+      else if (m === "compete") startCompete();
+      else if (m === "electrical") startElectrical();
+      else if (m === "commandments") startCommandments();
+      else if (m === "tutorial") startTutorial();
+      else if (m === "character") show("character");
+      else if (m === "rapture") openRapture();
+      else if (m === "hub") {
+        refreshHub();
+        show("hub");
+      }
+    }
+    window.ltPlayGo = playMode;
+    window.ltPlay = playMode;
+    if (window.__ltPlayWait) {
+      const w = window.__ltPlayWait;
+      window.__ltPlayWait = null;
+      playMode(w);
+    }
+
+    document.querySelectorAll(".mode-card, .quiz-launch").forEach((card) => {
+      card.addEventListener("click", () => {
+        const m = card.getAttribute("data-mode");
+        if (!m || card.tagName === "LABEL") return;
+        playMode(m);
+      });
     });
 
     document.getElementById("btn-accept").onclick = () => {
