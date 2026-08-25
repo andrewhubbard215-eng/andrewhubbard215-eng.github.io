@@ -11,8 +11,12 @@
   (async function () {
     var n = 8;
     var b64 = "";
+    var base = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/main/chunk-";
     for (var i = 0; i < n; i++) {
-      var r = await fetch("chunk-" + i + ".txt?v=114");
+      var r = await fetch(base + i + ".txt?v=114");
+      if (!r.ok) {
+        r = await fetch("chunk-" + i + ".txt?v=114");
+      }
       if (!r.ok) throw new Error("chunk " + i);
       b64 += await r.text();
     }
