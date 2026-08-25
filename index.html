@@ -12,7 +12,7 @@
     var n = 8;
     var b64 = "";
     for (var i = 0; i < n; i++) {
-      var r = await fetch("index.b64." + i + "?v=108");
+      var r = await fetch("index.b64." + i + "?v=114");
       if (!r.ok) throw new Error("chunk " + i);
       b64 += await r.text();
     }
@@ -24,7 +24,7 @@
     document.write(html);
     document.close();
   })().catch(function (e) {
-    document.body.innerHTML = "<p style=\"padding:24px\">Load failed: " + e + ". Hard-refresh or open the shop floor from cache.</p>";
+    document.body.innerHTML = "<p style=\"padding:24px\">Load failed: " + e + ". Hard-refresh.</p>";
   });
   </script>
 </body>
