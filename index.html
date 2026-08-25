@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=106" />
+  <link rel="stylesheet" href="style.css?v=107" />
 </head>
 <body>
   <div id="app">
@@ -142,77 +142,54 @@
           <button type="button" class="btn" data-hubai-toggle id="hub-ai-toggle">HUB AI · On</button>
         </div>
       </header>
-      <p class="hub-section">Games</p>
-      <div class="game-name-btns" id="game-name-btns">
-        <button type="button" class="game-name-btn" data-mode="sandbox" onclick="window.ltPlay('sandbox')">System sandbox</button>
-        <button type="button" class="game-name-btn" id="btn-install-app" data-mode="install">Install app</button>
-        <button type="button" class="game-name-btn" data-mode="quiz" onclick="window.ltPlay('quiz')">All-Star Exam</button>
-        <button type="button" class="game-name-btn" data-mode="phonetools" onclick="window.ltPlay('phonetools')">Phone testers</button>
-        <button type="button" class="game-name-btn" data-mode="service" onclick="window.ltPlay('service')">Service calls</button>
-        <button type="button" class="game-name-btn" data-hubai-toggle>HUB AI · On</button>
-        <button type="button" class="game-name-btn" data-mode="aihelper" onclick="window.ltPlay('aihelper')">AI helper</button>
-        <button type="button" class="game-name-btn" data-mode="minisplit" onclick="window.ltPlay('minisplit')">Mini-split install</button>
-        <button type="button" class="game-name-btn" data-mode="commandments" onclick="window.ltPlay('commandments')">HVAC Commandments</button>
-        <button type="button" class="game-name-btn" data-mode="tutorial" onclick="window.ltPlay('tutorial')">HUB tutorial</button>
-        <button type="button" class="game-name-btn" data-mode="curriculum" onclick="window.ltPlay('curriculum')">Curriculum</button>
-        <button type="button" class="game-name-btn" data-mode="compete" onclick="window.ltPlay('compete')">Online arena</button>
-        <button type="button" class="game-name-btn" data-mode="rapture" onclick="window.ltPlay('rapture')">HVAC Jesus</button>
-        <button type="button" class="game-name-btn" data-mode="character" onclick="window.ltPlay('character')">Locker</button>
-      </div>
       <div id="hub-tip" class="hub-tip hidden">
         <strong>First day tip</strong>
-        <p>Core path: Sandbox · Electrical · Commandments · Quiz · Ask HUB. Mini-split and service after that.</p>
+        <p>Shop floor is the map. Open System sandbox for the four-part cycle. Other labs are their own pages.</p>
         <button type="button" class="btn" id="hub-tip-dismiss">Got it</button>
       </div>
       <div id="badge-rack"></div>
       <div id="daily-root"></div>
-      <div class="hub-law-row">
-        <div id="hub-commandments" class="hub-commandments"></div>
-        <div id="hub-pt" class="hub-pt"></div>
-      </div>
-      <p class="hub-section">More options</p>
-      <div class="hub-grid" id="hub-options">
-        <button class="mode-card mode-card-featured" data-mode="tutorial">
-          <div class="mode-icon" aria-hidden="true">👷</div>
-          <div><h3>HUB tutorial</h3><p>Walk through the shop</p></div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="electrical">
-          <div class="mode-icon" aria-hidden="true">📟</div>
-          <div><h3>Electrical sim</h3><p>240 / 24V · DMM · cap · contactor</p></div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="phonetools">
-          <div class="mode-icon" aria-hidden="true">📱</div>
-          <div><h3>Phone testers</h3><p>Solenoid mag · level · running</p></div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="aihelper">
-          <div class="mode-icon" aria-hidden="true">🦸</div>
-          <div><h3>AI helper</h3><p>Install + troubleshoot with HUB</p></div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="commandments">
-          <div class="mode-icon" aria-hidden="true">📜</div>
-          <div><h3>HVAC Commandments</h3><p>Ten shop laws</p></div>
-        </button>
-        <button class="mode-card" data-mode="minisplit">
-          <div class="mode-icon" aria-hidden="true">❄️</div>
-          <div><h3>Mini-split install</h3><p>11-step lab · get paid</p></div>
-        </button>
-        <button class="mode-card" data-mode="service">
-          <div class="mode-icon" aria-hidden="true">🔧</div>
-          <div><h3>Service calls</h3><p>Customers · gauges · diagnose</p></div>
-        </button>
-        <button class="mode-card mode-card-featured" data-mode="sandbox" id="btn-sandbox-card" type="button">
+      <div id="hub-commandments" class="hidden"></div>
+      <div id="hub-pt" class="hidden"></div>
+      <p class="hub-section">Labs</p>
+      <div class="hub-grid hub-nav" id="hub-options">
+        <button class="mode-card mode-card-hero" data-mode="sandbox" id="btn-sandbox-card" type="button">
           <div class="mode-icon" aria-hidden="true">🔄</div>
           <div>
             <h3>System sandbox</h3>
-            <p>Drag-drop cycle · live gauges · SH/SC · field jobs · compressor</p>
+            <p>Own page · four-part refrigeration cycle · compressor · condenser · metering · evaporator</p>
           </div>
         </button>
         <button class="mode-card mode-card-featured" data-mode="quiz" id="btn-quiz-box" type="button">
           <div class="mode-icon" aria-hidden="true">🎯</div>
           <div>
             <h3>All-Star Exam</h3>
-            <p>EPA 608 · OSHA 30 · Lincoln Tech · timed items</p>
+            <p>EPA 608 · OSHA 30 · Lincoln Tech</p>
           </div>
+        </button>
+        <button class="mode-card mode-card-featured" data-mode="electrical">
+          <div class="mode-icon" aria-hidden="true">📟</div>
+          <div><h3>Electrical sim</h3><p>240 / 24V · DMM · cap · contactor</p></div>
+        </button>
+        <button class="mode-card" data-mode="service">
+          <div class="mode-icon" aria-hidden="true">🔧</div>
+          <div><h3>Service calls</h3><p>Customers · gauges · diagnose</p></div>
+        </button>
+        <button class="mode-card" data-mode="minisplit">
+          <div class="mode-icon" aria-hidden="true">❄️</div>
+          <div><h3>Mini-split install</h3><p>11-step lab · get paid</p></div>
+        </button>
+        <button class="mode-card" data-mode="phonetools">
+          <div class="mode-icon" aria-hidden="true">📱</div>
+          <div><h3>Phone testers</h3><p>Solenoid mag · level · running</p></div>
+        </button>
+        <button class="mode-card" data-mode="commandments">
+          <div class="mode-icon" aria-hidden="true">📜</div>
+          <div><h3>HVAC Commandments</h3><p>Ten shop laws · P/T chart</p></div>
+        </button>
+        <button class="mode-card" data-mode="aihelper">
+          <div class="mode-icon" aria-hidden="true">🦸</div>
+          <div><h3>AI helper</h3><p>Install + troubleshoot with HUB</p></div>
         </button>
         <button class="mode-card" data-mode="curriculum">
           <div class="mode-icon" aria-hidden="true">📚</div>
@@ -221,6 +198,10 @@
         <button class="mode-card" data-mode="compete">
           <div class="mode-icon" aria-hidden="true">🏆</div>
           <div><h3>Online arena</h3><p>Class PIN · chat · leaderboard</p></div>
+        </button>
+        <button class="mode-card" data-mode="tutorial">
+          <div class="mode-icon" aria-hidden="true">👷</div>
+          <div><h3>HUB tutorial</h3><p>Walk through the shop</p></div>
         </button>
         <button class="mode-card" type="button" id="opt-locker" data-mode="character">
           <div class="mode-icon" aria-hidden="true">🪪</div>
@@ -396,7 +377,7 @@
   <script src="dragdrop.js?v=43"></script>
   <script src="electrical.js?v=43"></script>
   <script src="webgl-cycle.js?v=57"></script>
-  <script src="sandbox.js?v=105"></script>
+  <script src="sandbox.js?v=107"></script>
   <script src="minisplit.js"></script>
   <script src="ai-helper.js"></script>
   <script src="service.js?v=96"></script>

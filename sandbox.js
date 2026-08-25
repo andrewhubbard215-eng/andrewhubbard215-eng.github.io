@@ -482,23 +482,30 @@
   }
 
   const SLOTS = [
-    { id: "compressor", x: 0.22, y: 0.55, label: "Compressor" },
-    { id: "condenser", x: 0.52, y: 0.20, label: "Condenser" },
-    { id: "filter", x: 0.68, y: 0.34, label: "Filter-drier" },
-    { id: "metering", x: 0.82, y: 0.52, label: "Metering" },
-    { id: "evaporator", x: 0.52, y: 0.82, label: "Evaporator" },
-    { id: "accumulator", x: 0.32, y: 0.72, label: "Accumulator" },
-    { id: "disconnect", x: 0.08, y: 0.18, label: "Disconnect" },
-    { id: "contactor", x: 0.08, y: 0.38, label: "Contactor" },
-    { id: "capacitor", x: 0.08, y: 0.58, label: "Capacitor" },
-    { id: "transformer", x: 0.08, y: 0.78, label: "Transformer" },
-    { id: "thermostat", x: 0.92, y: 0.18, label: "Thermostat" },
-    { id: "gauges", x: 0.92, y: 0.36, label: "Gauges" },
+    { id: "compressor", x: 0.18, y: 0.50, label: "1 · Compressor", core: true },
+    { id: "condenser", x: 0.50, y: 0.16, label: "2 · Condenser", core: true },
+    { id: "filter", x: 0.72, y: 0.30, label: "Filter-drier" },
+    { id: "metering", x: 0.84, y: 0.50, label: "3 · Metering", core: true },
+    { id: "evaporator", x: 0.50, y: 0.84, label: "4 · Evaporator", core: true },
+    { id: "accumulator", x: 0.28, y: 0.72, label: "Accumulator" },
+    { id: "disconnect", x: 0.06, y: 0.16, label: "Disconnect" },
+    { id: "contactor", x: 0.06, y: 0.34, label: "Contactor" },
+    { id: "capacitor", x: 0.06, y: 0.52, label: "Capacitor" },
+    { id: "transformer", x: 0.06, y: 0.70, label: "Transformer" },
+    { id: "thermostat", x: 0.94, y: 0.16, label: "Thermostat" },
+    { id: "gauges", x: 0.94, y: 0.34, label: "Gauges" },
     { id: "copper", x: 0.50, y: 0.50, label: "Line set" },
-    { id: "nitrogen", x: 0.92, y: 0.54, label: "Nitrogen" },
-    { id: "vacpump", x: 0.92, y: 0.72, label: "Vacuum" },
-    { id: "chargecan", x: 0.78, y: 0.82, label: "Charge cylinder" },
+    { id: "nitrogen", x: 0.94, y: 0.52, label: "Nitrogen" },
+    { id: "vacpump", x: 0.94, y: 0.70, label: "Vacuum" },
+    { id: "chargecan", x: 0.78, y: 0.84, label: "Charge cylinder" },
   ];
+
+  const CORE_ROLE = {
+    compressor: "Vapor in · high vapor out",
+    condenser: "Reject heat · high liquid",
+    metering: "Pressure drop · TXV / piston",
+    evaporator: "Absorb heat · low vapor",
+  };
 
   const BUILD_STEPS = [
     { slot: "compressor", accept: ["compressor"], tab: "parts", title: "1 · Compressor", hub: "Heart of the DX loop. Drag the scroll compressor onto the glowing box." },
@@ -725,21 +732,16 @@
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
   // compressor → condenser → filter → metering → evaporator → accumulator → compressor
   const FLOW_PATH = [
-    [0.22, 0.48], // discharge out of compressor
-    [0.30, 0.28],
-    [0.42, 0.20],
-    [0.50, 0.18], // condenser
-    [0.60, 0.22],
-    [0.68, 0.32], // filter
-    [0.76, 0.42],
-    [0.82, 0.50], // metering
-    [0.78, 0.68],
-    [0.64, 0.80],
-    [0.50, 0.84], // evaporator
-    [0.36, 0.80],
-    [0.28, 0.72], // accumulator
-    [0.20, 0.62],
-    [0.18, 0.55], // back to compressor suction
+    [0.22, 0.42],
+    [0.34, 0.22],
+    [0.50, 0.14],
+    [0.66, 0.22],
+    [0.74, 0.32],
+    [0.84, 0.50],
+    [0.74, 0.68],
+    [0.50, 0.86],
+    [0.32, 0.74],
+    [0.20, 0.58],
   ];
 
   // Phase segments along path index ranges for coloring
@@ -1134,7 +1136,7 @@
             <div class="brand-mark" style="width:28px;height:28px;font-size:13px">LT</div>
             <div class="brand-word">
               <strong style="font-size:13px">LINCOLN TECH</strong>
-              <span>System sandbox · CoolGame circuit builder</span>
+              <span>System sandbox · four-part refrigeration cycle</span>
             </div>
           </div>
           <p class="eyebrow">Component tray</p>
@@ -1228,7 +1230,13 @@
               <button class="btn" id="sb-hub">Shop floor</button>
             </div>
           </header>
-          <div id="sb-sysbanner" class="sb-sysbanner">Custom build — drop parts or load a system pack</div>
+          <div id="sb-sysbanner" class="sb-sysbanner">The four: compressor → condenser → metering → evaporator. Drop them on the cycle.</div>
+          <div class="sb-cycle-legend" id="sb-cycle-legend">
+            <span class="hot">Discharge vapor</span>
+            <span class="liq">Liquid</span>
+            <span class="mix">Expansion</span>
+            <span class="suc">Suction vapor</span>
+          </div>
           <div class="sb-stage-wrap">
             <canvas id="sb-canvas"></canvas>
             <canvas id="sb-gl" class="sb-gl hidden"></canvas>
@@ -1471,7 +1479,7 @@
           <p class="sys-notes">${s.notes}</p>
         </div>`;
     } else {
-      ban.textContent = "Custom build — drop parts or load a system pack";
+      ban.textContent = "The four: compressor → condenser → metering → evaporator. Close the loop, then start it.";
       info.innerHTML = `<p class="sys-empty">Load Goodman, Carrier, Daikin, Mitsubishi, LG, Samsung, Trane, Rheem, Lennox, Bryant, York — or a mini-split package.</p>`;
     }
     paintChargeWin();
@@ -2666,7 +2674,10 @@
         else el.innerHTML = `<span class="empty">Unknown part</span>`;
       } else {
         const slot = SLOTS.find((s) => s.id === id);
-        el.innerHTML = `<span class="empty">Drop ${slot ? slot.label : id}</span>`;
+        const role = CORE_ROLE[id];
+        el.innerHTML =
+          `<span class="empty">${slot ? slot.label : id}</span>` +
+          (role ? `<small class="sb-role">${role}</small>` : "");
       }
     });
     const prog = document.getElementById("sb-progress");
@@ -2693,9 +2704,9 @@
     wrap.innerHTML = "";
     SLOTS.forEach((s) => {
       const stepIdx = BUILD_STEPS.findIndex((b) => b.slot === s.id);
-      if (guidedOn && stepIdx > guidedStep) return;
+      if (guidedOn && stepIdx > guidedStep && !s.core) return;
       const el = document.createElement("div");
-      el.className = "sb-slot";
+      el.className = "sb-slot" + (s.core ? " core" : "");
       el.dataset.slot = s.id;
       el.style.left = s.x * 100 + "%";
       el.style.top = s.y * 100 + "%";
@@ -3116,9 +3127,18 @@
     });
     s.closePath();
     s.stroke();
-    s.fillStyle = "rgba(139,154,171,0.7)";
-    s.font = "12px IBM Plex Sans, sans-serif";
-    s.fillText("Vapor-compression cycle · refrigerant flow", 16, 22);
+    s.fillStyle = "rgba(139,154,171,0.85)";
+    s.font = "bold 13px IBM Plex Sans, sans-serif";
+    s.fillText("Four-part vapor-compression cycle", 16, 22);
+    s.font = "11px IBM Plex Sans, sans-serif";
+    s.fillStyle = "#f07178";
+    s.fillText("DISCHARGE", w * 0.28, h * 0.28);
+    s.fillStyle = "#c44e52";
+    s.fillText("LIQUID", w * 0.62, h * 0.28);
+    s.fillStyle = "#7ec8d3";
+    s.fillText("EXPANSION", w * 0.72, h * 0.68);
+    s.fillStyle = "#2dd4bf";
+    s.fillText("SUCTION", w * 0.26, h * 0.72);
   }
 
   function drawArrow(x, y, ang) {
