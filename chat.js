@@ -109,14 +109,16 @@
   async function send(kind, body, meta) {
     const text = String(body || "").trim();
     if (!text) return;
-    await apiPost({
-      room,
-      callsign: callsign(),
-      kind: kind || "text",
-      body: text,
-      meta: meta ? JSON.stringify(meta) : "{}",
-    });
-    await pull(false);
+    try {
+      await apiPost({
+        room,
+        callsign: callsign(),
+        kind: kind || "text",
+        body: text,
+        meta: meta ? JSON.stringify(meta) : "{}",
+      });
+      await pull(false);
+    } catch (_) {}
   }
 
   function joinRoom(id) {

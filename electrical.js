@@ -223,6 +223,7 @@
 
   function renderPalette(tab) {
     const box = host.querySelector("#el-items");
+    if (!box) return;
     box.innerHTML = "";
     PARTS.filter((p) => p.group === tab).forEach((p) => {
       const el = document.createElement("div");

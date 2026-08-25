@@ -1165,8 +1165,12 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 }
 
 /* Professor HUB AI panel */
-.hub-ai-fab {
-  position: fixed; right: 16px; bottom: 72px; z-index: 200;
+body:has(#screen-title.active) .hub-ai-fab,
+body:has(#screen-character.active) .hub-ai-fab,
+body:has(#screen-title.active) .hub-ai-panel,
+body:has(#screen-character.active) .hub-ai-panel {
+  display: none !important;
+}
   display: flex; align-items: center; gap: 8px;
   background: var(--lt-red); color: #fff; border: none;
   border-radius: 999px; padding: 12px 16px 12px 12px;
