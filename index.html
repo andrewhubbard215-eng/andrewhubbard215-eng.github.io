@@ -1,1 +1,31 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lincoln Tech HVAC Allstars</title>
+</head>
+<body style="margin:0;background:#0b0c10;color:#e8e0d0;font-family:system-ui,sans-serif">
+  <p style="padding:24px">Loading HVAC Allstars…</p>
+  <script>
+  (async function () {
+    var n = 8;
+    var b64 = "";
+    for (var i = 0; i < n; i++) {
+      var r = await fetch("index.b64." + i + "?v=108");
+      if (!r.ok) throw new Error("chunk " + i);
+      b64 += await r.text();
+    }
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var j = 0; j < bin.length; j++) bytes[j] = bin.charCodeAt(j);
+    var html = new TextDecoder("utf-8").decode(bytes);
+    document.open();
+    document.write(html);
+    document.close();
+  })().catch(function (e) {
+    document.body.innerHTML = "<p style=\"padding:24px\">Load failed: " + e + ". Hard-refresh or open the shop floor from cache.</p>";
+  });
+  </script>
+</body>
+</html>
