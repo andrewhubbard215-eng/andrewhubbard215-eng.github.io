@@ -1,35 +1,47 @@
-/* Force readable quiz answers on phones (Safari paints native buttons white). */
+/* Class projector / Chromebook contrast fix — cream tiles, dark text */
 #screen-quiz button.qa-k-btn,
 #screen-quiz button.qa-exam-btn,
-#screen-quiz button.qa-choice,
-#screen-quiz .qa-exam-grid button {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  background: #1a1e23 !important;
-  color: #f4f6f8 !important;
-  border: 1px solid #6a7380 !important;
-  -webkit-text-fill-color: #f4f6f8 !important;
+#screen-quiz .qa-choice {
+  background: #f4ead4 !important;
+  color: #141414 !important;
+  -webkit-text-fill-color: #141414 !important;
+  border: 2px solid #2a2418 !important;
+  text-shadow: none !important;
 }
-#screen-quiz .qa-k-txt,
-#screen-quiz .qa-exam-btn,
-#screen-quiz .qa-exam-btn * {
-  color: #f4f6f8 !important;
-  -webkit-text-fill-color: #f4f6f8 !important;
+#screen-quiz .qa-k-txt {
+  color: #141414 !important;
+  -webkit-text-fill-color: #141414 !important;
 }
 #screen-quiz .qa-exam-letter {
   background: #CE0034 !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
-#screen-quiz .qa-exam-btn.picked {
-  outline: 3px solid #e8c450 !important;
-  background: #2a3140 !important;
+#screen-quiz button.qa-k-btn.picked {
+  background: #fde68a !important;
+  color: #141414 !important;
+  outline: 3px solid #b45309 !important;
 }
-#screen-quiz .qa-exam-btn.correct {
-  background: #16351f !important;
-  outline: 3px solid #7fd99a !important;
+#screen-quiz button.qa-k-btn.correct {
+  background: #bbf7d0 !important;
+  color: #14532d !important;
+  outline: 3px solid #16a34a !important;
 }
-#screen-quiz .qa-exam-btn.wrong {
-  background: #3a1518 !important;
-  outline: 3px solid #f07178 !important;
+#screen-quiz button.qa-k-btn.wrong {
+  background: #fecaca !important;
+  color: #7f1d1d !important;
+  outline: 3px solid #dc2626 !important;
+  opacity: 1 !important;
+}
+#screen-quiz button.qa-k-btn.correct .qa-k-txt {
+  color: #14532d !important;
+  -webkit-text-fill-color: #14532d !important;
+}
+#screen-quiz button.qa-k-btn.wrong .qa-k-txt {
+  color: #7f1d1d !important;
+  -webkit-text-fill-color: #7f1d1d !important;
+}
+#screen-quiz button.qa-k-btn.picked .qa-k-txt {
+  color: #141414 !important;
+  -webkit-text-fill-color: #141414 !important;
 }
