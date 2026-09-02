@@ -1,0 +1,35 @@
+/* Force readable quiz answers on phones (Safari paints native buttons white). */
+#screen-quiz button.qa-k-btn,
+#screen-quiz button.qa-exam-btn,
+#screen-quiz button.qa-choice,
+#screen-quiz .qa-exam-grid button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: #1a1e23 !important;
+  color: #f4f6f8 !important;
+  border: 1px solid #6a7380 !important;
+  -webkit-text-fill-color: #f4f6f8 !important;
+}
+#screen-quiz .qa-k-txt,
+#screen-quiz .qa-exam-btn,
+#screen-quiz .qa-exam-btn * {
+  color: #f4f6f8 !important;
+  -webkit-text-fill-color: #f4f6f8 !important;
+}
+#screen-quiz .qa-exam-letter {
+  background: #CE0034 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+#screen-quiz .qa-exam-btn.picked {
+  outline: 3px solid #e8c450 !important;
+  background: #2a3140 !important;
+}
+#screen-quiz .qa-exam-btn.correct {
+  background: #16351f !important;
+  outline: 3px solid #7fd99a !important;
+}
+#screen-quiz .qa-exam-btn.wrong {
+  background: #3a1518 !important;
+  outline: 3px solid #f07178 !important;
+}
