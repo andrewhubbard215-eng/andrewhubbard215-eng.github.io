@@ -433,7 +433,9 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 
 #screen-title {
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
 }
 #screen-title.active {
   display: flex;
@@ -445,7 +447,52 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   background-size: cover;
 }
 #screen-title .vignette {
-  background: linear-gradient(to top, rgba(5, 8, 12, 0.88) 0%, rgba(5, 8, 12, 0.2) 28%, transparent 55%);
+  background:
+    linear-gradient(to top, rgba(5, 8, 12, 0.82) 0%, rgba(5, 8, 12, 0.45) 42%, rgba(5, 8, 12, 0.38) 100%);
+}
+.title-hero {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: min(440px, calc(100% - 24px));
+  padding: 28px 24px 26px;
+  background: rgba(10, 14, 20, 0.92);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--lt-red);
+  border-radius: 20px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+}
+.title-hero-face {
+  width: 88px;
+  height: 88px;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: center 12%;
+  border: 2px solid var(--lt-red);
+  margin-bottom: 12px;
+}
+.title-hero h1 {
+  margin-bottom: 8px;
+  font-size: clamp(40px, 8vw, 64px);
+}
+.title-hero .lede {
+  max-width: 28ch;
+  color: var(--muted);
+}
+.btn-clock-hero {
+  margin-top: 18px;
+  width: 100%;
+  min-height: 56px;
+  font-family: var(--display);
+  font-size: 28px;
+  letter-spacing: 0.06em;
+  border-radius: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-hero, .btn-clock-hero { transition: none; }
 }
 #screen-title .title-card {
   margin: 0 auto 16px;

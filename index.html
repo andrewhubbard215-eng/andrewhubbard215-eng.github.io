@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=115" />
+  <link rel="stylesheet" href="style.css?v=117" />
 </head>
 <body>
   <div id="app">
@@ -22,13 +22,12 @@
     <section id="screen-title" class="screen active">
       <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
-      <div class="title-dock">
-        <img src="hub-portrait.jpg" alt="" class="title-dock-face" />
-        <div class="title-dock-copy">
-          <strong>HVAC Allstars</strong>
-          <span>Clock in first. Games are on the shop floor after that.</span>
-        </div>
-        <button class="btn primary" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
+      <div class="title-hero">
+        <img src="hub-portrait.jpg" alt="Professor HUB" class="title-hero-face" />
+        <p class="eyebrow">Lincoln Tech · HVAC</p>
+        <h1>HVAC <span class="lt-red">Allstars</span></h1>
+        <p class="lede">Clock in to the shop floor. Sandbox, All-Star Exam, service calls.</p>
+        <button class="btn primary btn-clock-hero" id="btn-start" type="button" onclick="window.ltGo && window.ltGo('character')">Clock In</button>
       </div>
     </section>
 
@@ -410,7 +409,7 @@
       killWanted();
       setInterval(killWanted, 400);
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js?v=116").catch(function () {});
+        navigator.serviceWorker.register("sw.js?v=117").catch(function () {});
       }
     })();
   </script>
