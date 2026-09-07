@@ -1,9 +1,7 @@
-# HVAC Allstars
+# Lincoln Tech HVAC Allstars
 
-Play: https://andrewhubbard215-eng.github.io/
+Play now: **https://andrewhubbard215-eng.github.io/**
 
-**Copyright (c) 2026 Andrew Hubbard. All rights reserved.**
+Classroom / this PC: unzip the folder and double-click `PLAY.bat`.
 
-This is proprietary software. See [LICENSE](LICENSE). Do not copy, fork, or redistribute the source or assets without written permission.
-
-Classroom / personal play of the hosted game is allowed. Building a competing product from this code is not.
+Clock in → locker → shop floor. System sandbox, All-Star Exam, electrical, service calls, mini-split, phone testers, HVAC Commandments, Professor HUB.

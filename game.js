@@ -471,7 +471,8 @@
   }
 
   function refreshHub() {
-    document.getElementById("hub-name").textContent = state.callsign || "Tech";
+    const nameEl = document.getElementById("hub-name");
+    if (nameEl) nameEl.textContent = state.callsign || "Tech";
     const meta = document.getElementById("hub-meta");
     if (meta) {
       const campus = {
@@ -939,6 +940,10 @@
   let serviceCtl = null;
 
   function startQuiz() {
+    if (!window.ServiceCalls || !window.ServiceCalls.start) {
+      toast("Service calls didn't load. Hard-refresh.", "bad");
+      return;
+    }
     if (window.EpaHeat) window.EpaHeat.showLurk(true);
     show("service");
     const host = document.getElementById("screen-service");
@@ -1307,19 +1312,25 @@
     state.bestStreet = Math.max(state.bestStreet, street.score);
     save();
     stopRockMusic();
-    const ov = document.getElementById("overlay");
+    const ov = getOverlay();
+    if (!ov) return;
     ov.classList.remove("hidden");
-    document.getElementById("ov-title").textContent = win ? "Block secured" : "Down";
-    document.getElementById("ov-body").textContent =
+    const t = document.getElementById("ov-title");
+    const b = document.getElementById("ov-body");
+    const r = document.getElementById("ov-resume");
+    if (t) t.textContent = win ? "Block secured" : "Down";
+    if (b) b.textContent =
       "Score " + street.score + " · " + street.kills + " KOs · Wave " + street.wave + (win ? " · +All-Star progress" : "");
-    document.getElementById("ov-resume").textContent = "Run it again";
-    document.getElementById("ov-resume").onclick = () => {
-      ov.classList.add("hidden");
-      resetStreet();
-      startRockMusic();
-      last = performance.now();
-      loop(last);
-    };
+    if (r) {
+      r.textContent = "Run it again";
+      r.onclick = () => {
+        ov.classList.add("hidden");
+        resetStreet();
+        startRockMusic();
+        last = performance.now();
+        loop(last);
+      };
+    }
   }
 
   function drawStreet(ctx, w, h) {
@@ -1679,18 +1690,24 @@
       state.bestArena = Math.max(state.bestArena, c.score);
       save();
       stopRockMusic();
-      const ov = document.getElementById("overlay");
+      const ov = getOverlay();
+      if (!ov) return;
       ov.classList.remove("hidden");
-      document.getElementById("ov-title").textContent = "Wrecked";
-      document.getElementById("ov-body").textContent = c.kills + " taken out · Score " + c.score + " · Wave " + c.wave;
-      document.getElementById("ov-resume").textContent = "Restart";
-      document.getElementById("ov-resume").onclick = () => {
-        ov.classList.add("hidden");
-        resetArena();
-        startRockMusic();
-        last = performance.now();
-        loop(last);
-      };
+      const t = document.getElementById("ov-title");
+      const b = document.getElementById("ov-body");
+      const r = document.getElementById("ov-resume");
+      if (t) t.textContent = "Wrecked";
+      if (b) b.textContent = c.kills + " taken out · Score " + c.score + " · Wave " + c.wave;
+      if (r) {
+        r.textContent = "Restart";
+        r.onclick = () => {
+          ov.classList.add("hidden");
+          resetArena();
+          startRockMusic();
+          last = performance.now();
+          loop(last);
+        };
+      }
     }
   }
 
@@ -1770,6 +1787,10 @@
   }
 
   // ---- HUD / loop ----
+  function getOverlay() {
+    return document.getElementById("overlay");
+  }
+
   function updateHud() {
     const isStreet = mode === "street";
     const p = isStreet ? street : arena;
@@ -1937,13 +1958,16 @@
         img.src = url;
       };
     }
-    inp.oninput = () => {
-      if (btnIn) btnIn.disabled = !inp.value.trim();
-      refreshAcctHint();
-    };
+    if (inp) {
+      inp.oninput = () => {
+        if (btnIn) btnIn.disabled = !inp.value.trim();
+        refreshAcctHint();
+      };
+    }
     const passListen = document.getElementById("acct-pass");
     if (passListen) passListen.oninput = () => { if (btnIn && inp.value.trim()) btnIn.disabled = false; };
     function refreshAcctHint() {
+      if (!inp || !btnIn) return;
       const name = inp.value.trim();
       const key = accountKey(name);
       const existing = loadAccounts()[key];
@@ -2198,7 +2222,8 @@
 
     const ovHub = document.getElementById("ov-hub");
     if (ovHub) ovHub.onclick = () => {
-      document.getElementById("overlay").classList.add("hidden");
+      const ov = getOverlay();
+      if (ov) ov.classList.add("hidden");
       stopRockMusic();
       mode = null;
       if (raf) {
@@ -2211,16 +2236,22 @@
 
     const pauseBtn = document.getElementById("btn-pause");
     if (pauseBtn) pauseBtn.onclick = () => {
-      const ov = document.getElementById("overlay");
+      const ov = getOverlay();
+      if (!ov) return;
       ov.classList.remove("hidden");
-      document.getElementById("ov-title").textContent = "Paused";
-      document.getElementById("ov-body").textContent = "Shop floor or resume.";
-      document.getElementById("ov-resume").textContent = "Resume";
-      document.getElementById("ov-resume").onclick = () => {
-        ov.classList.add("hidden");
-        last = performance.now();
-        loop(last);
-      };
+      const t = document.getElementById("ov-title");
+      const b = document.getElementById("ov-body");
+      const r = document.getElementById("ov-resume");
+      if (t) t.textContent = "Paused";
+      if (b) b.textContent = "Shop floor or resume.";
+      if (r) {
+        r.textContent = "Resume";
+        r.onclick = () => {
+          ov.classList.add("hidden");
+          last = performance.now();
+          loop(last);
+        };
+      }
       cancelAnimationFrame(raf);
       raf = 0;
     };
@@ -2243,9 +2274,12 @@
         }
         if (state.screen && state.screen !== "hub" && state.screen !== "title" && state.screen !== "character") {
           if (state.screen === "game") {
-            document.getElementById("overlay").classList.remove("hidden");
-            document.getElementById("ov-title").textContent = "Paused";
-            document.getElementById("ov-body").textContent = "Esc · pause menu";
+            const ov = getOverlay();
+            if (ov) ov.classList.remove("hidden");
+            const t = document.getElementById("ov-title");
+            const b = document.getElementById("ov-body");
+            if (t) t.textContent = "Paused";
+            if (b) b.textContent = "Esc · pause menu";
             cancelAnimationFrame(raf);
             raf = 0;
           } else {
@@ -2280,8 +2314,10 @@
 
     // if returning player
     if (state.callsign) {
-      document.getElementById("callsign").value = state.callsign;
-      document.getElementById("btn-clockin").disabled = false;
+      const cs = document.getElementById("callsign");
+      const clock = document.getElementById("btn-clockin");
+      if (cs) cs.value = state.callsign;
+      if (clock) clock.disabled = false;
       const specEl = document.getElementById("spec");
       if (specEl && state.spec) specEl.value = state.spec;
     }
@@ -2604,8 +2640,13 @@
   }
 
   function startQuizArena() {
-    if (!window.QuizArena) {
+    if (!window.QuizArena || !window.QuizArena.start) {
       toast("Quiz Game script didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("quiz-root");
+    if (!root) {
+      toast("Quiz screen missing.", "bad");
       return;
     }
     if (quizCtl) {
@@ -2613,7 +2654,6 @@
       quizCtl = null;
     }
     show("quiz");
-    const root = document.getElementById("quiz-root");
     quizCtl = window.QuizArena.start(root, {
       nickname: state.callsign || "Tech",
       extraSpicy: !!state.extraSpicy,
@@ -2699,7 +2739,17 @@
     });
   }
 
-  initUI();
+  try {
+    initUI();
+  } catch (err) {
+    console.warn("initUI", err);
+    window.ltPlayGo = window.ltPlayGo || function (mode) {
+      try {
+        show(mode === "character" ? "character" : mode === "title" ? "title" : "hub");
+      } catch (_) {}
+    };
+    window.ltPlay = window.ltPlayGo;
+  }
 
   // Student shop chat — live rooms for co-op and competition
   if (window.StudentChat) {
