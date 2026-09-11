@@ -446,6 +446,21 @@
   }
 
   // ---- screens ----
+  function enterShopFloor(name) {
+    const n = String(name || state.callsign || "Guest").trim().slice(0, 16) || "Guest";
+    state.callsign = n;
+    state.sessionOk = true;
+    state.seenTip = true;
+    state.seenTutorial = true;
+    if (!state.campus) state.campus = "levittown";
+    if (!state.spec) state.spec = "residential";
+    try {
+      save();
+    } catch (_) {}
+    refreshHub();
+    show("hub");
+  }
+
   function show(id) {
     document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
     const el = document.getElementById("screen-" + id);
@@ -1863,14 +1878,7 @@
       btnCont.textContent = "Log in as " + state.callsign;
       btnCont.onclick = () => {
         ac();
-        state.sessionOk = false;
-        show("character");
-        if (inp) {
-          inp.value = state.callsign;
-          refreshAcctHint();
-          btnIn.disabled = !inp.value.trim();
-        }
-        toast("Enter your locker password", "ok");
+        enterShopFloor(state.callsign);
       };
     }
 
@@ -1878,8 +1886,8 @@
     if (startBtn) {
       startBtn.onclick = () => {
         ac();
-        state.sessionOk = false;
-        show("character");
+        enterShopFloor(state.callsign || "Guest");
+        toast("On the floor. Locker is optional — tap Locker anytime.", "ok");
       };
     }
     const closeClock = document.getElementById("btn-close-clockin");
@@ -2324,6 +2332,13 @@
       if (clock) clock.disabled = false;
       const specEl = document.getElementById("spec");
       if (specEl && state.spec) specEl.value = state.spec;
+    }
+
+    const wantSkip =
+      /[?&](play|skip|demo)=1/i.test(location.search || "") ||
+      /#play|#skip|#demo/i.test(location.hash || "");
+    if (wantSkip) {
+      enterShopFloor(state.callsign || "Guest");
     }
   }
 
