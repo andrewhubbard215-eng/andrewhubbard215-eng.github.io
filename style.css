@@ -152,7 +152,6 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
 .game-name-btns {
   position: relative;
   z-index: 5;
-}
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -3219,3 +3218,174 @@ select:focus-visible {
 .ptool-cmp th { background: #1a1e23; color: #e8c450; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .ptool-cmp td:first-child { font-weight: 700; }
 .ptool-ideas li { margin: 8px 0; }
+
+/* Shop-floor header: stats + a few actions, not a junk drawer */
+.hub-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px 14px;
+}
+.hub-head-left { flex: 1 1 240px; min-width: 0; }
+.hub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.hub-actions .btn { padding: 8px 12px; font-size: 13px; }
+.hub-stats { width: 100%; }
+@media (min-width: 960px) {
+  .hub-stats { width: auto; }
+  .hub-grid.hub-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1080px;
+  }
+}
+
+#screen-electrical.screen.active,
+#screen-minisplit.screen.active,
+#screen-service.screen.active,
+#screen-phonetools.screen.active,
+#screen-commandments.screen.active {
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden;
+}
+#electrical-root,
+#minisplit-root,
+#service-root,
+#phonetools-root,
+#commandments-root {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  position: relative;
+}
+
+.lab-drawers { display: none; }
+.lab-veil {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 45;
+}
+.lab-veil.show { display: block; }
+.lab-howto {
+  position: absolute;
+  left: 12px; right: 12px; top: 12px;
+  z-index: 8;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(20,23,26,0.94);
+  border: 1px solid #CE0034;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.lab-howto.hidden { display: none; }
+.lab-howto img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.lab-howto p { font-size: 13px; color: #d8cbb0; margin: 4px 0 8px; line-height: 1.4; }
+
+.el-guide {
+  display: none;
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  z-index: 55;
+  background: rgba(20,23,26,0.96);
+  border: 2px solid #CE0034;
+  border-radius: 14px;
+  padding: 10px 12px;
+  gap: 10px;
+  align-items: flex-start;
+}
+.el-guide.show { display: flex; }
+.el-guide img { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.el-guide p { font-size: 13px; color: #d8cbb0; margin: 4px 0 0; line-height: 1.4; }
+.el-guide-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.el-layout:has(.el-zoom.show) .el-guide { top: 8px; bottom: auto; }
+.el-guide-target {
+  outline: 3px solid #e8c450 !important;
+  box-shadow: 0 0 0 4px rgba(232,196,80,0.35) !important;
+  animation: guide-pulse 1s ease-in-out infinite;
+}
+@keyframes guide-pulse {
+  50% { box-shadow: 0 0 0 8px rgba(232,196,80,0.12); }
+}
+body.lab-open .version-strip { display: none; }
+
+@media (max-width: 800px) {
+  body.lab-open .hub-ai-fab { display: none !important; }
+  #screen-sandbox.screen.active,
+  #screen-electrical.screen.active,
+  #screen-quiz.screen.active,
+  #screen-minisplit.screen.active,
+  #screen-service.screen.active {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    height: 100dvh;
+    width: 100%;
+    max-height: 100dvh;
+  }
+  .lab-drawers { display: flex; gap: 8px; align-items: center; }
+  .sb-layout {
+    display: flex !important;
+    flex-direction: column;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+  .sb-main {
+    order: 1 !important;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .sb-stage-wrap {
+    flex: 1 1 auto !important;
+    min-height: 62dvh !important;
+  }
+  .sb-palette,
+  .sb-gauges,
+  .el-layout .sb-palette,
+  .el-meter {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 50;
+    max-height: 48dvh;
+    transform: translateY(110%);
+    transition: transform 0.22s ease;
+    background: #14171a;
+    overflow: auto;
+    border-top: 2px solid #CE0034;
+    border-radius: 16px 16px 0 0;
+  }
+  .sb-palette.drawer-open,
+  .sb-gauges.drawer-open,
+  .el-meter.drawer-open {
+    transform: none;
+  }
+  .el-layout {
+    display: flex !important;
+    flex-direction: column;
+    height: 100dvh;
+  }
+  .el-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .el-board {
+    flex: 1;
+    min-height: 58dvh !important;
+    margin: 6px;
+  }
+  #sb-3d, #sb-flat, #sb-clear, #sb-charge-open, #sb-healthy { display: none; }
+  .el-zoom { z-index: 70; }
+  .el-guide { z-index: 72; }
+}
+

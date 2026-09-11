@@ -478,9 +478,13 @@
       raf = 0;
     }
     // show first-day tip once on hub
+    document.body.classList.toggle(
+      "lab-open",
+      ["sandbox", "electrical", "quiz", "minisplit", "service", "phonetools", "commandments", "aihelper", "curriculum", "compete"].indexOf(id) >= 0
+    );
     if (id === "hub") {
       const tip = document.getElementById("hub-tip");
-      if (tip && !state.seenTip && state.seenTutorial) tip.classList.remove("hidden");
+      if (tip && !state.seenTip) tip.classList.remove("hidden");
       /* tutorial is opt-in from the HUB tutorial card */
     }
   }
@@ -1917,6 +1921,18 @@
         if (tip) tip.classList.add("hidden");
       };
     }
+    const tipTour = document.getElementById("hub-tip-tour");
+    if (tipTour) {
+      tipTour.onclick = () => {
+        state.seenTip = true;
+        save();
+        const tip = document.getElementById("hub-tip");
+        if (tip) tip.classList.add("hidden");
+        startTutorial();
+      };
+    }
+    const howto = document.getElementById("hub-howto");
+    if (howto) howto.onclick = () => startTutorial();
 
     const inp = document.getElementById("callsign");
     const btnIn = document.getElementById("btn-clockin");
@@ -2146,6 +2162,7 @@
         else if (m === "quiz") startQuizArena();
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
+        else if (m === "elguide") startElectrical({ guide: true });
         else if (m === "defusal") startElectrical({ defuse: true });
         else if (m === "phonetools") startPhoneTools();
         else if (m === "commandments") startCommandments();
@@ -2465,6 +2482,7 @@
     try {
       electricalCtl = window.ElectricalLab.start(root, {
         defuse: !!(opts && opts.defuse),
+        guide: !!(opts && opts.guide),
         onXp(n) {
           state.xp += n;
           save();
@@ -2655,6 +2673,7 @@
         if (mode === "quiz") startQuizArena();
         else if (mode === "sandbox") startSandbox();
         else if (mode === "electrical") startElectrical();
+        else if (mode === "elguide") startElectrical({ guide: true });
         else if (mode === "aihelper") startAIHelper();
         else if (mode === "commandments") startCommandments();
         else if (mode === "compete") startCompete();

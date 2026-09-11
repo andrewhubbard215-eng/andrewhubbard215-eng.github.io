@@ -1221,6 +1221,10 @@
             </div>
             <div class="sb-actions">
               <span id="sb-clock" class="sb-clock"></span>
+              <div class="lab-drawers" role="toolbar" aria-label="Phone trays">
+                <button type="button" class="btn lab-drawer-btn" id="sb-parts-toggle">Parts</button>
+                <button type="button" class="btn lab-drawer-btn" id="sb-gauges-toggle">Gauges</button>
+              </div>
               <button class="btn primary" id="sb-run">Start compressor</button>
               <button class="btn" id="sb-3d" type="button">3D WebGL</button>
               <button class="btn hidden" id="sb-flat" type="button">GLSL: smooth</button>
@@ -1238,6 +1242,14 @@
             <span class="suc">Suction vapor</span>
           </div>
           <div class="sb-stage-wrap">
+            <div class="lab-howto" id="sb-howto">
+              <img src="hub-portrait.jpg" alt="" />
+              <div>
+                <strong>How to run the sandbox</strong>
+                <p>Drop compressor, condenser, metering, evaporator on the cycle. Hit Start compressor. Read SH and SC together. On a phone, Parts and Gauges slide up from the bottom.</p>
+                <button type="button" class="btn primary" id="sb-howto-go">Got it</button>
+              </div>
+            </div>
             <canvas id="sb-canvas"></canvas>
             <canvas id="sb-gl" class="sb-gl hidden"></canvas>
             <div id="sb-slots" class="sb-slots"></div>
@@ -3363,6 +3375,42 @@
         paintHubCoach();
       }
     };
+    function toggleSbDrawer(sel) {
+      const root = host || document.getElementById("sandbox-root");
+      if (!root) return;
+      const el = root.querySelector(sel);
+      if (!el) return;
+      const open = el.classList.toggle("drawer-open");
+      root.querySelectorAll(".sb-palette, .sb-gauges").forEach((n) => {
+        if (n !== el) n.classList.remove("drawer-open");
+      });
+      let veil = root.querySelector(".lab-veil");
+      if (!veil) {
+        veil = document.createElement("div");
+        veil.className = "lab-veil";
+        root.appendChild(veil);
+        veil.onclick = () => {
+          root.querySelectorAll(".drawer-open").forEach((n) => n.classList.remove("drawer-open"));
+          veil.classList.remove("show");
+        };
+      }
+      veil.classList.toggle("show", open);
+    }
+    const pTog = document.getElementById("sb-parts-toggle");
+    if (pTog) pTog.onclick = () => toggleSbDrawer(".sb-palette");
+    const gTog = document.getElementById("sb-gauges-toggle");
+    if (gTog) gTog.onclick = () => toggleSbDrawer(".sb-gauges");
+    const howto = document.getElementById("sb-howto");
+    const howtoGo = document.getElementById("sb-howto-go");
+    try {
+      if (howto && localStorage.getItem("lt-sb-howto") === "1") howto.classList.add("hidden");
+    } catch (_) {}
+    if (howtoGo && howto) {
+      howtoGo.onclick = () => {
+        howto.classList.add("hidden");
+        try { localStorage.setItem("lt-sb-howto", "1"); } catch (_) {}
+      };
+    }
     window.addEventListener("lt-hubai", () => paintHubCoach());
 
     const refEl = document.getElementById("sb-ref");

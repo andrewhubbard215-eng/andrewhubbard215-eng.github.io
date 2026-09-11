@@ -315,6 +315,20 @@
   let black = "l2";
   let fusedBlown = false;
   let labMode = "build";
+  let guideOn = false;
+  let guideI = 0;
+  const GUIDE = [
+    { id: "intro", title: "Three colors", say: "Black is hot. Off-white is neutral. Green is ground. Wrong color on a screw is a short or an open." },
+    { id: "kit", title: "Tap the disconnect", say: "I loaded a split kit. Tap the disconnect — outdoor shutoff. Wiring happens on the close-up.", wait: "zoom:disconnect" },
+    { id: "hot", title: "Land hot", say: "Drag the black spool onto the H screw.", wait: "land:hot:disconnect" },
+    { id: "neu", title: "Land neutral", say: "Off-white onto N.", wait: "land:neutral:disconnect" },
+    { id: "gnd", title: "Land ground", say: "Green onto G. Bond the can.", wait: "land:ground:disconnect" },
+    { id: "next", title: "Contactor next", say: "Hit Next device or tap the contactor.", wait: "zoom:contactor" },
+    { id: "chot", title: "Contactor hot", say: "Black on H. That's L1 in.", wait: "land:hot:contactor" },
+    { id: "cneu", title: "Contactor neutral", say: "Off-white on N.", wait: "land:neutral:contactor" },
+    { id: "cgnd", title: "Contactor ground", say: "Green on G.", wait: "land:ground:contactor" },
+    { id: "done", title: "You can run the box", say: "Same three colors on every device. Finish the kit. Callback bomb is the Saturday fault when you are ready." },
+  ];
   let job = null;
   let cutSet = {};
   let timeLeft = 0;
@@ -494,7 +508,118 @@
       setTimeout(() => n.classList.remove("landed-ok", "landed-bad"), 700);
     });
     if (onXp) onXp(ok ? 3 : 1);
+    onGuideEvent("land", { color: color, slot: slot, ok: ok });
     return true;
+  }
+
+  function beginGuide() {
+    guideOn = true;
+    guideI = 0;
+    labMode = "build";
+    loadKit("split");
+    refreshSlots();
+    paintMeter();
+    closeZoom();
+    paintGuide();
+  }
+
+  function stopGuide() {
+    guideOn = false;
+    guideI = 0;
+    paintGuide();
+  }
+
+  function guideStep() {
+    return GUIDE[guideI] || GUIDE[GUIDE.length - 1];
+  }
+
+  function paintGuide(extra) {
+    if (!host) return;
+    const box = host.querySelector("#el-guide");
+    if (!box) return;
+    if (!guideOn) {
+      box.classList.remove("show");
+      host.querySelectorAll(".el-guide-target").forEach((n) => n.classList.remove("el-guide-target"));
+      return;
+    }
+    const s = guideStep();
+    const last = guideI >= GUIDE.length - 1;
+    box.classList.add("show");
+    box.querySelector("#el-guide-step").textContent = "GUIDED WIRING · " + (guideI + 1) + "/" + GUIDE.length;
+    box.querySelector("#el-guide-title").textContent = s.title;
+    box.querySelector("#el-guide-say").textContent = extra || s.say;
+    const next = box.querySelector("#el-guide-next");
+    if (next) {
+      next.textContent = last ? "Done · free build" : (s.wait ? "I'm stuck — show me" : "Next");
+      next.hidden = false;
+    }
+    paintGuideTarget();
+  }
+
+  function paintGuideTarget() {
+    if (!host) return;
+    host.querySelectorAll(".el-guide-target").forEach((n) => n.classList.remove("el-guide-target"));
+    if (!guideOn) return;
+    const s = guideStep();
+    if (!s.wait) return;
+    const parts = s.wait.split(":");
+    if (parts[0] === "zoom") {
+      const slot = host.querySelector('.el-slot[data-slot="' + parts[1] + '"]');
+      if (slot) slot.classList.add("el-guide-target");
+    }
+    if (parts[0] === "land") {
+      const color = parts[1];
+      const slot = parts[2];
+      const suffix = color === "hot" ? "hot" : color === "neutral" ? "n" : "gnd";
+      host.querySelectorAll('[data-lug="' + slot + "." + suffix + '"]').forEach((n) => n.classList.add("el-guide-target"));
+      const spoolBtn = host.querySelector('.el-spool[data-spool="' + color + '"]');
+      if (spoolBtn) spoolBtn.classList.add("el-guide-target");
+    }
+  }
+
+  function onGuideEvent(type, detail) {
+    if (!guideOn) return;
+    const s = guideStep();
+    if (!s || !s.wait) return;
+    const parts = s.wait.split(":");
+    if (parts[0] === "zoom" && type === "zoom" && detail === parts[1]) {
+      advanceGuide();
+      return;
+    }
+    if (parts[0] === "land" && type === "land" && detail && detail.color === parts[1] && detail.slot === parts[2]) {
+      if (detail.ok) advanceGuide();
+      else paintGuide(parts[1] === "hot" ? "Wrong screw. Black goes on H." : parts[1] === "neutral" ? "Wrong screw. Off-white goes on N." : "Wrong screw. Green goes on G.");
+    }
+  }
+
+  function advanceGuide() {
+    if (guideI < GUIDE.length - 1) {
+      guideI += 1;
+      const s = guideStep();
+      if (s.wait && s.wait.indexOf("zoom:") === 0) {
+        /* leave zoom closed so they tap */
+      }
+      paintGuide();
+    } else {
+      stopGuide();
+    }
+  }
+
+  function guideStuck() {
+    const s = guideStep();
+    if (!s) return;
+    if (!s.wait) {
+      advanceGuide();
+      return;
+    }
+    const parts = s.wait.split(":");
+    if (parts[0] === "zoom") openZoom(parts[1]);
+    if (parts[0] === "land") {
+      spool = parts[1];
+      openZoom(parts[2]);
+      paintLugState();
+    }
+    paintGuide("Do this: " + s.say);
   }
 
   function bindWireDrags() {
@@ -786,7 +911,10 @@
   }
 
   function setLabMode(next) {
+    const wantGuide = next === "guide";
     labMode = next === "defusal" ? "defusal" : "build";
+    guideOn = wantGuide;
+    guideI = 0;
     clearTimer();
     job = null;
     cutSet = {};
@@ -803,6 +931,7 @@
     }
     build();
     wire();
+    if (wantGuide) beginGuide();
   }
 
   function startJob(jobId) {
@@ -1217,6 +1346,7 @@
     paintZoomNeed();
     paintZoomSvg();
     paintLugState();
+    paintGuideTarget();
   }
 
   function openZoom(slotId) {
@@ -1248,6 +1378,7 @@
     paintZoomNeed();
     paintZoomSvg();
     paintLugState();
+    onGuideEvent("zoom", slotId);
   }
 
   function closeZoom() {
@@ -1518,7 +1649,8 @@
             <div class="brand-word"><strong style="font-size:13px">${(window.LtBrand && window.LtBrand.org) || "Lincoln Tech"}</strong><span>${labMode === "defusal" ? "Callback bomb · meter first" : "Electrical box · run the wires"}</span></div>
           </div>
           <div class="el-modes" role="tablist">
-            <button type="button" class="el-mode-btn ${labMode === "build" ? "active" : ""}" data-lab="build">Build</button>
+            <button type="button" class="el-mode-btn ${labMode === "build" && !guideOn ? "active" : ""}" data-lab="build">Build</button>
+            <button type="button" class="el-mode-btn ${guideOn ? "active" : ""}" data-lab="guide">Guided</button>
             <button type="button" class="el-mode-btn ${labMode === "defusal" ? "active" : ""}" data-lab="defusal" id="el-mode-defuse">Callback bomb</button>
           </div>
           <p class="eyebrow">${labMode === "defusal" ? "Defusal tray" : "Component tray"}</p>
@@ -1541,6 +1673,10 @@
         </aside>
         <main class="el-main">
           <header class="sb-toolbar">
+            <div class="lab-drawers" role="toolbar" aria-label="Phone trays">
+              <button type="button" class="btn lab-drawer-btn" id="el-parts-toggle">Parts</button>
+              <button type="button" class="btn lab-drawer-btn" id="el-meter-toggle">DMM</button>
+            </div>
             ${labMode === "build" ? `
             <label>Kit
               <select id="el-kit-sel">${kitOpts}</select>
@@ -1632,6 +1768,18 @@
             <p class="el-overlay-msg">You cut the open, not the live. HVAC Jesus is on the roof.</p>
           </div>
         </div>
+        <div class="el-guide" id="el-guide">
+          <img src="hub-portrait.jpg" alt="Professor HUB" />
+          <div>
+            <p class="eyebrow" id="el-guide-step">GUIDED WIRING</p>
+            <strong id="el-guide-title">Three colors</strong>
+            <p id="el-guide-say">Black is hot. Off-white is neutral. Green is ground.</p>
+            <div class="el-guide-row">
+              <button type="button" class="btn primary" id="el-guide-next">Next</button>
+              <button type="button" class="btn" id="el-guide-skip">Skip</button>
+            </div>
+          </div>
+        </div>
         <div class="el-zoom" id="el-zoom">
           <div class="el-zoom-card">
             <button type="button" class="el-zoom-close" id="el-zoom-close" aria-label="Close close-up">×</button>
@@ -1714,6 +1862,41 @@
     host.querySelectorAll(".el-mode-btn").forEach((t) => {
       t.onclick = () => setLabMode(t.dataset.lab);
     });
+    const gNext = host.querySelector("#el-guide-next");
+    if (gNext) {
+      gNext.onclick = () => {
+        if (!guideOn) return;
+        const s = guideStep();
+        if (guideI >= GUIDE.length - 1) stopGuide();
+        else if (s && s.wait) guideStuck();
+        else advanceGuide();
+      };
+    }
+    const gSkip = host.querySelector("#el-guide-skip");
+    if (gSkip) gSkip.onclick = () => stopGuide();
+    function toggleDrawer(sel) {
+      const el = host.querySelector(sel);
+      if (!el) return;
+      const open = el.classList.toggle("drawer-open");
+      host.querySelectorAll(".sb-palette, .el-meter").forEach((n) => {
+        if (n !== el) n.classList.remove("drawer-open");
+      });
+      let veil = host.querySelector(".lab-veil");
+      if (!veil) {
+        veil = document.createElement("div");
+        veil.className = "lab-veil";
+        host.appendChild(veil);
+        veil.onclick = () => {
+          host.querySelectorAll(".drawer-open").forEach((n) => n.classList.remove("drawer-open"));
+          veil.classList.remove("show");
+        };
+      }
+      veil.classList.toggle("show", open);
+    }
+    const partsT = host.querySelector("#el-parts-toggle");
+    if (partsT) partsT.onclick = () => toggleDrawer(".sb-palette");
+    const meterT = host.querySelector("#el-meter-toggle");
+    if (meterT) meterT.onclick = () => toggleDrawer(".el-meter");
     host.querySelectorAll(".sb-tab").forEach((t) => {
       t.onclick = () => {
         host.querySelectorAll(".sb-tab").forEach((x) => x.classList.remove("active"));
@@ -1850,6 +2033,8 @@
     red = "l1";
     black = "l2";
     labMode = opts && opts.defuse ? "defusal" : "build";
+    guideOn = !!(opts && opts.guide) && labMode === "build";
+    guideI = 0;
     job = null;
     cutSet = {};
     timeLeft = 0;
@@ -1867,6 +2052,7 @@
     document.addEventListener("keydown", onKeyZoom);
     build();
     wire();
+    if (guideOn) beginGuide();
     return {
       stop() {
         clearTimer();
