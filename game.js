@@ -508,7 +508,7 @@
         grandprairie: "Grand Prairie, TX",
         other: "Lincoln Tech",
       };
-      const bits = [campus[state.campus] || "Lincoln Tech"];
+      const bits = [campus[state.campus] || ((window.LtBrand && window.LtBrand.org) || "Lincoln Tech")];
       if (state.classSection) bits.push(state.classSection);
       if (state.look) bits.push(state.look);
       meta.textContent = bits.join(" · ");
@@ -2349,7 +2349,7 @@
     if (kicker) {
       kicker.textContent = source === "defusal"
         ? "Rooftop · callback defused · the heavens open"
-        : "Lincoln Tech roof · the heavens open";
+        : ((window.LtBrand && window.LtBrand.roof) || "Lincoln Tech roof · the heavens open");
     }
     if (window.HvacCommandments && window.HvacCommandments.playWinCutscene) {
       window.HvacCommandments.playWinCutscene(root, {
@@ -2753,6 +2753,12 @@
   }
 
   function startCurriculum() {
+    if (window.LtBrand && window.LtBrand.isStore) {
+      toast("Curriculum pack is campus-only.", "ok");
+      refreshHub();
+      show("hub");
+      return;
+    }
     if (curriculumCtl) {
       curriculumCtl.stop();
       curriculumCtl = null;

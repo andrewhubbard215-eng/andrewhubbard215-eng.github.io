@@ -458,8 +458,8 @@
   const PACKS = [
     { id: "epa608", name: "EPA 608", blurb: "Recovery, vacuum, cylinders, Type I / II / III / Universal" },
     { id: "osha30", name: "OSHA 30", blurb: "Falls, LOTO, PPE, electrical, heat, SDS" },
-    { id: "curriculum", name: "Lincoln Tech Curriculum", blurb: "Cycle, SH/SC, gauges, DMM, mini-split, airflow" },
-    { id: "mixed", name: "Quiz Game mix", blurb: "EPA 608 + OSHA 30 + Lincoln Tech only" },
+    { id: "curriculum", name: (window.LtBrand && window.LtBrand.isStore) ? "Shop curriculum" : "Lincoln Tech Curriculum", blurb: "Cycle, SH/SC, gauges, DMM, mini-split, airflow" },
+    { id: "mixed", name: "Quiz Game mix", blurb: (window.LtBrand && window.LtBrand.isStore) ? "EPA 608 + OSHA 30 + shop" : "EPA 608 + OSHA 30 + Lincoln Tech only" },
   ];
 
   const LETTERS = ["A", "B", "C", "D"];
@@ -769,7 +769,9 @@
       else btn.classList.add("wrong");
       if (selected === i) btn.classList.add("picked");
     });
-    const explain = why || item.why || "Review this in EPA 608 / OSHA 30 / Lincoln Tech notes.";
+    const explain = why || item.why || ((window.LtBrand && window.LtBrand.isStore)
+      ? "Review this in EPA 608 / OSHA 30 notes."
+      : "Review this in EPA 608 / OSHA 30 / Lincoln Tech notes.");
     const ok = selected === correct;
     if (window.LtSfx) {
       try {
@@ -994,7 +996,7 @@
           <header class="qa-head">
             <div class="brand-bar" style="justify-content:flex-start">
               <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
-              <div class="brand-word"><strong style="font-size:15px">ALL-STAR EXAM</strong><span>EPA 608 · OSHA 30 · Lincoln Tech · timed shop quiz</span></div>
+              <div class="brand-word"><strong style="font-size:15px">ALL-STAR EXAM</strong><span>${(window.LtBrand && window.LtBrand.exam) || "EPA 608 · OSHA 30 · Lincoln Tech"} · timed shop quiz</span></div>
             </div>
             <button class="btn" id="qa-hub">Shop floor</button>
           </header>
@@ -1007,7 +1009,7 @@
             <div class="qa-pack-row" id="qa-pack-row">
               <button type="button" class="qa-pack-btn" data-pack="epa608">EPA 608</button>
               <button type="button" class="qa-pack-btn" data-pack="osha30">OSHA 30</button>
-              <button type="button" class="qa-pack-btn" data-pack="curriculum">Lincoln Tech</button>
+              <button type="button" class="qa-pack-btn${window.LtBrand && window.LtBrand.isStore ? " lincoln-only" : ""}" data-pack="curriculum">${(window.LtBrand && window.LtBrand.packCurriculum) || "Lincoln Tech"}</button>
               <button type="button" class="qa-pack-btn" data-pack="mixed">Mix all</button>
             </div>
             <label>Nickname<input id="qa-nick" maxlength="14" value="${nickname}" placeholder="Your name"/></label>
@@ -1117,7 +1119,7 @@
       <div class="qa-exam">
         <div class="qa-exam-body">
         <header class="qa-exam-top">
-          <span class="qa-exam-pack">${(item.pack || packId || "").replace("curriculum","Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
+          <span class="qa-exam-pack">${(item.pack || packId || "").replace("curriculum", (window.LtBrand && window.LtBrand.packCurriculum) || "Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
           <span class="qa-exam-qnum">Item ${qi + 1} / ${questions.length}</span>
           <span class="qa-timer-text qa-exam-time">${Math.ceil(timer)}s</span>
           <span class="qa-exam-score">${scores[nickname] || 0} pts</span>

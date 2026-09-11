@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lincoln Tech HVAC Allstars — classroom edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --red: #CE0034; --ink: #14171a; --cream: #f7f3ea; --muted: #6a5740; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: "IBM Plex Sans", system-ui, sans-serif; }
+    header {
+      background: var(--ink); color: var(--cream); padding: 28px 22px 24px;
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    }
+    header img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; border: 2px solid var(--red); }
+    header .mark { background: var(--red); color: #fff; width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; font-weight: 800; }
+    h1 { font-family: "Bebas Neue", Impact, sans-serif; font-size: 42px; margin: 0; letter-spacing: 0.04em; }
+    .lede { margin: 4px 0 0; color: #d8cbb0; max-width: 560px; }
+    main { max-width: 880px; margin: 0 auto; padding: 24px 18px 80px; }
+    h2 { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin: 28px 0 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .card { background: #fff; border: 1px solid #d8cbb0; border-radius: 12px; padding: 14px; }
+    .card h3 { margin: 0 0 6px; font-size: 16px; }
+    .card p { margin: 0; font-size: 14px; color: #4a3f32; line-height: 1.45; }
+    .price { background: #fff; border: 2px solid var(--red); border-radius: 14px; padding: 16px; }
+    .price strong { font-size: 22px; }
+    footer { font-size: 12px; color: var(--muted); margin-top: 36px; }
+    a { color: var(--red); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="mark">LT</div>
+    <img src="../hub-portrait.jpg" alt="Professor Andrew Hubbard" />
+    <div>
+      <p style="margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#CE0034">Campus edition · not the public store</p>
+      <h1>Lincoln Tech HVAC Allstars</h1>
+      <p class="lede">Classroom trainer for HCR labs. Clock in, run the box, pass EPA 608 / OSHA 30, ask Professor HUB. Price TBD — this page is the buy-in sheet.</p>
+    </div>
+  </header>
+  <main>
+    <h2>What a classroom gets</h2>
+    <div class="grid">
+      <div class="card"><h3>Clock-in lockers</h3><p>Student name, campus, optional photo. Stays on the device. No creepy cloud roster.</p></div>
+      <div class="card"><h3>All-Star Exam</h3><p>EPA 608 · OSHA 30 · Lincoln Tech. Why-right / why-wrong. Classroom PIN so a section races the same pack.</p></div>
+      <div class="card"><h3>System sandbox</h3><p>Four-part DX cycle with live superheat / subcooling / P/T. TU-style shop floor, not a cartoon fridge.</p></div>
+      <div class="card"><h3>Electrical sim</h3><p>Zoom a device. Drag black onto H, off-white onto N, green onto G. Callback-bomb = Saturday no-cool with a timer. Not explosives.</p></div>
+      <div class="card"><h3>Mini-split + service</h3><p>11-step install lab and customer calls with gauges. Phone testers (solenoid mag, level).</p></div>
+      <div class="card"><h3>Professor HUB</h3><p>Install / troubleshoot / nameplate coaching. Roast slider: Classroom → Extra. 608 answers stay clean.</p></div>
+    </div>
+
+    <h2>How a campus runs it</h2>
+    <div class="card">
+      <p>Chrome or Edge on shop PCs and student phones. Install as an app (Add to Home screen) or sideload the campus Android wrapper. Works offline after first load for exam, sandbox, electrical, commandments. Instructor hosts a PIN; class joins. Gauges of God (HVAC Jesus side-scroller) is DLC — not the shop floor.</p>
+    </div>
+
+    <h2>How Lincoln buys vs how a tech buys</h2>
+    <div class="price">
+      <p><strong>Campus license — price TBD.</strong> Seat or lab-section license. Lincoln marks, HCR curriculum, classroom PIN. Sold/licensed to the school — not listed on the public Play Store with Lincoln trademarks.</p>
+      <p style="margin-top:10px"><strong>Store edition — suggested $9.99 paid-up-front (stub).</strong> HVAC Allstars, no Lincoln logos, EPA 608 / OSHA 30. A working tech buys it on Google Play. No merchant account is wired in this build.</p>
+    </div>
+
+    <h2>Not in this product</h2>
+    <p>No HVAC Bros. No driving combat. No real bomb instructions. Callback bomb is a timed HVAC fault.</p>
+    <footer>
+      Professor Andrew Hubbard · Lincoln Tech HVAC Allstars · <a href="../index.html">Open the shop floor</a> · <a href="../privacy.html">Privacy</a>
+    </footer>
+  </main>
+</body>
+</html>

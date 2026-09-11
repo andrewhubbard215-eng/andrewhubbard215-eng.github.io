@@ -1303,6 +1303,10 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   margin: 0 20px 12px; position: relative; z-index: 2;
 }
 
+html[data-sku="store"] .lincoln-only { display: none !important; }
+html[data-sku="campus"] .store-only { display: none !important; }
+html[data-sku="store"] .bg-lincoln { background-image: url(garage.jpg) !important; }
+
 /* Professor HUB AI panel */
 body:has(#screen-title.active) .hub-ai-fab,
 body:has(#screen-character.active) .hub-ai-fab,

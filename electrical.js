@@ -1515,7 +1515,7 @@
         <aside class="sb-palette">
           <div class="brand-bar" style="justify-content:flex-start;margin-bottom:8px">
             <div class="brand-mark" style="width:28px;height:28px;font-size:13px">LT</div>
-            <div class="brand-word"><strong style="font-size:13px">LINCOLN TECH</strong><span>${labMode === "defusal" ? "Callback bomb · meter first" : "Electrical box · run the wires"}</span></div>
+            <div class="brand-word"><strong style="font-size:13px">${(window.LtBrand && window.LtBrand.org) || "Lincoln Tech"}</strong><span>${labMode === "defusal" ? "Callback bomb · meter first" : "Electrical box · run the wires"}</span></div>
           </div>
           <div class="el-modes" role="tablist">
             <button type="button" class="el-mode-btn ${labMode === "build" ? "active" : ""}" data-lab="build">Build</button>

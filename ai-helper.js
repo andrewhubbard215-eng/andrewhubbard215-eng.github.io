@@ -183,7 +183,7 @@
             </div>
             <p class="eyebrow">Professor HUB · AI field helper</p>
             <h2>${isInstall ? "Install helper" : "Troubleshoot helper"}</h2>
-            <p class="aih-sub">Step guides + instant Ask HUB. Lincoln Tech shop-floor coaching, offline.</p>
+            <p class="aih-sub">Step guides + instant Ask HUB. Shop-floor coaching, offline.</p>
           </div>
           <div class="hub-face-wrap compact" style="margin:0">
             <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-face" />

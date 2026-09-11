@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lincoln Tech HVAC Allstars</title>
+  <script src="sku.js?v=1"></script>
   <meta name="description" content="Lincoln Tech HVAC Allstars — daily vocational training sim with Professor Andrew Hubbard. Mini-split install, sandbox, EPA 608, service calls." />
   <meta http-equiv="Permissions-Policy" content="magnetometer=(self), accelerometer=(self), gyroscope=(self), microphone=(self)" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -14,17 +15,17 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=126" />
+  <link rel="stylesheet" href="style.css?v=127" />
 </head>
 <body>
   <div id="app">
     <!-- TITLE -->
     <section id="screen-title" class="screen active">
-      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="bg-plate bg-lincoln" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
       <div class="title-hero">
         <img src="hub-portrait.jpg" alt="Professor HUB" class="title-hero-face" />
-        <p class="eyebrow">Lincoln Tech · HVAC</p>
+        <p class="eyebrow"><span class="lincoln-only">Lincoln Tech · HVAC</span><span class="store-only">Vocational HVAC trainer</span></p>
         <h1>HVAC <span class="lt-red">Allstars</span></h1>
         <p class="lede">Tap Clock In — straight to the shop floor. No locker, no password.</p>
         <button class="btn primary btn-clock-hero" id="btn-start" type="button">Clock In</button>
@@ -34,14 +35,14 @@
 
     <!-- CHARACTER -->
     <section id="screen-character" class="screen">
-      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="bg-plate bg-lincoln" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
       <div class="panel char-panel">
         <button type="button" class="card-close" id="btn-char-back" aria-label="Close" onclick="window.ltGo && window.ltGo('title')">×</button>
         <div class="brand-bar" style="justify-content:flex-start;margin-bottom:10px">
           <div class="brand-mark">LT</div>
           <div class="brand-word">
-            <strong>LINCOLN TECH</strong>
+            <strong class="lincoln-only">LINCOLN TECH</strong><strong class="store-only">HVAC ALLSTARS</strong>
             <span>Create your student account</span>
           </div>
         </div>
@@ -111,7 +112,7 @@
 
     <!-- HUB -->
     <section id="screen-hub" class="screen">
-      <div class="bg-plate" style="background-image:url(lincoln-tech.jpg)"></div>
+      <div class="bg-plate bg-lincoln" style="background-image:url(lincoln-tech.jpg)"></div>
       <div class="vignette"></div>
       <header class="hub-head">
         <div class="hub-head-left">
@@ -121,7 +122,7 @@
             <div class="brand-bar" style="justify-content:flex-start;margin-bottom:6px">
               <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
               <div class="brand-word">
-                <strong style="font-size:15px">LINCOLN TECH</strong>
+                <strong class="lincoln-only" style="font-size:15px">LINCOLN TECH</strong><strong class="store-only" style="font-size:15px">HVAC ALLSTARS</strong>
                 <span>Shop floor · Professor Andrew Hubbard</span>
               </div>
             </div>
@@ -164,7 +165,7 @@
           <div class="mode-icon" aria-hidden="true">🎯</div>
           <div>
             <h3>All-Star Exam</h3>
-            <p>EPA 608 · OSHA 30 · Lincoln Tech</p>
+            <p><span class="lincoln-only">EPA 608 · OSHA 30 · Lincoln Tech</span><span class="store-only">EPA 608 · OSHA 30 · shop curriculum</span></p>
           </div>
         </button>
         <button class="mode-card mode-card-featured" data-mode="electrical">
@@ -195,7 +196,7 @@
           <div class="mode-icon" aria-hidden="true">🦸</div>
           <div><h3>AI helper</h3><p>Install + troubleshoot with HUB</p></div>
         </button>
-        <button class="mode-card" data-mode="curriculum">
+        <button class="mode-card lincoln-only" data-mode="curriculum">
           <div class="mode-icon" aria-hidden="true">📚</div>
           <div><h3>Curriculum</h3><p>HCR units · practice before lab</p></div>
         </button>
@@ -354,7 +355,7 @@
     </section>
 
 
-  <p class="version-strip">HVAC Allstars · v3.4 · Quiz Game · lockers · sim · HUB</p>
+  <p class="version-strip">HVAC Allstars · v3.4 · Quiz Game · lockers · sim · HUB · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></p>
   </div>
   <div id="tutorial-root" class="tut-overlay hidden"></div>
   <script>
@@ -379,6 +380,7 @@
       if (el) el.classList.add("active");
     };
   </script>
+  <script src="sku.js?v=1"></script>
   <script src="commandments.js?v=119"></script>
   <script src="dragdrop.js?v=45"></script>
   <script src="electrical.js?v=123"></script>

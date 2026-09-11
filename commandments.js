@@ -51,7 +51,7 @@
     },
     {
       n: 10,
-      title: "Lincoln Tech is home base",
+      title: (window.LtBrand && window.LtBrand.isStore) ? "The shop is home base" : "Lincoln Tech is home base",
       line: "Log the job. Teach the next helper. HVAC Jesus still makes you do the work.",
     },
   ];
@@ -169,7 +169,7 @@
             <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
             <div class="brand-word">
               <strong style="font-size:15px">THE HVAC COMMANDMENTS</strong>
-              <span>Lincoln Tech · HVAC Jesus · Professor HUB</span>
+              <span>${(window.LtBrand && window.LtBrand.org) || "Lincoln Tech"} · HVAC Jesus · Professor HUB</span>
             </div>
           </div>
           <button class="btn" id="cmd-hub">Shop floor</button>

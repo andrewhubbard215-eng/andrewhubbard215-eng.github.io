@@ -1,0 +1,41 @@
+HVAC ALLSTARS — Google Play listing copy
+SKU: store (no Lincoln trademarks)
+Suggested price: $9.99 paid-up-front (stub — no merchant wired)
+
+SHORT DESCRIPTION (max 80 chars)
+HVAC trainer: EPA 608, electrical box, DX sandbox, live SH/SC.
+
+FULL DESCRIPTION
+HVAC Allstars is a daily vocational trainer for apprentices and working techs.
+
+Clock in. Run the shop floor:
+• System sandbox — four-part refrigeration cycle with live superheat, subcooling, and P/T.
+• All-Star Exam — EPA 608 and OSHA 30. Every item tells you why it was right or wrong.
+• Electrical sim — zoom the device. Drag black (hot), off-white (neutral), and green (ground) onto the matching screw.
+• Callback bomb — timed Saturday no-cool. Meter first. Cut the open. Not explosives.
+• Mini-split install, service calls, phone testers, HVAC Commandments.
+• Professor HUB — shop-floor coaching. Optional roast. 608 answers stay clean.
+
+Gauges of God is optional DLC (HVAC Jesus side-scroller). Not required for the labs.
+
+Works offline after the first load of the core labs. Lockers and photos stay on your device.
+
+WHAT'S NEW
+Zoomed electrical close-ups: land black / off-white / green on the screws of each device. Exam Next stays on screen. HUB chat no longer covers the labs.
+
+CATEGORY
+Education / Vocational
+CONTENT RATING
+Teen — optional mild shop language (HUB roast slider). No violence. No real explosives.
+APP TYPE
+Paid or freemium stub. No ads. No tracking SDK.
+
+PRIVACY URL
+./privacy.html
+SUPPORT URL
+./support.html
+
+YOU STILL CLICK (cannot be done in this shop)
+1) Google Play Developer account (~$25) and sign the store AAB with YOUR keystore.
+2) Legal: campus SKU may use Lincoln marks; this store SKU must not. Get Lincoln in writing before a campus listing.
+3) Play Console → create app → upload AAB → paste this copy → Publish.
