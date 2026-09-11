@@ -825,6 +825,7 @@
   let raceChannel = null;
   let raceLive = {};
   let running = false;
+  let cutOut = null;
   let refrigerant = "R-410A";
   let outdoorF = 95;
   let indoorF = 75;
@@ -1059,13 +1060,21 @@
       case "overcharge":
         evapSat += 4;
         condSat += 20;
-        sh = kind === "txv" ? Math.max(4, tgtSH - 4) : 4;
-        sc = 20;
+        if (kind === "orifice") {
+          sh = 3;
+          sc = 22;
+          extraAmps += 0.32;
+          status = "Piston flooded. Low SH, high SC, high head. Recover to nameplate before you slug the compressor.";
+          fp = "HUB: fixed orifice + overcharge = liquid in the suction. TXV would have held SH.";
+        } else {
+          sh = Math.max(4, tgtSH - 4);
+          sc = 20;
+          extraAmps += 0.28;
+          status = "High head, high SC. TXV still holds SH. Recover to the nameplate — don't keep adding.";
+          fp = "HUB: HIGH SC is overcharge. SH will lie to you on a TXV.";
+        }
         glass = "Solid — stacked liquid";
         deltaT = 16;
-        extraAmps += 0.28;
-        status = "High head, high SC. TXV still holds SH. Recover to the nameplate — don't keep adding.";
-        fp = "HUB: HIGH SC is overcharge. SH will lie to you on a TXV.";
         break;
       case "dirty_cond":
         condSat += 20;
@@ -1091,18 +1100,20 @@
         evapSat -= 12;
         sh = 5;
         sc = 13;
-        deltaT = 8;
+        deltaT = 24;
         glass = "Clear";
-        status = "Low suction, low SH, ice risk. Filter / indoor coil / blower. Don't add gas.";
-        fp = "HUB: starved for AIR, not gas. Split is low. Filter first.";
+        extraAmps *= 0.9;
+        status = "Low suction, low SH, HIGH split, A-coil icing. Filter / indoor coil / blower. Don't add gas.";
+        fp = "HUB: starved for AIR, not gas. High TD + ice = low CFM. Filter first.";
         break;
       case "blower_fail":
         evapSat -= 18;
         sh = 2;
         sc = 14;
-        deltaT = 5;
+        deltaT = 2;
         glass = "Clear";
-        status = "Indoor blower dead. Suction in the basement, SH gone, coil icing. LPC next.";
+        extraAmps *= 0.85;
+        status = "Indoor blower dead. No supply air. Suction in the basement, SH gone, coil a brick of ice. LPC next.";
         fp = "HUB: no indoor airflow. Amp the blower. Don't charge an iced coil.";
         break;
       case "restricted":
@@ -1171,7 +1182,9 @@
         sh = 22;
         sc = 6;
         deltaT = 8;
-        status = "Heat call, outdoor coil a glacier. Defrost never ran. Sensor/board — not charge.";
+        extraAmps *= 0.8;
+        if (frost < 70) frost = 78;
+        status = "Heat call, outdoor coil a glacier. Defrost never ran. Sensor/board — not charge. House is cold.";
         fp = "HUB: force defrost. If the fan doesn't stop and the RV doesn't shift, it's defrost control.";
         break;
       case "stuck_defrost":
@@ -1179,7 +1192,8 @@
         extraAmps += 0.2;
         sh = 8;
         sc = 4;
-        status = "DEFROST stuck ON: RV in cool, OD fan OFF, outdoor coil steaming. Aux should cover the house.";
+        deltaT = 12;
+        status = "DEFROST stuck ON: RV in cool, OD fan OFF, outdoor coil steaming. Indoor blowing COOL in winter. Aux screaming.";
         fp = "HUB: Defrost is COOL with the outdoor fan off. If it never ends, coil sensor / board.";
         break;
       case "rv_stuck_heat":
@@ -1206,6 +1220,26 @@
       status = status || "Low SH / ice risk — indoor coil or filter is dirty.";
       fp = fp || "HUB: low split / low SH. Filter and indoor coil before charge.";
     }
+    if (capBad && fault === "none") {
+      extraAmps *= 1.35;
+      status = "Hum / hard start. Pressures can look almost honest. Meter the cap µF before you add gas.";
+      fp = "HUB: pressures aren't the complaint. Discharge the cap. HERM–C vs nameplate.";
+    }
+
+    const iceEvap = running && (fault === "dirty_evap" || fault === "blower_fail" || coilEvap === "dirty");
+    const iceOd = (fault === "defrost_fail") || (frost > 50 && effectiveMode === "heat" && !inDefrost);
+    const odFanOn = running && fault !== "od_fan" && !inDefrost;
+    const idFanOn = fault !== "blower_fail";
+    const drierDrop = fault === "restricted" ? 32 : 0;
+    const slugRisk = fault === "txv_open" || (kind === "orifice" && fault === "overcharge");
+    let supplyF = null;
+    if (idFanOn) {
+      if (fault === "rv_stuck_heat" && hpMode === "cool") supplyF = indoorF + 30;
+      else if (fault === "rv_stuck_cool" && hpMode === "heat") supplyF = indoorF - 18;
+      else if (inDefrost) supplyF = indoorF - 10;
+      else if (effectiveMode === "heat") supplyF = indoorF + Math.max(12, 32 - frost * 0.2);
+      else supplyF = indoorF - deltaT;
+    }
 
     const pHigh = satP(refrigerant, condSat);
     const pLow = Math.max(0, satP(refrigerant, evapSat));
@@ -1230,6 +1264,18 @@
 
     const staticPsig = Math.max(0, satP(refrigerant, outdoorF));
     if (!running) {
+      if (cutOut) {
+        return Object.assign({}, cutOut, {
+          running: false,
+          static: false,
+          tons: 0,
+          btuh: 0,
+          amps: 0,
+          odFanOn: false,
+          iceEvap: !!cutOut.iceEvap,
+          iceOd: !!cutOut.iceOd,
+        });
+      }
       return {
         running: false,
         static: true,
@@ -1258,6 +1304,13 @@
         frost,
         defrosting: inDefrost,
         hpMode: effectiveMode,
+        iceEvap: false,
+        iceOd: frost > 50,
+        odFanOn: false,
+        idFanOn: false,
+        supplyF: null,
+        drierDrop: 0,
+        slugRisk: false,
       };
     }
 
@@ -1281,6 +1334,13 @@
     const derate = Math.max(0.35, 1 - Math.max(0, condSat - (outdoorF + 18)) / 80 - Math.max(0, (indoorF - 35) - evapSat) / 80);
     let tons = +(tonsBase * load * derate * (0.7 + 0.3 * Math.min(1, chargeFactor))).toFixed(2);
     if (fault === "weak_comp" || fault === "rv_bleed") tons = +(tons * 0.45).toFixed(2);
+    if (fault === "undercharge") tons = +(tons * 0.55).toFixed(2);
+    if (fault === "restricted" || fault === "txv_closed") tons = +(tons * 0.4).toFixed(2);
+    if (fault === "dirty_evap") tons = +(tons * 0.65).toFixed(2);
+    if (fault === "blower_fail") tons = +(tons * 0.15).toFixed(2);
+    if (fault === "od_fan" || fault === "dirty_cond") tons = +(tons * 0.7).toFixed(2);
+    if (fault === "defrost_fail") tons = +(tons * 0.25).toFixed(2);
+    if (fault === "rv_stuck_heat" && hpMode === "cool") tons = 0;
     if (trip) tons = 0;
     const btuh = Math.round(tons * 12000);
     const tC = condSat + 460;
@@ -1324,6 +1384,13 @@
       frost,
       defrosting: inDefrost,
       hpMode: effectiveMode,
+      iceEvap,
+      iceOd,
+      odFanOn,
+      idFanOn,
+      supplyF,
+      drierDrop,
+      slugRisk,
     };
   }
 
@@ -1471,6 +1538,7 @@
             <span>H <b id="pv-h">—</b></span>
             <span>SH <b id="pv-sh">—</b></span>
             <span>SC <b id="pv-sc">—</b></span>
+            <span>SUP <b id="pv-sup">—</b></span>
           </div>
         </main>
         <aside class="sb-gauges">
@@ -1598,6 +1666,10 @@
               <button type="button" class="btn" data-fix="clean-odu">Clean ODU coil</button>
               <button type="button" class="btn" data-fix="clean-idu">Clean IDU coil</button>
               <button type="button" class="btn" data-fix="replace-filter">Replace air filter</button>
+              <button type="button" class="btn" data-fix="replace-odfan">Replace OD fan</button>
+              <button type="button" class="btn" data-fix="replace-blower">Replace blower</button>
+              <button type="button" class="btn" data-fix="replace-comp">Replace compressor</button>
+              <button type="button" class="btn" data-fix="replace-cap">Replace capacitor</button>
               <button type="button" class="btn" data-fix="replace-rv">Replace reversing valve</button>
               <button type="button" class="btn" data-fix="shift-heat">Call HEAT (O/B)</button>
               <button type="button" class="btn" data-fix="force-defrost">Force defrost</button>
@@ -2307,12 +2379,28 @@
     if (running && requiredComplete()) seedFlow();
   }
 
-  function paintCoils() {
+  function paintCoils(sim) {
+    sim = sim || {};
     const el = document.getElementById("sb-coils");
-    if (el) el.textContent = "ODU coil: " + coilCond + " · IDU: " + coilEvap + " · frost " + Math.round(frost) + "% · " + (defrosting || fault === "stuck_defrost" ? "DEFROST" : hpMode);
+    if (el) {
+      const bits = [
+        "ODU: " + coilCond + (sim.iceOd ? " · ICED" : "") + (sim.odFanOn === false ? " · FAN OFF" : ""),
+        "IDU: " + coilEvap + (sim.iceEvap ? " · ICED" : "") + (sim.idFanOn === false ? " · BLOWER OFF" : ""),
+        "frost " + Math.round(frost) + "%",
+        sim.drierDrop ? ("drier drop " + sim.drierDrop + "°F") : null,
+        sim.supplyF != null ? ("supply " + Math.round(sim.supplyF) + "°F") : "no supply air",
+      ].filter(Boolean);
+      el.textContent = bits.join(" · ");
+    }
     document.querySelectorAll(".sb-slot").forEach((s) => {
-      s.classList.toggle("coil-dirty", (s.dataset.slot === "condenser" && coilCond === "dirty") || (s.dataset.slot === "evaporator" && coilEvap === "dirty"));
-      s.classList.toggle("coil-frost", s.dataset.slot === "condenser" && frost > 50 && hpMode === "heat");
+      const id = s.dataset.slot;
+      s.classList.toggle("coil-dirty", (id === "condenser" && coilCond === "dirty") || (id === "evaporator" && coilEvap === "dirty"));
+      s.classList.toggle("coil-frost",
+        (id === "evaporator" && (sim.iceEvap || fault === "dirty_evap" || fault === "blower_fail" || coilEvap === "dirty")) ||
+        (id === "condenser" && (sim.iceOd || fault === "defrost_fail" || (frost > 50 && hpMode === "heat")))
+      );
+      s.classList.toggle("coil-hot", id === "evaporator" && sim.supplyF != null && sim.supplyF > indoorF + 8);
+      s.classList.toggle("fan-dead", (id === "condenser" && sim.odFanOn === false) || (id === "evaporator" && sim.idFanOn === false));
     });
     const talk = document.getElementById("sb-job-talk");
     if (talk && activeJob && jobMode === "mystery" && !jobSolved) {
@@ -2456,9 +2544,28 @@
 
   function applyRepair(kind) {
     jobAttempts += 1;
-    if (kind === "clean-odu") coilCond = "clean";
-    if (kind === "clean-idu") coilEvap = "clean";
-    if (kind === "replace-filter") coilEvap = "clean";
+    if (kind === "clean-odu") {
+      coilCond = "clean";
+      if (fault === "dirty_cond") fault = "none";
+    }
+    if (kind === "clean-idu") {
+      coilEvap = "clean";
+      if (fault === "dirty_evap") fault = "none";
+    }
+    if (kind === "replace-filter") {
+      coilEvap = "clean";
+      if (fault === "dirty_evap") fault = "none";
+    }
+    if (kind === "replace-odfan") {
+      if (fault === "od_fan") fault = "none";
+      cutOut = null;
+    }
+    if (kind === "replace-comp") {
+      if (fault === "weak_comp") fault = "none";
+    }
+    if (kind === "replace-blower") {
+      if (fault === "blower_fail") fault = "none";
+    }
     if (kind === "replace-cap") {
       capBad = false;
       placed.capacitor = "capacitor";
@@ -3127,7 +3234,7 @@
     const fp = document.getElementById("sb-fp");
     if (tgt) tgt.textContent = liveSH ? sim.tgtSH + " / " + sim.tgtSC + " °F" : "—";
     if (dt) dt.textContent = liveSH ? sim.deltaT.toFixed(0) + " °F" : "—";
-    if (gl) gl.textContent = liveP ? sim.glass : "—";
+    if (gl) gl.textContent = liveP ? (sim.drierDrop ? sim.glass + " · drier −" + sim.drierDrop + "°F" : sim.glass) : "—";
     if (fp) fp.textContent = sim.fp || "HUB: close the loop, start the compressor, then read SH and SC together.";
     paintDefrostDiagram(sim);
     const cap = document.getElementById("g-cap");
@@ -3144,6 +3251,8 @@
     if (pvH) pvH.textContent = fmt(sim.pHigh, 0);
     if (pvSh) pvSh.textContent = liveSH ? sim.sh.toFixed(0) : "—";
     if (pvSc) pvSc.textContent = liveSH ? sim.sc.toFixed(0) : "—";
+    const pvSup = document.getElementById("pv-sup");
+    if (pvSup) pvSup.textContent = sim.supplyF != null ? String(Math.round(sim.supplyF)) : "—";
     highlightPT(sim);
     const st = document.getElementById("sb-status");
     if (st) st.textContent = sim.status || "";
@@ -3508,6 +3617,7 @@
       return;
     }
     running = !!on;
+    if (on) cutOut = null;
     if (running && requiredComplete()) seedFlow();
     else particles = [];
     const btn = document.getElementById("sb-run");
@@ -3557,7 +3667,17 @@
       gaugeAcc += dt;
       if (gaugeAcc >= 0.12 || !running) {
         gaugeAcc = 0;
-        updateGauges(simulate());
+        const sim = simulate();
+        if (sim.trip && running) {
+          cutOut = sim;
+          running = false;
+          particles = [];
+          const btn = document.getElementById("sb-run");
+          if (btn) btn.textContent = "Reset / start";
+          if (window.LtSfx) window.LtSfx.compressorOff();
+        }
+        updateGauges(sim);
+        paintCoils(sim);
       }
       const fi = Math.round(frost);
       if (fi !== lastFrostUi) {
@@ -3706,6 +3826,13 @@
     const faultEl = document.getElementById("sb-fault");
     if (faultEl) faultEl.onchange = (e) => {
       fault = e.target.value;
+      const wasCut = !!cutOut;
+      cutOut = null;
+      if (wasCut) running = true;
+      if (fault === "defrost_fail" && frost < 70) frost = 78;
+      if (fault !== "defrost_fail" && hpMode === "cool") frost = 0;
+      updateGauges(simulate());
+      paintCoils(simulate());
     };
     const modeEl = document.getElementById("sb-mode");
     if (modeEl) {
@@ -3852,6 +3979,7 @@
     if (opts && opts.nickname) raceNick = String(opts.nickname);
     placed = {};
     running = false;
+    cutOut = null;
     particles = [];
     refrigerant = "R-410A";
     outdoorF = 95;

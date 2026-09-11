@@ -732,7 +732,7 @@
     const stripsOn = loadHot && has("strips") && has("sequencer") && w && hotAt("strips.hot");
     const blowerRun = loadHot && has("blower") && (g || w || pulled) && hotAt("blower.hot");
     const rla = compRun ? 13.4 : 0;
-    const lraAttempt = compPower && !cap ? 0.2 : 0;
+    const lraAttempt = compPower && !cap ? 22 : 0;
     return {
       line, disc, loadHot, xfmr, rHot, y, g, w, o, hpc, lpc, flt, path, coil, pulled,
       cap, grounded, groundedHot, compPower, compRun, fanRun, heater, inducerRun, gasOn, stripsOn,
@@ -790,7 +790,7 @@
   function ampAt(probe, c) {
     if (probe === "compr" || probe === "t1" || probe === "compc") {
       if (c.compRun) return 13.4;
-      if (c.compPower && !c.cap) return 0.3;
+      if (c.compPower && !c.cap) return 22.0;
       return 0;
     }
     if (probe === "fanlead") return c.fanRun ? 1.1 : 0;
@@ -815,7 +815,7 @@
     }
     if (mode === "aac") {
       const a = ampAt(red, c);
-      return { val: a.toFixed(1), unit: "A", note: a > 10 ? "RLA in range for a 3-ton." : a > 0.2 && !c.cap ? "Hum, no start — suspect run cap." : "Clamp one hot leg only." };
+      return { val: a.toFixed(1), unit: "A", note: a > 15 && !c.cap ? "Hum, high amps, no start — open/weak run cap." : a > 10 ? "RLA in range for a 3-ton." : a > 0.2 && !c.cap ? "Hum, no start — suspect run cap." : "Clamp one hot leg only." };
     }
     if (mode === "ohm") {
       const r = ohmsBetween(red, black, c);

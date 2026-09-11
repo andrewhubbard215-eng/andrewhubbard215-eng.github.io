@@ -3180,7 +3180,10 @@ select:focus-visible {
 }
 
 .sb-slot.coil-frost { outline: 3px solid #7ec8d3; }
-.sb-slot.coil-frost::after { content: "FROST"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #7ec8d3; }
+.sb-slot.coil-frost::after { content: "ICE"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #7ec8d3; font-weight: 800; }
+.sb-slot.coil-hot { outline: 3px solid #e07a3d; }
+.sb-slot.coil-hot::after { content: "HOT AIR"; position: absolute; top: 4px; right: 6px; font-size: 9px; color: #e07a3d; font-weight: 800; }
+.sb-slot.fan-dead { outline: 3px dashed #CE0034; }
 
 .sb-defrost-d { margin: 0 0 12px; }
 .sb-defrost-d svg { width: 100%; height: auto; background: #0c141c; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); }
