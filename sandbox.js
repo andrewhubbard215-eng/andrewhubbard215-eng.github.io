@@ -2,16 +2,16 @@
 (function (global) {
   "use strict";
 
-  // ---- P/T charts (psig, sat °F) simplified for training ----
+  // ---- Field P/T charts (psig). Lincoln Tech pocket-chart numbers. ----
   const PT = {
     "R-410A": [
-      [-40, 10.8], [-30, 17.8], [-20, 26.2], [-15, 31.2], [-10, 36.8],
-      [-5, 42.9], [0, 49.7], [5, 57.1], [10, 65.2], [15, 74.1],
-      [20, 83.6], [25, 94.0], [30, 105.2], [35, 117.3], [40, 130.3],
-      [45, 144.4], [50, 159.4], [55, 175.6], [60, 192.9], [65, 211.4],
-      [70, 231.2], [75, 252.3], [80, 274.8], [85, 298.8], [90, 324.3],
-      [95, 351.4], [100, 380.2], [105, 410.8], [110, 443.2], [115, 477.5],
-      [120, 513.8],
+      [-40, 10.8], [-30, 17.2], [-20, 24.8], [-15, 29.5], [-10, 34.5],
+      [-5, 40.0], [0, 48.6], [5, 55.2], [10, 62.3], [15, 70.0],
+      [20, 78.3], [25, 87.3], [30, 96.8], [35, 107.0], [40, 118.0],
+      [45, 130.0], [50, 142.0], [55, 155.0], [60, 170.0], [65, 185.0],
+      [70, 201.0], [75, 217.0], [80, 235.0], [85, 254.0], [90, 274.0],
+      [95, 295.0], [100, 317.0], [105, 340.0], [110, 365.0], [115, 391.0],
+      [120, 418.0], [125, 446.0], [130, 476.0], [140, 539.0], [150, 608.0],
     ],
     "R-22": [
       [-40, 0.5], [-30, 4.9], [-20, 10.1], [-10, 16.5], [0, 24.0],
@@ -19,31 +19,41 @@
       [30, 54.9], [35, 61.5], [40, 68.5], [45, 76.0], [50, 84.0],
       [55, 92.6], [60, 101.6], [65, 111.2], [70, 121.4], [75, 132.2],
       [80, 143.6], [85, 155.7], [90, 168.4], [95, 181.8], [100, 195.9],
-      [105, 210.8], [110, 226.4], [115, 242.8], [120, 260.0],
+      [105, 210.8], [110, 226.4], [115, 242.8], [120, 260.0], [130, 297.0],
+      [140, 337.0], [150, 381.0],
     ],
     "R-134a": [
-      [-40, -7.4], [-30, -3.0], [-20, 2.3], [-10, 8.8], [0, 16.5],
-      [5, 21.0], [10, 25.9], [15, 31.3], [20, 37.1], [25, 43.4],
-      [30, 50.1], [35, 57.4], [40, 65.2], [45, 73.6], [50, 82.5],
-      [55, 92.1], [60, 102.3], [65, 113.2], [70, 124.8], [75, 137.1],
-      [80, 150.2], [85, 164.1], [90, 178.9], [95, 194.5], [100, 211.0],
-      [105, 228.5], [110, 247.0], [115, 266.5], [120, 287.1],
+      [-40, -7.4], [-30, -3.0], [-20, 0.6], [-10, 1.9], [0, 6.5],
+      [5, 9.1], [10, 12.0], [15, 15.1], [20, 18.4], [25, 22.1],
+      [30, 26.1], [35, 30.4], [40, 35.0], [45, 40.0], [50, 45.4],
+      [55, 51.2], [60, 57.4], [65, 64.0], [70, 71.1], [75, 78.7],
+      [80, 86.7], [85, 95.2], [90, 104.3], [95, 114.0], [100, 124.2],
+      [105, 135.1], [110, 146.4], [115, 158.4], [120, 171.1], [130, 198.7],
+      [140, 229.0], [150, 263.0],
     ],
-    // R-32 approximate training chart (common mini-split / VRF refrigerant)
     "R-32": [
-      [-40, 11.5], [-30, 19.0], [-20, 28.0], [-10, 39.0], [0, 52.0],
-      [5, 59.5], [10, 67.8], [15, 77.0], [20, 87.0], [25, 98.0],
-      [30, 110.0], [35, 123.0], [40, 137.0], [45, 152.5], [50, 169.0],
-      [55, 187.0], [60, 206.0], [65, 226.5], [70, 248.5], [75, 272.0],
-      [80, 297.0], [85, 323.5], [90, 352.0], [95, 382.0], [100, 414.0],
-      [105, 448.0], [110, 484.0], [115, 522.0], [120, 562.0],
+      [-40, 11.6], [-30, 19.2], [-20, 28.2], [-10, 39.0], [0, 51.2],
+      [5, 58.2], [10, 65.8], [15, 74.0], [20, 82.8], [25, 92.4],
+      [30, 102.6], [35, 113.6], [40, 125.4], [45, 138.0], [50, 151.4],
+      [55, 165.8], [60, 181.2], [65, 197.6], [70, 215.2], [75, 234.0],
+      [80, 254.0], [85, 275.4], [90, 298.2], [95, 322.4], [100, 348.2],
+      [105, 375.6], [110, 404.8], [115, 435.8], [120, 468.8], [130, 540.0],
+      [140, 620.0], [150, 710.0],
     ],
   };
+  const HPC_TRIP = { "R-410A": 610, "R-32": 610, "R-22": 400, "R-134a": 300 };
+  const LPC_TRIP = { "R-410A": 50, "R-32": 50, "R-22": 25, "R-134a": 8 };
+
 
   function satP(ref, tF) {
     const chart = PT[ref] || PT["R-410A"];
     if (tF <= chart[0][0]) return chart[0][1];
-    if (tF >= chart[chart.length - 1][0]) return chart[chart.length - 1][1];
+    if (tF >= chart[chart.length - 1][0]) {
+      const n = chart.length;
+      const t0 = chart[n - 2][0], p0 = chart[n - 2][1];
+      const t1 = chart[n - 1][0], p1 = chart[n - 1][1];
+      return p1 + (tF - t1) * ((p1 - p0) / (t1 - t0));
+    }
     for (let i = 0; i < chart.length - 1; i++) {
       const [t0, p0] = chart[i];
       const [t1, p1] = chart[i + 1];
@@ -727,6 +737,30 @@
       hpMode: "heat",
       fix: "Terminate defrost. Check coil sensor (should open ~50–70°F). Don't leave it in cool with the fan off all night.",
     },
+    {
+      id: "od-fan",
+      name: "Condenser fan dead",
+      complaint: "Tripped on high head. Outdoor fan not spinning. Compressor was screaming.",
+      outdoor: 95,
+      indoor: 76,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "od_fan",
+      fix: "OD fan motor / capacitor / blade. HPC did its job. Don't add gas.",
+    },
+    {
+      id: "weak-pump",
+      name: "No capacity, pressures close",
+      complaint: "Runs all day, 82° house. Suction high, head low. Amp draw is light.",
+      outdoor: 95,
+      indoor: 78,
+      charge: 100,
+      coilCond: "clean",
+      coilEvap: "clean",
+      fault: "weak_comp",
+      fix: "Weak valves / inefficient compressor. Pump is done. Not a charge problem.",
+    },
   ];
 
   // Cycle path as normalized [x,y] points for particle flow (clockwise from compressor discharge)
@@ -916,9 +950,15 @@
     });
   }
 
+  function meteringKind() {
+    const m = placed.metering;
+    if (m === "piston" || m === "capillary") return "orifice";
+    if (activeSystem && (activeSystem.metering === "orifice" || activeSystem.metering === "piston")) return "orifice";
+    return "txv";
+  }
+
   function simulate() {
-    const ok = requiredComplete() && running;
-    if (!ok) {
+    if (!requiredComplete()) {
       return {
         running: false,
         pHigh: 0,
@@ -929,191 +969,336 @@
         tSuction: 0,
         sh: 0,
         sc: 0,
-        status: requiredComplete() ? "System ready — start compressor" : "Place required components",
+        status: "Place the four — compressor, condenser, metering, evaporator.",
+        fp: "HUB: close the loop before you read gauges.",
       };
     }
 
-    // Base design targets from ambients + active OEM package
+    const kind = meteringKind();
     const ac = activeSystem ? activeSystem.approachCond : 18;
-    const ae = activeSystem ? activeSystem.approachEvap : 30;
+    const ae = activeSystem ? activeSystem.approachEvap : 35;
+    const tgtSH = kind === "orifice" ? 12 : (typeof txvTarget === "number" ? txvTarget : 10);
+    const tgtSC = activeSystem ? activeSystem.targetSC : 10;
+
     let effectiveMode = hpMode;
     if (fault === "rv_stuck_heat") effectiveMode = "heat";
     if (fault === "rv_stuck_cool") effectiveMode = "cool";
-    if (defrosting || fault === "stuck_defrost") effectiveMode = "cool";
-    let condSat, evapSat;
+    const inDefrost = !!(defrosting || fault === "stuck_defrost" || hpMode === "defrost");
+    if (inDefrost) effectiveMode = "cool";
+
+    let condSat;
+    let evapSat;
     if (effectiveMode === "heat") {
       condSat = indoorF + ac;
-      evapSat = outdoorF - ae;
+      evapSat = outdoorF - Math.min(ae, Math.max(8, outdoorF + 20));
     } else {
       condSat = outdoorF + ac;
       evapSat = indoorF - ae;
     }
-    if (defrosting || fault === "stuck_defrost") {
-      condSat = outdoorF + ac + 22;
-    }
-    if (frost > 55 && effectiveMode === "heat" && !defrosting && fault !== "stuck_defrost") {
-      evapSat -= Math.min(18, (frost - 55) * 0.4);
-    }
 
-    // Faults & charge
+    let sh = tgtSH;
+    let sc = tgtSC;
     let chargeFactor = chargePct / 100;
-    if (fault === "undercharge") chargeFactor = 0.7;
-    if (fault === "overcharge") chargeFactor = 1.25;
-    if (fault === "dirty_cond") condSat += 18;
-    if (fault === "dirty_evap") evapSat -= 12;
-    if (fault === "restricted") {
-      evapSat -= 15;
-      condSat += 5;
+    let glass = "Clear";
+    let deltaT = 18;
+    let extraAmps = 1;
+    let status = "";
+    let fp = "";
+    let trip = null;
+
+    const condAir = (coilCond === "dirty" ? 40 : 100) * (labFanCond / 100);
+    const evapAir = (coilEvap === "dirty" ? 40 : 100) * (labFanEvap / 100);
+    if (condAir < 90) {
+      condSat += (90 - condAir) * 0.35;
+      sc = Math.max(2, sc - (90 - condAir) * 0.08);
+      extraAmps += (90 - condAir) * 0.008;
+      deltaT = Math.min(deltaT, 14);
     }
-    if (fault === "noncondensables") {
-      condSat += 22;
-    }
-    if (fault === "txv_closed") {
-      evapSat -= 18;
-    }
-    if (fault === "txv_open") {
-      evapSat += 8;
-    }
-    if (fault === "rv_bleed") {
-      evapSat += 12;
-      condSat -= 10;
+    if (evapAir < 90) {
+      evapSat -= (90 - evapAir) * 0.28;
+      sh = Math.max(2, sh - (90 - evapAir) * 0.12);
+      sc += (90 - evapAir) * 0.04;
+      deltaT = Math.max(5, 18 - (90 - evapAir) * 0.16);
     }
 
-    // Charge effects
-    if (chargeFactor < 1) {
-      evapSat -= (1 - chargeFactor) * 20;
-      condSat -= (1 - chargeFactor) * 8;
-    } else if (chargeFactor > 1) {
-      evapSat += (chargeFactor - 1) * 10;
-      condSat += (chargeFactor - 1) * 15;
+    if (fault !== "undercharge" && fault !== "overcharge") {
+      if (chargeFactor < 0.95) {
+        const d = 1 - chargeFactor;
+        evapSat -= d * 22;
+        condSat -= d * 20;
+        sh += d * 28;
+        sc = Math.max(1, sc - d * 18);
+        if (chargeFactor < 0.85) glass = "Bubbles / flashing — starved";
+      } else if (chargeFactor > 1.05) {
+        const d = chargeFactor - 1;
+        evapSat += d * 8;
+        condSat += d * 22;
+        sh = Math.max(2, sh - d * 16);
+        sc += d * 28;
+        extraAmps += d * 0.8;
+      }
     }
 
-    if (coilCond === "dirty") condSat += 16;
-    if (coilEvap === "dirty") evapSat -= 10;
-    if (labFanCond < 90) condSat += (90 - labFanCond) * 0.28;
-    if (labFanEvap < 90) evapSat -= (90 - labFanEvap) * 0.22;
+    if (frost > 55 && effectiveMode === "heat" && !inDefrost) {
+      evapSat -= Math.min(18, (frost - 55) * 0.4);
+      sh += 6;
+    }
+
+    switch (fault) {
+      case "undercharge":
+        evapSat -= 14;
+        condSat -= 22;
+        sh = 28;
+        sc = 2;
+        glass = "Bubbles / flashing — starved";
+        deltaT = 11;
+        extraAmps *= 0.75;
+        status = "Low side AND high side down. High SH, almost no SC. That's a leak — recover, repair, weigh-in. Don't top off.";
+        fp = "HUB: LOW/LOW + high SH + low SC = undercharge. Find the leak.";
+        break;
+      case "overcharge":
+        evapSat += 4;
+        condSat += 20;
+        sh = kind === "txv" ? Math.max(4, tgtSH - 4) : 4;
+        sc = 20;
+        glass = "Solid — stacked liquid";
+        deltaT = 16;
+        extraAmps += 0.28;
+        status = "High head, high SC. TXV still holds SH. Recover to the nameplate — don't keep adding.";
+        fp = "HUB: HIGH SC is overcharge. SH will lie to you on a TXV.";
+        break;
+      case "dirty_cond":
+        condSat += 20;
+        sc = 4;
+        sh = tgtSH + 3;
+        extraAmps += 0.35;
+        glass = "Clear (don't trust it — look at head)";
+        deltaT = 14;
+        status = "High head, low SC. Outdoor coil or fan can't reject heat. Wash it before you add gas.";
+        fp = "HUB: high head + low SC = condenser airflow. Not a charge problem.";
+        break;
+      case "od_fan":
+        condSat += 38;
+        sc = 2;
+        sh = tgtSH + 6;
+        extraAmps += 0.55;
+        glass = "Clear";
+        deltaT = 12;
+        status = "OD fan dead. Head climbing. HPC will cut you out if you let it.";
+        fp = "HUB: condenser fan. Amp the fan motor, not the cylinder.";
+        break;
+      case "dirty_evap":
+        evapSat -= 12;
+        sh = 5;
+        sc = 13;
+        deltaT = 8;
+        glass = "Clear";
+        status = "Low suction, low SH, ice risk. Filter / indoor coil / blower. Don't add gas.";
+        fp = "HUB: starved for AIR, not gas. Split is low. Filter first.";
+        break;
+      case "blower_fail":
+        evapSat -= 18;
+        sh = 2;
+        sc = 14;
+        deltaT = 5;
+        glass = "Clear";
+        status = "Indoor blower dead. Suction in the basement, SH gone, coil icing. LPC next.";
+        fp = "HUB: no indoor airflow. Amp the blower. Don't charge an iced coil.";
+        break;
+      case "restricted":
+        evapSat -= 16;
+        condSat -= 6;
+        sh = 30;
+        sc = 22;
+        glass = "Flashing after the drier";
+        deltaT = 9;
+        extraAmps *= 0.85;
+        status = "Low suction, high SH, high SC. Liquid-line restriction (drier / kink). Temp drop across the drier.";
+        fp = "HUB: HIGH SH + HIGH SC = restriction. Feel both sides of the drier.";
+        break;
+      case "noncondensables":
+        condSat += 24;
+        sc = 2;
+        sh = tgtSH;
+        extraAmps += 0.22;
+        glass = "Clear / haze";
+        status = "High head, LOW subcooling. Air in the condenser. Recover, vac to 500 microns, weigh-in.";
+        fp = "HUB: high head + low SC after a sloppy vac = non-condensables. Overcharge would be HIGH SC.";
+        break;
+      case "txv_closed":
+        evapSat -= 20;
+        condSat -= 10;
+        sh = 38;
+        sc = 18;
+        glass = "Bubbles possible";
+        deltaT = 8;
+        extraAmps *= 0.8;
+        status = "Starved coil. TXV stuck closed or bulb lost charge. High SH, high SC, suction in the basement.";
+        fp = "HUB: bulb at 12 o'clock on the suction, strapped and insulated. Lost bulb charge acts like a closed valve.";
+        break;
+      case "txv_open":
+        evapSat += 10;
+        condSat -= 6;
+        sh = 2;
+        sc = 5;
+        glass = "Clear";
+        deltaT = 14;
+        status = "Flooding. TXV stuck open. SH near 0. Slugging risk — accumulator earning its keep.";
+        fp = "HUB: SH near 0. Kill it before you wash the compressor.";
+        break;
+      case "rv_bleed":
+        evapSat += 14;
+        condSat -= 16;
+        sh = 5;
+        sc = 4;
+        extraAmps += 0.12;
+        deltaT = 10;
+        status = "Pressures walking toward each other. 4-way bleeding internally. Low capacity, suction warm.";
+        fp = "HUB: discharge and suction closer than they should be. Replace the reversing valve.";
+        break;
+      case "weak_comp":
+        evapSat += 16;
+        condSat -= 22;
+        sh = 18;
+        sc = 4;
+        extraAmps *= 0.7;
+        deltaT = 10;
+        status = "High suction, low head. Weak valves / inefficient compressor. Capacity is gone.";
+        fp = "HUB: gauges look like the opposite of a restriction. Amp draw is low. That's the pump, not the charge.";
+        break;
+      case "defrost_fail":
+        evapSat -= 16;
+        sh = 22;
+        sc = 6;
+        deltaT = 8;
+        status = "Heat call, outdoor coil a glacier. Defrost never ran. Sensor/board — not charge.";
+        fp = "HUB: force defrost. If the fan doesn't stop and the RV doesn't shift, it's defrost control.";
+        break;
+      case "stuck_defrost":
+        condSat = outdoorF + ac + 28;
+        extraAmps += 0.2;
+        sh = 8;
+        sc = 4;
+        status = "DEFROST stuck ON: RV in cool, OD fan OFF, outdoor coil steaming. Aux should cover the house.";
+        fp = "HUB: Defrost is COOL with the outdoor fan off. If it never ends, coil sensor / board.";
+        break;
+      case "rv_stuck_heat":
+        status = hpMode === "cool"
+          ? "Calling COOL but the 4-way is stuck in HEAT. Indoor coil is the condenser. House gets hotter."
+          : "4-way is in heat — matches the heat call.";
+        fp = "HUB: 24V on O/B? Click? If the solenoid is energized and the slider didn't move, it's the valve.";
+        break;
+      case "rv_stuck_cool":
+        status = hpMode === "heat"
+          ? "Calling HEAT but the 4-way is stuck in COOL. You're refrigerating the house."
+          : "4-way is in cool — matches the cool call.";
+        fp = "HUB: 24V on O/B? Click? If the solenoid is energized and the slider didn't move, it's the valve.";
+        break;
+      default:
+        break;
+    }
+
+    if (coilCond === "dirty" && fault === "none") {
+      status = status || "High head — outdoor coil is dirty. Wash it before you add gas.";
+      fp = fp || "HUB: high head. Wash the outdoor coil before you add gas.";
+    }
+    if (coilEvap === "dirty" && fault === "none") {
+      status = status || "Low SH / ice risk — indoor coil or filter is dirty.";
+      fp = fp || "HUB: low split / low SH. Filter and indoor coil before charge.";
+    }
 
     const pHigh = satP(refrigerant, condSat);
     const pLow = Math.max(0, satP(refrigerant, evapSat));
     const tSatHigh = satT(refrigerant, pHigh);
     const tSatLow = satT(refrigerant, pLow);
-
-    // SC / SH targets — OEM package targets when healthy
-    let sc = activeSystem ? activeSystem.targetSC : 10;
-    let sh = activeSystem ? activeSystem.targetSH : txvTarget;
-    if (fault === "none" && chargeFactor >= 0.9 && chargeFactor <= 1.1) {
-      sh = txvTarget;
-    }
-    if (fault === "undercharge" || chargeFactor < 0.85) {
-      sc = 3;
-      sh = 28;
-    }
-    if (fault === "overcharge" || chargeFactor > 1.15) {
-      sc = 18;
-      sh = 4;
-    }
-    if (fault === "restricted") {
-      sc = 22;
-      sh = 30;
-    }
-    if (fault === "dirty_cond") {
-      sc = 6;
-      sh = 14;
-    }
-    if (fault === "dirty_evap") {
-      sc = 12;
-      sh = 6;
-    }
-    if (fault === "noncondensables") {
-      sc = 4;
-      sh = 13;
-    }
-    if (fault === "txv_closed") {
-      sc = 18;
-      sh = 36;
-    }
-    if (fault === "txv_open") {
-      sc = 6;
-      sh = 2;
-    }
-    if (fault === "rv_bleed") {
-      sc = 5;
-      sh = 4;
-    }
-
-    if (coilCond === "dirty") {
-      sc = Math.min(sc, 7);
-    }
-    if (coilEvap === "dirty") {
-      sh = Math.min(sh, 7);
-    }
+    sh = Math.max(0, sh);
+    sc = Math.max(0, sc);
     const tLiquid = tSatHigh - sc;
     const tSuction = tSatLow + sh;
 
-    let status = "Cycle running";
-    if (activeSystem && fault === "none" && chargeFactor >= 0.9 && chargeFactor <= 1.1) {
-      status = activeSystem.brand + " " + activeSystem.name + " · healthy";
+    const hpc = HPC_TRIP[refrigerant] || 610;
+    const lpc = LPC_TRIP[refrigerant] || 50;
+    if (running && pHigh >= hpc) {
+      trip = "hpc";
+      status = "HPC OPEN — head hit " + Math.round(pHigh) + " psig. Compressor cut out. Coil, fan, overcharge, or non-condensables. Don't reset until you know which.";
+      fp = "HUB: high-pressure switch did its job. Fix the head, then reset.";
+    } else if (running && effectiveMode === "cool" && pLow > 0 && pLow <= lpc && (fault === "blower_fail" || fault === "txv_closed" || fault === "restricted" || fault === "undercharge")) {
+      trip = "lpc";
+      status = "LPC OPEN — suction " + Math.round(pLow) + " psig. Frozen coil, restriction, or a real leak. Don't add gas until you know which.";
+      fp = "HUB: low-pressure switch. Prove airflow and restriction before you charge.";
     }
-    if (sh > 22 && sc < 6) status = "Possible undercharge / leak";
-    else if (sh < 6 && sc > 16) status = "Possible overcharge";
-    else if (sh > 22 && sc > 16) status = "Possible liquid-line restriction";
-    else if (fault === "dirty_cond") status = "High head — check condenser airflow";
-    else if (fault === "dirty_evap") status = "Low SH — check evaporator airflow";
-    else if (fault === "noncondensables") status = "High head + low SC — non-condensables (air) in the condenser";
-    else if (fault === "txv_closed") status = "Starved coil — TXV stuck closed / bulb lost charge";
-    else if (fault === "txv_open") status = "Flooding — TXV stuck open. Watch liquid slugging.";
-    else if (coilCond === "dirty") status = "High head — outdoor coil is dirty. Wash it before you add gas.";
-    else if (coilEvap === "dirty") status = "Low SH / ice risk — indoor coil or filter is dirty.";
-    else if (fault === "rv_stuck_heat" && hpMode === "cool") status = "Calling COOL but the 4-way is stuck in HEAT. Indoor coil is the condenser.";
-    else if (fault === "rv_stuck_cool" && hpMode === "heat") status = "Calling HEAT but the 4-way is stuck in COOL.";
-    else if (fault === "rv_bleed") status = "4-way bleeding internally — suction warm, low capacity, pressures closer together.";
-    else if (fault === "stuck_defrost" || defrosting) status = "DEFROST: 4-way in cool, ODU fan OFF, outdoor coil steaming. Aux heat should cover the house.";
-    else if (frost > 70 && hpMode === "heat") status = "Outdoor coil iced. Need defrost — sensor/board or force it. Don't add gas.";
+
+    const staticPsig = Math.max(0, satP(refrigerant, outdoorF));
+    if (!running) {
+      return {
+        running: false,
+        static: true,
+        pHigh: staticPsig,
+        pLow: staticPsig,
+        tSatHigh: satT(refrigerant, staticPsig),
+        tSatLow: satT(refrigerant, staticPsig),
+        tLiquid: outdoorF,
+        tSuction: outdoorF,
+        sh: 0,
+        sc: 0,
+        status: "Static " + Math.round(staticPsig) + " psig both sides · " + refrigerant + " sitting at " + outdoorF + "°F outdoor. Start compressor.",
+        fp: "HUB: equalized is normal off. Start it, then read SH and SC together.",
+        condSat: outdoorF,
+        evapSat: outdoorF,
+        tons: 0,
+        btuh: 0,
+        cop: 0,
+        amps: 0,
+        tgtSH,
+        tgtSC,
+        shOk: false,
+        scOk: false,
+        deltaT: 0,
+        glass: "Off",
+        frost,
+        defrosting: inDefrost,
+        hpMode: effectiveMode,
+      };
+    }
+
+    if (!status) {
+      if (activeSystem && fault === "none" && chargeFactor >= 0.9 && chargeFactor <= 1.1 && coilCond === "clean" && coilEvap === "clean") {
+        status = activeSystem.brand + " " + activeSystem.name + " · healthy";
+      } else {
+        status = "Cycle running · SH " + Math.round(sh) + " / SC " + Math.round(sc);
+      }
+    }
+    if (!fp) {
+      if (Math.abs(sh - tgtSH) <= 4 && Math.abs(sc - tgtSC) <= 4 && coilCond === "clean" && coilEvap === "clean" && fault === "none") {
+        fp = "HUB: SH/SC in band. That's a charged, breathing system.";
+      } else {
+        fp = "HUB: SH and SC together. Don't chase one number.";
+      }
+    }
 
     const tonsBase = activeSystem ? activeSystem.tons : 3;
     const load = Math.max(0.35, Math.min(1.25, ((indoorF - 65) / 15) * ((115 - outdoorF) / 40 + 0.55)));
-    const derate = Math.max(0.4, 1 - (condSat - (outdoorF + 18)) / 80 - ( (indoorF - 30) - evapSat ) / 80);
-    const tons = +(tonsBase * load * derate * (0.7 + 0.3 * Math.min(1, chargeFactor))).toFixed(2);
+    const derate = Math.max(0.35, 1 - Math.max(0, condSat - (outdoorF + 18)) / 80 - Math.max(0, (indoorF - 35) - evapSat) / 80);
+    let tons = +(tonsBase * load * derate * (0.7 + 0.3 * Math.min(1, chargeFactor))).toFixed(2);
+    if (fault === "weak_comp" || fault === "rv_bleed") tons = +(tons * 0.45).toFixed(2);
+    if (trip) tons = 0;
     const btuh = Math.round(tons * 12000);
     const tC = condSat + 460;
     const tE = evapSat + 460;
     const copCarnot = tE / Math.max(1, tC - tE);
     const cop = Math.max(1.2, copCarnot * 0.42);
-    const kw = (btuh / 12000) * 3.517 / cop;
-    let amps = kw / (240 * 0.85) * 1000;
+    const kw = tons > 0 ? (btuh / 12000) * 3.517 / cop : 0;
+    let amps = kw / (240 * 0.85) * 1000 * extraAmps;
     if (capBad) amps *= 1.4;
+    if (trip) amps = 0;
 
-    const tgtSH = txvTarget;
-    const tgtSC = activeSystem ? activeSystem.targetSC : 10;
-    const shOk = Math.abs(sh - tgtSH) <= 4;
-    const scOk = Math.abs(sc - tgtSC) <= 4;
-    let deltaT = 20;
-    if (coilEvap === "dirty") deltaT = 8;
-    else if (fault === "undercharge" || chargeFactor < 0.85) deltaT = 11;
-    else if (fault === "restricted" || fault === "txv_closed") deltaT = 9;
-    else if (fault === "txv_open" || chargeFactor > 1.15) deltaT = 15;
-    else if (coilCond === "dirty") deltaT = 14;
-    let glass = "Clear";
-    if (fault === "undercharge" || chargeFactor < 0.85) glass = "Bubbles / flashing — starved";
-    else if (fault === "restricted") glass = "Flashing after the drier";
-    else if (fault === "overcharge" || chargeFactor > 1.15) glass = "Solid — could be overcharged";
-    else if (coilCond === "dirty") glass = "Clear (don't trust it — check head)";
-    let fp = "SH/SC in the conversation. Confirm delta T and airflow.";
-    if (coilCond === "dirty") fp = "HUB: high head. Wash the outdoor coil before you add gas.";
-    else if (coilEvap === "dirty") fp = "HUB: low split / low SH. Filter and indoor coil before charge.";
-    else if (sh > 20 && sc < 7) fp = "HUB fingerprint: HIGH SH + LOW SC → leak / undercharge. Don't top off.";
-    else if (sh < 6 && sc > 15) fp = "HUB fingerprint: LOW SH + HIGH SC → overcharge or flooding TXV.";
-    else if (sh > 20 && sc > 15) fp = "HUB fingerprint: HIGH SH + HIGH SC → restriction (drier / TXV).";
-    else if (fault === "noncondensables") fp = "HUB: high head + low SC after a sloppy vac = air in the condenser.";
-    else if (capBad) fp = "HUB: pressures can look fine. Meter the cap. Humming isn't a charge problem.";
-    else if (fault === "rv_stuck_heat" || fault === "rv_stuck_cool") fp = "HUB: 24V on O/B? Click? If the solenoid is energized and the slider didn't move, it's the valve, not the compressor.";
-    else if (fault === "rv_bleed") fp = "HUB: 4-way bypass. Discharge and suction temps closer than they should be. Replace the reversing valve.";
-    else if (defrosting || fault === "stuck_defrost") fp = "HUB: Defrost is COOL with the outdoor fan off. If it never ends, coil sensor / board. If it never starts, same sensors.";
-    else if (frost > 60 && hpMode === "heat") fp = "HUB: Glacier on the ODU. Force defrost. If the RV doesn't shift and the fan doesn't stop, it's defrost control — not charge.";
-    else if (shOk && scOk && coilCond === "clean" && coilEvap === "clean") fp = "HUB: SH/SC in band. That's a charged, breathing system.";
+    const shOk = !trip && Math.abs(sh - tgtSH) <= 4;
+    const scOk = !trip && Math.abs(sc - tgtSC) <= 4;
 
     return {
-      running: true,
+      running: !trip,
+      trip,
+      static: false,
       pHigh,
       pLow,
       tSatHigh,
@@ -1137,7 +1322,7 @@
       glass,
       fp,
       frost,
-      defrosting: !!(defrosting || fault === "stuck_defrost"),
+      defrosting: inDefrost,
       hpMode: effectiveMode,
     };
   }
@@ -1194,7 +1379,7 @@
                 </select>
               </label>
               <label>Outdoor °F
-                <input id="sb-out" type="range" min="60" max="115" value="95" />
+                <input id="sb-out" type="range" min="20" max="115" value="95" />
                 <span id="sb-out-v">95</span>
               </label>
               <label>Indoor °F
@@ -1218,14 +1403,19 @@
                   <option value="undercharge">Undercharge / leak</option>
                   <option value="overcharge">Overcharge</option>
                   <option value="dirty_cond">Dirty condenser</option>
+                  <option value="od_fan">OD fan dead</option>
                   <option value="dirty_evap">Dirty evaporator</option>
+                  <option value="blower_fail">Indoor blower dead</option>
                   <option value="restricted">Liquid-line restriction</option>
                   <option value="noncondensables">Non-condensables (air)</option>
                   <option value="txv_closed">TXV stuck closed / lost bulb</option>
                   <option value="txv_open">TXV stuck open</option>
+                  <option value="weak_comp">Weak compressor valves</option>
                   <option value="rv_stuck_heat">RV stuck in heat</option>
                   <option value="rv_stuck_cool">RV stuck in cool</option>
                   <option value="rv_bleed">RV internal bleed</option>
+                  <option value="defrost_fail">Defrost never starts</option>
+                  <option value="stuck_defrost">Stuck in defrost</option>
                 </select>
               </label>
               <label>TXV SH target
@@ -1732,8 +1922,11 @@
       "<button type='button' class='btn' data-labf='evap'>Evap fan 30%</button>" +
       "<button type='button' class='btn' data-labf='cond'>Cond fan 30%</button>" +
       "<button type='button' class='btn' data-labf='under'>Undercharge</button>" +
+      "<button type='button' class='btn' data-labf='over'>Overcharge</button>" +
       "<button type='button' class='btn' data-labf='txv'>TXV closed</button>" +
       "<button type='button' class='btn' data-labf='rest'>Restriction</button>" +
+      "<button type='button' class='btn' data-labf='air'>Non-condensables</button>" +
+      "<button type='button' class='btn' data-labf='fan'>OD fan dead</button>" +
       "<button type='button' class='btn' data-labf='ok'>Reset healthy</button>" +
       "</div></div>" +
       "</div><div class='lab-yt-row'>" + vidHtml + "</div>";
@@ -1786,10 +1979,17 @@
     } else if (kind === "under") {
       chargePct = 70;
       fault = "undercharge";
+    } else if (kind === "over") {
+      chargePct = 125;
+      fault = "overcharge";
     } else if (kind === "txv") {
       fault = "txv_closed";
     } else if (kind === "rest") {
       fault = "restricted";
+    } else if (kind === "air") {
+      fault = "noncondensables";
+    } else if (kind === "fan") {
+      fault = "od_fan";
     }
     const fe = document.getElementById("lab-fe");
     const fc = document.getElementById("lab-fc");
@@ -2904,15 +3104,17 @@
   function updateGauges(sim) {
     if (!document.getElementById("g-plow")) return;
     sim = sim || { running: false, status: "—" };
-    const fmt = (n, d = 0) => (sim.running ? n.toFixed(d) : "—");
+    const liveP = typeof sim.pHigh === "number" && sim.pHigh > 0 && (sim.running || sim.static || sim.trip);
+    const liveSH = !!(sim.running || sim.trip);
+    const fmt = (n, d = 0) => (liveP && typeof n === "number" ? n.toFixed(d) : "—");
     document.getElementById("g-plow").textContent = fmt(sim.pLow, 1);
     document.getElementById("g-phigh").textContent = fmt(sim.pHigh, 1);
-    document.getElementById("g-tsatl").textContent = sim.running ? "sat " + sim.tSatLow.toFixed(0) + " °F" : "sat — °F";
-    document.getElementById("g-tsath").textContent = sim.running ? "sat " + sim.tSatHigh.toFixed(0) + " °F" : "sat — °F";
-    document.getElementById("g-tsuc").textContent = sim.running ? sim.tSuction.toFixed(0) + " °F" : "—";
-    document.getElementById("g-tliq").textContent = sim.running ? sim.tLiquid.toFixed(0) + " °F" : "—";
-    document.getElementById("g-sh").textContent = sim.running ? sim.sh.toFixed(0) + " °F" : "—";
-    document.getElementById("g-sc").textContent = sim.running ? sim.sc.toFixed(0) + " °F" : "—";
+    document.getElementById("g-tsatl").textContent = liveP ? "sat " + sim.tSatLow.toFixed(0) + " °F" : "sat — °F";
+    document.getElementById("g-tsath").textContent = liveP ? "sat " + sim.tSatHigh.toFixed(0) + " °F" : "sat — °F";
+    document.getElementById("g-tsuc").textContent = liveSH ? sim.tSuction.toFixed(0) + " °F" : "—";
+    document.getElementById("g-tliq").textContent = liveSH ? sim.tLiquid.toFixed(0) + " °F" : "—";
+    document.getElementById("g-sh").textContent = liveSH ? sim.sh.toFixed(0) + " °F" : "—";
+    document.getElementById("g-sc").textContent = liveSH ? sim.sc.toFixed(0) + " °F" : "—";
     const shEl = document.getElementById("g-sh");
     const scEl = document.getElementById("g-sc");
     if (shEl) shEl.classList.toggle("out", !!(sim.running && sim.shOk === false));
@@ -2923,10 +3125,10 @@
     const dt = document.getElementById("g-dt");
     const gl = document.getElementById("g-glass");
     const fp = document.getElementById("sb-fp");
-    if (tgt) tgt.textContent = sim.running ? sim.tgtSH + " / " + sim.tgtSC + " °F" : "—";
-    if (dt) dt.textContent = sim.running ? sim.deltaT.toFixed(0) + " °F" : "—";
-    if (gl) gl.textContent = sim.running ? sim.glass : "—";
-    if (fp) fp.textContent = sim.running ? sim.fp : "HUB: close the loop, start the compressor, then read SH and SC together.";
+    if (tgt) tgt.textContent = liveSH ? sim.tgtSH + " / " + sim.tgtSC + " °F" : "—";
+    if (dt) dt.textContent = liveSH ? sim.deltaT.toFixed(0) + " °F" : "—";
+    if (gl) gl.textContent = liveP ? sim.glass : "—";
+    if (fp) fp.textContent = sim.fp || "HUB: close the loop, start the compressor, then read SH and SC together.";
     paintDefrostDiagram(sim);
     const cap = document.getElementById("g-cap");
     const cop = document.getElementById("g-cop");
@@ -2940,15 +3142,15 @@
     const pvSc = document.getElementById("pv-sc");
     if (pvL) pvL.textContent = fmt(sim.pLow, 0);
     if (pvH) pvH.textContent = fmt(sim.pHigh, 0);
-    if (pvSh) pvSh.textContent = sim.running ? sim.sh.toFixed(0) : "—";
-    if (pvSc) pvSc.textContent = sim.running ? sim.sc.toFixed(0) : "—";
+    if (pvSh) pvSh.textContent = liveSH ? sim.sh.toFixed(0) : "—";
+    if (pvSc) pvSc.textContent = liveSH ? sim.sc.toFixed(0) : "—";
     highlightPT(sim);
     const st = document.getElementById("sb-status");
     if (st) st.textContent = sim.status || "";
     const ml = document.getElementById("man-low");
     const mh = document.getElementById("man-high");
-    if (ml) ml.textContent = sim.running ? Math.round(sim.pLow) : "0";
-    if (mh) mh.textContent = sim.running ? Math.round(sim.pHigh) : "0";
+    if (ml) ml.textContent = liveP ? String(Math.round(sim.pLow)) : "0";
+    if (mh) mh.textContent = liveP ? String(Math.round(sim.pHigh)) : "0";
     const runBtn = document.getElementById("sb-run");
     if (runBtn) runBtn.textContent = running ? "Stop compressor" : "Start compressor";
     updateDmm(sim);
