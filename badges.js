@@ -118,7 +118,8 @@
     if (!host) {
       host = document.createElement("div");
       host.id = "badge-toast";
-      document.getElementById("app").appendChild(host);
+      const app = document.getElementById("app") || document.body;
+      app.appendChild(host);
     }
     host.innerHTML =
       '<div class="badge-toast-card">' +

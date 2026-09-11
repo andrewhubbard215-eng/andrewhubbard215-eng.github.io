@@ -203,7 +203,9 @@
     paintRapture(root);
     const speak = root.querySelector("#jesus-speak");
     if (speak) {
-      speak.textContent = fromQuiz
+      speak.textContent = (opts && opts.fromDefusal)
+        ? "“You cut the open, not the live. I am HVAC Jesus. Hard hat, tool belt, white shirt. Receive the Gauges of God — SH and SC will never be a coin flip again.”"
+        : fromQuiz
         ? "“You won the Quiz Game. I am HVAC Jesus. Kneel if you want — I’m here for the Gauges of God. SH and SC will never be a coin flip again.”"
         : "“I am HVAC Jesus. You opened the HVAC Commandments. Recover, don’t vent. These ten are the law of the shop. Repeat them. Then receive the Gauges of God.”";
     }

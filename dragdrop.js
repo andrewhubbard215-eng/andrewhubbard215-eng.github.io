@@ -21,9 +21,9 @@
     const label = (opts && opts.label) || "";
     node.innerHTML = html + (label ? "<strong>" + label + "</strong>" : "");
     node.style.cssText =
-      "position:absolute;left:-9999px;top:0;width:96px;padding:8px;border-radius:12px;" +
-      "background:rgba(14,20,28,0.95);border:2px solid #CE0034;color:#fff;text-align:center;" +
-      "font:700 11px/1.2 system-ui,sans-serif;box-shadow:0 12px 28px rgba(0,0,0,.45);z-index:99998;";
+      "position:absolute;left:-9999px;top:0;width:168px;padding:10px;border-radius:14px;" +
+      "background:#efe6d6;border:3px solid #CE0034;color:#1a1612;text-align:center;" +
+      "font:700 12px/1.2 system-ui,sans-serif;box-shadow:0 16px 36px rgba(0,0,0,.5);z-index:99998;";
     document.body.appendChild(node);
     return node;
   }
@@ -34,7 +34,7 @@
     const node = makeCustomImage(opts || {});
     void node.offsetWidth;
     try {
-      e.dataTransfer.setDragImage(node, 48, 40);
+      e.dataTransfer.setDragImage(node, 84, 90);
     } catch (_) {}
     setTimeout(function () {
       if (node && node.parentNode) node.parentNode.removeChild(node);
@@ -56,54 +56,68 @@
 
   function bindSource(el, opts) {
     if (!el || !opts || !opts.id) return;
+    const dropSel = opts.dropSelector || opts.slotSelector;
+    if (!dropSel) return;
     el.style.touchAction = "none";
     el.style.userSelect = "none";
     el.style.webkitUserDrag = "none";
     el.addEventListener("pointerdown", function (e) {
       if (e.button && e.button !== 0) return;
-      if (e.target && e.target.closest && e.target.closest("button, input, select, a")) return;
-      e.preventDefault();
+      if (!opts.allowButtons && e.target && e.target.closest && e.target.closest("button, input, select, a")) return;
+      const x0 = e.clientX;
+      const y0 = e.clientY;
+      let dragging = false;
       const g = ensureGhost();
-      g.innerHTML = opts.html || el.innerHTML;
-      g.classList.add("on");
-      el.classList.add("dragging");
-      try {
-        el.setPointerCapture(e.pointerId);
-      } catch (_) {}
+
+      function startDrag(ev) {
+        if (dragging) return;
+        dragging = true;
+        try { ev.preventDefault(); } catch (_) {}
+        g.className = "lt-drag-ghost" + (opts.ghostClass ? " " + opts.ghostClass : "");
+        g.innerHTML = opts.html || el.innerHTML;
+        g.classList.add("on");
+        el.classList.add("dragging");
+        try { el.setPointerCapture(e.pointerId); } catch (_) {}
+        if (typeof opts.onDragStart === "function") opts.onDragStart(opts.id, ev);
+      }
 
       function move(ev) {
+        if (!dragging) {
+          if (Math.hypot(ev.clientX - x0, ev.clientY - y0) < 10) return;
+          startDrag(ev);
+        }
         g.style.left = ev.clientX + "px";
         g.style.top = ev.clientY + "px";
-        document.querySelectorAll(opts.slotSelector).forEach(function (s) {
+        document.querySelectorAll(dropSel).forEach(function (s) {
           s.classList.remove("over");
         });
-        const slot = slotUnder(ev.clientX, ev.clientY, opts.slotSelector);
+        const slot = slotUnder(ev.clientX, ev.clientY, dropSel);
         if (slot) slot.classList.add("over");
+        if (typeof opts.onHover === "function") opts.onHover(slot, opts.id, ev);
       }
 
       function up(ev) {
-        try {
-          el.releasePointerCapture(ev.pointerId);
-        } catch (_) {}
         el.removeEventListener("pointermove", move);
         el.removeEventListener("pointerup", up);
         el.removeEventListener("pointercancel", up);
+        if (!dragging) return;
+        try { el.releasePointerCapture(ev.pointerId); } catch (_) {}
         el.classList.remove("dragging");
         g.classList.remove("on");
-        document.querySelectorAll(opts.slotSelector).forEach(function (s) {
+        document.querySelectorAll(dropSel).forEach(function (s) {
           s.classList.remove("over");
         });
-        const slot = slotUnder(ev.clientX, ev.clientY, opts.slotSelector);
+        if (typeof opts.onHoverEnd === "function") opts.onHoverEnd();
+        const slot = slotUnder(ev.clientX, ev.clientY, dropSel);
         if (slot && typeof opts.onDrop === "function") {
           slot.classList.add("snap");
           setTimeout(function () {
             slot.classList.remove("snap");
           }, 280);
-          opts.onDrop(slot.dataset.slot, opts.id, slot);
+          opts.onDrop(slot.dataset.slot || slot.dataset.lug, opts.id, slot);
         }
       }
 
-      move(e);
       el.addEventListener("pointermove", move);
       el.addEventListener("pointerup", up);
       el.addEventListener("pointercancel", up);

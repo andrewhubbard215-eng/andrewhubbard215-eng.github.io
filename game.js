@@ -2127,6 +2127,9 @@
         if (sfx && sfx.click) sfx.click();
       } catch (_) {}
       try {
+        if (m !== "aihelper" && window.HubAI && typeof window.HubAI.close === "function") {
+          window.HubAI.close();
+        }
         if (m === "service") startQuiz();
         else if (m === "sandbox") startSandbox();
         else if (m === "minisplit") startMiniSplit();
@@ -2135,6 +2138,7 @@
         else if (m === "quiz") startQuizArena();
         else if (m === "compete") startCompete();
         else if (m === "electrical") startElectrical();
+        else if (m === "defusal") startElectrical({ defuse: true });
         else if (m === "phonetools") startPhoneTools();
         else if (m === "commandments") startCommandments();
         else if (m === "tutorial") startTutorial();
@@ -2323,11 +2327,20 @@
     }
   }
 
-  function openRapture(fromQuiz) {
+  function openRapture(fromQuiz, source) {
     show("rapture");
     const root = document.getElementById("screen-rapture");
+    const kicker = document.getElementById("cut-kicker");
+    if (kicker) {
+      kicker.textContent = source === "defusal"
+        ? "Rooftop · callback defused · the heavens open"
+        : "Lincoln Tech roof · the heavens open";
+    }
     if (window.HvacCommandments && window.HvacCommandments.playWinCutscene) {
-      window.HvacCommandments.playWinCutscene(root, { fromQuiz: !!fromQuiz });
+      window.HvacCommandments.playWinCutscene(root, {
+        fromQuiz: !!fromQuiz,
+        fromDefusal: source === "defusal",
+      });
     } else if (window.HvacCommandments && window.HvacCommandments.paintRapture) {
       window.HvacCommandments.paintRapture(root);
     }
@@ -2355,11 +2368,30 @@
     }
     save();
     toast("Quiz Champion · HVAC Jesus · Gauges of God · +" + bonus + " XP", "xp");
-    if (sfx.rapture) sfx.rapture();
-    else sfx.win();
+    try {
+      if (sfx.rapture) sfx.rapture();
+      else if (sfx.win) sfx.win();
+    } catch (_) {}
     setTimeout(function () {
-      openRapture(true);
+      try { openRapture(true); } catch (err) { console.warn("rapture", err); }
     }, 900);
+  }
+
+  function grantDefusalVictory() {
+    const bonus = 250;
+    if (!state.gaugesOfGod) state.xp += bonus;
+    state.gaugesOfGod = true;
+    state.raptureSeen = true;
+    if (window.Badges) {
+      window.Badges.unlock("gauges_of_god");
+    }
+    save();
+    toast("Callback defused · HVAC Jesus · Gauges of God", "xp");
+    if (sfx.rapture) sfx.rapture();
+    else if (sfx.win) sfx.win();
+    setTimeout(function () {
+      openRapture(false, "defusal");
+    }, 700);
   }
 
   function startCommandments() {
@@ -2400,7 +2432,7 @@
     });
   }
 
-  function startElectrical() {
+  function startElectrical(opts) {
     if (!window.ElectricalLab || !window.ElectricalLab.start) {
       toast("Electrical sim didn't load. Hard-refresh.", "bad");
       return;
@@ -2417,10 +2449,14 @@
     show("electrical");
     try {
       electricalCtl = window.ElectricalLab.start(root, {
+        defuse: !!(opts && opts.defuse),
         onXp(n) {
           state.xp += n;
           save();
           postCompete("score", { mode: "electrical", score: 350 + n });
+        },
+        onWin() {
+          grantDefusalVictory();
         },
       });
     } catch (err) {

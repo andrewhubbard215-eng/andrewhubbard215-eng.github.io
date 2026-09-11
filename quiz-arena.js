@@ -570,8 +570,14 @@
 
   function ensureChannel(pin) {
     if (channel) try { channel.close(); } catch (_) {}
-    channel = new BroadcastChannel("lt-quiz-" + pin);
-    channel.onmessage = (ev) => onNet(ev.data);
+    channel = null;
+    if (typeof BroadcastChannel === "undefined") return;
+    try {
+      channel = new BroadcastChannel("lt-quiz-" + pin);
+      channel.onmessage = (ev) => onNet(ev.data);
+    } catch (_) {
+      channel = null;
+    }
   }
 
   function onNet(msg) {
@@ -630,6 +636,10 @@
     stopTimer();
     timer = timerMax;
     timerId = setInterval(() => {
+      if (!root) {
+        stopTimer();
+        return;
+      }
       timer -= 0.1;
       const el = root.querySelector(".qa-timer-bar > i");
       if (el) el.style.width = Math.max(0, (timer / timerMax) * 100) + "%";
@@ -724,8 +734,12 @@
       }
       render();
       if (hooks.onComplete) {
-        const list = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-        hooks.onComplete({ scores, winner: list[0], total: questions.length, packId });
+        try {
+          const list = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+          hooks.onComplete({ scores, winner: list[0], total: questions.length, packId });
+        } catch (err) {
+          console.warn("quiz complete", err);
+        }
       }
       return;
     }
@@ -758,8 +772,10 @@
     const explain = why || item.why || "Review this in EPA 608 / OSHA 30 / Lincoln Tech notes.";
     const ok = selected === correct;
     if (window.LtSfx) {
-      if (ok) window.LtSfx.correct();
-      else window.LtSfx.wrong();
+      try {
+        if (ok && window.LtSfx.correct) window.LtSfx.correct();
+        else if (!ok && window.LtSfx.wrong) window.LtSfx.wrong();
+      } catch (_) {}
     }
     const rows = item.choices
       .map((c, i) => {
@@ -804,13 +820,13 @@
         "</p>" +
         "</div>";
       fb.className = "qa-feedback " + (ok ? "good" : "bad");
-      fb.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
     const next = root.querySelector(".qa-next");
     if (next) {
       next.classList.remove("hidden");
       next.textContent = qi + 1 >= questions.length ? "See final scores" : "Next question";
       next.onclick = () => nextQuestion();
+      try { next.focus(); } catch (_) {}
     }
   }
 
@@ -957,6 +973,21 @@
 
   function render() {
     if (!root) return;
+    try {
+      paint();
+    } catch (err) {
+      console.warn("quiz render", err);
+      try {
+        root.innerHTML =
+          '<div class="qa-shell"><p class="qa-lede">Exam hit a snag. Hit Shop floor and run it again.</p>' +
+          '<button class="btn primary" id="qa-hub">Shop floor</button></div>';
+        const b = root.querySelector("#qa-hub");
+        if (b) b.onclick = () => hooks.onHub && hooks.onHub();
+      } catch (_) {}
+    }
+  }
+
+  function paint() {
     if (mode === "lobby") {
       root.innerHTML = `
         <div class="qa-shell">
@@ -997,10 +1028,10 @@
             </div>
           </div>
         </div>`;
-      root.querySelector("#qa-hub").onclick = () => hooks.onHub && hooks.onHub();
-      root.querySelector("#qa-solo").onclick = startSolo;
-      root.querySelector("#qa-host").onclick = startHost;
-      root.querySelector("#qa-join").onclick = joinRoom;
+      root.querySelector("#qa-hub") && (root.querySelector("#qa-hub").onclick = () => hooks.onHub && hooks.onHub());
+      root.querySelector("#qa-solo") && (root.querySelector("#qa-solo").onclick = startSolo);
+      root.querySelector("#qa-host") && (root.querySelector("#qa-host").onclick = startHost);
+      root.querySelector("#qa-join") && (root.querySelector("#qa-join").onclick = joinRoom);
       const roastEl = root.querySelector("#qa-roast");
       const roastLab = root.querySelector("#qa-roast-lab");
       const labs = ["Classroom", "Mild", "Spicy", "Extra"];
@@ -1084,6 +1115,7 @@
     }
     root.innerHTML = `
       <div class="qa-exam">
+        <div class="qa-exam-body">
         <header class="qa-exam-top">
           <span class="qa-exam-pack">${(item.pack || packId || "").replace("curriculum","Lincoln Tech").replace("epa608","EPA 608").replace("osha30","OSHA 30")}</span>
           <span class="qa-exam-qnum">Item ${qi + 1} / ${questions.length}</span>
@@ -1094,7 +1126,7 @@
         <div class="qa-timer-bar qa-exam-bar"><i style="width:${(timer / timerMax) * 100}%"></i></div>
         <h2 class="qa-exam-question">${item.q}</h2>
         <div class="qa-exam-grid">
-          ${item.choices
+          ${(item.choices || [])
             .map(
               (c, i) =>
                 `<button class="qa-k-btn qa-exam-btn" data-i="${i}"><span class="qa-exam-letter">${LETTERS[i]}</span><span class="qa-k-txt">${c}</span></button>`
@@ -1102,7 +1134,10 @@
             .join("")}
         </div>
         <p class="qa-feedback"></p>
-        <button class="btn primary qa-next hidden">Next item</button>
+        </div>
+        <div class="qa-exam-foot">
+          <button class="btn primary qa-next hidden">Next item</button>
+        </div>
       </div>`;
     root.querySelectorAll(".qa-k-btn").forEach((btn) => {
       btn.onclick = () => pick(+btn.dataset.i);
