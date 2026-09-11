@@ -743,6 +743,19 @@
     [0.32, 0.74],
     [0.20, 0.58],
   ];
+  const FLOW_PATH_PHONE = [
+    [0.22, 0.48],
+    [0.36, 0.28],
+    [0.50, 0.16],
+    [0.64, 0.28],
+    [0.76, 0.48],
+    [0.64, 0.68],
+    [0.50, 0.84],
+    [0.36, 0.68],
+  ];
+  function flowPath() {
+    return isPhoneLab() ? FLOW_PATH_PHONE : FLOW_PATH;
+  }
 
   // Phase segments along path index ranges for coloring
   // 0-3 high vapor, 3-6 high liquid, 6-9 low mix, 9-14 low vapor
@@ -814,13 +827,14 @@
 
   function lerpPath(t) {
     // t in [0,1)
-    const n = FLOW_PATH.length;
+    const n = flowPath().length;
     const f = t * n;
     const i = Math.floor(f) % n;
     const j = (i + 1) % n;
     const u = f - Math.floor(f);
-    const a = FLOW_PATH[i];
-    const b = FLOW_PATH[j];
+    const path = flowPath();
+    const a = path[i];
+    const b = path[j];
     return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u];
   }
 
@@ -1241,15 +1255,15 @@
             <span class="mix">Expansion</span>
             <span class="suc">Suction vapor</span>
           </div>
-          <div class="sb-stage-wrap">
-            <div class="lab-howto" id="sb-howto">
-              <img src="hub-portrait.jpg" alt="" />
-              <div>
-                <strong>How to run the sandbox</strong>
-                <p>Drop compressor, condenser, metering, evaporator on the cycle. Hit Start compressor. Read SH and SC together. On a phone, Parts and Gauges slide up from the bottom.</p>
-                <button type="button" class="btn primary" id="sb-howto-go">Got it</button>
-              </div>
+          <div class="lab-howto" id="sb-howto">
+            <img src="hub-portrait.jpg" alt="" />
+            <div>
+              <strong>The four on the glass</strong>
+              <p>Compressor · condenser · metering · evaporator. Drop them, Start compressor, read SH/SC on the strip.</p>
+              <button type="button" class="btn primary" id="sb-howto-go">Got it</button>
             </div>
+          </div>
+          <div class="sb-stage-wrap">
             <canvas id="sb-canvas"></canvas>
             <canvas id="sb-gl" class="sb-gl hidden"></canvas>
             <div id="sb-slots" class="sb-slots"></div>
@@ -1261,6 +1275,12 @@
               </div>
               <div class="sb-float-body" id="sb-charge-body"></div>
             </div>
+          </div>
+          <div class="sb-phone-vitals" id="sb-phone-vitals" aria-label="Live system">
+            <span>L <b id="pv-l">—</b></span>
+            <span>H <b id="pv-h">—</b></span>
+            <span>SH <b id="pv-sh">—</b></span>
+            <span>SC <b id="pv-sc">—</b></span>
           </div>
         </main>
         <aside class="sb-gauges">
@@ -2710,18 +2730,39 @@
     paintCoils();
   }
 
+  function isPhoneLab() {
+    return typeof window.matchMedia === "function" && window.matchMedia("(max-width: 800px)").matches;
+  }
+
+  function slotXY(s) {
+    if (!isPhoneLab()) return { x: s.x, y: s.y };
+    const phone = {
+      compressor: { x: 0.22, y: 0.48 },
+      condenser: { x: 0.50, y: 0.18 },
+      filter: { x: 0.70, y: 0.32 },
+      metering: { x: 0.78, y: 0.48 },
+      evaporator: { x: 0.50, y: 0.82 },
+      accumulator: { x: 0.30, y: 0.68 },
+    };
+    return phone[s.id] || null;
+  }
+
   function layoutSlots() {
     const wrap = document.getElementById("sb-slots");
     if (!wrap) return;
     wrap.innerHTML = "";
+    const phone = isPhoneLab();
     SLOTS.forEach((s) => {
       const stepIdx = BUILD_STEPS.findIndex((b) => b.slot === s.id);
+      const xy = slotXY(s);
+      if (phone && !xy && !placed[s.id] && !(guidedOn && stepIdx === guidedStep)) return;
       if (guidedOn && stepIdx > guidedStep && !s.core) return;
+      const pos = xy || { x: 0.50, y: 0.50 };
       const el = document.createElement("div");
       el.className = "sb-slot" + (s.core ? " core" : "");
       el.dataset.slot = s.id;
-      el.style.left = s.x * 100 + "%";
-      el.style.top = s.y * 100 + "%";
+      el.style.left = pos.x * 100 + "%";
+      el.style.top = pos.y * 100 + "%";
       if (guidedOn && stepIdx === guidedStep && !placed[s.id]) el.classList.add("hub-next", "magnet");
       el.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -2893,6 +2934,14 @@
     if (cap) cap.textContent = sim.running ? sim.tons.toFixed(1) + " t · " + sim.btuh.toLocaleString() + " Btuh" : "—";
     if (cop) cop.textContent = sim.running ? sim.cop.toFixed(2) : "—";
     if (amps) amps.textContent = sim.running ? sim.amps.toFixed(1) + " A" : "—";
+    const pvL = document.getElementById("pv-l");
+    const pvH = document.getElementById("pv-h");
+    const pvSh = document.getElementById("pv-sh");
+    const pvSc = document.getElementById("pv-sc");
+    if (pvL) pvL.textContent = fmt(sim.pLow, 0);
+    if (pvH) pvH.textContent = fmt(sim.pHigh, 0);
+    if (pvSh) pvSh.textContent = sim.running ? sim.sh.toFixed(0) : "—";
+    if (pvSc) pvSc.textContent = sim.running ? sim.sc.toFixed(0) : "—";
     highlightPT(sim);
     const st = document.getElementById("sb-status");
     if (st) st.textContent = sim.status || "";
@@ -3125,7 +3174,7 @@
       s.lineTo(w, y);
     }
     s.stroke();
-    pxPath = FLOW_PATH.map(function (p) {
+    pxPath = flowPath().map(function (p) {
       return [p[0] * w, p[1] * h];
     });
     s.lineWidth = 14;
@@ -3412,6 +3461,14 @@
       };
     }
     window.addEventListener("lt-hubai", () => paintHubCoach());
+    if (host && host._ltResize) window.removeEventListener("resize", host._ltResize);
+    if (host) {
+      host._ltResize = function () {
+        staticKey = "";
+        layoutSlots();
+      };
+      window.addEventListener("resize", host._ltResize);
+    }
 
     const refEl = document.getElementById("sb-ref");
     if (refEl) refEl.onchange = (e) => {
@@ -3642,6 +3699,10 @@
         raf = 0;
         if (challengeTimer) clearInterval(challengeTimer);
         challengeTimer = 0;
+        if (host && host._ltResize) {
+          window.removeEventListener("resize", host._ltResize);
+          host._ltResize = null;
+        }
       },
       getHubBtn() {
         return document.getElementById("sb-hub");
