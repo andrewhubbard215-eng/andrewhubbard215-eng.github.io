@@ -486,8 +486,8 @@
     paintRuns();
     paintMeter();
     const slot = toLug.split(".")[0];
-    if (zoomSlot) openZoom(zoomSlot);
-    else if (slot && slot !== "src" && labMode === "build") openZoom(slot);
+    if (zoomSlot === slot) syncZoom();
+    else if (slot && labMode === "build") openZoom(slot === "src" ? "src" : slot);
     const ok = lugMatch(color, toLug);
     host.querySelectorAll('[data-lug="' + toLug + '"]').forEach((n) => {
       n.classList.add(ok ? "landed-ok" : "landed-bad");
@@ -508,7 +508,7 @@
         allowButtons: true,
         ghostClass: "el-wire-ghost",
         html: wireGhostHtml(color),
-        dropSelector: "[data-lug], #el-board .el-slot.filled",
+        dropSelector: ".el-zoom-screw, #el-source, #el-board .el-slot.filled",
         onDragStart(id) {
           spool = id;
           paintLugState();
@@ -516,6 +516,7 @@
         },
         onHover(target, id, ev) {
           highlightWireTargets(id, target);
+          if (zoomSlot) return;
           const lug = resolveDropTarget(target, id);
           const slot = lug ? lug.split(".")[0] : (target && target.dataset.slot);
           if (slot && slot !== "src") showLoupe(placed[slot] || slot, target && target.classList && target.classList.contains("el-slot") ? target : host.querySelector('.el-slot[data-slot="' + slot + '"]'), ev);
@@ -526,8 +527,15 @@
         },
         onDrop(_key, id, dropEl) {
           clearWireTargets();
-          const lug = resolveDropTarget(dropEl, id);
-          dropWireOnLug(id, lug, originForColor(id));
+          hideLoupe();
+          const screw = dropEl && dropEl.closest ? dropEl.closest(".el-zoom-screw") : null;
+          if (screw && screw.dataset.lug) {
+            dropWireOnLug(id, screw.dataset.lug, originForColor(id));
+            return;
+          }
+          const slotEl = dropEl && dropEl.closest ? dropEl.closest(".el-slot.filled, #el-source") : dropEl;
+          const slot = slotEl && (slotEl.id === "el-source" ? "src" : slotEl.dataset.slot);
+          if (slot) openZoom(slot);
         },
       });
     });
@@ -995,53 +1003,55 @@
       allowButtons: true,
       ghostClass: "el-wire-ghost",
       html: wireGhostHtml(color),
-      dropSelector: "[data-lug], #el-board .el-slot.filled",
+      dropSelector: ".el-zoom-screw",
       onDragStart() {
         spool = colorFromLug(fromId);
         pending = fromId;
         paintLugState();
         highlightWireTargets(spool);
       },
-      onHover(target, id, ev) {
+      onHover(target, id) {
         highlightWireTargets(colorFromLug(id), target);
-        const lug = resolveDropTarget(target, colorFromLug(id));
-        const slot = lug ? lug.split(".")[0] : (target && target.dataset.slot);
-        if (slot && slot !== "src") {
-          showLoupe(placed[slot] || slot, host.querySelector('.el-slot[data-slot="' + slot + '"]'), ev);
-        }
       },
       onHoverEnd() {
         clearWireTargets();
-        hideLoupe();
       },
       onDrop(_key, id, dropEl) {
         clearWireTargets();
-        const col = colorFromLug(id);
-        const lug = resolveDropTarget(dropEl, col);
-        dropWireOnLug(col, lug, id);
+        const screw = dropEl && dropEl.closest ? dropEl.closest(".el-zoom-screw") : dropEl;
+        const lug = screw && screw.dataset.lug;
+        dropWireOnLug(colorFromLug(id), lug, id);
       },
     });
   }
 
   function onLug(id) {
     if (labMode === "defusal") return;
+    const slot = id.split(".")[0];
+    if (!zoomSlot || zoomSlot !== slot) {
+      openZoom(slot === "src" ? "src" : slot);
+      pending = id;
+      paintLugState();
+      syncZoom();
+      return;
+    }
     if (!pending) {
       pending = id;
       paintLugState();
+      syncZoom();
       return;
     }
     if (pending === id) {
       pending = null;
       paintLugState();
+      syncZoom();
       return;
     }
     landWire(spool, pending, id);
     pending = null;
-    paintLugState();
     paintRuns();
     paintMeter();
-    const slotFrom = id.indexOf(".") > 0 ? id.slice(0, id.indexOf(".")) : "";
-    if (slotFrom && slotFrom !== "src" && labMode === "build") openZoom(slotFrom);
+    syncZoom();
     if (onXp) onXp(2);
   }
 
@@ -1053,6 +1063,51 @@
     host.querySelectorAll(".el-spool").forEach((b) => {
       b.classList.toggle("active", b.dataset.spool === spool);
     });
+  }
+
+  function srcLugs() {
+    return [
+      { id: "hot", cls: "hot", label: "H", title: "HOT · black" },
+      { id: "n", cls: "neu", label: "N", title: "NEUTRAL · off-white" },
+      { id: "gnd", cls: "gnd", label: "G", title: "GROUND · green" },
+    ];
+  }
+
+  function termsFor(slotId) {
+    const lugs = slotId === "src" ? srcLugs() : lugsFor(slotId);
+    const n = lugs.length;
+    return lugs.map((l, i) => ({
+      ...l,
+      x: n <= 1 ? 50 : Math.round(18 + (64 * i) / Math.max(1, n - 1)),
+      y: n === 1 ? 72 : 80,
+    }));
+  }
+
+  function lugId(slotId, termId) {
+    return (slotId === "src" ? "src." : slotId + ".") + termId;
+  }
+
+  function wireOnLug(lug, color) {
+    return runs.some((r) => r.color === color && (r.a === lug || r.b === lug));
+  }
+
+  function missingTerms(slotId) {
+    return termsFor(slotId).filter((t) => {
+      const color = t.id === "hot" ? "hot" : t.id === "n" ? "neutral" : "ground";
+      return !wireOnLug(lugId(slotId, t.id), color);
+    });
+  }
+
+  function nextNeedySlot() {
+    const order = ["src"].concat(SLOTS.map((s) => s.id));
+    const start = Math.max(0, order.indexOf(zoomSlot));
+    for (let i = 1; i <= order.length; i++) {
+      const id = order[(start + i) % order.length];
+      if (id !== "src" && !placed[id]) continue;
+      if (!termsFor(id).length) continue;
+      if (missingTerms(id).length) return id;
+    }
+    return null;
   }
 
   function slotInfo(slotId) {
@@ -1075,26 +1130,93 @@
     };
   }
 
-  function srcLugs() {
-    return [
-      { id: "hot", cls: "hot", label: "H", title: "HOT · black" },
-      { id: "n", cls: "neu", label: "N", title: "NEUTRAL · off-white" },
-      { id: "gnd", cls: "gnd", label: "G", title: "GROUND · green" },
-    ];
+  function zoomScrewsHtml(slotId) {
+    const terms = termsFor(slotId);
+    if (!terms.length) {
+      return '<p class="el-zoom-empty">24V device — no line screws. Wire this from the thermostat / transformer.</p>';
+    }
+    return terms.map((t) => {
+      const id = lugId(slotId, t.id);
+      const color = t.id === "hot" ? "hot" : t.id === "n" ? "neutral" : "ground";
+      const on = wireOnLug(id, color);
+      return (
+        '<button type="button" class="el-zoom-screw el-lug ' + t.cls +
+        (on ? " wired wired-" + (color === "neutral" ? "neu" : color === "ground" ? "gnd" : "hot") : "") +
+        (pending === id ? " pending" : "") +
+        '" data-lug="' + id + '" data-need="' + color + '" title="' + t.title +
+        '" style="left:' + t.x + '%;top:' + t.y + '%">' +
+        "<b>" + t.label + "</b><small>" + t.title.split("·")[0].trim() + "</small></button>"
+      );
+    }).join("");
   }
 
-  function zoomLugRow(slotId) {
-    const lugs = slotId === "src" ? srcLugs() : lugsFor(slotId);
-    const prefix = slotId === "src" ? "src." : slotId + ".";
-    if (!lugs.length) {
-      return '<p class="el-zoom-hint">No line lugs on this device — it lives on the 24V side.</p>';
+  function paintZoomNeed() {
+    const box = host && host.querySelector("#el-zoom-need");
+    const hint = host && host.querySelector("#el-zoom-hint");
+    const nextBtn = host && host.querySelector("#el-zoom-next");
+    if (!box || !zoomSlot) return;
+    const terms = termsFor(zoomSlot);
+    if (!terms.length) {
+      box.innerHTML = "";
+      if (hint) hint.textContent = "This one lives on 24V. Close and grab a line-voltage device.";
+      if (nextBtn) nextBtn.hidden = !nextNeedySlot();
+      return;
     }
-    return lugs.map((l) =>
-      '<button type="button" class="el-zoom-term el-lug ' + l.cls +
-      (pending === prefix + l.id ? " pending" : "") +
-      '" data-lug="' + prefix + l.id + '" title="' + l.title + '">' +
-      "<b>" + l.label + "</b><small>" + l.title + "</small></button>"
-    ).join("");
+    box.innerHTML = terms.map((t) => {
+      const color = t.id === "hot" ? "hot" : t.id === "n" ? "neutral" : "ground";
+      const w = WIRE[color];
+      const on = wireOnLug(lugId(zoomSlot, t.id), color);
+      return '<li class="' + (on ? "ok" : "miss") + '"><i style="background:' + w.fill + ";border-color:" + w.stroke + '"></i>' +
+        (on ? "Landed" : "Need") + " " + w.code + " → " + t.label + "</li>";
+    }).join("");
+    const miss = missingTerms(zoomSlot);
+    if (hint) {
+      if (!miss.length) hint.textContent = "All screws landed on this device. Next device, or close.";
+      else {
+        const w = WIRE[spool] || WIRE.hot;
+        hint.textContent = "Drag " + w.code + " onto the matching screw on this close-up.";
+      }
+    }
+    if (nextBtn) {
+      const n = nextNeedySlot();
+      nextBtn.hidden = !n;
+      nextBtn.textContent = n ? "Next device →" : "Next device";
+    }
+  }
+
+  function paintZoomSvg() {
+    const svg = host && host.querySelector("#el-zoom-svg");
+    if (!svg || !zoomSlot) return;
+    const terms = termsFor(zoomSlot);
+    const paths = terms.map((t, i) => {
+      const color = t.id === "hot" ? "hot" : t.id === "n" ? "neutral" : "ground";
+      if (!wireOnLug(lugId(zoomSlot, t.id), color)) return "";
+      const w = WIRE[color];
+      const sx = 16 + i * 34;
+      return '<path d="M ' + sx + ' 2 C ' + sx + " " + (t.y * 0.45) + ", " + t.x + " " + (t.y * 0.55) + ", " + t.x + " " + t.y +
+        '" fill="none" stroke="' + w.fill + '" stroke-width="5" stroke-linecap="round"/>' +
+        '<circle cx="' + t.x + '" cy="' + t.y + '" r="3.2" fill="' + w.fill + '" stroke="' + w.stroke + '" stroke-width="0.8"/>';
+    }).join("");
+    svg.innerHTML = paths;
+  }
+
+  function syncZoom() {
+    if (!host || !zoomSlot) return;
+    const z = host.querySelector("#el-zoom");
+    if (!z || !z.classList.contains("show")) return;
+    z.querySelectorAll(".el-zoom-screw").forEach((b) => {
+      const lug = b.dataset.lug;
+      const color = b.dataset.need;
+      const on = wireOnLug(lug, color);
+      b.classList.toggle("wired", on);
+      b.classList.toggle("wired-hot", on && color === "hot");
+      b.classList.toggle("wired-neu", on && color === "neutral");
+      b.classList.toggle("wired-gnd", on && color === "ground");
+      b.classList.toggle("pending", pending === lug);
+    });
+    paintZoomNeed();
+    paintZoomSvg();
+    paintLugState();
   }
 
   function openZoom(slotId) {
@@ -1117,15 +1239,15 @@
       ico.textContent = info.icon;
     }
     z.querySelector("#el-zoom-name").textContent = info.name;
-    z.querySelector("#el-zoom-desc").textContent = info.desc;
-    z.querySelector("#el-zoom-lugs").innerHTML = zoomLugRow(slotId);
-    const spoolName = WIRE[spool] ? WIRE[spool].code : "black";
-    z.querySelector("#el-zoom-hint").textContent =
-      "Drag " + spoolName + " onto the matching screw — black on H, off-white on N, green on G.";
+    z.querySelector("#el-zoom-desc").textContent = info.desc || "Drag the matching color onto each screw on this close-up.";
+    const screws = z.querySelector("#el-zoom-screws");
+    if (screws) screws.innerHTML = zoomScrewsHtml(slotId);
     bindLugs(z);
     bindWireDrags();
-    paintLugState();
     z.classList.add("show");
+    paintZoomNeed();
+    paintZoomSvg();
+    paintLugState();
   }
 
   function closeZoom() {
@@ -1409,12 +1531,12 @@
           <div id="el-items" class="sb-items"></div>
           <p class="sb-hint">${labMode === "defusal"
             ? "Meter the live circuit. Cut the OPEN. Replace the bad part if you have it. Never cut R or a winding."
-            : "Drop a part, then drag the wire: black on H, off-white on N, green on G."}</p>
+            : "Drop a part, then tap it. Wiring happens on the close-up — drag black / off-white / green onto the screws."}</p>
           <div class="hub-chip" style="margin-top:10px;max-width:none">
             <img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" />
             <div><strong>Professor HUB</strong><p>${labMode === "defusal"
               ? "This is a callback bomb — the Saturday kind. Meter Y through the safeties. Cut the open. Leave the live alone."
-              : "Black is hot — drag it onto the H screw. Off-white is neutral, onto N. Green is ground, onto G. Wrong screw still lands. Hot on ground is a dead short."}</p></div>
+              : "Tap a device to zoom. Drag black onto H, off-white onto N, green onto G — on that close-up, not the tiny box."}</p></div>
           </div>
         </aside>
         <main class="el-main">
@@ -1513,20 +1635,23 @@
         <div class="el-zoom" id="el-zoom">
           <div class="el-zoom-card">
             <button type="button" class="el-zoom-close" id="el-zoom-close" aria-label="Close close-up">×</button>
-            <p class="eyebrow">Device close-up</p>
-            <div class="el-zoom-shot">
-              <img id="el-zoom-img" alt="" hidden />
-              <span id="el-zoom-ico" class="ico" hidden></span>
-            </div>
+            <p class="eyebrow">Wire this device</p>
             <strong id="el-zoom-name">Device</strong>
             <p id="el-zoom-desc"></p>
+            <div class="el-zoom-work" id="el-zoom-work">
+              <img id="el-zoom-img" alt="" hidden />
+              <span id="el-zoom-ico" class="ico" hidden></span>
+              <svg id="el-zoom-svg" class="el-zoom-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <div id="el-zoom-screws" class="el-zoom-screws"></div>
+            </div>
             <div class="el-spools el-zoom-spools" id="el-zoom-spools">
               <button type="button" class="el-spool hot" data-spool="hot"><i></i> Hot · black</button>
               <button type="button" class="el-spool neu" data-spool="neutral"><i></i> Neutral · off-white</button>
               <button type="button" class="el-spool gnd" data-spool="ground"><i></i> Ground · green</button>
             </div>
-            <div class="el-zoom-lugs" id="el-zoom-lugs"></div>
-            <p class="el-zoom-hint" id="el-zoom-hint">Pick a spool, then tap a screw terminal.</p>
+            <ul class="el-zoom-need" id="el-zoom-need"></ul>
+            <p class="el-zoom-hint" id="el-zoom-hint">Drag the matching color onto each screw on this close-up.</p>
+            <button type="button" class="btn primary" id="el-zoom-next">Next device →</button>
           </div>
         </div>
         <div class="el-loupe" id="el-loupe" aria-hidden="true">
@@ -1601,7 +1726,7 @@
         spool = b.dataset.spool;
         pending = null;
         paintLugState();
-        if (zoomSlot) openZoom(zoomSlot);
+        if (zoomSlot) syncZoom();
       };
     });
     bindWireDrags();
@@ -1686,6 +1811,15 @@
     if (jobsBack) jobsBack.onclick = () => setLabMode("defusal");
     const zClose = host.querySelector("#el-zoom-close");
     if (zClose) zClose.onclick = (e) => { e.stopPropagation(); closeZoom(); };
+    const zNext = host.querySelector("#el-zoom-next");
+    if (zNext) {
+      zNext.onclick = (e) => {
+        e.stopPropagation();
+        const n = nextNeedySlot();
+        if (n) openZoom(n);
+        else closeZoom();
+      };
+    }
     const z = host.querySelector("#el-zoom");
     if (z) {
       z.onclick = (e) => {
