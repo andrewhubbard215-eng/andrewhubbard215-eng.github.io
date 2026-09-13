@@ -38,6 +38,14 @@
       why: "EPA 608 · OSHA · P/T · Lincoln Tech curriculum",
     },
     {
+      id: "epa608",
+      mode: "epa608",
+      title: "EPA 608 tutor",
+      minutes: 10,
+      skill: "theory",
+      why: "Core · Type I/II/III · recovery vacuum table",
+    },
+    {
       id: "curriculum",
       mode: "curriculum",
       title: "Curriculum unit",

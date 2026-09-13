@@ -480,7 +480,7 @@
     // show first-day tip once on hub
     document.body.classList.toggle(
       "lab-open",
-      ["sandbox", "electrical", "quiz", "minisplit", "service", "phonetools", "commandments", "aihelper", "curriculum", "compete"].indexOf(id) >= 0
+      ["sandbox", "electrical", "quiz", "minisplit", "service", "phonetools", "commandments", "epa608", "aihelper", "curriculum", "compete"].indexOf(id) >= 0
     );
     if (id === "hub") {
       const tip = document.getElementById("hub-tip");
@@ -2166,6 +2166,7 @@
         else if (m === "defusal") startElectrical({ defuse: true });
         else if (m === "phonetools") startPhoneTools();
         else if (m === "commandments") startCommandments();
+        else if (m === "epa608") startEpa608();
         else if (m === "tutorial") startTutorial();
         else if (m === "character") show("character");
         else if (m === "rapture") openRapture();
@@ -2445,6 +2446,31 @@
     });
   }
 
+  function startEpa608() {
+    if (!window.Epa608Tutor || !window.Epa608Tutor.start) {
+      toast("608 tutor didn't load. Hard-refresh.", "bad");
+      return;
+    }
+    const root = document.getElementById("epa608-root");
+    if (!root) {
+      toast("608 screen missing.", "bad");
+      return;
+    }
+    show("epa608");
+    window.Epa608Tutor.start(root, {
+      onHub() {
+        refreshHub();
+        show("hub");
+      },
+      onExam() {
+        startQuizArena();
+      },
+      onStamp() {
+        markDaily("epa608");
+      },
+    });
+  }
+
   let phoneToolsCtl = null;
   function startPhoneTools() {
     show("phonetools");
@@ -2676,6 +2702,7 @@
         else if (mode === "elguide") startElectrical({ guide: true });
         else if (mode === "aihelper") startAIHelper();
         else if (mode === "commandments") startCommandments();
+        else if (mode === "epa608") startEpa608();
         else if (mode === "compete") startCompete();
       },
     });

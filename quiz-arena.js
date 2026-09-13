@@ -130,6 +130,30 @@
         a: 1,
         why: "Don't recover into disposable cylinders.",
       },
+      {
+        q: "A 3-ton R-410A split recovered with a modern (post-1993) machine must be pulled to:",
+        choices: ["10 inches Hg vacuum", "15 inches Hg vacuum", "0 inches Hg vacuum (0 psig)", "25 mm Hg absolute"],
+        a: 2,
+        why: "High-pressure appliance under 200 lb, post-1993 recovery equipment: 0\" Hg = 0 psig. 10\" is for high-pressure 200 lb or more.",
+      },
+      {
+        q: "High-pressure appliance, 200 lb or more, recovery machine made after Nov 15, 1993. Required vacuum:",
+        choices: ["0 inches Hg", "4 inches Hg", "10 inches Hg", "15 inches Hg"],
+        a: 2,
+        why: "Post-1993, high-pressure ≥200 lb = 10\" Hg. 15\" is medium-pressure ≥200 lb. 4\" is the pre-1993 number.",
+      },
+      {
+        q: "On Type I small appliances with a running compressor (post-1993 recovery gear) you must recover at least:",
+        choices: ["50% of the charge", "80% of the charge", "90% of the charge or 4 inches Hg", "10 inches Hg always"],
+        a: 2,
+        why: "90% if the compressor operates, 80% if it does not, or evacuate to 4\" Hg.",
+      },
+      {
+        q: "0 inches of mercury vacuum on the 608 recovery table means:",
+        choices: ["500 microns", "0 psig / atmospheric", "29.9 inHg on a compound gauge", "A Type III chiller pull"],
+        a: 1,
+        why: "0\" vacuum is atmospheric pressure (0 psig). It is not a dehydration vacuum.",
+      },
     ],
     osha30: [
       {

@@ -28,6 +28,18 @@
       icon: "📜",
     },
     {
+      id: "epa_tutor",
+      name: "608 Stamp",
+      desc: "Passed an EPA 608 tutor section drill at 80%.",
+      icon: "📋",
+    },
+    {
+      id: "epa_universal",
+      name: "Universal Track",
+      desc: "Stamped Core, Type I, II, and III in the 608 tutor.",
+      icon: "🏅",
+    },
+    {
       id: "osha_quiz",
       name: "Safety First",
       desc: "Strong OSHA 30 quiz performance.",

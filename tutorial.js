@@ -29,6 +29,13 @@
       launch: "quiz",
     },
     {
+      id: "epa608",
+      title: "EPA 608 tutor",
+      say: "608 tutor is the prove path: Core, Type I, II, III. Run the vacuum table. Stamp a section at 80%, then sit the exam. Appliance, not the jug.",
+      highlight: '[data-mode="epa608"]',
+      launch: "epa608",
+    },
+    {
       id: "sandbox",
       title: "System sandbox",
       say: "Four-part cycle: compressor, condenser, metering, evaporator. Drop them, Start compressor, read live SH and SC. HUB guided lights one box at a time.",
