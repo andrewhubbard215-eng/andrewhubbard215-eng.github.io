@@ -89,4 +89,10 @@
     l.href = "board-codes.css?v=1";
     document.head.appendChild(l);
   }
+  if (!document.querySelector('link[href*="lab-glass.css"]')) {
+    var g = document.createElement("link");
+    g.rel = "stylesheet";
+    g.href = "lab-glass.css?v=1";
+    document.head.appendChild(g);
+  }
 })(window);
