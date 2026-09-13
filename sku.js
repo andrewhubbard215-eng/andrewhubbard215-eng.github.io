@@ -77,6 +77,12 @@
     cf.src = "charge-floor.js?v=1";
     document.head.appendChild(cf);
   }
+  if (!document.querySelector('script[src*="sandbox-bom.js"]')) {
+    var bom = document.createElement("script");
+    bom.defer = true;
+    bom.src = "sandbox-bom.js?v=1";
+    document.head.appendChild(bom);
+  }
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
