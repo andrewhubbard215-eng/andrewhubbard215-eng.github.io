@@ -117,8 +117,93 @@
     });
   }
 
-  setInterval(mountBtn, 800);
-  document.addEventListener("DOMContentLoaded", mountBtn);
+  const PROVE = [
+    { id: "hose", label: "1 · Hose", ask: "Inducer is running. Pressure switch is open. First move?", good: "Pull the hose off the switch and blow/clear it. Look for water, kink, or a disconnected barb.", bad: "Swap the switch. Parts first is how you eat a callback." },
+    { id: "trap", label: "2 · Trap", ask: "Hose is clear. Still open. Next?", good: "Check the condensate trap. Water-logged trap kills vacuum at the switch.", bad: "Jump the switch and call it fixed. That's a safety bypass." },
+    { id: "vent", label: "3 · Vent", ask: "Hose and trap look dry. Next?", good: "Prove the vent/intake. Bird nest, cap, or ice kills draft before the switch ever fails.", bad: "Crank the gas valve. Draft problem is not a gas problem." },
+    { id: "meter", label: "4 · 24V across", ask: "Draft path is open. How do you prove the switch electrically?", good: "Meter 24V across the two switch wires with the inducer running. 24V sitting there = switch still open.", bad: "Ohm the switch on the bench first. In the unit, the circuit tells you if it's open under load." },
+    { id: "rating", label: "5 · Vacuum vs rating", ask: "Inducer pulls. What number matters?", good: "Compare inducer vacuum (or manometer) to the switch rating printed on the part. Weak draft ≠ bad switch.", bad: "If it clicks on the bench it's good. Bench click is not running vacuum." },
+    { id: "last", label: "6 · Switch last", ask: "Hose, trap, vent, 24V, and draft all check out. Now?", good: "Now replace the switch. Switch last — after the prove path.", bad: "Order a board. The board is waiting on a closed switch, not the other way around." }
+  ];
+  let pi = 0;
+  let pScore = 0;
+  let pTried = 0;
+  let pWhy = "";
+
+  function mountProveBtn() {
+    const modes = document.querySelector("#electrical-root .el-modes");
+    if (!modes || modes.querySelector("#el-mode-prove")) return;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "el-mode-btn";
+    b.id = "el-mode-prove";
+    b.textContent = "Pressure-switch prove";
+    b.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openProve();
+    };
+    modes.appendChild(b);
+  }
+
+  function openProve() {
+    let wrap = document.getElementById("el-prove-overlay");
+    if (!wrap) {
+      wrap = document.createElement("div");
+      wrap.id = "el-prove-overlay";
+      wrap.className = "el-locker";
+      const root = document.getElementById("electrical-root") || document.body;
+      root.appendChild(wrap);
+    }
+    drawProve(wrap);
+  }
+
+  function drawProve(wrap) {
+    const step = PROVE[pi % PROVE.length];
+    wrap.innerHTML =
+      '<header class="sb-toolbar"><strong>Pressure-switch prove</strong>' +
+      '<span class="muted"> Hose → trap → vent → 24V across → vacuum vs rating → switch last</span>' +
+      '<button type="button" class="btn" id="el-prove-close">Close</button></header>' +
+      '<p class="eyebrow">' + step.label + " of 6</p>" +
+      "<p>" + step.ask + "</p>" +
+      '<div class="el-locker-opts">' +
+      (Math.random() < 0.5
+        ? '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>" +
+          '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button>"
+        : '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button>" +
+          '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>') +
+      "</div>" +
+      "<p class='hub-chip' style='margin-top:12px'>" +
+      (pWhy || "Don't condemn the switch until the draft path is proven.") +
+      "</p><p class='muted'>Score " + pScore + "/" + pTried + "</p>";
+    wrap.querySelector("#el-prove-close").onclick = function () { wrap.remove(); };
+    wrap.querySelectorAll(".el-prove-opt").forEach(function (b) {
+      b.onclick = function () {
+        pTried += 1;
+        const ok = b.getAttribute("data-ok") === "1";
+        if (ok) pScore += 1;
+        pWhy = ok
+          ? "RIGHT — " + step.good
+          : "WRONG — " + step.bad + " Right path: " + step.good;
+        pi += 1;
+        drawProve(wrap);
+      };
+    });
+  }
+
+  window.BoardCodes = { openLocker: openLocker, openProve: openProve };
+
+  document.addEventListener("click", function (e) {
+    const btn = e.target && e.target.closest && e.target.closest('[data-mode="pressprove"]');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.ltPlay === "function") window.ltPlay("electrical");
+    setTimeout(openProve, 450);
+  }, true);
+
+  setInterval(function () { mountBtn(); mountProveBtn(); }, 800);
+  document.addEventListener("DOMContentLoaded", function () { mountBtn(); mountProveBtn(); });
 
   function injectExam() {
     const bank = window.QuizArena && window.QuizArena.BANK && window.QuizArena.BANK.curriculum;
@@ -138,6 +223,22 @@
         0: "Why it's wrong: codes are brand- and board-specific. Ordering a board from memory is how you eat a callback.",
         2: "Why it's wrong: a flash is a control/safety story, not a charge chart.",
         3: "Why it's wrong: jumping a limit hides fire risk. Prove airflow and the limit path."
+      }
+    });
+    bank.push({
+      q: "Furnace inducer runs, pressure switch will not close. Correct prove order:",
+      choices: [
+        "Replace the switch, then the board, then the inducer",
+        "Hose → trap → vent → 24V across the switch → vacuum vs printed rating → switch last",
+        "Jump the switch so the customer has heat tonight",
+        "Add refrigerant — low charge opens every pressure switch"
+      ],
+      a: 1,
+      why: "Draft path first. The switch is last after hose, trap, vent, meter, and rating all check out.",
+      wrong: {
+        0: "Why it's wrong: parts-cannon. Most 'bad switches' are water in the trap or a blocked vent.",
+        2: "Why it's wrong: jumping a pressure switch hides a vent/CO risk. Prove, don't bypass.",
+        3: "Why it's wrong: a furnace pressure switch is draft, not 410A. Charge chart does not close it."
       }
     });
   }
