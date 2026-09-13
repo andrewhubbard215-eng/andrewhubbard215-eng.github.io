@@ -318,16 +318,14 @@
   let guideOn = false;
   let guideI = 0;
   const GUIDE = [
-    { id: "intro", title: "Three colors", say: "Black is hot. Off-white is neutral. Green is ground. Wrong color on a screw is a short or an open." },
-    { id: "kit", title: "Tap the disconnect", say: "I loaded a split kit. Tap the disconnect — outdoor shutoff. Wiring happens on the close-up.", wait: "zoom:disconnect" },
+    { id: "intro", title: "Follow the call", say: "This is the 24-volt cool string. R through the safeties into the coil. Gold is live. Dark is dead. Tap R." },
+    { id: "y", title: "Call for cool", say: "Hit Y on the stat so the string is live. That's a cool call." },
+    { id: "walk", title: "Walk it", say: "Tap down the string. If a box goes dark, that's your open. That's how you meter a no-cool." },
+    { id: "kit", title: "Now land lugs", say: "Same three colors: black hot, off-white neutral, green ground. Tap the disconnect — wiring is on the close-up.", wait: "zoom:disconnect" },
     { id: "hot", title: "Land hot", say: "Drag the black spool onto the H screw.", wait: "land:hot:disconnect" },
     { id: "neu", title: "Land neutral", say: "Off-white onto N.", wait: "land:neutral:disconnect" },
     { id: "gnd", title: "Land ground", say: "Green onto G. Bond the can.", wait: "land:ground:disconnect" },
-    { id: "next", title: "Contactor next", say: "Hit Next device or tap the contactor.", wait: "zoom:contactor" },
-    { id: "chot", title: "Contactor hot", say: "Black on H. That's L1 in.", wait: "land:hot:contactor" },
-    { id: "cneu", title: "Contactor neutral", say: "Off-white on N.", wait: "land:neutral:contactor" },
-    { id: "cgnd", title: "Contactor ground", say: "Green on G.", wait: "land:ground:contactor" },
-    { id: "done", title: "You can run the box", say: "Same three colors on every device. Finish the kit. Callback bomb is the Saturday fault when you are ready." },
+    { id: "done", title: "You can run the box", say: "Follow the call to diagnose. Land lugs to wire. Saturday callback is the timed fault." },
   ];
   let job = null;
   let cutSet = {};
@@ -344,6 +342,9 @@
   let runSeq = 1;
   let resizeObs = null;
   let zoomSlot = null;
+  let view = "ladder"; /* ladder | lugs */
+  let meteredOpen = false;
+  let ladderTap = null;
 
   function has(id) {
     return !!placed[id];
@@ -516,11 +517,14 @@
     guideOn = true;
     guideI = 0;
     labMode = "build";
+    view = "ladder";
+    callCool = true;
     loadKit("split");
     refreshSlots();
     paintMeter();
     closeZoom();
     paintGuide();
+    setView("ladder");
   }
 
   function stopGuide() {
@@ -596,9 +600,7 @@
     if (guideI < GUIDE.length - 1) {
       guideI += 1;
       const s = guideStep();
-      if (s.wait && s.wait.indexOf("zoom:") === 0) {
-        /* leave zoom closed so they tap */
-      }
+      if (s && s.id === "kit") setView("lugs");
       paintGuide();
     } else {
       stopGuide();
@@ -908,6 +910,7 @@
       runs = [];
       pending = null;
     }
+    landFactory();
   }
 
   function setLabMode(next) {
@@ -915,6 +918,9 @@
     labMode = next === "defusal" ? "defusal" : "build";
     guideOn = wantGuide;
     guideI = 0;
+    view = "ladder";
+    meteredOpen = false;
+    ladderTap = null;
     clearTimer();
     job = null;
     cutSet = {};
@@ -938,6 +944,9 @@
     const found = JOBS.find((j) => j.id === jobId) || JOBS[0];
     job = found;
     labMode = "defusal";
+    view = "ladder";
+    meteredOpen = false;
+    ladderTap = null;
     cutSet = {};
     defused = false;
     boom = false;
@@ -988,6 +997,13 @@
 
   function replacePart() {
     if (!job || !job.replaceWin || defused || boom) return { result: "idle" };
+    if (!meteredOpen) {
+      const st = host && host.querySelector("#el-status");
+      if (st) st.textContent = "HUB: meter it first. Don't shotgun a part.";
+      const read = host && host.querySelector("#el-ladder-read");
+      if (read) read.textContent = "Tap down the string until you see 0 volts on the open. Then replace.";
+      return { result: "need-meter" };
+    }
     placed[job.replaceWin] = job.replaceWin;
     if (job.replaceWin === "fuse") fusedBlown = false;
     fault = "none";
@@ -1008,7 +1024,7 @@
       if (msg) {
         msg.textContent = why === "time"
           ? "Clock hit zero. Customer is still hot. That's a callback."
-          : "You cut the live. Compressor is a paperweight. That's a callback.";
+          : "You guessed without a meter. That's a callback.";
       }
     }
     paintDefusal();
@@ -1547,11 +1563,16 @@
     lcd.textContent = r.val;
     host.querySelector("#el-unit").textContent = r.unit;
     host.querySelector("#el-note").textContent = r.note;
-    host.querySelector("#el-status").textContent = statusLine(c);
-    host.querySelector("#el-run").classList.toggle("on", c.compRun);
-    host.querySelector("#el-24").classList.toggle("on", c.rHot);
-    host.querySelector("#el-coil").classList.toggle("on", c.pulled);
-    host.querySelector("#el-y").classList.toggle("on", c.y);
+    const stEl = host.querySelector("#el-status");
+    if (stEl) stEl.textContent = statusLine(c);
+    const runLamp = host.querySelector("#el-run");
+    if (runLamp) runLamp.classList.toggle("on", c.compRun);
+    const l24 = host.querySelector("#el-24");
+    if (l24) l24.classList.toggle("on", c.rHot);
+    const lcoil = host.querySelector("#el-coil");
+    if (lcoil) lcoil.classList.toggle("on", c.pulled);
+    const ly = host.querySelector("#el-y");
+    if (ly) ly.classList.toggle("on", c.y);
     const wLamp = host.querySelector("#el-w");
     if (wLamp) wLamp.classList.toggle("on", c.w);
     const oLamp = host.querySelector("#el-o");
@@ -1564,13 +1585,151 @@
     if (c.stripsOn) chips.push("strips ON");
     if (c.gasOn) chips.push("gas valve OPEN");
     if (c.groundedHot) chips.push("DEAD SHORT");
-    host.querySelector("#el-chips").textContent = chips.join(" · ");
+    const chipsEl = host.querySelector("#el-chips");
+    if (chipsEl) chipsEl.textContent = chips.join(" · ");
     const redn = PROBES.find((p) => p.id === red);
     const blkn = PROBES.find((p) => p.id === black);
     host.querySelector("#el-redn").textContent = redn ? redn.label : red;
     host.querySelector("#el-blkn").textContent = blkn ? blkn.label : black;
     paintSchematic();
     paintDefusal();
+    paintLadder();
+  }
+
+  function ladderNodes() {
+    const c = circuit();
+    const n = [];
+    const add = (row, id, label, sub, probeRed, probeBlk, zoom, live, open) => {
+      if (zoom && zoom !== "thermostat" && zoom !== "transformer" && zoom !== "src" && !has(zoom) && id !== "xfmr" && id !== "stat") return;
+      n.push({ row, id, label, sub, probeRed, probeBlk, zoom, live: !!live, open: open || null });
+    };
+    add("pwr", "l1", "L1", "240 hot", "l1", "l2", "breaker", c.line);
+    add("pwr", "disc", "DISC", "shutoff", "load1", "l2", "disconnect", c.loadHot, "open_disc");
+    add("pwr", "t1", "T1", "load", "t1", "t2", "contactor", c.pulled && c.loadHot);
+    add("pwr", "comp", "COMP", "herm", "compr", "t2", "compressor", c.compRun);
+    add("pwr", "fan", "FAN", "ODU", "fanlead", "t2", "fan", c.fanRun);
+    add("ctl", "xfmr", "R", "24V hot", "r", "c24", "transformer", c.rHot);
+    add("ctl", "fuse", "3A", "fuse", "r", "c24", "fuse", c.fuseOk && c.xfmr, "blown_fuse");
+    add("ctl", "stat", "STAT", "Y call", "y", "c24", "thermostat", c.y);
+    add("ctl", "hpc", "HPC", "high PS", "hpc", "c24", "hpc", c.y && c.hpc, "open_hpc");
+    add("ctl", "lpc", "LPC", "low PS", "lpc", "c24", "lpc", c.y && c.hpc && c.lpc, "open_lpc");
+    add("ctl", "float", "FLOAT", "pan", "y", "c24", "float", c.path, "float_open");
+    add("ctl", "coil", "COIL", "24V coil", "coil", "c24", "contactor", c.coil, "open_coil");
+    add("ctl", "c24", "C", "common", "c24", "r", "transformer", c.rHot);
+    if (has("limit") || has("gasvalve")) {
+      add("heat", "limit", "LIMIT", "furnace", "limit", "c24", "limit", c.w, "open_limit");
+      add("heat", "gas", "GAS", "valve", "w", "c24", "gasvalve", c.gasOn);
+    }
+    if (has("solenoid")) add("heat", "ob", "O/B", "RV", "o", "c24", "solenoid", c.o);
+    return n;
+  }
+
+  function nodeVolts(node) {
+    const c = circuit();
+    const v = vacBetween(node.probeRed, node.probeBlk, c);
+    return typeof v === "number" ? v : 0;
+  }
+
+  function ladderMarkup() {
+    return `<div class="el-ladder" id="el-ladder">
+      <div class="el-statpad" role="group" aria-label="Thermostat">
+        <span class="el-statpad-k">Thermostat</span>
+        <button type="button" class="el-stat-key" data-call="cool">Y · Cool</button>
+        <button type="button" class="el-stat-key" data-call="fan">G · Fan</button>
+        <button type="button" class="el-stat-key" data-call="heat">W · Heat</button>
+        <button type="button" class="el-stat-key" data-call="rev">O/B · RV</button>
+      </div>
+      <p class="el-ladder-kicker">Top is 240. Bottom is the 24V cool string. Tap a box to meter it.</p>
+      <div class="el-rail" data-rail="pwr"></div>
+      <div class="el-rail el-rail-24" data-rail="ctl"></div>
+      <div class="el-rail" data-rail="heat" hidden></div>
+      <div class="el-ladder-read" id="el-ladder-read">Tap R, then walk Y through the safeties.</div>
+      <button type="button" class="btn primary" id="el-wire-this">Land lugs on this device</button>
+    </div>`;
+  }
+
+  function paintLadder() {
+    const root = host && host.querySelector("#el-ladder");
+    if (!root) return;
+    const nodes = ladderNodes();
+    ["pwr", "ctl", "heat"].forEach((rail) => {
+      const row = root.querySelector('[data-rail="' + rail + '"]');
+      if (!row) return;
+      const list = nodes.filter((n) => n.row === rail);
+      row.hidden = list.length === 0;
+      row.innerHTML = list.map((n, i) => {
+        const v = nodeVolts(n);
+        const isOpen = !!(n.open && fault === n.open);
+        const cls = [
+          "el-node",
+          n.live ? "live" : "dead",
+          isOpen ? "open" : "",
+          ladderTap === n.id ? "picked" : "",
+          labMode === "defusal" && meteredOpen && isOpen ? "found" : "",
+        ].filter(Boolean).join(" ");
+        const wire = i < list.length - 1 ? '<i class="el-node-wire' + (n.live ? " on" : "") + '"></i>' : "";
+        return '<button type="button" class="' + cls + '" data-node="' + n.id + '"><b>' + n.label + "</b><small>" +
+          (isOpen && !n.live ? "OPEN · " : "") + v.toFixed(1) + " V</small>" + wire + "</button>";
+      }).join("");
+    });
+    root.querySelectorAll("[data-call]").forEach((b) => {
+      const k = b.getAttribute("data-call");
+      b.classList.toggle("on", (k === "cool" && callCool) || (k === "fan" && callFan) || (k === "heat" && callHeat) || (k === "rev" && callRev));
+    });
+    const read = host.querySelector("#el-ladder-read");
+    if (read) {
+      const n = nodes.find((x) => x.id === ladderTap);
+      if (n) {
+        const v = nodeVolts(n);
+        read.textContent = n.label + " → " + v.toFixed(1) + " VAC  ·  " +
+          (n.live ? "hot. Keep walking." : (n.open && fault === n.open ? "0 volts. That's the open. Replace it." : "dead. Who killed it?"));
+      } else if (labMode === "defusal") {
+        read.textContent = "Meter down the Y string. Dark box after a gold box is your open.";
+      } else {
+        read.textContent = "Tap R, then walk Y through the safeties. Gold is 24V. Dark is the open.";
+      }
+    }
+    const wireBtn = host.querySelector("#el-wire-this");
+    if (wireBtn) {
+      const n = nodes.find((x) => x.id === ladderTap);
+      wireBtn.disabled = !(n && n.zoom);
+      wireBtn.textContent = n && n.zoom ? "Land lugs · " + n.label : "Tap a device, then land lugs";
+    }
+  }
+
+  function tapLadder(nodeId) {
+    const n = ladderNodes().find((x) => x.id === nodeId);
+    if (!n) return;
+    ladderTap = nodeId;
+    red = n.probeRed;
+    black = n.probeBlk;
+    probed = true;
+    const v = nodeVolts(n);
+    if (labMode === "defusal" && n.open && fault === n.open && v < 8) {
+      meteredOpen = true;
+    }
+    paintLadder();
+    paintMeter();
+    onGuideEvent("ladder", nodeId);
+    if (guideOn) {
+      const s = guideStep();
+      if (s && s.wait && s.wait.indexOf("zoom:") === 0 && n.zoom === s.wait.split(":")[1]) openZoom(n.zoom);
+    }
+  }
+
+  function setView(v) {
+    view = v === "lugs" ? "lugs" : "ladder";
+    const lad = host && host.querySelector("#el-ladder");
+    const lug = host && host.querySelector("#el-lugs-wrap");
+    const pal = host && host.querySelector(".sb-palette");
+    if (lad) lad.hidden = view !== "ladder";
+    if (lug) lug.hidden = view !== "lugs";
+    if (pal) pal.classList.toggle("el-pal-off", view === "ladder");
+    if (host) host.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b.dataset.view === view));
+    if (view === "lugs") {
+      refreshSlots();
+      requestAnimationFrame(paintRuns);
+    } else paintLadder();
   }
 
   function sourceBarMarkup() {
@@ -1591,8 +1750,8 @@
 
   function jobPickerMarkup() {
     return `<div class="el-jobs" id="el-jobs">
-      <p class="el-jobs-kicker">Callback bomb · known HVAC faults · meter first, cut the OPEN</p>
-      <p class="el-jobs-note">These are the callbacks that blow up a Saturday — not movie wiring. Wrong cut = dead compressor, flooded house, or a fried board.</p>
+      <p class="el-jobs-kicker">Saturday callback · known HVAC faults · meter the open, then replace it</p>
+      <p class="el-jobs-note">Walk the 24V string with the meter. Dark box after a gold box is your open. Shotgun a part and it's still a callback.</p>
       ${JOBS.map((j) => `<button type="button" class="el-job-card" data-job="${j.id}">
         <span class="el-job-time">${j.seconds}s</span>
         <strong>${j.name}</strong>
@@ -1611,18 +1770,14 @@
       <div class="el-defuse-top">
         <div class="el-timer ${timeLeft <= 20 ? "panic" : ""}" id="el-timer">${String(Math.floor(timeLeft / 60))}:${String(timeLeft % 60).padStart(2, "0")}</div>
         <div>
-          <p class="eyebrow">Callback bomb</p>
+          <p class="eyebrow">Saturday callback</p>
           <strong id="el-job-name">${job.name}</strong>
-          <span class="el-defuse-state" id="el-defuse-state">ARMED</span>
+          <span class="el-defuse-state" id="el-defuse-state">LIVE CALL</span>
         </div>
       </div>
       <p class="el-job-brief" id="el-job-brief">${job.brief}</p>
-      <div class="el-wires" id="el-wires">
-        ${job.wires.map((w) => `<button type="button" class="el-wire-btn" data-wire="${w.id}" style="--wire:${w.color}">
-          <i></i><span>${w.label}</span>
-        </button>`).join("")}
-      </div>
-      ${replaceLabel ? `<button type="button" class="btn primary" id="el-replace">Replace ${replaceLabel} (known-good)</button>` : ""}
+      ${replaceLabel ? `<button type="button" class="btn primary" id="el-replace">Replace ${replaceLabel}</button>` : ""}
+      <p class="el-jobs-note">Meter the string. Don't shotgun a part. Wrong part with no meter reading is still a callback.</p>
     </div>`;
   }
 
@@ -1646,14 +1801,15 @@
         <aside class="sb-palette">
           <div class="brand-bar" style="justify-content:flex-start;margin-bottom:8px">
             <div class="brand-mark" style="width:28px;height:28px;font-size:13px">LT</div>
-            <div class="brand-word"><strong style="font-size:13px">${(window.LtBrand && window.LtBrand.org) || "Lincoln Tech"}</strong><span>${labMode === "defusal" ? "Callback bomb · meter first" : "Electrical box · run the wires"}</span></div>
+            <div class="brand-word"><strong style="font-size:13px">${(window.LtBrand && window.LtBrand.org) || "Lincoln Tech"}</strong><span>${labMode === "defusal" ? "Saturday callback · meter the open" : "Follow the 24V call"}</span></div>
           </div>
           <div class="el-modes" role="tablist">
-            <button type="button" class="el-mode-btn ${labMode === "build" && !guideOn ? "active" : ""}" data-lab="build">Build</button>
-            <button type="button" class="el-mode-btn ${guideOn ? "active" : ""}" data-lab="guide">Guided</button>
-            <button type="button" class="el-mode-btn ${labMode === "defusal" ? "active" : ""}" data-lab="defusal" id="el-mode-defuse">Callback bomb</button>
+            <button type="button" class="el-mode-btn ${labMode !== "defusal" && view === "ladder" && !guideOn ? "active" : ""}" data-lab="build" data-view="ladder">Follow the call</button>
+            <button type="button" class="el-mode-btn ${labMode !== "defusal" && view === "lugs" ? "active" : ""}" data-view="lugs">Land lugs</button>
+            <button type="button" class="el-mode-btn ${guideOn ? "active" : ""}" data-lab="guide">HUB walk</button>
+            <button type="button" class="el-mode-btn ${labMode === "defusal" ? "active" : ""}" data-lab="defusal" id="el-mode-defuse">Saturday callback</button>
           </div>
-          <p class="eyebrow">${labMode === "defusal" ? "Defusal tray" : "Component tray"}</p>
+          <p class="eyebrow">${view === "lugs" ? "Parts · drop then zoom" : "You don't need the tray on the ladder"}</p>
           <div class="sb-tabs">
             <button class="sb-tab active" data-tab="line">Line 240</button>
             <button class="sb-tab" data-tab="control">Control 24</button>
@@ -1662,13 +1818,15 @@
           </div>
           <div id="el-items" class="sb-items"></div>
           <p class="sb-hint">${labMode === "defusal"
-            ? "Meter the live circuit. Cut the OPEN. Replace the bad part if you have it. Never cut R or a winding."
-            : "Drop a part, then tap it. Wiring happens on the close-up — drag black / off-white / green onto the screws."}</p>
+            ? "Tap down the 24V string. Gold is live. Dark after gold is the open. Then replace that part."
+            : view === "lugs"
+              ? "Drop a part, tap it. Drag black / off-white / green onto the screws on the close-up."
+              : "This is a wiring diagram, not a junk drawer. Tap a box to meter it. Y on the stat makes the string live."}</p>
           <div class="hub-chip" style="margin-top:10px;max-width:none">
             <img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" />
             <div><strong>Professor HUB</strong><p>${labMode === "defusal"
-              ? "This is a callback bomb — the Saturday kind. Meter Y through the safeties. Cut the open. Leave the live alone."
-              : "Tap a device to zoom. Drag black onto H, off-white onto N, green onto G — on that close-up, not the tiny box."}</p></div>
+              ? "Saturday callback. Walk Y through the safeties with the meter. Don't shotgun."
+              : "Follow the call first. Land lugs when you need to actually land a color on a screw."}</p></div>
           </div>
         </aside>
         <main class="el-main">
@@ -1697,10 +1855,6 @@
                 <option value="lockout">Lockout relay held</option>
               </select>
             </label>
-            <label class="el-tog"><input type="checkbox" id="el-cool"${callCool ? " checked" : ""} /> Y — Cool</label>
-            <label class="el-tog"><input type="checkbox" id="el-fan"${callFan ? " checked" : ""} /> G — Fan</label>
-            <label class="el-tog"><input type="checkbox" id="el-heat"${callHeat ? " checked" : ""} /> W — Heat</label>
-            <label class="el-tog"><input type="checkbox" id="el-rev"${callRev ? " checked" : ""} /> O/B — RV</label>
             <button class="btn" id="el-kit">Load kit</button>
             <button class="btn" id="el-clear">Clear</button>
             ` : `
@@ -1708,13 +1862,16 @@
             `}
             <button class="btn" id="el-hub">Shop floor</button>
           </header>
-          ${labMode === "build" ? spoolBarMarkup() : ""}
           ${showPicker ? jobPickerMarkup() : `
+          ${ladderMarkup()}
+          <div id="el-lugs-wrap" ${view === "lugs" ? "" : "hidden"}>
+          ${labMode === "build" ? spoolBarMarkup() : ""}
           <div class="el-board" id="el-board">
             <div class="el-board-inner" id="el-board-inner">
             ${sourceBarMarkup()}
             ${schematicMarkup()}
             </div>
+          </div>
           </div>
           ${labMode === "defusal" ? defusalBarMarkup() : ""}
           <p class="el-status" id="el-status"></p>
@@ -1751,9 +1908,9 @@
         </aside>
         <div class="el-overlay" id="el-boom">
           <div class="el-overlay-card bad">
-            <p class="eyebrow">Callback bomb</p>
+            <p class="eyebrow">Callback</p>
             <h2>CALLBACK</h2>
-            <p class="el-overlay-msg">You cut the live. That's a callback.</p>
+            <p class="el-overlay-msg">Clock ran out. Customer is still hot.</p>
             <div class="row" style="gap:8px;justify-content:center;margin-top:12px">
               <button type="button" class="btn primary" id="el-retry">Retry this call</button>
               <button type="button" class="btn" id="el-boom-jobs">All callbacks</button>
@@ -1765,7 +1922,7 @@
             <img src="jesus.png" alt="HVAC Jesus" class="el-win-jesus" />
             <p class="eyebrow">Defused</p>
             <h2>GAUGES OF GOD</h2>
-            <p class="el-overlay-msg">You cut the open, not the live. HVAC Jesus is on the roof.</p>
+            <p class="el-overlay-msg">You found the open with the meter. HVAC Jesus is on the roof with the Gauges of God.</p>
           </div>
         </div>
         <div class="el-guide" id="el-guide">
@@ -1848,6 +2005,7 @@
       renderPalette("line");
     }
     bindLugs();
+    if (host.querySelector("#el-ladder")) setView(view);
     if (resizeObs) {
       resizeObs.disconnect();
       resizeObs = null;
@@ -1860,7 +2018,21 @@
 
   function wire() {
     host.querySelectorAll(".el-mode-btn").forEach((t) => {
-      t.onclick = () => setLabMode(t.dataset.lab);
+      t.onclick = () => {
+        if (t.dataset.view === "lugs" && !t.dataset.lab) {
+          labMode = "build";
+          guideOn = false;
+          view = "lugs";
+          job = null;
+          if (!Object.keys(placed).length) loadKit("split");
+          build();
+          wire();
+          setView("lugs");
+          return;
+        }
+        setLabMode(t.dataset.lab || "build");
+        if (t.dataset.view === "ladder") setView("ladder");
+      };
     });
     const gNext = host.querySelector("#el-guide-next");
     if (gNext) {
@@ -1941,6 +2113,32 @@
     if (heat) heat.onchange = (e) => { callHeat = e.target.checked; paintMeter(); };
     const rev = host.querySelector("#el-rev");
     if (rev) rev.onchange = (e) => { callRev = e.target.checked; paintMeter(); };
+    host.querySelectorAll("[data-call]").forEach((b) => {
+      b.onclick = () => {
+        const k = b.getAttribute("data-call");
+        if (k === "cool") callCool = !callCool;
+        if (k === "fan") callFan = !callFan;
+        if (k === "heat") callHeat = !callHeat;
+        if (k === "rev") callRev = !callRev;
+        paintMeter();
+        paintLadder();
+        onGuideEvent("call", k);
+      };
+    });
+    const ladder = host.querySelector("#el-ladder");
+    if (ladder) {
+      ladder.onclick = (e) => {
+        const n = e.target.closest("[data-node]");
+        if (n) tapLadder(n.getAttribute("data-node"));
+      };
+    }
+    const wireThis = host.querySelector("#el-wire-this");
+    if (wireThis) {
+      wireThis.onclick = () => {
+        const n = ladderNodes().find((x) => x.id === ladderTap);
+        if (n && n.zoom) openZoom(n.zoom);
+      };
+    }
     const clr = host.querySelector("#el-clear");
     if (clr) {
       clr.onclick = () => {
@@ -2023,18 +2221,21 @@
     onXp = opts && opts.onXp;
     onWin = opts && opts.onWin;
     placed = {};
-    callCool = false;
+    callCool = true;
     callFan = false;
     callHeat = false;
     callRev = false;
     fault = "none";
     fusedBlown = false;
     mode = "vac";
-    red = "l1";
-    black = "l2";
+    red = "r";
+    black = "c24";
     labMode = opts && opts.defuse ? "defusal" : "build";
     guideOn = !!(opts && opts.guide) && labMode === "build";
     guideI = 0;
+    view = "ladder";
+    meteredOpen = false;
+    ladderTap = null;
     job = null;
     cutSet = {};
     timeLeft = 0;
@@ -2047,6 +2248,7 @@
     spool = "hot";
     pending = null;
     zoomSlot = null;
+    if (labMode === "build") loadKit("split");
     clearTimer();
     document.removeEventListener("keydown", onKeyZoom);
     document.addEventListener("keydown", onKeyZoom);
