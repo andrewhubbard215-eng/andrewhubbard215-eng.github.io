@@ -2367,7 +2367,14 @@
     document.addEventListener("keydown", onKeyZoom);
     build();
     wire();
-    if (guideOn) beginGuide();
+    if (guideOn) {
+      beginGuide();
+      /* Land lugs card: skip the ladder intro and put them on the disconnect screws. */
+      guideI = 3;
+      setView("lugs");
+      try { openZoom("disconnect"); } catch (_) {}
+      paintGuide();
+    }
     return {
       stop() {
         clearTimer();

@@ -146,7 +146,7 @@
       root.classList.add("hidden");
       root.innerHTML = "";
     }
-    if (hooks.onDone) hooks.onDone();
+    if (hooks && hooks.onDone) hooks.onDone();
   }
 
   function start(host, opts) {
@@ -157,5 +157,5 @@
     return { stop: finish };
   }
 
-  global.HubTutorial = { start, STEPS };
+  global.HubTutorial = { start, stop: finish, STEPS };
 })(window);

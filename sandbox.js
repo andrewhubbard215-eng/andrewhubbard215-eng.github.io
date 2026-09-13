@@ -2183,6 +2183,7 @@
     const man = document.getElementById("sb-manifold");
     if (man) man.classList.add("on");
     layoutSlots();
+    guidedOn = false;
     setCompressor(true);
     const sim = simulate();
     const msg =

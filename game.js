@@ -2151,9 +2151,16 @@
         if (sfx && sfx.click) sfx.click();
       } catch (_) {}
       try {
-        if (m !== "aihelper" && window.HubAI && typeof window.HubAI.close === "function") {
-          window.HubAI.close();
-        }
+        try {
+          if (m !== "tutorial" && window.HubTutorial && typeof window.HubTutorial.stop === "function") {
+            window.HubTutorial.stop();
+          }
+        } catch (_) {}
+        try {
+          if (m !== "aihelper" && window.HubAI && typeof window.HubAI.close === "function") {
+            window.HubAI.close();
+          }
+        } catch (_) {}
         if (m === "service") startQuiz();
         else if (m === "sandbox") startSandbox();
         else if (m === "minisplit") startMiniSplit();
