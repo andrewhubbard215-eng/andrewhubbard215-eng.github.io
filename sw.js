@@ -9,6 +9,7 @@ const CORE = [
   "./lab-glass.css?v=1",
   "./game.js?v=129",
   "./sandbox.js?v=120",
+  "./sandbox-ts.js?v=1",
   "./sandbox-hook.js?v=2",
   "./sandbox-bom.js?v=1",
   "./quiz-arena.js?v=98",
