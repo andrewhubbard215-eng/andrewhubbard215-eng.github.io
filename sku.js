@@ -66,4 +66,16 @@
   } else {
     applyHead();
   }
+
+  if (!document.querySelector('script[src*="board-codes.js"]')) {
+    var s = document.createElement("script");
+    s.src = "board-codes.js?v=1";
+    document.head.appendChild(s);
+  }
+  if (!document.querySelector('link[href*="board-codes.css"]')) {
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "board-codes.css?v=1";
+    document.head.appendChild(l);
+  }
 })(window);
