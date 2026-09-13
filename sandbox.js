@@ -1493,7 +1493,7 @@
             <div class="sb-actions">
               <span id="sb-clock" class="sb-clock"></span>
               <div class="lab-drawers" role="toolbar" aria-label="Phone trays">
-                <button type="button" class="btn lab-drawer-btn" id="sb-parts-toggle">Parts</button>
+                <button type="button" class="btn lab-drawer-btn" id="sb-parts-toggle">Widen tray</button>
                 <button type="button" class="btn lab-drawer-btn" id="sb-gauges-toggle">Gauges</button>
               </div>
               <button class="btn primary" id="sb-run">Start compressor</button>
@@ -3787,7 +3787,17 @@
       veil.classList.toggle("show", open);
     }
     const pTog = document.getElementById("sb-parts-toggle");
-    if (pTog) pTog.onclick = () => toggleSbDrawer(".sb-palette");
+    if (pTog) {
+      pTog.onclick = () => {
+        const root = host || document.getElementById("sandbox-root");
+        if (!root) return;
+        const wide = root.classList.toggle("parts-wide");
+        pTog.textContent = wide ? "Slim tray" : "Widen tray";
+        root.querySelector(".sb-palette")?.classList.remove("drawer-open");
+        const veil = root.querySelector(".lab-veil");
+        if (veil) veil.classList.remove("show");
+      };
+    }
     const gTog = document.getElementById("sb-gauges-toggle");
     if (gTog) gTog.onclick = () => toggleSbDrawer(".sb-gauges");
     const howto = document.getElementById("sb-howto");

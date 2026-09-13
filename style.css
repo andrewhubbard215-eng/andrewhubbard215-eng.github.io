@@ -3551,5 +3551,122 @@ body.lab-open .version-strip { display: none; }
   .el-node b { font-size: 12px; }
 }
 
+/* Parts tray stays LEFT so you can drag onto the diamond. Never a sheet over the drop boxes. */
+@media (max-width: 1100px) {
+  #sandbox-root .sb-layout {
+    display: grid !important;
+    grid-template-columns: 112px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+    height: 100%;
+    max-height: 100dvh;
+  }
+  #sandbox-root .sb-palette {
+    order: 0 !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    position: relative !important;
+    transform: none !important;
+    inset: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    width: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    z-index: 5;
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-right: 3px solid #CE0034 !important;
+    padding: 8px 6px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: #10161c !important;
+  }
+  #sandbox-root .sb-main {
+    order: 0 !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    min-height: 0 !important;
+  }
+  #sandbox-root .sb-gauges {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    max-height: 46dvh !important;
+    transform: translateY(110%) !important;
+    z-index: 60;
+    border-radius: 16px 16px 0 0;
+    border-top: 2px solid #CE0034;
+  }
+  #sandbox-root .sb-gauges.drawer-open {
+    transform: none !important;
+  }
+  #sandbox-root.parts-wide .sb-layout {
+    grid-template-columns: 176px minmax(0, 1fr) !important;
+  }
+  #sandbox-root .sb-items {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+  #sandbox-root .sb-item {
+    min-width: 0 !important;
+    width: 100% !important;
+    flex: none !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8px 4px;
+    gap: 4px;
+  }
+  #sandbox-root .sb-item small { display: none; }
+  #sandbox-root .sb-item strong { font-size: 10px; line-height: 1.2; }
+  #sandbox-root .sb-item .part-img,
+  #sandbox-root .sb-item .ico { width: 40px; height: 40px; font-size: 22px; }
+  #sandbox-root .sb-palette .brand-bar,
+  #sandbox-root .sb-palette .sb-hub-coach,
+  #sandbox-root .sb-palette .sb-hint,
+  #sandbox-root .sb-palette .eyebrow,
+  #sandbox-root .sb-palette .sb-guide-bar,
+  #sandbox-root .sb-palette .sb-build-progress { display: none !important; }
+  #sandbox-root .sb-tabs { flex-wrap: wrap; }
+  #sandbox-root .sb-tab { flex: 1 1 46%; font-size: 10px; padding: 8px 2px; min-height: 36px; }
+  #sandbox-root .lab-veil { display: none !important; }
+  .el-layout:not(:has(.el-pal-off)) {
+    display: grid !important;
+    grid-template-columns: 112px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+  .el-layout .sb-palette {
+    position: relative !important;
+    transform: none !important;
+    inset: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    max-height: none !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-right: 3px solid #CE0034;
+    z-index: 5;
+    overflow-y: auto;
+  }
+  .el-layout .el-main {
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1101px) {
+  .sb-layout {
+    grid-template-columns: 220px minmax(0, 1fr) minmax(200px, 24vw);
+  }
+}
+
 
 
