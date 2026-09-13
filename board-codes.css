@@ -1,0 +1,12 @@
+.el-locker { background:#101418; color:#f7f3ea; padding:10px; border:1px solid #2a3644; border-radius:10px; margin:8px; position:relative; z-index:60; }
+.el-locker-grid { display:grid; grid-template-columns: minmax(180px,280px) 1fr; gap:14px; }
+.el-sticker { background:#1a1510; border:2px dashed #c9a227; padding:10px; border-radius:8px; }
+.el-sticker ol { margin:8px 0; padding-left:18px; font-size:13px; }
+.el-sticker b { color:#e8c450; }
+.el-flash { font-size:48px; font-weight:800; letter-spacing:2px; color:#CE0034; background:#0a0c0e; border:1px solid #3a2228; border-radius:10px; text-align:center; padding:16px; margin:8px 0; }
+.el-locker-opts { display:grid; gap:8px; }
+.el-locker-brands { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+@media (max-width: 800px) {
+  .el-locker-grid { grid-template-columns: 1fr; }
+  .sb-diamond, #sb-cycle { transform: scale(0.9); transform-origin: center top; }
+}

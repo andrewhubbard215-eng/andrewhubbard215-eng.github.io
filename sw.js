@@ -11,6 +11,8 @@ const CORE = [
   "./hub-ai.js?v=82",
   "./instructor.js?v=96",
   "./electrical.js?v=128",
+  "./board-codes.js?v=1",
+  "./board-codes.css?v=1",
   "./dragdrop.js?v=45",
   "./webgl-cycle.js?v=57",
   "./minisplit.js",
