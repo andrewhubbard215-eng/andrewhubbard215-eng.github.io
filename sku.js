@@ -67,6 +67,13 @@
     applyHead();
   }
 
+  function addScript(src) {
+    if (document.querySelector('script[src*="' + src.split("?")[0] + '"]')) return;
+    var s = document.createElement("script");
+    s.src = src;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
   if (!document.querySelector('script[src*="board-codes.js"]')) {
     var s = document.createElement("script");
     s.src = "board-codes.js?v=2";
@@ -83,6 +90,7 @@
     bom.src = "sandbox-bom.js?v=1";
     document.head.appendChild(bom);
   }
+  addScript("sandbox-hook.js?v=1");
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
