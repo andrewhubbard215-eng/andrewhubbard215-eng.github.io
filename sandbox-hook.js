@@ -2,6 +2,13 @@
    Target SH/SC stays on the sheet so a tech can see the OEM band before start. */
 (function () {
   "use strict";
+  if (!document.getElementById("sb-tabs-css")) {
+    var l = document.createElement("link");
+    l.id = "sb-tabs-css";
+    l.rel = "stylesheet";
+    l.href = "sb-tabs.css?v=1";
+    document.head.appendChild(l);
+  }
   function gaugesOn() {
     var slot = document.querySelector('#sb-slots .sb-slot[data-slot="gauges"]');
     if (!slot) return false;
