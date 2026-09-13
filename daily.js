@@ -22,6 +22,22 @@
       why: "Pressures, SH/SC, refrigerant flow on real brand templates",
     },
     {
+      id: "electrical",
+      mode: "electrical",
+      title: "Follow the call",
+      minutes: 10,
+      skill: "electrical",
+      why: "Walk the 24V string · G/blower before HPC · no indoor air ices the coil",
+    },
+    {
+      id: "defusal",
+      mode: "defusal",
+      title: "Saturday callback",
+      minutes: 8,
+      skill: "electrical",
+      why: "Timed no-cool · meter the open · don't jump the float",
+    },
+    {
       id: "service",
       mode: "service",
       title: "Service calls",
@@ -137,12 +153,14 @@
   function recommend() {
     const data = get();
     const counts = data.skills || {};
-    const skillOrder = ["install", "cycle", "diagnose", "theory", "study"];
-    // prefer least-practiced skill not done today
+    const skillOrder = ["install", "cycle", "electrical", "diagnose", "theory", "study"];
     const ranked = DRILLS.slice().sort((a, b) => {
       const ca = counts[a.skill] || 0;
       const cb = counts[b.skill] || 0;
-      return ca - cb;
+      const ia = skillOrder.indexOf(a.skill);
+      const ib = skillOrder.indexOf(b.skill);
+      if (ca !== cb) return ca - cb;
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
     });
     const done = data.todayDone || [];
     const pick = ranked.find((d) => !done.includes(d.id)) || ranked[0];
@@ -205,7 +223,7 @@
               : ""
           }
         </div>
-        <p class="daily-tip">Tip: 10 focused minutes beats one long cram. Flare → vacuum → diagnose on rotation.</p>
+        <p class="daily-tip">Tip: Y with no indoor air ices the coil. Confirm G/blower before you chase gas or HPC.</p>
       </div>
     `;
 
