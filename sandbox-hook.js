@@ -1,4 +1,5 @@
-/* Manifold-on-ports gate. No live psig until gauges are in the Gauges slot. */
+/* Manifold-on-ports gate. No live psig until gauges are in the Gauges slot.
+   Target SH/SC stays on the sheet so a tech can see the OEM band before start. */
 (function () {
   "use strict";
   function gaugesOn() {
@@ -13,6 +14,11 @@
     var fp = document.getElementById("sb-fp");
     var low = document.getElementById("g-plow");
     if (!fp || !low) return;
+    var tgt = document.getElementById("g-tgt");
+    if (tgt) {
+      var cur = (tgt.textContent || "").trim();
+      if (!cur || cur === "—" || cur === "-") tgt.textContent = "tgt 10 / 10 °F";
+    }
     if (gaugesOn()) return;
     low.textContent = "—";
     var hi = document.getElementById("g-phigh");
@@ -26,7 +32,7 @@
       if (el) el.textContent = "—";
     });
     fp.textContent =
-      "HUB: manifold first. Blue hose on suction, red on liquid. No numbers until the set is on the ports.";
+      "HUB: manifold first. Blue hose on suction, red on liquid. Target SH/SC is on the sheet — no live psig until the set is on the ports.";
   }
   setInterval(apply, 350);
 })();
