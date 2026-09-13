@@ -15,7 +15,7 @@
       "Best HVAC classroom in the country — and yes, I said it.",
       "I'm the instructor. You're the plot armor. Let's go.",
       "This isn't Interplay. We have jokes *and* microns.",
-      "Clock in. Clock violence on bad superheat.",
+      "Clock in. Kill bad superheat before you clock out.",
       "If HVAC Jesus shows up, act surprised. He likes that. Then recover anyway.",
       "The Gauges of God still need a leak found. Magic manifold, mortal work.",
       "Your callsign is showing. Wear it like a cape.",
@@ -127,7 +127,7 @@
 
     roastRank(title) {
       const map = {
-        Helper: "Helper rank. Adorable. Like training wheels with a death wish.",
+        Helper: "Helper rank. Stay on SH/SC and LOTO. That's how you leave Helper.",
         Apprentice: "Apprentice. You're dangerous in a promising way.",
         Journeyman: "Journeyman. People might trust you. Terrifying.",
         "Master Tech": "Master Tech. Bow lightly. Ego stays in the truck.",
