@@ -72,6 +72,11 @@
     s.src = "board-codes.js?v=2";
     document.head.appendChild(s);
   }
+  if (!document.querySelector('script[src*="charge-floor.js"]')) {
+    var cf = document.createElement("script");
+    cf.src = "charge-floor.js?v=1";
+    document.head.appendChild(cf);
+  }
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
