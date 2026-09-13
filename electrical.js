@@ -345,6 +345,24 @@
   let view = "ladder"; /* ladder | lugs */
   let meteredOpen = false;
   let ladderTap = null;
+  let tsOn = true;
+  let tsI = 0;
+  let tsDone = {};
+
+  /* Field no-cool sheet — the order you walk on a truck, not a textbook appendix. */
+  const TS_NOCOOL = [
+    { id: "call", n: "1", title: "Confirm the call", say: "Hit Y on the stat. No Y, no cool. Don't open the panel yet.", node: "stat", wantCall: true },
+    { id: "l1", n: "2", title: "Line voltage", say: "Tap L1. You want ~240 VAC. No line is a feeder or breaker — not a capacitor.", node: "l1", minV: 200 },
+    { id: "disc", n: "3", title: "Disconnect load", say: "Tap DISC. Line live / load dead = puller open.", node: "disc", minV: 200, openFault: "open_disc" },
+    { id: "r", n: "4", title: "R to C", say: "Tap R. 24–28 VAC. No 24V = 3A fuse or transformer.", node: "xfmr", minV: 20, openFault: "blown_fuse" },
+    { id: "y", n: "5", title: "Y at the board", say: "Tap STAT. Y–C should be 24V with a cool call.", node: "stat", minV: 20 },
+    { id: "hpc", n: "6", title: "High-pressure switch", say: "Tap HPC. 0V with Y up = HPC open. Dirty coil, dead fan, or overcharge.", node: "hpc", minV: 20, openFault: "open_hpc" },
+    { id: "lpc", n: "7", title: "Low-pressure switch", say: "Tap LPC. 0V = iced coil, leak, or restriction. Don't add gas yet.", node: "lpc", minV: 20, openFault: "open_lpc" },
+    { id: "float", n: "8", title: "Condensate float", say: "Tap FLOAT. Open float = pan is a lake. Don't jump it.", node: "float", minV: 20, openFault: "float_open" },
+    { id: "coil", n: "9", title: "Contactor coil", say: "Tap COIL. 24V here and it doesn't pull in = open coil.", node: "coil", minV: 20, openFault: "open_coil" },
+    { id: "t1", n: "10", title: "Load 240", say: "Tap T1. Contactor in should pass 240 to the compressor.", node: "t1", minV: 200 },
+    { id: "comp", n: "11", title: "Compressor / cap", say: "Tap COMP. Contactor in, 240 at T1, hum no run = open run cap. Amp it.", node: "comp", minV: 200, openFault: "open_cap" },
+  ];
 
   function has(id) {
     return !!placed[id];
@@ -1604,9 +1622,9 @@
       n.push({ row, id, label, sub, probeRed, probeBlk, zoom, live: !!live, open: open || null });
     };
     add("pwr", "l1", "L1", "240 hot", "l1", "l2", "breaker", c.line);
-    add("pwr", "disc", "DISC", "shutoff", "load1", "l2", "disconnect", c.loadHot, "open_disc");
+    add("pwr", "disc", "DISC", "shutoff", "load1", "load2", "disconnect", c.loadHot, "open_disc");
     add("pwr", "t1", "T1", "load", "t1", "t2", "contactor", c.pulled && c.loadHot);
-    add("pwr", "comp", "COMP", "herm", "compr", "t2", "compressor", c.compRun);
+    add("pwr", "comp", "COMP", "herm", "t1", "compc", "compressor", c.compRun);
     add("pwr", "fan", "FAN", "ODU", "fanlead", "t2", "fan", c.fanRun);
     add("ctl", "xfmr", "R", "24V hot", "r", "c24", "transformer", c.rHot);
     add("ctl", "fuse", "3A", "fuse", "r", "c24", "fuse", c.fuseOk && c.xfmr, "blown_fuse");
@@ -1644,7 +1662,12 @@
       <div class="el-rail el-rail-24" data-rail="ctl"></div>
       <div class="el-rail" data-rail="heat" hidden></div>
       <div class="el-ladder-read" id="el-ladder-read">Tap R, then walk Y through the safeties.</div>
-      <button type="button" class="btn primary" id="el-wire-this">Land lugs on this device</button>
+      <ol class="el-ts" id="el-ts"></ol>
+      <div class="el-ts-actions">
+        <button type="button" class="btn primary" id="el-ts-go">Start no-cool sheet</button>
+        <button type="button" class="btn" id="el-ts-practice">Practice a no-cool</button>
+        <button type="button" class="btn primary" id="el-wire-this">Land lugs on this device</button>
+      </div>
     </div>`;
   }
 
@@ -1665,6 +1688,7 @@
           n.live ? "live" : "dead",
           isOpen ? "open" : "",
           ladderTap === n.id ? "picked" : "",
+          tsOn && TS_NOCOOL[tsI] && TS_NOCOOL[tsI].node === n.id ? "ts-now" : "",
           labMode === "defusal" && meteredOpen && isOpen ? "found" : "",
         ].filter(Boolean).join(" ");
         const wire = i < list.length - 1 ? '<i class="el-node-wire' + (n.live ? " on" : "") + '"></i>' : "";
@@ -1695,6 +1719,83 @@
       wireBtn.disabled = !(n && n.zoom);
       wireBtn.textContent = n && n.zoom ? "Land lugs · " + n.label : "Tap a device, then land lugs";
     }
+    paintTs();
+  }
+
+  function tsStep() {
+    return TS_NOCOOL[tsI] || null;
+  }
+
+  function beginTs(practice) {
+    tsOn = true;
+    tsI = 0;
+    tsDone = {};
+    callCool = false;
+    if (practice) {
+      const pool = ["open_hpc", "open_lpc", "float_open", "open_disc", "open_coil", "open_cap", "blown_fuse"];
+      fault = pool[Math.floor(Math.random() * pool.length)];
+      fusedBlown = fault === "blown_fuse";
+      const sel = host && host.querySelector("#el-fault");
+      if (sel) sel.value = fault;
+    }
+    paintMeter();
+    paintTs();
+  }
+
+  function paintTs() {
+    const ol = host && host.querySelector("#el-ts");
+    if (!ol) return;
+    ol.innerHTML = TS_NOCOOL.map((s, i) => {
+      const mark = tsDone[s.id] || "";
+      const cls = "el-ts-step" + (i === tsI && tsOn ? " now" : "") + (mark ? " " + mark : "");
+      const tag = mark === "ok" ? "PASS" : mark === "found" ? "OPEN" : mark === "fail" ? "FAIL" : (i === tsI && tsOn ? "NOW" : String(s.n));
+      return '<li class="' + cls + '" data-ts="' + s.id + '"><span class="el-ts-n">' + tag + "</span><div><strong>" + s.n + ". " + s.title + "</strong><p>" +
+        (i === tsI && tsOn ? s.say : "") + "</p></div></li>";
+    }).join("");
+    const go = host.querySelector("#el-ts-go");
+    if (go) go.textContent = tsOn ? "Reset sheet" : "Start no-cool sheet";
+  }
+
+  function scoreTs(node, v, c) {
+    if (!tsOn) return;
+    const s = tsStep();
+    if (!s) return;
+    if (s.node !== node.id) {
+      const read = host.querySelector("#el-ladder-read");
+      if (read) read.textContent = "Sheet step " + s.n + " · " + s.title + ". Tap " + s.node.toUpperCase() + ".";
+      return;
+    }
+    if (s.wantCall && !callCool) {
+      const read = host.querySelector("#el-ladder-read");
+      if (read) read.textContent = "Hit Y first. No call, no cool.";
+      return;
+    }
+    if (s.wantCall && callCool) {
+      tsDone[s.id] = "ok";
+      tsI = Math.min(TS_NOCOOL.length - 1, tsI + 1);
+      paintTs();
+      return;
+    }
+    const isThisOpen = !!(s.openFault && fault === s.openFault);
+    const pass = v >= (s.minV || 0);
+    if (!pass && isThisOpen) {
+      tsDone[s.id] = "found";
+      meteredOpen = true;
+      const read = host.querySelector("#el-ladder-read");
+      if (read) read.textContent = s.title + " · 0 volts. That's the open. Replace it. Don't shotgun the next part.";
+      paintTs();
+      return;
+    }
+    if (pass) {
+      tsDone[s.id] = "ok";
+      if (tsI < TS_NOCOOL.length - 1) tsI += 1;
+      paintTs();
+      return;
+    }
+    tsDone[s.id] = "fail";
+    const read = host.querySelector("#el-ladder-read");
+    if (read) read.textContent = s.title + " failed. " + s.say;
+    paintTs();
   }
 
   function tapLadder(nodeId) {
@@ -1708,6 +1809,7 @@
     if (labMode === "defusal" && n.open && fault === n.open && v < 8) {
       meteredOpen = true;
     }
+    scoreTs(n, v, circuit());
     paintLadder();
     paintMeter();
     onGuideEvent("ladder", nodeId);
@@ -2120,6 +2222,10 @@
         if (k === "fan") callFan = !callFan;
         if (k === "heat") callHeat = !callHeat;
         if (k === "rev") callRev = !callRev;
+        if (tsOn && tsStep() && tsStep().wantCall && callCool) {
+          tsDone[tsStep().id] = "ok";
+          tsI = Math.min(TS_NOCOOL.length - 1, tsI + 1);
+        }
         paintMeter();
         paintLadder();
         onGuideEvent("call", k);
@@ -2132,6 +2238,10 @@
         if (n) tapLadder(n.getAttribute("data-node"));
       };
     }
+    const tsGo = host.querySelector("#el-ts-go");
+    if (tsGo) tsGo.onclick = () => beginTs(false);
+    const tsPr = host.querySelector("#el-ts-practice");
+    if (tsPr) tsPr.onclick = () => beginTs(true);
     const wireThis = host.querySelector("#el-wire-this");
     if (wireThis) {
       wireThis.onclick = () => {
@@ -2236,6 +2346,9 @@
     view = "ladder";
     meteredOpen = false;
     ladderTap = null;
+    tsOn = true;
+    tsI = 0;
+    tsDone = {};
     job = null;
     cutSet = {};
     timeLeft = 0;

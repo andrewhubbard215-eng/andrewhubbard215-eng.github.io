@@ -2389,7 +2389,34 @@ select:focus-visible {
   font-size: 14px; font-weight: 700; background: #fff; border: 2px solid #4a3f32;
   border-radius: 6px; padding: 10px 12px; margin: 4px 0 10px;
 }
-.el-ladder .btn { min-height: 44px; }
+.el-node.ts-now { box-shadow: 0 0 0 3px #CE0034; animation: el-ts-pulse 1.2s ease-in-out infinite; }
+@keyframes el-ts-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px #CE0034; }
+  50% { box-shadow: 0 0 0 6px rgba(206,0,52,0.35); }
+}
+.el-ts {
+  list-style: none; margin: 8px 0 0; padding: 0;
+  display: grid; grid-template-columns: 1fr; gap: 4px;
+  max-height: 38vh; overflow: auto;
+}
+.el-ts-step {
+  display: flex; gap: 8px; align-items: flex-start;
+  background: #fff; border: 1px solid #cbb892; border-radius: 6px; padding: 6px 8px;
+}
+.el-ts-step strong { font-size: 12px; }
+.el-ts-step p { margin: 2px 0 0; font-size: 11px; color: #6a5740; }
+.el-ts-n {
+  flex: 0 0 40px; height: 28px; border-radius: 4px; background: #1a1612; color: #f4eee2;
+  font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+}
+.el-ts-step.now { border-color: #CE0034; background: #fff4f0; }
+.el-ts-step.now .el-ts-n { background: #CE0034; }
+.el-ts-step.ok { border-color: #3d7a52; }
+.el-ts-step.ok .el-ts-n { background: #3d7a52; }
+.el-ts-step.found { border-color: #CE0034; background: #fde8e8; }
+.el-ts-step.found .el-ts-n { background: #CE0034; }
+.el-ts-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.el-ts-actions .btn { min-height: 44px; }
 .el-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .el-board {
   position: relative; flex: 1; margin: 8px 12px; min-height: 280px;
@@ -3371,6 +3398,12 @@ select:focus-visible {
 }
 body.lab-open .version-strip { display: none; }
 .sb-phone-vitals { display: none; }
+.sb-ts { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 4px; }
+.sb-ts li { display: flex; gap: 8px; align-items: flex-start; background: #14171a; border: 1px solid #2a3138; border-radius: 6px; padding: 6px 8px; }
+.sb-ts li b { flex: 0 0 22px; height: 22px; border-radius: 4px; background: #CE0034; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+.sb-ts li.ok b { background: #3d7a52; }
+.sb-ts li strong { font-size: 12px; }
+.sb-ts li p { margin: 2px 0 0; font-size: 11px; color: #9aa3ad; }
 
 @media (max-width: 800px) {
   body.lab-open .hub-ai-fab { display: none !important; }

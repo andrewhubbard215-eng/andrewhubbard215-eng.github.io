@@ -78,14 +78,29 @@
 
   const TROUBLE = [
     {
-      id: "no-cool",
-      title: "No cooling / weak cooling",
+      id: "no-cool-e",
+      title: "No-cool electrical sheet",
       checks: [
-        "Thermostat/remote mode and setpoint — is it actually calling?",
-        "Filters, coil dirty, blower running, outdoor fan running?",
-        "Service valves fully open after install?",
-        "Superheat / subcooling vs chart — low charge vs restriction vs airflow.",
-        "Error code on head or outdoor board?",
+        "1. Confirm the call — Y on the stat. No Y, no cool.",
+        "2. Line voltage at L1–L2 (~240).",
+        "3. Disconnect load side. Line live / load dead = puller open.",
+        "4. R to C (24–28 VAC). No 24V = 3A or transformer.",
+        "5. Y to C at the board.",
+        "6–8. Walk HPC, LPC, float. First 0V after gold is the open.",
+        "9. Coil 24V. Voltage and no pull-in = open coil.",
+        "10–11. T1 240, then compressor. Hum no start = run cap.",
+      ],
+      ask: "no cool electrical troubleshooting 24V string HPC LPC float contactor capacitor",
+    },
+    {
+      id: "no-cool",
+      title: "No cooling / weak cooling (refrigeration)",
+      checks: [
+        "Indoor airflow first — filter, coil, blower.",
+        "Outdoor fan and coil — high head / low SC is air, not gas.",
+        "Start the compressor. Static isn't a diagnosis.",
+        "Superheat AND subcooling together.",
+        "High SH + low SC = leak. High SH + high SC = restriction. High head + low SC = condenser or non-condensables.",
       ],
       ask: "no cooling weak cooling diagnose superheat subcooling airflow",
     },

@@ -1658,6 +1658,7 @@
             <span class="ph lm">Low mix</span>
             <span class="ph lv">Low vapor</span>
           </div>
+          <ol class="sb-ts" id="sb-ts" aria-label="DX troubleshooting sheet"></ol>
           <p class="sb-status" id="sb-status">Place the four core components to close the loop.</p>
           <div id="sb-field" class="sb-field">
             <p class="eyebrow">Field / troubleshoot</p>
@@ -3265,6 +3266,24 @@
     updateDmm(sim);
     drawPH(sim);
     updateBom();
+    paintDxTs(sim);
+  }
+
+  function paintDxTs(sim) {
+    const ol = document.getElementById("sb-ts");
+    if (!ol) return;
+    sim = sim || {};
+    const steps = [
+      { n: 1, title: "Indoor airflow", ok: fault !== "blower_fail" && fault !== "dirty_evap" && coilEvap === "clean", say: "Filter, A-coil, blower before you add gas." },
+      { n: 2, title: "Outdoor airflow", ok: fault !== "od_fan" && fault !== "dirty_cond" && coilCond === "clean", say: "High head + low SC is condenser air, not a charge problem." },
+      { n: 3, title: "Compressor running", ok: !!(sim.running && !sim.trip), say: sim.trip === "hpc" ? "HPC cut out. Fix the head before you reset." : sim.trip === "lpc" ? "LPC cut out. Prove airflow and restriction." : "Start it. Static isn't a diagnosis." },
+      { n: 4, title: "Superheat", ok: !!sim.shOk, say: !sim.running ? "Need a running system." : sim.sh > 20 ? "High SH — starved coil (leak, restriction, TXV closed)." : sim.sh < 5 ? "Low SH — flooding or low airflow." : "SH in band." },
+      { n: 5, title: "Subcooling", ok: !!sim.scOk, say: !sim.running ? "Need a running system." : sim.sc > 16 ? "High SC — overcharge or restriction." : sim.sc < 4 ? "Low SC — leak or non-condensables." : "SC in band." },
+      { n: 6, title: "SH + SC together", ok: !!(sim.shOk && sim.scOk && fault === "none"), say: sim.fp || "Never chase one number." },
+    ];
+    ol.innerHTML = steps.map((s) =>
+      "<li class=\"" + (s.ok ? "ok" : "wait") + "\"><b>" + s.n + "</b><div><strong>" + s.title + "</strong><p>" + s.say + "</p></div></li>"
+    ).join("");
   }
 
   function updateBom() {
