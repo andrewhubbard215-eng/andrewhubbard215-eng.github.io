@@ -5,6 +5,7 @@ const CORE = [
   "./index.html",
   "./sku.js?v=2",
   "./style.css?v=136",
+  "./lab-glass.css?v=1",
   "./game.js?v=129",
   "./sandbox.js?v=117",
   "./sandbox-bom.js?v=1",

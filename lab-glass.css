@@ -1,0 +1,7 @@
+/* Lab glass: HUB/chat FABs off the cycle, ladder, and gauges. */
+body.lab-open .hub-ai-fab,
+body.lab-open #shop-chat,
+body.lab-open .sc-fab {
+  display: none !important;
+  pointer-events: none !important;
+}
