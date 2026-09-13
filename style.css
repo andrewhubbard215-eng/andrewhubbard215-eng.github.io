@@ -143,6 +143,7 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: tran
   background: rgba(14,20,28,0.9); border: 1px solid var(--border);
   border-radius: 14px; overflow: hidden; cursor: pointer; color: inherit;
   transition: border-color 0.15s, transform 0.12s;
+  text-decoration: none;
 }
 #screen-hub.screen.active {
   display: block !important;
