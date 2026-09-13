@@ -69,7 +69,7 @@
 
   if (!document.querySelector('script[src*="board-codes.js"]')) {
     var s = document.createElement("script");
-    s.src = "board-codes.js?v=1";
+    s.src = "board-codes.js?v=2";
     document.head.appendChild(s);
   }
   if (!document.querySelector('link[href*="board-codes.css"]')) {
