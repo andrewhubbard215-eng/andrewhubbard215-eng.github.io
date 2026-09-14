@@ -1,4 +1,4 @@
-/* Manifold-on-ports gate + open-loop Start compressor callout. */
+/* Manifold-on-ports gate + Start compressor drops healthy four if loop is open. */
 (function () {
   "use strict";
   if (!document.getElementById("sb-tabs-css")) {
@@ -27,24 +27,27 @@
       return !coreFilled(s);
     });
   }
+  function loadHealthy() {
+    var healthy = document.getElementById("sb-healthy");
+    if (healthy) {
+      healthy.click();
+      return true;
+    }
+    return false;
+  }
   function callOutOpenLoop() {
     var miss = missingCore();
     if (!miss.length) return false;
+    if (loadHealthy()) {
+      var st = document.getElementById("sb-status");
+      if (st) st.textContent = "Four on the glass + gauges. Compressor running. Read SH/SC on the strip.";
+      var hint = document.getElementById("sb-hint");
+      if (hint) hint.textContent = "Healthy example loaded from Start compressor — loop closed.";
+      return true;
+    }
     var line = "Loop open — still need " + miss.join(", ") + ". Drop them LEFT, then Start compressor.";
     var st = document.getElementById("sb-status");
     if (st) st.textContent = line;
-    var hint = document.getElementById("sb-hint");
-    if (hint) hint.textContent = line;
-    document.querySelectorAll(".sb-slot").forEach(function (el) {
-      var id = el.getAttribute("data-slot");
-      el.classList.toggle("need-part", miss.indexOf(id) >= 0);
-    });
-    clearTimeout(callOutOpenLoop._t);
-    callOutOpenLoop._t = setTimeout(function () {
-      document.querySelectorAll(".sb-slot.need-part").forEach(function (el) {
-        el.classList.remove("need-part");
-      });
-    }, 2800);
     return true;
   }
   function armRunBtn() {
@@ -55,6 +58,7 @@
       "click",
       function (e) {
         if (missingCore().length) {
+          e.stopImmediatePropagation();
           callOutOpenLoop();
         }
       },
