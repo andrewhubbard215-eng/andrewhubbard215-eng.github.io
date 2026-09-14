@@ -19,7 +19,7 @@
       id: "no_vent",
       name: "No-Vent Hero",
       desc: "Kept EPA heat at 0★ through a job window.",
-      icon: "🌍",
+      icon: "🌏",
     },
     {
       id: "epa_quiz",
@@ -77,8 +77,8 @@
     },
     {
       id: "gauges_of_god",
-      name: "Gauges of God",
-      desc: "Won the Quiz Game. HVAC Jesus seated the gauges.",
+      name: "Manifold Seated",
+      desc: "SH and SC read off the gauges. No coin flip.",
       icon: "⚖️",
     },
     {
