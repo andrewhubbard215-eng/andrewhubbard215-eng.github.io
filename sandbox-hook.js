@@ -1,12 +1,11 @@
-/* Manifold-on-ports gate. No live psig until gauges are in the Gauges slot.
-   Target SH/SC stays on the sheet so a tech can see the OEM band before start. */
+/* Manifold-on-ports gate + open-loop Start compressor callout. */
 (function () {
   "use strict";
   if (!document.getElementById("sb-tabs-css")) {
     var l = document.createElement("link");
     l.id = "sb-tabs-css";
     l.rel = "stylesheet";
-    l.href = "sb-tabs.css?v=1";
+    l.href = "sb-tabs.css?v=2";
     document.head.appendChild(l);
   }
   function gaugesOn() {
@@ -17,7 +16,53 @@
     var t = (slot.textContent || "").replace(/\s+/g, " ").trim();
     return /manifold|gauge/i.test(t) && t.length > 8;
   }
+  function coreFilled(id) {
+    var el = document.querySelector('#sb-slots .sb-slot[data-slot="' + id + '"]');
+    if (!el) return false;
+    if (el.classList.contains("filled")) return true;
+    return !!el.querySelector("img, strong, .rm");
+  }
+  function missingCore() {
+    return ["compressor", "condenser", "metering", "evaporator"].filter(function (s) {
+      return !coreFilled(s);
+    });
+  }
+  function callOutOpenLoop() {
+    var miss = missingCore();
+    if (!miss.length) return false;
+    var line = "Loop open — still need " + miss.join(", ") + ". Drop them LEFT, then Start compressor.";
+    var st = document.getElementById("sb-status");
+    if (st) st.textContent = line;
+    var hint = document.getElementById("sb-hint");
+    if (hint) hint.textContent = line;
+    document.querySelectorAll(".sb-slot").forEach(function (el) {
+      var id = el.getAttribute("data-slot");
+      el.classList.toggle("need-part", miss.indexOf(id) >= 0);
+    });
+    clearTimeout(callOutOpenLoop._t);
+    callOutOpenLoop._t = setTimeout(function () {
+      document.querySelectorAll(".sb-slot.need-part").forEach(function (el) {
+        el.classList.remove("need-part");
+      });
+    }, 2800);
+    return true;
+  }
+  function armRunBtn() {
+    var btn = document.getElementById("sb-run");
+    if (!btn || btn.dataset.openLoopArmed) return;
+    btn.dataset.openLoopArmed = "1";
+    btn.addEventListener(
+      "click",
+      function (e) {
+        if (missingCore().length) {
+          callOutOpenLoop();
+        }
+      },
+      true
+    );
+  }
   function apply() {
+    armRunBtn();
     var fp = document.getElementById("sb-fp");
     var low = document.getElementById("g-plow");
     if (!fp || !low) return;
