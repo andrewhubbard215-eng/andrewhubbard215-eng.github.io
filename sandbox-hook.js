@@ -102,6 +102,25 @@
       var cur = (tgt.textContent || "").trim();
       if (!cur || cur === "—" || cur === "-") tgt.textContent = "tgt 10 / 10 °F";
     }
+    var method = document.getElementById("g-method");
+    if (!method && tgt && tgt.parentNode && tgt.parentNode.parentNode) {
+      var row = document.createElement("div");
+      row.innerHTML = "<span>Charge method</span><b id=\"g-method\">—</b>";
+      tgt.parentNode.parentNode.insertBefore(row, tgt.parentNode.nextSibling);
+      method = row.querySelector("#g-method");
+    }
+    if (method) {
+      var sysSel = document.getElementById("sb-system");
+      var opt = sysSel && sysSel.options[sysSel.selectedIndex];
+      var label = ((opt && opt.textContent) || "") + " " + ((document.getElementById("sb-status") || {}).textContent || "");
+      var piston = /piston|orifice|cap-?tube|fixed/i.test(label);
+      var eev = /eev|inverter|greenspeed|communicating/i.test(label);
+      method.textContent = eev
+        ? "EEV · weigh-in, SH is a check"
+        : piston
+          ? "Piston · charge by SH"
+          : "TXV · charge by SC";
+    }
     if (gaugesOn()) return;
     if (low.textContent === "—" || low.textContent === "NO SET") {
       low.textContent = "NO SET";
