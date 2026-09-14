@@ -8,5 +8,8 @@
 .el-locker-brands { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
 @media (max-width: 800px) {
   .el-locker-grid { grid-template-columns: 1fr; }
-  .sb-diamond, #sb-cycle { transform: scale(0.9); transform-origin: center top; }
+  .sb-diamond, #sb-cycle { transform: scale(0.82); transform-origin: center top; }
+  .hub-ai-panel { max-height: 42vh; }
+  #hub-ai-fab, .ask-hub, [data-hub-fab] { z-index: 40; }
+  .el-locker { max-height: 70vh; overflow: auto; }
 }
