@@ -87,7 +87,7 @@
   if (!document.querySelector('script[src*="sandbox-bom.js"]')) {
     var bom = document.createElement("script");
     bom.defer = true;
-    bom.src = "sandbox-bom.js?v=1";
+    bom.src = "sandbox-bom.js?v=2";
     document.head.appendChild(bom);
   }
   addScript("sandbox-hook.js?v=7");
