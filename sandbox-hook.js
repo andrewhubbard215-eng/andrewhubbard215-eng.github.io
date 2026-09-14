@@ -57,6 +57,11 @@
     btn.addEventListener(
       "click",
       function (e) {
+        var howto = document.getElementById("sb-howto");
+        if (howto && !howto.classList.contains("hidden")) {
+          howto.classList.add("hidden");
+          try { localStorage.setItem("lt-sb-howto", "1"); } catch (_) {}
+        }
         if (missingCore().length) {
           e.stopImmediatePropagation();
           callOutOpenLoop();
