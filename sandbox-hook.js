@@ -35,14 +35,34 @@
     }
     return false;
   }
+  function dropGauges() {
+    if (gaugesOn()) return true;
+    var card = document.querySelector('#sb-bin [data-id="gauges"], .sb-part[data-id="gauges"], [data-part="gauges"]');
+    var slot = document.querySelector('#sb-slots .sb-slot[data-slot="gauges"]');
+    if (card && slot) {
+      slot.classList.add("filled", "has");
+      if (!slot.querySelector("img") && card.querySelector("img")) {
+        slot.appendChild(card.querySelector("img").cloneNode(true));
+      }
+      slot.dataset.has = "gauges";
+      return true;
+    }
+    var tab = document.getElementById("sb-tab-tools") || document.querySelector('[data-tab="tools"]');
+    if (tab) tab.click();
+    return gaugesOn();
+  }
   function callOutOpenLoop() {
     var miss = missingCore();
-    if (!miss.length) return false;
+    if (!miss.length) {
+      dropGauges();
+      return false;
+    }
     if (loadHealthy()) {
+      dropGauges();
       var st = document.getElementById("sb-status");
-      if (st) st.textContent = "Four on the glass + gauges. Compressor running. Read SH/SC on the strip.";
+      if (st) st.textContent = "Four on the glass + manifold seated. Compressor can run. Read SH/SC on the strip.";
       var hint = document.getElementById("sb-hint");
-      if (hint) hint.textContent = "Healthy example loaded from Start compressor — loop closed.";
+      if (hint) hint.textContent = "Healthy example + gauges — loop closed.";
       return true;
     }
     var line = "Loop open — still need " + miss.join(", ") + ". Drop them LEFT, then Start compressor.";
@@ -65,7 +85,9 @@
         if (missingCore().length) {
           e.stopImmediatePropagation();
           callOutOpenLoop();
+          return;
         }
+        if (!gaugesOn()) dropGauges();
       },
       true
     );
@@ -81,19 +103,13 @@
       if (!cur || cur === "—" || cur === "-") tgt.textContent = "tgt 10 / 10 °F";
     }
     if (gaugesOn()) return;
-    low.textContent = "—";
+    if (low.textContent === "—" || low.textContent === "NO SET") {
+      low.textContent = "NO SET";
+    }
     var hi = document.getElementById("g-phigh");
-    if (hi) hi.textContent = "—";
-    var sl = document.getElementById("g-tsatl");
-    var sh = document.getElementById("g-tsath");
-    if (sl) sl.textContent = "sat — °F";
-    if (sh) sh.textContent = "sat — °F";
-    ["g-sh", "g-sc", "g-tsuc", "g-tliq"].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = "—";
-    });
+    if (hi && (hi.textContent === "—" || hi.textContent === "NO SET")) hi.textContent = "NO SET";
     fp.textContent =
-      "HUB: manifold first. Blue hose on suction, red on liquid. Target SH/SC is on the sheet — no live psig until the set is on the ports.";
+      "HUB: no manifold, no numbers. Blue on suction, red on liquid. Drop the gauge set LEFT onto Gauges — then the glass reads.";
   }
   setInterval(apply, 350);
 })();
