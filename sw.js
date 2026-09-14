@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v159";
+const VER = "lt-allstars-v160";
 const CORE = [
   "./",
   "./index.html",
@@ -8,9 +8,9 @@ const CORE = [
   "./sb-tabs.css?v=2",
   "./lab-glass.css?v=1",
   "./game.js?v=130",
-  "./sandbox.js?v=120",
+  "./sandbox.js?v=121",
   "./sandbox-ts.js?v=2",
-  "./sandbox-hook.js?v=5",
+  "./sandbox-hook.js?v=6",
   "./sandbox-bom.js?v=1",
   "./quiz-arena.js?v=98",
   "./hub-ai.js?v=82",
@@ -81,7 +81,7 @@ self.addEventListener("fetch", (e) => {
           const copy = res.clone();
           caches.open(VER).then((c) => c.put(req, copy));
         }
-        return res;
+          return res;
       })
       .catch(() => caches.match(req))
   );
