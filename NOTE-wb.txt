@@ -1,0 +1,1 @@
+v169 piston chart: Indoor WB slider + target SH = clamp(round(20-0.08*(ODB-82)-0.55*(WB-63)),6,18). sandbox.js?v=122 pending if this note ships alone.
