@@ -1,4 +1,4 @@
-/* Manifold-on-ports gate + Start compressor drops healthy four if loop is open. */
+/* Manifold-on-ports gate + piston SH chart from indoor WB / outdoor DB. */
 (function () {
   "use strict";
   if (!document.getElementById("sb-tabs-css")) {
@@ -92,13 +92,45 @@
       true
     );
   }
+  function pistonChartSH(odb, wb) {
+    var sh = 20 - 0.08 * (odb - 82) - 0.55 * (wb - 63);
+    return Math.max(6, Math.min(18, Math.round(sh)));
+  }
+  function num(id, fallback) {
+    var el = document.getElementById(id);
+    var n = el ? +el.value : fallback;
+    return isFinite(n) ? n : fallback;
+  }
+  function ensureWbSlider() {
+    if (document.getElementById("sb-wb")) return;
+    var inLab = document.getElementById("sb-in");
+    if (!inLab || !inLab.parentNode || !inLab.parentNode.parentNode) return;
+    var lab = document.createElement("label");
+    lab.innerHTML = 'Indoor WB °F <input id="sb-wb" type="range" min="54" max="76" value="63" /><span id="sb-wb-v">63</span>';
+    inLab.parentNode.parentNode.insertBefore(lab, inLab.parentNode.nextSibling);
+    var sl = document.getElementById("sb-wb");
+    sl.oninput = function () {
+      document.getElementById("sb-wb-v").textContent = sl.value;
+    };
+  }
   function apply() {
     armRunBtn();
+    ensureWbSlider();
     var fp = document.getElementById("sb-fp");
     var low = document.getElementById("g-plow");
     if (!fp || !low) return;
+    var odb = num("sb-out", 95);
+    var wb = num("sb-wb", 63);
+    var chart = pistonChartSH(odb, wb);
     var tgt = document.getElementById("g-tgt");
-    if (tgt) {
+    var sysSel = document.getElementById("sb-system");
+    var opt = sysSel && sysSel.options[sysSel.selectedIndex];
+    var label = ((opt && opt.textContent) || "") + " " + ((document.getElementById("sb-status") || {}).textContent || "");
+    var piston = /piston|orifice|cap-?tube|fixed/i.test(label);
+    var eev = /eev|inverter|greenspeed|communicating/i.test(label);
+    if (tgt && piston) {
+      tgt.textContent = chart + " / chk °F · WB " + wb + " / ODB " + odb;
+    } else if (tgt) {
       var cur = (tgt.textContent || "").trim();
       if (!cur || cur === "—" || cur === "-") tgt.textContent = "tgt 10 / 10 °F";
     }
@@ -110,15 +142,10 @@
       method = row.querySelector("#g-method");
     }
     if (method) {
-      var sysSel = document.getElementById("sb-system");
-      var opt = sysSel && sysSel.options[sysSel.selectedIndex];
-      var label = ((opt && opt.textContent) || "") + " " + ((document.getElementById("sb-status") || {}).textContent || "");
-      var piston = /piston|orifice|cap-?tube|fixed/i.test(label);
-      var eev = /eev|inverter|greenspeed|communicating/i.test(label);
       method.textContent = eev
         ? "EEV · weigh-in, SH is a check"
         : piston
-          ? "Piston · charge by SH"
+          ? "Piston · charge by SH · chart " + chart + "°"
           : "TXV · charge by SC";
     }
     if (gaugesOn()) return;
