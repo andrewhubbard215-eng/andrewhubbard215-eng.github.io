@@ -1,6 +1,13 @@
-/* Evening SAVE — DX TS sheet vocational fix + phone strip. */
+/* Evening SAVE — DX TS sheet vocational fix + phone strip + hook loader. */
 (function () {
   "use strict";
+  function loadHook() {
+    if (document.querySelector("script[data-sb-hook]")) return;
+    var s = document.createElement("script");
+    s.src = "sandbox-hook.js?v=4";
+    s.setAttribute("data-sb-hook", "1");
+    document.head.appendChild(s);
+  }
   function injectCss() {
     if (document.getElementById("sb-ts-fix-css")) return;
     var s = document.createElement("style");
@@ -49,6 +56,7 @@
     el.textContent = "TS " + n + " · " + title;
   }
   function boot() {
+    loadHook();
     injectCss();
     ensureStrip();
     paintStrip();
