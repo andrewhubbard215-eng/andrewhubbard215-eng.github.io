@@ -76,7 +76,7 @@
   }
   if (!document.querySelector('script[src*="board-codes.js"]')) {
     var s = document.createElement("script");
-    s.src = "board-codes.js?v=2";
+    s.src = "board-codes.js?v=3";
     document.head.appendChild(s);
   }
   if (!document.querySelector('script[src*="charge-floor.js"]')) {
@@ -94,7 +94,7 @@
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
-    l.href = "board-codes.css?v=1";
+    l.href = "board-codes.css?v=2";
     document.head.appendChild(l);
   }
   if (!document.querySelector('link[href*="lab-glass.css"]')) {
