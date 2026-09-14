@@ -1,2 +1,28 @@
 <!DOCTYPE html>
-<!-- see repo; patched daily-clock + sw v167 -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lincoln Tech HVAC Allstars</title>
+</head>
+<body>
+  <p>Clocking in…</p>
+  <script>
+  (function () {
+    var url = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/20367b7adfc160645c4517d3e17b69f0573c804e/index.html";
+    fetch(url, { cache: "no-store" })
+      .then(function (r) { return r.text(); })
+      .then(function (t) {
+        t = t.replace('<script src="daily.js"></script>', '<script src="daily.js"></script>\n  <script src="daily-clock.js?v=1"></script>');
+        t = t.replace("sw.js?v=164", "sw.js?v=167");
+        document.open();
+        document.write(t);
+        document.close();
+      })
+      .catch(function () {
+        document.body.innerHTML = '<p><a href="sandbox.html">Open sandbox</a></p>';
+      });
+  })();
+  </script>
+</body>
+</html>
