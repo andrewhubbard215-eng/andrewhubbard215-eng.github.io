@@ -12,6 +12,7 @@
       minutes: 12,
       skill: "install",
       why: "Flare · torque · N₂ · vacuum · valves · commission",
+      tip: "Flare, torque, N₂ pressure test, pull vacuum, then open service valves last. Don't commission a wet line.",
     },
     {
       id: "sandbox",
@@ -20,6 +21,7 @@
       minutes: 8,
       skill: "cycle",
       why: "Pressures, SH/SC, refrigerant flow on real brand templates",
+      tip: "Four parts LEFT, then gauges. Read SH/SC before you add gas. High SH + high SC is restriction, not low charge.",
     },
     {
       id: "electrical",
@@ -28,6 +30,7 @@
       minutes: 10,
       skill: "electrical",
       why: "Walk the 24V string · G/blower before HPC · no indoor air ices the coil",
+      tip: "Y with no indoor air ices the coil. Confirm G/blower before you chase gas or HPC.",
     },
     {
       id: "defusal",
@@ -36,6 +39,7 @@
       minutes: 8,
       skill: "electrical",
       why: "Timed no-cool · meter the open · don't jump the float",
+      tip: "Saturday callback: meter the open. Don't jump the float or you own the next flood.",
     },
     {
       id: "service",
@@ -44,6 +48,7 @@
       minutes: 10,
       skill: "diagnose",
       why: "Customer talk + fault diagnosis under pressure",
+      tip: "Talk first, then gauges. Write the no-cool sheet before you guess the part.",
     },
     {
       id: "quiz",
@@ -52,6 +57,7 @@
       minutes: 8,
       skill: "theory",
       why: "EPA 608 · OSHA · P/T · Lincoln Tech curriculum",
+      tip: "P/T chart first. If you can't name sat temp from the gauge, you are not ready to charge.",
     },
     {
       id: "epa608",
@@ -60,6 +66,7 @@
       minutes: 10,
       skill: "theory",
       why: "Core · Type I/II/III · recovery vacuum table",
+      tip: "Stamp the section, then sit the exam. Recovery vacuum table is not optional.",
     },
     {
       id: "curriculum",
@@ -68,6 +75,7 @@
       minutes: 10,
       skill: "study",
       why: "HCR-style course units mapped to sims",
+      tip: "Finish the unit, then hit the matching lab. Reading without gauges is homework, not shop.",
     },
   ];
 
@@ -176,6 +184,11 @@
     return { xp: 0, cash: 0 };
   }
 
+  function tipFor(drill) {
+    if (drill && drill.tip) return drill.tip;
+    return "Y with no indoor air ices the coil. Confirm G/blower before you chase gas or HPC.";
+  }
+
   function renderPanel(host, opts) {
     if (!host) return;
     const onStart = (opts && opts.onStart) || function () {};
@@ -223,7 +236,7 @@
               : ""
           }
         </div>
-        <p class="daily-tip">Tip: Y with no indoor air ices the coil. Confirm G/blower before you chase gas or HPC.</p>
+        <p class="daily-tip">Tip: ${tipFor(primary)}</p>
       </div>
     `;
 
@@ -231,6 +244,7 @@
       btn.onclick = () => {
         const mode = btn.getAttribute("data-mode");
         const drill = btn.getAttribute("data-drill");
+        recordPractice(drill, { source: "daily-tap" });
         onStart(mode, drill);
       };
     });
