@@ -7,7 +7,7 @@ const CORE = [
   "./style.css?v=138",
   "./sb-tabs.css?v=2",
   "./lab-glass.css?v=1",
-  "./game.js?v=132",
+  "./game.js?v=131",
   "./sandbox.js?v=121",
   "./sandbox-ts.js?v=2",
   "./sandbox-hook.js?v=7",
@@ -30,6 +30,7 @@ const CORE = [
   "./badges.js?v=96",
   "./curriculum.js",
   "./daily.js",
+  "./daily-clock.js?v=1",
   "./tutorial.js?v=97",
   "./phone-tools.js?v=104",
   "./pitch.html",
@@ -60,7 +61,7 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  const nav = req.mode === "navigate" || url.pathname === "/" || /index\.html$/i.test(url.pathname);
+  const nav = req.mode === "navigate" || url.pathname === "/" || /index\\.html$/i.test(url.pathname);
   if (nav) {
     e.respondWith(
       fetch(req)
