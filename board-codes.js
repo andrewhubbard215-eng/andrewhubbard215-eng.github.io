@@ -191,7 +191,78 @@
     });
   }
 
-  window.BoardCodes = { openLocker: openLocker, openProve: openProve };
+  const SOO = [
+    { id: "w", label: "1 · Call for heat", ask: "Thermostat calls heat. First thing the board must see?", good: "24V on W at the board. No W, no sequence. Prove the call before you condemn the inducer.", bad: "Swap the ignitor first. No call means the board never starts the sequence." },
+    { id: "inducer", label: "2 · Inducer", ask: "W is hot. What must run before ignition?", good: "Inducer / draft motor. It has to pull vacuum so the pressure switch can close.", bad: "Gas valve first. Valve waits on a proven draft." },
+    { id: "ps", label: "3 · Pressure switch", ask: "Inducer is spinning. What proves draft to the board?", good: "Pressure switch closes. Hose → trap → vent → 24V across → vacuum vs rating → switch last.", bad: "Jump the switch so it lights. That's a vent/CO bypass." },
+    { id: "ign", label: "4 · Ignition", ask: "Switch is closed. Next in sequence?", good: "Hot surface ignitor or spark lights, THEN the gas valve opens for the trial.", bad: "Blower on immediately. Blower is after flame prove, not before." },
+    { id: "flame", label: "5 · Flame sense", ask: "Burners light. What keeps the gas valve energized?", good: "Flame rod rectifies to the board. No µA, valve drops after the trial.", bad: "Leave it — if you see fire it's fine. The board needs flame sense, not your eyes." },
+    { id: "blower", label: "6 · Blower delay", ask: "Flame is proven. When does the indoor blower start?", good: "After the board's heat-on delay. Limit stays in series the whole time.", bad: "Blower should already be on with the inducer. That's not this sequence." }
+  ];
+  let si = 0, sScore = 0, sTried = 0, sWhy = "";
+
+  function mountSooBtn() {
+    const modes = document.querySelector("#electrical-root .el-modes");
+    if (!modes || modes.querySelector("#el-mode-soo")) return;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "el-mode-btn";
+    b.id = "el-mode-soo";
+    b.textContent = "Furnace sequence";
+    b.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openSoo();
+    };
+    modes.appendChild(b);
+  }
+
+  function openSoo() {
+    let wrap = document.getElementById("el-soo-overlay");
+    if (!wrap) {
+      wrap = document.createElement("div");
+      wrap.id = "el-soo-overlay";
+      wrap.className = "el-locker";
+      const root = document.getElementById("electrical-root") || document.body;
+      root.appendChild(wrap);
+    }
+    drawSoo(wrap);
+  }
+
+  function drawSoo(wrap) {
+    const step = SOO[si % SOO.length];
+    wrap.innerHTML =
+      '<header class="sb-toolbar"><strong>Furnace sequence of operation</strong>' +
+      '<span class="muted"> W → inducer → pressure switch → ignition → flame sense → blower delay</span>' +
+      '<button type="button" class="btn" id="el-soo-close">Close</button></header>' +
+      '<p class="eyebrow">' + step.label + " of 6</p>" +
+      "<p>" + step.ask + "</p>" +
+      '<div class="el-locker-opts">' +
+      (Math.random() < 0.5
+        ? '<button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + "</button>" +
+          '<button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + "</button>"
+        : '<button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + "</button>" +
+          '<button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + "</button>') +
+      "</div>" +
+      "<p class='hub-chip' style='margin-top:12px'>" +
+      (sWhy || "Walk the sequence. Don't skip to parts.") +
+      "</p><p class='muted'>Score " + sScore + "/" + sTried + "</p>";
+    wrap.querySelector("#el-soo-close").onclick = function () { wrap.remove(); };
+    wrap.querySelectorAll(".el-soo-opt").forEach(function (b) {
+      b.onclick = function () {
+        sTried += 1;
+        const ok = b.getAttribute("data-ok") === "1";
+        if (ok) sScore += 1;
+        sWhy = ok
+          ? "RIGHT — " + step.good
+          : "WRONG — " + step.bad + " Right path: " + step.good;
+        si += 1;
+        drawSoo(wrap);
+      };
+    });
+  }
+
+  window.BoardCodes = { openLocker: openLocker, openProve: openProve, openSoo: openSoo };
 
   document.addEventListener("click", function (e) {
     const btn = e.target && e.target.closest && e.target.closest('[data-mode="pressprove"]');
@@ -202,8 +273,8 @@
     setTimeout(openProve, 450);
   }, true);
 
-  setInterval(function () { mountBtn(); mountProveBtn(); }, 800);
-  document.addEventListener("DOMContentLoaded", function () { mountBtn(); mountProveBtn(); });
+  setInterval(function () { mountBtn(); mountProveBtn(); mountSooBtn(); }, 800);
+  document.addEventListener("DOMContentLoaded", function () { mountBtn(); mountProveBtn(); mountSooBtn(); });
 
   function injectExam() {
     const bank = window.QuizArena && window.QuizArena.BANK && window.QuizArena.BANK.curriculum;
@@ -239,6 +310,22 @@
         0: "Why it's wrong: parts-cannon. Most 'bad switches' are water in the trap or a blocked vent.",
         2: "Why it's wrong: jumping a pressure switch hides a vent/CO risk. Prove, don't bypass.",
         3: "Why it's wrong: a furnace pressure switch is draft, not 410A. Charge chart does not close it."
+      }
+    });
+    bank.push({
+      q: "Correct gas-furnace sequence of operation:",
+      choices: [
+        "W → gas valve → ignitor → inducer → blower",
+        "W → inducer → pressure switch prove → ignition → flame sense → blower on delay",
+        "Blower first so the heat exchanger is already moving air",
+        "Jump W to R at the board and skip the inducer"
+      ],
+      a: 1,
+      why: "Draft must prove before gas. Flame sense keeps the valve. Blower follows the board delay.",
+      wrong: {
+        0: "Why it's wrong: gas before draft is a vent/CO story. Inducer and pressure switch come first.",
+        2: "Why it's wrong: indoor blower is after flame prove on a standard gas furnace, not before.",
+        3: "Why it's wrong: jumping W to R forces a call but does not prove draft or flame."
       }
     });
   }
