@@ -7,3 +7,7 @@
   font-weight: 600;
   white-space: nowrap;
 }
+.sb-slot.need-part {
+  outline: 2px solid #ce0034;
+  box-shadow: 0 0 0 3px rgba(206, 0, 52, 0.35);
+}
