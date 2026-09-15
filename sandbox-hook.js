@@ -125,9 +125,18 @@
     var tgt = document.getElementById("g-tgt");
     var sysSel = document.getElementById("sb-system");
     var opt = sysSel && sysSel.options[sysSel.selectedIndex];
-    var label = ((opt && opt.textContent) || "") + " " + ((document.getElementById("sb-status") || {}).textContent || "");
-    var piston = /piston|orifice|cap-?tube|fixed/i.test(label);
-    var eev = /eev|inverter|greenspeed|communicating/i.test(label);
+    var banner =
+      ((document.getElementById("sb-sysbanner") || {}).textContent || "") +
+      " " +
+      ((document.getElementById("sb-sys") || {}).textContent || "") +
+      " " +
+      ((document.getElementById("sb-sysinfo") || {}).textContent || "") +
+      " " +
+      ((document.getElementById("sb-status") || {}).textContent || "");
+    var label = ((opt && opt.textContent) || "") + " " + banner;
+    var kind = window.LtMeteringKind;
+    var piston = kind === "orifice" || /piston|orifice|cap-?tube|fixed/i.test(label);
+    var eev = kind === "eev" || /eev|inverter|greenspeed|communicating/i.test(label);
     if (tgt && piston) {
       tgt.textContent = chart + " / chk °F · WB " + wb + " / ODB " + odb;
     } else if (tgt) {
