@@ -11,3 +11,19 @@
   outline: 2px solid #ce0034;
   box-shadow: 0 0 0 3px rgba(206, 0, 52, 0.35);
 }
+
+/* Live manifold strip: units a tech reads on the truck */
+.sb-phone-vitals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: baseline;
+}
+.sb-phone-vitals::after {
+  content: "L/H = psig · SH/SC/SUP = °F  ·  SH = suction T − evap sat  ·  SC = cond sat − liquid T";
+  flex: 1 0 100%;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #8b98a5;
+  margin-top: 2px;
+}
