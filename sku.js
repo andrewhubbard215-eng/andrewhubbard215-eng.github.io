@@ -37,7 +37,19 @@
   doc.classList.toggle("sku-store", isStore);
   doc.classList.toggle("sku-campus", !isStore);
 
+  function injectSkuCss() {
+    if (document.getElementById("lt-sku-css")) return;
+    var s = document.createElement("style");
+    s.id = "lt-sku-css";
+    s.textContent =
+      "html.sku-store .lincoln-only{display:none!important}" +
+      "html.sku-campus .store-only{display:none!important}" +
+      "html.sku-store .bg-lincoln{filter:saturate(.35) brightness(.7)}";
+    document.head.appendChild(s);
+  }
+
   function applyHead() {
+    injectSkuCss();
     document.title = brand.title;
     var desc = document.querySelector('meta[name="description"]');
     if (desc) {
@@ -53,6 +65,8 @@
     document.querySelectorAll(".brand-mark").forEach(function (el) {
       el.textContent = brand.mark;
     });
+    var kick = document.getElementById("cut-kicker");
+    if (kick) kick.textContent = brand.roof;
   }
 
   function t(campus, store) {
