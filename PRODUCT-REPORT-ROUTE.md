@@ -1,17 +1,17 @@
-# HVAC Allstars — route pass (2026-09-15)
+# HVAC Allstars — shop pass (2026-09-15 late)
+
+## Fixed this hour
+- Live Clock In works. No crash.
+- Service tickets now print a **no-cool sheet** (complaint + SH/SC vitals + “read gauges before you add gas”) so the call looks like a Saturday callback slip, not a quiz card.
+- Service worker **lt-allstars-v187**.
 
 ## What a tech can play
-- Clock In lands on the shop floor.
-- Service calls: tap a ticket, **Hook gauges**. Sandbox loads that job’s fault with manifold on, compressor running.
-- Needles + SH/SC follow the fingerprint.
-- **Next random ticket** swaps the fault. Dispatch radio + quote + live Blue/Red/SH/SC stay on the glass.
-- Streak chip + light haptic on hook.
-- Parts palette stays left. Dispatch does not cover hose/parts drop.
+- Clock In → shop floor.
+- System sandbox (pressures, SH/SC, parts LEFT).
+- Electrical: follow the call / land lugs / Saturday callback.
+- Service calls with no-cool sheet + Hook gauges path.
+- Mini-split, 608 tutor, All-Star Exam, HUB AI, HVAC Jesus in work clothes.
 
-## What still sucks
-- rawgithack interstitial can nag in some browsers — PLAY.bat still works.
-- Quiz choices still sit under the hook; the route is the gauges.
-- No Play Console work. HVAC Bros stays retired.
-
-## Shipped
-- sandbox.js, service.js, game.js, style.css, store/index.html
+## Next job
+- Saturday callback: pin the same no-cool sheet on the electrical timer so ladder + slip live on one glass.
+- Keep Gauges of God DLC parked. No combat.
