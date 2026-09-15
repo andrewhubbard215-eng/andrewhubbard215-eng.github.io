@@ -376,7 +376,8 @@
   <script src="daily-clock.js?v=1"></script>
   <script src="tutorial.js?v=97"></script>
   <script src="phone-tools.js?v=104"></script>
-  <script src="game.js?v=132"></script>
+  <script src="game.js?v=134"></script>
+  <script src="shop-floor-copy.js?v=2"></script>
   <script>
     (function () {
       window.addEventListener("error", function (e) {
@@ -391,7 +392,7 @@
       killWanted();
       setInterval(killWanted, 400);
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js?v=182").catch(function () {});
+        navigator.serviceWorker.register("sw.js?v=188").catch(function () {});
       }
       (function bootSandboxHash() {
         if (!/#sandbox/i.test(location.hash || "") && !/[?&]lab=sandbox/i.test(location.search || "")) return;
