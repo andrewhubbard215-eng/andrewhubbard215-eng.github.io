@@ -119,9 +119,25 @@
       document.getElementById("sb-wb-v").textContent = sl.value;
     };
   }
+  function ensureFormula() {
+    if (document.getElementById("sb-shsc-formula")) return;
+    var tgt = document.getElementById("g-tgt");
+    var host = (tgt && tgt.parentNode && tgt.parentNode.parentNode) || document.getElementById("sb-status");
+    if (!host || !host.parentNode) return;
+    var p = document.createElement("p");
+    p.id = "sb-shsc-formula";
+    p.style.cssText = "margin:6px 0 0;font-size:12px;letter-spacing:.02em;opacity:.92";
+    p.textContent = "SH = suction line − sat (low side) · SC = sat (high side) − liquid line. Parts stay LEFT.";
+    if (tgt && tgt.parentNode && tgt.parentNode.parentNode) {
+      tgt.parentNode.parentNode.appendChild(p);
+    } else {
+      host.parentNode.insertBefore(p, host.nextSibling);
+    }
+  }
   function apply() {
     armRunBtn();
     ensureWbSlider();
+    ensureFormula();
     var fp = document.getElementById("sb-fp");
     var low = document.getElementById("g-plow");
     if (!fp || !low) return;
