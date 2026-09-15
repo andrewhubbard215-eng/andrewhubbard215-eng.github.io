@@ -95,7 +95,7 @@
   }
   if (!document.querySelector('script[src*="charge-floor.js"]')) {
     var cf = document.createElement("script");
-    cf.src = "charge-floor.js?v=1";
+    cf.src = "charge-floor.js?v=2";
     document.head.appendChild(cf);
   }
   if (!document.querySelector('script[src*="sandbox-bom.js"]')) {
@@ -106,7 +106,7 @@
   }
   addScript("sandbox-hook.js?v=11");
   addScript("route-floor.js?v=1");
-  addScript("shop-floor-copy.js?v=1");
+  addScript("shop-floor-copy.js?v=2");
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
