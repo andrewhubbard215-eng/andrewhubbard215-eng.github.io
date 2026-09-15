@@ -33,7 +33,7 @@ const CORE = [
   "./chat.js?v=106",
   "./badges.js?v=96",
   "./curriculum.js",
-  "./daily.js?v=3",
+  "./daily.js?v=2",
   "./daily-clock.js?v=1",
   "./tutorial.js?v=97",
   "./phone-tools.js?v=104",
