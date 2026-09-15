@@ -106,6 +106,7 @@
   }
   addScript("sandbox-hook.js?v=11");
   addScript("route-floor.js?v=1");
+  addScript("shop-floor-copy.js?v=1");
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
