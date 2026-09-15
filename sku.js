@@ -90,7 +90,7 @@
     bom.src = "sandbox-bom.js?v=2";
     document.head.appendChild(bom);
   }
-  addScript("sandbox-hook.js?v=9");
+  addScript("sandbox-hook.js?v=10");
   addScript("route-floor.js?v=1");
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
