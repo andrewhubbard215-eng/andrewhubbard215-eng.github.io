@@ -76,7 +76,7 @@
   }
   if (!document.querySelector('script[src*="board-codes.js"]')) {
     var s = document.createElement("script");
-    s.src = "board-codes.js?v=3";
+    s.src = "board-codes.js?v=4";
     document.head.appendChild(s);
   }
   if (!document.querySelector('script[src*="charge-floor.js"]')) {
