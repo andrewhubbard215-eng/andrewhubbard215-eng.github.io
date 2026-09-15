@@ -303,7 +303,9 @@
     root.querySelector("#svc-name").textContent = c.name;
     root.querySelector("#svc-job").textContent = c.job;
     root.querySelector("#svc-quote").textContent = "“" + quoteOf(c) + "”";
-    root.querySelector("#svc-vitals").textContent = c.vitals;
+    var vit = root.querySelector("#svc-vitals");
+    vit.textContent = "";
+    vit.innerHTML = "<strong>NO-COOL SHEET</strong> · " + c.vitals + " · Read SH/SC before you add gas";
     root.querySelector("#svc-prompt").textContent = c.prompt;
 
     const box = root.querySelector("#svc-choices");
@@ -366,9 +368,8 @@
     }
     deck = shuffle(CALLS);
 
-    // ensure structure exists (in case host is empty root)
     if (!root.querySelector("#svc-choices")) {
-      root.innerHTML = host.innerHTML; // keep screen content
+      root.innerHTML = host.innerHTML;
     }
 
     const roastEl = document.getElementById("svc-roast");
@@ -393,7 +394,7 @@
       stop() {},
       setSpicy(v) {
         spicy = !!v;
-        if (spicyEl) spicyEl.checked = spicy;
+        extraSpicy = extraSpicy && spicy;
         render();
       },
     };
