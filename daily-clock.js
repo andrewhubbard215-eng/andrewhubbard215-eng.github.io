@@ -19,7 +19,15 @@
       true
     );
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
-  else bind();
+  function ensureUnitsCss() {
+    if (document.getElementById("lt-sb-tabs")) return;
+    var l = document.createElement("link");
+    l.id = "lt-sb-tabs";
+    l.rel = "stylesheet";
+    l.href = "sb-tabs.css?v=3";
+    document.head.appendChild(l);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { bind(); ensureUnitsCss(); });
+  else { bind(); ensureUnitsCss(); }
   setInterval(bind, 1500);
 })();
