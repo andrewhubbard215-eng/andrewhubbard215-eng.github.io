@@ -12,6 +12,7 @@
     var name = document.getElementById("hub-name");
     if (name && (!name.textContent || name.textContent === "Tech")) name.textContent = "Guest";
   }
+  window.ltGoHub = goHub;
   function isStubPlay(fn) {
     if (typeof fn !== "function") return true;
     var src = Function.prototype.toString.call(fn);
@@ -43,6 +44,14 @@
       try { window.ElectricalFat.start(root, opts || {}); } catch (_) {}
     }
   }
+  function bindShopFloor(id) {
+    var hub = document.getElementById(id);
+    if (!hub) return;
+    hub.onclick = function (e) {
+      if (e) e.preventDefault();
+      goHub();
+    };
+  }
   function rescuePlay(m) {
     if (!m) return;
     if (m === "hub") return goHub();
@@ -61,9 +70,11 @@
     }
     if (m === "service") {
       show("service");
+      var host = document.getElementById("screen-service") || document.getElementById("svc-choices");
       if (window.ServiceCalls && window.ServiceCalls.start) {
-        try { window.ServiceCalls.start(document.getElementById("svc-choices")); } catch (_) {}
+        try { window.ServiceCalls.start(host, { onHub: goHub }); } catch (_) {}
       }
+      bindShopFloor("btn-svc-hub");
       return;
     }
     if (m === "epa608" && window.Epa608 && window.Epa608.start) {
@@ -78,6 +89,7 @@
     }
     if (m === "rapture") {
       show("rapture");
+      bindShopFloor("btn-rapture-hub");
       return;
     }
     if (m === "boardcodes") {
@@ -93,12 +105,14 @@
   }
   function play(m) {
     if (!m) return;
-    if (m === "boardcodes") {
+    if (m === "hub") return goHub();
+    if (m === "boardcodes" || m === "service") {
       rescuePlay(m);
       return;
     }
     if (typeof window.ltPlay === "function" && !isStubPlay(window.ltPlay)) {
-      window.ltPlay(m);
+      try { window.ltPlay(m); } catch (_) { rescuePlay(m); return; }
+      if (m === "service") bindShopFloor("btn-svc-hub");
       return;
     }
     rescuePlay(m);
@@ -112,6 +126,8 @@
         play(card.getAttribute("data-mode"));
       });
     });
+    bindShopFloor("btn-svc-hub");
+    bindShopFloor("btn-rapture-hub");
   }
   function bind() {
     var btn = document.getElementById("btn-start");

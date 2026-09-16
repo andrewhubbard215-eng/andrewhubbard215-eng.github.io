@@ -48,11 +48,29 @@
     <section id="screen-sandbox" class="screen"><div id="sandbox-root"></div></section>
     <section id="screen-minisplit" class="screen"><div id="minisplit-root"></div></section>
     <section id="screen-quiz" class="screen"><div id="quiz-root"></div></section>
-    <section id="screen-service" class="screen"><div id="svc-choices"></div><button class="btn" id="btn-svc-hub">Shop floor</button></section>
+    <section id="screen-service" class="screen">
+      <header class="hub-head">
+        <h2 id="svc-title">On site</h2>
+        <span id="svc-score"></span>
+        <span id="svc-rating"></span>
+        <button class="btn" id="btn-svc-hub" type="button">Shop floor</button>
+      </header>
+      <div class="panel" style="margin:12px;max-width:720px">
+        <p class="eyebrow" id="svc-eyebrow">Service call</p>
+        <div id="svc-avatar" style="font-size:2rem"></div>
+        <h3 id="svc-name"></h3>
+        <p id="svc-job"></p>
+        <p id="svc-quote"></p>
+        <p id="svc-vitals"></p>
+        <p id="svc-prompt"></p>
+        <div id="svc-choices"></div>
+        <p id="svc-feedback" class="svc-feedback"></p>
+      </div>
+    </section>
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.7 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.10 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -73,7 +91,7 @@
   <script src="board-codes.js?v=6"></script>
   <script src="daily.js?v=3"></script>
   <script src="game.js?v=202"></script>
-  <script src="clock-in-fix.js?v=5"></script>
+  <script src="clock-in-fix.js?v=6"></script>
   <script src="shop-floor-copy.js?v=3"></script>
   <script>
     window.ltGo = function (id) {
@@ -81,7 +99,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=207").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=210").catch(function () {});
   </script>
 </body>
 </html>
