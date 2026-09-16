@@ -18,6 +18,12 @@
         try {
           goHub();
         } catch (_) {}
+        setTimeout(function () {
+          try {
+            goHub();
+            if (typeof window.ltGo === "function") window.ltGo("hub");
+          } catch (_) {}
+        }, 0);
       },
       true
     );
