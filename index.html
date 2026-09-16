@@ -33,8 +33,8 @@
       <div class="hub-grid hub-nav" id="hub-options">
         <button class="mode-card mode-card-hero" data-mode="sandbox" type="button"><h3>System sandbox</h3><p>Live SH/SC · parts stay LEFT</p></button>
         <button class="mode-card" data-mode="quiz" type="button"><h3>All-Star Exam</h3></button>
-        <button class="mode-card" data-mode="electrical" type="button"><h3>Follow the call</h3></button>
-        <button class="mode-card" data-mode="defusal" type="button"><h3>Saturday callback</h3></button>
+        <button class="mode-card" data-mode="electrical" type="button"><h3>Follow the call</h3><p>Ladder · 24V path · land the lugs</p></button>
+        <button class="mode-card" data-mode="defusal" type="button"><h3>Saturday callback</h3><p>No-cool sheet · isolate the open</p></button>
         <button class="mode-card" data-mode="service" type="button"><h3>Service calls</h3></button>
         <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3></button>
         <button class="mode-card" data-mode="boardcodes" type="button"><h3>Board-code locker</h3><p>Door sticker is law · prove path</p></button>
@@ -52,13 +52,13 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.3 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.4 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=1"></script>
   <script src="dragdrop.js?v=45"></script>
-  <script src="electrical.js?v=129"></script>
+  <script src="electrical.js?v=130"></script>
   <script src="electrical-fat.js?v=1"></script>
   <script src="webgl-cycle.js?v=57"></script>
   <script src="sandbox.js?v=124"></script>
@@ -80,7 +80,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=202").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=203").catch(function () {});
   </script>
 </body>
 </html>
