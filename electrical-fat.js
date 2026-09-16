@@ -1,4 +1,4 @@
-/* Phone-width fat-hit for Land lugs. Evening SAVE. */
+/* Phone-width fat-hit for Land lugs + pin no-cool sheet on Saturday callback timer. */
 (function () {
   "use strict";
   var PAD = 32;
@@ -22,8 +22,27 @@
     s.id = "el-fat-css";
     s.textContent =
       "@media (max-width:820px){#electrical-root .el-lug{min-width:44px;min-height:44px;touch-action:manipulation}" +
-      "#electrical-root .el-lugs{gap:10px}}";
+      "#electrical-root .el-lugs{gap:10px}}" +
+      ".el-callback-slip{margin:8px 0 0;padding:8px 10px;border-left:3px solid #CE0034;background:#1a1410;color:#f7f3ea;font-size:13px;line-height:1.35}" +
+      ".el-callback-slip span{display:block;margin-top:4px;color:#d8cbb0;font-size:12px}";
     document.head.appendChild(s);
+  }
+  function pinSlip() {
+    var bar = document.getElementById("el-defuse-bar");
+    if (!bar) return;
+    var slip = document.getElementById("el-callback-slip");
+    if (!slip) {
+      slip = document.createElement("div");
+      slip.id = "el-callback-slip";
+      slip.className = "el-callback-slip";
+      var brief = bar.querySelector("#el-job-brief");
+      if (brief && brief.parentNode) brief.parentNode.insertBefore(slip, brief.nextSibling);
+      else bar.appendChild(slip);
+    }
+    var now = document.querySelector("#el-ts .el-ts-step.now");
+    var title = now ? (now.querySelector("strong") || {}).textContent || "Walk the string" : "Walk Y through the safeties";
+    var say = now ? (now.querySelector("p") || {}).textContent || "Meter gold, then the dark box." : "Meter gold, then the dark box. Don't shotgun.";
+    slip.innerHTML = "<strong>NO-COOL SHEET</strong> · " + title + "<span>" + say + "</span>";
   }
   document.addEventListener("pointerup", function (e) {
     if (!elScreenOn()) return;
@@ -43,4 +62,5 @@
   }, true);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", injectCss);
   else injectCss();
+  setInterval(pinSlip, 400);
 })();
