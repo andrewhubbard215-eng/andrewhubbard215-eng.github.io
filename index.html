@@ -52,7 +52,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.4 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.5 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -65,6 +65,7 @@
   <script src="sandbox-ts.js?v=4"></script>
   <script src="sandbox-hook.js?v=11"></script>
   <script src="sandbox-bom.js?v=2"></script>
+  <script src="sandbox-fp.js?v=1"></script>
   <script src="minisplit.js?v=2"></script>
   <script src="service.js?v=98"></script>
   <script src="hub-ai.js?v=82"></script>
@@ -80,7 +81,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=203").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=204").catch(function () {});
   </script>
 </body>
 </html>
