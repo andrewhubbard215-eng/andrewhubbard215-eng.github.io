@@ -83,8 +83,10 @@
     if (m === "boardcodes") {
       startElectrical({ guide: true });
       setTimeout(function () {
-        if (window.LtBoardCodes && window.LtBoardCodes.open) window.LtBoardCodes.open();
-      }, 80);
+        var BC = window.BoardCodes || window.LtBoardCodes;
+        var open = BC && (BC.openLocker || BC.openProve || BC.open);
+        if (typeof open === "function") open();
+      }, 120);
       return;
     }
     show(m);
