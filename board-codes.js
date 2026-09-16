@@ -1,4 +1,4 @@
-/* Board-code locker — door sticker is law. Training cards only; field door wins. */
+/* Board-code locker — door sticker is law. Live 24V string matches the flash. */
 (function () {
   "use strict";
   const LOCKER = {
@@ -6,19 +6,24 @@
       name: "Carrier / Bryant — 2-digit on this door",
       flash: "2-digit",
       sticker: [
-        { code: "13", meaning: "Limit switch open", prove: "Prove airflow and the limit before you condemn the board." },
-        { code: "31", meaning: "High-pressure switch open", prove: "Dirty coil / dead OD fan / overcharge. HPC first." },
-        { code: "32", meaning: "Low-pressure switch open", prove: "Airflow, restriction, or leak. Don't add gas yet." }
+        { code: "13", meaning: "Limit switch open", prove: "Prove airflow and the limit before you condemn the board.", open: "limit" },
+        { code: "31", meaning: "High-pressure switch open", prove: "Dirty coil / dead OD fan / overcharge. HPC first.", open: "hpc" },
+        { code: "32", meaning: "Low-pressure switch open", prove: "Airflow, restriction, or leak. Don't add gas yet.", open: "lpc" }
       ]
     },
     trane: {
       name: "Trane / American Standard — flashes on this door",
       flash: "LED flashes",
       sticker: [
-        { code: "2", meaning: "Pressure switch failed to close", prove: "Hose, trap, vent, then 24V across the switch. Switch last." },
-        { code: "4", meaning: "Open limit", prove: "Filter, blower, heat exchanger path. Don't jump the limit." }
+        { code: "2", meaning: "Pressure switch failed to close", prove: "Hose, trap, vent, then 24V across the switch. Switch last.", open: "press" },
+        { code: "4", meaning: "Open limit", prove: "Filter, blower, heat exchanger path. Don't jump the limit.", open: "limit" }
       ]
     }
+  };
+
+  const STRING = {
+    cool: ["R", "fuse", "Y", "HPC", "LPC", "float", "coil"],
+    heat: ["R", "fuse", "W", "limit", "PS", "GV"]
   };
 
   let brand = "carrier";
@@ -26,6 +31,48 @@
   let score = 0;
   let tried = 0;
   let why = "";
+
+  function liveFault() {
+    try {
+      var lab = window.ElectricalLab;
+      if (lab && lab.lastState && typeof lab.lastState === "function") {
+        var st = lab.lastState();
+        if (st && st.fault) return String(st.fault);
+      }
+    } catch (e) {}
+    var slip = document.getElementById("el-callback-slip");
+    var t = ((slip && slip.textContent) || "") + ((document.getElementById("el-status") || {}).textContent || "");
+    if (/HPC|high-pressure/i.test(t)) return "open_hpc";
+    if (/LPC|low-pressure/i.test(t)) return "open_lpc";
+    if (/limit/i.test(t)) return "open_limit";
+    if (/pressure switch|PS failed/i.test(t)) return "open_press";
+    return "";
+  }
+
+  function openKey(item) {
+    var f = liveFault();
+    if (f === "open_hpc") return "hpc";
+    if (f === "open_lpc") return "lpc";
+    if (f === "open_limit") return "limit";
+    if (f === "open_press") return "press";
+    return item.open || "";
+  }
+
+  function stringHtml(item) {
+    var key = openKey(item);
+    var heat = key === "limit" || key === "press";
+    var nodes = heat ? STRING.heat : STRING.cool;
+    var map = { hpc: "HPC", lpc: "LPC", limit: "limit", press: "PS", float: "float" };
+    var hit = map[key] || "";
+    var boxes = nodes.map(function (n) {
+      var dead = hit && n.toLowerCase() === hit.toLowerCase();
+      return "<span class='el-str-node" + (dead ? " open" : "") + "'>" + n +
+        (dead ? " OPEN" : "") + "</span>";
+    }).join("<span class='el-str-arr'>→</span>");
+    return "<div class='el-live-string'><strong>LIVE 24V STRING</strong> · meter gold, then the dark box" +
+      "<div class='el-str-row'>" + boxes + "</div>" +
+      "<p class='muted'>Door code <b>" + item.code + "</b> is this open — prove the path, don't shotgun the board.</p></div>";
+  }
 
   function mountBtn() {
     const modes = document.querySelector("#electrical-root .el-modes");
@@ -69,13 +116,14 @@
           LOCKER[k].name.split("\u2014")[0] + "</button>";
       }).join("") +
       "</div>" +
+      stringHtml(item) +
       "<p>What does <strong>this door</strong> say <b>" + item.code + "</b> means?</p>" +
       '<div class="el-locker-opts">' +
       opts.map(function (s) {
         return '<button type="button" class="btn el-code-opt" data-code="' + s.code + '">' + s.code + " \u2014 " + s.meaning + "</button>";
       }).join("") +
       "</div><p class='hub-chip'>" +
-      (why || "Read the sticker. Then pick.") +
+      (why || "Read the sticker. Match it to the open on the string.") +
       "</p><p class='muted'>Score " + score + "/" + tried + "</p>";
     wrap.querySelector("#el-locker-close").onclick = function () { wrap.remove(); };
     wrap.querySelectorAll("[data-brand]").forEach(function (b) {

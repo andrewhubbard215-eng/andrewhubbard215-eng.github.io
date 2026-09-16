@@ -6,6 +6,11 @@
 .el-flash { font-size:48px; font-weight:800; letter-spacing:2px; color:#CE0034; background:#0a0c0e; border:1px solid #3a2228; border-radius:10px; text-align:center; padding:16px; margin:8px 0; }
 .el-locker-opts { display:grid; gap:8px; }
 .el-locker-brands { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+.el-live-string { background:#0c1014; border:1px solid #2a3644; border-radius:8px; padding:8px 10px; margin:8px 0; font-size:13px; }
+.el-str-row { display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-top:8px; }
+.el-str-node { background:#1a222c; border:1px solid #3a4a58; border-radius:6px; padding:4px 8px; }
+.el-str-node.open { background:#3a1218; border-color:#CE0034; color:#ffd0d6; font-weight:700; }
+.el-str-arr { color:#6a7a88; }
 @media (max-width: 800px) {
   .el-locker-grid { grid-template-columns: 1fr; }
   .sb-diamond, #sb-cycle { transform: scale(0.82); transform-origin: center top; }
