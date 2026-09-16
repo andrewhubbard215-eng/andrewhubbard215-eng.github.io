@@ -42,5 +42,32 @@
     overflow: auto;
     max-height: 70vh;
   }
+  /* Evening SAVE: version strip was sitting on HVAC Jesus / last hub card */
+  #screen-hub.screen.active {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #hub-options, .hub-nav {
+    padding-bottom: 64px;
+  }
+  .hub-nav .mode-card:last-child {
+    margin-bottom: 12px;
+  }
 }
-.version-strip { pointer-events: none; }
+.version-strip {
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .version-strip {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 4px 10px 10px;
+    background: linear-gradient(transparent, rgba(8,10,12,.92) 40%);
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: rgba(220,228,234,.55);
+  }
+}
