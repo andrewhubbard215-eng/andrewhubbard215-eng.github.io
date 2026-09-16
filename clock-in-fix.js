@@ -1,36 +1,106 @@
 /* Clock In + floor cards must work even when locker nodes are missing. */
 (function () {
-  function goHub() {
+  function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
       s.classList.remove("active");
     });
-    var hub = document.getElementById("screen-hub");
-    if (hub) hub.classList.add("active");
+    var el = document.getElementById("screen-" + id);
+    if (el) el.classList.add("active");
+  }
+  function goHub() {
+    show("hub");
     var name = document.getElementById("hub-name");
     if (name && (!name.textContent || name.textContent === "Tech")) name.textContent = "Guest";
   }
-  function play(m) {
+  function isStubPlay(fn) {
+    if (typeof fn !== "function") return true;
+    var src = Function.prototype.toString.call(fn);
+    return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
+  }
+  var sbCtl = null;
+  function startSandbox() {
+    show("sandbox");
+    var root = document.getElementById("sandbox-root");
+    if (!root || !window.HVACSandbox || !window.HVACSandbox.start) return;
+    try {
+      if (sbCtl && sbCtl.stop) sbCtl.stop();
+    } catch (_) {}
+    try {
+      sbCtl = window.HVACSandbox.start(root, { nickname: "Guest" });
+      var hub = sbCtl && sbCtl.getHubBtn && sbCtl.getHubBtn();
+      if (hub) hub.onclick = function () { goHub(); };
+    } catch (e) {
+      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Hard-refresh (Ctrl+Shift+R).</p></div>";
+    }
+  }
+  function startElectrical(opts) {
+    show("electrical");
+    var root = document.getElementById("electrical-root");
+    if (!root) return;
+    if (window.HVACElectrical && window.HVACElectrical.start) {
+      try { window.HVACElectrical.start(root, opts || {}); } catch (_) {}
+    } else if (window.ElectricalFat && window.ElectricalFat.start) {
+      try { window.ElectricalFat.start(root, opts || {}); } catch (_) {}
+    }
+  }
+  function rescuePlay(m) {
     if (!m) return;
-    if (typeof window.ltPlay === "function") {
-      window.ltPlay(m);
+    if (m === "hub") return goHub();
+    if (m === "sandbox") return startSandbox();
+    if (m === "electrical" || m === "elguide") return startElectrical({ guide: m === "elguide" });
+    if (m === "defusal") return startElectrical({ defuse: true });
+    if (m === "quiz" && window.QuizArena && window.QuizArena.start) {
+      show("quiz");
+      try { window.QuizArena.start(document.getElementById("quiz-root")); } catch (_) {}
       return;
     }
-    if (typeof window.ltGo === "function") {
-      if (m === "boardcodes") window.ltGo("electrical");
-      else if (m === "elguide" || m === "defusal") window.ltGo("electrical");
-      else if (m === "rapture") window.ltGo("rapture");
-      else window.ltGo(m);
+    if (m === "minisplit" && window.MiniSplit && window.MiniSplit.start) {
+      show("minisplit");
+      try { window.MiniSplit.start(document.getElementById("minisplit-root")); } catch (_) {}
+      return;
+    }
+    if (m === "service") {
+      show("service");
+      if (window.ServiceCalls && window.ServiceCalls.start) {
+        try { window.ServiceCalls.start(document.getElementById("svc-choices")); } catch (_) {}
+      }
+      return;
+    }
+    if (m === "epa608" && window.Epa608 && window.Epa608.start) {
+      show("epa608");
+      try { window.Epa608.start(document.getElementById("epa608-root")); } catch (_) {}
+      return;
+    }
+    if (m === "commandments" && window.Commandments && window.Commandments.start) {
+      show("commandments");
+      try { window.Commandments.start(document.getElementById("commandments-root")); } catch (_) {}
+      return;
+    }
+    if (m === "rapture") {
+      show("rapture");
+      return;
     }
     if (m === "boardcodes") {
+      startElectrical({ guide: true });
       setTimeout(function () {
         if (window.LtBoardCodes && window.LtBoardCodes.open) window.LtBoardCodes.open();
       }, 80);
+      return;
     }
+    show(m);
+  }
+  function play(m) {
+    if (!m) return;
+    if (typeof window.ltPlay === "function" && !isStubPlay(window.ltPlay)) {
+      window.ltPlay(m);
+      return;
+    }
+    rescuePlay(m);
   }
   function bindCards() {
     document.querySelectorAll(".mode-card[data-mode]").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound")) return;
-      card.setAttribute("data-lt-bound", "1");
+      if (card.getAttribute("data-lt-bound") === "2") return;
+      card.setAttribute("data-lt-bound", "2");
       card.addEventListener("click", function (e) {
         e.preventDefault();
         play(card.getAttribute("data-mode"));
@@ -45,12 +115,6 @@
         "click",
         function () {
           try { goHub(); } catch (_) {}
-          setTimeout(function () {
-            try {
-              goHub();
-              if (typeof window.ltGo === "function") window.ltGo("hub");
-            } catch (_) {}
-          }, 0);
         },
         true
       );
