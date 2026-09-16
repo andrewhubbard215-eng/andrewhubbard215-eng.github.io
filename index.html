@@ -76,7 +76,7 @@
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=1"></script>
   <script src="dragdrop.js?v=45"></script>
-  <script src="electrical.js?v=130"></script>
+  <script src="electrical.js?v=129"></script>
   <script src="electrical-fat.js?v=2"></script>
   <script src="webgl-cycle.js?v=57"></script>
   <script src="sandbox.js?v=124"></script>
@@ -92,14 +92,14 @@
   <script src="daily.js?v=3"></script>
   <script src="game.js?v=202"></script>
   <script src="clock-in-fix.js?v=6"></script>
-  <script src="shop-floor-copy.js?v=3"></script>
+  <script src="shop-floor-copy.js?v=4"></script>
   <script>
     window.ltGo = function (id) {
       document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=211").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=212").catch(function () {});
   </script>
 </body>
 </html>
