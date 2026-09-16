@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lincoln Tech HVAC Allstars</title>
-  <script src="sku.js?v=7"></script>
-  <link rel="stylesheet" href="style.css?v=138" />
+  <script src="sku.js?v=10"></script>
+  <link rel="stylesheet" href="style.css?v=139" />
+  <link rel="stylesheet" href="board-codes.css?v=3" />
+  <link rel="stylesheet" href="phone-floor.css?v=1" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
@@ -24,7 +26,8 @@
       <header class="hub-head">
         <img src="hub-portrait.jpg" alt="Professor HUB" class="hub-avatar" />
         <h2 id="hub-name">Tech</h2>
-        <button type="button" class="btn" data-hubai-toggle>HUB</button>
+        <button type="button" class="btn" id="hub-locker">Locker</button>
+        <button type="button" class="btn" data-hubai-toggle>HUB AI · On</button>
       </header>
       <div id="daily-root"></div>
       <div class="hub-grid hub-nav" id="hub-options">
@@ -34,6 +37,7 @@
         <button class="mode-card" data-mode="defusal" type="button"><h3>Saturday callback</h3></button>
         <button class="mode-card" data-mode="service" type="button"><h3>Service calls</h3></button>
         <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3></button>
+        <button class="mode-card" data-mode="boardcodes" type="button"><h3>Board-code locker</h3><p>Door sticker is law · prove path</p></button>
         <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3></button>
         <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3></button>
         <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3></button>
@@ -48,26 +52,27 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.2 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.3 · shop floor</p>
   </div>
-  <script src="sku.js?v=7"></script>
+  <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=1"></script>
   <script src="dragdrop.js?v=45"></script>
   <script src="electrical.js?v=129"></script>
   <script src="electrical-fat.js?v=1"></script>
   <script src="webgl-cycle.js?v=57"></script>
-  <script src="sandbox.js?v=123"></script>
+  <script src="sandbox.js?v=124"></script>
   <script src="sandbox-ts.js?v=4"></script>
-  <script src="sandbox-hook.js?v=9"></script>
+  <script src="sandbox-hook.js?v=11"></script>
   <script src="sandbox-bom.js?v=2"></script>
   <script src="minisplit.js?v=2"></script>
   <script src="service.js?v=98"></script>
   <script src="hub-ai.js?v=82"></script>
   <script src="quiz-arena.js?v=98"></script>
+  <script src="board-codes.js?v=5"></script>
   <script src="daily.js?v=3"></script>
-  <script src="game.js?v=134"></script>
-  <script src="clock-in-fix.js?v=2"></script>
+  <script src="game.js?v=200"></script>
+  <script src="clock-in-fix.js?v=3"></script>
   <script src="shop-floor-copy.js?v=2"></script>
   <script>
     window.ltGo = function (id) {
@@ -75,7 +80,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=192").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=200").catch(function () {});
   </script>
 </body>
 </html>
