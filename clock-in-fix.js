@@ -93,6 +93,10 @@
   }
   function play(m) {
     if (!m) return;
+    if (m === "boardcodes") {
+      rescuePlay(m);
+      return;
+    }
     if (typeof window.ltPlay === "function" && !isStubPlay(window.ltPlay)) {
       window.ltPlay(m);
       return;
