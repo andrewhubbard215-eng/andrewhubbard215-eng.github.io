@@ -1,17 +1,17 @@
-# HVAC Allstars — shop pass (2026-09-15 late)
+# HVAC Allstars — shop pass (2026-09-16)
 
 ## Fixed this hour
 - Live Clock In works. No crash.
-- Service tickets now print a **no-cool sheet** (complaint + SH/SC vitals + “read gauges before you add gas”) so the call looks like a Saturday callback slip, not a quiz card.
-- Service worker **lt-allstars-v187**.
+- Saturday callback now pins the **no-cool sheet** on the timer bar (step + what to tap) so ladder and slip sit on one glass. Sheet auto-starts when you take the call.
+- Service worker **lt-allstars-v205**.
 
 ## What a tech can play
 - Clock In → shop floor.
 - System sandbox (pressures, SH/SC, parts LEFT).
-- Electrical: follow the call / land lugs / Saturday callback.
+- Electrical: follow the call / land lugs / Saturday callback with live no-cool sheet.
 - Service calls with no-cool sheet + Hook gauges path.
 - Mini-split, 608 tutor, All-Star Exam, HUB AI, HVAC Jesus in work clothes.
 
 ## Next job
-- Saturday callback: pin the same no-cool sheet on the electrical timer so ladder + slip live on one glass.
+- Board-code locker: make the door sticker match the live 24V string (same open the meter just found).
 - Keep Gauges of God DLC parked. No combat.
