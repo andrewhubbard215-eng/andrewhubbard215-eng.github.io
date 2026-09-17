@@ -5,10 +5,10 @@
     if (!tgt) return;
     var label = tgt.previousElementSibling;
     if (label && label.tagName === "SPAN" && !/charge/i.test(label.textContent || "")) {
-      label.textContent = "Target · charge method";
+      label.textContent = "Target \u00b7 charge method";
     }
     var t = tgt.textContent || "";
-    if (!t || t === "—" || /charge by/i.test(t)) return;
+    if (!t || t === "\u2014" || /charge by/i.test(t)) return;
     var orifice = false;
     try {
       if (window.HVACSandbox && typeof window.HVACSandbox.meteringKind === "function") {
@@ -19,13 +19,23 @@
       ((document.getElementById("sb-sysinfo") || {}).textContent || "");
     if (/piston|orifice|capillary|fixed/i.test(sysText)) orifice = true;
     if (/\bTXV\b|\bEEV\b/i.test(sysText) && !/piston|orifice|capillary/i.test(sysText)) orifice = false;
-    var by = orifice ? "piston/cap · charge by SH" : "TXV · charge by SC";
-    tgt.textContent = t.replace(/\s*°F?\s*$/, "") + " · " + by;
+    var by = orifice ? "piston/cap \u00b7 charge by SH" : "TXV \u00b7 charge by SC";
+    tgt.textContent = t.replace(/\s*\u00b0F?\s*$/, "") + " \u00b7 " + by;
+  }
+  function gaugeFormulas() {
+    var sh = document.getElementById("g-sh");
+    var sc = document.getElementById("g-sc");
+    if (sh && sh.previousElementSibling && sh.previousElementSibling.tagName === "SPAN") {
+      sh.previousElementSibling.textContent = "Superheat \u00b7 suction T \u2212 evap sat";
+    }
+    if (sc && sc.previousElementSibling && sc.previousElementSibling.tagName === "SPAN") {
+      sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T";
+    }
   }
   function scrub() {
     var title = document.getElementById("arena-title");
     if (title && /arena/i.test(title.textContent || "")) {
-      title.textContent = (title.textContent || "").replace(/\s*arena/i, " — shop truck");
+      title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
     }
     document.querySelectorAll("#arena-copy, .arena-copy, [data-arena-copy]").forEach(function (el) {
       var t = el.textContent || "";
@@ -38,17 +48,20 @@
     var st = document.getElementById("el-status");
     if (st) {
       var t = st.textContent || "";
-      if (/Defused/i.test(t)) t = t.replace(/Defused\.?/i, "Callback closed.");
-      if (/Gauges of God/i.test(t)) t = "Callback closed. Safety string proved. Parts stay LEFT.";
+      if (/Defused/i.test(t)) t = t.replace(/Defused\.?/i, "No-cool closed.");
+      if (/Gauges of God/i.test(t)) t = "No-cool closed. Safety string proved. HVAC Jesus on the roof in work clothes.";
       if (/callback is still armed/i.test(t)) {
         t = t.replace(/callback is still armed\. Cut the open, not the live\./i, "callback is still open. Isolate the open, not the live.");
+      }
+      if (/You cut the live or ran out of time/i.test(t)) {
+        t = "No-cool still open. You jumped live or burned the clock.";
       }
       if (t !== st.textContent) st.textContent = t;
     }
     var win = document.getElementById("el-win");
     if (win) {
       var brow = win.querySelector(".eyebrow");
-      if (brow && /Defused/i.test(brow.textContent || "")) brow.textContent = "Callback closed";
+      if (brow && /Defused/i.test(brow.textContent || "")) brow.textContent = "No-cool closed";
       var h = win.querySelector("h2");
       if (h && /GAUGES OF GOD|Gauges of God/i.test(h.textContent || "")) h.textContent = "NO-COOL CLOSED";
       var msg = win.querySelector(".el-overlay-msg");
@@ -57,6 +70,7 @@
       }
     }
     chargeByHint();
+    gaugeFormulas();
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", scrub);
