@@ -32,16 +32,16 @@
       <div id="daily-root"></div>
       <div class="hub-grid hub-nav" id="hub-options">
         <button class="mode-card mode-card-hero" data-mode="sandbox" type="button"><h3>System sandbox</h3><p>Live SH/SC · parts stay LEFT</p></button>
-        <button class="mode-card" data-mode="quiz" type="button"><h3>All-Star Exam</h3></button>
+        <button class="mode-card" data-mode="quiz" type="button"><h3>All-Star Exam</h3><p>EPA / electrical / charge questions · pass the bay</p></button>
         <button class="mode-card" data-mode="electrical" type="button"><h3>Follow the call</h3><p>Ladder · 24V path · land the lugs</p></button>
         <button class="mode-card" data-mode="defusal" type="button"><h3>Saturday callback</h3><p>No-cool sheet · meter first · isolate the open</p></button>
-        <button class="mode-card" data-mode="service" type="button"><h3>Service calls</h3></button>
-        <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3></button>
+        <button class="mode-card" data-mode="service" type="button"><h3>Service calls</h3><p>Hook gauges · read SH/SC · pick the fault</p></button>
+        <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3><p>Flare · vacuum · weigh-in · line-set path</p></button>
         <button class="mode-card" data-mode="boardcodes" type="button"><h3>Board-code locker</h3><p>Door sticker is law · prove path</p></button>
-        <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3></button>
-        <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3></button>
-        <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3></button>
-        <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3></button>
+        <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III · recovery law</p></button>
+        <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3><p>Shop rules that keep you from a callback</p></button>
+        <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3><p>24V landing · R C Y G W · torque the screw</p></button>
+        <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3><p>Work clothes · roof racks · not a shooter</p></button>
       </div>
     </section>
     <section id="screen-electrical" class="screen"><div id="electrical-root"></div></section>
@@ -75,7 +75,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.20 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.21 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -105,7 +105,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=223").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=224").catch(function () {});
   </script>
 </body>
 </html>
