@@ -115,7 +115,7 @@
     var note = document.createElement("p");
     note.className = "svc-floor-note";
     note.style.cssText = "margin:8px 0;font-size:13px;opacity:.9";
-    note.textContent = (c.why && c.why.ok ? c.why.ok + " " : "") + "Close it on the manifold — not a four-button quiz.";
+    note.textContent = "Dispatch gave you a complaint and a no-cool sheet. Hook gauges. Read SH/SC. Do not add gas until the fingerprint matches. Answer is on the manifold, not this card.";
     box.appendChild(note);
     fb.textContent = "";
     fb.className = "svc-feedback";
