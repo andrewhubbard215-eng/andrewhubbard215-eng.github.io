@@ -109,39 +109,16 @@
     var vit = root.querySelector("#svc-vitals");
     vit.textContent = "";
     vit.innerHTML = "<strong>NO-COOL SHEET</strong> · " + c.vitals + " · Shop target SH 8–12° / SC 8–12° (R-410A, 15 min run) · Read SH/SC before you add gas";
-    root.querySelector("#svc-prompt").textContent = c.prompt;
+    root.querySelector("#svc-prompt").textContent = "Hook gauges. Read Blue / Red / SH / SC. Don't pick a part from a list.";
     const box = root.querySelector("#svc-choices");
     box.innerHTML = "";
-    mixChoices(c.choices).forEach(function (ch) {
-      const b = document.createElement("button");
-      b.className = "svc-choice";
-      b.textContent = ch.t;
-      b.onclick = function () {
-        if (locked) return;
-        locked = true;
-        if (ch.ok) {
-          callRight++;
-          b.classList.add("correct");
-          var hub = "";
-          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-ok", { extra: extraSpicy });
-          fb.innerHTML = "<strong>Correct.</strong> " + c.why.ok + "<br/><em>" + replyOf(c, true) + "</em>" + (hub ? "<br/><span class='svc-hub-line'>" + hub + "</span>" : "");
-          fb.className = "svc-feedback good";
-          if (hooks.onSfx) hooks.onSfx("win");
-        } else {
-          stars = Math.max(1, stars - 1);
-          b.classList.add("wrong");
-          var hub = "";
-          if (window.ProfessorHUB) hub = " HUB: " + window.ProfessorHUB.banter("service-bad", { extra: extraSpicy });
-          var right = (c.choices || []).find(function (x) { return x.ok; });
-          fb.innerHTML = "<strong>Not the best call.</strong> " + c.why.bad + (right ? "<br/><strong>Better:</strong> " + (right.t || right.label) : "") + "<br/><em>" + replyOf(c, false) + "</em>" + (hub ? "<br/><span class='svc-hub-line'>" + hub + "</span>" : "");
-          fb.className = "svc-feedback bad";
-          root.querySelector("#svc-rating").textContent = starsStr(stars);
-          if (hooks.onSfx) hooks.onSfx("miss");
-        }
-        setTimeout(function () { callI++; locked = false; render(); }, 1500);
-      };
-      box.appendChild(b);
-    });
+    var note = document.createElement("p");
+    note.className = "svc-floor-note";
+    note.style.cssText = "margin:8px 0;font-size:13px;opacity:.9";
+    note.textContent = (c.why && c.why.ok ? c.why.ok + " " : "") + "Close it on the manifold — not a four-button quiz.";
+    box.appendChild(note);
+    fb.textContent = "";
+    fb.className = "svc-feedback";
   }
   function start(host, opts) {
     root = host; hooks = opts || {}; callI = 0; callRight = 0; locked = false; stars = 5;
