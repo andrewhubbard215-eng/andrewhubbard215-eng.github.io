@@ -7,10 +7,25 @@
     var el = document.getElementById("screen-" + id);
     if (el) el.classList.add("active");
   }
+  function floorName() {
+    try {
+      var raw = localStorage.getItem("lt-hvac-allstars-html-v1");
+      if (raw) {
+        var s = JSON.parse(raw);
+        if (s && s.callsign && String(s.callsign).trim()) {
+          return String(s.callsign).trim().slice(0, 16);
+        }
+      }
+    } catch (_) {}
+    var el = document.getElementById("hub-name");
+    var t = el && el.textContent ? el.textContent.trim() : "";
+    if (t && t !== "Guest") return t;
+    return "Tech";
+  }
   function goHub() {
     show("hub");
     var name = document.getElementById("hub-name");
-    if (name && (!name.textContent || name.textContent === "Tech")) name.textContent = "Guest";
+    if (name) name.textContent = floorName();
   }
   window.ltGoHub = goHub;
   function isStubPlay(fn) {
@@ -27,7 +42,7 @@
       if (sbCtl && sbCtl.stop) sbCtl.stop();
     } catch (_) {}
     try {
-      sbCtl = window.HVACSandbox.start(root, { nickname: "Guest" });
+      sbCtl = window.HVACSandbox.start(root, { nickname: floorName() });
       var hub = sbCtl && sbCtl.getHubBtn && sbCtl.getHubBtn();
       if (hub) hub.onclick = function () { goHub(); };
     } catch (e) {
