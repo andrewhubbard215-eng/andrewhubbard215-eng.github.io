@@ -26,10 +26,10 @@
     var sh = document.getElementById("g-sh");
     var sc = document.getElementById("g-sc");
     if (sh && sh.previousElementSibling && sh.previousElementSibling.tagName === "SPAN") {
-      sh.previousElementSibling.textContent = "Superheat \u00b7 suction T \u2212 evap sat";
+      sh.previousElementSibling.textContent = "Superheat \u00b7 suction T \u2212 evap sat \u00b7 piston ~8\u201312\u00b0";
     }
     if (sc && sc.previousElementSibling && sc.previousElementSibling.tagName === "SPAN") {
-      sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T";
+      sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T \u00b7 TXV ~8\u201312\u00b0";
     }
   }
   function scrub() {

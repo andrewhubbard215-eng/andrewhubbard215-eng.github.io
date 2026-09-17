@@ -1,4 +1,12 @@
 /* Phone playability — diamond on screen, parts LEFT, HUB AI off the lab. */
+.mode-card-hero {
+  padding: 16px 20px;
+  gap: 14px;
+}
+.mode-card-hero h3,
+.mode-card-hero p {
+  margin: 0;
+}
 @media (max-width: 900px) {
   .hub-ai-dock, #hub-ai, .hub-chat, [data-hub-dock] {
     position: fixed;
