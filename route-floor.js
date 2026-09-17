@@ -1,127 +1,185 @@
 /* Route floor overlay — ticket → hook gauges → live SH/SC. */
 (function () {
   "use strict";
-  var FAULTS = {
-    leak: { tab: "Slow leak", fault: "undercharge" },
-    "dirty-idu": { tab: "Iced evaporator", fault: "none" },
-    drier: { tab: "Restriction after drier", fault: "restricted" },
-    "dirty-odu": { tab: "Rooftop high head", fault: "none" },
-    air: { tab: "Air in the circuit", fault: "noncondensables" },
-    overcharge: { tab: "Someone dumped a jug", fault: "overcharge" },
-    "txv-bulb": { tab: "TXV lost its mind", fault: "txv_closed" },
-    "od-fan": { tab: "Condenser fan dead", fault: "od_fan" }
-  };
+  var NAME_MAP = [
+    { re: /Delgado|Jess/i, id: "leak" },
+    { re: /Ken/i, id: "dirty-idu" },
+    { re: /Priya/i, id: "drier" },
+    { re: /Ray/i, id: "dirty-odu" },
+    { re: /Dave/i, id: "air" },
+    { re: /Marcus/i, id: "overcharge" }
+  ];
+  var ORDER = ["leak", "dirty-idu", "drier", "dirty-odu", "air", "overcharge", "txv-bulb", "od-fan"];
   function css() {
     if (document.getElementById("route-floor-css")) return;
     var s = document.createElement("style");
     s.id = "route-floor-css";
-    s.textContent = ".sb-dispatch{position:relative;z-index:2;margin:0 0 8px;padding:8px 10px;background:rgba(16,18,22,.92);border:1px solid #3a2f22;border-radius:8px}.sb-dispatch-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sb-radio{font-weight:600;color:#f0c9a0}.sb-streak{margin-left:auto;font-size:12px;color:#e8c450}.sb-quote{margin:6px 0 2px;font-size:13px}.sb-live{margin:0;font-size:12px;color:#7ec8ff}@media (max-width:820px){.sb-dispatch{position:sticky;top:0;max-height:28vh;overflow:auto}#sandbox-root .sb-palette{left:0;right:auto;z-index:5}}";
+    s.textContent =
+      ".sb-dispatch{position:relative;z-index:2;margin:0 0 8px;padding:8px 10px;background:rgba(16,18,22,.92);border:1px solid #3a2f22;border-radius:8px}" +
+      ".sb-dispatch-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}" +
+      ".sb-radio{font-weight:600;color:#f0c9a0}.sb-streak{margin-left:auto;font-size:12px;color:#e8c450}" +
+      ".sb-quote{margin:6px 0 2px;font-size:13px}.sb-live{margin:0;font-size:12px;color:#7ec8ff}" +
+      ".svc-route-btns{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}" +
+      "@media (max-width:820px){.sb-dispatch{position:relative;max-height:22vh;overflow:auto;z-index:2}" +
+      "#sandbox-root .sb-palette{left:0;right:auto;z-index:6;pointer-events:auto}" +
+      "#sandbox-root .sb-gauges{z-index:3}}";
     document.head.appendChild(s);
   }
-  function paintBar(title, quote) {
-    var gauges = document.querySelector(".sb-gauges") || document.getElementById("sandbox-root");
-    if (!gauges) return;
+  function roast(job) {
+    var lines = [
+      "HUB: Needles first. Don't sell a compressor off a warm vent.",
+      "HUB: High SH + low SC is a leak smell, not a TXV story.",
+      "Pay stub reminder: $18.40/hr only prints if you close the ticket right.",
+      "HUB: Read Blue and Red together. One gauge is a rumor."
+    ];
+    return lines[(job && job.id ? job.id.length : 0) % lines.length];
+  }
+  function paintBar(title, quote, job) {
+    var host = document.querySelector("#sandbox-root .sb-gauges") || document.getElementById("sandbox-root");
+    if (!host) return;
     var bar = document.getElementById("sb-dispatch");
     if (!bar) {
       bar = document.createElement("div");
       bar.id = "sb-dispatch";
       bar.className = "sb-dispatch";
-      gauges.insertBefore(bar, gauges.firstChild);
+      host.insertBefore(bar, host.firstChild);
     }
-    bar.innerHTML = '<div class="sb-dispatch-row"><span class="sb-radio">📡 ' + (title || "Ticket") + '</span><span class="sb-streak">streak ' + (window._ltStreak || 0) + '</span><button type="button" class="btn tiny" id="sb-next-ticket">Next random ticket</button></div><p class="sb-quote">' + (quote || "Read Blue / Red / SH / SC.") + '</p><p class="sb-live" id="sb-live-radio">Blue —</p>';
+    window._ltStreak = (window._ltStreak || 0);
+    bar.innerHTML =
+      '<div class="sb-dispatch-row"><span class="sb-radio">📡 ' +
+      (title || "Ticket") +
+      '</span><span class="sb-streak">streak ' +
+      window._ltStreak +
+      '</span><button type="button" class="btn tiny" id="sb-next-ticket">Next random ticket</button></div>' +
+      '<p class="sb-quote">' +
+      (quote || "Read Blue / Red / SH / SC.") +
+      "</p>" +
+      '<p class="sb-pay" style="margin:2px 0;font-size:12px;color:#c9b48a">' +
+      roast(job) +
+      "</p>" +
+      '<p class="sb-live" id="sb-live-radio">Blue —</p>';
     var nxt = document.getElementById("sb-next-ticket");
     if (nxt) nxt.onclick = function () { nextTicket(window._ltTicketId); };
   }
   function hookLive() {
     var el = document.getElementById("sb-live-radio");
     if (!el) return;
-    function t(id) { var n = document.getElementById(id); return (n && n.textContent) || "—"; }
+    function t(id) {
+      var n = document.getElementById(id);
+      return (n && n.textContent) || "—";
+    }
     el.textContent = "Blue " + t("g-plow") + " · Red " + t("g-phigh") + " · SH " + t("g-sh") + " · SC " + t("g-sc");
   }
   function clickField(name) {
     var tab = document.querySelector('.sb-tab[data-tab="field"]');
     if (tab) tab.click();
-    var items = document.querySelectorAll("#sandbox-root .sb-item, .sb-palette .sb-item");
+    var items = document.querySelectorAll("#sandbox-root .sb-item");
     for (var i = 0; i < items.length; i++) {
       var strong = items[i].querySelector("strong");
       if (strong && name && strong.textContent.indexOf(name) >= 0) {
         items[i].click();
-        return true;
+        break;
       }
     }
-    var fl = document.getElementById("sb-fault");
-    if (fl && FAULTS[window._ltTicketId]) {
-      fl.disabled = false;
-      fl.value = FAULTS[window._ltTicketId].fault;
-      fl.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-    return false;
+    var g = document.querySelector('#sb-bin [data-id="gauges"], .sb-item[data-id="gauges"]');
+    if (g) g.click();
   }
+  var TITLES = {
+    leak: "Slow leak",
+    "dirty-idu": "Iced evaporator",
+    drier: "Restriction after drier",
+    "dirty-odu": "Rooftop high head",
+    air: "Air in the circuit",
+    overcharge: "Someone dumped a jug",
+    "txv-bulb": "TXV lost its mind",
+    "od-fan": "Condenser fan dead"
+  };
   function loadTicket(id) {
     window._ltTicketId = id;
-    var meta = FAULTS[id] || FAULTS.leak;
-    if (window.HVACSandbox && window.HVACSandbox.loadRouteTicket) {
-      var job = window.HVACSandbox.loadRouteTicket(id);
-      paintBar(job && job.name, job && job.complaint);
-      return job;
+    var job = null;
+    if (window.HVACSandbox && typeof window.HVACSandbox.loadRouteTicket === "function") {
+      job = window.HVACSandbox.loadRouteTicket(id);
+    } else {
+      clickField(TITLES[id] || "Slow leak");
+      job = { id: id, name: TITLES[id] || id, complaint: "Fault changed. Hooked manifold — read the fingerprint." };
     }
-    paintBar(meta.tab, "Fault changed. Hooked manifold — read the fingerprint.");
-    clickField(meta.tab);
-    var g = document.querySelector('.sb-item[data-equip="gauges"], .sb-item');
-    return meta;
+    paintBar(job && job.name, job && job.complaint, job);
+    hookLive();
+    return job;
   }
   function nextTicket(exceptId) {
-    var keys = Object.keys(FAULTS).filter(function (k) { return k !== exceptId; });
-    var id = keys[Math.floor(Math.random() * keys.length)];
+    var keys = ORDER.filter(function (k) { return k !== exceptId; });
+    var id = keys[Math.floor(Math.random() * keys.length)] || "leak";
     return loadTicket(id);
   }
   function goSandboxThen(id) {
     if (typeof window.ltPlay === "function") {
       try { window.ltPlay("sandbox"); } catch (e) {}
+    } else if (typeof window.ltGo === "function") {
+      window.ltGo("sandbox");
     }
-    setTimeout(function () { loadTicket(id); }, 120);
+    var n = 0;
+    var t = setInterval(function () {
+      n++;
+      if ((window.HVACSandbox && document.getElementById("sb-fault")) || n > 20) {
+        clearInterval(t);
+        loadTicket(id);
+      }
+    }, 80);
+  }
+  function currentJobId() {
+    var name = ((document.getElementById("svc-name") || {}).textContent) || "";
+    for (var i = 0; i < NAME_MAP.length; i++) {
+      if (NAME_MAP[i].re.test(name)) return NAME_MAP[i].id;
+    }
+    return window._ltTicketId || "leak";
   }
   function wireService() {
     var host = document.getElementById("screen-service");
     if (!host) return;
-    var card = host.querySelector(".svc-card") || host;
-    if (!host.querySelector("#svc-hook")) {
-      var hookBtn = document.createElement("button");
+    var hookBtn = document.getElementById("svc-hook");
+    var nxt = document.getElementById("svc-next-ticket");
+    if (!hookBtn) {
+      var card = host.querySelector(".svc-card") || host;
+      hookBtn = document.createElement("button");
       hookBtn.id = "svc-hook";
       hookBtn.className = "btn primary";
       hookBtn.type = "button";
       hookBtn.textContent = "Hook gauges";
       card.insertBefore(hookBtn, card.querySelector("#svc-choices") || null);
-      var nxt = document.createElement("button");
+    }
+    if (!nxt) {
+      nxt = document.createElement("button");
       nxt.id = "svc-next-ticket";
       nxt.className = "btn";
       nxt.type = "button";
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    function currentJobId() {
-      var name = ((host.querySelector("#svc-name") || {}).textContent) || "";
-      if (/Delgado|Jess/i.test(name)) return "leak";
-      if (/Ken/i.test(name)) return "dirty-idu";
-      if (/Priya/i.test(name)) return "drier";
-      if (/Ray/i.test(name)) return "dirty-odu";
-      if (/Dave/i.test(name)) return "air";
-      return "leak";
-    }
-    host.querySelector("#svc-hook").onclick = function () {
+    if (hookBtn.dataset.wired) return;
+    hookBtn.dataset.wired = "1";
+    nxt.dataset.wired = "1";
+    hookBtn.onclick = function () {
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
+      window._ltStreak = (window._ltStreak || 0) + 1;
+      var pay = document.getElementById("svc-pay");
+      if (pay) pay.textContent = "Pay stub $18.40/hr · streak " + window._ltStreak + " · HUB: hook the ports.";
       goSandboxThen(currentJobId());
     };
-    host.querySelector("#svc-next-ticket").onclick = function () {
+    nxt.onclick = function () {
       try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
-      nextTicket(currentJobId());
+      var id = ORDER.filter(function (k) { return k !== currentJobId(); });
+      window._ltTicketId = id[Math.floor(Math.random() * id.length)] || "air";
       goSandboxThen(window._ltTicketId);
     };
   }
   function boot() {
     css();
     wireService();
-    setInterval(function () { wireService(); hookLive(); }, 400);
+    setInterval(function () {
+      wireService();
+      hookLive();
+    }, 400);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
