@@ -22,10 +22,29 @@
     if (t && t !== "Guest") return t;
     return "Tech";
   }
+  function paintWallet() {
+    function set(id, val) {
+      var n = document.getElementById(id);
+      if (n) n.textContent = val;
+    }
+    var cash = 0, jobs = 0, xp = 0;
+    try {
+      var raw = localStorage.getItem("lt-hvac-allstars-html-v1");
+      if (raw) {
+        var s = JSON.parse(raw);
+        cash = Number(s.cash) || 0;
+        jobs = Number(s.jobsCompleted) || 0;
+        xp = Number(s.xp) || 0;
+      }
+    } catch (_) {}
+    set("hub-name", floorName());
+    set("hub-cash", "$" + Math.round(cash).toLocaleString("en-US"));
+    set("hub-jobs", jobs + " jobs");
+    set("hub-xp", xp + " XP");
+  }
   function goHub() {
     show("hub");
-    var name = document.getElementById("hub-name");
-    if (name) name.textContent = floorName();
+    paintWallet();
   }
   window.ltGoHub = goHub;
   function isStubPlay(fn) {
@@ -150,7 +169,11 @@
       btn.setAttribute("data-lt-bound", "1");
       btn.addEventListener(
         "click",
-        function () {
+        function (e) {
+          if (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
           try { goHub(); } catch (_) {}
         },
         true
