@@ -73,7 +73,7 @@
     {
       id: "jobs",
       title: "Labs and service",
-      say: "Mini-split is an 11-step install. Service calls are broken systems. Callback bomb is a Saturday no-cool with a timer — not explosives.",
+      say: "Mini-split is an 11-step install. Service calls are broken systems. Saturday callback is a no-cool sheet with a clock — meter first, isolate the open.",
       highlight: '[data-mode="minisplit"]',
     },
     {
@@ -110,7 +110,7 @@
       '<div class="tut-body">' +
       '<p class="eyebrow">Professor HUB · tutorial ' + (i + 1) + "/" + STEPS.length + "</p>" +
       "<h3>" + s.title + "</h3>" +
-      "<p class=\"tut-say\">“" + s.say + "”</p>" +
+      "<p class=\"tut-say\">\u201c" + s.say + "\u201d</p>" +
       '<div class="tut-row">' +
       '<button type="button" class="btn" id="tut-back"' + (first ? " disabled" : "") + ">Back</button>" +
       (s.launch ? '<button type="button" class="btn" id="tut-try">Open it</button>' : "") +
