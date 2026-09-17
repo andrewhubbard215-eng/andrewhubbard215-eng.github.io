@@ -108,7 +108,19 @@
     root.querySelector("#svc-quote").textContent = "\u201c" + quoteOf(c) + "\u201d";
     var vit = root.querySelector("#svc-vitals");
     vit.textContent = "";
-    vit.innerHTML = "<strong>NO-COOL SHEET</strong> · " + c.vitals + " · Run 15 min. TXV: charge by SC (~8–12°) — SH is the valve. Piston: charge by SH (WB/DB chart) — SC is a check. Don't add gas until the fingerprint matches.";
+    var site = String(c.vitals || "")
+      .replace(/SH\s*[~\u2248]?\s*\d+\u00b0/gi, "")
+      .replace(/SC\s*[~\u2248]?\s*\d+\u00b0|SC\s+normal/gi, "")
+      .replace(/Suction\s+\w+/gi, "")
+      .replace(/Head\s+\w+/gi, "")
+      .replace(/High head/gi, "")
+      .replace(/High amps/gi, "")
+      .replace(/That zone\s*/gi, "")
+      .replace(/·\s*·/g, "·")
+      .replace(/^[\s\u00b7]+|[\s\u00b7]+$/g, "");
+    vit.innerHTML = "<strong>NO-COOL SHEET</strong> · Complaint + site notes only" +
+      (site ? " · " + site : "") +
+      " · Run 15 min. TXV: charge by SC (~8–12°) — SH is the valve. Piston: charge by SH (WB/DB chart) — SC is a check. Hook gauges — numbers live on the manifold.";
     root.querySelector("#svc-prompt").textContent = "Hook gauges. Read Blue / Red / SH / SC. Don't pick a part from a list.";
     const box = root.querySelector("#svc-choices");
     box.innerHTML = "";
