@@ -105,7 +105,7 @@
     document.head.appendChild(bom);
   }
   addScript("sandbox-hook.js?v=11");
-  addScript("route-floor.js?v=1");
+  addScript("route-floor.js?v=2");
   addScript("shop-floor-copy.js?v=2");
   if (!document.querySelector('link[href*="board-codes.css"]')) {
     var l = document.createElement("link");
