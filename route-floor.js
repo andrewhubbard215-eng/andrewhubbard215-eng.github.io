@@ -2,12 +2,12 @@
 (function () {
   "use strict";
   var NAME_MAP = [
-    { re: /Delgado|Jess/i, id: "leak" },
+    { re: /Delgado/i, id: "leak" },
     { re: /Ken/i, id: "dirty-idu" },
     { re: /Priya/i, id: "drier" },
     { re: /Ray/i, id: "dirty-odu" },
     { re: /Dave/i, id: "air" },
-    { re: /Marcus/i, id: "overcharge" }
+    { re: /Jess|Marcus/i, id: "leak" }
   ];
   var ORDER = ["leak", "dirty-idu", "drier", "dirty-odu", "air", "overcharge", "txv-bulb", "od-fan"];
   function css() {
