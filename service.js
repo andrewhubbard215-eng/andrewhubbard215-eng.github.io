@@ -14,7 +14,7 @@
       why: { ok: "High SH + low SC is the undercharge fingerprint. Find the leak — don't just top off.", bad: "Topping off a leaker is a guaranteed callback." },
       reply: { pro: { ok: "Thank you.", bad: "Another guy said that last summer…" }, spicy: { ok: "Bless you.", bad: "Don't top off and bounce." }, extra: { ok: "Air's dropping.", bad: "That's a callback." } }
     },
-    { name: "Ken · Barbershop", avatar: "💈", job: "Storefront · suction iced", vitals: "SH ~0° · SC normal · Filter black · Low airflow",
+    { name: "Ken · Barbershop", avatar: "🪜", job: "Storefront · suction iced", vitals: "SH ~0° · SC normal · Filter black · Low airflow",
       quote: { pro: "The pipe in the closet is a popsicle.", spicy: "Copper's frozen. Fix airflow first.", extra: "Don't add gas. Un-ice it." },
       prompt: "Iced suction + low SH. First move?",
       choices: [
@@ -108,7 +108,7 @@
     root.querySelector("#svc-quote").textContent = "\u201c" + quoteOf(c) + "\u201d";
     var vit = root.querySelector("#svc-vitals");
     vit.textContent = "";
-    vit.innerHTML = "<strong>NO-COOL SHEET</strong> · " + c.vitals + " · Shop target SH 8–12° / SC 8–12° (R-410A, 15 min run) · Read SH/SC before you add gas";
+    vit.innerHTML = "<strong>NO-COOL SHEET</strong> · " + c.vitals + " · Run 15 min. TXV: charge by SC (~8–12°) — SH is the valve. Piston: charge by SH (WB/DB chart) — SC is a check. Don't add gas until the fingerprint matches.";
     root.querySelector("#svc-prompt").textContent = "Hook gauges. Read Blue / Red / SH / SC. Don't pick a part from a list.";
     const box = root.querySelector("#svc-choices");
     box.innerHTML = "";
