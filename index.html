@@ -55,7 +55,7 @@
         <span id="svc-rating"></span>
         <button class="btn" id="btn-svc-hub" type="button">Shop floor</button>
       </header>
-      <div class="panel" style="margin:12px;max-width:720px">
+      <div class="panel svc-card" style="margin:12px;max-width:720px">
         <p class="eyebrow" id="svc-eyebrow">Service call</p>
         <div id="svc-avatar" style="font-size:2rem"></div>
         <h3 id="svc-name"></h3>
@@ -63,6 +63,11 @@
         <p id="svc-quote"></p>
         <p id="svc-vitals"></p>
         <p id="svc-prompt"></p>
+        <div class="svc-route-btns" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+          <button class="btn primary" id="svc-hook" type="button">Hook gauges</button>
+          <button class="btn" id="svc-next-ticket" type="button">Next random ticket</button>
+        </div>
+        <p id="svc-pay" class="sb-live" style="font-size:12px;opacity:.85"></p>
         <div id="svc-choices"></div>
         <p id="svc-feedback" class="svc-feedback"></p>
       </div>
@@ -70,7 +75,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.15 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.16 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -79,13 +84,14 @@
   <script src="electrical.js?v=129"></script>
   <script src="electrical-fat.js?v=2"></script>
   <script src="webgl-cycle.js?v=57"></script>
-  <script src="sandbox.js?v=124"></script>
+  <script src="sandbox.js?v=125"></script>
   <script src="sandbox-ts.js?v=4"></script>
-  <script src="sandbox-hook.js?v=11"></script>
+  <script src="sandbox-hook.js?v=12"></script>
+  <script src="route-floor.js?v=2"></script>
   <script src="sandbox-bom.js?v=2"></script>
   <script src="sandbox-fp.js?v=1"></script>
   <script src="minisplit.js?v=2"></script>
-  <script src="service.js?v=98"></script>
+  <script src="service.js?v=99"></script>
   <script src="hub-ai.js?v=82"></script>
   <script src="quiz-arena.js?v=98"></script>
   <script src="board-codes.js?v=7"></script>
@@ -99,7 +105,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=217").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=218").catch(function () {});
   </script>
 </body>
 </html>

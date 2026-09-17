@@ -1,17 +1,19 @@
-# HVAC Allstars — shop pass (2026-09-16 eve)
-
-## Fixed this hour
-- Live Clock In works. No crash.
-- Board-code locker now paints the **live 24V string** next to the door flash (HPC / LPC / limit / PS marked OPEN). Sticker matches the open the meter would find.
-- Service worker **lt-allstars-v216**.
+# HVAC Allstars — shop pass (2026-09-17)
 
 ## What a tech can play
-- Clock In → shop floor.
-- System sandbox (pressures, SH/SC, parts LEFT).
-- Electrical: follow the call / land lugs / Saturday callback with live no-cool sheet.
-- Board-code locker with live string + door quiz.
-- Service calls, mini-split, 608 tutor, All-Star Exam, HUB AI, HVAC Jesus in work clothes.
+- Clock In → shop floor (no crash).
+- Service Calls → **Hook gauges** opens the live sandbox with that ticket's fingerprint.
+- **Next random ticket** swaps the fault (needles + SH/SC change).
+- Dispatch radio, streak, customer quote, live Blue/Red/SH/SC stay on the gauges column.
+- Shop hook: pay stub + HUB roast on the ticket.
+- Parts palette stays LEFT. Dispatch is not sticky over hose/parts drop.
 
-## Next job
-- Wire ElectricalLab.getState().fault straight into the locker so Saturday callback and the sticker share one open.
-- Keep Gauges of God DLC parked. No combat.
+## What still sucks
+- Service Calls still has a multiple-choice closer under the hook. Route is live; the quiz is leftover.
+- Mystery mode locks the fault dropdown (correct) but the first paint can lag one tick before needles settle.
+- Dual SKU store copy is clean on files touched; campus title still says Lincoln Tech on the clock-in hero (campus SKU).
+
+## Shipped
+- `HVACSandbox.loadRouteTicket(id)` applies FIELD_JOBS + seats the manifold.
+- `route-floor.js` v2 wired to Clock In path.
+- Cache `lt-allstars-v218`. Gauges of God still parked. No combat.
