@@ -16,8 +16,8 @@
     return "";
   }
   var b = base();
-  load(b + "ohms-law-arcade-bench.js?v=1")
-    .then(function () { return load(b + "ohms-law-arcade-tickets.js?v=1"); })
-    .then(function () { return load(b + "ohms-law-arcade-play.js?v=1"); })
+  load(b + "ohms-law-arcade-bench.js?v=2")
+    .then(function () { return load(b + "ohms-law-arcade-tickets.js?v=2"); })
+    .then(function () { return load(b + "ohms-law-arcade-play.js?v=2"); })
     .catch(function (e) { console.warn("Ohm arcade load", e); });
 })();
