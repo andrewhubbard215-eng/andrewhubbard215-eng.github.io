@@ -37,6 +37,10 @@
     if (title && /arena/i.test(title.textContent || "")) {
       title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
     }
+    document.querySelectorAll(".mode-card p, #rapture-copy").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/not a shooter/i.test(t)) el.textContent = "Work clothes \u00b7 roof racks \u00b7 recovery tank";
+    });
     document.querySelectorAll("#arena-copy, .arena-copy, [data-arena-copy]").forEach(function (el) {
       var t = el.textContent || "";
       if (/combat|twisted yard/i.test(t)) {

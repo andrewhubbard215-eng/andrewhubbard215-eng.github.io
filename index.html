@@ -42,7 +42,7 @@
         <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III · recovery law</p></button>
         <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3><p>Shop rules that keep you from a callback</p></button>
         <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3><p>24V landing · R C Y G W · torque the screw</p></button>
-        <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3><p>Work clothes · roof racks · not a shooter</p></button>
+        <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3><p>Work clothes · roof racks · recovery tank</p></button>
       </div>
     </section>
     <section id="screen-electrical" class="screen"><div id="electrical-root"></div></section>
@@ -76,7 +76,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.27 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.28 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -101,14 +101,14 @@
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=203"></script>
   <script src="clock-in-fix.js?v=7"></script>
-  <script src="shop-floor-copy.js?v=7"></script>
+  <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
       document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=231").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=232").catch(function () {});
   </script>
 </body>
 </html>
