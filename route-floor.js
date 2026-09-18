@@ -113,7 +113,9 @@
     return loadTicket(id);
   }
   function goSandboxThen(id) {
-    if (typeof window.ltPlay === "function") {
+    if (typeof window.ltStartSandbox === "function") {
+      try { window.ltStartSandbox(); } catch (e) {}
+    } else if (typeof window.ltPlay === "function") {
       try { window.ltPlay("sandbox"); } catch (e) {}
     } else if (typeof window.ltGo === "function") {
       window.ltGo("sandbox");
