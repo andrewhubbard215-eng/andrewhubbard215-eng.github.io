@@ -120,14 +120,20 @@
       run();
     });
   }
+  function electricalLab() {
+    return window.HVACElectrical || window.ElectricalLab || window.ElectricalFat || null;
+  }
   function startElectrical(opts) {
     show("electrical");
     var root = document.getElementById("electrical-root");
     if (!root) return;
-    if (window.HVACElectrical && window.HVACElectrical.start) {
-      try { window.HVACElectrical.start(root, opts || {}); } catch (_) {}
-    } else if (window.ElectricalFat && window.ElectricalFat.start) {
-      try { window.ElectricalFat.start(root, opts || {}); } catch (_) {}
+    var lab = electricalLab();
+    if (lab && lab.start) {
+      try { lab.start(root, opts || {}); } catch (_) {}
+    }
+    if (!root.innerHTML) {
+      root.innerHTML =
+        "<div class='panel' style='margin:20px'><h2>No-cool sheet</h2><p>Ladder did not paint. Hard-refresh (Ctrl+Shift+R) and clock back in.</p><button type='button' class='btn' data-lt-close-hub>Shop floor</button></div>";
     }
   }
   function bindShopFloor(id) {
@@ -192,7 +198,7 @@
   function play(m) {
     if (!m) return;
     if (m === "hub") return goHub();
-    if (m === "boardcodes" || m === "service" || m === "defusal") {
+    if (m === "boardcodes" || m === "service" || m === "defusal" || m === "electrical" || m === "elguide") {
       rescuePlay(m);
       return;
     }
