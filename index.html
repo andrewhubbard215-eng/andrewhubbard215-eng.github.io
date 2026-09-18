@@ -7,7 +7,7 @@
   <script src="sku.js?v=10"></script>
   <link rel="stylesheet" href="style.css?v=139" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=10" />
+  <link rel="stylesheet" href="phone-floor.css?v=11" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
@@ -76,12 +76,12 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.51 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.52 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=1"></script>
-  <script src="dragdrop.js?v=45"></script>
+  <script src="dragdrop.js?v=46"></script>
   <script src="electrical.js?v=131"></script>
   <script src="electrical-fat.js?v=2"></script>
   <script src="electrical-sheet.js?v=1"></script>
@@ -96,11 +96,12 @@
   <script src="prove-deepen.js?v=1"></script>
   <script src="voltmeter-school.js?v=1"></script>
   <script src="ohm-school.js?v=1"></script>
+  <script src="ohms-law-school.js?v=1"></script>
   <script src="exam-untimed.js?v=2"></script>
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=205"></script>
-  <script src="clock-in-fix.js?v=17"></script>
+  <script src="clock-in-form.js?v=17"></script>
   <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
@@ -108,7 +109,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=256").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=258").catch(function () {});
   </script>
 </body>
 </html>
