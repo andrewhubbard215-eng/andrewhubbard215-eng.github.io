@@ -33,7 +33,11 @@
       var factor = charge / 100;
       var ps = satP(te) * (0.85 + 0.15 * factor);
       var ph = satP(tc) * (0.9 + 0.2 * (2 - factor));
-      if (!running) { ps = satP(indoor - 2); ph = satP(outdoor + 2); }
+      if (!running) {
+        var stand = satP(outdoor);
+        ps = stand;
+        ph = stand;
+      }
       var sst = satT(ps), sct = satT(ph);
       var sl = running ? (sst + 10 + (100 - charge) * 0.08) : indoor;
       var ll = running ? (sct - 10 + (charge - 100) * 0.06) : outdoor;
