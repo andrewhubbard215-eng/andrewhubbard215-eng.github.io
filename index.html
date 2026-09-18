@@ -7,7 +7,7 @@
   <script src="sku.js?v=10"></script>
   <link rel="stylesheet" href="style.css?v=139" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=3" />
+  <link rel="stylesheet" href="phone-floor.css?v=5" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
@@ -76,7 +76,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.28 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.30 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -96,11 +96,11 @@
   <script src="service.js?v=103"></script>
   <script src="hub-ai.js?v=82"></script>
   <script src="quiz-arena.js?v=98"></script>
-  <script src="board-codes.js?v=7"></script>
+  <script src="board-codes.js?v=14"></script>
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=203"></script>
-  <script src="clock-in-fix.js?v=7"></script>
+  <script src="clock-in-fix.js?v=11"></script>
   <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
@@ -108,7 +108,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=232").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=235").catch(function () {});
   </script>
 </body>
 </html>
