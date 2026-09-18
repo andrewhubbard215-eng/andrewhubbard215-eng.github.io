@@ -170,3 +170,121 @@
     color: rgba(220,228,234,.55);
   }
 }
+
+/* Drawers: scroll + auto-stow when a part is grabbed */
+@media (max-width: 480px) {
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
+    max-height: 42vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  body.dragging-part .sb-palette,
+  body.dragging-part .parts-tray,
+  body.dragging-part .sb-tray,
+  body.dragging-part [data-parts-tray] {
+    max-height: 64px;
+    opacity: 0.55;
+  }
+  #hub-ai-fab, .hub-fab, [data-hubai-toggle] {
+    z-index: 20;
+  }
+  .screen.active .sb-lab, .screen.active #sandbox-root {
+    padding-bottom: 72px;
+  }
+}
+
+/* Service call actions must stay on the phone glass */
+@media (max-width: 480px) {
+  #screen-service .svc-actions,
+  #screen-service .svc-route-btns,
+  #svc-hook, #svc-next-ticket {
+    position: relative;
+  }
+  #screen-service .svc-actions,
+  #screen-service #svc-actions,
+  #screen-service .svc-card .svc-route-btns {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, transparent, rgba(8,12,18,.92) 28%);
+  }
+  #svc-next-ticket, #svc-hook {
+    min-height: 44px;
+    flex: 1 1 140px;
+  }
+}
+
+/* Mini-split phone glass */
+@media (max-width: 480px) {
+  #screen-minisplit { padding-bottom: 88px; }
+  .ms-layout { padding: 10px 10px 24px; }
+  .ms-head .brand-bar { margin-bottom: 4px !important; }
+  .ms-head h2 { font-size: 20px; }
+  .ms-sub { display: none; }
+  .ms-body { display: flex; flex-direction: column; gap: 10px; }
+  .ms-steps {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    max-height: none;
+    padding-bottom: 4px;
+  }
+  .ms-step {
+    flex: 0 0 auto;
+    min-width: 108px;
+    min-height: 44px;
+    font-size: 12px;
+  }
+  .ms-ref { display: none; }
+  .ms-card .hub-chip { display: none; }
+  .ms-detail { font-size: 12px; max-height: 4.5em; overflow: hidden; }
+  .ms-metric input[type="range"] {
+    width: 100%;
+    max-width: none;
+    height: 36px;
+    touch-action: none;
+  }
+  .ms-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 25;
+    padding: 10px 0 calc(8px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, transparent, rgba(8,12,18,.94) 30%);
+  }
+  .ms-actions .btn {
+    min-height: 46px;
+    flex: 1 1 42%;
+  }
+  .ms-actions #ms-do { flex: 1 1 100%; font-weight: 700; }
+}
+/* Store SKU: no Lincoln chrome on mini-split lab */
+html.sku-store .ms-head .brand-bar,
+html.sku-store .ms-head .brand-mark,
+html.sku-store .ms-head .brand-word { display: none !important; }
+
+/* Land-lugs phone memory — keep chrome light so the tab does not die */
+@media (max-width: 480px) {
+  #screen-electrical img, #screen-elguide img, #el-board img {
+    max-width: 100%;
+    height: auto;
+  }
+  #screen-electrical .hub-chip,
+  #screen-elguide .hub-chip,
+  #screen-electrical .hub-ai-dock {
+    display: none !important;
+  }
+  #screen-electrical .el-parts img,
+  #screen-electrical .part-tray img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+}
