@@ -1,16 +1,30 @@
-/* HVAC Allstars — chunked game load (Pages push size) */
-(function () {
-  var parts = ["game.p0.js", "game.p1.js", "game.p2.js", "game.p3.js", "game.p4.js"];
-  var i = 0, buf = "";
-  function next() {
-    if (i >= parts.length) {
-      try { (0, eval)(buf); } catch (e) { console.error("game load failed", e); }
-      return;
+/* HVAC Allstars — shop-floor boot only (no combat preload; phone sandbox OOM). */
+/* Full game.js tip stays local; navigation is owned by clock-in-fix.js. */
+(() => {
+  "use strict";
+
+  function bootAssets() {
+    /* Shop floor only — no combat preload (phone OOM when opening sandbox). */
+    for (let n = 1; n <= 4; n++) {
+      const run = new Image();
+      run.src = "hub/run-" + n + ".png";
+      const idle = new Image();
+      idle.src = "hub/idle-" + n + ".png";
     }
-    fetch(parts[i] + "?v=204c")
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
-      .then(function (t) { buf += t; i++; next(); })
-      .catch(function (e) { console.error("game chunk fail", parts[i], e); });
+    const gauges = new Image();
+    gauges.src = "gauges.png";
   }
-  next();
+
+  /* Stub marker: clock-in-fix.js detects mode === "character" and uses rescuePlay. */
+  window.ltPlay = function (mode) {
+    if (mode === "character") return;
+    if (mode === "hub" && typeof window.ltGoHub === "function") window.ltGoHub();
+  };
+  window.ltPlayGo = window.ltPlay;
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootAssets);
+  } else {
+    bootAssets();
+  }
 })();
