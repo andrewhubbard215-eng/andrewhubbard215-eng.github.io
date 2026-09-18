@@ -53,36 +53,30 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
-  var sbScripts = ["sandbox.js?v=132"];
+  var sbScripts = ["sandbox.js?v=133"];
   var sbLoading = false;
-  function sbReady() {
-    return !!(window.HVACSandbox && window.HVACSandbox.start);
-  }
-  function waitSandbox(done) {
-    if (sbReady()) return done();
-    var n = 0;
-    var t = setInterval(function () {
-      n++;
-      if (sbReady()) {
-        clearInterval(t);
-        done();
-      } else if (n > 80) {
-        clearInterval(t);
-        done(new Error("timeout"));
-      }
-    }, 50);
-  }
   function loadSandboxScripts(done) {
-    if (sbReady()) return done();
-    if (sbLoading) return waitSandbox(done);
-    var already = document.querySelector('script[src*="sandbox.js"]');
-    if (already) return waitSandbox(done);
+    if (window.HVACSandbox && window.HVACSandbox.start) return done();
+    if (sbLoading) {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (window.HVACSandbox && window.HVACSandbox.start) {
+          clearInterval(t);
+          done();
+        } else if (n > 80) {
+          clearInterval(t);
+          done(new Error("timeout"));
+        }
+      }, 50);
+      return;
+    }
     sbLoading = true;
     var i = 0;
     function next() {
       if (i >= sbScripts.length) {
         sbLoading = false;
-        return waitSandbox(done);
+        return done();
       }
       var s = document.createElement("script");
       s.src = sbScripts[i++];
