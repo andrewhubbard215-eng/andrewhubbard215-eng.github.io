@@ -1,14 +1,25 @@
-/* Truck Pouch loader — p0+p1. Offline after SW caches parts. */
-(function(){
+/* truck-pouch split loader - atob assemble then eval */
+(function () {
   "use strict";
-  var U=["truck-pouch.p0.js?v=1","truck-pouch.p1.js?v=1"], B=[], i=0;
-  function next(){
-    if(i>=U.length){ try{(0,eval)(B.join("\n"));}catch(e){console.error("TruckPouch",e);} return; }
-    var x=new XMLHttpRequest();
-    x.open("GET",U[i++],true);
-    x.onload=function(){ B.push(x.responseText||""); next(); };
-    x.onerror=function(){ console.error("TruckPouch missing part"); };
-    x.send();
+  var N = 2, loaded = 0, booted = false;
+  function boot() {
+    if (booted || loaded !== N) return;
+    var parts = window.__TP_B64;
+    if (!parts) return;
+    var s = "";
+    for (var i = 0; i !== N; i++) {
+      if (typeof parts[i] !== "string") return;
+      s += parts[i];
+    }
+    booted = true;
+    try { (0, eval)(atob(s)); } catch (e) { console.error("truck-pouch boot", e); }
   }
-  next();
+  [0, 1].forEach(function (idx) {
+    var el = document.createElement("script");
+    el.src = "truck-pouch.p" + idx + ".js?v=1";
+    el.async = false;
+    el.onload = function () { loaded += 1; boot(); };
+    el.onerror = function () { console.error("truck-pouch part fail", idx); };
+    (document.head || document.documentElement).appendChild(el);
+  });
 })();
