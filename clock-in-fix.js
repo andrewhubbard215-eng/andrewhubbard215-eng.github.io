@@ -53,13 +53,7 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
-  var sbScripts = [
-    "sandbox.js?v=127",
-    "sandbox-ts.js?v=4",
-    "sandbox-hook.js?v=11",
-    "sandbox-bom.js?v=2",
-    "sandbox-fp.js?v=1"
-  ];
+  var sbScripts = ["sandbox.js?v=128"];
   var sbLoading = false;
   function loadSandboxScripts(done) {
     if (window.HVACSandbox && window.HVACSandbox.start) return done();
