@@ -113,9 +113,7 @@
     return loadTicket(id);
   }
   function goSandboxThen(id) {
-    if (typeof window.ltStartSandbox === "function") {
-      try { window.ltStartSandbox(); } catch (e) {}
-    } else if (typeof window.ltPlay === "function") {
+    if (typeof window.ltPlay === "function") {
       try { window.ltPlay("sandbox"); } catch (e) {}
     } else if (typeof window.ltGo === "function") {
       window.ltGo("sandbox");
@@ -123,7 +121,7 @@
     var n = 0;
     var t = setInterval(function () {
       n++;
-      if ((window.HVACSandbox && document.getElementById("sb-fault")) || n > 20) {
+      if ((window.HVACSandbox && (document.getElementById("sb-fault") || document.getElementById("sb-status") || document.getElementById("sb-ps"))) || n > 20) {
         clearInterval(t);
         loadTicket(id);
       }
@@ -170,9 +168,34 @@
     };
     nxt.onclick = function () {
       try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
+      var prevFp = "";
+      var tag = document.querySelector(".svc-fault-tag");
+      if (tag) prevFp = tag.textContent || "";
+      if (window.ServiceCalls && typeof window.ServiceCalls.nextTicket === "function") {
+        try {
+          var r = window.ServiceCalls.nextTicket();
+          if (r && r.cur) {
+            if (tag) tag.textContent = "Ticket fingerprint: " + r.cur;
+            else {
+              var box = document.getElementById("svc-choices");
+              if (box) {
+                var t = document.createElement("p");
+                t.className = "svc-fault-tag";
+                t.style.cssText = "margin:4px 0 8px;font-size:12px;opacity:.75";
+                t.textContent = "Ticket fingerprint: " + r.cur;
+                box.insertBefore(t, box.firstChild);
+              }
+            }
+          }
+        } catch (err) {}
+      }
       var id = ORDER.filter(function (k) { return k !== currentJobId(); });
       window._ltTicketId = id[Math.floor(Math.random() * id.length)] || "air";
-      goSandboxThen(window._ltTicketId);
+      var pay = document.getElementById("svc-pay");
+      if (pay) pay.textContent = "Next ticket · fault changed · Hook gauges to read SH/SC on the live box.";
+      if (prevFp && tag && tag.textContent === prevFp) {
+        tag.textContent = "Ticket fingerprint: " + (window._ltTicketId || "air") + " · " + Date.now().toString(36).slice(-4);
+      }
     };
   }
   function boot() {
