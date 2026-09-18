@@ -6,7 +6,7 @@
     if (old && /v=8/.test(old.src || "")) return;
     if (old) old.remove();
     var s = document.createElement("script");
-    s.src = "sandbox-hook.js?v=8";
+    s.src = "sandbox-hook.js?v=12";
     s.setAttribute("data-sb-hook", "1");
     document.head.appendChild(s);
   }
