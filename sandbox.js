@@ -35,17 +35,19 @@
       var ph = satP(tc) * (0.9 + 0.2 * (2 - factor));
       if (!running) { ps = satP(indoor - 2); ph = satP(outdoor + 2); }
       var sst = satT(ps), sct = satT(ph);
-      var sh = Math.max(0, (indoor - 5) - sst);
-      var sc = Math.max(0, sct - (outdoor + 8));
-      return { ps: ps, ph: ph, sh: sh, sc: sc, sst: sst, sct: sct };
+      var sl = running ? (sst + 10 + (100 - charge) * 0.08) : indoor;
+      var ll = running ? (sct - 10 + (charge - 100) * 0.06) : outdoor;
+      var sh = running ? Math.max(0, sl - sst) : 0;
+      var sc = running ? Math.max(0, sct - ll) : 0;
+      return { ps: ps, ph: ph, sh: sh, sc: sc, sst: sst, sct: sct, sl: sl, ll: ll };
     }
     function paint() {
       var s = sim();
       var el = function (id) { return document.getElementById(id); };
       if (el("sb-ps")) el("sb-ps").textContent = s.ps.toFixed(0) + " psig";
       if (el("sb-ph")) el("sb-ph").textContent = s.ph.toFixed(0) + " psig";
-      if (el("sb-sh")) el("sb-sh").textContent = s.sh.toFixed(1) + " °F SH";
-      if (el("sb-sc")) el("sb-sc").textContent = s.sc.toFixed(1) + " °F SC";
+      if (el("sb-sh")) el("sb-sh").textContent = running ? (s.sh.toFixed(1) + " °F SH") : "— off (no SH)";
+      if (el("sb-sc")) el("sb-sc").textContent = running ? (s.sc.toFixed(1) + " °F SC") : "— off (no SC)";
       if (el("sb-status")) {
         el("sb-status").textContent = running
           ? ("Compressor on · " + nick + " · charge " + charge + "%")
@@ -54,7 +56,7 @@
     }
     function mount() {
       root.innerHTML =
-        '<div class="sb-layout" style="display:grid;grid-template-columns:112px 1fr;gap:8px;min-height:70vh;padding:8px">' +
+        '<div class="sb-layout" style="display:grid;grid-template-columns:148px 1fr;gap:8px;min-height:70vh;padding:8px">' +
         '<aside class="sb-palette" style="display:flex;flex-direction:column;gap:6px">' +
         '<p class="eyebrow" style="margin:0;font-size:11px">Parts · LEFT</p>' +
         '<button type="button" class="btn" data-part="compressor">Compressor</button>' +
@@ -70,7 +72,8 @@
         '<label>Charge % <input id="sb-charge" type="range" min="60" max="130" value="100" /></label>' +
         '<button type="button" class="btn primary" id="sb-run">Start compressor</button>' +
         "</div>" +
-        '<p id="sb-status" class="sb-status"></p>' +
+        '<p id="sb-status" class="sb-status" style="margin:0;font-size:13px;color:#5eead4"></p>' +
+        '<p id="sb-formula" style="margin:0;font-size:12px;opacity:.9">SH = suction line − sat (low) · SC = sat (high) − liquid line. Unit off = standing pressure only.</p>' +
         '<div class="sb-gauges" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">' +
         '<div class="panel"><strong>Suction</strong><div id="sb-ps">—</div><div id="sb-sh">—</div></div>' +
         '<div class="panel"><strong>Head</strong><div id="sb-ph">—</div><div id="sb-sc">—</div></div>' +
