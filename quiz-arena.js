@@ -1,7 +1,7 @@
 /* quiz-arena split loader — assembles tip parts then evals */
 (function () {
   "use strict";
-  var N = 6;
+  var N = 16;
   var loaded = 0;
   var booted = false;
   function boot() {
@@ -19,7 +19,7 @@
   for (var i = 0; i < N; i++) {
     (function (idx) {
       var el = document.createElement("script");
-      el.src = "quiz-arena.p" + idx + ".js?v=3";
+      el.src = "quiz-arena.p" + idx + ".js?v=4";
       el.async = false;
       el.onload = function () { loaded += 1; boot(); };
       el.onerror = function () { console.error("quiz-arena part fail", idx); };
