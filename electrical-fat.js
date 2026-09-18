@@ -1,6 +1,13 @@
 /* Phone-width fat-hit for Land lugs + pin no-cool sheet on Saturday callback timer. */
 (function () {
   "use strict";
+  function _elPhone() {
+    try {
+      if (window.LtElectricalPhone && window.LtElectricalPhone.deferFat) return true;
+      return !!(window.matchMedia && window.matchMedia("(max-width:480px)").matches);
+    } catch (_) { return false; }
+  }
+  /* On phone: skip pinSlip interval (DOM thrash) — fat-hit still works via pointerup */
   var PAD = 32;
   function elScreenOn() {
     var s = document.getElementById("screen-electrical");
@@ -62,5 +69,5 @@
   }, true);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", injectCss);
   else injectCss();
-  setInterval(pinSlip, 400);
+  if (!_elPhone()) setInterval(pinSlip, 400);
 })();
