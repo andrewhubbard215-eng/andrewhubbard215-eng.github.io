@@ -2,6 +2,7 @@
 #screen-truck-pouch { padding-bottom: 8px; }
 .tp-fat { font-variant-numeric: tabular-nums; }
 body.lab-open #screen-truck-pouch .tp-hub-tip {
+  /* Stay clear of fat number readouts — bottom-left, not over gauges */
   right: auto;
   left: 10px;
   bottom: calc(56px + env(safe-area-inset-bottom, 0px));
