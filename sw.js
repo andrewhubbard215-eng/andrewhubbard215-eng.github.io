@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v244";
+const VER = "lt-allstars-v245";
 const CORE = [
   "./",
   "./index.html",
@@ -19,7 +19,7 @@ const CORE = [
   "./electrical.js?v=131",
   "./electrical-fat.js?v=2",
   "./electrical-sheet.js?v=1",
-  "./board-codes.js?v=14",
+  "./board-codes.js?v=15",
   "./board-codes.css?v=4",
   "./dragdrop.js?v=45",
   "./webgl-cycle.js?v=57",
