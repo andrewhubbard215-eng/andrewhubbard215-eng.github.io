@@ -27,21 +27,42 @@
   #sandbox-root, #electrical-root, #quiz-root {
     padding-bottom: 8px;
   }
-  .sb-layout, .dx-layout, .sandbox-stage {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    grid-template-rows: auto 1fr;
+  /* Vocational: parts stay LEFT even when style.css stacks the sandbox */
+  .sb-layout {
+    display: grid !important;
+    grid-template-columns: 96px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
     height: 100%;
+    max-height: 100dvh;
   }
-  .parts-tray, .sb-tray, [data-parts-tray] {
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
     grid-column: 1;
     grid-row: 1 / span 2;
+    width: 96px;
+    max-width: 96px;
     overflow-y: auto;
-    width: 92px;
+    -webkit-overflow-scrolling: touch;
+    order: unset !important;
+    border-right: 1px solid rgba(42, 54, 68, 0.9);
+    border-top: none !important;
   }
-  .dx-diamond, .sb-diamond, [data-dx-diamond] {
+  .sb-main {
     grid-column: 2;
-    min-height: 52vh;
+    grid-row: 1;
+    order: unset !important;
+    min-height: 48vh;
+    min-width: 0;
+  }
+  .sb-gauges {
+    grid-column: 2;
+    grid-row: 2;
+    order: unset !important;
+    max-height: 22vh;
+    border-left: none !important;
+    border-top: 1px solid rgba(42, 54, 68, 0.9);
+  }
+  .dx-diamond, .sb-diamond, [data-dx-diamond], .sb-stage-wrap {
+    min-height: 48vh;
     width: 100%;
   }
   .el-ladder, .ladder, #ladder {
@@ -50,7 +71,6 @@
     overflow: auto;
     max-height: 70vh;
   }
-  /* Evening SAVE: version strip was sitting on HVAC Jesus / last hub card */
   #screen-hub.screen.active {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -58,11 +78,14 @@
   #hub-options, .hub-nav {
     padding-bottom: 64px;
   }
+  .hub-nav .mode-card {
+    min-height: 48px;
+  }
   .hub-nav .mode-card:last-child {
     margin-bottom: 12px;
   }
 }
-/* Phone ≤480px — lab glass free, parts left rail, diamond on screen */
+/* Phone ≤480px (~390 CSS px handset) */
 @media (max-width: 480px) {
   body.lab-open .hub-ai-fab,
   body.lab-open #hub-ai-fab,
@@ -77,24 +100,38 @@
   body.lab-open [data-hub-dock] {
     display: none !important;
   }
-  .sb-layout, .dx-layout, .sandbox-stage {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    grid-template-rows: auto 1fr;
+  .sb-layout {
+    display: grid !important;
+    grid-template-columns: 90px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
     height: 100%;
+    max-height: 100dvh;
     min-height: 0;
   }
-  .parts-tray, .sb-tray, [data-parts-tray] {
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
     grid-column: 1;
     grid-row: 1 / span 2;
+    width: 90px;
+    max-width: 90px;
+    max-height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    width: 90px;
-    max-height: 100%;
+    order: unset !important;
   }
-  .dx-diamond, .sb-diamond, [data-dx-diamond] {
+  .sb-main {
     grid-column: 2;
-    min-height: 48vh;
+    grid-row: 1;
+    order: unset !important;
+    min-height: 46vh;
+  }
+  .sb-gauges {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: 20vh;
+    order: unset !important;
+  }
+  .dx-diamond, .sb-diamond, [data-dx-diamond], .sb-stage-wrap {
+    min-height: 44vh;
     height: auto;
     width: 100%;
     overflow: visible;
@@ -105,6 +142,15 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     max-height: 68vh;
+  }
+  .hub-nav .mode-card {
+    min-height: 52px;
+  }
+  .hub-nav .mode-card h3 {
+    font-size: 16px;
+  }
+  .hub-nav .mode-card-hero h3 {
+    font-size: 18px;
   }
 }
 .version-strip {
