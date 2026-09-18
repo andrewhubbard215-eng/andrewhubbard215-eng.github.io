@@ -7,7 +7,8 @@
   <script src="sku.js?v=10"></script>
   <link rel="stylesheet" href="style.css?v=139" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=11" />
+  <link rel="stylesheet" href="phone-floor.css?v=12" />
+  <link rel="stylesheet" href="truck-pouch.css?v=1" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
@@ -33,6 +34,7 @@
       <div id="daily-root"></div>
       <div class="hub-grid hub-nav" id="hub-options">
         <button class="mode-card mode-card-hero" data-mode="sandbox" type="button"><h3>System sandbox</h3><p>Live SH/SC · parts stay LEFT</p></button>
+        <button class="mode-card mode-card-hero" data-mode="truck-pouch" type="button"><h3>On the job</h3><p>P/T · SH/SC · wire drop · Ohm's · 608 · airflow</p></button>
         <button class="mode-card" data-mode="quiz" type="button"><h3>All-Star Exam</h3><p>EPA / electrical / charge questions · pass the bay</p></button>
         <button class="mode-card" data-mode="electrical" type="button"><h3>Follow the call</h3><p>Ladder · 24V path · land the lugs</p></button>
         <button class="mode-card" data-mode="defusal" type="button"><h3>Saturday callback</h3><p>No-cool sheet · meter first · isolate the open</p></button>
@@ -47,6 +49,7 @@
     </section>
     <section id="screen-electrical" class="screen"><div id="electrical-root"></div></section>
     <section id="screen-sandbox" class="screen"><div id="sandbox-root"></div></section>
+    <section id="screen-truck-pouch" class="screen"><div id="truck-pouch-root"></div></section>
     <section id="screen-minisplit" class="screen"><div id="minisplit-root"></div></section>
     <section id="screen-quiz" class="screen"><div id="quiz-root"></div></section>
     <section id="screen-service" class="screen">
@@ -76,14 +79,29 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.52 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.53 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=1"></script>
   <script src="dragdrop.js?v=46"></script>
-  <script src="electrical.js?v=131"></script>
-  <script src="electrical-fat.js?v=2"></script>
+  <script src="electrical.js?v=132"></script>
+  <script>
+    (function () {
+      var phone = false;
+      try { phone = !!(window.matchMedia && window.matchMedia("(max-width:480px)").matches); } catch (_) {}
+      if (phone) {
+        window.LtElectricalPhone = window.LtElectricalPhone || {};
+        window.LtElectricalPhone.deferFat = true;
+        return;
+      }
+      var s = document.createElement("script");
+      s.src = "electrical-fat.js?v=3";
+      s.defer = true;
+      document.head.appendChild(s);
+    })();
+  </script>
+  <script src="electrical-phone.js?v=1"></script>
   <script src="electrical-sheet.js?v=1"></script>
   <script src="webgl-cycle.js?v=57"></script>
   <script src="route-floor.js?v=4"></script>
@@ -96,7 +114,8 @@
   <script src="prove-deepen.js?v=1"></script>
   <script src="voltmeter-school.js?v=1"></script>
   <script src="ohm-school.js?v=1"></script>
-  <script src="ohms-law-school.js?v=1"></script>
+  <script src="ohms-law-school.js?v=2"></script>
+  <script src="truck-pouch.js?v=1"></script>
   <script src="exam-untimed.js?v=2"></script>
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
@@ -109,7 +128,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=258").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=259").catch(function () {});
   </script>
 </body>
 </html>
