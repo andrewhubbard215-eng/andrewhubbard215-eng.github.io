@@ -53,20 +53,77 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
+  var sbScripts = [
+    "sandbox.js?v=127",
+    "sandbox-ts.js?v=4",
+    "sandbox-hook.js?v=11",
+    "sandbox-bom.js?v=2",
+    "sandbox-fp.js?v=1"
+  ];
+  var sbLoading = false;
+  function loadSandboxScripts(done) {
+    if (window.HVACSandbox && window.HVACSandbox.start) return done();
+    if (sbLoading) {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (window.HVACSandbox && window.HVACSandbox.start) {
+          clearInterval(t);
+          done();
+        } else if (n > 80) {
+          clearInterval(t);
+          done(new Error("timeout"));
+        }
+      }, 50);
+      return;
+    }
+    sbLoading = true;
+    var i = 0;
+    function next() {
+      if (i >= sbScripts.length) {
+        sbLoading = false;
+        return done();
+      }
+      var s = document.createElement("script");
+      s.src = sbScripts[i++];
+      s.onload = next;
+      s.onerror = function () {
+        sbLoading = false;
+        done(new Error("script"));
+      };
+      document.head.appendChild(s);
+    }
+    next();
+  }
   function startSandbox() {
     show("sandbox");
     var root = document.getElementById("sandbox-root");
-    if (!root || !window.HVACSandbox || !window.HVACSandbox.start) return;
-    try {
-      if (sbCtl && sbCtl.stop) sbCtl.stop();
-    } catch (_) {}
-    try {
-      sbCtl = window.HVACSandbox.start(root, { nickname: floorName() });
-      var hub = sbCtl && sbCtl.getHubBtn && sbCtl.getHubBtn();
-      if (hub) hub.onclick = function () { goHub(); };
-    } catch (e) {
-      root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Hard-refresh (Ctrl+Shift+R).</p></div>";
+    if (!root) return;
+    function run() {
+      if (!window.HVACSandbox || !window.HVACSandbox.start) {
+        root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Hard-refresh (Ctrl+Shift+R).</p></div>";
+        return;
+      }
+      try {
+        if (sbCtl && sbCtl.stop) sbCtl.stop();
+      } catch (_) {}
+      try {
+        sbCtl = window.HVACSandbox.start(root, { nickname: floorName() });
+        var hub = sbCtl && sbCtl.getHubBtn && sbCtl.getHubBtn();
+        if (hub) hub.onclick = function () { goHub(); };
+      } catch (e) {
+        root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Hard-refresh (Ctrl+Shift+R).</p></div>";
+      }
     }
+    if (window.HVACSandbox && window.HVACSandbox.start) return run();
+    root.innerHTML = "<div class='panel' style='margin:20px'><p>Loading system bay…</p></div>";
+    loadSandboxScripts(function (err) {
+      if (err) {
+        root.innerHTML = "<div class='panel' style='margin:20px'><h2>System sandbox</h2><p>Hard-refresh (Ctrl+Shift+R).</p></div>";
+        return;
+      }
+      run();
+    });
   }
   function startElectrical(opts) {
     show("electrical");
@@ -184,7 +241,6 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
   else bind();
 
-  /* Safety: Board-Code Close must always restore hub (live blank-screen blocker). */
   document.addEventListener(
     "click",
     function (e) {
