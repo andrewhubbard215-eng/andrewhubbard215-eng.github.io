@@ -23,6 +23,8 @@
     return !!el.querySelector("img, strong, .rm");
   }
   function missingCore() {
+    /* Phone-safe bay has no #sb-slots — LEFT buttons in sandbox.js own placement. */
+    if (!document.getElementById("sb-slots")) return [];
     return ["compressor", "condenser", "metering", "evaporator"].filter(function (s) {
       return !coreFilled(s);
     });
