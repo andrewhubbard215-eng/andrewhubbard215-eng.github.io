@@ -77,6 +77,7 @@
         g.innerHTML = opts.html || el.innerHTML;
         g.classList.add("on");
         el.classList.add("dragging");
+        try { document.body.classList.add("dragging-part"); } catch (_) {}
         try { el.setPointerCapture(e.pointerId); } catch (_) {}
         if (typeof opts.onDragStart === "function") opts.onDragStart(opts.id, ev);
       }
@@ -103,6 +104,7 @@
         if (!dragging) return;
         try { el.releasePointerCapture(ev.pointerId); } catch (_) {}
         el.classList.remove("dragging");
+        try { document.body.classList.remove("dragging-part"); } catch (_) {}
         g.classList.remove("on");
         document.querySelectorAll(dropSel).forEach(function (s) {
           s.classList.remove("over");
@@ -123,6 +125,18 @@
       el.addEventListener("pointercancel", up);
     });
   }
+
+
+  // HTML5 DnD: stow phone trays while any native drag is active
+  document.addEventListener("dragstart", function () {
+    try { document.body.classList.add("dragging-part"); } catch (_) {}
+  });
+  document.addEventListener("dragend", function () {
+    try { document.body.classList.remove("dragging-part"); } catch (_) {}
+  });
+  document.addEventListener("drop", function () {
+    try { document.body.classList.remove("dragging-part"); } catch (_) {}
+  });
 
   global.LtDrag = { bindSource, slotUnder, setHtml5Image, makeCustomImage };
 })(window);
