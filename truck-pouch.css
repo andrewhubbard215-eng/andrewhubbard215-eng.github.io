@@ -1,0 +1,8 @@
+/* Truck Pouch — fat thumb field tools (loaded with truck-pouch.js inject; linked for SW cache) */
+#screen-truck-pouch { padding-bottom: 8px; }
+.tp-fat { font-variant-numeric: tabular-nums; }
+body.lab-open #screen-truck-pouch .tp-hub-tip {
+  right: auto;
+  left: 10px;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+}
