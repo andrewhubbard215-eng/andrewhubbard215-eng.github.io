@@ -127,12 +127,12 @@
       return;
     }
     if (m === "boardcodes") {
-      startElectrical({ guide: true });
+      goHub();
       setTimeout(function () {
         var BC = window.BoardCodes || window.LtBoardCodes;
         var open = BC && (BC.openLocker || BC.openProve || BC.open);
         if (typeof open === "function") open();
-      }, 120);
+      }, 60);
       return;
     }
     show(m);
@@ -183,5 +183,21 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
   else bind();
+
+  /* Safety: Board-Code Close must always restore hub (live blank-screen blocker). */
+  document.addEventListener(
+    "click",
+    function (e) {
+      var t = e.target && e.target.closest ? e.target.closest("#el-locker-close, #el-prove-close, #el-soo-close, [data-lt-close-hub]") : null;
+      if (!t) return;
+      try {
+        var wrap = document.getElementById("el-locker-overlay");
+        if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+      } catch (_) {}
+      try { goHub(); } catch (_) {}
+    },
+    true
+  );
+
   setInterval(bindCards, 1000);
 })();
