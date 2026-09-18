@@ -1,11 +1,11 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v253";
+const VER = "lt-allstars-v254";
 const CORE = [
   "./",
   "./index.html",
   "./sku.js?v=10",
   "./style.css?v=139",
-  "./phone-floor.css?v=9",
+  "./phone-floor.css?v=10",
   "./sb-tabs.css?v=2",
   "./lab-glass.css?v=1",
   "./game.js?v=205",
@@ -13,7 +13,7 @@ const CORE = [
   "./sandbox.js?v=130",
   "./route-floor.js?v=4",
   "./charge-floor.js?v=2",
-  "./quiz-arena.js?v=98",
+  "./quiz-arena.js?v=3",
   "./hub-ai.js?v=82",
   "./instructor.js?v=97",
   "./electrical.js?v=131",
@@ -22,7 +22,8 @@ const CORE = [
   "./board-codes.js?v=15",
   "./prove-deepen.js?v=1",
   "./voltmeter-school.js?v=1",
-  "./exam-untimed.js?v=1",
+  "./ohm-school.js?v=1",
+  "./exam-untimed.js?v=2",
   "./board-codes.css?v=4",
   "./dragdrop.js?v=45",
   "./webgl-cycle.js?v=57",
