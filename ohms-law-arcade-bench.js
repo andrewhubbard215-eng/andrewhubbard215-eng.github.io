@@ -1,0 +1,11 @@
+/* Ohm arcade bench — V=IR + smoke. */
+(function (g) {
+  "use strict";
+  var ROASTS = ["Fuse candy.","Transformer's crying.","Coil's a toaster.","Varnish smell.","24V became a welder.","RLA? R.I.P."];
+  function r3(n){ return isFinite(n) ? Math.round(n*1000)/1000 : n; }
+  function fmt(n,u){ if(!isFinite(n)) return "∞ "+u; var r=r3(n); return (Math.abs(r)>=100?Math.round(r):r)+" "+u; }
+  function roast(I,R){ if(I>=8||(R>0&&R<=3&&I>=4)) return ROASTS[Math.floor(Math.random()*ROASTS.length)]; if(I>=3) return "Getting warm — watch that fuse."; if(I>=1.5) return "Above healthy ~0.6A coil."; return "Cool bench — coil-happy."; }
+  function heat(I,R){ var p=isFinite(I)&&isFinite(R)?I*I*R:0; return Math.round(Math.max(Math.min(100,(I/12)*100),Math.min(100,(p/80)*100))); }
+  function css(){ if(document.getElementById("ol-arc-css")) return; var s=document.createElement("style"); s.id="ol-arc-css"; s.textContent="#ohms-law-root{padding:12px;max-width:720px;margin:0 auto}#ohms-law-root .ol-bench{display:flex;flex-direction:column;gap:10px}#ohms-law-root .ol-knob{padding:10px;border-radius:10px;background:#141a22;border:1px solid #2a3644}#ohms-law-root .ol-knob label{font-size:13px;display:flex;justify-content:space-between}#ohms-law-root .ol-knob input[type=range]{width:100%;height:44px;touch-action:none;accent-color:#CE0034}#ohms-law-root .ol-knob.locked{opacity:.72;border-color:#CE0034}#ohms-law-root .ol-chip{font-family:ui-monospace,monospace;font-size:13px;padding:10px;border-radius:8px;background:#0b1220;border:1px solid #2a3644}#ohms-law-root .ol-heat{height:14px;border-radius:7px;background:#1a1410;overflow:hidden;border:1px solid #3a2a20}#ohms-law-root .ol-heat>i{display:block;height:100%;background:linear-gradient(90deg,#3a7,#c90,#CE0034);transition:width .15s}#ohms-law-root .ol-roast{min-height:1.4em;color:#f0c878;font-weight:600}#ohms-law-root .ol-row{display:flex;flex-wrap:wrap;gap:8px}#ohms-law-root .el-locker-opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}#ohms-law-root .el-locker-opts .btn{text-align:left;white-space:normal;min-height:48px}#ohms-law-root .ol-diff{font-size:11px;opacity:.75;text-transform:uppercase}"; document.head.appendChild(s); }
+  g.OhmsArcadeBench = { r3:r3, fmt:fmt, roast:roast, heat:heat, css:css };
+})(window);
