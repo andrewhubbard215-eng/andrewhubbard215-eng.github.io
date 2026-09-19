@@ -32,7 +32,7 @@
     "#electrical-root.el-lite .el-nocool li{margin:4px 0}" +
     "#electrical-root.el-lite .el-nocool .el-check{display:flex;flex-direction:column;gap:6px;margin-top:8px}" +
     "#electrical-root.el-lite .el-nocool label{display:flex;align-items:flex-start;gap:8px;min-height:40px;padding:6px 8px;border-radius:8px;background:#0b1220;border:1px solid #2a3548;font-size:13px;touch-action:manipulation}" +
-    "#electrical-root.el-lite .el-nocool input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.45;pointer-events:none;filter:grayscale(.35)}";
+    "#electrical-root.el-lite .el-nocool input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.55;filter:grayscale(.35);cursor:not-allowed}";
 
   function injectCss() {
     if (document.getElementById("el-lite-css")) return;
@@ -190,7 +190,12 @@
       root.querySelectorAll("[data-chip]").forEach(function (b) {
         b.onclick = function () {
           if (defuse && !sheetReady()) {
-            msg("Tick all four no-cool meter checks before you grab a chip.");
+            msg("Meter sheet first — tick all four checks. Chips stay locked until 4/4.");
+            var sheet = root.querySelector("#el-nocool");
+            if (sheet) {
+              sheet.style.outline = "3px solid #f59e0b";
+              setTimeout(function () { sheet.style.outline = ""; }, 900);
+            }
             return;
           }
           pending = b.getAttribute("data-chip");
@@ -203,6 +208,11 @@
           var id = b.getAttribute("data-land");
           if (defuse && !sheetReady()) {
             msg("Meter sheet first — 4/4 checks before you land a lug.");
+            var sheet2 = root.querySelector("#el-nocool");
+            if (sheet2) {
+              sheet2.style.outline = "3px solid #f59e0b";
+              setTimeout(function () { sheet2.style.outline = ""; }, 900);
+            }
             return;
           }
           if (!pending) {
