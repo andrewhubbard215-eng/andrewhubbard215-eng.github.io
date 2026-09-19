@@ -27,7 +27,6 @@
   #sandbox-root, #electrical-root, #quiz-root {
     padding-bottom: 8px;
   }
-  /* Vocational: parts stay LEFT even when style.css stacks the sandbox */
   .sb-layout {
     display: grid !important;
     grid-template-columns: 96px minmax(0, 1fr) !important;
@@ -85,7 +84,6 @@
     margin-bottom: 12px;
   }
 }
-/* Phone ≤480px (~390 CSS px handset) */
 @media (max-width: 480px) {
   body.lab-open .hub-ai-fab,
   body.lab-open #hub-ai-fab,
@@ -170,8 +168,6 @@
     color: rgba(220,228,234,.55);
   }
 }
-
-/* Drawers: scroll + auto-stow when a part is grabbed */
 @media (max-width: 480px) {
   .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
     max-height: 42vh;
@@ -179,7 +175,6 @@
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
-  /* Left-rail / sheet collapse while dragging */
   body.dragging-part .sb-palette,
   body.dragging-part .parts-tray,
   body.dragging-part .sb-tray,
@@ -193,7 +188,6 @@
     pointer-events: none !important;
     z-index: 1 !important;
   }
-  /* Bottom-sheet drawers (style.css translateY) — stow even if .drawer-open */
   body.dragging-part .sb-palette.drawer-open,
   body.dragging-part .sb-gauges.drawer-open,
   body.dragging-part .el-meter.drawer-open,
@@ -210,7 +204,6 @@
     display: none !important;
     pointer-events: none !important;
   }
-  /* Drop targets stay hittable */
   body.dragging-part #sandbox-root .sb-slots,
   body.dragging-part #sandbox-root .sb-slot,
   body.dragging-part #sandbox-root .sb-main,
@@ -230,8 +223,6 @@
     padding-bottom: 72px;
   }
 }
-
-/* Service call actions must stay on the phone glass */
 @media (max-width: 480px) {
   #screen-service .svc-actions,
   #screen-service .svc-route-btns,
@@ -255,8 +246,6 @@
     flex: 1 1 140px;
   }
 }
-
-/* Mini-split phone glass */
 @media (max-width: 480px) {
   #screen-minisplit { padding-bottom: 88px; }
   .ms-layout { padding: 10px 10px 24px; }
@@ -302,12 +291,9 @@
   }
   .ms-actions #ms-do { flex: 1 1 100%; font-weight: 700; }
 }
-/* Store SKU: no Lincoln chrome on mini-split lab */
 html.sku-store .ms-head .brand-bar,
 html.sku-store .ms-head .brand-mark,
 html.sku-store .ms-head .brand-word { display: none !important; }
-
-/* Land-lugs phone memory — keep chrome light so the tab does not die */
 @media (max-width: 480px) {
   #screen-electrical img, #screen-elguide img, #el-board img {
     max-width: 100%;
@@ -325,8 +311,6 @@ html.sku-store .ms-head .brand-word { display: none !important; }
     object-fit: contain;
   }
 }
-
-/* Electrical phone OOM — Follow the call / Land lugs: no heavy art decode */
 @media (max-width: 480px) {
   #screen-electrical img.part-img,
   #screen-electrical .part-img,
@@ -350,40 +334,26 @@ html.sku-store .ms-head .brand-word { display: none !important; }
   #screen-electrical .el-guide > img {
     display: none !important;
   }
-  /* Keep land-lugs chip / lug buttons fat and visible */
   #screen-electrical [data-lug],
   #screen-electrical .el-lug {
     min-width: 44px;
     min-height: 44px;
   }
 }
-
-
-/* Truck Pouch */
 body.lab-open #screen-truck-pouch .hub-ai-fab,
 body.lab-open #screen-truck-pouch #hub-ai-fab {
-  /* Keep HUB off the fat SH/SC numbers */
   bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   right: 10px;
 }
 #screen-truck-pouch .tp-fat { font-size: 30px; }
-
-/* crash-pass drawer drop */
-
-/* Lug chip hides when land-lugs board is done */
 [data-lug-done="1"],
 #el-zoom-need[data-lug-chip="done"] {
   display: none !important;
 }
-
-/* crash-pass pouch hub */
 body.lab-open #screen-truck-pouch .hub-ai-fab,
 body.lab-open #screen-truck-pouch #hub-ai-fab {
   bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
 }
-
-
-/* HUB drip ear — corner sized, never eats hose/lug drops */
 #lt-drip-ear {
   max-width: min(168px, 40vw);
 }
@@ -430,9 +400,18 @@ body.sb-hose-drag #lt-drip-ear {
     font-size: 12px;
     opacity: .9;
   }
-  /* Whole system still visible on phone — don't crop the bay */
   #screen-sandbox .sb-layout,
   #sandbox-root .sb-layout {
     min-height: 62vh;
   }
+}
+
+/* Bay rail covers the strip — keep the build ID readable while parts stay LEFT */
+#app:has(#screen-sandbox.active) .version-strip,
+#app:has(#screen-electrical.active) .version-strip,
+#app:has(#screen-minisplit.active) .version-strip,
+body.lab-open .version-strip {
+  left: 108px;
+  padding-left: 8px;
+  z-index: 6;
 }
