@@ -7,7 +7,7 @@
   <script src="sku.js?v=10"></script>
   <link rel="stylesheet" href="style.css?v=141" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=15" />
+  <link rel="stylesheet" href="phone-floor.css?v=16" />
   <link rel="stylesheet" href="truck-pouch.css?v=3" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
@@ -79,12 +79,12 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.58 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.59 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=2"></script>
-  <script src="dragdrop.js?v=47"></script>
+  <script src="dragdrop.js?v=48"></script>
   <script>
     /* Electrical loader: ≤480px → electrical-lite only (never electrical.js / fat). */
     (function () {
@@ -109,8 +109,8 @@
   </script>
   <script src="webgl-cycle.js?v=57"></script>
   <script src="route-floor.js?v=7"></script>
-  <script src="minisplit.js?v=4"></script>
-  <script src="minisplit-phone.js?v=1"></script>
+  <script src="minisplit.js?v=5"></script>
+  <script src="minisplit-phone.js?v=2"></script>
   <script src="service.js?v=106"></script>
   <script src="hub-ai.js?v=82"></script>
   <script src="drip.js?v=2"></script>
@@ -125,8 +125,8 @@
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=205"></script>
-  <script src="clock-in-form.js?v=19"></script>
-  <script src="clock-in-floor.js?v=20"></script>
+  <script src="clock-in-form.js?v=21"></script>
+  <script src="clock-in-floor.js?v=21"></script>
   <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
@@ -134,7 +134,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=268").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=270").catch(function () {});
   </script>
 </body>
 </html>
