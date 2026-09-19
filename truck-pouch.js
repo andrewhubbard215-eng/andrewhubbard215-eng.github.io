@@ -1,7 +1,7 @@
 /* truck-pouch split loader - atob assemble then eval */
 (function () {
   "use strict";
-  var N = 8, loaded = 0, booted = false;
+  var N = 4, loaded = 0, booted = false;
   function boot() {
     if (booted || loaded !== N) return;
     var parts = window.__TP_B64;
@@ -16,7 +16,7 @@
   }
   Array.from({length: N}, function (_, idx) { return idx; }).forEach(function (idx) {
     var el = document.createElement("script");
-    el.src = "truck-pouch.p" + idx + ".js?v=2";
+    el.src = "truck-pouch.p" + idx + ".js?v=3";
     el.async = false;
     el.onload = function () { loaded += 1; boot(); };
     el.onerror = function () { console.error("truck-pouch part fail", idx); };
