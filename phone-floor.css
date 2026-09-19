@@ -319,3 +319,38 @@ html.sku-store .ms-head .brand-word { display: none !important; }
     min-height: 44px;
   }
 }
+
+/* Electrical lite phone — hide remaining heavy chrome ≤480px */
+@media (max-width: 480px) {
+  #screen-electrical .hub-chip,
+  #screen-electrical .hub-ai-dock,
+  #screen-electrical .el-win-jesus,
+  #screen-electrical .el-guide,
+  #screen-electrical .el-ladder-art,
+  #screen-electrical .el-schematic,
+  #screen-electrical canvas,
+  #screen-electrical svg.el-schematic,
+  #screen-electrical #el-zoom-img,
+  #screen-electrical #el-win,
+  #screen-electrical .brand-bar img,
+  #screen-electrical .el-dmm-img,
+  #screen-electrical img[src*="hub-portrait"],
+  #screen-electrical img[src*="jesus"] {
+    display: none !important;
+  }
+  #electrical-root.el-lite .el-lug,
+  #electrical-root.el-lite [data-lug] {
+    min-width: 48px;
+    min-height: 48px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  #electrical-root.el-lite #el-hub,
+  #electrical-root.el-lite #el-lite-next {
+    display: inline-flex !important;
+    min-height: 44px;
+  }
+}
