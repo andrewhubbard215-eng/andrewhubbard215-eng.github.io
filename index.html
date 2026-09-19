@@ -33,7 +33,7 @@
       </header>
       <div id="daily-root"></div>
       <div class="hub-grid hub-nav" id="hub-options">
-        <button class="mode-card mode-card-hero" data-mode="sandbox" type="button"><h3>System sandbox</h3><p>Live SH/SC · parts stay LEFT</p></button>
+        <button class="mode-card mode-card-hero" data-mode="sandbox" type="button"><h3>System sandbox</h3><p>Live SH/SC · HPC/LPC cut out · parts LEFT</p></button>
         <button class="mode-card mode-card-hero" data-mode="truck-pouch" type="button"><h3>On the job</h3><p>P/T · SH/SC · wire drop · Ohm's · 608 · airflow</p></button>
         <button class="mode-card" data-mode="quiz" type="button"><h3>All-Star Exam</h3><p>EPA / electrical / charge questions · pass the bay</p></button>
         <button class="mode-card" data-mode="electrical" type="button"><h3>Follow the call</h3><p>Ladder · 24V path · land the lugs</p></button>
@@ -79,14 +79,13 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars · v3.5.60 · shop floor</p>
+    <p class="version-strip">HVAC Allstars · v3.5.61 · shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=2"></script>
   <script src="dragdrop.js?v=48"></script>
   <script>
-    /* Electrical loader: ≤480px → electrical-lite only (never electrical.js / fat). */
     (function () {
       var phone = false;
       try { phone = !!(window.matchMedia && window.matchMedia("(max-width:480px)").matches); } catch (_) {}
@@ -127,7 +126,8 @@
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=205"></script>
   <script src="clock-in-form.js?v=21"></script>
-  <script src="clock-in-floor.js?v=22"></script>
+  <script src="clock-in-floor.js?v=23"></script>
+  <script src="sandbox-cutout.js?v=1"></script>
   <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
@@ -135,7 +135,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=272").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=273").catch(function () {});
   </script>
 </body>
 </html>
