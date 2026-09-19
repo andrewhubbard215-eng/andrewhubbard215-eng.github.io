@@ -192,11 +192,11 @@
           oy.toFixed(1) +
           " Z " +
           oz.toFixed(1) +
-          " µT · |Earth| " +
+          " µT  -  |Earth| " +
           earth.toFixed(0) +
-          " µT (want 25–65) · σ " +
+          " µT (want 25–65)  -  σ " +
           calSigma.toFixed(1) +
-          " · LIVE if Δ>" +
+          "  -  LIVE if Δ>" +
           liveThresh.toFixed(0);
       } else {
         ox = oy = oz = 0;
@@ -208,9 +208,9 @@
         );
         liveThresh = Math.max(40, 12 * calSigma);
         calNote =
-          "Still-pose noise only · σ " +
+          "Still-pose noise only  -  σ " +
           calSigma.toFixed(1) +
-          " µT · LIVE if Δ>" +
+          " µT  -  LIVE if Δ>" +
           liveThresh.toFixed(0) +
           ". Figure-8 in open air for a real hard-iron offset.";
       }
@@ -365,7 +365,7 @@
         "<h3>IDU / drain slope</h3>" +
         "<p>Lay the phone on the indoor chassis or along the drain. Mini-split heads want <strong>level left-right</strong> and a little pitch toward the drain (~¼″ per foot ≈ 1.2°).</p>" +
         '<div class="ptool-level"><span id="ptool-bubble"></span></div>' +
-        '<p>Pitch <strong id="ptool-pitch">0°</strong> · Roll <strong id="ptool-roll">0°</strong></p>' +
+        '<p>Pitch <strong id="ptool-pitch">0°</strong>  -  Roll <strong id="ptool-roll">0°</strong></p>' +
         '<p id="ptool-slope" class="pt-note"></p>' +
         '<button class="btn primary" id="ptool-lv">Enable level</button>';
       body.querySelector("#ptool-lv").onclick = async () => {
