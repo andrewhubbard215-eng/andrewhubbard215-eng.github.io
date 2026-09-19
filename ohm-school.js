@@ -3,35 +3,35 @@
   "use strict";
   var STEPS = [
     {
-      label: "1 · Lockout first",
+      label: "1  -  Lockout first",
       ask: "Before you ohm a contactor coil or compressor winding, what do you do?",
       good: "Kill power, lock/tag, prove dead with a voltmeter on a known live then on the circuit.",
       bad: "Ohm it live — the reading is more honest under voltage.",
       whyWrong: "Ohms on a live circuit cooks the meter and can flash. Lock it out."
     },
     {
-      label: "2 · Coil open vs short",
+      label: "2  -  Coil open vs short",
       ask: "Contactor coil reads OL (open) coil-to-coil. What does that mean?",
       good: "Open coil winding — contactor will never pull in. Replace the contactor.",
       bad: "Normal — coils read infinite when healthy.",
       whyWrong: "A good coil is a low resistance (often tens of ohms), not OL."
     },
     {
-      label: "3 · Shorted coil",
+      label: "3  -  Shorted coil",
       ask: "Contactor coil reads near 0 Ω coil-to-coil and the 3A control fuse keeps blowing. Likely?",
       good: "Shorted coil (or shorted 24V load). Isolate the coil, confirm low ohms, replace the bad load, then the fuse.",
       bad: "Weak transformer — just turn the thermostat up.",
       whyWrong: "A shorted coil is a dead short across 24V. It will eat fuses until you isolate it."
     },
     {
-      label: "4 · Winding to ground",
+      label: "4  -  Winding to ground",
       ask: "Compressor C to ground (chassis) reads a few ohms. Power is locked out. Call?",
       good: "Grounded winding — compressor is toast. Do not keep resetting the fuse.",
       bad: "Normal oil film — run it and see if amps settle.",
       whyWrong: "Winding-to-ground continuity means the motor is grounded. Replace the compressor (or condensing unit)."
     },
     {
-      label: "5 · Unguided",
+      label: "5  -  Unguided",
       ask: "No-cool. Fuse on the board keeps opening. Contactor coil ohms ~2 Ω (spec ~40 Ω). R–C open-circuit 24V. What's the fix path?",
       good: "Shorted coil. Replace contactor, prove coil ohms, then replace fuse and re-energize.",
       bad: "Add charge — low suction always blows control fuses.",
@@ -56,9 +56,9 @@
       var step = STEPS[pi % STEPS.length];
       host.innerHTML =
         '<header class="sb-toolbar"><strong>Ohm school</strong>' +
-        '<span class="muted"> Shorted coil · windings · lockout</span>' +
+        '<span class="muted"> Shorted coil  -  windings  -  lockout</span>' +
         '<button type="button" class="btn" id="ohm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="eyebrow">' + (guided && pi < 4 ? "Guided" : "Unguided") + " · " + step.label + "</p>" +
+        '<p class="eyebrow">' + (guided && pi < 4 ? "Guided" : "Unguided") + "  -  " + step.label + "</p>" +
         "<p>" + step.ask + "</p>" +
         '<div class="el-locker-opts">' +
         (Math.random() < 0.5
@@ -108,7 +108,7 @@
     btn.type = "button";
     btn.className = "mode-card";
     btn.setAttribute("data-mode", "ohm");
-    btn.innerHTML = "<h3>Ohm school</h3><p>Shorted coil · windings · lockout first</p>";
+    btn.innerHTML = "<h3>Ohm school</h3><p>Shorted coil  -  windings  -  lockout first</p>";
     btn.addEventListener("click", function (e) { e.preventDefault(); open(); });
     var after = grid.querySelector('[data-mode="voltmeter"]') || grid.querySelector('[data-mode="electrical"]');
     if (after && after.nextSibling) grid.insertBefore(btn, after.nextSibling);
