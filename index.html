@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lincoln Tech HVAC Allstars</title>
   <script src="sku.js?v=10"></script>
-  <link rel="stylesheet" href="style.css?v=140" />
+  <link rel="stylesheet" href="style.css?v=141" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=13" />
-  <link rel="stylesheet" href="truck-pouch.css?v=2" />
+  <link rel="stylesheet" href="phone-floor.css?v=15" />
+  <link rel="stylesheet" href="truck-pouch.css?v=3" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
@@ -85,27 +85,31 @@
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=2"></script>
   <script src="dragdrop.js?v=47"></script>
-  <script src="electrical.js?v=134"></script>
   <script>
+    /* Electrical loader: ≤480px → electrical-lite only (never electrical.js / fat). */
     (function () {
       var phone = false;
       try { phone = !!(window.matchMedia && window.matchMedia("(max-width:480px)").matches); } catch (_) {}
-      if (phone) {
-        window.LtElectricalPhone = window.LtElectricalPhone || {};
-        window.LtElectricalPhone.deferFat = true;
-        return;
+      window.LtElectricalPhone = window.LtElectricalPhone || {};
+      function add(src) {
+        document.write('<script src="' + src + '"><\/script>');
       }
-      var s = document.createElement("script");
-      s.src = "electrical-fat.js?v=4";
-      s.defer = true;
-      document.head.appendChild(s);
+      if (phone) {
+        window.LtElectricalPhone.deferFat = true;
+        window.LtElectricalPhone.lite = true;
+        add("electrical-lite.js?v=1");
+        add("electrical-phone.js?v=4");
+      } else {
+        add("electrical.js?v=135");
+        add("electrical-fat.js?v=4");
+        add("electrical-phone.js?v=4");
+      }
+      add("electrical-sheet.js?v=1");
     })();
   </script>
-  <script src="electrical-phone.js?v=3"></script>
-  <script src="electrical-sheet.js?v=1"></script>
   <script src="webgl-cycle.js?v=57"></script>
-  <script src="route-floor.js?v=6"></script>
-  <script src="minisplit.js?v=3"></script>
+  <script src="route-floor.js?v=7"></script>
+  <script src="minisplit.js?v=4"></script>
   <script src="minisplit-phone.js?v=1"></script>
   <script src="service.js?v=106"></script>
   <script src="hub-ai.js?v=82"></script>
@@ -116,7 +120,7 @@
   <script src="voltmeter-school.js?v=3"></script>
   <script src="ohm-school.js?v=1"></script>
   <script src="ohms-law-school.js?v=3"></script>
-  <script src="truck-pouch.js?v=2"></script>
+  <script src="truck-pouch.js?v=3"></script>
   <script src="exam-untimed.js?v=3"></script>
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
