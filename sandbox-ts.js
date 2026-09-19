@@ -1,26 +1,61 @@
-/* Evening SAVE — DX TS sheet: phone tap targets, hook v=8, vocational SC copy. */
+/* Evening SAVE — DX TS sheet mounts in sandbox. Phone taps. Vocational SC copy. */
 (function () {
   "use strict";
+  var STEPS = [
+    { n: "1", title: "Standing first", body: "Unit off. Equalized P/T only. No SH/SC until the compressor is running." },
+    { n: "2", title: "Seat the four LEFT", body: "Compressor, condenser, TXV, evaporator on the LEFT tray. Then start." },
+    { n: "3", title: "Read SH", body: "SH = suction line − SST. TXV: 8–14° is a check. Piston: charge by SH." },
+    { n: "4", title: "Read SC", body: "SC = SCT − liquid line. TXV: charge by SC 8–14°. Low SC = undercharge/leak — non-condensables raise head, they do not drop SC." },
+    { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High head + high SC = overcharge or restriction. High head + low-to-normal SC = condenser air." }
+  ];
+
   function loadHook() {
     var old = document.querySelector("script[data-sb-hook]");
-    if (old && /v=8/.test(old.src || "")) return;
+    if (old && /v=13/.test(old.src || "")) return;
     if (old) old.remove();
     var s = document.createElement("script");
-    s.src = "sandbox-hook.js?v=12";
+    s.src = "sandbox-hook.js?v=13";
     s.setAttribute("data-sb-hook", "1");
     document.head.appendChild(s);
   }
+
   function injectCss() {
     if (document.getElementById("sb-ts-fix-css")) return;
     var s = document.createElement("style");
     s.id = "sb-ts-fix-css";
     s.textContent =
-      "#sb-ts{max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
-      "#sb-ts li{min-height:44px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;cursor:pointer}" +
+      "#sb-ts{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
+      "#sb-ts li{min-height:44px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
+      "#sb-ts li.done{opacity:.72}" +
+      "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center}" +
+      "#sb-ts li.done b{background:#3d7a52}" +
+      "#sb-ts li strong{font-size:12px}" +
+      "#sb-ts li p{margin:2px 0 0;font-size:11px;color:#9aa3ad}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}";
     document.head.appendChild(s);
   }
+
+  function mountList() {
+    var root = document.getElementById("sandbox-root");
+    if (!root) return null;
+    var ol = document.getElementById("sb-ts");
+    if (ol) return ol;
+    ol = document.createElement("ol");
+    ol.id = "sb-ts";
+    ol.className = "sb-ts";
+    STEPS.forEach(function (step, i) {
+      var li = document.createElement("li");
+      if (i === 0) li.className = "wait";
+      li.innerHTML = "<b>" + step.n + "</b> <strong>" + step.title + "</strong><p>" + step.body + "</p>";
+      ol.appendChild(li);
+    });
+    var status = document.getElementById("sb-status");
+    if (status && status.parentNode) status.parentNode.insertBefore(ol, status.nextSibling);
+    else root.appendChild(ol);
+    return ol;
+  }
+
   function ensureStrip() {
     var bar = document.getElementById("sb-phone-vitals");
     if (!bar) return null;
@@ -34,21 +69,7 @@
     }
     return el;
   }
-  function fixCopy(root) {
-    if (!root) return;
-    root.querySelectorAll("p, li, span, strong").forEach(function (p) {
-      var t = p.textContent || "";
-      if (/Low SC — leak or non-condensables/i.test(t)) {
-        p.textContent = "Low SC — undercharge / leak. Non-condensables raise head, they do not drop SC.";
-      }
-      if (/High head \+ low SC is condenser air/i.test(t)) {
-        p.textContent = "High head + low-to-normal SC is condenser air, not a charge problem.";
-      }
-      if (/High SC — overcharge or dirty condenser/i.test(t)) {
-        p.textContent = "High SC — overcharge or restriction. Dirty condenser raises head and usually drops SC.";
-      }
-    });
-  }
+
   function armTaps(ol) {
     if (!ol || ol.__tsTap) return;
     ol.__tsTap = 1;
@@ -69,12 +90,13 @@
       }
     });
   }
+
   function paintStrip() {
-    var ol = document.getElementById("sb-ts");
+    var ol = document.getElementById("sb-ts") || mountList();
     var el = ensureStrip();
-    if (!ol || !el) return;
-    fixCopy(ol);
+    if (!ol) return;
     armTaps(ol);
+    if (!el) return;
     var wait = ol.querySelector("li.wait");
     if (!wait) {
       el.textContent = "TS · SH/SC in band";
@@ -84,18 +106,17 @@
     var title = (wait.querySelector("strong") || {}).textContent || "next step";
     el.textContent = "TS " + n + " · " + title;
   }
+
   function boot() {
     loadHook();
     injectCss();
-    ensureStrip();
-    paintStrip();
-    var ol = document.getElementById("sb-ts");
-    if (ol && !ol.__tsObs) {
-      var mo = new MutationObserver(paintStrip);
-      mo.observe(ol, { childList: true, subtree: true, characterData: true });
-      ol.__tsObs = mo;
+    if (document.getElementById("sandbox-root")) {
+      mountList();
+      ensureStrip();
+      paintStrip();
     }
   }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
   setInterval(boot, 800);
