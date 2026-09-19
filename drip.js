@@ -240,7 +240,7 @@
       if (/tp-sandbox|see it on a live box|sandbox/i.test(id) && /sandbox|live box/i.test(id)) nudge("manifold_colors");
       else if (/svc-next|next.?ticket/i.test(id)) nudge("sh_coil");
       else if (/svc-hook|hook.?gauge/i.test(id)) nudge("manifold_colors");
-      else if (/ol-short|24V·2Ω|shorted/i.test(id)) nudge("ohms_short");
+      else if (/ol-short|24V - 2Ω|shorted/i.test(id)) nudge("ohms_short");
       else if (/ol-open|open.?wind/i.test(id)) nudge("ohms_open");
       else if (/tp-ref|454B|tp-hub/i.test(id) || /454B/.test(btn.value || "")) nudge("glide_454b");
       else if (/recover|weigh|608|epa608/i.test(id)) nudge("recover_608");
