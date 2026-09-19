@@ -183,6 +183,62 @@
     }
   }
 
+
+  function forceChipPreview(host) {
+    if (!host || !isPhone()) return;
+    var MS = window.MiniSplitInstall;
+    if (!MS || !MS.STEPS) return;
+    host.querySelectorAll(".ms-step").forEach(function (b) {
+      if (b._msChipPreview) return;
+      b._msChipPreview = true;
+      b.addEventListener(
+        "click",
+        function (e) {
+          var i = +b.getAttribute("data-i");
+          if (!(i >= 0 && i < MS.STEPS.length)) return;
+          /* Capture: ensure locked chips still navigate (minisplit may ignore). */
+          try {
+            var card = host.querySelector(".ms-card");
+            var st = MS.STEPS[i];
+            if (!card || !st) return;
+            var h3 = card.querySelector("h3");
+            var tip = card.querySelector(".ms-tip");
+            var detail = card.querySelector(".ms-detail");
+            if (h3) h3.textContent = st.title;
+            if (tip) tip.textContent = st.tip;
+            if (detail) detail.textContent = st.detail;
+            host.querySelectorAll(".ms-step").forEach(function (x) {
+              x.classList.toggle("active", +x.getAttribute("data-i") === i);
+            });
+            var vis = host.querySelector(".ms-step-visual, .ms-diagram-inline .ms-step-visual");
+            if (vis) vis.innerHTML = "<strong>Now:</strong> " + st.title.replace(/^\d+\s·\s/, "");
+            var ban = card.querySelector(".ms-preview-banner");
+            var frontier = 0;
+            host.querySelectorAll(".ms-step").forEach(function (x, idx) {
+              if (!x.classList.contains("done") && frontier === 0 && !x.classList.contains("active")) {
+                /* keep */
+              }
+            });
+            var doneCount = host.querySelectorAll(".ms-step.done").length;
+            if (i !== doneCount) {
+              if (!ban) {
+                ban = document.createElement("p");
+                ban.className = "ms-preview-banner";
+                if (h3 && h3.nextSibling) card.insertBefore(ban, h3.nextSibling);
+                else card.insertBefore(ban, card.firstChild);
+              }
+              ban.textContent = "Preview — Do still required to credit";
+            } else if (ban) {
+              ban.remove();
+            }
+            nudgeDrip(st.id);
+          } catch (_) {}
+        },
+        true
+      );
+    });
+  }
+
   function paint(host) {
     if (!host) return;
     ensureCss();
@@ -190,6 +246,7 @@
     if (!isPhone()) return;
     softDefaults(host);
     tagPreview(host);
+    forceChipPreview(host);
     fatActions(host);
     nudgeDrip(stepIdFromHost(host));
   }
