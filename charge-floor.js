@@ -19,7 +19,7 @@
     p.style.cssText =
       "margin:8px 0 0;padding:8px 10px;font-size:12px;line-height:1.35;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(0,0,0,.35)";
     p.textContent =
-      "Field targets · R-410A @ ~75° indoor / 95° outdoor: suction 115–130 psig · head 380–450. TXV: charge by SC 8–12°, SH is a check 8–12°. Piston: charge by SH (chart), SC is a check. High head + low SH = airflow or overcharge — do not keep adding gas.";
+      "This bay · R-410A @ ~75° indoor / 95° outdoor, 100% charge: suction ~155–170 psig (SST mid-50s) · head ~400–460. TXV: charge by SC 8–14°, SH is a check 8–14°. Piston: charge by SH (chart), SC is a check. Unit off = standing / equalized only — no SH/SC. High head + low SH = airflow or overcharge — do not keep adding gas.";
     host.parentNode.insertBefore(p, host.nextSibling);
   }
   function tick() {
