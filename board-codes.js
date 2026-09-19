@@ -96,7 +96,7 @@
       document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
       var hub = document.getElementById("screen-hub");
       if (hub) hub.classList.add("active");
-      if (typeof window.ltGoHub === "function") window.ltGoGoHub();
+      if (typeof window.ltGoHub === "function") window.ltGoHub();
       else if (typeof window.ltPlay === "function") window.ltPlay("hub");
     } catch (_) {}
   }
