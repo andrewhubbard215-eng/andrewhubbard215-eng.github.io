@@ -919,7 +919,7 @@
           <img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" />
           <div>
             <strong>Professor Andrew Hubbard</strong>
-            <em>Lincoln Tech · Install · Troubleshoot · Labels</em>
+            <em>Lincoln Tech - Install - Troubleshoot - Labels</em>
           </div>
         </div>
         <button type="button" class="btn" id="hub-ai-close">Close</button>
@@ -1048,7 +1048,7 @@
     const log = panel.querySelector("#hub-ai-log");
     const row = document.createElement("div");
     row.className = "hub-ai-msg hub";
-    row.innerHTML = "<strong>Hubbard · " + (res.topic || "Advice") + "</strong><p></p>";
+    row.innerHTML = "<strong>Hubbard - " + (res.topic || "Advice") + "</strong><p></p>";
     row.querySelector("p").textContent = res.text;
     log.appendChild(row);
     log.scrollTop = log.scrollHeight;
@@ -1084,7 +1084,7 @@
     fab.id = "hub-ai-fab";
     fab.className = "hub-ai-fab";
     fab.type = "button";
-    fab.title = "Drag to move · tap to Ask HUB";
+    fab.title = "Drag to move - tap to Ask HUB";
     fab.innerHTML = '<img src="hub-portrait.jpg" alt="" /><span>Ask HUB</span>';
     let dragged = false;
     fab.addEventListener("click", (e) => {
@@ -1207,7 +1207,7 @@
     if (c.drills && c.drills.length) {
       pushHub({
         topic: "Suggested drills",
-        text: "Try asking: " + c.drills.map((d) => '"' + d + '"').join(" · "),
+        text: "Try asking: " + c.drills.map((d) => '"' + d + '"').join(" - "),
       });
     }
     if (c.focus && c.focus.length) {
