@@ -69,7 +69,7 @@
       return "<span class='el-str-node" + (dead ? " open" : "") + "'>" + n +
         (dead ? " OPEN" : "") + "</span>";
     }).join("<span class='el-str-arr'>→</span>");
-    return "<div class='el-live-string'><strong>LIVE 24V STRING</strong> · meter gold, then the dark box" +
+    return "<div class='el-live-string'><strong>LIVE 24V STRING</strong> - meter gold, then the dark box" +
       "<div class='el-str-row'>" + boxes + "</div>" +
       "<p class='muted'>Door code <b>" + item.code + "</b> is this open — prove the path, don't shotgun the board.</p></div>";
   }
@@ -144,14 +144,14 @@
       '<div class="el-locker-brands">' +
       Object.keys(LOCKER).map(function (k) {
         return '<button type="button" class="btn' + (k === brand ? " primary" : "") + '" data-brand="' + k + '">' +
-          LOCKER[k].name.split("\u2014")[0] + "</button>";
+          LOCKER[k].name.split("\\u2014")[0] + "</button>";
       }).join("") +
       "</div>" +
       stringHtml(item) +
       "<p>What does <strong>this door</strong> say <b>" + item.code + "</b> means?</p>" +
       '<div class="el-locker-opts">' +
       opts.map(function (s) {
-        return '<button type="button" class="btn el-code-opt" data-code="' + s.code + '">' + s.code + " \u2014 " + s.meaning + "</button>";
+        return '<button type="button" class="btn el-code-opt" data-code="' + s.code + '">' + s.code + " \\u2014 " + s.meaning + "</button>";
       }).join("") +
       "</div><p class='hub-chip'>" +
       (why || "Read the sticker. Match it to the open on the string.") +
@@ -166,7 +166,7 @@
         tried += 1;
         const ok = b.getAttribute("data-code") === item.code;
         if (ok) score += 1;
-        why = ok ? "RIGHT \u2014 " + item.prove : "WRONG \u2014 this door says " + item.code + " = " + item.meaning;
+        why = ok ? "RIGHT \\u2014 " + item.prove : "WRONG \\u2014 this door says " + item.code + " = " + item.meaning;
         qi += 1;
         draw(wrap);
       };
@@ -177,7 +177,7 @@
   const PROVE = [
     {
       id: "hose",
-      label: "1 \u00b7 Hose / trap",
+      label: "1 \\u00b7 Hose / trap",
       ask: "Inducer ran (or should). Pressure switch stays open. First move?",
       good: "Pull the hose, clear water/kink, check the condensate trap. Wet trap kills vacuum at the barb.",
       bad: "Swap the pressure switch first.",
@@ -185,7 +185,7 @@
     },
     {
       id: "inducer",
-      label: "2 \u00b7 Inducer",
+      label: "2 \\u00b7 Inducer",
       ask: "Hose and trap are clear. Still open. Prove the draft motor?",
       good: "Confirm inducer is spinning and pulling. Voltage at the plug, then amp if it hums. No pull = no close.",
       bad: "Condemn the inducer because the switch never closed.",
@@ -193,7 +193,7 @@
     },
     {
       id: "meter",
-      label: "3 \u00b7 24V across",
+      label: "3 \\u00b7 24V across",
       ask: "Draft path looks open. How do you prove the switch electrically?",
       good: "Meter 24V across the two switch wires with the inducer running. 24V sitting there = switch still open.",
       bad: "Ohm the switch on the bench first and call it.",
@@ -201,15 +201,15 @@
     },
     {
       id: "rating",
-      label: "4 \u00b7 Vacuum vs rating",
+      label: "4 \\u00b7 Vacuum vs rating",
       ask: "Inducer pulls. What number matters?",
-      good: "Compare inducer vacuum (manometer) to the switch rating printed on the part. Weak draft \u2260 bad switch.",
+      good: "Compare inducer vacuum (manometer) to the switch rating printed on the part. Weak draft \\u2260 bad switch.",
       bad: "If it clicks on the bench it's good — replace nothing else.",
       whyWrong: "Bench click is not running vacuum. Match pull to the rating before you buy a switch."
     },
     {
       id: "last",
-      label: "5 \u00b7 Switch last",
+      label: "5 \\u00b7 Switch last",
       ask: "Hose, trap, inducer, 24V, and draft all check out. Now?",
       good: "Now replace the switch. Switch LAST — after the prove path.",
       bad: "Order a board. The board is waiting on a closed switch.",
@@ -248,7 +248,7 @@
   function drawProve(wrap) {
     const step = PROVE[pi % PROVE.length];
     wrap.innerHTML =
-      drillToolbar("Pressure-switch prove", "Hose/trap \u2192 inducer \u2192 24V \u2192 vacuum vs rating \u2192 switch LAST", "el-prove-close") +
+      drillToolbar("Pressure-switch prove", "Hose/trap \\u2192 inducer \\u2192 24V \\u2192 vacuum vs rating \\u2192 switch LAST", "el-prove-close") +
       '<p class="eyebrow">' + step.label + " of " + PROVE.length + "</p>" +
       "<p>" + step.ask + "</p>" +
       '<div class="el-locker-opts">' +
@@ -269,8 +269,8 @@
         const ok = b.getAttribute("data-ok") === "1";
         if (ok) pScore += 1;
         pWhy = ok
-          ? "RIGHT \u2014 " + step.good
-          : "WRONG \u2014 " + step.whyWrong + " Right path: " + step.good;
+          ? "RIGHT \\u2014 " + step.good
+          : "WRONG \\u2014 " + step.whyWrong + " Right path: " + step.good;
         pi += 1;
         drawProve(wrap);
       };
@@ -281,7 +281,7 @@
   const SOO = [
     {
       id: "w",
-      label: "1 \u00b7 W call",
+      label: "1 \\u00b7 W call",
       ask: "Thermostat calls heat. First thing the board must see?",
       good: "24V on W at the board. No W, no sequence. Prove the call before you condemn anything.",
       bad: "Swap the ignitor first.",
@@ -289,7 +289,7 @@
     },
     {
       id: "inducer",
-      label: "2 \u00b7 Inducer run",
+      label: "2 \\u00b7 Inducer run",
       ask: "W is hot. What must run before ignition?",
       good: "Inducer / draft motor. It has to pull vacuum so the pressure switch can close.",
       bad: "Open the gas valve first.",
@@ -297,15 +297,15 @@
     },
     {
       id: "ps",
-      label: "3 \u00b7 Pressure switch close",
+      label: "3 \\u00b7 Pressure switch close",
       ask: "Inducer is spinning. What proves draft to the board?",
-      good: "Pressure switch closes. Hose/trap \u2192 inducer \u2192 24V across \u2192 vacuum vs rating \u2192 switch last.",
+      good: "Pressure switch closes. Hose/trap \\u2192 inducer \\u2192 24V across \\u2192 vacuum vs rating \\u2192 switch last.",
       bad: "Jump the switch so it lights for the customer.",
       whyWrong: "Jumping a PS is a vent/CO bypass. Prove draft — don't hide it."
     },
     {
       id: "ign",
-      label: "4 \u00b7 Ignitor",
+      label: "4 \\u00b7 Ignitor",
       ask: "Switch is closed. Next in sequence?",
       good: "Hot surface ignitor (or spark) comes up to light. Gas valve waits on that prove.",
       bad: "Gas valve opens before the ignitor is ready.",
@@ -313,7 +313,7 @@
     },
     {
       id: "gas",
-      label: "5 \u00b7 Gas valve",
+      label: "5 \\u00b7 Gas valve",
       ask: "Ignitor is ready. What opens next?",
       good: "Gas valve opens for the trial. Burners should light while flame sense watches.",
       bad: "Kick the indoor blower on with the valve.",
@@ -321,15 +321,15 @@
     },
     {
       id: "flame",
-      label: "6 \u00b7 Flame sense",
+      label: "6 \\u00b7 Flame sense",
       ask: "Burners light. What keeps the gas valve energized?",
-      good: "Flame rod rectifies to the board (\u00b5A). No sense, valve drops after the trial.",
+      good: "Flame rod rectifies to the board (\\u00b5A). No sense, valve drops after the trial.",
       bad: "If you see fire it's fine — leave it.",
-      whyWrong: "Your eyes are not flame sense. Board needs \u00b5A or it locks out."
+      whyWrong: "Your eyes are not flame sense. Board needs \\u00b5A or it locks out."
     },
     {
       id: "blower",
-      label: "7 \u00b7 Blower",
+      label: "7 \\u00b7 Blower",
       ask: "Flame is proven. When does the indoor blower start?",
       good: "After the board's heat-on delay. Limit stays in series the whole time.",
       bad: "Blower should already be on with the inducer.",
@@ -368,7 +368,7 @@
   function drawSoo(wrap) {
     const step = SOO[si % SOO.length];
     wrap.innerHTML =
-      drillToolbar("Furnace sequence of operation", "W \u2192 inducer \u2192 PS close \u2192 ignitor \u2192 gas valve \u2192 flame sense \u2192 blower", "el-soo-close") +
+      drillToolbar("Furnace sequence of operation", "W \\u2192 inducer \\u2192 PS close \\u2192 ignitor \\u2192 gas valve \\u2192 flame sense \\u2192 blower", "el-soo-close") +
       '<p class="eyebrow">' + step.label + " of " + SOO.length + "</p>" +
       "<p>" + step.ask + "</p>" +
       '<div class="el-locker-opts">' +
@@ -389,8 +389,8 @@
         const ok = b.getAttribute("data-ok") === "1";
         if (ok) sScore += 1;
         sWhy = ok
-          ? "RIGHT \u2014 " + step.good
-          : "WRONG \u2014 " + step.whyWrong + " Right path: " + step.good;
+          ? "RIGHT \\u2014 " + step.good
+          : "WRONG \\u2014 " + step.whyWrong + " Right path: " + step.good;
         si += 1;
         drawSoo(wrap);
       };
