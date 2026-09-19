@@ -138,9 +138,9 @@
       "<button type='button' class='btn el-lug' data-lug='W'>W</button>" +
       "</div>" +
       "<div id='el-wires' style='display:flex;flex-wrap:wrap;gap:8px;margin:12px 0'>" +
-      "<button type='button' class='btn el-lug' data-lug='hot'>Hot · black</button>" +
-      "<button type='button' class='btn el-lug' data-lug='neu'>Neutral · off-white</button>" +
-      "<button type='button' class='btn el-lug' data-lug='gnd'>Ground · green</button>" +
+      "<button type='button' class='btn el-lug' data-lug='hot'>Hot  -  black</button>" +
+      "<button type='button' class='btn el-lug' data-lug='neu'>Neutral  -  off-white</button>" +
+      "<button type='button' class='btn el-lug' data-lug='gnd'>Ground  -  green</button>" +
       "</div>" +
       "<button type='button' class='btn primary' id='el-lite-next'>Next</button> " +
       "<button type='button' class='btn' id='el-hub' data-lt-close-hub>Shop floor</button></div>";
