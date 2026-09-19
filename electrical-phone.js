@@ -19,19 +19,20 @@
 
   function stripImg(img) {
     if (!img || img.tagName !== "IMG") return;
+    /* Never touch lug / wire / mode control images by clearing the tree — only heavy portraits */
+    if (img.closest && img.closest(".el-lug, .el-wire-btn, .el-mode-btn, #el-wires, #el-lugs-wrap, button")) return;
     var src = img.getAttribute("src") || "";
     if (!src || src.indexOf("data:") === 0) return;
-    if (HEAVY_RE.test(src) || src.length > 8) {
-      if (!img.getAttribute("data-el-src")) img.setAttribute("data-el-src", src);
-      img.setAttribute("src", TINY);
-      img.removeAttribute("srcset");
-      img.setAttribute("loading", "lazy");
-      img.setAttribute("decoding", "async");
-      img.style.maxWidth = "36px";
-      img.style.maxHeight = "36px";
-      img.style.objectFit = "contain";
-      img.style.opacity = "0.35";
-    }
+    if (!HEAVY_RE.test(src)) return; /* prefer fewer images over blank root — do NOT strip every src */
+    if (!img.getAttribute("data-el-src")) img.setAttribute("data-el-src", src);
+    img.setAttribute("src", TINY);
+    img.removeAttribute("srcset");
+    img.setAttribute("loading", "lazy");
+    img.setAttribute("decoding", "async");
+    img.style.maxWidth = "36px";
+    img.style.maxHeight = "36px";
+    img.style.objectFit = "contain";
+    img.style.opacity = "0.35";
   }
 
   function hideHubChrome(root) {
@@ -113,31 +114,32 @@
   function lazyDiagrams(root) {
     if (!root || !isPhone()) return;
     try {
-      var heavy = root.querySelectorAll(".el-schematic svg, .el-ladder-art, canvas.el-heavy");
+      /* Only defer secondary art — NEVER hide lug buttons, wire bar, or primary ladder controls */
+      var heavy = root.querySelectorAll(".el-ladder-art img, .el-win-jesus, .el-guide > img");
       heavy.forEach(function (n) {
         if (n.getAttribute("data-el-lazy") === "1") return;
         n.setAttribute("data-el-lazy", "1");
-        n.style.display = "none";
+        if (n.tagName === "IMG") stripImg(n);
+        else n.style.display = "none";
       });
-      if (heavy.length && !root.querySelector("#el-lazy-diagram-btn")) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.id = "el-lazy-diagram-btn";
-        btn.className = "btn";
-        btn.textContent = "Show diagram (uses more memory)";
-        btn.style.cssText = "margin:6px 0";
-        btn.onclick = function () {
-          root.querySelectorAll("[data-el-lazy='1']").forEach(function (n) {
-            n.style.display = "";
-          });
-          btn.remove();
-        };
-        var main = root.querySelector(".el-main") || root;
-        main.insertBefore(btn, main.firstChild);
-      }
+      /* Keep .el-schematic svg / canvas visible so Land lugs is not a blank screen */
     } catch (_) {}
   }
 
+  function paintFallbackLugs(root) {
+    if (!root) return;
+    root.innerHTML =
+      "<div class='panel' style='margin:16px;padding:16px;max-width:480px'>" +
+      "<h2>Land lugs</h2>" +
+      "<p>Phone lighten emptied the box — lug controls restored. Tap a color, then the screw.</p>" +
+      "<div id='el-lugs-wrap' style='display:flex;flex-wrap:wrap;gap:8px;margin:12px 0'>" +
+      "<button type='button' class='btn primary el-lug' data-lug='hot'>Hot · black</button>" +
+      "<button type='button' class='btn el-lug' data-lug='neu'>Neutral · off-white</button>" +
+      "<button type='button' class='btn el-lug' data-lug='gnd'>Ground · green</button>" +
+      "<button type='button' class='btn el-mode-btn' data-view='lugs'>Land lugs</button>" +
+      "</div>" +
+      "<button type='button' class='btn' data-lt-close-hub>Shop floor</button></div>";
+  }
   function lightenOpen() {
     if (!isPhone()) return;
     deferFat();
@@ -145,17 +147,32 @@
     noPreloadCombat();
     var root = document.getElementById("electrical-root");
     var screen = document.getElementById("screen-electrical");
+    var before = root ? root.children.length : 0;
     stripTree(root);
     stripTree(screen);
     hideHubChrome(document.body);
     lazyDiagrams(root);
     if (root) {
       try {
+        /* If strip wiped the lab, abort and restore land-lugs UI — never blank the screen */
+        if (before > 0 && root.children.length === 0) {
+          paintFallbackLugs(root);
+          return;
+        }
+        if (root.children.length === 0 || !(root.innerHTML || "").trim()) {
+          paintFallbackLugs(root);
+          return;
+        }
+        /* Keep .el-lug / #el-wires / mode buttons visible */
+        root.querySelectorAll(".el-lug, .el-wire-btn, .el-mode-btn, #el-wire-this, #el-wires, #el-lugs-wrap").forEach(function (n) {
+          n.style.display = "";
+          n.style.visibility = "visible";
+          n.style.opacity = "1";
+        });
         var meter = root.querySelector(".el-meter");
         if (meter) {
           meter.querySelectorAll("img").forEach(function (i) {
             stripImg(i);
-            i.style.display = "none";
           });
         }
         root.querySelectorAll(".sb-palette img, .brand-bar img").forEach(stripImg);
@@ -181,10 +198,17 @@
         var root = document.getElementById("electrical-root");
         if (root && !root._elPhoneObs && typeof MutationObserver === "function") {
           root._elPhoneObs = new MutationObserver(function () {
-            if (isPhone()) {
-              stripTree(root);
-              lazyDiagrams(root);
+            if (!isPhone()) return;
+            if (!root.children.length) {
+              paintFallbackLugs(root);
+              return;
             }
+            stripTree(root);
+            lazyDiagrams(root);
+            root.querySelectorAll(".el-lug, .el-wire-btn, .el-mode-btn, #el-lugs-wrap").forEach(function (n) {
+              n.style.display = "";
+              n.style.visibility = "visible";
+            });
           });
           root._elPhoneObs.observe(root, { childList: true, subtree: true });
         }
