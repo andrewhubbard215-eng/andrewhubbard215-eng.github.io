@@ -11,7 +11,7 @@
       title: "Mini-split install",
       minutes: 12,
       skill: "install",
-      why: "Flare · torque · N₂ · vacuum · valves · commission",
+      why: "Flare  -  torque  -  N₂  -  vacuum  -  valves  -  commission",
       tip: "Flare, torque, N₂ pressure test, pull vacuum, then open service valves last. Don't commission a wet line.",
     },
     {
@@ -29,7 +29,7 @@
       title: "Follow the call",
       minutes: 10,
       skill: "electrical",
-      why: "Walk the 24V string · G/blower before HPC · no indoor air ices the coil",
+      why: "Walk the 24V string  -  G/blower before HPC  -  no indoor air ices the coil",
       tip: "Y with no indoor air ices the coil. Confirm G/blower before you chase gas or HPC.",
     },
     {
@@ -38,7 +38,7 @@
       title: "Saturday callback",
       minutes: 8,
       skill: "electrical",
-      why: "Timed no-cool · meter the open · don't jump the float",
+      why: "Timed no-cool  -  meter the open  -  don't jump the float",
       tip: "Saturday callback: meter the open. Don't jump the float or you own the next flood.",
     },
     {
@@ -56,7 +56,7 @@
       title: "Shop quiz bench",
       minutes: 8,
       skill: "theory",
-      why: "EPA 608 · OSHA · P/T · shop curriculum",
+      why: "EPA 608  -  OSHA  -  P/T  -  shop curriculum",
       tip: "P/T chart first. If you can't name sat temp from the gauge, you are not ready to charge.",
     },
     {
@@ -65,7 +65,7 @@
       title: "EPA 608 tutor",
       minutes: 10,
       skill: "theory",
-      why: "Core · Type I/II/III · recovery vacuum table",
+      why: "Core  -  Type I/II/III  -  recovery vacuum table",
       tip: "Stamp the section, then sit the exam. Recovery vacuum table is not optional.",
     },
     {
@@ -204,7 +204,7 @@
           <div>
             <p class="eyebrow">Daily training aid</p>
             <h3>${met ? "Goal hit — keep going" : "Today's practice"}</h3>
-            <p class="daily-sub">${data.streak} day streak${bonus.xp ? " · login bonus +" + bonus.xp + " XP" : ""}</p>
+            <p class="daily-sub">${data.streak} day streak${bonus.xp ? "  -  login bonus +" + bonus.xp + " XP" : ""}</p>
           </div>
           <div class="daily-streak-badge" title="Consecutive days practiced">
             <span>${data.streak}</span>
