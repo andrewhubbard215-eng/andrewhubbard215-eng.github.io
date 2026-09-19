@@ -4,7 +4,7 @@
   var STEPS = [
     {
       id: "meter",
-      label: "1 · Meter first",
+      label: "1 - Meter first",
       ask: "Before you open a panel, what do you prove with the voltmeter?",
       good: "Confirm the meter on a known live source, then prove the disconnect is dead (or live) before you touch.",
       bad: "Stick the probes in and hope the display means something.",
@@ -13,7 +13,7 @@
     },
     {
       id: "scale",
-      label: "2 · Right scale",
+      label: "2 - Right scale",
       ask: "You're checking a residential outdoor unit. Which VAC range?",
       good: "VAC, range above line voltage (≈240V / 208V). Don't sit on a 20V scale for line.",
       bad: "Ohms scale across L1–L2 while it's energized.",
@@ -22,7 +22,7 @@
     },
     {
       id: "line",
-      label: "3 · 240V string",
+      label: "3 - 240V string",
       ask: "L1 to L2 reads ~240V. L1 to ground ~120V. L2 to ground ~0V. What's wrong?",
       good: "Lost L2 (or open leg). One side is dead — check disconnect, fuse, lug, or utility.",
       bad: "Compressor is bad because amps will be weird later.",
@@ -31,7 +31,7 @@
     },
     {
       id: "control",
-      label: "4 · 24V string",
+      label: "4 - 24V string",
       ask: "R to C is 24V. Y to C is 0V on a cool call. Next prove?",
       good: "Thermostat/Y path is open or not calling. Prove R–Y at the thermostat, then at the outdoor board.",
       bad: "Replace the contactor because the outdoor unit is quiet.",
@@ -40,7 +40,7 @@
     },
     {
       id: "drop",
-      label: "5 · Voltage drop",
+      label: "5 - Voltage drop",
       ask: "Contactor coil is energized but coil voltage is 18V under load. What does that say?",
       good: "Excessive drop or weak transformer/load. Prove voltage at the coil with the circuit loaded — not only open-circuit.",
       bad: "Coil is fine because you saw 24V with the contactor unplugged.",
@@ -49,7 +49,7 @@
     },
     {
       id: "unguided",
-      label: "6 · Unguided call",
+      label: "6 - Unguided call",
       ask: "No-cool. Indoor fan runs. Outdoor quiet. R–C 24V, Y–C 24V at the outdoor board, L1–L2 240V, contactor coil 24V, T1–T2 0V. What's open?",
       good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing to the compressor circuit.",
       bad: "Bad thermostat — Y never left the house.",
@@ -97,9 +97,9 @@
       var step = STEPS[pi % STEPS.length];
       host.innerHTML =
         '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
-        '<span class="muted"> 24V control · 240V power · guided then unguided</span>' +
+        '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
         '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " · " + step.label + " of " + STEPS.length + "</p>" +
+        '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " - " + step.label + " of " + STEPS.length + "</p>" +
         "<p>" + step.ask + "</p>" +
         '<div class="el-locker-opts">' +
         (Math.random() < 0.5
@@ -156,7 +156,7 @@
     btn.type = "button";
     btn.className = "mode-card";
     btn.setAttribute("data-mode", "voltmeter");
-    btn.innerHTML = "<h3>Voltmeter school</h3><p>24V / 240V string · guided then unguided</p>";
+    btn.innerHTML = "<h3>Voltmeter school</h3><p>24V / 240V string - guided then unguided</p>";
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       open();
