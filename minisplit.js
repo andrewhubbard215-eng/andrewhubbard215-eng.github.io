@@ -264,7 +264,25 @@
       }
     };
     root.querySelector("#ms-hub").onclick = () => {
-      if (onDone) onDone(false);
+      try {
+        if (typeof onDone === "function") onDone(false);
+      } catch (_) {}
+      /* Floor often starts without onDone — still leave the bay. */
+      try {
+        if (typeof window.ltGoHub === "function") window.ltGoHub();
+        else if (typeof window.ltGo === "function") window.ltGo("hub");
+        else {
+          document.querySelectorAll(".screen").forEach(function (s) {
+            s.classList.remove("active");
+            s.classList.remove("screen-on");
+          });
+          var h = document.getElementById("screen-hub");
+          if (h) {
+            h.classList.add("active");
+            h.classList.add("screen-on");
+          }
+        }
+      } catch (_) {}
     };
   }
 

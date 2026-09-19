@@ -254,9 +254,17 @@
     if (!root) return;
     var lab = miniSplitLab();
     if (lab && lab.start) {
-      try { lab.start(root, {}); } catch (_) {}
+      try { lab.start(root, { onDone: function () { goHub(); } }); } catch (_) {}
     }
     setTimeout(function () {
+      var hubBtn = root.querySelector("#ms-hub");
+      if (hubBtn && !hubBtn.getAttribute("data-lt-hub")) {
+        hubBtn.setAttribute("data-lt-hub", "1");
+        hubBtn.onclick = function (e) {
+          if (e) e.preventDefault();
+          goHub();
+        };
+      }
       if (!root || (root.children && root.children.length)) return;
       root.innerHTML =
         "<div class='panel' style='margin:16px;padding:16px;max-width:480px'>" +
