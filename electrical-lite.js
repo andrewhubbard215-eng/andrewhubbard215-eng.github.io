@@ -51,11 +51,12 @@
     var step = 0;
     var guide = !!opts.guide;
     var defuse = !!opts.defuse;
+    var NC_ORDER = ["call", "v240", "disc", "rc", "y", "hpc", "lpc", "float", "coil", "t1", "comp"];
     var ncChecked = {
       call: false, v240: false, disc: false, rc: false, y: false,
       hpc: false, lpc: false, float: false, coil: false, t1: false, comp: false
     };
-    var NC_NEED = 11;
+    var NC_NEED = NC_ORDER.length;
     var title = defuse ? "Saturday callback - lite" : guide ? "Land lugs - lite" : "Follow the call - lite";
 
     function sheetReady() {
@@ -111,7 +112,7 @@
           ";color:" +
           l.fg +
           '">' +
-          (done ? "✓ " : "") +
+          (done ? "\u2713 " : "") +
           l.label +
           "</button>"
         );
@@ -120,7 +121,7 @@
       if (defuse) {
         sheet =
           '<div class="el-nocool" id="el-nocool">' +
-          "<h3>No-cool prove path - meter before parts</h3>" +
+          "<h3>No-cool prove path - meter before parts (in order)</h3>" +
           "<ol>" +
           "<li>Call — tstat asking for Y?</li>" +
           "<li>240 at the unit / disconnect</li>" +
@@ -178,19 +179,29 @@
       if (defuse) {
         root.querySelectorAll("[data-nc]").forEach(function (inp) {
           var k = inp.getAttribute("data-nc");
+          var idx = NC_ORDER.indexOf(k);
+          var prevOk = idx <= 0 || !!ncChecked[NC_ORDER[idx - 1]];
           inp.checked = !!ncChecked[k];
+          inp.disabled = !prevOk && !ncChecked[k];
+          if (inp.disabled) inp.parentElement && inp.parentElement.setAttribute("title", "Prove the step above first.");
           inp.onchange = function () {
+            if (inp.checked && !prevOk) {
+              inp.checked = false;
+              msg("Walk the string — don't jump the path.");
+              return;
+            }
             ncChecked[k] = !!inp.checked;
+            if (!inp.checked) {
+              for (var i = idx + 1; i < NC_ORDER.length; i++) ncChecked[NC_ORDER[i]] = false;
+            }
             var n = 0;
             for (var key in ncChecked) if (ncChecked[key]) n++;
+            pending = null;
+            paint();
             if (n >= NC_NEED) {
-              pending = null;
-              paint();
               msg("Prove path clear — now land R/C/Y. You earned the screws; compressor was last.");
             } else {
-              pending = null;
-              paint();
-              msg("No-cool prove " + n + "/" + NC_NEED + " — stay on the path before parts.");
+              msg("No-cool prove " + n + "/" + NC_NEED + " — next box is the next meter tap. Don't skip.");
             }
           };
         });
