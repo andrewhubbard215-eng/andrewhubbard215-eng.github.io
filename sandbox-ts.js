@@ -1,4 +1,4 @@
-/* Evening SAVE — DX TS sheet mounts in sandbox. Phone taps. Vocational SC copy. */
+/* Shop save — TS sheet must stay readable (was crushed to 0px). */
 (function () {
   "use strict";
   var STEPS = [
@@ -20,40 +20,50 @@
   }
 
   function injectCss() {
-    if (document.getElementById("sb-ts-fix-css")) return;
-    var s = document.createElement("style");
-    s.id = "sb-ts-fix-css";
+    var s = document.getElementById("sb-ts-fix-css");
+    if (!s) {
+      s = document.createElement("style");
+      s.id = "sb-ts-fix-css";
+      document.head.appendChild(s);
+    }
     s.textContent =
-      "#sb-ts{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;max-height:22vh;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
-      "#sb-ts li{min-height:36px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
+      "#sb-canvas{min-height:28vh!important;max-height:36vh!important}" +
+      "#sb-ts{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;min-height:148px;max-height:32vh;flex:0 0 auto;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
+      "#sb-ts li{min-height:34px;padding:6px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
-      "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center}" +
+      "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}" +
       "#sb-ts li.done b{background:#3d7a52}" +
-      "#sb-ts li strong{font-size:12px}" +
-      "#sb-ts li p{display:none;margin:2px 0 0;font-size:11px;color:#9aa3ad}" +
+      "#sb-ts li strong{font-size:13px}" +
+      "#sb-ts li p{display:none;margin:0;flex:1 1 100%;font-size:12px;color:#9aa3ad}" +
       "#sb-ts li.wait p{display:block}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}";
-    document.head.appendChild(s);
   }
 
   function mountList() {
     var root = document.getElementById("sandbox-root");
     if (!root) return null;
     var ol = document.getElementById("sb-ts");
-    if (ol) return ol;
-    ol = document.createElement("ol");
-    ol.id = "sb-ts";
-    ol.className = "sb-ts";
-    STEPS.forEach(function (step, i) {
-      var li = document.createElement("li");
-      if (i === 0) li.className = "wait";
-      li.innerHTML = "<b>" + step.n + "</b> <strong>" + step.title + "</strong><p>" + step.body + "</p>";
-      ol.appendChild(li);
-    });
+    if (!ol) {
+      ol = document.createElement("ol");
+      ol.id = "sb-ts";
+      ol.className = "sb-ts";
+      STEPS.forEach(function (step, i) {
+        var li = document.createElement("li");
+        if (i === 0) li.className = "wait";
+        li.innerHTML = "<b>" + step.n + "</b> <strong>" + step.title + "</strong><p>" + step.body + "</p>";
+        ol.appendChild(li);
+      });
+    }
+    var tip = document.getElementById("sb-phone-tip");
     var status = document.getElementById("sb-status");
-    if (status && status.parentNode) status.parentNode.insertBefore(ol, status.nextSibling);
-    else root.appendChild(ol);
+    if (tip && tip.parentNode && ol.previousElementSibling !== tip) {
+      tip.parentNode.insertBefore(ol, tip.nextSibling);
+    } else if (!ol.parentNode && status && status.parentNode) {
+      status.parentNode.insertBefore(ol, status.nextSibling);
+    } else if (!ol.parentNode && root) {
+      root.appendChild(ol);
+    }
     return ol;
   }
 
