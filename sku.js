@@ -1,5 +1,7 @@
-/* Dual SKU: campus (Lincoln Tech, default) vs store (unbranded HVAC Allstars).
-   ?sku=store | ?sku=campus  — also persisted. Store hostnames force store. */
+/* Dual SKU — keep both forever.
+   campus = Lincoln Tech licensed seats (default on this GitHub Pages host).
+   store  = unbranded HVAC Allstars (Play TWA launches with ?sku=store).
+   ?sku=campus | ?sku=store  — persisted. Do not drop the Lincoln edition. */
 (function (global) {
   "use strict";
   var params = new URLSearchParams(location.search);

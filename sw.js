@@ -3,7 +3,7 @@ const VER = "lt-allstars-v309";
 const CORE = [
   "./",
   "./index.html",
-  "./sku.js?v=10",
+  "./sku.js?v=11",
   "./style.css?v=144",
   "./phone-floor.css?v=27",
   "./sb-tabs.css?v=3",
