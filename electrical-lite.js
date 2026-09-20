@@ -32,7 +32,7 @@
     "#electrical-root.el-lite .el-nocool li{margin:4px 0}" +
     "#electrical-root.el-lite .el-nocool .el-check{display:flex;flex-direction:column;gap:6px;margin-top:8px}" +
     "#electrical-root.el-lite .el-nocool label{display:flex;align-items:flex-start;gap:8px;min-height:40px;padding:6px 8px;border-radius:8px;background:#0b1220;border:1px solid #2a3548;font-size:13px;touch-action:manipulation}" +
-    "#electrical-root.el-lite input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.55;filter:grayscale(.35);cursor:not-allowed}";
+    "#electrical-root.el-lite .el-nocool input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.55;filter:grayscale(.35);cursor:not-allowed}";
 
   function injectCss() {
     if (document.getElementById("el-lite-css")) return;
@@ -51,14 +51,18 @@
     var step = 0;
     var guide = !!opts.guide;
     var defuse = !!opts.defuse;
-    var ncChecked = { stat: false, rc: false, ry: false, iso: false };
+    var ncChecked = {
+      call: false, v240: false, disc: false, rc: false, y: false,
+      hpc: false, lpc: false, float: false, coil: false, t1: false, comp: false
+    };
+    var NC_NEED = 11;
     var title = defuse ? "Saturday callback - lite" : guide ? "Land lugs - lite" : "Follow the call - lite";
 
     function sheetReady() {
       if (!defuse) return true;
       var n = 0;
       for (var key in ncChecked) if (ncChecked[key]) n++;
-      return n >= 4;
+      return n >= NC_NEED;
     }
 
     function msg(t) {
@@ -116,18 +120,32 @@
       if (defuse) {
         sheet =
           '<div class="el-nocool" id="el-nocool">' +
-          "<h3>No-cool sheet - meter first</h3>" +
+          "<h3>No-cool prove path - meter before parts</h3>" +
           "<ol>" +
-          "<li>Tstat calling Y for cool?</li>" +
-          "<li>Meter <strong>R to C</strong> — got ~24V?</li>" +
-          "<li>Meter <strong>R to Y</strong> with a call — open or hot?</li>" +
-          "<li>Isolate the open before you throw parts.</li>" +
+          "<li>Call — tstat asking for Y?</li>" +
+          "<li>240 at the unit / disconnect</li>" +
+          "<li>Disconnect pulled — prove safe</li>" +
+          "<li>R–C ~24V</li>" +
+          "<li>Y under call</li>" +
+          "<li>HPC closed / proved</li>" +
+          "<li>LPC closed / proved</li>" +
+          "<li>Float closed</li>" +
+          "<li>Contactor coil</li>" +
+          "<li>T1 out of contactor</li>" +
+          "<li>Compressor last — not first</li>" +
           "</ol>" +
           '<div class="el-check">' +
-          '<label><input type="checkbox" data-nc="stat" /> Tstat calls Y</label>' +
-          '<label><input type="checkbox" data-nc="rc" /> R–C shows ~24V</label>' +
-          '<label><input type="checkbox" data-nc="ry" /> R–Y checked under call</label>' +
-          '<label><input type="checkbox" data-nc="iso" /> Open isolated (not guessing)</label>' +
+          '<label><input type="checkbox" data-nc="call" /> Call / Y present</label>' +
+          '<label><input type="checkbox" data-nc="v240" /> 240 at disconnect</label>' +
+          '<label><input type="checkbox" data-nc="disc" /> Disconnect safe</label>' +
+          '<label><input type="checkbox" data-nc="rc" /> R–C ~24V</label>' +
+          '<label><input type="checkbox" data-nc="y" /> Y hot under call</label>' +
+          '<label><input type="checkbox" data-nc="hpc" /> HPC proved</label>' +
+          '<label><input type="checkbox" data-nc="lpc" /> LPC proved</label>' +
+          '<label><input type="checkbox" data-nc="float" /> Float closed</label>' +
+          '<label><input type="checkbox" data-nc="coil" /> Coil ohms / 24V</label>' +
+          '<label><input type="checkbox" data-nc="t1" /> T1 out checked</label>' +
+          '<label><input type="checkbox" data-nc="comp" /> Compressor last</label>' +
           "</div></div>";
       }
       root.innerHTML =
@@ -140,7 +158,7 @@
         (defuse
           ? (sheetReady()
               ? "Sheet clear - land the path - R C Y G W → screws"
-              : "Meter sheet first (4/4) — chips stay locked until then")
+              : "Prove path first (11/11) — chips stay locked until then")
           : "Phone path - R C Y G W chips → land targets") +
         "</p>" +
         '<div id="el-lugs-wrap" class="el-lite-chips">' +
@@ -165,14 +183,14 @@
             ncChecked[k] = !!inp.checked;
             var n = 0;
             for (var key in ncChecked) if (ncChecked[key]) n++;
-            if (n >= 4) {
+            if (n >= NC_NEED) {
               pending = null;
               paint();
-              msg("Sheet clear — now land R/C/Y on the screws. Meter beat parts.");
+              msg("Prove path clear — now land R/C/Y. You earned the screws; compressor was last.");
             } else {
               pending = null;
               paint();
-              msg("No-cool sheet " + n + "/4 — meter before you chase Y.");
+              msg("No-cool prove " + n + "/" + NC_NEED + " — stay on the path before parts.");
             }
           };
         });
@@ -190,7 +208,7 @@
       root.querySelectorAll("[data-chip]").forEach(function (b) {
         b.onclick = function () {
           if (defuse && !sheetReady()) {
-            msg("Meter sheet first — tick all four checks. Chips stay locked until 4/4.");
+            msg("Prove path first — tick all 11 checks. Chips stay locked until 11/11.");
             var sheet = root.querySelector("#el-nocool");
             if (sheet) {
               sheet.style.outline = "3px solid #f59e0b";
@@ -207,7 +225,7 @@
           var need = b.getAttribute("data-need");
           var id = b.getAttribute("data-land");
           if (defuse && !sheetReady()) {
-            msg("Meter sheet first — 4/4 checks before you land a lug.");
+            msg("Prove path first — 11/11 before you land a lug.");
             var sheet2 = root.querySelector("#el-nocool");
             if (sheet2) {
               sheet2.style.outline = "3px solid #f59e0b";
@@ -235,10 +253,11 @@
           step++;
           var tips = defuse
             ? [
-                "No-cool sheet: tstat Y call before you open the panel.",
-                "Meter R to C first — dead 24V means transformer/fuse/path, not a bad contactor yet.",
-                "R to Y under call: if R–C is live and R–Y is dead, the open is in the call chain.",
-                "Isolate the open. Do not throw a contactor on a guess."
+                "Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor last.",
+                "240 at the disconnect before you chase 24V. No line voltage = stop there.",
+                "R–C dead with a call means transformer/fuse/path — not a bad compressor yet.",
+                "HPC/LPC/float are series. An open there kills Y before the coil ever sees 24V.",
+                "Coil and T1 before you condemn the compressor. Parts last, prove first."
               ]
             : [
                 "Follow the call: meter R to C for 24V before you chase Y.",
