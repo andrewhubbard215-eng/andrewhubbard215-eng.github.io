@@ -100,7 +100,7 @@
             ? '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>" +
               '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button>"
             : '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button>" +
-              '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>') +
+              '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>") +
           "</div>" +
           "<p class='hub-chip' style='margin-top:12px'>" +
           (pWhy || "Don't condemn the switch until the draft path is proven.") +
