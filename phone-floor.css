@@ -469,3 +469,40 @@ body.lab-open .version-strip {
     max-width: 88px !important;
   }
 }
+
+/* PHONE LAW: lab root is the only scroller */
+@media (max-width: 900px) {
+  #minisplit-root,
+  #electrical-root,
+  #sandbox-root,
+  #service-root,
+  #quiz-root,
+  #epa608-root,
+  #boardcodes-root,
+  #truck-pouch-root {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+  }
+  #screen-minisplit.screen.active,
+  #screen-electrical.screen.active,
+  #screen-sandbox.screen.active {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+  /* Do / Next must stay reachable — sticky action row on mini-split */
+  #minisplit-root .ms-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 6;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, transparent, rgba(8,12,18,.96) 28%);
+  }
+}
