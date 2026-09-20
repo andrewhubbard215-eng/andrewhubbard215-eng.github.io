@@ -100,7 +100,7 @@
   }
   .sb-layout {
     display: grid !important;
-    grid-template-columns: 90px minmax(0, 1fr) !important;
+    grid-template-columns: 76px minmax(0, 1fr) !important;
     grid-template-rows: minmax(0, 1fr) auto !important;
     height: 100%;
     max-height: 100dvh;
@@ -109,8 +109,8 @@
   .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
     grid-column: 1;
     grid-row: 1 / span 2;
-    width: 90px;
-    max-width: 90px;
+    width: 76px;
+    max-width: 76px;
     max-height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -457,16 +457,20 @@ body.lab-open .version-strip {
   .parts-tray .btn,
   [data-parts-tray] .btn {
     font-size: 11px !important;
-    line-height: 1.15 !important;
-    padding: 10px 4px !important;
-    white-space: normal !important;
-    word-break: break-word;
+    line-height: 1.1 !important;
+    padding: 10px 3px !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
     min-height: 44px;
   }
   .sb-palette,
   .parts-tray {
-    width: 88px !important;
-    max-width: 88px !important;
+    width: 76px !important;
+    max-width: 76px !important;
+  }
+  .sb-layout {
+    grid-template-columns: 76px minmax(0, 1fr) !important;
   }
 }
 
@@ -497,7 +501,6 @@ body.lab-open .version-strip {
     height: 100dvh !important;
     max-height: 100dvh !important;
   }
-  /* Do / Next must stay reachable — sticky action row on mini-split */
   #minisplit-root .ms-actions {
     position: sticky;
     bottom: 0;
