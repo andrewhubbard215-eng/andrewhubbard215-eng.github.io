@@ -17,7 +17,7 @@
     { id: "thermostat", title: "Thermostat landing", short: "R C Y G W. Door sticker is law.", video: "allstars/video/talk.mp4", audio: "allstars/audio/thermostat.mp3", poster: "hub-portrait.jpg" },
     { id: "oil", title: "Oil burner", short: "Primary. Cad cell. 140 PSI. Not a gas valve.", video: "allstars/video/oil.mp4", audio: "allstars/audio/oil.mp3", poster: "allstars/eq/oil.jpg" },
     { id: "gas", title: "Gas-fired heat", short: "80% or 90%. Manometer. CO is the fail.", video: "allstars/video/gas.mp4", audio: "allstars/audio/gas.mp3", poster: "allstars/eq/gas.jpg" },
-    { id: "hydronic", title: "Hydronic heat", short: "Water, not air. Purge before you blame the pump.", video: "allstars/video/hydronic.mp4", audio: "allstars/audio/hydronic.mp3", poster: "allstars/eq/hydronic.jpg" },
+    { id: "hydronic", title: "Hydronic heat", short: "Host first, then internals. Purge before you blame the pump.", video: "allstars/video/hydronic.mp4", audio: "allstars/audio/hydronic.mp3", poster: "allstars/eq/hydronic.jpg", noloop: true },
   ];
 
   function byId(id) {
@@ -89,7 +89,7 @@
         "</p>" +
         '<video id="film-host" playsinline loop muted poster="' +
         film.poster +
-        '" style="width:100%;max-height:360px;background:#111;border-radius:8px">' +
+        '" " + (film.noloop ? "" : "loop ") + 'style="width:100%;max-height:360px;background:#111;border-radius:8px">' +
         '<source src="' +
         film.video +
         '" type="video/mp4" />' +
@@ -131,6 +131,21 @@
             voice.textContent = "HUB voice";
           }
         };
+
+      if (film.id === "hydronic") {
+        var box = document.createElement("div");
+        box.className = "panel";
+        box.style.margin = "12px";
+        box.style.maxWidth = "820px";
+        box.innerHTML =
+          "<p class='eyebrow'>Host first · then internals</p>" +
+          "<p>Host, then boiler cutaway, circulator, zone valve, expansion tank. Water, not air.</p>" +
+          "<p><b>Parts:</b> boiler makes heat. Circulator moves it. Zone valve or zone pump opens a loop. Expansion tank takes the swell. Relief typically 30 PSI. Cold fill typically 12 PSI.</p>" +
+          "<p><b>Prove:</b> cold fill. Tank air side matches. Purge last zone hot. Delta T. Then you may talk bad pump.</p>" +
+          "<p><b>Do not:</b> fire dry. Jump the LWCO. Swap a circulator before you purge.</p>";
+        root.appendChild(box);
+      }
+
       if (audioEl)
         audioEl.onended = function () {
           if (voice) voice.textContent = "HUB voice";
