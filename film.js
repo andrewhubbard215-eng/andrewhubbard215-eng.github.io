@@ -15,6 +15,9 @@
     { id: "contactor", title: "Contactor and capacitor", short: "24 volts pulls. Line voltage crosses.", video: "allstars/video/talk.mp4", audio: "allstars/audio/contactor.mp3", poster: "hub-portrait.jpg" },
     { id: "blower", title: "Blower and airflow", short: "Airflow is capacity. Measure static.", video: "allstars/video/class.mp4", audio: "allstars/audio/blower.mp3", poster: "hub-campus.jpg" },
     { id: "thermostat", title: "Thermostat landing", short: "R C Y G W. Door sticker is law.", video: "allstars/video/talk.mp4", audio: "allstars/audio/thermostat.mp3", poster: "hub-portrait.jpg" },
+    { id: "oil", title: "Oil burner", short: "Primary. Cad cell. 140 PSI. Not a gas valve.", video: "allstars/video/oil.mp4", audio: "allstars/audio/oil.mp3", poster: "allstars/eq/oil.jpg" },
+    { id: "gas", title: "Gas-fired heat", short: "80% or 90%. Manometer. CO is the fail.", video: "allstars/video/gas.mp4", audio: "allstars/audio/gas.mp3", poster: "allstars/eq/gas.jpg" },
+    { id: "hydronic", title: "Hydronic heat", short: "Water, not air. Purge before you blame the pump.", video: "allstars/video/hydronic.mp4", audio: "allstars/audio/hydronic.mp3", poster: "allstars/eq/hydronic.jpg" },
   ];
 
   function byId(id) {
