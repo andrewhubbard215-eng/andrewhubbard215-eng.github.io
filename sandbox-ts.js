@@ -24,14 +24,15 @@
     var s = document.createElement("style");
     s.id = "sb-ts-fix-css";
     s.textContent =
-      "#sb-ts{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
-      "#sb-ts li{min-height:44px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
+      "#sb-ts{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;max-height:22vh;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
+      "#sb-ts li{min-height:36px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
       "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center}" +
       "#sb-ts li.done b{background:#3d7a52}" +
       "#sb-ts li strong{font-size:12px}" +
-      "#sb-ts li p{margin:2px 0 0;font-size:11px;color:#9aa3ad}" +
+      "#sb-ts li p{display:none;margin:2px 0 0;font-size:11px;color:#9aa3ad}" +
+      "#sb-ts li.wait p{display:block}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}";
     document.head.appendChild(s);
   }
@@ -64,7 +65,7 @@
       el = document.createElement("span");
       el.id = "pv-ts";
       el.className = "pv-ts";
-      el.textContent = "TS · close the loop";
+      el.textContent = "TS \u00b7 close the loop";
       bar.appendChild(el);
     }
     return el;
@@ -99,12 +100,12 @@
     if (!el) return;
     var wait = ol.querySelector("li.wait");
     if (!wait) {
-      el.textContent = "TS · SH/SC in band";
+      el.textContent = "TS \u00b7 SH/SC in band";
       return;
     }
     var n = (wait.querySelector("b") || {}).textContent || "?";
     var title = (wait.querySelector("strong") || {}).textContent || "next step";
-    el.textContent = "TS " + n + " · " + title;
+    el.textContent = "TS " + n + " \u00b7 " + title;
   }
 
   function boot() {
