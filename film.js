@@ -5,7 +5,7 @@
   var FILM = [
     { id: "cycle", title: "Refrigeration cycle", short: "Four boxes. Follow the state, not the picture.", video: "allstars/video/cycle.mp4", audio: "allstars/audio/cycle.mp3", poster: "hub-portrait.jpg" },
     { id: "compressor", title: "Reciprocating compressor", short: "Suction in, discharge out. Never liquid.", video: "allstars/video/compressor.mp4", audio: "allstars/audio/compressor.mp3", poster: "hub-portrait.jpg" },
-    { id: "scroll", title: "Scroll compressor", short: "Orbiting scroll. Pockets walk to the center.", video: "allstars/video/talk.mp4", audio: "allstars/audio/scroll.mp3", poster: "hub-portrait.jpg" },
+    { id: "scroll", title: "Scroll compressor", short: "Host first. Orbiting scroll. Pockets walk to the center. Vapor only.", video: "allstars/video/scroll.mp4", audio: "allstars/audio/scroll.mp3", poster: "hub-portrait.jpg", noloop: true },
     { id: "condenser", title: "Condenser", short: "Reject heat. Leave as a subcooled liquid.", video: "allstars/video/outdoor.mp4", audio: "allstars/audio/condenser.mp3", poster: "hub-hero.jpg" },
     { id: "evaporator", title: "Evaporator", short: "Absorb heat. Leave with superheat.", video: "allstars/video/class.mp4", audio: "allstars/audio/evaporator.mp3", poster: "hub-campus.jpg" },
     { id: "txv", title: "Thermostatic expansion valve", short: "Three forces. It hunts superheat.", video: "allstars/video/talk.mp4", audio: "allstars/audio/txv.mp3", poster: "hub-portrait.jpg" },
