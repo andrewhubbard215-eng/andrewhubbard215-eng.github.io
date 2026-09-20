@@ -87,7 +87,7 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
-  var sbScripts = ["sandbox.js?v=146", "sandbox-hook.js?v=14"];
+  var sbScripts = ["sandbox.js?v=147", "sandbox-hook.js?v=14"];
   var sbLoading = false;
   function loadSandboxScripts(done) {
     if (window.HVACSandbox && window.HVACSandbox.start) {
