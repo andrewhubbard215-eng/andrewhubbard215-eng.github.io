@@ -32,7 +32,7 @@
     "#electrical-root.el-lite .el-nocool li{margin:4px 0}" +
     "#electrical-root.el-lite .el-nocool .el-check{display:flex;flex-direction:column;gap:6px;margin-top:8px}" +
     "#electrical-root.el-lite .el-nocool label{display:flex;align-items:flex-start;gap:8px;min-height:40px;padding:6px 8px;border-radius:8px;background:#0b1220;border:1px solid #2a3548;font-size:13px;touch-action:manipulation}" +
-    "#electrical-root.el-lite .el-nocool input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.55;filter:grayscale(.35);cursor:not-allowed}";
+    "#electrical-root.el-lite input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}#electrical-root.el-lite .el-locked{opacity:.55;filter:grayscale(.35);cursor:not-allowed}";
 
   function injectCss() {
     if (document.getElementById("el-lite-css")) return;
