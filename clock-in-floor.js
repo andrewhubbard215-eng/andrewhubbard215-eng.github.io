@@ -68,7 +68,7 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
-  var sbScripts = ["sandbox.js?v=134", "sandbox-hook.js?v=13"];
+  var sbScripts = ["sandbox.js?v=139", "sandbox-hook.js?v=13"];
   var sbLoading = false;
   function loadSandboxScripts(done) {
     if (window.HVACSandbox && window.HVACSandbox.start) {
@@ -201,7 +201,7 @@
     }
     window._ltElLiteLoading = true;
     var s = document.createElement("script");
-    s.src = "electrical-lite.js?v=1";
+    s.src = "electrical-lite.js?v=5";
     s.onload = function () {
       window._ltElLiteLoading = false;
       done();
