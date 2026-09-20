@@ -11,10 +11,10 @@
 
   function loadHook() {
     var old = document.querySelector("script[data-sb-hook]");
-    if (old && /v=13/.test(old.src || "")) return;
+    if (old && /v=14/.test(old.src || "")) return;
     if (old) old.remove();
     var s = document.createElement("script");
-    s.src = "sandbox-hook.js?v=13";
+    s.src = "sandbox-hook.js?v=14";
     s.setAttribute("data-sb-hook", "1");
     document.head.appendChild(s);
   }
@@ -27,9 +27,8 @@
       document.head.appendChild(s);
     }
     s.textContent =
-      "#sb-canvas{min-height:28vh!important;max-height:36vh!important}" +
-      "#sb-ts{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;min-height:148px;max-height:32vh;flex:0 0 auto;overflow-y:auto;-webkit-overflow-scrolling:touch}" +
-      "#sb-ts li{min-height:34px;padding:6px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
+      "#sb-ts{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;min-height:0;max-height:none;flex:0 0 auto}" +
+      "#sb-ts li{min-height:32px;padding:5px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
       "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}" +
@@ -37,7 +36,8 @@
       "#sb-ts li strong{font-size:13px}" +
       "#sb-ts li p{display:none;margin:0;flex:1 1 100%;font-size:12px;color:#9aa3ad}" +
       "#sb-ts li.wait p{display:block}" +
-      ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}";
+      ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}" +
+      "@media (max-width:480px){#sb-ts{max-height:28vh;overflow-y:auto;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
   }
 
   function mountList() {
