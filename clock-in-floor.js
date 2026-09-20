@@ -13,7 +13,7 @@
     }
     var labs = {
       sandbox: 1, electrical: 1, quiz: 1, minisplit: 1, service: 1,
-      epa608: 1, "truck-pouch": 1, ohm: 1, ohms: 1, "ohms-law": 1,
+      epa608: 1, film: 1, "truck-pouch": 1, ohm: 1, ohms: 1, "ohms-law": 1,
       boardcodes: 1, commandments: 1, defusal: 1, elguide: 1
     };
     try {
@@ -378,6 +378,14 @@
       bindShopFloor("btn-svc-hub");
       bindSvcHook();
       setTimeout(bindSvcHook, 200);
+      return;
+    }
+    if (m === "film") {
+      show("film");
+      var fr = document.getElementById("film-root");
+      if (fr && window.LtFilm && window.LtFilm.start) {
+        try { window.LtFilm.start(fr); } catch (_) {}
+      }
       return;
     }
     if (m === "epa608" && window.Epa608 && window.Epa608.start) {
