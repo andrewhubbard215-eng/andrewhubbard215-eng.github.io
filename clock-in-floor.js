@@ -11,6 +11,25 @@
       el.classList.add("active");
       el.classList.add("screen-on");
     }
+    var labs = {
+      sandbox: 1, electrical: 1, quiz: 1, minisplit: 1, service: 1,
+      epa608: 1, "truck-pouch": 1, ohm: 1, ohms: 1, "ohms-law": 1,
+      boardcodes: 1, commandments: 1, defusal: 1, elguide: 1
+    };
+    try {
+      if (labs[id]) {
+        document.body.classList.add("lab-open");
+        if (window.HubAI && typeof window.HubAI.close === "function") window.HubAI.close();
+        document.querySelectorAll(".hub-ai-dock, #hub-ai, .hub-ai-fab, #hub-ai-fab, .ask-hub, #shop-chat, .sc-fab, .hub-chat, .hub-ai-panel").forEach(function (n) {
+          try {
+            n.style.pointerEvents = "none";
+            if (n.classList) n.classList.add("hidden");
+          } catch (_) {}
+        });
+      } else {
+        document.body.classList.remove("lab-open");
+      }
+    } catch (_) {}
   }
   function floorName() {
     try {
@@ -68,13 +87,13 @@
     return src.indexOf('mode === "character"') >= 0 || src.indexOf("mode === 'character'") >= 0;
   }
   var sbCtl = null;
-  var sbScripts = ["sandbox.js?v=140", "sandbox-hook.js?v=13"];
+  var sbScripts = ["sandbox.js?v=146", "sandbox-hook.js?v=14"];
   var sbLoading = false;
   function loadSandboxScripts(done) {
     if (window.HVACSandbox && window.HVACSandbox.start) {
       if (!window._ltSbHookLoaded) {
         var h = document.createElement("script");
-        h.src = "sandbox-hook.js?v=13";
+        h.src = "sandbox-hook.js?v=14";
         h.onload = function () { window._ltSbHookLoaded = true; done(); };
         h.onerror = function () { done(); };
         document.head.appendChild(h);
@@ -115,7 +134,58 @@
     }
     next();
   }
+  /* Map service ticket vitals → sandbox fault id (same bay the truck uses). */
+  function mapServiceFault(text) {
+    var s = String(text || "").toLowerCase();
+    if (/iced|ice|airflow|filter black|sh\s*~?\s*0/.test(s)) return "dirty-idu";
+    if (/dirty|juniper|bush|high head|high sc|matted|coil matted/.test(s)) return "dirty-odu";
+    if (/starved|restriction|one zone|liquid cold|sh 35|high sh/.test(s) && /sc 1[0-9]|healthy sc|sc 14/.test(s)) return "drier";
+    if (/open to atmosphere|no recovery|oil smell|vent/.test(s)) return "air";
+    if (/overcharge|dumped a jug|sc high/.test(s) && /sh low/.test(s)) return "overcharge";
+    if (/long lineset|bubble|sc 2|undercharge|high sh|suction low|head low/.test(s)) return "leak";
+    if (/fan dead|outdoor fan|od fan/.test(s)) return "od-fan";
+    if (/txv|hunting|bulb/.test(s)) return "txv-bulb";
+    return "leak";
+  }
+  function bindSvcHook() {
+    var btn = document.getElementById("svc-hook");
+    if (!btn || btn.getAttribute("data-lt-hook") === "1") return;
+    btn.setAttribute("data-lt-hook", "1");
+    btn.addEventListener("click", function (e) {
+      if (e) e.preventDefault();
+      var fault = "";
+      try {
+        if (window.ServiceCalls && typeof window.ServiceCalls.currentFault === "function") {
+          fault = window.ServiceCalls.currentFault() || "";
+        }
+      } catch (_) {}
+      if (!fault) {
+        var tag = document.querySelector(".svc-fault-tag, #svc-vitals");
+        fault = tag ? tag.textContent || "" : "";
+      }
+      var id = mapServiceFault(fault);
+      window._ltTicketId = id;
+      window._ltSandboxFault = id;
+      startSandbox();
+      setTimeout(function () {
+        try {
+          if (window.HVACSandbox && typeof window.HVACSandbox.loadRouteTicket === "function") {
+            window.HVACSandbox.loadRouteTicket(id);
+          }
+        } catch (_) {}
+        var st = document.getElementById("sb-status");
+        if (st) {
+          st.textContent = "Ticket on the gauges  -  fault " + id + "  -  seat LEFT, start compressor, prove SH/SC.";
+        }
+        var chip = document.querySelector('#sb-faults [data-fault="' + id + '"]');
+        if (chip) {
+          try { chip.click(); } catch (_) {}
+        }
+      }, 200);
+    });
+  }
   window.ltStartSandbox = startSandbox;
+
   function startSandbox() {
     show("sandbox");
     var root = document.getElementById("sandbox-root");
@@ -173,11 +243,11 @@
     root.innerHTML =
       "<div class='panel' style='margin:16px;padding:16px;max-width:480px'>" +
       "<h2>Land lugs</h2>" +
-      "<p>24V path - R C Y G W. Ladder lighten cleared the root — tap a lug color, then the screw.</p>" +
+      "<p>Land lugs - L1 LINE / L2 LINE / HERM / C R S. Chips LEFT. Tap chip then stamp.</p>" +
       "<div style='display:flex;flex-wrap:wrap;gap:8px;margin:12px 0'>" +
-      "<button type='button' class='btn primary el-lug' data-lug='hot'>Hot - black</button>" +
-      "<button type='button' class='btn el-lug' data-lug='neu'>Neutral - off-white</button>" +
-      "<button type='button' class='btn el-lug' data-lug='gnd'>Ground - green</button>" +
+      "<button type='button' class='btn primary el-lug' data-lug='l1'>L1 LINE</button>" +
+      "<button type='button' class='btn el-lug' data-lug='l2'>L2 LINE</button>" +
+      "<button type='button' class='btn el-lug' data-lug='gnd'>GND</button>" +
       "</div>" +
       "<button type='button' class='btn' data-lt-close-hub>Shop floor</button></div>";
   }
@@ -201,7 +271,7 @@
     }
     window._ltElLiteLoading = true;
     var s = document.createElement("script");
-    s.src = "electrical-lite.js?v=5";
+    s.src = "electrical-lite.js?v=7";
     s.onload = function () {
       window._ltElLiteLoading = false;
       done();
@@ -283,7 +353,19 @@
     if (m === "defusal") return startElectrical({ defuse: true });
     if (m === "quiz" && window.QuizArena && window.QuizArena.start) {
       show("quiz");
-      try { window.QuizArena.start(document.getElementById("quiz-root")); } catch (_) {}
+      try {
+        window.QuizArena.start(document.getElementById("quiz-root"), { onHub: goHub, untimed: true });
+      } catch (_) {}
+      setTimeout(function () {
+        var root = document.getElementById("quiz-root");
+        if (!root) return;
+        root.querySelectorAll("#qa-hub, [data-lt-close-hub]").forEach(function (b) {
+          b.onclick = function (e) {
+            if (e) e.preventDefault();
+            goHub();
+          };
+        });
+      }, 120);
       return;
     }
     if (m === "minisplit") return startMiniSplit();
@@ -294,6 +376,8 @@
         try { window.ServiceCalls.start(host, { onHub: goHub }); } catch (_) {}
       }
       bindShopFloor("btn-svc-hub");
+      bindSvcHook();
+      setTimeout(bindSvcHook, 200);
       return;
     }
     if (m === "epa608" && window.Epa608 && window.Epa608.start) {
