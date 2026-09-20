@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v308";
+const VER = "lt-allstars-v309";
 const CORE = [
   "./",
   "./index.html",
@@ -100,6 +100,7 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.indexOf("/.well-known/") === 0) return;
   const nav = req.mode === "navigate" || url.pathname === "/" || /index\.html$/i.test(url.pathname);
   if (nav) {
     e.respondWith(
