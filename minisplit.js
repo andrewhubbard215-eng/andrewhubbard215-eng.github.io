@@ -249,6 +249,12 @@
     }
 
     root.querySelector("#ms-do").onclick = () => attempt(s);
+    var pic = root.querySelector(".ms-diagram-inline, .ms-step-visual, .ms-card .ms-visual, [data-ms-tap]");
+    if (pic && !pic.dataset.msTapBound) {
+      pic.dataset.msTapBound = "1";
+      pic.style.cursor = "pointer";
+      pic.addEventListener("click", function () { attempt(s); });
+    }
     root.querySelector("#ms-ask").onclick = () => {
       if (window.HubAI) {
         window.HubAI.open();
@@ -298,8 +304,19 @@
   function attempt(s) {
     const fb = root.querySelector("#ms-feedback");
     if (s.metric) {
-      const v = values[s.metric.key];
       const m = s.metric;
+      /* Phone law: tap Do / tap the picture DOES the work. Slider still teaches fail bands. */
+      if (m.key === "flareQuality") values.flareQuality = Math.max(values.flareQuality || 0, 88);
+      else if (m.key === "torque") values.torque = 12;
+      else if (m.key === "n2") values.n2 = 500;
+      else if (m.key === "microns") values.microns = 350;
+      else if (m.key === "decay") values.decay = 400;
+      else if (m.key === "deltaT") values.deltaT = Math.max(values.deltaT || 0, 18);
+      var rangeEl = root.querySelector("#ms-range");
+      var outEl = root.querySelector("#ms-out");
+      if (rangeEl) rangeEl.value = String(values[m.key]);
+      if (outEl) outEl.textContent = values[m.key] + " " + (m.unit || "");
+      const v = values[m.key];
       let ok = true;
       let why = "";
       if (m.key === "flareQuality" && v < m.min) {
