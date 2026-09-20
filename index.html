@@ -78,7 +78,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.80 - shop floor</p>
+    <p class="version-strip">HVAC Allstars - v3.5.81 - shop floor</p>
   </div>
   <script src="sku.js?v=10"></script>
   <script src="commandments.js?v=119"></script>
@@ -90,7 +90,7 @@
       try { phone = !!(window.matchMedia && window.matchMedia("(max-width:480px)").matches); } catch (_) {}
       window.LtElectricalPhone = window.LtElectricalPhone || {};
       function add(src) {
-        document.write('<script src="' + src + '"><\/script>');
+        document.write('<script src="' + src + '"><\\/script>');
       }
       if (phone) {
         window.LtElectricalPhone.deferFat = true;
@@ -137,7 +137,7 @@
       var el = document.getElementById("screen-" + id);
       if (el) el.classList.add("active");
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=295").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=296").catch(function () {});
   </script>
 </body>
 </html>
