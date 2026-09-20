@@ -27,3 +27,9 @@
   color: #8b98a5;
   margin-top: 2px;
 }
+
+/* One SH/SC lesson on the glass — keep bay card + 5-step, drop stacked repeats */
+#lt-charge-targets ~ #sb-formula,
+#sb-formula,
+#sb-shsc-formula { display: none; }
+#lt-charge-targets { display: block; }
