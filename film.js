@@ -87,9 +87,11 @@
         "<p>" +
         film.short +
         "</p>" +
-        '<video id="film-host" playsinline loop muted poster="' +
+        '<video id="film-host" playsinline muted poster="' +
         film.poster +
-        '" " + (film.noloop ? "" : "loop ") + 'style="width:100%;max-height:360px;background:#111;border-radius:8px">' +
+        '" style="width:100%;max-height:360px;background:#111;border-radius:8px"' +
+        (film.noloop ? "" : " loop") +
+        ">" +
         '<source src="' +
         film.video +
         '" type="video/mp4" />' +
