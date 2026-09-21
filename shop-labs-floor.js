@@ -158,7 +158,7 @@
     var lincoln = isStore() ? [] : global.LINCOLN_CATALOG_LABS || [];
     var wall = global.WALL_LABS || [];
     var showing = null;
-    var instructor = false;
+    var instructor = true;
 
     function paintList() {
       showing = null;
@@ -243,8 +243,8 @@
       showing = lab;
       root.innerHTML =
         '<header class="hub-head no-print"><button type="button" class="btn" id="labs-back">All packets</button>' +
-        '<button type="button" class="btn" id="labs-print">Print student</button>' +
-        '<button type="button" class="btn primary" id="labs-inst">Print instructor card</button></header>' +
+        '<button type="button" class="btn primary" id="labs-inst">Print with instructor</button>' +
+        '<button type="button" class="btn" id="labs-print">Student only</button></header>' +
         '<div id="labs-print-root" style="margin:12px;max-width:720px">' +
         packetHtml(lab, instructor) +
         "</div>";
