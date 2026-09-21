@@ -98,7 +98,7 @@
       if (phone) {
         window.LtElectricalPhone.deferFat = true;
         window.LtElectricalPhone.lite = true;
-        add("electrical-lite.js?v=7");
+        add("electrical-lite.js?v=8");
         add("electrical-phone.js?v=5");
       } else {
         add("electrical.js?v=135");
@@ -128,7 +128,7 @@
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=205"></script>
   <script src="clock-in-form.js?v=21"></script>
-  <script src="clock-in-floor.js?v=35"></script>
+  <script src="clock-in-floor.js?v=36"></script>
   <script src="sandbox-cutout.js?v=1"></script>
   <script src="sandbox-sliders.js?v=2"></script>
   <script src="sandbox-td.js?v=1"></script>
@@ -136,11 +136,22 @@
   <script src="shop-floor-copy.js?v=8"></script>
   <script>
     window.ltGo = function (id) {
-      document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
+      if ((id === "hub" || id === "shop" || id === "floor") && typeof window.ltGoHub === "function") {
+        window.ltGoHub();
+        return;
+      }
+      document.querySelectorAll(".screen").forEach(function (s) {
+        s.classList.remove("active");
+        s.classList.remove("screen-on");
+      });
+      try { document.body.classList.remove("lab-open"); } catch (_) {}
       var el = document.getElementById("screen-" + id);
-      if (el) el.classList.add("active");
+      if (el) {
+        el.classList.add("active");
+        el.classList.add("screen-on");
+      }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=309").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=310").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
