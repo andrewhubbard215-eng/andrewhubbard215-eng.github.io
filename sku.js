@@ -20,6 +20,13 @@
       localStorage.setItem("lt-sku", sku);
     } catch (_) {}
   }
+  // Play TWA always ships unbranded unless they explicitly ask for campus.
+  if (params.get("play") === "1" && q !== "campus") {
+    sku = "store";
+    try {
+      localStorage.setItem("lt-sku", "store");
+    } catch (_) {}
+  }
 
   var isStore = sku === "store";
   var brand = {
@@ -69,6 +76,58 @@
     });
     var kick = document.getElementById("cut-kicker");
     if (kick) kick.textContent = brand.roof;
+    scrubLincoln(document.body);
+    watchLincoln();
+  }
+
+  function skipScrub() {
+    return /campus\.html|store\.html|support\.html|privacy\.html|lincoln\//i.test(location.pathname);
+  }
+
+  function scrubLincoln(root) {
+    if (!isStore || !root || skipScrub()) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentElement;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = p.tagName;
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "TEXTAREA") {
+          return NodeFilter.FILTER_REJECT;
+        }
+        if (!n.nodeValue || n.nodeValue.indexOf("Lincoln") === -1) return NodeFilter.FILTER_SKIP;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    var n;
+    while ((n = w.nextNode())) {
+      n.nodeValue = n.nodeValue
+        .replace(/official Lincoln Technical Institute/gi, "official school")
+        .replace(/Lincoln Technical Institute/gi, "a trade school")
+        .replace(/Lincoln Tech HVAC Allstars/gi, "HVAC Allstars")
+        .replace(/Lincoln Tech/gi, "HVAC Allstars");
+    }
+  }
+
+  var lincolnWatch = null;
+  function watchLincoln() {
+    if (!isStore || lincolnWatch || skipScrub() || !document.body) return;
+    var t = 0;
+    lincolnWatch = new MutationObserver(function (muts) {
+      var hit = false;
+      for (var i = 0; i < muts.length; i++) {
+        var tx = (muts[i].target && muts[i].target.textContent) || "";
+        if (tx.indexOf("Lincoln") !== -1) {
+          hit = true;
+          break;
+        }
+      }
+      if (!hit) return;
+      clearTimeout(t);
+      t = setTimeout(function () {
+        scrubLincoln(document.body);
+      }, 40);
+    });
+    lincolnWatch.observe(document.body, { childList: true, subtree: true, characterData: true });
   }
 
   function t(campus, store) {
