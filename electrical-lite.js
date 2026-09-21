@@ -282,14 +282,24 @@
       var hub = root.querySelector("#el-hub");
       if (hub) {
         hub.onclick = function (e) {
-          if (e) e.preventDefault();
-          if (typeof global.ltGo === "function") global.ltGo("hub");
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          if (typeof global.ltGoHub === "function") global.ltGoHub();
+          else if (typeof global.ltGo === "function") global.ltGo("hub");
+          else if (typeof global.ltPlay === "function") global.ltPlay("hub");
           else {
             document.querySelectorAll(".screen").forEach(function (s) {
               s.classList.remove("active");
+              s.classList.remove("screen-on");
             });
+            try { document.body.classList.remove("lab-open"); } catch (_) {}
             var h = document.getElementById("screen-hub");
-            if (h) h.classList.add("active");
+            if (h) {
+              h.classList.add("active");
+              h.classList.add("screen-on");
+            }
           }
         };
       }
