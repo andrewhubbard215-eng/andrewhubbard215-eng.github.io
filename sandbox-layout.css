@@ -1,0 +1,14 @@
+/* Shop save — keep OD/ID/charge sliders off the evaporator node. */
+#sb-canvas {
+  min-height: 52vh;
+  max-height: 62vh;
+}
+#sandbox-root .sb-toolbar,
+#sandbox-root #sb-run {
+  position: relative;
+  z-index: 3;
+  background: rgba(11, 18, 32, 0.96);
+}
+#sandbox-root .sb-main {
+  overflow-y: auto;
+}
