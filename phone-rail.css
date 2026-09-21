@@ -1,0 +1,25 @@
+/* Phone rail — full part names LEFT, diamond stays on glass */
+@media (max-width: 480px) {
+  .sb-layout {
+    grid-template-columns: 108px minmax(0, 1fr) !important;
+  }
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
+    width: 108px !important;
+    max-width: 108px !important;
+  }
+  .sb-palette .btn,
+  .parts-tray .btn,
+  [data-parts-tray] .btn {
+    font-size: 12px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.15 !important;
+  }
+  body.lab-open #hub-ai,
+  body.lab-open .hub-ai-dock,
+  body.lab-open .hub-chat {
+    max-width: 42vw;
+    max-height: 22vh;
+  }
+}
