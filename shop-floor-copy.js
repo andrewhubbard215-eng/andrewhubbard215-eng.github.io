@@ -32,7 +32,20 @@
       sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T \u00b7 TXV ~8\u201312\u00b0";
     }
   }
+  function vocationalTiles() {
+    document.querySelectorAll("h2, h3, button, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/OHM'?S LAW ARCADE/i.test(t)) el.textContent = t.replace(/OHM'?S LAW ARCADE/i, "OHM'S LAW TICKETS");
+    });
+    document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/Easy -- Spicy tickets|Easy \u2192 Spicy/i.test(t) || /smoke meter/i.test(t)) {
+        el.textContent = "Twist V/I/R \u00b7 meter the ticket \u00b7 Easy to Spicy";
+      }
+    });
+  }
   function scrub() {
+    vocationalTiles();
     var title = document.getElementById("arena-title");
     if (title && /arena/i.test(title.textContent || "")) {
       title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
