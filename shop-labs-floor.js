@@ -208,6 +208,7 @@
       root.innerHTML =
         '<header class="hub-head"><h2>Lab packets</h2><button type="button" class="btn" id="labs-hub">Shop floor</button></header>' +
         '<div class="panel" style="margin:12px;max-width:920px">' +
+        '<p><a class="btn primary" href="labs-print.html?wall=1">Print hang list + instructor map</a></p>' +
         (isStore()
           ? "<p>90-minute shop bays plus the plywood electrical wall. HVAC parts. Easy hops.</p>"
           : "<p>Lincoln catalog stays as assigned. Plywood wall is the electrical class. Shop filler is the 90-minute instructor run.</p>") +
@@ -243,26 +244,16 @@
       showing = lab;
       root.innerHTML =
         '<header class="hub-head no-print"><button type="button" class="btn" id="labs-back">All packets</button>' +
-        '<button type="button" class="btn primary" id="labs-inst">Print with instructor</button>' +
-        '<button type="button" class="btn" id="labs-print">Student only</button></header>' +
+        '<a class="btn primary" href="labs-print.html?id=' +
+        encodeURIComponent(lab.id) +
+        '">Print with instructor</a>' +
+        '<a class="btn" href="labs-print.html?id=' +
+        encodeURIComponent(lab.id) +
+        '&student=1">Student only</a></header>' +
         '<div id="labs-print-root" style="margin:12px;max-width:720px">' +
-        packetHtml(lab, instructor) +
+        packetHtml(lab, true) +
         "</div>";
       document.getElementById("labs-back").onclick = paintList;
-      document.getElementById("labs-print").onclick = function () {
-        instructor = false;
-        paintOne(id);
-        setTimeout(function () {
-          window.print();
-        }, 50);
-      };
-      document.getElementById("labs-inst").onclick = function () {
-        instructor = true;
-        paintOne(id);
-        setTimeout(function () {
-          window.print();
-        }, 50);
-      };
     }
 
     paintList();
