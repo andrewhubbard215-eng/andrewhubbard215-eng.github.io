@@ -113,7 +113,11 @@
     return loadTicket(id);
   }
   function goSandboxThen(id) {
-    if (typeof window.ltPlay === "function") {
+    window._ltTicketId = id;
+    window._ltSandboxFault = id;
+    if (typeof window.ltStartSandbox === "function") {
+      try { window.ltStartSandbox(); } catch (e) {}
+    } else if (typeof window.ltPlay === "function") {
       try { window.ltPlay("sandbox"); } catch (e) {}
     } else if (typeof window.ltGo === "function") {
       window.ltGo("sandbox");
@@ -121,9 +125,14 @@
     var n = 0;
     var t = setInterval(function () {
       n++;
-      if ((window.HVACSandbox && (document.getElementById("sb-fault") || document.getElementById("sb-status") || document.getElementById("sb-ps"))) || n > 20) {
+      var ready = window.HVACSandbox && (document.getElementById("sb-run") || document.getElementById("sb-status") || document.getElementById("sb-ps") || document.getElementById("g-plow"));
+      if (ready || n > 80) {
         clearInterval(t);
         loadTicket(id);
+        try {
+          var chip = document.querySelector('#sb-faults [data-fault="' + id + '"]');
+          if (chip) chip.click();
+        } catch (e) {}
       }
     }, 80);
   }
@@ -159,7 +168,8 @@
     if (hookBtn.dataset.wired) return;
     hookBtn.dataset.wired = "1";
     nxt.dataset.wired = "1";
-    hookBtn.onclick = function () {
+    hookBtn.onclick = function (ev) {
+      if (ev) { ev.preventDefault(); ev.stopPropagation(); }
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
       window._ltStreak = (window._ltStreak || 0) + 1;
       var pay = document.getElementById("svc-pay");
