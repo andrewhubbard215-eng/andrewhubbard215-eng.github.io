@@ -96,7 +96,9 @@
     var tag =
       lab.source === "lincoln"
         ? "Lincoln catalog packet"
-        : "Shop filler · 90-minute bay";
+        : lab.series === "plywood"
+          ? "Plywood electrical wall · HVAC parts"
+          : "Shop filler · 90-minute bay";
     return (
       '<article class="lab-sheet">' +
       '<p class="eyebrow">' +
@@ -154,11 +156,27 @@
     }
     var filler = global.SHOP_LABS || [];
     var lincoln = isStore() ? [] : global.LINCOLN_CATALOG_LABS || [];
+    var wall = global.WALL_LABS || [];
     var showing = null;
     var instructor = false;
 
     function paintList() {
       showing = null;
+      var wallCards = wall
+        .map(function (l) {
+          return (
+            '<button type="button" class="mode-card" data-lab="' +
+            esc(l.id) +
+            '"><p class="eyebrow">Plywood wall · ' +
+            l.durationMin +
+            " min</p><h3>" +
+            esc(remap(l.title)) +
+            "</h3><p>" +
+            esc(courseCode(l.courseCode)) +
+            " · HVAC parts</p></button>"
+          );
+        })
+        .join("");
       var lincolnCards = lincoln
         .map(function (l) {
           return (
@@ -191,8 +209,11 @@
         '<header class="hub-head"><h2>Lab packets</h2><button type="button" class="btn" id="labs-hub">Shop floor</button></header>' +
         '<div class="panel" style="margin:12px;max-width:920px">' +
         (isStore()
-          ? "<p>90-minute shop bays. Door script, holds, faults, pass line.</p>"
-          : "<p>Lincoln catalog packets stay as assigned. Shop filler is the 90-minute instructor run — not a 3-hour sheet.</p>") +
+          ? "<p>90-minute shop bays plus the plywood electrical wall. HVAC parts. Easy hops.</p>"
+          : "<p>Lincoln catalog stays as assigned. Plywood wall is the electrical class. Shop filler is the 90-minute instructor run.</p>") +
+        (wallCards
+          ? '<p class="eyebrow">Plywood electrical wall</p><div class="hub-grid">' + wallCards + "</div>"
+          : "") +
         (lincolnCards
           ? '<p class="eyebrow">Lincoln catalog</p><div class="hub-grid">' + lincolnCards + "</div>"
           : "") +
@@ -211,7 +232,7 @@
     }
 
     function find(id) {
-      var all = lincoln.concat(filler);
+      var all = lincoln.concat(filler, wall);
       for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
       return null;
     }
