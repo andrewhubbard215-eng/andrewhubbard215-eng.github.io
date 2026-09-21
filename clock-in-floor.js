@@ -282,6 +282,39 @@
     };
     document.head.appendChild(s);
   }
+
+  function wireElectricalHub(root, lab) {
+    function bind() {
+      var hub = null;
+      try {
+        if (lab && typeof lab.getHubBtn === "function") hub = lab.getHubBtn();
+      } catch (_) {}
+      if (!hub && root) hub = root.querySelector("#el-hub, [data-lt-close-hub]");
+      if (!hub) return false;
+      if (hub.getAttribute("data-lt-hub-bound") === "1") return true;
+      hub.setAttribute("data-lt-hub-bound", "1");
+      hub.setAttribute("data-lt-close-hub", "1");
+      hub.onclick = function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        try {
+          if (typeof window.ltGoHub === "function") window.ltGoHub();
+          else goHub();
+        } catch (_) {
+          goHub();
+        }
+      };
+      return true;
+    }
+    if (bind()) return;
+    setTimeout(bind, 50);
+    setTimeout(bind, 200);
+    setTimeout(bind, 600);
+    setTimeout(bind, 1200);
+  }
+
   function startElectrical(opts) {
     show("electrical");
     var root = document.getElementById("electrical-root");
@@ -295,6 +328,7 @@
         if (!root || !root.children || root.children.length === 0 || !(root.innerHTML || "").trim()) {
           emptyRootFallback(root);
         }
+        wireElectricalHub(root, electricalLab());
       }, 80);
       if (!root.innerHTML) {
         root.innerHTML =
@@ -515,7 +549,7 @@
   document.addEventListener(
     "click",
     function (e) {
-      var t = e.target && e.target.closest ? e.target.closest("#el-locker-close, #el-prove-close, #el-soo-close, [data-lt-close-hub]") : null;
+      var t = e.target && e.target.closest ? e.target.closest("#el-locker-close, #el-prove-close, #el-soo-close, #el-hub, [data-lt-close-hub]") : null;
       if (!t) return;
       try {
         var wrap = document.getElementById("el-locker-overlay");
