@@ -33,10 +33,19 @@
     }
   }
   function vocationalTiles() {
-    // Only rewrite headings — never the whole button (that flattens h3+p into one blob).
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
       var t = el.textContent || "";
-      if (/OHM'?S LAW ARCADE/i.test(t)) el.textContent = "OHM TICKETS";
+      if (/OHM'?S LAW ARCADE/i.test(t) && !el.querySelector("h3, p")) {
+        el.textContent = t.replace(/OHM'?S LAW ARCADE/i, "OHM'S LAW TICKETS");
+      }
+    });
+    document.querySelectorAll(".mode-card[data-mode='ohms-law']").forEach(function (card) {
+      if (!card.querySelector("h3")) {
+        card.innerHTML = "<h3>Ohm's Law tickets</h3><p>Twist V/I/R \u00b7 meter the ticket \u00b7 Easy to Spicy</p>";
+      } else {
+        var h = card.querySelector("h3");
+        if (h && /ARCADE/i.test(h.textContent || "")) h.textContent = "Ohm's Law tickets";
+      }
     });
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
       var t = el.textContent || "";
