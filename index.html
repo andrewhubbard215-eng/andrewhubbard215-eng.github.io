@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lincoln Tech HVAC Allstars</title>
-  <script src="sku.js?v=13"></script>
+  <script src="sku.js?v=14"></script>
   <link rel="stylesheet" href="style.css?v=144" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
   <link rel="stylesheet" href="phone-floor.css?v=27" />
@@ -67,7 +67,6 @@
         <p id="svc-job"></p>
         <p id="svc-quote"></p>
         <p id="svc-vitals"></p>
-        <p id="svc-prompt"></p>
         <div class="svc-route-btns" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
           <button class="btn primary" id="svc-hook" type="button">Hook gauges</button>
           <button class="btn" id="svc-next-ticket" type="button">Next random ticket</button>
@@ -84,7 +83,7 @@
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
     <p class="version-strip">HVAC Allstars - v3.5.95 - shop floor</p>
   </div>
-  <script src="sku.js?v=13"></script>
+  <script src="sku.js?v=14"></script>
   <script src="commandments.js?v=119"></script>
   <script src="epa608.js?v=2"></script>
   <script src="dragdrop.js?v=48"></script>
@@ -155,7 +154,7 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=311").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=312").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
