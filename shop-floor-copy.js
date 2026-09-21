@@ -33,9 +33,10 @@
     }
   }
   function vocationalTiles() {
-    document.querySelectorAll("h2, h3, button, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
+    // Only rewrite headings — never the whole button (that flattens h3+p into one blob).
+    document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
       var t = el.textContent || "";
-      if (/OHM'?S LAW ARCADE/i.test(t)) el.textContent = t.replace(/OHM'?S LAW ARCADE/i, "OHM'S LAW TICKETS");
+      if (/OHM'?S LAW ARCADE/i.test(t)) el.textContent = "OHM TICKETS";
     });
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
       var t = el.textContent || "";

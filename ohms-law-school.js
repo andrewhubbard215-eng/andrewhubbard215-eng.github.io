@@ -14,6 +14,6 @@
   Promise.all([
     load(b+"ohms-law-arcade-bench.js?v=2"),
     load(b+"ohms-law-arcade-tickets.js?v=2"),
-    load(b+"ohms-law-arcade-play.js?v=3")
+    load(b+"ohms-law-arcade-play.js?v=4")
   ]).catch(function(e){ try{ console.warn("[ohms-arcade]", e); }catch(_){ } });
 })();
