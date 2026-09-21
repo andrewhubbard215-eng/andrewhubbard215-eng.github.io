@@ -248,6 +248,14 @@
     return d.firstChild;
   }
 
+  function shownCode(code) {
+    return window.LtBrand && window.LtBrand.course ? window.LtBrand.course(code) : code;
+  }
+
+  function isStore() {
+    return !!(window.LtBrand && window.LtBrand.isStore);
+  }
+
   function render() {
     const doneCount = UNITS.filter((u) => progress[u.id]).length;
     const pct = Math.round((doneCount / UNITS.length) * 100);
@@ -257,10 +265,10 @@
         <header class="cu-head">
           <div>
             <div class="brand-bar" style="justify-content:flex-start;margin-bottom:8px">
-              <div class="brand-mark" style="width:28px;height:28px;font-size:14px">LT</div>
+              <div class="brand-mark" style="width:28px;height:28px;font-size:14px">${isStore() ? "HA" : "LT"}</div>
               <div class="brand-word">
-                <strong style="font-size:15px">LINCOLN TECH</strong>
-                <span>Curriculum · Training mode</span>
+                <strong style="font-size:15px">${isStore() ? "HVAC ALLSTARS" : "LINCOLN TECH"}</strong>
+                <span>${isStore() ? "SHOP-HVAC · Training mode" : "Curriculum · Training mode"}</span>
               </div>
             </div>
             <h2>Plan practice before lab</h2>
@@ -276,11 +284,14 @@
         ${(() => {
           const n = UNITS.find((u) => !progress[u.id]);
           if (!n) return '<div class="cu-recommend">All units practiced — run Quiz Arena EPA/OSHA or Ask HUB for drills.</div>';
-          return '<div class="cu-recommend"><strong>AI recommends next:</strong> ' + n.code + ' · ' + n.title +
+          return '<div class="cu-recommend"><strong>AI recommends next:</strong> ' + shownCode(n.code) + ' · ' + n.title +
             ' <button type="button" class="btn cu-ask-hub" data-unit="' + n.id + '">Study with HUB</button></div>';
         })()}
         <div class="cu-note">
-          <strong>Study planner.</strong> Codes follow common Lincoln Tech HVAC diploma patterns (HCR series).
+          <strong>Study planner.</strong> ${isStore()
+            ? "Shop modules (SF-210, EL-220, …) — not a school catalog."
+            : "Codes follow common Lincoln Tech HVAC diploma patterns (HCR series)."
+          }
           Use this to line up game practice with what your instructor covers that week — then try it here before lab.
         </div>
         <div class="cu-grid">
@@ -289,7 +300,7 @@
             return `
               <article class="cu-card ${done ? "done" : ""}" data-id="${u.id}">
                 <header>
-                  <span class="cu-code">${u.code}</span>
+                  <span class="cu-code">${shownCode(u.code)}</span>
                   ${done ? '<span class="cu-badge">Practiced</span>' : ""}
                 </header>
                 <h3>${u.title}</h3>

@@ -39,6 +39,7 @@
     school: isStore ? "trade school" : "Lincoln Tech",
     roof: isStore ? "Rooftop · the heavens open" : "Lincoln Tech roof · the heavens open",
     packCurriculum: isStore ? "Shop curriculum" : "Lincoln Tech",
+    program: isStore ? "SHOP-HVAC" : "HCRX101",
   };
 
   var doc = document.documentElement;
@@ -94,17 +95,22 @@
         if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "TEXTAREA") {
           return NodeFilter.FILTER_REJECT;
         }
-        if (!n.nodeValue || n.nodeValue.indexOf("Lincoln") === -1) return NodeFilter.FILTER_SKIP;
+        if (!n.nodeValue) return NodeFilter.FILTER_SKIP;
+        if (n.nodeValue.indexOf("Lincoln") === -1 && n.nodeValue.indexOf("HCR") === -1) {
+          return NodeFilter.FILTER_SKIP;
+        }
         return NodeFilter.FILTER_ACCEPT;
       },
     });
     var n;
     while ((n = w.nextNode())) {
-      n.nodeValue = n.nodeValue
-        .replace(/official Lincoln Technical Institute/gi, "official school")
-        .replace(/Lincoln Technical Institute/gi, "a trade school")
-        .replace(/Lincoln Tech HVAC Allstars/gi, "HVAC Allstars")
-        .replace(/Lincoln Tech/gi, "HVAC Allstars");
+      n.nodeValue = remapHcr(
+        n.nodeValue
+          .replace(/official Lincoln Technical Institute/gi, "official school")
+          .replace(/Lincoln Technical Institute/gi, "a trade school")
+          .replace(/Lincoln Tech HVAC Allstars/gi, "HVAC Allstars")
+          .replace(/Lincoln Tech/gi, "HVAC Allstars"),
+      );
     }
   }
 
@@ -116,7 +122,7 @@
       var hit = false;
       for (var i = 0; i < muts.length; i++) {
         var tx = (muts[i].target && muts[i].target.textContent) || "";
-        if (tx.indexOf("Lincoln") !== -1) {
+        if (tx.indexOf("Lincoln") !== -1 || tx.indexOf("HCR") !== -1) {
           hit = true;
           break;
         }
@@ -130,12 +136,35 @@
     lincolnWatch.observe(document.body, { childList: true, subtree: true, characterData: true });
   }
 
+  function remapHcr(text) {
+    if (!text) return text;
+    return text
+      .replace(/HCRX101/g, "SHOP-HVAC")
+      .replace(/HCR114/g, "OL-240")
+      .replace(/HCR117/g, "AC-260")
+      .replace(/HCR110/g, "CT-290")
+      .replace(/HCR109/g, "CR-280")
+      .replace(/HCR108/g, "AD-270")
+      .replace(/HCR105/g, "RF-250")
+      .replace(/HCR103/g, "HT-230")
+      .replace(/HCR102/g, "EL-220")
+      .replace(/HCR101/g, "SF-210")
+      .replace(/HCR200/g, "AX-300");
+  }
+
+  function courseCode(code) {
+    if (!isStore) return code;
+    return remapHcr(String(code || ""));
+  }
+
   function t(campus, store) {
     return isStore ? store : campus;
   }
 
   global.LtBrand = brand;
   global.LtBrand.t = t;
+  global.LtBrand.course = courseCode;
+  global.LtBrand.remapHcr = remapHcr;
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", applyHead);
   } else {
