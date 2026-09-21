@@ -11,10 +11,10 @@
 
   function loadHook() {
     var old = document.querySelector("script[data-sb-hook]");
-    if (old && /v=14/.test(old.src || "")) return;
+    if (old && /v=15/.test(old.src || "")) return;
     if (old) old.remove();
     var s = document.createElement("script");
-    s.src = "sandbox-hook.js?v=14";
+    s.src = "sandbox-hook.js?v=15";
     s.setAttribute("data-sb-hook", "1");
     document.head.appendChild(s);
   }
