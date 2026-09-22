@@ -1,11 +1,11 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v335";
+const VER = "lt-allstars-v336";
 const CORE = [
   "./",
   "./index.html",
   "./sku.js?v=14",
   "./style.css?v=144",
-  "./sandbox-layout.css?v=4",
+  "./sandbox-layout.css?v=5",
   "./phone-floor.css?v=28",
   "./phone-rail.css?v=1",
   "./sb-tabs.css?v=3",
@@ -81,3 +81,17 @@ const CORE = [
   "./shop-labs-floor.js?v=5",
   "./shop-labs-print.js?v=1"
 ];
+self.addEventListener("install", function (e) {
+  e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));
+});
+self.addEventListener("activate", function (e) {
+  e.waitUntil(caches.keys().then(function (keys) {
+    return Promise.all(keys.filter(function (k) { return k !== VER; }).map(function (k) { return caches.delete(k); }));
+  }).then(function () { return self.clients.claim(); }));
+});
+self.addEventListener("fetch", function (e) {
+  if (e.request.method !== "GET") return;
+  e.respondWith(caches.match(e.request).then(function (hit) {
+    return hit || fetch(e.request);
+  }));
+});

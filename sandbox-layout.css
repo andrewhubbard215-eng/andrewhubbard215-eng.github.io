@@ -66,3 +66,18 @@
   overflow: auto;
   margin-top: 6px;
 }
+
+/* Shop save — Start/Stop compressor readable on the dark bay */
+#sandbox-root #sb-run,
+#sandbox-root button#sb-run.btn {
+  color: #f7f3ea !important;
+  background: #ce0034 !important;
+  border: 1px solid #f7f3ea !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+#sandbox-root #sb-run::before {
+  content: "R-410A  ";
+  font-weight: 800;
+  opacity: 0.92;
+}
