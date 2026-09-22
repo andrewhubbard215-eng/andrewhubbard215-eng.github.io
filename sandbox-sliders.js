@@ -9,10 +9,10 @@ function paint(){
       v=document.createElement("span");
       v.id=vid;
       var lab=el.parentNode && el.parentNode.querySelector("label, .sb-lab");
-      if(lab && lab.parentNode) lab.insertAdjacentElement("afterend", v);
+      if(lab) lab.appendChild(v);
       else if(el.parentNode) el.parentNode.insertBefore(v, el);
     }
-    v.style.cssText="margin:0 6px 0 4px;font-variant-numeric:tabular-nums;font-weight:700;color:#5eead4";
+    v.style.cssText="margin:0 0 0 6px;font-variant-numeric:tabular-nums;font-weight:700;color:#5eead4;white-space:nowrap";
     v.textContent=el.value+(suf||"");
     if(!el.dataset.ltReadout){
       el.dataset.ltReadout="1";
