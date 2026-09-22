@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css?v=144" />
   <link rel="stylesheet" href="sandbox-layout.css?v=1" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
-  <link rel="stylesheet" href="phone-floor.css?v=27" />
+  <link rel="stylesheet" href="phone-floor.css?v=28" />
   <link rel="stylesheet" href="phone-rail.css?v=1" />
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
@@ -42,9 +42,10 @@
         <button class="mode-card" data-mode="service" type="button"><h3>Service calls</h3><p>Hook gauges - read SH/SC - pick the fault</p></button>
         <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3><p>Flare - vacuum - weigh-in - line-set path</p></button>
         <button class="mode-card" data-mode="boardcodes" type="button"><h3>Board-code locker</h3><p>Door sticker is law - prove path</p></button>
-                <button class="mode-card" data-mode="film" type="button"><h3>Component film</h3><p>Rex · scroll · oil · gas · hydronic</p></button>
-<button class="mode-card" data-mode="shoplabs" type="button"><h3>Lab packets</h3><p><span class="lincoln-only">Plywood wall · Lincoln catalog · filler</span><span class="store-only">Plywood electrical wall · 90-min bays</span></p></button>
-<button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III - recovery law</p></button>
+        <button class="mode-card" data-mode="prove" type="button"><h3>PS prove path</h3><p>Hose/trap → vent → inducer → 24V → rating → switch LAST</p></button>
+        <button class="mode-card" data-mode="film" type="button"><h3>Component film</h3><p>Rex · scroll · oil · gas · hydronic</p></button>
+        <button class="mode-card" data-mode="shoplabs" type="button"><h3>Lab packets</h3><p><span class="lincoln-only">Plywood wall · Lincoln catalog · filler</span><span class="store-only">Plywood electrical wall · 90-min bays</span></p></button>
+        <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III - recovery law</p></button>
         <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3><p>Shop rules that keep you from a callback</p></button>
         <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3><p>L1 LINE / L2 LINE / HERM / C R S - chips LEFT</p></button>
         <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3><p>Work clothes - roof racks - recovery tank</p></button>
@@ -84,7 +85,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.102 - shop floor</p>
+    <p class="version-strip">HVAC Allstars - v3.5.103 - shop floor</p>
   </div>
   <script src="sku.js?v=14"></script>
   <script src="commandments.js?v=119"></script>
@@ -134,12 +135,15 @@
   <script src="daily.js?v=3"></script>
   <script src="tutorial.js?v=98"></script>
   <script src="game.js?v=205"></script>
+  <script src="sandbox.js?v=150"></script>
+  <script src="sandbox-hook.js?v=15"></script>
   <script src="clock-in-form.js?v=21"></script>
-  <script src="clock-in-floor.js?v=38"></script>
+  <script src="clock-in-fix.js?v=22"></script>
+  <script src="clock-in-floor.js?v=40"></script>
   <script src="sandbox-cutout.js?v=1"></script>
   <script src="sandbox-sliders.js?v=3"></script>
   <script src="sandbox-td.js?v=1"></script>
-  <script src="sandbox-ts.js?v=6"></script>
+  <script src="sandbox-ts.js?v=7"></script>
   <script src="shop-floor-copy.js?v=10"></script>
   <script>
     window.ltGo = function (id) {
@@ -158,7 +162,7 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=324").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=326").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
