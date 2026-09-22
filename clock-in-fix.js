@@ -6,6 +6,7 @@
       s.classList.remove("active");
       s.classList.remove("screen-on");
     });
+    if (id === "defusal" || id === "elguide") id = "electrical";
     var el = document.getElementById("screen-" + id);
     if (el) {
       el.classList.add("active");
