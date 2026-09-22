@@ -36,3 +36,33 @@
   padding-bottom: 1.25rem;
   flex-shrink: 0;
 }
+
+/* Shop save — evaporator stays on the glass. Gauges sit under the diamond, not on top of it. */
+#sandbox-root .sb-main {
+  overflow-y: auto;
+}
+#sandbox-root #sb-canvas {
+  height: auto !important;
+  max-height: calc(100% - 148px);
+  min-height: 220px;
+  flex: 1 1 52%;
+}
+#sandbox-root .sb-gauges,
+#sandbox-root [class~="sb-gauges"] {
+  position: relative;
+  z-index: 4;
+  flex: 0 0 auto;
+  background: rgba(11, 18, 32, 0.97);
+}
+#sandbox-root #sb-ts {
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+#sandbox-root #sb-ts:focus-within,
+#sandbox-root #sb-ts:hover {
+  max-height: 40vh;
+  overflow: auto;
+  margin-top: 6px;
+}
