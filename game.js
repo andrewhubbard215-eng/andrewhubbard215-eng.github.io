@@ -17,8 +17,12 @@
 
   /* Stub marker: clock-in-fix.js detects mode === "character" and uses rescuePlay. */
   window.ltPlay = function (mode) {
-    if (mode === "character") return;
-    if (mode === "hub" && typeof window.ltGoHub === "function") window.ltGoHub();
+    if (mode === "character") return true;
+    if (mode === "hub" && typeof window.ltGoHub === "function") {
+      window.ltGoHub();
+      return true;
+    }
+    return false;
   };
   window.ltPlayGo = window.ltPlay;
 
