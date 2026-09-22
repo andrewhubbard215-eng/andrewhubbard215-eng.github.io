@@ -53,6 +53,13 @@
       }
       return;
     }
+    if (m === "defusal" || m === "electrical" || m === "elguide") {
+      if (typeof window.ltPlay === "function") {
+        try { window.ltPlay(m); return; } catch (_) {}
+      }
+      show("electrical");
+      return;
+    }
     if (m === "service") {
       show("service");
       try {
