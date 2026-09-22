@@ -2118,24 +2118,24 @@ select:focus-visible {
   position: fixed;
   left: 0;
   top: 0;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -110%);
   z-index: 99999;
   pointer-events: none;
   display: none;
-  width: 168px;
-  padding: 10px;
-  border-radius: 14px;
+  width: 52px;
+  padding: 4px;
+  border-radius: 10px;
   background: #efe6d6;
-  border: 3px solid #CE0034;
-  box-shadow: 0 16px 36px rgba(0,0,0,0.5);
+  border: 2px solid #CE0034;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
   text-align: center;
   color: #1a1612;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
 }
 .lt-drag-ghost.on { display: block; }
-.lt-drag-ghost .part-img { width: 120px; height: 120px; object-fit: contain; background: #d4c4a8; border-radius: 8px; }
-.lt-drag-ghost .ico { font-size: 56px; display: block; }
+.lt-drag-ghost .part-img { width: 40px; height: 40px; object-fit: contain; background: #d4c4a8; border-radius: 6px; }
+.lt-drag-ghost .ico { font-size: 22px; display: block; }
 .lt-custom-drag-img .part-img { width: 120px; height: 120px; object-fit: contain; display: block; margin: 0 auto; background: #d4c4a8; border-radius: 8px; }
 .lt-custom-drag-img .ico { font-size: 56px; display: block; }
 .lt-custom-drag-img strong { display: block; margin-top: 6px; color: #1a1612; }

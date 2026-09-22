@@ -4,6 +4,20 @@
 
   let ghost = null;
 
+
+  function clearGhost() {
+    try {
+      var g = ghost || document.querySelector(".lt-drag-ghost");
+      if (g) {
+        g.classList.remove("on");
+        g.innerHTML = "";
+        g.style.left = "-9999px";
+        g.style.top = "0";
+      }
+      document.body.classList.remove("dragging-part");
+      document.querySelectorAll(".over").forEach(function (n) { n.classList.remove("over"); });
+    } catch (_) {}
+  }
   function ensureGhost() {
     if (ghost && ghost.isConnected) return ghost;
     ghost = document.createElement("div");
@@ -124,7 +138,7 @@
         try { el.releasePointerCapture(ev.pointerId); } catch (_) {}
         el.classList.remove("dragging");
         setDraggingPart(false);
-        g.classList.remove("on");
+        clearGhost();
         document.querySelectorAll(dropSel).forEach(function (s) {
           s.classList.remove("over");
         });
@@ -152,10 +166,16 @@
   });
   document.addEventListener("dragend", function () {
     setDraggingPart(false);
+    clearGhost();
   });
   document.addEventListener("drop", function () {
     setDraggingPart(false);
+    clearGhost();
+  });
+  document.addEventListener("pointercancel", clearGhost, true);
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) clearGhost();
   });
 
-  global.LtDrag = { bindSource, slotUnder, setHtml5Image, makeCustomImage };
+  global.LtDrag = { bindSource, slotUnder, setHtml5Image, makeCustomImage, clearGhost };
 })(window);
