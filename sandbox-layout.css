@@ -1,7 +1,8 @@
-/* Shop save — keep OD/ID/charge sliders off the evaporator node. */
+/* Shop save — keep OD/ID/charge sliders off the evaporator node; show both gauges. */
 #sb-canvas {
-  min-height: 52vh;
-  max-height: 62vh;
+  min-height: 58vh;
+  max-height: none;
+  padding-bottom: 4.5rem;
 }
 #sandbox-root .sb-toolbar,
 #sandbox-root #sb-run {
@@ -11,4 +12,9 @@
 }
 #sandbox-root .sb-main {
   overflow-y: auto;
+}
+#sandbox-root .sb-gauges,
+#sandbox-root [data-sb-gauges] {
+  margin-top: 0.75rem;
+  padding-bottom: 1.25rem;
 }
