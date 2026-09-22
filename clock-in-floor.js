@@ -1,4 +1,4 @@
-/* Clock-in floor v39 — last-good router blob + card bind that game.js stub cannot eat. */
+/* Clock-in floor v40 — cards start sandbox / PS prove. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -20,6 +20,13 @@
   function openMode(m) {
     if (!m || m === "character") return;
     if (m === "hub") return goHub();
+    if (m === "sandbox" && typeof window.ltStartSandbox === "function") {
+      try { window.ltStartSandbox(); return; } catch (_) {}
+    }
+    if (m === "prove") {
+      var BC = window.BoardCodes || window.LtBoardCodes;
+      if (BC && typeof BC.openProve === "function") { try { BC.openProve(); return; } catch (_) {} }
+    }
     if (m === "film") {
       show("film");
       var fr = document.getElementById("film-root");
@@ -82,19 +89,12 @@
     } catch (_) {}
   }
   function afterBlob() {
-    rootPatch("sandbox-root", /Loading system bay/, "sb-load-hub", "Loading system bay… seat LEFT when the gauges paint.");
-    rootPatch("electrical-root", /Loading land lugs/, "el-load-hub", "Loading land lugs… chips LEFT.");
+    rootPatch("sandbox-root", /Loading system bay/, "sb-load-hub", "Loading system bay\u2026 seat LEFT when the gauges paint.");
+    rootPatch("electrical-root", /Loading land lugs/, "el-load-hub", "Loading land lugs\u2026 chips LEFT.");
     bindCards();
     setInterval(bindCards, 1000);
   }
-  var s = document.createElement("script");
-  s.src =
-    "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/54a0489fe2395ff89e3332f5e33596e5c1b559d2/clock-in-floor.js";
-  s.onload = afterBlob;
-  s.onerror = function () {
-    afterBlob();
-  };
-  document.head.appendChild(s);
+  afterBlob();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindCards);
   else bindCards();
 })();
