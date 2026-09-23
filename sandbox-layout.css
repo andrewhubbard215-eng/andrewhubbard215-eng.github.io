@@ -97,3 +97,25 @@
   color: #5eead4;
   font-variant-numeric: tabular-nums;
 }
+
+/* Shop save — fault chips stay on top of the diamond; clicks land on the buttons */
+#sandbox-root #sb-faults {
+  position: relative;
+  z-index: 8;
+  flex: 0 0 auto;
+  order: -1;
+  background: rgba(11, 18, 32, 0.98);
+  padding: 6px 0 4px;
+  pointer-events: auto;
+}
+#sandbox-root #sb-faults .btn {
+  pointer-events: auto;
+  position: relative;
+  z-index: 9;
+}
+@media (min-width: 901px) {
+  #sandbox-root #sb-canvas {
+    max-height: min(42vh, 380px) !important;
+    flex: 0 1 auto !important;
+  }
+}

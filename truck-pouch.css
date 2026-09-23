@@ -7,3 +7,48 @@ body.lab-open #screen-truck-pouch .tp-hub-tip {
   left: 10px;
   bottom: calc(56px + env(safe-area-inset-bottom, 0px));
 }
+
+/* PC monitor: On-the-job fills the glass — no 520px phone strip in a black void */
+@media (min-width: 900px) {
+  #screen-truck-pouch {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px 24px 20px !important;
+    box-sizing: border-box;
+  }
+  #truck-pouch-root {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100dvh - 20px);
+  }
+  #truck-pouch-root .tp-wrap {
+    padding: 14px 18px 96px !important;
+  }
+  #truck-pouch-root .tp-head strong {
+    font-size: 22px !important;
+  }
+  #truck-pouch-root .tp-fat {
+    font-size: 44px !important;
+    line-height: 1.1 !important;
+  }
+  #truck-pouch-root .tp-fat small {
+    font-size: 16px !important;
+  }
+  #truck-pouch-root .tp-panel {
+    padding: 14px 16px !important;
+  }
+  #truck-pouch-root .tp-panel input,
+  #truck-pouch-root .tp-panel select {
+    min-height: 52px !important;
+    font-size: 22px !important;
+  }
+  #truck-pouch-root .tp-grid {
+    gap: 14px !important;
+  }
+  #truck-pouch-root .tp-fp {
+    font-size: 17px !important;
+    padding: 14px 16px !important;
+  }
+}
