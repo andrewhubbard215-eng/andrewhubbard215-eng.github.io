@@ -1,4 +1,4 @@
-/*! Ohm's Law arcade — school entry (loads bench + tickets + play) */
+/*! Ohm's Law tickets — school entry (loads bench + tickets + play) */
 (function(){
   "use strict";
   function load(src){
@@ -14,6 +14,6 @@
   Promise.all([
     load(b+"ohms-law-arcade-bench.js?v=2"),
     load(b+"ohms-law-arcade-tickets.js?v=2"),
-    load(b+"ohms-law-arcade-play.js?v=4")
-  ]).catch(function(e){ try{ console.warn("[ohms-arcade]", e); }catch(_){ } });
+    load(b+"ohms-law-arcade-play.js?v=5")
+  ]).catch(function(e){ try{ console.warn("[ohms-tickets]", e); }catch(_){ } });
 })();
