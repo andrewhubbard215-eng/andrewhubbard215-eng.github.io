@@ -119,3 +119,12 @@
     flex: 0 1 auto !important;
   }
 }
+
+/* Force fault chip row above the diamond on every viewport */
+#sandbox-root .sb-main {
+  display: flex !important;
+  flex-direction: column !important;
+}
+#sandbox-root #sb-faults { order: -3 !important; }
+#sandbox-root #sb-phone-tip { order: -2 !important; }
+#sandbox-root #sb-canvas { order: -1 !important; }
