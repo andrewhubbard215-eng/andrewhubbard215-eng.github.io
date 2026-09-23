@@ -52,3 +52,17 @@ body.lab-open #screen-truck-pouch .tp-hub-tip {
     padding: 14px 16px !important;
   }
 }
+
+/* Manifold faces on P/T tab */
+.tp-manifold{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:10px;align-items:center;margin:12px 0;padding:12px;border-radius:12px;background:rgba(8,12,18,.9);border:1px solid rgba(80,100,120,.4)}
+.tp-gauge{text-align:center}
+.tp-gauge-label{font-size:11px;font-weight:800;letter-spacing:.08em;margin-bottom:4px;opacity:.85}
+.tp-gauge-low .tp-gauge-label{color:#5b9bd5}
+.tp-gauge-high .tp-gauge-label{color:#e85d5d}
+.tp-gauge-svg{width:100%;max-width:160px;height:auto;display:block;margin:0 auto}
+.tp-gauge-read{font-size:22px!important;margin-top:4px}
+.tp-manifold-center{text-align:center;padding:8px 6px}
+.tp-center-psig{font-size:36px!important;line-height:1.05}
+.tp-center-sub{font-size:12px;margin-top:4px}
+@media(max-width:560px){.tp-manifold{grid-template-columns:1fr 1fr}.tp-manifold-center{grid-column:1/-1;order:-1}.tp-center-psig{font-size:40px!important}}
+@media(min-width:900px){.tp-gauge-svg{max-width:200px}.tp-center-psig{font-size:48px!important}.tp-gauge-read{font-size:28px!important}}
