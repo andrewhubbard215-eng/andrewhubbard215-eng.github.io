@@ -32,6 +32,21 @@
       sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T \u00b7 TXV ~8\u201312\u00b0";
     }
   }
+  function partsLeftCompressorBtn() {
+    var banner = document.body.innerText || "";
+    var left = /PARTS LEFT/i.test(banner) && /Compressor stays off/i.test(banner);
+    var btns = document.querySelectorAll("button");
+    for (var i = 0; i < btns.length; i++) {
+      var b = btns[i];
+      var t = b.textContent || "";
+      if (!/Start compressor|Seat parts first/i.test(t)) continue;
+      if (left) {
+        if (!/Seat parts first/i.test(t)) b.textContent = t.replace(/Start compressor/i, "Seat parts first");
+      } else if (/Seat parts first/i.test(t)) {
+        b.textContent = t.replace(/Seat parts first/i, "Start compressor");
+      }
+    }
+  }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
       var t = el.textContent || "";
@@ -56,6 +71,7 @@
   }
   function scrub() {
     vocationalTiles();
+    partsLeftCompressorBtn();
     var title = document.getElementById("arena-title");
     if (title && /arena/i.test(title.textContent || "")) {
       title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
