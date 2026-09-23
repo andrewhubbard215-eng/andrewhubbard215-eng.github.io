@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v354";
+const VER = "lt-allstars-v355";
 const CORE = [
   "./",
   "./index.html",
@@ -55,10 +55,10 @@ const CORE = [
   "./furnace-soo-floor.js?v=1",
   "./voltmeter-school.js?v=4",
   "./ohm-school.js?v=1",
-  "./ohms-law-school.js?v=3",
+  "./ohms-law-school.js?v=4",
   "./ohms-law-arcade-bench.js?v=2",
   "./ohms-law-arcade-tickets.js?v=2",
-  "./ohms-law-arcade-play.js?v=3",
+  "./ohms-law-arcade-play.js?v=5",
   "./truck-pouch.js?v=5",
   "./truck-pouch.p0.js?v=5",
   "./truck-pouch.p1.js?v=5",
