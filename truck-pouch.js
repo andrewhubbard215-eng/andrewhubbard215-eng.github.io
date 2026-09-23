@@ -16,7 +16,7 @@
   }
   Array.from({length: N}, function (_, idx) { return idx; }).forEach(function (idx) {
     var el = document.createElement("script");
-    el.src = "truck-pouch.p" + idx + ".js?v=5";
+    el.src = "truck-pouch.p" + idx + ".js?v=6";
     el.async = false;
     el.onload = function () { loaded += 1; boot(); };
     el.onerror = function () { console.error("truck-pouch part fail", idx); };
