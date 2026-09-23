@@ -43,6 +43,7 @@
         <button class="mode-card" data-mode="minisplit" type="button"><h3>Mini-split install</h3><p>Flare - vacuum - weigh-in - line-set path</p></button>
         <button class="mode-card" data-mode="boardcodes" type="button"><h3>Board-code locker</h3><p>Door sticker is law - prove path</p></button>
         <button class="mode-card" data-mode="prove" type="button"><h3>PS prove path</h3><p>Hose/trap → vent → inducer → switch LAST</p></button>
+        <button class="mode-card" data-mode="soo" type="button"><h3>Furnace SOO</h3><p>W → inducer → PS → ignitor → valve → µA → blower</p></button>
         <button class="mode-card" data-mode="film" type="button"><h3>Component film</h3><p>Rex · scroll · oil · gas · hydronic</p></button>
         <button class="mode-card" data-mode="shoplabs" type="button"><h3>Lab packets</h3><p><span class="lincoln-only">Plywood wall · Lincoln catalog · filler</span><span class="store-only">Plywood electrical wall · 90-min bays</span></p></button>
         <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III - recovery law</p></button>
@@ -85,7 +86,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.118 - shop floor</p>
+    <p class="version-strip">HVAC Allstars - v3.5.119 - shop floor</p>
   </div>
   <script src="sku.js?v=14"></script>
   <script src="commandments.js?v=119"></script>
@@ -127,6 +128,7 @@
   <script src="board-codes.js?v=16"></script>
   <script src="prove-deepen.js?v=2"></script>
   <script src="soo-limit.js?v=1"></script>
+  <script src="furnace-soo-floor.js?v=1"></script>
   <script src="voltmeter-school.js?v=4"></script>
   <script src="ohm-school.js?v=1"></script>
   <script src="ohms-law-school.js?v=3"></script>
@@ -140,7 +142,7 @@
   <script src="sandbox-hook.js?v=15"></script>
   <script src="clock-in-form.js?v=21"></script>
   <script src="clock-in-fix.js?v=23"></script>
-  <script src="clock-in-floor.js?v=42"></script>
+  <script src="clock-in-floor.js?v=43"></script>
   <script src="sandbox-cutout.js?v=1"></script>
   <script src="sandbox-sliders.js?v=4"></script>
   <script src="sandbox-stand.js?v=1"></script>
@@ -164,7 +166,7 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=342").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=343").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
