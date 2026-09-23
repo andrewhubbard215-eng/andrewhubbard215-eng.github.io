@@ -1,4 +1,4 @@
-/* Clock-in floor v41 — cards start sandbox / PS prove. No remote blob. */
+/* Clock-in floor v43 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -23,7 +23,6 @@
     if (m === "sandbox" && typeof window.ltStartSandbox === "function") {
       try { window.ltStartSandbox(); return; } catch (_) {}
     }
-    /* Injected schools — floor capture used to swallow their own open() clicks. */
     if (m === "voltmeter" && window.VoltmeterSchool && typeof window.VoltmeterSchool.open === "function") {
       try { window.VoltmeterSchool.open(); return; } catch (_) {}
     }
@@ -32,6 +31,10 @@
     }
     if ((m === "truck-pouch" || m === "truck") && window.TruckPouch && typeof window.TruckPouch.open === "function") {
       try { window.TruckPouch.open(); return; } catch (_) {}
+    }
+    if (m === "soo") {
+      var BCS = window.BoardCodes || window.LtBoardCodes;
+      if (BCS && typeof BCS.openSoo === "function") { try { BCS.openSoo(); return; } catch (_) {} }
     }
     if (m === "prove") {
       var BC = window.BoardCodes || window.LtBoardCodes;
@@ -70,7 +73,6 @@
       } catch (_) {}
       return;
     }
-    /* Stub ltPlayGo only handles hub/character — do not return early or every other bay goes blank. */
     if (typeof window.ltPlayGo === "function") {
       try {
         var handled = window.ltPlayGo(m);
@@ -81,8 +83,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card[data-mode]").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "41") return;
-      card.setAttribute("data-lt-bound", "41");
+      if (card.getAttribute("data-lt-bound") === "43") return;
+      card.setAttribute("data-lt-bound", "43");
       card.addEventListener(
         "click",
         function (e) {
