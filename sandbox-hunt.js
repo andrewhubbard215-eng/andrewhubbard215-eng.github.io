@@ -22,7 +22,11 @@
     var ph = document.getElementById("sb-ph");
     var sc = document.getElementById("sb-sc");
     var run = document.getElementById("sb-run");
-    if (!run || !/stop/i.test(run.textContent || "")) return;
+    var running = !!(run && /stop/i.test(run.textContent || ""));
+    if (!running) {
+      if (ph && ph.dataset.airBase) delete ph.dataset.airBase;
+      return;
+    }
     if (id === "txv-bulb" && sh) {
       var sstEl = document.getElementById("sb-sst");
       var sst = sstEl ? parseFloat(String(sstEl.textContent).replace(/[^\d.-]/g, "")) : 40;
@@ -35,10 +39,18 @@
     }
     if (id === "air" && ph && sc) {
       var n = parseFloat(String(ph.textContent).replace(/[^\d.-]/g, ""));
-      if (isFinite(n) && n < 500) ph.textContent = Math.round(n * 1.08) + " psig";
+      if (isFinite(n)) {
+        if (!ph.dataset.airBase) ph.dataset.airBase = String(n);
+        var elevated = Math.round(Number(ph.dataset.airBase) * 1.12);
+        ph.textContent = elevated + " psig";
+        var gph = document.getElementById("g-phigh");
+        if (gph) gph.textContent = elevated + " psig";
+      }
       sc.textContent = "22.0 \u00b0F SC  (seat 8–14)";
       var gsc = document.getElementById("g-sc");
       if (gsc) gsc.textContent = "22.0\u00b0";
+    } else if (ph && ph.dataset.airBase) {
+      delete ph.dataset.airBase;
     }
   }, 220);
 })();
