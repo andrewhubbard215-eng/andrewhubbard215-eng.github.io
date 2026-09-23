@@ -1,0 +1,76 @@
+/* Evening SAVE — Saturday callback tickets must not sit under the LEFT rail */
+@media (max-width: 900px) {
+  #screen-electrical.screen.active,
+  #electrical-root {
+    overflow: hidden !important;
+  }
+  #electrical-root .el-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100%;
+    min-height: 0;
+    max-height: 100dvh;
+  }
+  #electrical-root .el-layout > aside.sb-palette {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 34vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(42, 54, 68, 0.9);
+    z-index: 4;
+    flex: 0 0 auto;
+  }
+  #electrical-root .el-modes {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  #electrical-root .el-modes .btn,
+  #electrical-root .el-modes button {
+    flex: 0 0 auto;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+  #electrical-root .el-layout > .el-main,
+  #electrical-root .el-board,
+  #electrical-root .el-jobs,
+  #electrical-root .el-stage,
+  #electrical-root .el-work {
+    position: relative !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1;
+  }
+  #electrical-root .el-meter,
+  #electrical-root .el-dmm,
+  #electrical-root aside.el-meter {
+    position: relative !important;
+    width: 100% !important;
+    max-height: 28vh;
+    overflow: auto;
+  }
+}
+@media (max-width: 480px) {
+  #electrical-root .el-layout > aside.sb-palette {
+    max-height: 30vh;
+  }
+  #electrical-root .el-job-card,
+  #electrical-root .el-call-card,
+  #electrical-root [class*="job-card"] {
+    margin-left: 0 !important;
+    width: auto !important;
+  }
+}
