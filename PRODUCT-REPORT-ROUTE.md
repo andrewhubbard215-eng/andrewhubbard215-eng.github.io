@@ -1,13 +1,16 @@
-# HVAC Allstars — shop pass (2026-09-21 eve)
-
-## What I fixed
-- Live app clocked in. No crash. Sandbox ran: R-410A standing 95/75, parts LEFT, TXV/SC bay card, HUB dock on.
-- Shop tile copy: **OHM'S LAW ARCADE** → **OHM'S LAW TICKETS** (meter the ticket, not an arcade).
-- SW cache `lt-allstars-v322`, `shop-floor-copy.js?v=9`.
-- Gauges of God DLC still parked. No combat. No Lincoln on store copy we touched.
+# HVAC Allstars — shop pass (2026-09-23)
 
 ## What a tech can play
-Clock In → locker → shop floor. Sandbox (SH/SC, HPC/LPC, parts LEFT). Exam. Follow the Call / Land Lugs. Saturday callback no-cool sheet. Service calls. Mini-split. Volt/Ohm school. 608 tutor. Commandments. HVAC Jesus in work clothes. HUB AI.
+Clock In → Service calls → Hook gauges. Live box seats the four LEFT parts and **starts the compressor**. Blue / Red / SH / SC follow the ticket fingerprint (leak = high SH low SC from 72% charge; ice / drier / dirty ODU / dead fan have their own multipliers). Dispatch radio, streak, customer quote, HUB roast / pay stub stay on the bar. Next random ticket changes `_ltTicketId` and reloads `loadRouteTicket` so the fault actually changes.
 
-## Next job
-Seat compressor in sandbox and prove running SH/SC needles, not just standing 295/295 off. Then hard-wire Ohm tile name in clock-in-floor so we can drop the 800ms scrub.
+## What still sucks
+- TXV-bulb and “air in circuit” fingerprints are thinner than leak/ice.
+- Mobile 480 path still flashes “Opening system bay…” then rebuilds.
+- Service.js tickets and sandbox TICKETS are two lists; name-map can miss a new customer.
+- Gauges of God still parked. Good.
+
+## What shipped
+- `sandbox.js` `setTicket` + auto Start compressor on route load (`?v=156`)
+- `route-floor.js` Next ticket reloads live fault (`?v=9`)
+- SW `lt-allstars-v344`
+- No Lincoln marks on store copy this pass. Palette stays LEFT. Dispatch is in the gauges column, not over parts.
