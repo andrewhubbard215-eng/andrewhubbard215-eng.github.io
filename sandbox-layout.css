@@ -128,3 +128,25 @@
 #sandbox-root #sb-faults { order: -3 !important; }
 #sandbox-root #sb-phone-tip { order: -2 !important; }
 #sandbox-root #sb-canvas { order: -1 !important; }
+
+/* Shop save — LPC/HPC stay under the diamond on the bay. Evaporator stays on glass. */
+@media (min-width: 901px) {
+  #sandbox-root .sb-gauges,
+  #sandbox-root [data-sb-gauges] {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    transform: none !important;
+    max-height: none !important;
+    z-index: 4;
+    margin-top: 8px;
+    width: auto !important;
+  }
+  #sandbox-root #sb-canvas {
+    position: relative !important;
+    min-height: 340px !important;
+    padding-bottom: 12px;
+  }
+}
