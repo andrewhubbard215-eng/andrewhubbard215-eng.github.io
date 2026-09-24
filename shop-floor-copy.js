@@ -34,7 +34,9 @@
   }
   function partsLeftCompressorBtn() {
     var banner = document.body.innerText || "";
-    var left = /PARTS LEFT/i.test(banner) && /Compressor stays off/i.test(banner);
+    var left =
+      (/PARTS LEFT/i.test(banner) && /Compressor stays off/i.test(banner)) ||
+      /PARTS\s*[-\u2013\u2014]\s*LEFT/i.test(banner);
     var btns = document.querySelectorAll("button");
     for (var i = 0; i < btns.length; i++) {
       var b = btns[i];
