@@ -68,6 +68,21 @@
       }
     }
   }
+  function standingNotDiagnosis() {
+    var btn = document.getElementById("sb-run");
+    var st = document.getElementById("sb-status");
+    if (!btn || !st) return;
+    var running = /Stop compressor/i.test(btn.textContent || "");
+    var title = (document.getElementById("sb-ph-title") || {}).textContent || "";
+    var standing = /Standing/i.test(title) || /off \(no SH\)/i.test((document.getElementById("sb-sst") || {}).textContent || "");
+    var faultOn = document.querySelector("#sandbox-root button.primary, #sandbox-root [aria-pressed='true']");
+    var faultName = faultOn ? (faultOn.textContent || "").trim() : "";
+    if (!running && standing && faultName && !/Healthy|Shop floor|Compressor|Condenser|TXV|Evaporator|Seat/i.test(faultName)) {
+      if (!/standing pressure is not a diagnosis/i.test(st.textContent || "")) {
+        st.textContent = "Standing pressure is not a diagnosis. Start compressor, then read live SH/SC.";
+      }
+    }
+  }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
       var t = el.textContent || "";
@@ -93,6 +108,7 @@
   function scrub() {
     vocationalTiles();
     partsLeftCompressorBtn();
+    standingNotDiagnosis();
     var title = document.getElementById("arena-title");
     if (title && /arena/i.test(title.textContent || "")) {
       title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
