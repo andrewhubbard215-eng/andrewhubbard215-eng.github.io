@@ -115,7 +115,8 @@
 }
 @media (min-width: 901px) {
   #sandbox-root #sb-canvas {
-    max-height: min(42vh, 380px) !important;
+    max-height: min(58vh, 520px) !important;
+    min-height: 320px !important;
     flex: 0 1 auto !important;
   }
 }
