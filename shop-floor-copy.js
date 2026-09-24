@@ -32,11 +32,26 @@
       sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T \u00b7 TXV ~8\u201312\u00b0";
     }
   }
+  function partsStillOnBench() {
+    var yell = document.getElementById("sb-parts-yell");
+    if (yell && yell.parentNode && /Compressor stays off/i.test(yell.textContent || "")) return true;
+    var need = ["compressor", "condenser", "metering", "evaporator"];
+    var slots = document.querySelectorAll("#sb-slots .sb-slot[data-slot]");
+    if (slots.length) {
+      return need.some(function (id) {
+        var sl = document.querySelector('#sb-slots .sb-slot[data-slot="' + id + '"]');
+        return !sl || !(sl.classList.contains("filled") || sl.querySelector("img, strong, .rm"));
+      });
+    }
+    var rail = document.querySelectorAll('#sandbox-root [data-part]');
+    if (!rail.length) return false;
+    return need.some(function (id) {
+      var el = document.querySelector('#sandbox-root [data-part="' + id + '"]');
+      return el && !el.classList.contains("primary") && el.getAttribute("aria-pressed") !== "true";
+    });
+  }
   function partsLeftCompressorBtn() {
-    var banner = document.body.innerText || "";
-    var left =
-      (/PARTS LEFT/i.test(banner) && /Compressor stays off/i.test(banner)) ||
-      /PARTS\s*[-\u2013\u2014]\s*LEFT/i.test(banner);
+    var left = partsStillOnBench();
     var btns = document.querySelectorAll("button");
     for (var i = 0; i < btns.length; i++) {
       var b = btns[i];
