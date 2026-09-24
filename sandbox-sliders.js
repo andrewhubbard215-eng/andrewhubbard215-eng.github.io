@@ -6,8 +6,11 @@ function paint(){
     var el=document.getElementById(id); if(!el) continue;
     var lab=el.parentNode;
     if(lab && lab.tagName==="LABEL"){
-      lab.style.flexDirection="column";
-      lab.style.minWidth="132px";
+      lab.style.flexDirection="row";
+      lab.style.flexWrap="wrap";
+      lab.style.alignItems="center";
+      lab.style.minWidth="118px";
+      lab.style.maxWidth="168px";
     }
     var v=document.getElementById(vid);
     if(!v){
