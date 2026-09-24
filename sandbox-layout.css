@@ -82,6 +82,11 @@
 }
 
 /* Shop save — live OD/ID/charge numbers stay next to the sliders */
+#sandbox-root .sb-toolbar {
+  flex: 0 0 auto;
+  max-height: 72px;
+  overflow: hidden;
+}
 #sandbox-root .sb-toolbar label {
   display: inline-flex;
   align-items: center;
