@@ -1,16 +1,13 @@
-# HVAC Allstars — shop pass (2026-09-23)
+# HVAC Allstars — shop pass (2026-09-24)
 
 ## What a tech can play
-Clock In → System sandbox. Parts LEFT. Start compressor. Fault buttons now include live math:
-- TXV bulb: SH hunts (~0–20°) while SC stays seated.
-- Air in circuit: head and SC climb (non-condensables). Leak / ice / drier / dirty ODU / dead fan unchanged.
+Clock In → System sandbox. Tap LEFT rail (compressor / condenser / TXV / evap). Circles go red = seated. Start compressor then reads Start compressor, not Seat parts first. Standing P/T until the loop is closed. Faults still live.
+
+## What shipped
+- shop-floor-copy.js `?v=13` — start button no longer keys off the "PARTS - LEFT" header. Reads the rail / slots.
+- SW `lt-allstars-v363` · strip v3.5.137
+- No Lincoln marks added to store SKU this pass. Gauges of God parked.
 
 ## What still sucks
 - Mobile 480 still flashes “Opening system bay…” then rebuilds.
 - service.js tickets and sandbox TICKETS still two lists.
-- Gauges of God parked.
-
-## What shipped
-- sandbox.js TXV-bulb hunt + air head/SC (`?v=157`)
-- SW `lt-allstars-v345`
-- No Lincoln marks added to store SKU this pass.
