@@ -51,16 +51,20 @@
     });
   }
   function partsLeftCompressorBtn() {
-    var left = partsStillOnBench();
-    var btns = document.querySelectorAll("button");
-    for (var i = 0; i < btns.length; i++) {
-      var b = btns[i];
-      var t = b.textContent || "";
-      if (!/Start compressor|Seat parts first/i.test(t)) continue;
-      if (left) {
-        if (!/Seat parts first/i.test(t)) b.textContent = t.replace(/Start compressor/i, "Seat parts first");
-      } else if (/Seat parts first/i.test(t)) {
-        b.textContent = t.replace(/Seat parts first/i, "Start compressor");
+    var btn = document.getElementById("sb-run");
+    if (!btn) return;
+    var t = btn.textContent || "";
+    if (/Stop compressor/i.test(t)) return;
+    if (/Seat parts first/i.test(t)) {
+      btn.textContent = t.replace(/Seat parts first/i, "Start compressor");
+    } else if (!/Start compressor/i.test(t)) {
+      btn.textContent = "Start compressor";
+    }
+    var st = document.getElementById("sb-status");
+    if (st && partsStillOnBench() && !/Stop compressor/i.test(btn.textContent || "")) {
+      var cur = st.textContent || "";
+      if (!cur || /Seat parts first/i.test(cur)) {
+        st.textContent = "Parts LEFT — tap compressor, condenser, TXV, evaporator, then Start compressor.";
       }
     }
   }
