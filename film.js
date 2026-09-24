@@ -1,20 +1,20 @@
-/* Component film locker — Rex voice, host clip, shop facts. */
+/* Component film locker — Rex voice, host clip, real metal + live cutaway. */
 (function (global) {
   "use strict";
 
   var FILM = [
     { id: "cycle", title: "Refrigeration cycle", short: "Four boxes. Follow the state, not the picture.", video: "allstars/video/cycle.mp4", audio: "allstars/audio/cycle.mp3", poster: "hub-portrait.jpg" },
-    { id: "compressor", title: "Reciprocating compressor", short: "Suction in, discharge out. Never liquid.", video: "allstars/video/compressor.mp4", audio: "allstars/audio/compressor.mp3", poster: "hub-portrait.jpg" },
-    { id: "scroll", title: "Scroll compressor", short: "Host first. Orbiting scroll. Pockets walk to the center. Vapor only.", video: "allstars/video/scroll.mp4", audio: "allstars/audio/scroll.mp3", poster: "hub-portrait.jpg", noloop: true },
-    { id: "condenser", title: "Condenser", short: "Reject heat. Leave as a subcooled liquid.", video: "allstars/video/outdoor.mp4", audio: "allstars/audio/condenser.mp3", poster: "hub-hero.jpg" },
-    { id: "evaporator", title: "Evaporator", short: "Absorb heat. Leave with superheat.", video: "allstars/video/class.mp4", audio: "allstars/audio/evaporator.mp3", poster: "hub-campus.jpg" },
-    { id: "txv", title: "Thermostatic expansion valve", short: "Three forces. It hunts superheat.", video: "allstars/video/talk.mp4", audio: "allstars/audio/txv.mp3", poster: "hub-portrait.jpg" },
-    { id: "piston", title: "Fixed orifice / piston", short: "It does not modulate. Charge by superheat.", video: "allstars/video/talk.mp4", audio: "allstars/audio/piston.mp3", poster: "hub-portrait.jpg" },
-    { id: "reversing", title: "Reversing valve", short: "Heat pump. Same four boxes, one slide.", video: "allstars/video/outdoor.mp4", audio: "allstars/audio/reversing.mp3", poster: "hub-hero.jpg" },
-    { id: "furnace", title: "Gas furnace sequence", short: "Call. Prove. Fire. Blow. Learn it cold.", video: "allstars/video/furnace.mp4", audio: "allstars/audio/furnace.mp3", poster: "hub-hero.jpg" },
-    { id: "contactor", title: "Contactor and capacitor", short: "24 volts pulls. Line voltage crosses.", video: "allstars/video/talk.mp4", audio: "allstars/audio/contactor.mp3", poster: "hub-portrait.jpg" },
-    { id: "blower", title: "Blower and airflow", short: "Airflow is capacity. Measure static.", video: "allstars/video/class.mp4", audio: "allstars/audio/blower.mp3", poster: "hub-campus.jpg" },
-    { id: "thermostat", title: "Thermostat landing", short: "R C Y G W. Door sticker is law.", video: "allstars/video/talk.mp4", audio: "allstars/audio/thermostat.mp3", poster: "hub-portrait.jpg" },
+    { id: "compressor", title: "Reciprocating compressor", short: "Suction in, discharge out. Never liquid.", video: "allstars/video/compressor.mp4", audio: "allstars/audio/compressor.mp3", poster: "parts/compressor.png" },
+    { id: "scroll", title: "Scroll compressor", short: "Host first. Orbiting scroll. Pockets walk to the center. Vapor only.", video: "allstars/video/scroll.mp4", audio: "allstars/audio/scroll.mp3", poster: "parts/compressor.png", noloop: true },
+    { id: "condenser", title: "Condenser", short: "Reject heat. Leave as a subcooled liquid.", video: "allstars/video/outdoor.mp4", audio: "allstars/audio/condenser.mp3", poster: "parts/condenser.png" },
+    { id: "evaporator", title: "Evaporator", short: "Absorb heat. Leave with superheat.", video: "allstars/video/class.mp4", audio: "allstars/audio/evaporator.mp3", poster: "parts/evaporator.png" },
+    { id: "txv", title: "Thermostatic expansion valve", short: "Three forces. It hunts superheat.", video: "allstars/video/talk.mp4", audio: "allstars/audio/txv.mp3", poster: "parts/metering.png" },
+    { id: "piston", title: "Fixed orifice / piston", short: "It does not modulate. Charge by superheat.", video: "allstars/video/talk.mp4", audio: "allstars/audio/piston.mp3", poster: "parts/metering.png" },
+    { id: "reversing", title: "Reversing valve", short: "Heat pump. Same four boxes, one slide.", video: "allstars/video/outdoor.mp4", audio: "allstars/audio/reversing.mp3", poster: "parts/condenser.png" },
+    { id: "furnace", title: "Gas furnace sequence", short: "Call. Prove. Fire. Blow. Learn it cold.", video: "allstars/video/furnace.mp4", audio: "allstars/audio/furnace.mp3", poster: "allstars/eq/gas.jpg" },
+    { id: "contactor", title: "Contactor and capacitor", short: "24 volts pulls. Line voltage crosses.", video: "allstars/video/talk.mp4", audio: "allstars/audio/contactor.mp3", poster: "parts/contactor.png" },
+    { id: "blower", title: "Blower and airflow", short: "Airflow is capacity. Measure static.", video: "allstars/video/class.mp4", audio: "allstars/audio/blower.mp3", poster: "parts/fanmotor.png" },
+    { id: "thermostat", title: "Thermostat landing", short: "R C Y G W. Door sticker is law.", video: "allstars/video/talk.mp4", audio: "allstars/audio/thermostat.mp3", poster: "parts/thermostat.png" },
     { id: "oil", title: "Oil burner", short: "Primary. Cad cell. 140 PSI. Not a gas valve.", video: "allstars/video/oil.mp4", audio: "allstars/audio/oil.mp3", poster: "allstars/eq/oil.jpg" },
     { id: "gas", title: "Gas-fired heat", short: "80% or 90%. Manometer. CO is the fail.", video: "allstars/video/gas.mp4", audio: "allstars/audio/gas.mp3", poster: "allstars/eq/gas.jpg" },
     { id: "hydronic", title: "Hydronic heat", short: "Host first, then internals. Purge before you blame the pump.", video: "allstars/video/hydronic.mp4", audio: "allstars/audio/hydronic.mp3", poster: "allstars/eq/hydronic.jpg", noloop: true },
@@ -23,6 +23,29 @@
   function byId(id) {
     for (var i = 0; i < FILM.length; i++) if (FILM[i].id === id) return FILM[i];
     return FILM[0];
+  }
+
+  function bootAnim(id, mount) {
+    if (!document.getElementById("film-anim-css")) {
+      var link = document.createElement("link");
+      link.id = "film-anim-css";
+      link.rel = "stylesheet";
+      link.href = "film-anim.css?v=2";
+      document.head.appendChild(link);
+    }
+    function run() {
+      if (global.LtFilmAnim && typeof global.LtFilmAnim.inject === "function") {
+        global.LtFilmAnim.inject(mount, id);
+      }
+    }
+    if (global.LtFilmAnim) {
+      run();
+      return;
+    }
+    var s = document.createElement("script");
+    s.src = "film-anim.js?v=2";
+    s.onload = run;
+    document.body.appendChild(s);
   }
 
   function start(root) {
@@ -59,7 +82,7 @@
         "</header>" +
         '<div class="panel" style="margin:12px;max-width:720px">' +
         "<p class=\"eyebrow\">Professor HUB · Rex</p>" +
-        "<p>Fifteen boxes. Host clip plus shop lecture. Follow the state, not the pretty picture.</p>" +
+        "<p>Fifteen boxes. Real metal plus live cutaway — watch how the part actually moves.</p>" +
         "</div>" +
         '<div class="hub-grid hub-nav" style="padding:8px 12px 24px">' +
         cards +
@@ -89,7 +112,7 @@
         "</p>" +
         '<video id="film-host" playsinline muted poster="' +
         film.poster +
-        '" style="width:100%;max-height:360px;background:#111;border-radius:8px"' +
+        '" style="width:100%;max-height:240px;background:#111;border-radius:8px"' +
         (film.noloop ? "" : " loop") +
         ">" +
         '<source src="' +
@@ -133,6 +156,8 @@
             voice.textContent = "HUB voice";
           }
         };
+
+      bootAnim(film.id, root);
 
       if (film.id === "hydronic") {
         var box = document.createElement("div");
