@@ -1,1 +1,1 @@
-v169 piston chart: Indoor WB slider + target SH = clamp(round(20-0.08*(ODB-82)-0.55*(WB-63)),6,18). sandbox.js?v=122 pending if this note ships alone.
+v3.5.144 2026-09-24 shop bot: sandbox-hook now loads sb-tabs.css?v=3 (same as SW). Bumped sandbox-hook.js?v=18, SW lt-allstars-v370. Live clock-in + sandbox OK. Next: seat-four LEFT tap targets on phone diamond.
