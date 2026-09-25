@@ -1,4 +1,4 @@
-/* Analog manifold faces — fill the empty well under the diamond. */
+/* Analog manifold faces — follow live LPC/HPC, not frozen standing. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -6,18 +6,35 @@
     var m = String(el.textContent || "").match(/(-?\d+)/);
     return m ? Number(m[1]) : null;
   }
+  function running() {
+    var runBtn = document.getElementById("sb-run");
+    if (runBtn && /stop/i.test(runBtn.textContent || "")) return true;
+    var title = document.getElementById("sb-ps-title");
+    if (title && /Suction/i.test(title.textContent || "")) return true;
+    var st = document.getElementById("sb-status");
+    if (st && /Compressor on/i.test(st.textContent || "")) return true;
+    return false;
+  }
   function ensure() {
     var box = document.querySelector("#sandbox-root .sb-gauges");
     if (!box) return null;
     var wrap = document.getElementById("sb-analog");
-    if (wrap) return wrap;
+    if (wrap && !box.contains(wrap) && !box.parentNode.contains(wrap)) {
+      wrap = null;
+    }
+    if (wrap && document.getElementById("sb-g-low") && document.getElementById("sb-g-high")) {
+      if (wrap.parentNode !== box && box.firstChild !== wrap) {
+        box.insertBefore(wrap, box.firstChild);
+      }
+      return wrap;
+    }
     wrap = document.createElement("div");
     wrap.id = "sb-analog";
     wrap.setAttribute("data-sb-gauges", "1");
     wrap.innerHTML =
       '<canvas id="sb-g-low" width="220" height="220" aria-label="LPC"></canvas>' +
       '<canvas id="sb-g-high" width="220" height="220" aria-label="HPC"></canvas>';
-    box.parentNode.insertBefore(wrap, box);
+    box.insertBefore(wrap, box.firstChild);
     return wrap;
   }
   function draw(cv, psi, max, color, label) {
@@ -72,18 +89,19 @@
     ctx.fillText(label, cx, cy + r + 8);
     ctx.font = "bold 16px sans-serif";
     ctx.fillStyle = color;
-    ctx.fillText(psi == null ? "—" : String(Math.round(psi)), cx, cy + 28);
+    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)), cx, cy + 28);
   }
   function tick() {
     if (!document.getElementById("sandbox-root")) return;
     ensure();
-    var lo = parsePsig(document.getElementById("sb-ps"));
-    var hi = parsePsig(document.getElementById("sb-ph"));
-    var standing = lo != null && hi != null && Math.abs(hi - lo) < 20;
-    draw(document.getElementById("sb-g-low"), lo, 400, "#38bdf8", standing ? "LPC standing" : "LPC blue");
-    draw(document.getElementById("sb-g-high"), hi, 500, "#f43f5e", standing ? "HPC standing" : "HPC red");
+    var lo = parsePsig(document.getElementById("sb-ps")) || parsePsig(document.getElementById("g-plow"));
+    var hi = parsePsig(document.getElementById("sb-ph")) || parsePsig(document.getElementById("g-phigh"));
+    var on = running();
+    var standLook = !on && lo != null && hi != null && Math.abs(hi - lo) < 20;
+    draw(document.getElementById("sb-g-low"), lo, 400, "#38bdf8", standLook ? "LPC standing" : "LPC blue");
+    draw(document.getElementById("sb-g-high"), hi, 500, "#f43f5e", standLook ? "HPC standing" : "HPC red");
   }
-  setInterval(tick, 250);
+  setInterval(tick, 200);
   if (document.readyState === "complete") tick();
   else window.addEventListener("load", tick);
 })();
