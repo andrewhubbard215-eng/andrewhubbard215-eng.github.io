@@ -1,1 +1,1 @@
-v3.5.147 2026-09-24 shop bot: sandbox OD/ID/WB/charge readouts sit AFTER the slider so a tech can read the glass. SW lt-allstars-v373. Clock-in + shop floor + sandbox live. Next: seat 4 LEFT and prove running SH/SC after start.
+store SKU = same richness minus Lincoln catalog. Use ?sku=store
