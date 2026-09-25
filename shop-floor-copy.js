@@ -1,4 +1,4 @@
-/* Shop-floor copy override v18 — WB label once, callback talks meter */
+/* Shop-floor copy override v19 — WB label once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -36,6 +36,18 @@
     var wb = document.getElementById("sb-wb");
     var lab = wb && wb.closest ? wb.closest("label") : (wb && wb.parentNode);
     if (!lab) return;
+    lab.querySelectorAll("span, small, .sb-slabel, .sb-slider-lab").forEach(function (el) {
+      var t0 = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/^Indoor WB/i.test(t0) || t0 === "Indoor WB °F") el.textContent = "Entering WB";
+    });
+    if (lab.childNodes && lab.childNodes.length) {
+      for (var n = 0; n < lab.childNodes.length; n++) {
+        var node = lab.childNodes[n];
+        if (node.nodeType === 3 && /Indoor WB/i.test(node.nodeValue || "")) {
+          node.nodeValue = (node.nodeValue || "").replace(/Indoor WB[^\n]*/i, "Entering WB");
+        }
+      }
+    }
     var nodes = lab.querySelectorAll("span, small, .sb-slabel, .sb-slider-lab");
     var named = false;
     for (var i = 0; i < nodes.length; i++) {
