@@ -156,7 +156,8 @@
 #sb-canvas-wrap {
   position: relative;
   flex: 1 1 52%;
-  min-height: 220px;
+  min-height: 340px;
+  height: min(58vh, 520px);
 }
 #sb-seats {
   position: absolute;
@@ -198,7 +199,7 @@
 #sb-seats .sb-seat[data-seat="compressor"] { left: 6%; top: 42%; transform: translate(-10%, -50%); }
 #sb-seats .sb-seat[data-seat="condenser"] { left: 50%; top: 8%; transform: translate(-50%, 0); }
 #sb-seats .sb-seat[data-seat="metering"] { right: 6%; top: 42%; left: auto; transform: translate(10%, -50%); }
-#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; bottom: 6%; top: auto; transform: translate(-50%, 0); }
+#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 78%; bottom: auto; transform: translate(-50%, -8%); }
 #sb-seats .sb-seat.on {
   background: rgba(206, 0, 52, 0.88);
   border-color: #f7f3ea;
