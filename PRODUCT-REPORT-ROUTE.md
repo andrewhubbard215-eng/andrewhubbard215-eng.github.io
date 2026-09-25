@@ -1,12 +1,12 @@
-# HVAC Allstars — shop pass (2026-09-25 midday)
+# HVAC Allstars — shop pass (2026-09-25 night)
 
 ## What a tech can play
 Clock In → System sandbox. Parts LEFT. Gauges under the diamond on PC (no black strip). Service calls: hook gauges then pick the path.
 
 ## What shipped
-- v3.5.155 · SW `lt-allstars-v383`
-- PC sandbox: canvas shorter so LPC/HPC cards stay on the glass
-- sandbox-layout.css?v=17
+- v3.5.164 · SW `lt-allstars-v392`
+- sku.js?v=16 cache-busted (store SKU hide HCR catalog; branding-only)
+- analog gauges + truck-pouch UTF-8 already on main
 
 ## What still sucks
 - service.js CALLS and sandbox tickets are still two lists
