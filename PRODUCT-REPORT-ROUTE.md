@@ -1,13 +1,14 @@
-# HVAC Allstars — shop pass (2026-09-24)
+# HVAC Allstars — shop pass (2026-09-24 night)
 
 ## What a tech can play
-Clock In → System sandbox. Tap LEFT rail (compressor / condenser / TXV / evap). Circles go red = seated. Start compressor then reads Start compressor, not Seat parts first. Standing P/T until the loop is closed. Faults still live.
+Clock In → System sandbox. Parts LEFT. Start when the loop is seated. Service calls: hook gauges then pick the path. Next ticket must change the fault.
 
 ## What shipped
-- shop-floor-copy.js `?v=13` — start button no longer keys off the "PARTS - LEFT" header. Reads the rail / slots.
-- SW `lt-allstars-v363` · strip v3.5.137
-- No Lincoln marks added to store SKU this pass. Gauges of God parked.
+- v3.5.152 · SW `lt-allstars-v376`
+- sku.js loaded once (head only) — branding applies before paint, no second inject
+- index `style.css?v=146` and `route-floor.js?v=9` now match SW CORE
+- sku.js stays branding-only. sandbox-hook stays v18.
 
 ## What still sucks
-- Mobile 480 still flashes “Opening system bay…” then rebuilds.
-- service.js tickets and sandbox TICKETS still two lists.
+- service.js CALLS and sandbox tickets are still two lists
+- Hard-refresh once after this SW bump or Pages will serve the old strip
