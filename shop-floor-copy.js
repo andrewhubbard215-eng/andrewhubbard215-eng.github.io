@@ -1,4 +1,4 @@
-/* Shop-floor copy override — callback talks meter and sheet, not bombs */
+/* Shop-floor copy override v17 — callback talks meter and sheet, not bombs */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -30,6 +30,17 @@
     }
     if (sc && sc.previousElementSibling && sc.previousElementSibling.tagName === "SPAN") {
       sc.previousElementSibling.textContent = "Subcooling \u00b7 cond sat \u2212 liquid T \u00b7 TXV ~8\u201312\u00b0";
+    }
+  }
+  function indoorWbHint() {
+    var nodes = document.querySelectorAll("#sandbox-root label, #sandbox-root .sb-slabel, #sandbox-root .sb-slider-lab, #sandbox-root span, #sandbox-root small");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/^Indoor\s*WB/i.test(t) && !/entering/i.test(t) && t.length < 28) {
+        el.textContent = "Indoor entering WB \u00b0F";
+        el.setAttribute("title", "Coil entering wet-bulb — load, not room dry-bulb.");
+      }
     }
   }
   function partsStillOnBench() {
@@ -110,6 +121,7 @@
     vocationalTiles();
     partsLeftCompressorBtn();
     standingNotDiagnosis();
+    indoorWbHint();
     var title = document.getElementById("arena-title");
     if (title && /arena/i.test(title.textContent || "")) {
       title.textContent = (title.textContent || "").replace(/\s*arena/i, " \u2014 shop truck");
