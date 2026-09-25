@@ -217,8 +217,8 @@
       '<p class="eyebrow">' + step.label + " of " + PROVE.length + "</p><p>" + step.ask + "</p>" +
       '<div class="el-locker-opts">' +
       (Math.random() < 0.5
-        ? '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button><button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button>"
-        : '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + "</button><button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + "</button>") +
+        ? '<button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + '</button><button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + '</button>'
+        : '<button type="button" class="btn el-prove-opt" data-ok="0">' + step.bad + '</button><button type="button" class="btn el-prove-opt" data-ok="1">' + step.good + '</button>') +
       "</div><p class='hub-chip' style='margin-top:12px'>" + (pWhy || "Don't condemn the switch until the draft path is proven.") + "</p><p class='muted'>Score " + pScore + "/" + pTried + "</p>";
     wrap.querySelector("#el-prove-close").onclick = function () { closeLocker(wrap); };
     wireDrillNav(wrap);
@@ -263,8 +263,8 @@
       '<p class="eyebrow">' + step.label + " of " + SOO.length + "</p><p>" + step.ask + "</p>" +
       '<div class="el-locker-opts">' +
       (Math.random() < 0.5
-        ? '<button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + "</button><button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + "</button>"
-        : '<button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + "</button><button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + "</button>") +
+        ? '<button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + '</button><button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + '</button>'
+        : '<button type="button" class="btn el-soo-opt" data-ok="0">' + step.bad + '</button><button type="button" class="btn el-soo-opt" data-ok="1">' + step.good + '</button>') +
       "</div><p class='hub-chip' style='margin-top:12px'>" + (sWhy || "Walk the sequence. Don't skip to parts.") + "</p><p class='muted'>Score " + sScore + "/" + sTried + "</p>";
     wrap.querySelector("#el-soo-close").onclick = function () { closeLocker(wrap); };
     wireDrillNav(wrap);
