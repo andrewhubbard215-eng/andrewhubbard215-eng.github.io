@@ -213,3 +213,17 @@
   #sb-seats .sb-seat { min-width: 96px; min-height: 96px; }
   #sb-seats .sb-seat img { width: 72px; height: 72px; }
 }
+
+#sb-analog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 8px;
+  padding: 4px 0 0;
+  flex: 0 0 auto;
+}
+#sb-analog canvas {
+  width: 168px;
+  height: 168px;
+  max-width: 42vw;
+}
