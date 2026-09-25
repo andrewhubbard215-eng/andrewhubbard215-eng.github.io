@@ -77,8 +77,11 @@
   function tick() {
     if (!document.getElementById("sandbox-root")) return;
     ensure();
-    draw(document.getElementById("sb-g-low"), parsePsig(document.getElementById("sb-ps")), 200, "#38bdf8", "LPC blue");
-    draw(document.getElementById("sb-g-high"), parsePsig(document.getElementById("sb-ph")), 500, "#f43f5e", "HPC red");
+    var lo = parsePsig(document.getElementById("sb-ps"));
+    var hi = parsePsig(document.getElementById("sb-ph"));
+    var standing = lo != null && hi != null && Math.abs(hi - lo) < 20;
+    draw(document.getElementById("sb-g-low"), lo, 400, "#38bdf8", standing ? "LPC standing" : "LPC blue");
+    draw(document.getElementById("sb-g-high"), hi, 500, "#f43f5e", standing ? "HPC standing" : "HPC red");
   }
   setInterval(tick, 250);
   if (document.readyState === "complete") tick();
