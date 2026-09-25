@@ -1,4 +1,4 @@
-/* Shop-floor copy override v17 — callback talks meter and sheet, not bombs */
+/* Shop-floor copy override v18 — WB label once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -33,15 +33,34 @@
     }
   }
   function indoorWbHint() {
-    var nodes = document.querySelectorAll("#sandbox-root label, #sandbox-root .sb-slabel, #sandbox-root .sb-slider-lab, #sandbox-root span, #sandbox-root small");
+    var wb = document.getElementById("sb-wb");
+    var lab = wb && wb.closest ? wb.closest("label") : (wb && wb.parentNode);
+    if (!lab) return;
+    var nodes = lab.querySelectorAll("span, small, .sb-slabel, .sb-slider-lab");
+    var named = false;
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
+      if (el.id && /^sb-(out|in|wb|charge|chg)/.test(el.id)) continue;
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (/^Indoor\s*WB/i.test(t) && !/entering/i.test(t) && t.length < 28) {
-        el.textContent = "Indoor entering WB \u00b0F";
-        el.setAttribute("title", "Coil entering wet-bulb — load, not room dry-bulb.");
+      if (!t || t.length > 36) continue;
+      if (/^\d/.test(t) || /%|°F/.test(t) && !/WB|wet/i.test(t)) continue;
+      if (/WB|wet.?bulb|Indoor/i.test(t)) {
+        if (!named) {
+          el.textContent = "Indoor entering WB";
+          el.setAttribute("title", "Coil entering wet-bulb — load, not room dry-bulb.");
+          named = true;
+        } else if (/Indoor entering WB/i.test(t)) {
+          el.textContent = "";
+        }
       }
     }
+    document.querySelectorAll("#sandbox-root span, #sandbox-root small").forEach(function (el) {
+      if (lab.contains(el)) return;
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (t === "Indoor entering WB \u00b0F" || t === "Indoor entering WB") {
+        if (!el.id && el.children.length === 0) el.textContent = "";
+      }
+    });
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
