@@ -1,4 +1,5 @@
-/* Analog manifold faces — follow live LPC/HPC, not frozen standing. */
+/* Analog manifold faces v3 — follow live LPC/HPC (sb-ps / sb-ph / g-plow / g-phigh) on every change.
+   "standing" only while the compressor is OFF. Mounted inside #sandbox-root .sb-gauges. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -19,22 +20,16 @@
     var box = document.querySelector("#sandbox-root .sb-gauges");
     if (!box) return null;
     var wrap = document.getElementById("sb-analog");
-    if (wrap && !box.contains(wrap) && !box.parentNode.contains(wrap)) {
-      wrap = null;
+    if (!wrap || !document.getElementById("sb-g-low") || !document.getElementById("sb-g-high")) {
+      if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+      wrap = document.createElement("div");
+      wrap.id = "sb-analog";
+      wrap.setAttribute("data-sb-gauges", "1");
+      wrap.innerHTML =
+        '<canvas id="sb-g-low" width="220" height="220" aria-label="LPC"></canvas>' +
+        '<canvas id="sb-g-high" width="220" height="220" aria-label="HPC"></canvas>';
     }
-    if (wrap && document.getElementById("sb-g-low") && document.getElementById("sb-g-high")) {
-      if (wrap.parentNode !== box && box.firstChild !== wrap) {
-        box.insertBefore(wrap, box.firstChild);
-      }
-      return wrap;
-    }
-    wrap = document.createElement("div");
-    wrap.id = "sb-analog";
-    wrap.setAttribute("data-sb-gauges", "1");
-    wrap.innerHTML =
-      '<canvas id="sb-g-low" width="220" height="220" aria-label="LPC"></canvas>' +
-      '<canvas id="sb-g-high" width="220" height="220" aria-label="HPC"></canvas>';
-    box.insertBefore(wrap, box.firstChild);
+    if (wrap.parentNode !== box) box.insertBefore(wrap, box.firstChild);
     return wrap;
   }
   function draw(cv, psi, max, color, label) {
@@ -91,17 +86,42 @@
     ctx.fillStyle = color;
     ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)), cx, cy + 28);
   }
+  function first(ids) {
+    for (var i = 0; i < ids.length; i++) {
+      var v = parsePsig(document.getElementById(ids[i]));
+      if (v != null) return v;
+    }
+    return null;
+  }
+  var last = "";
   function tick() {
     if (!document.getElementById("sandbox-root")) return;
-    ensure();
-    var lo = parsePsig(document.getElementById("sb-ps")) || parsePsig(document.getElementById("g-plow"));
-    var hi = parsePsig(document.getElementById("sb-ph")) || parsePsig(document.getElementById("g-phigh"));
+    if (!ensure()) return;
+    var lo = first(["sb-ps", "g-plow"]);
+    var hi = first(["sb-ph", "g-phigh"]);
     var on = running();
-    var standLook = !on && lo != null && hi != null && Math.abs(hi - lo) < 20;
-    draw(document.getElementById("sb-g-low"), lo, 400, "#38bdf8", standLook ? "LPC standing" : "LPC blue");
-    draw(document.getElementById("sb-g-high"), hi, 500, "#f43f5e", standLook ? "HPC standing" : "HPC red");
+    var key = lo + "|" + hi + "|" + on;
+    if (key === last && document.getElementById("sb-g-low").dataset.psig != null) return;
+    last = key;
+    var lowCv = document.getElementById("sb-g-low"), highCv = document.getElementById("sb-g-high");
+    draw(lowCv, lo, 400, "#38bdf8", on ? "LPC suction" : "LPC standing");
+    draw(highCv, hi, 500, "#f43f5e", on ? "HPC head" : "HPC standing");
+    lowCv.dataset.psig = lo == null ? "" : String(Math.round(lo));
+    highCv.dataset.psig = hi == null ? "" : String(Math.round(hi));
+    lowCv.dataset.label = on ? "LPC suction" : "LPC standing";
+    highCv.dataset.label = on ? "HPC head" : "HPC standing";
   }
-  setInterval(tick, 200);
-  if (document.readyState === "complete") tick();
-  else window.addEventListener("load", tick);
+  var mo = null;
+  function watch() {
+    var root = document.getElementById("sandbox-root");
+    if (!root || typeof MutationObserver === "undefined") return;
+    if (mo && mo.__root === root) return;
+    if (mo) mo.disconnect();
+    mo = new MutationObserver(function () { tick(); });
+    mo.__root = root;
+    mo.observe(root, { childList: true, subtree: true, characterData: true });
+  }
+  setInterval(function () { watch(); tick(); }, 250);
+  if (document.readyState === "complete") { watch(); tick(); }
+  else window.addEventListener("load", function () { watch(); tick(); });
 })();
