@@ -9,10 +9,20 @@
     var bits = [
       (t && t.textContent) || "",
       (slip && slip.textContent) || "",
-      (armed && armed.textContent) || ""
+      (armed && armed.textContent) || "",
+      (document.body && document.body.innerText && /ARMED/.test(document.body.innerText)
+        ? (document.body.innerText.match(/No-cool at 4:58|Hum, no start|3A keeps popping|Stat wired drunk|Contactor never pulls|Pan is a lake|Iced solid|Dead set|Furnace limit|Heat pump, 3A/i) || [""])[0]
+        : "")
     ].join(" | ");
     var m = bits.match(/No-cool at 4:58|Hum, no start|3A keeps popping|Stat wired drunk|Contactor never pulls|Pan is a lake|Iced solid|Dead set|Furnace limit|Heat pump, 3A/i);
     return (m && m[0]) || bits.slice(0, 48) || "open";
+  }
+
+  function isReplaceBtn(b) {
+    if (!b || b.tagName !== "BUTTON") return false;
+    if (b.id === "el-replace") return true;
+    var label = (b.textContent || "").replace(/\s+/g, " ").trim();
+    return /^Replace /i.test(label);
   }
 
   function onLadderClick(ev) {
@@ -22,17 +32,37 @@
     if (/OPEN/i.test(txt) && /0\.0/.test(txt)) {
       proved[ticketKey()] = true;
       lockReplace();
+      return;
     }
+    if (isReplaceBtn(box.closest ? box.closest("button") || box : box) && !proved[ticketKey()]) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      ev.stopImmediatePropagation();
+      lockReplace();
+      yell("Meter the OPEN box first. Shotgun is a callback.");
+    }
+  }
+
+  function yell(msg) {
+    var n = document.getElementById("el-sheet-yell");
+    if (!n) {
+      n = document.createElement("p");
+      n.id = "el-sheet-yell";
+      n.style.cssText = "margin:8px 12px;color:#f5c542;font:600 13px/1.3 sans-serif";
+      var host = document.querySelector("#el-replace") && document.querySelector("#el-replace").parentNode;
+      if (host) host.appendChild(n);
+      else document.getElementById("electrical-root").appendChild(n);
+    }
+    n.textContent = msg;
   }
 
   function lockReplace() {
     var key = ticketKey();
     var ok = !!proved[key];
-    var btns = document.querySelectorAll("button");
+    var btns = document.querySelectorAll("button, #el-replace");
     for (var i = 0; i < btns.length; i++) {
       var b = btns[i];
-      var label = (b.textContent || "").trim();
-      if (!/^Replace /i.test(label)) continue;
+      if (!isReplaceBtn(b)) continue;
       if (ok) {
         b.disabled = false;
         b.removeAttribute("title");
@@ -73,7 +103,7 @@
       root.addEventListener("click", onLadderClick, true);
     }
     paint();
-    setInterval(paint, 800);
+    setInterval(paint, 400);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
