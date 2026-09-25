@@ -1,9 +1,8 @@
 /* Dual SKU — keep both forever.
    campus = Lincoln Tech licensed seats (default on this GitHub Pages host).
-   store  = unbranded HVAC Allstars (Play TWA launches with ?sku=store).
+   store  = HVAC Allstars, same shop floor, no Lincoln / HCR catalog.
    ?sku=campus | ?sku=store  — persisted. Do not drop the Lincoln edition.
-   v15 — branding only. Do NOT inject hook/route/copy/board-codes here.
-   index.html already loads the live versions. Stale injects caused hook fights. */
+   v16 — branding + hide curriculum on store. Same richness. No face-clip. */
 (function (global) {
   "use strict";
   var params = new URLSearchParams(location.search);
@@ -22,7 +21,6 @@
       localStorage.setItem("lt-sku", sku);
     } catch (_) {}
   }
-  // Play TWA always ships unbranded unless they explicitly ask for campus.
   if (params.get("play") === "1" && q !== "campus") {
     sku = "store";
     try {
@@ -37,10 +35,10 @@
     org: isStore ? "HVAC Allstars" : "Lincoln Tech",
     title: isStore ? "HVAC Allstars" : "Lincoln Tech HVAC Allstars",
     mark: isStore ? "HA" : "LT",
-    exam: isStore ? "EPA 608 · OSHA 30 · shop curriculum" : "EPA 608 · OSHA 30 · Lincoln Tech",
+    exam: isStore ? "EPA 608 · OSHA 30 · shop floor" : "EPA 608 · OSHA 30 · Lincoln Tech",
     school: isStore ? "trade school" : "Lincoln Tech",
     roof: isStore ? "Rooftop · the heavens open" : "Lincoln Tech roof · the heavens open",
-    packCurriculum: isStore ? "Shop curriculum" : "Lincoln Tech",
+    packCurriculum: isStore ? "" : "Lincoln Tech",
     program: isStore ? "SHOP-HVAC" : "HCRX101",
   };
 
@@ -56,11 +54,10 @@
     s.textContent =
       "html.sku-store .lincoln-only{display:none!important}" +
       "html.sku-campus .store-only{display:none!important}" +
-      "html.sku-store .bg-lincoln{filter:saturate(.35) brightness(.7)}" +
-      "html.sku-store .title-hero-face,html.sku-store .hub-avatar,html.sku-store img.hub-chip-av{" +
-      "object-fit:cover;object-position:center 72%;clip-path:inset(35% 0 0 0)}" +
-      "html.sku-store .title-hero-face{width:96px;height:96px}" +
-      "html.sku-store .hub-avatar{overflow:hidden}";
+      "html.sku-store [data-mode=\"curriculum\"]," +
+      "html.sku-store [data-drill=\"curriculum\"]," +
+      "html.sku-store .cu-layout," +
+      "html.sku-store .cu-card{display:none!important}";
     document.head.appendChild(s);
   }
 
@@ -72,12 +69,12 @@
       desc.setAttribute(
         "content",
         isStore
-          ? "HVAC Allstars — daily vocational trainer. EPA 608, OSHA 30, electrical box, DX sandbox, Professor HUB."
+          ? "HVAC Allstars — vocational trainer. EPA 608, OSHA 30, electrical box, DX sandbox, Professor HUB."
           : "Lincoln Tech HVAC Allstars — daily vocational training sim with Professor Andrew Hubbard. Mini-split, sandbox, EPA 608, service calls."
       );
     }
     var apple = document.querySelector('meta[name="apple-mobile-web-app-title"]');
-    if (apple) apple.setAttribute("content", "HVAC Allstars");
+    if (apple) apple.setAttribute("content", isStore ? "HVAC Allstars" : "LT HVAC Allstars");
     document.querySelectorAll(".brand-mark").forEach(function (el) {
       el.textContent = brand.mark;
     });
