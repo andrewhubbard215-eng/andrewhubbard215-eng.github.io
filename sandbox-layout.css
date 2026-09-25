@@ -117,8 +117,8 @@
 }
 @media (min-width: 901px) {
   #sandbox-root #sb-canvas {
-    max-height: min(58vh, 520px) !important;
-    min-height: 320px !important;
+    max-height: min(42vh, 360px) !important;
+    min-height: 260px !important;
     flex: 0 1 auto !important;
   }
 }
@@ -142,13 +142,18 @@
     transform: none !important;
     max-height: none !important;
     z-index: 4;
-    margin-top: 8px;
+    margin-top: 4px;
     width: auto !important;
+    flex: 0 0 auto !important;
   }
   #sandbox-root #sb-canvas {
     position: relative !important;
-    min-height: 340px !important;
-    padding-bottom: 12px;
+    min-height: 260px !important;
+    padding-bottom: 8px;
+  }
+  #sandbox-root .sb-main {
+    overflow-y: hidden !important;
+    height: calc(100dvh - 48px);
   }
 }
 
@@ -156,8 +161,8 @@
 #sb-canvas-wrap {
   position: relative;
   flex: 1 1 52%;
-  min-height: 340px;
-  height: min(58vh, 520px);
+  min-height: 260px;
+  height: min(42vh, 360px);
 }
 #sb-seats {
   position: absolute;
@@ -205,6 +210,6 @@
   border-color: #f7f3ea;
 }
 @media (min-width: 901px) {
-  #sb-seats .sb-seat { min-width: 110px; min-height: 110px; }
-  #sb-seats .sb-seat img { width: 88px; height: 88px; }
+  #sb-seats .sb-seat { min-width: 96px; min-height: 96px; }
+  #sb-seats .sb-seat img { width: 72px; height: 72px; }
 }
