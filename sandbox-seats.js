@@ -1,11 +1,11 @@
-/* HVAC Allstars — four LEFT diamond tap seats */
+/* HVAC Allstars — four LEFT diamond seats with real part plates */
 (function () {
   "use strict";
   var PARTS = [
-    { id: "compressor", label: "COMP" },
-    { id: "condenser", label: "COND" },
-    { id: "metering", label: "TXV" },
-    { id: "evaporator", label: "EVAP" }
+    { id: "compressor", label: "COMP", src: "parts/compressor.png" },
+    { id: "condenser", label: "COND", src: "parts/condenser.png" },
+    { id: "metering", label: "TXV", src: "parts/metering.png" },
+    { id: "evaporator", label: "EVAP", src: "parts/evaporator.png" }
   ];
 
   function filled(id) {
@@ -32,6 +32,10 @@
     paint();
   }
 
+  function seatAll() {
+    PARTS.forEach(function (p) { seat(p.id); });
+  }
+
   function paint() {
     document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
       btn.classList.toggle("on", filled(btn.getAttribute("data-seat")));
@@ -55,7 +59,8 @@
       b.type = "button";
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
-      b.textContent = p.label;
+      b.setAttribute("aria-label", p.label);
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + p.label + "</span>";
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
@@ -64,6 +69,7 @@
       layer.appendChild(b);
     });
     wrap.appendChild(layer);
+    seatAll();
     paint();
   }
 
