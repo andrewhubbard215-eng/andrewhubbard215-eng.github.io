@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instructor Desk</title>
+  <style>
+    :root { --red:#CE0034; --ink:#14171a; --cream:#f7f3ea; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--cream); color:var(--ink); font:16px/1.45 system-ui,sans-serif; }
+    header { background:var(--ink); color:var(--cream); padding:22px 20px; }
+    header p { margin:0; letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:#CE0034; }
+    h1 { margin:6px 0 0; font-size:32px; }
+    main { max-width:880px; margin:0 auto; padding:22px 18px 72px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .card { background:#fff; border:1px solid #d8cbb0; border-radius:12px; padding:14px; }
+    h2 { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--red); }
+    a.btn, button.btn { display:inline-block; margin:6px 8px 0 0; padding:10px 14px; background:var(--red); color:#fff; text-decoration:none; border-radius:8px; font-weight:700; border:0; cursor:pointer; font:inherit; }
+    a.ghost { background:transparent; color:var(--red); border:2px solid var(--red); }
+    .warn { background:#fff3d6; border:1px solid #d2b15a; padding:12px; border-radius:10px; }
+    @media print { a.btn, button.btn { display:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p>Instructor Desk</p>
+    <h1>Today · Lincoln Tech HVAC</h1>
+    <p id="when" style="letter-spacing:0;text-transform:none;color:#d8cbb0;margin-top:8px"></p>
+  </header>
+  <main>
+    <p class="warn">Full React Desk (Today + /print/brief) is not on this GitHub account yet. Use this sheet until that repo is connected.</p>
+    <h2>Open</h2>
+    <p>
+      <a class="btn" href="../index.html">Clock In — Allstars locker</a>
+      <a class="btn ghost" href="../lincoln/">Campus sheet</a>
+    </p>
+    <h2>6-hour block</h2>
+    <div class="grid">
+      <div class="card"><h3>Hour 1–2</h3><p>Clock In. Sandbox. COMP / COND / TXV / EVAP seated. Standing P/T, then Start compressor. Read SH/SC.</p></div>
+      <div class="card"><h3>Hour 3</h3><p>Follow the call / Land lugs. Meter first.</p></div>
+      <div class="card"><h3>Hour 4</h3><p>EPA 608 tutor — Core or Type II.</p></div>
+      <div class="card"><h3>Hour 5–6</h3><p>Service calls or mini-split. Lab packet on the plywood wall.</p></div>
+    </div>
+    <h2>Print brief</h2>
+    <div class="card">
+      <p>Instructor: this page. Student: Allstars locker only.</p>
+      <button type="button" class="btn" onclick="window.print()">Print brief</button>
+    </div>
+  </main>
+  <script>
+    document.getElementById("when").textContent = new Date().toLocaleString("en-US", { weekday:"long", month:"long", day:"numeric", year:"numeric", hour:"numeric", minute:"2-digit" });
+  </script>
+</body>
+</html>
