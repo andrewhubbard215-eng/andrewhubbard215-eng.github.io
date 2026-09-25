@@ -69,7 +69,6 @@
       layer.appendChild(b);
     });
     wrap.appendChild(layer);
-    seatAll();
     paint();
   }
 
