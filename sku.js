@@ -1,8 +1,9 @@
 /* Dual SKU — keep both forever.
    campus = Lincoln Tech licensed seats (default on this GitHub Pages host).
-   store  = HVAC Allstars, same shop floor, no Lincoln / HCR catalog.
+   store  = HVAC Allstars — same locker richness, no Lincoln HCR catalog.
    ?sku=campus | ?sku=store  — persisted. Do not drop the Lincoln edition.
-   v16 — branding + hide curriculum on store. Same richness. No face-clip. */
+   v16 — branding + hide HCR units on store. Do NOT clip the hero or wash the bay.
+   Do NOT inject hook/route/copy/board-codes here. */
 (function (global) {
   "use strict";
   var params = new URLSearchParams(location.search);
@@ -38,7 +39,7 @@
     exam: isStore ? "EPA 608 · OSHA 30 · shop floor" : "EPA 608 · OSHA 30 · Lincoln Tech",
     school: isStore ? "trade school" : "Lincoln Tech",
     roof: isStore ? "Rooftop · the heavens open" : "Lincoln Tech roof · the heavens open",
-    packCurriculum: isStore ? "" : "Lincoln Tech",
+    packCurriculum: isStore ? "Shop floor" : "Lincoln Tech",
     program: isStore ? "SHOP-HVAC" : "HCRX101",
   };
 
@@ -48,17 +49,18 @@
   doc.classList.toggle("sku-campus", !isStore);
 
   function injectSkuCss() {
-    if (document.getElementById("lt-sku-css")) return;
-    var s = document.createElement("style");
-    s.id = "lt-sku-css";
+    var s = document.getElementById("lt-sku-css");
+    if (!s) {
+      s = document.createElement("style");
+      s.id = "lt-sku-css";
+      document.head.appendChild(s);
+    }
     s.textContent =
       "html.sku-store .lincoln-only{display:none!important}" +
       "html.sku-campus .store-only{display:none!important}" +
-      "html.sku-store [data-mode=\"curriculum\"]," +
-      "html.sku-store [data-drill=\"curriculum\"]," +
-      "html.sku-store .cu-layout," +
-      "html.sku-store .cu-card{display:none!important}";
-    document.head.appendChild(s);
+      "html.sku-store .cu-card[data-id^=\"hcr\"]{display:none!important}" +
+      "html.sku-store .lincoln-catalog{display:none!important}" +
+      "html.sku-store [data-lincoln-curriculum]{display:none!important}";
   }
 
   function applyHead() {
@@ -69,12 +71,12 @@
       desc.setAttribute(
         "content",
         isStore
-          ? "HVAC Allstars — vocational trainer. EPA 608, OSHA 30, electrical box, DX sandbox, Professor HUB."
+          ? "HVAC Allstars — daily vocational trainer. EPA 608, OSHA 30, electrical box, DX sandbox, Professor HUB."
           : "Lincoln Tech HVAC Allstars — daily vocational training sim with Professor Andrew Hubbard. Mini-split, sandbox, EPA 608, service calls."
       );
     }
     var apple = document.querySelector('meta[name="apple-mobile-web-app-title"]');
-    if (apple) apple.setAttribute("content", isStore ? "HVAC Allstars" : "LT HVAC Allstars");
+    if (apple) apple.setAttribute("content", "HVAC Allstars");
     document.querySelectorAll(".brand-mark").forEach(function (el) {
       el.textContent = brand.mark;
     });
@@ -93,15 +95,8 @@
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         var p = n.parentElement;
-        if (!p) return NodeFilter.FILTER_REJECT;
-        var tag = p.tagName;
-        if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "TEXTAREA") {
-          return NodeFilter.FILTER_REJECT;
-        }
-        if (!n.nodeValue) return NodeFilter.FILTER_SKIP;
-        if (n.nodeValue.indexOf("Lincoln") === -1 && n.nodeValue.indexOf("HCR") === -1) {
-          return NodeFilter.FILTER_SKIP;
-        }
+        if (!p || /SCRIPT|STYLE|NOSCRIPT|TEXTAREA/.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+        if (!n.nodeValue || !/Lincoln|HCR/i.test(n.nodeValue)) return NodeFilter.FILTER_SKIP;
         return NodeFilter.FILTER_ACCEPT;
       },
     });
@@ -112,6 +107,7 @@
           .replace(/official Lincoln Technical Institute/gi, "official school")
           .replace(/Lincoln Technical Institute/gi, "a trade school")
           .replace(/Lincoln Tech HVAC Allstars/gi, "HVAC Allstars")
+          .replace(/Lincoln catalog/gi, "shop catalog")
           .replace(/Lincoln Tech/gi, "HVAC Allstars"),
       );
     }
