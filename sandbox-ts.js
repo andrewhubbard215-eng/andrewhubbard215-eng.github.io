@@ -1,4 +1,6 @@
-/* Shop save — TS sheet must stay readable (was crushed to 0px). */
+/* Shop save — TS sheet must stay readable (was crushed to 0px).
+   v8 — do NOT reload sandbox-hook. index.html already ships hook v=18.
+   Old loadHook() stripped v=18 and injected v=15 every 800ms. */} 
 (function () {
   "use strict";
   var STEPS = [
@@ -8,16 +10,6 @@
     { n: "4", title: "Read SC", body: "SC = SCT − liquid line. TXV: charge by SC 8–14°. Low SC = undercharge/leak — non-condensables raise head, they do not drop SC." },
     { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High head + high SC = overcharge or restriction. High head + low-to-normal SC = condenser air." }
   ];
-
-  function loadHook() {
-    var old = document.querySelector("script[data-sb-hook]");
-    if (old && /v=15/.test(old.src || "")) return;
-    if (old) old.remove();
-    var s = document.createElement("script");
-    s.src = "sandbox-hook.js?v=15";
-    s.setAttribute("data-sb-hook", "1");
-    document.head.appendChild(s);
-  }
 
   function injectCss() {
     var s = document.getElementById("sb-ts-fix-css");
@@ -119,7 +111,6 @@
   }
 
   function boot() {
-    loadHook();
     injectCss();
     if (document.getElementById("sandbox-root")) {
       mountList();

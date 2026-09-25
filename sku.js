@@ -1,7 +1,9 @@
 /* Dual SKU — keep both forever.
    campus = Lincoln Tech licensed seats (default on this GitHub Pages host).
    store  = unbranded HVAC Allstars (Play TWA launches with ?sku=store).
-   ?sku=campus | ?sku=store  — persisted. Do not drop the Lincoln edition. */
+   ?sku=campus | ?sku=store  — persisted. Do not drop the Lincoln edition.
+   v15 — branding only. Do NOT inject hook/route/copy/board-codes here.
+   index.html already loads the live versions. Stale injects caused hook fights. */
 (function (global) {
   "use strict";
   var params = new URLSearchParams(location.search);
@@ -173,44 +175,5 @@
     document.addEventListener("DOMContentLoaded", applyHead);
   } else {
     applyHead();
-  }
-
-  function addScript(src) {
-    if (document.querySelector('script[src*="' + src.split("?")[0] + '"]')) return;
-    var s = document.createElement("script");
-    s.src = src;
-    s.defer = true;
-    document.head.appendChild(s);
-  }
-  if (!document.querySelector('script[src*="board-codes.js"]')) {
-    var s = document.createElement("script");
-    s.src = "board-codes.js?v=4";
-    document.head.appendChild(s);
-  }
-  if (!document.querySelector('script[src*="charge-floor.js"]')) {
-    var cf = document.createElement("script");
-    cf.src = "charge-floor.js?v=2";
-    document.head.appendChild(cf);
-  }
-  if (!document.querySelector('script[src*="sandbox-bom.js"]')) {
-    var bom = document.createElement("script");
-    bom.defer = true;
-    bom.src = "sandbox-bom.js?v=2";
-    document.head.appendChild(bom);
-  }
-  addScript("sandbox-hook.js?v=12");
-  addScript("route-floor.js?v=2");
-  addScript("shop-floor-copy.js?v=2");
-  if (!document.querySelector('link[href*="board-codes.css"]')) {
-    var l = document.createElement("link");
-    l.rel = "stylesheet";
-    l.href = "board-codes.css?v=2";
-    document.head.appendChild(l);
-  }
-  if (!document.querySelector('link[href*="lab-glass.css"]')) {
-    var g = document.createElement("link");
-    g.rel = "stylesheet";
-    g.href = "lab-glass.css?v=1";
-    document.head.appendChild(g);
   }
 })(window);
