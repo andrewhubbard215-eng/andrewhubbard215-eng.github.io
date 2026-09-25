@@ -16,7 +16,7 @@
       }catch(e){ console.error("electrical load failed", e); }
       return;
     }
-    fetch(parts[i]+"?v=141land").then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
+    fetch(parts[i]+"?v=156zoom").then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
       .then(function(t){ b64+=t; i++; next(); })
       .catch(function(e){ console.error("electrical chunk fail", parts[i], e); });
   }

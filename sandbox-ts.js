@@ -1,6 +1,7 @@
 /* Shop save — TS sheet must stay readable (was crushed to 0px).
    v8 — do NOT reload sandbox-hook. index.html already ships hook v=18.
-   Old loadHook() stripped v=18 and injected v=15 every 800ms. */} 
+   Old loadHook() stripped v=18 and injected v=15 every 800ms.
+   v9 — removed stray } after this comment (parse crash). */
 (function () {
   "use strict";
   var STEPS = [
