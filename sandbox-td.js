@@ -65,8 +65,24 @@
     var etd = ensure("sb-etd", "sb-sh");
     var ctd = ensure("sb-ctd", "sb-sc");
     var method = ensure("sb-method", "sb-etd");
-    if (etd) etd.textContent = running && sst != null ? "Evap TD " + Math.round(idb - sst) + "\u00b0 (ID\u2212SST)" : "\u2014 off (no TD)";
-    if (ctd) ctd.textContent = running && sct != null ? "Cond TD " + Math.round(sct - od) + "\u00b0 (SCT\u2212OD)" : "\u2014 off (no TD)";
+    if (etd) {
+      if (running && sst != null) {
+        var ev = Math.round(idb - sst);
+        var evNote = ev < 12 ? "low — airflow / load" : ev > 22 ? "high — dirty coil / low airflow" : "seat 15–20° air DX";
+        etd.textContent = "Evap TD " + ev + "\u00b0 (ID\u2212SST) \u00b7 " + evNote;
+      } else {
+        etd.textContent = "\u2014 off (no TD)";
+      }
+    }
+    if (ctd) {
+      if (running && sct != null) {
+        var cd = Math.round(sct - od);
+        var cdNote = cd < 15 ? "low — airflow / charge" : cd > 35 ? "high — dirty cond / low CFM" : "seat 20–30° air-cooled";
+        ctd.textContent = "Cond TD " + cd + "\u00b0 (SCT\u2212OD) \u00b7 " + cdNote;
+      } else {
+        ctd.textContent = "\u2014 off (no TD)";
+      }
+    }
     if (method) {
       var tgt = pistonSh(od, wb);
       var kind = meteringKind();
