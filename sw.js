@@ -15,7 +15,6 @@ const CORE = [
   "./shop-floor-copy.js?v=20",
   "./sandbox.js?v=161",
   "./sandbox-hunt.js?v=2",
-  "./sandbox.js?v=161",
   "./sandbox-eq.js?v=2",
   "./sandbox-hook.js?v=18",
   "./sandbox-seats.js?v=3",
