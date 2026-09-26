@@ -85,6 +85,45 @@
   }
 }
 @media (max-width: 480px) {
+  /* Fault chips stay in a slim scroll row — never on the diamond. */
+  #sandbox-root #sb-faults {
+    position: relative !important;
+    z-index: 4 !important;
+    order: -30 !important;
+    flex: 0 0 36px !important;
+    max-height: 36px !important;
+    min-height: 36px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
+    pointer-events: auto;
+    background: rgba(11, 18, 32, 0.98);
+    margin: 0 !important;
+  }
+  #sandbox-root #sb-faults .btn {
+    display: inline-block;
+    margin: 2px 4px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap {
+    position: relative !important;
+    z-index: 1 !important;
+    order: -20 !important;
+    min-height: 38vh !important;
+    max-height: 42vh !important;
+    height: 38vh !important;
+    flex: 0 0 38vh !important;
+  }
+  #sandbox-root .sb-gauges {
+    position: relative !important;
+    z-index: 3 !important;
+    max-height: 28vh !important;
+    min-height: 22vh !important;
+    overflow-x: auto;
+  }
   body.lab-open .hub-ai-fab,
   body.lab-open #hub-ai-fab,
   body.lab-open .ask-hub,
@@ -96,28 +135,9 @@
   body.lab-open [data-hub-dock] {
     display: none !important;
   }
-  /* Diamond first. Fault chips and sliders ride UNDER the seats. */
   #sandbox-root .sb-main {
     display: flex !important;
     flex-direction: column !important;
-  }
-  #sandbox-root #sb-canvas,
-  #sandbox-root #sb-canvas-wrap {
-    order: -20 !important;
-    min-height: 52vh !important;
-    max-height: 58vh !important;
-    height: 52vh !important;
-    flex: 0 0 52vh !important;
-    width: 100% !important;
-    z-index: 6;
-  }
-  #sandbox-root #sb-faults {
-    order: 8 !important;
-    max-height: 40px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap !important;
-    white-space: nowrap;
   }
   #sandbox-root .sb-toolbar {
     order: 9 !important;
@@ -157,7 +177,7 @@
   .sb-gauges {
     grid-column: 2;
     grid-row: 2;
-    max-height: 20vh;
+    max-height: 28vh;
   }
   .el-ladder, .ladder, #ladder, .el-ladder-wrap {
     font-size: 12px;
