@@ -38,7 +38,12 @@
 
   function paint() {
     document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
-      btn.classList.toggle("on", filled(btn.getAttribute("data-seat")));
+      var id = btn.getAttribute("data-seat");
+      var on = filled(id);
+      btn.classList.toggle("on", on);
+      var span = btn.querySelector("span");
+      var name = id === "metering" ? "TXV" : id === "compressor" ? "COMP" : id === "condenser" ? "COND" : "EVAP";
+      if (span) span.textContent = on ? name + " SEATED" : name + " LEFT";
     });
   }
 
@@ -59,8 +64,8 @@
       b.type = "button";
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
-      b.setAttribute("aria-label", p.label);
-      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + p.label + "</span>";
+      b.setAttribute("aria-label", p.label + " LEFT");
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + p.label + " LEFT</span>";
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
