@@ -60,6 +60,32 @@
     paint();
   }
 
+  function missingPretty() {
+    return PARTS.filter(function (p) { return !filled(p.id); }).map(function (p) { return labelFor(p.id); });
+  }
+
+  function paintStrip() {
+    var miss = missingPretty();
+    var strip = document.getElementById("sb-left-strip");
+    if (!strip) {
+      strip = document.createElement("p");
+      strip.id = "sb-left-strip";
+      strip.setAttribute("role", "status");
+      strip.style.cssText = "margin:6px 12px 0;font:700 13px/1.35 sans-serif;letter-spacing:.02em";
+      var host = document.getElementById("sb-status") || document.querySelector("#sandbox-root .sb-live") || document.getElementById("sandbox-root");
+      if (host && host.parentNode && host.id === "sb-status") host.parentNode.insertBefore(strip, host.nextSibling);
+      else if (host) host.insertBefore(strip, host.firstChild);
+    }
+    if (!strip) return;
+    if (miss.length) {
+      strip.style.color = "#fbbf24";
+      strip.textContent = "LOOP OPEN — seat LEFT: " + miss.join(" · ") + ". Standing P/T only. No SH/SC until the circuit is closed.";
+    } else {
+      strip.style.color = "#5eead4";
+      strip.textContent = "LOOP CLOSED — COMP · COND · " + meteringName() + " · EVAP seated. Start compressor. Then read SH/SC.";
+    }
+  }
+
   function paint() {
     document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
       var id = btn.getAttribute("data-seat");
@@ -71,8 +97,9 @@
     });
     var run = document.getElementById("sb-run");
     if (run && !/Stop compressor/i.test(run.textContent || "")) {
-      run.textContent = allSeated() ? "Start compressor" : "Seat parts first";
+      run.textContent = allSeated() ? "Start compressor" : "Seat 4 LEFT first";
     }
+    paintStrip();
   }
 
   function guardRun(ev) {
