@@ -1,4 +1,4 @@
-/* Shop-floor copy override v20 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v21 — locker card, WB once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -140,9 +140,28 @@
     if (jobs && /jobs/i.test(jobs.textContent || "")) {
       jobs.textContent = (jobs.textContent || "").replace(/jobs/ig, "calls");
     }
-    if (xp && /XP/i.test(xp.textContent || "")) {
-      xp.textContent = (xp.textContent || "").replace(/XP/ig, "hours");
+    if (xp) {
+      var xt = xp.textContent || "";
+      if (/XP/i.test(xt)) xt = xt.replace(/XP/ig, "hours");
+      var m = xt.match(/(\d+)\s*hours?/i);
+      if (m) {
+        var n = parseInt(m[1], 10);
+        xt = n + (n === 1 ? " hour" : " hours");
+      }
+      xp.textContent = xt;
     }
+  }
+  function bayStrip() {
+    var strip = document.querySelector(".version-strip");
+    if (!strip) return;
+    var bay = "shop floor";
+    var txt = (document.body && document.body.innerText) || "";
+    if (document.getElementById("sandbox-root") && document.getElementById("sandbox-root").offsetParent) bay = "sandbox";
+    else if (/SATURDAY CALLBACK/i.test(txt.slice(0, 800))) bay = "saturday callback";
+    else if (/FOLLOW THE CALL|LAND LUGS/i.test(txt.slice(0, 400)) && /24V/i.test(txt.slice(0, 800))) bay = "ladder";
+    else if (/ALL-STAR EXAM/i.test(txt.slice(0, 200)) && !/Clock In/i.test(txt.slice(0, 80))) bay = "exam";
+    else if (/MINI-SPLIT/i.test(txt.slice(0, 400)) && /flare|vacuum|weigh/i.test(txt.slice(0, 800))) bay = "mini-split";
+    strip.textContent = "HVAC Allstars - v3.5.179 - " + bay;
   }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
@@ -169,6 +188,7 @@
   function scrub() {
     vocationalTiles();
     lockerCard();
+    bayStrip();
     partsLeftCompressorBtn();
     standingNotDiagnosis();
     indoorWbHint();
