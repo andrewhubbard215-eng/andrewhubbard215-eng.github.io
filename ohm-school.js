@@ -31,7 +31,14 @@
       whyWrong: "Winding-to-ground continuity means the motor is grounded. Replace the compressor (or condensing unit)."
     },
     {
-      label: "5  -  Unguided",
+      label: "5  -  C-S-R add-up",
+      ask: "Lockout proven dead. Compressor: C–R 1.2 Ω, C–S 3.8 Ω, R–S 5.0 Ω. Chassis OL on all three. Call?",
+      good: "Healthy windings. R–S ≈ C–R + C–S. Start is the higher leg. Run it.",
+      bad: "Open start winding — condemn the compressor.",
+      whyWrong: "If R–S equals C–R plus C–S and ground is OL, the motor is intact. Open start would be OL on C–S and R–S."
+    },
+    {
+      label: "6  -  Unguided",
       ask: "No-cool. Fuse on the board keeps opening. Contactor coil ohms ~2 Ω (spec ~40 Ω). R–C open-circuit 24V. What's the fix path?",
       good: "Shorted coil. Replace contactor, prove coil ohms, then replace fuse and re-energize.",
       bad: "Add charge — low suction always blows control fuses.",
@@ -58,14 +65,14 @@
         '<header class="sb-toolbar"><strong>Ohm school</strong>' +
         '<span class="muted"> Shorted coil  -  windings  -  lockout</span>' +
         '<button type="button" class="btn" id="ohm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="eyebrow">' + (guided && pi < 4 ? "Guided" : "Unguided") + "  -  " + step.label + "</p>" +
+        '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + "  -  " + step.label + "</p>" +
         "<p>" + step.ask + "</p>" +
         '<div class="el-locker-opts">' +
         (Math.random() < 0.5
           ? '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>" +
             '<button type="button" class="btn ohm-opt" data-ok="0">' + step.bad + "</button>"
           : '<button type="button" class="btn ohm-opt" data-ok="0">' + step.bad + "</button>" +
-            '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>") +
+            '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>') +
         "</div>" +
         "<p class='hub-chip' style='margin-top:12px'>" + (why || "Lockout. Prove dead. Then ohm.") + "</p>" +
         "<p class='muted'>Score " + score + "/" + tried + "</p>";
@@ -77,7 +84,7 @@
           if (ok) score += 1;
           why = ok ? "RIGHT — " + step.good : "WRONG — " + step.whyWrong + " Right path: " + step.good;
           pi += 1;
-          if (pi >= 4) guided = false;
+          if (pi >= 5) guided = false;
           draw();
         };
       });
