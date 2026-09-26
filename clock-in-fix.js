@@ -28,6 +28,37 @@
     if (t && t !== "Guest") return t;
     return "Tech";
   }
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function punchShopHour() {
+    var day = todayKey();
+    try {
+      if (localStorage.getItem("lt-punched-day") === day) return;
+    } catch (_) {}
+    var cash = 0, jobs = 0, xp = 0, callsign = "";
+    try {
+      var raw = localStorage.getItem("lt-hvac-allstars-html-v1");
+      if (raw) {
+        var s = JSON.parse(raw);
+        cash = Number(s.cash) || 0;
+        jobs = Number(s.jobsCompleted) || 0;
+        xp = Number(s.xp) || 0;
+        callsign = s.callsign || "";
+      }
+    } catch (_) {}
+    xp += 1;
+    try {
+      localStorage.setItem("lt-hvac-allstars-html-v1", JSON.stringify({
+        cash: cash,
+        jobsCompleted: jobs,
+        xp: xp,
+        callsign: callsign
+      }));
+      localStorage.setItem("lt-punched-day", day);
+    } catch (_) {}
+  }
   function paintWallet() {
     function set(id, val) {
       var n = document.getElementById(id);
@@ -269,7 +300,7 @@
     btn.setAttribute("data-lt-bound", "1");
     btn.addEventListener("click", function (e) {
       if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
-      try { goHub(); } catch (_) {}
+      try { punchShopHour(); goHub(); } catch (_) {}
     }, true);
   }
   function bind() { bindStart(); bindCards(); }
