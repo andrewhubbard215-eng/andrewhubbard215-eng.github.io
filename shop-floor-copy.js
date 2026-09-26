@@ -161,7 +161,7 @@
     else if (/FOLLOW THE CALL|LAND LUGS/i.test(txt.slice(0, 400)) && /24V/i.test(txt.slice(0, 800))) bay = "ladder";
     else if (/ALL-STAR EXAM/i.test(txt.slice(0, 200)) && !/Clock In/i.test(txt.slice(0, 80))) bay = "exam";
     else if (/MINI-SPLIT/i.test(txt.slice(0, 400)) && /flare|vacuum|weigh/i.test(txt.slice(0, 800))) bay = "mini-split";
-    strip.textContent = "HVAC Allstars - v3.5.179 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.180 - " + bay;
   }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
