@@ -37,25 +37,14 @@
     try {
       if (localStorage.getItem("lt-punched-day") === day) return;
     } catch (_) {}
-    var cash = 0, jobs = 0, xp = 0, callsign = "";
+    var s = {};
     try {
       var raw = localStorage.getItem("lt-hvac-allstars-html-v1");
-      if (raw) {
-        var s = JSON.parse(raw);
-        cash = Number(s.cash) || 0;
-        jobs = Number(s.jobsCompleted) || 0;
-        xp = Number(s.xp) || 0;
-        callsign = s.callsign || "";
-      }
-    } catch (_) {}
-    xp += 1;
+      if (raw) s = JSON.parse(raw) || {};
+    } catch (_) { s = {}; }
+    s.xp = (Number(s.xp) || 0) + 1;
     try {
-      localStorage.setItem("lt-hvac-allstars-html-v1", JSON.stringify({
-        cash: cash,
-        jobsCompleted: jobs,
-        xp: xp,
-        callsign: callsign
-      }));
+      localStorage.setItem("lt-hvac-allstars-html-v1", JSON.stringify(s));
       localStorage.setItem("lt-punched-day", day);
     } catch (_) {}
   }
@@ -68,10 +57,10 @@
     try {
       var raw = localStorage.getItem("lt-hvac-allstars-html-v1");
       if (raw) {
-        var s = JSON.parse(raw);
-        cash = Number(s.cash) || 0;
-        jobs = Number(s.jobsCompleted) || 0;
-        xp = Number(s.xp) || 0;
+        var st = JSON.parse(raw);
+        cash = Number(st.cash) || 0;
+        jobs = Number(st.jobsCompleted) || 0;
+        xp = Number(st.xp) || 0;
       }
     } catch (_) {}
     set("hub-name", floorName());
