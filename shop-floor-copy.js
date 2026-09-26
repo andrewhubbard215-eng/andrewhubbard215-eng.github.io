@@ -1,4 +1,4 @@
-/* Shop-floor copy override v19 — WB label once, callback talks meter */
+/* Shop-floor copy override v20 — locker card, WB once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -126,6 +126,24 @@
       }
     }
   }
+  function lockerCard() {
+    var cash = document.getElementById("hub-cash");
+    var jobs = document.getElementById("hub-jobs");
+    var xp = document.getElementById("hub-xp");
+    if (cash) {
+      var raw = cash.textContent || "";
+      if (/\$/.test(raw) || /coin|cash/i.test(raw)) {
+        var n = raw.replace(/[^0-9]/g, "") || "0";
+        cash.textContent = n + " sheets";
+      }
+    }
+    if (jobs && /jobs/i.test(jobs.textContent || "")) {
+      jobs.textContent = (jobs.textContent || "").replace(/jobs/ig, "calls");
+    }
+    if (xp && /XP/i.test(xp.textContent || "")) {
+      xp.textContent = (xp.textContent || "").replace(/XP/ig, "hours");
+    }
+  }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
       var t = el.textContent || "";
@@ -150,6 +168,7 @@
   }
   function scrub() {
     vocationalTiles();
+    lockerCard();
     partsLeftCompressorBtn();
     standingNotDiagnosis();
     indoorWbHint();
