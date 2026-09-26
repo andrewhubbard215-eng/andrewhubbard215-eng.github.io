@@ -8,11 +8,39 @@
     { id: "evaporator", label: "EVAP", src: "parts/evaporator.png" }
   ];
 
+  function meteringName() {
+    var kind = "";
+    try {
+      if (window.HVACSandbox && typeof window.HVACSandbox.meteringKind === "function") {
+        kind = window.HVACSandbox.meteringKind() || "";
+      }
+    } catch (e) {}
+    if (!kind) kind = window.LtMeteringKind || "";
+    var blob = kind + " " +
+      ((document.getElementById("sb-sysbanner") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-sysinfo") || {}).textContent || "") + " " +
+      ((document.getElementById("g-method") || {}).textContent || "");
+    if (/piston|orifice|cap-?tube|fixed/i.test(blob) && !/\bEEV\b|\bTXV\b/i.test(kind)) return "PISTON";
+    if (/eev/i.test(blob)) return "EEV";
+    return "TXV";
+  }
+
+  function labelFor(id) {
+    if (id === "metering") return meteringName();
+    if (id === "compressor") return "COMP";
+    if (id === "condenser") return "COND";
+    return "EVAP";
+  }
+
   function filled(id) {
     var slot = document.querySelector('#sb-slots .sb-slot[data-slot="' + id + '"]');
     if (slot && (slot.classList.contains("filled") || slot.querySelector("img, strong, .rm"))) return true;
     var part = document.querySelector('#sandbox-root [data-part="' + id + '"]');
     return !!(part && (part.classList.contains("primary") || part.getAttribute("aria-pressed") === "true"));
+  }
+
+  function allSeated() {
+    return PARTS.every(function (p) { return filled(p.id); });
   }
 
   function seat(id) {
@@ -32,19 +60,33 @@
     paint();
   }
 
-  function seatAll() {
-    PARTS.forEach(function (p) { seat(p.id); });
-  }
-
   function paint() {
     document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
       var id = btn.getAttribute("data-seat");
       var on = filled(id);
       btn.classList.toggle("on", on);
       var span = btn.querySelector("span");
-      var name = id === "metering" ? "TXV" : id === "compressor" ? "COMP" : id === "condenser" ? "COND" : "EVAP";
+      var name = labelFor(id);
       if (span) span.textContent = on ? name + " SEATED" : name + " LEFT";
     });
+    var run = document.getElementById("sb-run");
+    if (run && !/Stop compressor/i.test(run.textContent || "")) {
+      run.textContent = allSeated() ? "Start compressor" : "Seat parts first";
+    }
+  }
+
+  function guardRun(ev) {
+    var run = document.getElementById("sb-run");
+    if (!run || (ev.target !== run && !run.contains(ev.target))) return;
+    if (allSeated()) return;
+    if (/Stop compressor/i.test(run.textContent || "")) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    var st = document.getElementById("sb-status");
+    if (st) {
+      st.textContent = "Parts LEFT — seat COMP, COND, " + meteringName() + ", EVAP before the compressor. Standing pressure is not a diagnosis.";
+    }
+    paint();
   }
 
   function mount() {
@@ -64,8 +106,8 @@
       b.type = "button";
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
-      b.setAttribute("aria-label", p.label + " LEFT");
-      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + p.label + " LEFT</span>";
+      b.setAttribute("aria-label", labelFor(p.id) + " LEFT");
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>';
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
@@ -74,6 +116,10 @@
       layer.appendChild(b);
     });
     wrap.appendChild(layer);
+    if (!document.documentElement.getAttribute("data-lt-seat-guard")) {
+      document.documentElement.setAttribute("data-lt-seat-guard", "1");
+      document.addEventListener("click", guardRun, true);
+    }
     paint();
   }
 
