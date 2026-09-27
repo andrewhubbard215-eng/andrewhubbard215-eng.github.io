@@ -1,4 +1,4 @@
-/* Shop-floor copy override v31 — locker card, WB once, strip names sandbox */
+/* Shop-floor copy override v33 — locker card, WB once, strip names live bay */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -44,9 +44,14 @@
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
     var bay = "shop floor";
-    var sandOn = screenOn("screen-sandbox") || !!document.getElementById("sb-run") || !!document.querySelector("#sandbox-root .sb-cycle, #sandbox-root canvas, #g-plow");
-    if (sandOn) bay = "sandbox";
-    else if (screenOn("screen-electrical")) bay = "ladder";
+    var tabSat = document.querySelector(".el-tab.active, .sat-tab.active, [data-el-tab].active");
+    var tabTxt = ((tabSat && tabSat.textContent) || "").toLowerCase();
+    if (screenOn("screen-electrical")) {
+      if (/saturday|callback/.test(tabTxt) || document.querySelector(".sat-sheet, #sat-root, [data-mode='defusal'].active"))
+        bay = "saturday callback";
+      else if (/lug|land/.test(tabTxt)) bay = "land lugs";
+      else bay = "ladder";
+    } else if (screenOn("screen-sandbox")) bay = "sandbox";
     else if (screenOn("screen-quiz")) bay = "exam";
     else if (screenOn("screen-minisplit")) bay = "mini-split";
     else if (screenOn("screen-service")) bay = "service calls";
@@ -56,7 +61,8 @@
     else if (screenOn("screen-shoplabs")) bay = "lab packets";
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
-    strip.textContent = "HVAC Allstars - v3.5.192 - " + bay;
+    else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
+    strip.textContent = "HVAC Allstars - v3.5.193 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
