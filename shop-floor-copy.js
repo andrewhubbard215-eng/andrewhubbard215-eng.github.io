@@ -1,4 +1,4 @@
-/* Shop-floor copy override v25 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v26 — locker card, WB once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -174,7 +174,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (screenOn("screen-hub") || screenOn("screen-title")) bay = "shop floor";
-    strip.textContent = "HVAC Allstars - v3.5.184 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.185 - " + bay;
   }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
