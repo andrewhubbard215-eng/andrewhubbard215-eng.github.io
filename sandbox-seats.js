@@ -83,6 +83,15 @@
     return PARTS.filter(function (p) { return !filled(p.id); }).map(function (p) { return labelFor(p.id); });
   }
 
+  function compressorRunning() {
+    var runBtn = document.getElementById("sb-run");
+    var t = (runBtn && runBtn.textContent) || "";
+    if (/Stop compressor/i.test(t)) return true;
+    var st = ((document.getElementById("sb-status") || {}).textContent || "");
+    if (/Compressor on/i.test(st)) return true;
+    return false;
+  }
+
   function paintStrip() {
     var miss = missingPretty();
     var strip = document.getElementById("sb-left-strip");
@@ -100,8 +109,7 @@
       strip.style.color = "#fbbf24";
       setText(strip, "LOOP OPEN — seat LEFT: " + miss.join(" · ") + ". Standing P/T only. No SH/SC until the circuit is closed.");
     } else {
-      var runBtn = document.getElementById("sb-run");
-      var running = !!(runBtn && /Stop compressor/i.test(runBtn.textContent || ""));
+      var running = compressorRunning();
       strip.style.color = "#5eead4";
       setText(strip, running
         ? "RUNNING — COMP · COND · " + meteringName() + " · EVAP seated. Read live SH/SC. Do not chase standing P."
@@ -122,13 +130,20 @@
     if (run && !/Stop compressor/i.test(run.textContent || "")) {
       setText(run, allSeated() ? "Start compressor" : "Seat 4 LEFT first");
     }
+    if (allSeated()) {
+      var yell = document.getElementById("sb-parts-yell");
+      if (yell && yell.parentNode) yell.parentNode.removeChild(yell);
+    }
     paintStrip();
   }
 
   function guardRun(ev) {
     var run = document.getElementById("sb-run");
     if (!run || (ev.target !== run && !run.contains(ev.target))) return;
-    if (allSeated()) return;
+    if (allSeated()) {
+      setTimeout(paint, 40);
+      return;
+    }
     if (/Stop compressor/i.test(run.textContent || "")) return;
     ev.preventDefault();
     ev.stopPropagation();
@@ -170,7 +185,7 @@
   }
 
   var obs = new MutationObserver(function () { mount(); paint(); });
-  if (document.body) obs.observe(document.body, { childList: true, subtree: true });
+  if (document.body) obs.observe(document.body, { childList: true, subtree: true, characterData: true });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);
   else mount();
 })();
