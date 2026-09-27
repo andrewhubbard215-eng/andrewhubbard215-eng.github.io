@@ -1,4 +1,4 @@
-/* Clock-in floor v43 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v44 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -66,7 +66,7 @@
     if (m === "service") {
       show("service");
       try {
-        var host = document.getElementById("svc-choices") || document.querySelector("#screen-service .svc-card") || document.getElementById("screen-service");
+        var host = document.getElementById("screen-service");
         if (host && window.ServiceCalls && typeof window.ServiceCalls.start === "function") {
           window.ServiceCalls.start(host, { onHub: goHub });
         }
@@ -83,8 +83,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card[data-mode]").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "43") return;
-      card.setAttribute("data-lt-bound", "43");
+      if (card.getAttribute("data-lt-bound") === "44") return;
+      card.setAttribute("data-lt-bound", "44");
       card.addEventListener(
         "click",
         function (e) {
