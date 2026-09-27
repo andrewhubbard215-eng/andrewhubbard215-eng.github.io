@@ -75,6 +75,10 @@
       "text-align:left;white-space:normal;min-height:56px;padding:14px 16px;" +
       "font-size:16px;line-height:1.35;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
       "#voltmeter-root #vm-close{min-height:44px;min-width:44px;touch-action:manipulation}" +
+      "#voltmeter-root .vm-probe-bar{position:sticky;top:0;z-index:6;margin:0 0 10px;" +
+      "padding:8px 12px;border-radius:8px;background:#7a1020;color:#fff;font-size:13px;" +
+      "letter-spacing:.04em;font-weight:700}" +
+      "#voltmeter-root .vm-probe-bar span{opacity:.85;font-weight:600}" +
       "@media (max-width:480px){#voltmeter-root .vm-opt,#voltmeter-root .btn.vm-opt{min-height:64px;padding:16px 18px;font-size:17px}}";
     document.head.appendChild(s);
   }
@@ -99,6 +103,7 @@
         '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
         '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
         '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
+        '<p class="vm-probe-bar">BLACK → COM &nbsp;·&nbsp; RED → VΩ &nbsp;·&nbsp; <span>equip ground last</span></p>' +
         '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " - " + step.label + " of " + STEPS.length + "</p>" +
         "<p>" + step.ask + "</p>" +
         '<div class="el-locker-opts">' +
