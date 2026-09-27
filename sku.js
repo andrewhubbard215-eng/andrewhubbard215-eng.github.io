@@ -92,6 +92,11 @@
 
   function scrubLincoln(root) {
     if (!isStore || !root || skipScrub()) return;
+    if (root.querySelectorAll) {
+      root.querySelectorAll(".brand-mark").forEach(function (el) {
+        if (/^\s*LT\s*$/.test(el.textContent || "")) el.textContent = "HA";
+      });
+    }
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         var p = n.parentElement;
@@ -121,7 +126,7 @@
       var hit = false;
       for (var i = 0; i < muts.length; i++) {
         var tx = (muts[i].target && muts[i].target.textContent) || "";
-        if (tx.indexOf("Lincoln") !== -1 || tx.indexOf("HCR") !== -1) {
+        if (tx.indexOf("Lincoln") !== -1 || tx.indexOf("HCR") !== -1 || /\bLT\b/.test(tx)) {
           hit = true;
           break;
         }

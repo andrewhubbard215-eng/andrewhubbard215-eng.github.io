@@ -1,9 +1,9 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v421";
+const VER = "lt-allstars-v422";
 const CORE = [
   "./",
   "./index.html",
-  "./sku.js?v=16",
+  "./sku.js?v=17",
   "./style.css?v=146",
   "./sandbox-layout.css?v=20",
   "./phone-floor.css?v=30",
@@ -12,12 +12,12 @@ const CORE = [
   "./sb-tabs.css?v=3",
   "./lab-glass.css?v=1",
   "./game.js?v=206",
-  "./shop-floor-copy.js?v=31",
+  "./shop-floor-copy.js?v=32",
   "./sandbox.js?v=161",
   "./sandbox-hunt.js?v=2",
   "./sandbox-eq.js?v=3",
   "./sandbox-hook.js?v=18",
-  "./sandbox-seats.js?v=5",
+  "./sandbox-seats.js?v=6",
   "./sandbox-yell.js?v=3",
   "./sandbox-ts.js?v=9",
   "./sandbox-sliders.js?v=7",
@@ -58,7 +58,7 @@ const CORE = [
   "./soo-limit.js?v=1",
   "./furnace-soo-floor.js?v=2",
   "./voltmeter-school.js?v=5",
-  "./ohm-school.js?v=2",
+  "./ohm-school.js?v=3",
   "./ohms-law-school.js?v=4",
   "./ohms-law-arcade-bench.js?v=2",
   "./ohms-law-arcade-tickets.js?v=2",

@@ -72,7 +72,7 @@
           ? '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>" +
             '<button type="button" class="btn ohm-opt" data-ok="0">' + step.bad + "</button>"
           : '<button type="button" class="btn ohm-opt" data-ok="0">' + step.bad + "</button>" +
-            '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>') +
+            '<button type="button" class="btn ohm-opt" data-ok="1">' + step.good + "</button>") +
         "</div>" +
         "<p class='hub-chip' style='margin-top:12px'>" + (why || "Lockout. Prove dead. Then ohm.") + "</p>" +
         "<p class='muted'>Score " + score + "/" + tried + "</p>";

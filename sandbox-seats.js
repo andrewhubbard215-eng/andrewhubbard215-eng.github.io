@@ -25,6 +25,10 @@
     return "TXV";
   }
 
+  function setText(el, s) {
+    if (el && el.textContent !== s) el.textContent = s;
+  }
+
   function labelFor(id) {
     if (id === "metering") return meteringName();
     if (id === "compressor") return "COMP";
@@ -79,10 +83,10 @@
     if (!strip) return;
     if (miss.length) {
       strip.style.color = "#fbbf24";
-      strip.textContent = "LOOP OPEN — seat LEFT: " + miss.join(" · ") + ". Standing P/T only. No SH/SC until the circuit is closed.";
+      setText(strip, "LOOP OPEN — seat LEFT: " + miss.join(" · ") + ". Standing P/T only. No SH/SC until the circuit is closed.");
     } else {
       strip.style.color = "#5eead4";
-      strip.textContent = "LOOP CLOSED — COMP · COND · " + meteringName() + " · EVAP seated. Start compressor. Then read SH/SC.";
+      setText(strip, "LOOP CLOSED — COMP · COND · " + meteringName() + " · EVAP seated. Start compressor. Then read SH/SC.");
     }
   }
 
@@ -90,14 +94,14 @@
     document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
       var id = btn.getAttribute("data-seat");
       var on = filled(id);
-      btn.classList.toggle("on", on);
+      if (btn.classList.contains("on") !== on) btn.classList.toggle("on", on);
       var span = btn.querySelector("span");
       var name = labelFor(id);
-      if (span) span.textContent = on ? name + " SEATED" : name + " LEFT";
+      if (span) setText(span, on ? name + " SEATED" : name + " LEFT");
     });
     var run = document.getElementById("sb-run");
     if (run && !/Stop compressor/i.test(run.textContent || "")) {
-      run.textContent = allSeated() ? "Start compressor" : "Seat 4 LEFT first";
+      setText(run, allSeated() ? "Start compressor" : "Seat 4 LEFT first");
     }
     paintStrip();
   }
@@ -134,7 +138,7 @@
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
       b.setAttribute("aria-label", labelFor(p.id) + " LEFT");
-      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>';
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>";
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();

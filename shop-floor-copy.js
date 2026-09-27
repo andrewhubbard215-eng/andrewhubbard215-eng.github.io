@@ -56,7 +56,7 @@
     else if (screenOn("screen-shoplabs")) bay = "lab packets";
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
-    strip.textContent = "HVAC Allstars - v3.5.191 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.192 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
