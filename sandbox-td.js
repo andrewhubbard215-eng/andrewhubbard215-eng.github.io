@@ -87,7 +87,7 @@
       var tgt = pistonSh(od, wb);
       var kind = meteringKind();
       if (!running) {
-        method.textContent = "\u2014 charge method after compressor on";
+        method.textContent = "Standing pressures only \u2014 no SH/SC charge. Seat 4 LEFT, run the compressor, then charge by method.";
       } else if (kind === "piston") {
         method.textContent = "Piston \u00b7 charge by SH " + tgt + "\u00b0 (ODB " + Math.round(od) + " / WB " + Math.round(wb) + ") \u00b7 SC is a check";
       } else if (kind === "eev") {
