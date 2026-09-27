@@ -100,8 +100,12 @@
       strip.style.color = "#fbbf24";
       setText(strip, "LOOP OPEN — seat LEFT: " + miss.join(" · ") + ". Standing P/T only. No SH/SC until the circuit is closed.");
     } else {
+      var runBtn = document.getElementById("sb-run");
+      var running = !!(runBtn && /Stop compressor/i.test(runBtn.textContent || ""));
       strip.style.color = "#5eead4";
-      setText(strip, "LOOP CLOSED — COMP · COND · " + meteringName() + " · EVAP seated. Start compressor. Then read SH/SC.");
+      setText(strip, running
+        ? "RUNNING — COMP · COND · " + meteringName() + " · EVAP seated. Read live SH/SC. Do not chase standing P."
+        : "LOOP CLOSED — COMP · COND · " + meteringName() + " · EVAP seated. Start compressor. Then read SH/SC.");
     }
   }
 
@@ -149,7 +153,7 @@
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
       b.setAttribute("aria-label", labelFor(p.id) + " LEFT");
-      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>";
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>';
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
