@@ -41,13 +41,29 @@
     ban._t = setTimeout(function () {
       if (ban.parentNode) ban.parentNode.removeChild(ban);
     }, 8000);
+    clearInterval(ban._w);
+    ban._w = setInterval(function () {
+      if (!ban.parentNode) { clearInterval(ban._w); return; }
+      if (loopClosed()) clearYell();
+    }, 250);
+  }
+  function loopClosed() {
+    var run = document.getElementById("sb-run");
+    return !missing().length || !!(run && /stop compressor/i.test(run.textContent || ""));
+  }
+  function clearYell() {
+    var ban = document.getElementById("sb-parts-yell");
+    if (!ban) return;
+    clearTimeout(ban._t);
+    clearInterval(ban._w);
+    if (ban.parentNode) ban.parentNode.removeChild(ban);
   }
   function blockStart(e) {
     var t = e.target && e.target.closest ? e.target.closest("#sb-run") : null;
     if (!t) return;
     if (/stop/i.test(t.textContent || "")) return;
     var miss = missing();
-    if (!miss.length) return;
+    if (!miss.length) { clearYell(); return; }
     e.preventDefault();
     e.stopImmediatePropagation();
     if (typeof window.LtSeatAllFour === "function") {

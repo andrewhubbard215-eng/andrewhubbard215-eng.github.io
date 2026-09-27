@@ -168,7 +168,7 @@
       b.className = "sb-seat";
       b.setAttribute("data-seat", p.id);
       b.setAttribute("aria-label", labelFor(p.id) + " LEFT");
-      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>';
+      b.innerHTML = '<img src="' + p.src + '" alt="" /><span>' + labelFor(p.id) + " LEFT</span>";
       b.addEventListener("click", function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
