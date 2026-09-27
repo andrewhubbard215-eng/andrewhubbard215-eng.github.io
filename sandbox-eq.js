@@ -14,8 +14,8 @@
       if (method && /standing/i.test(method.textContent || "")) method.textContent = "\u2014 charge method after readings settle";
       return;
     }
-    if (ps) ps.textContent = "Standing LPC (equalized)";
-    if (ph) ph.textContent = "Standing HPC (equalized)";
+    if (ps) ps.textContent = "Standing both sides (equalized)";
+    if (ph) ph.textContent = "Standing both sides (equalized)";
     if (sst) {
       var n = String(sst.textContent || "").match(/(-?\d+)/);
       if (n) sst.textContent = "equalized to ODT " + n[1] + "\u00b0F";
