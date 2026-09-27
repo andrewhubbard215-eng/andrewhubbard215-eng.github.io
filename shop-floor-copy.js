@@ -1,4 +1,4 @@
-/* Shop-floor copy override v29 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v30 — locker card, WB once, callback talks meter */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
     else if (screenOn("screen-shoplabs")) bay = "lab packets";
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
-    strip.textContent = "HVAC Allstars - v3.5.188 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.190 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -83,17 +83,16 @@
     }
   }
   function standingNotDiagnosis() {
-    var btn = document.getElementById("sb-run");
-    var st = document.getElementById("sb-status");
-    if (!btn || !st) return;
-    var running = /Stop compressor/i.test(btn.textContent || "");
-    var title = (document.getElementById("sb-ph-title") || {}).textContent || "";
-    var standing = /Standing/i.test(title);
-    if (!running && standing) {
-      if (!/standing pressure is not a diagnosis/i.test(st.textContent || "")) {
-        st.textContent = "Standing pressure is not a diagnosis. Start compressor, then read live SH/SC.";
+    var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
+    var runningBtn = document.getElementById("sb-run");
+    var running = runningBtn && /Stop compressor/i.test(runningBtn.textContent || "");
+    if (running) return;
+    document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/Standing pressures/i.test(t) || (/Standing/i.test(t) && /seat/i.test(t))) {
+        if (t !== line) el.textContent = line;
       }
-    }
+    });
   }
   function deg(el) {
     if (!el) return "";
@@ -108,7 +107,7 @@
     var sh = deg(document.getElementById("sb-sh"));
     var sc = deg(document.getElementById("sb-sc"));
     if (!sh || !sc) return;
-    var line = "Running — " + sh + " / " + sc + " (TXV seats 8–14 both). Charge by SC, SH is the check.";
+    var line = "Running \u2014 " + sh + " / " + sc + " (TXV seats 8–14 both). Charge by SC, SH is the check.";
     if (st.textContent !== line) st.textContent = line;
   }
   function scrub() {
