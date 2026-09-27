@@ -50,6 +50,10 @@
     if (!miss.length) return;
     e.preventDefault();
     e.stopImmediatePropagation();
+    if (typeof window.LtSeatAllFour === "function") {
+      window.LtSeatAllFour();
+      return;
+    }
     yell(miss);
     var st = document.getElementById("sb-status");
     if (st) st.textContent = "Standing pressures - Tech - seat the four LEFT";

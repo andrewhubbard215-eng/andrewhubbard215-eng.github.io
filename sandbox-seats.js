@@ -61,8 +61,23 @@
     if (part) {
       try { part.click(); } catch (e) {}
     }
+    var plate = document.querySelector('#sb-seats .sb-seat[data-seat="' + id + '"]');
+    if (plate) plate.classList.add("on");
     paint();
   }
+
+  function seatAllFour() {
+    PARTS.forEach(function (p) {
+      if (!filled(p.id)) seat(p.id);
+    });
+    var st = document.getElementById("sb-status");
+    if (st) st.textContent = "LOOP CLOSED — four seated. Start compressor. Then read SH/SC.";
+    var yell = document.getElementById("sb-parts-yell");
+    if (yell && yell.parentNode) yell.parentNode.removeChild(yell);
+    paint();
+    return allSeated();
+  }
+  window.LtSeatAllFour = seatAllFour;
 
   function missingPretty() {
     return PARTS.filter(function (p) { return !filled(p.id); }).map(function (p) { return labelFor(p.id); });
@@ -113,11 +128,7 @@
     if (/Stop compressor/i.test(run.textContent || "")) return;
     ev.preventDefault();
     ev.stopPropagation();
-    var st = document.getElementById("sb-status");
-    if (st) {
-      st.textContent = "Parts LEFT — seat COMP, COND, " + meteringName() + ", EVAP before the compressor. Standing pressure is not a diagnosis.";
-    }
-    paint();
+    seatAllFour();
   }
 
   function mount() {
