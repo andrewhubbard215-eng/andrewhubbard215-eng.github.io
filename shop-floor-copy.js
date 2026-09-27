@@ -1,4 +1,4 @@
-/* Shop-floor copy override v28 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v29 — locker card, WB once, callback talks meter */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
     else if (screenOn("screen-shoplabs")) bay = "lab packets";
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
-    strip.textContent = "HVAC Allstars - v3.5.187 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.188 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -95,12 +95,29 @@
       }
     }
   }
+  function deg(el) {
+    if (!el) return "";
+    var m = (el.textContent || "").match(/(-?\d+(?:\.\d+)?)\s*°?\s*F?\s*(SH|SC)/i);
+    return m ? m[1] + "° " + m[2].toUpperCase() : "";
+  }
+  function liveShScRail() {
+    var btn = document.getElementById("sb-run");
+    var st = document.getElementById("sb-status");
+    if (!btn || !st) return;
+    if (!/Stop compressor/i.test(btn.textContent || "")) return;
+    var sh = deg(document.getElementById("sb-sh"));
+    var sc = deg(document.getElementById("sb-sc"));
+    if (!sh || !sc) return;
+    var line = "Running — " + sh + " / " + sc + " (TXV seats 8–14 both). Charge by SC, SH is the check.";
+    if (st.textContent !== line) st.textContent = line;
+  }
   function scrub() {
     vocationalTiles();
     lockerCard();
     bayStrip();
     partsLeftCompressorBtn();
     standingNotDiagnosis();
+    liveShScRail();
     document.querySelectorAll(".mode-card p, #rapture-copy").forEach(function (el) {
       var t = el.textContent || "";
       if (/not a shooter/i.test(t)) el.textContent = "Work clothes \u00b7 roof racks \u00b7 recovery tank";
