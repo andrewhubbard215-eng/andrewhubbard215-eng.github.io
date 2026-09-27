@@ -1,4 +1,4 @@
-/* Shop-floor copy override v21 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v22 — locker card, WB once, callback talks meter */
 (function () {
   function chargeByHint() {
     var tgt = document.getElementById("g-tgt");
@@ -151,17 +151,30 @@
       xp.textContent = xt;
     }
   }
+  function screenOn(id) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    if (el.classList.contains("active") || el.classList.contains("screen-on")) return true;
+    if (el.offsetParent) return true;
+    return false;
+  }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
     var bay = "shop floor";
-    var txt = (document.body && document.body.innerText) || "";
-    if (document.getElementById("sandbox-root") && document.getElementById("sandbox-root").offsetParent) bay = "sandbox";
-    else if (/SATURDAY CALLBACK/i.test(txt.slice(0, 800))) bay = "saturday callback";
-    else if (/FOLLOW THE CALL|LAND LUGS/i.test(txt.slice(0, 400)) && /24V/i.test(txt.slice(0, 800))) bay = "ladder";
-    else if (/ALL-STAR EXAM/i.test(txt.slice(0, 200)) && !/Clock In/i.test(txt.slice(0, 80))) bay = "exam";
-    else if (/MINI-SPLIT/i.test(txt.slice(0, 400)) && /flare|vacuum|weigh/i.test(txt.slice(0, 800))) bay = "mini-split";
-    strip.textContent = "HVAC Allstars - v3.5.181 - " + bay;
+    if (screenOn("screen-sandbox") || (document.getElementById("sandbox-root") && document.getElementById("sandbox-root").offsetParent && !screenOn("screen-hub"))) bay = "sandbox";
+    else if (screenOn("screen-electrical")) bay = "ladder";
+    else if (screenOn("screen-quiz")) bay = "exam";
+    else if (screenOn("screen-minisplit")) bay = "mini-split";
+    else if (screenOn("screen-service")) bay = "service calls";
+    else if (screenOn("screen-truck-pouch")) bay = "on the job";
+    else if (screenOn("screen-film")) bay = "component film";
+    else if (screenOn("screen-epa608")) bay = "epa 608";
+    else if (screenOn("screen-shoplabs")) bay = "lab packets";
+    else if (screenOn("screen-commandments")) bay = "commandments";
+    else if (screenOn("screen-rapture")) bay = "hvac jesus";
+    else if (screenOn("screen-hub") || screenOn("screen-title")) bay = "shop floor";
+    strip.textContent = "HVAC Allstars - v3.5.182 - " + bay;
   }
   function vocationalTiles() {
     document.querySelectorAll("h2, h3, .mode-card h3, .tile h3, .card h3").forEach(function (el) {
