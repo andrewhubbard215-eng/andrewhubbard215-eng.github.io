@@ -1,4 +1,4 @@
-/* Shop-floor copy override v30 — locker card, WB once, callback talks meter */
+/* Shop-floor copy override v31 — locker card, WB once, strip names sandbox */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -44,7 +44,8 @@
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
     var bay = "shop floor";
-    if (screenOn("screen-sandbox")) bay = "sandbox";
+    var sandOn = screenOn("screen-sandbox") || !!document.getElementById("sb-run") || !!document.querySelector("#sandbox-root .sb-cycle, #sandbox-root canvas, #g-plow");
+    if (sandOn) bay = "sandbox";
     else if (screenOn("screen-electrical")) bay = "ladder";
     else if (screenOn("screen-quiz")) bay = "exam";
     else if (screenOn("screen-minisplit")) bay = "mini-split";
@@ -55,7 +56,7 @@
     else if (screenOn("screen-shoplabs")) bay = "lab packets";
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
-    strip.textContent = "HVAC Allstars - v3.5.190 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.191 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -77,9 +78,9 @@
     if (/Stop compressor/i.test(t)) return;
     var left = partsStillOnBench();
     if (left) {
-      if (!/Seat parts first/i.test(t)) btn.textContent = "Seat parts first";
-    } else if (/Seat parts first/i.test(t) || !/Start compressor/i.test(t)) {
-      btn.textContent = "Start compressor";
+      if (!/Seat parts first/i.test(t) && !/Seat 4 LEFT/i.test(t)) btn.textContent = "Seat 4 LEFT first";
+    } else if (/Seat parts first/i.test(t) || /Seat 4 LEFT/i.test(t) || !/Start compressor/i.test(t)) {
+      if (!/Start compressor/i.test(t)) btn.textContent = "Start compressor";
     }
   }
   function standingNotDiagnosis() {
