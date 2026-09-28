@@ -1,4 +1,4 @@
-/* Shop-floor copy override v40 — locker card, WB once, strip names live bay, running kills EQUALIZED */
+/* Shop-floor copy override v42 — locker card, WB once, strip names live bay, running kills EQUALIZED */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -62,7 +62,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - v3.5.204 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.205 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");

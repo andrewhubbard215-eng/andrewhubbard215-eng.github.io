@@ -66,7 +66,7 @@
     set("hub-name", floorName());
     set("hub-cash", Math.round(cash).toLocaleString("en-US") + " sheets");
     set("hub-jobs", jobs + " calls");
-    set("hub-xp", xp + " hours");
+    set("hub-xp", xp + (xp === 1 ? " hour" : " hours"));
   }
   function goHub() {
     show("hub");
