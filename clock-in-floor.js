@@ -1,4 +1,4 @@
-/* Clock-in floor v44 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v45 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -28,6 +28,9 @@
     }
     if (m === "ohm" && window.OhmSchool && typeof window.OhmSchool.open === "function") {
       try { window.OhmSchool.open(); return; } catch (_) {}
+    }
+    if ((m === "ohms-tickets" || m === "ohms-law") && window.OhmsLawSchool && typeof window.OhmsLawSchool.open === "function") {
+      try { window.OhmsLawSchool.open(); return; } catch (_) {}
     }
     if ((m === "truck-pouch" || m === "truck") && window.TruckPouch && typeof window.TruckPouch.open === "function") {
       try { window.TruckPouch.open(); return; } catch (_) {}
@@ -83,8 +86,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card[data-mode]").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "44") return;
-      card.setAttribute("data-lt-bound", "44");
+      if (card.getAttribute("data-lt-bound") === "45") return;
+      card.setAttribute("data-lt-bound", "45");
       card.addEventListener(
         "click",
         function (e) {
