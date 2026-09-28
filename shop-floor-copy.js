@@ -1,4 +1,4 @@
-/* Shop-floor copy override v38 — locker card, WB once, strip names live bay, running kills EQUALIZED */
+/* Shop-floor copy override v39 — locker card, WB once, strip names live bay, running kills EQUALIZED */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -62,7 +62,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - v3.5.199 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.200 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -96,9 +96,10 @@
   function standingNotDiagnosis() {
     var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
     if (compressorRunning()) return;
-    document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status").forEach(function (el) {
+    document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status, #screen-sandbox p").forEach(function (el) {
+      if (el.children && el.children.length) return;
       var t = el.textContent || "";
-      if (/Standing pressures/i.test(t) || (/Standing/i.test(t) && /seat/i.test(t))) {
+      if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t))) {
         if (t !== line) el.textContent = line;
       }
     });
