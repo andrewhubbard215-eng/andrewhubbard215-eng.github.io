@@ -1,4 +1,4 @@
-/* Shop-floor copy override v33 — locker card, WB once, strip names live bay */
+/* Shop-floor copy override v36 — locker card, WB once, strip names live bay, running kills EQUALIZED */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -62,7 +62,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - v3.5.196 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.197 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -89,11 +89,13 @@
       if (!/Start compressor/i.test(t)) btn.textContent = "Start compressor";
     }
   }
+  function compressorRunning() {
+    var btn = document.getElementById("sb-run");
+    return !!(btn && /Stop compressor/i.test(btn.textContent || ""));
+  }
   function standingNotDiagnosis() {
     var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
-    var runningBtn = document.getElementById("sb-run");
-    var running = runningBtn && /Stop compressor/i.test(runningBtn.textContent || "");
-    if (running) return;
+    if (compressorRunning()) return;
     document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing/i.test(t) && /seat/i.test(t))) {
@@ -101,18 +103,40 @@
       }
     });
   }
-  function deg(el) {
-    if (!el) return "";
-    var m = (el.textContent || "").match(/(-?\d+(?:\.\d+)?)\s*°?\s*F?\s*(SH|SC)/i);
-    return m ? m[1] + "° " + m[2].toUpperCase() : "";
+  function killEqualizedWhileRunning() {
+    if (!compressorRunning()) return;
+    document.querySelectorAll("#sb-stand, .sb-live, .sb-eq, #sb-eq, [id*='stand'], [class*='equal']").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/EQUALIZED/i.test(t) && /unit off/i.test(t)) {
+        el.textContent = "RUNNING \u2014 split P. Read SH and SC together. Standing sat is off the table.";
+      }
+    });
+    document.querySelectorAll("*").forEach(function (el) {
+      if (el.children && el.children.length) return;
+      var t = el.textContent || "";
+      if (/EQUALIZED/i.test(t) && /unit off/i.test(t) && t.length < 160) {
+        el.textContent = "RUNNING \u2014 split P. Read SH and SC together. Standing sat is off the table.";
+      }
+    });
+  }
+  function scrapeDeg(kind) {
+    var re = new RegExp("(-?\\d+(?:\\.\\d+)?)\\s*°?\\s*F?\\s*" + kind + "\\b", "i");
+    var nodes = document.querySelectorAll("#screen-sandbox *");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.children && el.children.length) continue;
+      var m = (el.textContent || "").match(re);
+      if (m) return m[1] + "° " + kind;
+    }
+    return "";
   }
   function liveShScRail() {
     var btn = document.getElementById("sb-run");
     var st = document.getElementById("sb-status");
     if (!btn || !st) return;
     if (!/Stop compressor/i.test(btn.textContent || "")) return;
-    var sh = deg(document.getElementById("sb-sh"));
-    var sc = deg(document.getElementById("sb-sc"));
+    var sh = scrapeDeg("SH");
+    var sc = scrapeDeg("SC");
     if (!sh || !sc) return;
     var line = "Running \u2014 " + sh + " / " + sc + " (TXV seats 8–14 both). Charge by SC, SH is the check.";
     if (st.textContent !== line) st.textContent = line;
@@ -123,6 +147,7 @@
     bayStrip();
     partsLeftCompressorBtn();
     standingNotDiagnosis();
+    killEqualizedWhileRunning();
     liveShScRail();
     document.querySelectorAll(".mode-card p, #rapture-copy").forEach(function (el) {
       var t = el.textContent || "";
