@@ -137,6 +137,24 @@
     paintStrip();
   }
 
+  function flashMissing() {
+    document.querySelectorAll("#sb-seats .sb-seat").forEach(function (btn) {
+      var id = btn.getAttribute("data-seat");
+      if (filled(id)) return;
+      btn.style.outline = "2px solid #fbbf24";
+      btn.style.outlineOffset = "3px";
+      setTimeout(function () {
+        btn.style.outline = "";
+        btn.style.outlineOffset = "";
+      }, 900);
+    });
+    var st = document.getElementById("sb-status");
+    var miss = missingPretty();
+    if (st && miss.length) {
+      st.textContent = "Don't jump the compressor. Tap LEFT plates first: " + miss.join(" · ") + ".";
+    }
+  }
+
   function guardRun(ev) {
     var run = document.getElementById("sb-run");
     if (!run || (ev.target !== run && !run.contains(ev.target))) return;
@@ -147,7 +165,8 @@
     if (/Stop compressor/i.test(run.textContent || "")) return;
     ev.preventDefault();
     ev.stopPropagation();
-    seatAllFour();
+    flashMissing();
+    paint();
   }
 
   function mount() {
