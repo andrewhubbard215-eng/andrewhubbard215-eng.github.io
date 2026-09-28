@@ -85,7 +85,6 @@
   }
 }
 @media (max-width: 480px) {
-  /* Fault chips stay in a slim scroll row — never on the diamond. */
   #sandbox-root #sb-faults {
     position: relative !important;
     z-index: 4 !important;
@@ -132,7 +131,15 @@
   body.lab-open #hub-ai,
   body.lab-open .hub-chat,
   body.lab-open .hub-ai-panel,
-  body.lab-open [data-hub-dock] {
+  body.lab-open [data-hub-dock],
+  #screen-sandbox.active ~ .hub-ai-dock,
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat,
+  #app:has(#screen-sandbox.active) .hub-ai-panel,
+  #app:has(#screen-electrical.active) .hub-ai-dock,
+  #app:has(#screen-electrical.active) #hub-ai,
+  #app:has(#screen-electrical.active) .hub-chat {
     display: none !important;
   }
   #sandbox-root .sb-main {
