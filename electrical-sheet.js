@@ -84,8 +84,14 @@
   function paint() {
     var k = document.querySelector(".el-ladder-kicker");
     if (k && k.id !== "el-ts-note") {
-      k.textContent =
-        "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
+      var key = ticketKey();
+      if (/3A|Hum, no start|Heat pump/i.test(key)) {
+        k.textContent =
+          "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter the OPEN, then replace.";
+      } else {
+        k.textContent =
+          "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
+      }
     }
     var ol = document.getElementById("el-ts");
     if (ol && !document.getElementById("el-ts-note")) {
