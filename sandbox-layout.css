@@ -205,7 +205,7 @@
 #sb-seats .sb-seat[data-seat="compressor"] { left: 7%; top: 28%; transform: translate(0, 0); }
 #sb-seats .sb-seat[data-seat="condenser"] { left: 62%; top: 4%; transform: translate(0, 0); }
 #sb-seats .sb-seat[data-seat="metering"] { right: 7%; top: 28%; left: auto; transform: translate(0, 0); }
-#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 70%; transform: translate(-50%, 0); }
+#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 48%; transform: translate(-50%, 0); }
 #sb-seats .sb-seat.on {
   background: rgba(206, 0, 52, 0.88);
   border: 2px solid #5eead4;
