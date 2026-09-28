@@ -1,32 +1,45 @@
 !function(){"use strict";
 function paint(){
-  var map=[["sb-out","sb-out-v","°F"],["sb-in","sb-in-v","°F"],["sb-wb","sb-wb-v","°F"],["sb-charge","sb-chg-v","%"]];
+  var map=[
+    ["sb-out","sb-out-v","OD","°F"],
+    ["sb-in","sb-in-v","ID","°F"],
+    ["sb-wb","sb-wb-v","Indoor WB","°F"],
+    ["sb-charge","sb-chg-v","Charge","%"]
+  ];
   for(var i=0;i<map.length;i++){
-    var id=map[i][0], vid=map[i][1], suf=map[i][2];
+    var id=map[i][0], vid=map[i][1], name=map[i][2], suf=map[i][3];
     var el=document.getElementById(id); if(!el) continue;
     var lab=el.parentNode;
     if(lab && lab.tagName==="LABEL"){
+      lab.classList.add("sb-cond");
       lab.style.flexDirection="column";
       lab.style.flexWrap="nowrap";
       lab.style.alignItems="flex-start";
-      lab.style.minWidth="118px";
-      lab.style.maxWidth="180px";
-      var cap=lab.firstChild;
-      if(cap && cap.nodeType===3){
-        var raw=cap.textContent.replace(/\s*\d+\s*(°F|%)\s*/g,"").replace(/\s+/g," ").trim();
-        raw=raw.replace(/\s*°F$/,"").replace(/\s*%$/,"");
-        cap.textContent=raw+" "+el.value+suf+" ";
+      lab.style.minWidth="132px";
+      lab.style.maxWidth="220px";
+      var kids=lab.childNodes;
+      for(var k=kids.length-1;k>=0;k--){
+        if(kids[k].nodeType===3) kids[k].textContent="";
       }
     }
+    var cap=document.getElementById(vid+"-cap");
+    if(!cap){
+      cap=document.createElement("span");
+      cap.id=vid+"-cap";
+      cap.className="sb-cond-cap";
+      if(el.parentNode) el.parentNode.insertBefore(cap, el);
+    }
+    cap.textContent=name;
     var v=document.getElementById(vid);
     if(!v){
       v=document.createElement("span");
       v.id=vid;
+      v.className="sb-cond-val";
     }
-    v.style.cssText="display:block;min-width:3.2em;margin:2px 0 0;font-variant-numeric:tabular-nums;font-weight:700;color:#5eead4;white-space:nowrap;font-size:13px";
-    v.textContent=el.value+(suf||"");
-    if(el.nextSibling!==v){
-      if(el.parentNode) el.parentNode.insertBefore(v, el.nextSibling);
+    v.style.cssText="display:block;margin:0 0 2px;font-variant-numeric:tabular-nums;font-weight:800;color:#5eead4;white-space:nowrap;font-size:18px;line-height:1.1;letter-spacing:.02em";
+    v.textContent=el.value+suf;
+    if(cap.nextSibling!==v){
+      if(cap.parentNode) cap.parentNode.insertBefore(v, cap.nextSibling);
     }
     if(!el.dataset.ltReadout){
       el.dataset.ltReadout="1";
