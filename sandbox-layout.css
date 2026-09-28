@@ -233,3 +233,8 @@
   height: 168px;
   max-width: 42vw;
 }
+
+#sandbox-root .sb-toolbar label.sb-cond { color:#94a3b8; font-size:12px; font-weight:600; gap:2px; }
+#sandbox-root .sb-toolbar label.sb-cond .sb-cond-cap { color:#94a3b8; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+#sandbox-root .sb-toolbar label.sb-cond .sb-cond-val,
+#sandbox-root .sb-toolbar label span[id$="-v"] { color:#5eead4 !important; font-size:18px !important; font-weight:800 !important; }
