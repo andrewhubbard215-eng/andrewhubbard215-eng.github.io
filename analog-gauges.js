@@ -83,6 +83,9 @@
     ctx.fillStyle = "#e2e8f0";
     ctx.font = "bold 12px sans-serif";
     ctx.fillText(label, cx, cy + r + 8);
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "10px sans-serif";
+    ctx.fillText("R-410A psig", cx, cy + r + 20);
     ctx.font = "bold 16px sans-serif";
     ctx.fillStyle = color;
     ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)), cx, cy + 28);
