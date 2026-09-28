@@ -71,7 +71,7 @@
         var evNote = ev < 12 ? "low — airflow / load" : ev > 22 ? "high — dirty coil / low airflow" : "seat 15–20° air DX";
         etd.textContent = "Evap TD " + ev + "\u00b0 (ID\u2212SST) \u00b7 " + evNote;
       } else {
-        etd.textContent = "\u2014 off (no TD)";
+        etd.textContent = "SH = suction T \u2212 evap sat (SST) — off until compressor runs";
       }
     }
     if (ctd) {
@@ -80,14 +80,14 @@
         var cdNote = cd < 15 ? "low — airflow / charge" : cd > 35 ? "high — dirty cond / low CFM" : "seat 20–30° air-cooled";
         ctd.textContent = "Cond TD " + cd + "\u00b0 (SCT\u2212OD) \u00b7 " + cdNote;
       } else {
-        ctd.textContent = "\u2014 off (no TD)";
+        ctd.textContent = "SC = cond sat (SCT) \u2212 liquid T — off until compressor runs";
       }
     }
     if (method) {
       var tgt = pistonSh(od, wb);
       var kind = meteringKind();
       if (!running) {
-        method.textContent = "Standing pressures only \u2014 no SH/SC charge. Seat 4 LEFT, run the compressor, then charge by method.";
+        method.textContent = "Standing pressures only — no SH/SC charge. Seat 4 LEFT, run the compressor, then charge by method.";
       } else if (kind === "piston") {
         method.textContent = "Piston \u00b7 charge by SH " + tgt + "\u00b0 (ODB " + Math.round(od) + " / WB " + Math.round(wb) + ") \u00b7 SC is a check";
       } else if (kind === "eev") {
