@@ -159,6 +159,12 @@
     width: 46px !important;
     height: 46px !important;
   }
+  /* v3.5.200: phone EVAP plate lower-left of the diamond so the canvas "Evaporator" label stays readable */
+  #sb-seats .sb-seat[data-seat="evaporator"] {
+    left: 2% !important;
+    top: 66% !important;
+    transform: none !important;
+  }
   .sb-layout {
     display: grid !important;
     grid-template-columns: 76px minmax(0, 1fr) !important;
