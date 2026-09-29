@@ -1,8 +1,8 @@
-# HVAC Allstars — shop pass (2026-09-29 Lane B)
+# HVAC Allstars — shop pass (2026-09-29 Lane C-plus)
 
 ## Live
-- floor v3.5.218
-- SW `lt-allstars-v454`
+- floor v3.5.224
+- SW `lt-allstars-v461`
 - Clock In → shop floor. Dual SKU intact.
 
 ## PLAYED
