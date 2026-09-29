@@ -254,3 +254,19 @@
 #sandbox-root .sb-toolbar label.sb-cond .sb-cond-cap { color:#94a3b8; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
 #sandbox-root .sb-toolbar label.sb-cond .sb-cond-val,
 #sandbox-root .sb-toolbar label span[id$="-v"] { color:#5eead4 !important; font-size:18px !important; font-weight:800 !important; }
+
+/* v3.5.210 desktop: canvas fits its wrap so the toolbar no longer covers the evaporator;
+   gauges on one row (dials | LPC | HPC) so HPC / Head is on screen at 1920x1080 */
+@media (min-width: 901px) {
+  #sandbox-root #sb-canvas-wrap > #sb-canvas {
+    height: 100% !important;
+    max-height: 100% !important;
+    min-height: 0 !important;
+    box-sizing: border-box;
+  }
+  #sb-seats .sb-seat[data-seat="evaporator"] { left: 59% !important; top: 63% !important; transform: none !important; }
+  #sandbox-root .sb-gauges {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: start;
+  }
+}
