@@ -191,7 +191,7 @@
     const speak = root.querySelector("#jesus-speak");
     if (speak) {
       speak.textContent =
-        "“You won the Quiz Game. I am HVAC Jesus. Receive the Gauges of God — SH and SC will never be a coin flip again. Write these ten on the truck door.”";
+        "“You closed the bay. I am HVAC Jesus. Work clothes, roof racks, recovery tank. SH and SC are read off live gauges — write these ten on the truck door.”";
     }
     const ol = root.querySelector("#rapture-commandments");
     if (ol) ol.innerHTML = listHtml();
@@ -204,10 +204,10 @@
     const speak = root.querySelector("#jesus-speak");
     if (speak) {
       speak.textContent = (opts && opts.fromDefusal)
-        ? "“You cut the open, not the live. I am HVAC Jesus. Hard hat, tool belt, white shirt. Receive the Gauges of God — SH and SC will never be a coin flip again.”"
+        ? "“You cut the open, not the live. I am HVAC Jesus. Hard hat, tool belt, work clothes. Meter first. SH and SC come off a running circuit.”"
         : fromQuiz
-        ? "“You won the Quiz Game. I am HVAC Jesus. Kneel if you want — I’m here for the Gauges of God. SH and SC will never be a coin flip again.”"
-        : "“I am HVAC Jesus. You opened the HVAC Commandments. Recover, don’t vent. These ten are the law of the shop. Repeat them. Then receive the Gauges of God.”";
+        ? "“You passed the exam. I am HVAC Jesus. Work clothes on the roof. Read SH and SC — they are not a coin flip.”"
+        : "“I am HVAC Jesus. You opened the HVAC Commandments. Recover, don’t vent. These ten are the law of the shop. Repeat them. Then get back on the gauges.”";
     }
     root.classList.remove("cut-open", "cut-jesus", "cut-gauges", "cut-lore");
     const timers = [];
