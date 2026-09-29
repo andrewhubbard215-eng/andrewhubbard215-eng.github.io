@@ -1,4 +1,4 @@
-/* Route floor overlay v10 — ticket → hook gauges → live SH/SC match fingerprint. */
+/* Route floor overlay v11 — ticket → hook gauges → live bay stays on the call. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -160,6 +160,22 @@
     tagService(id, { name: TITLES[id], fingerprint: TITLES[id] });
     return id;
   }
+  function parkBayOnService() {
+    var host = document.getElementById("svc-system-host");
+    var root = document.getElementById("sandbox-root");
+    if (host && root && root.parentNode !== host) {
+      host.innerHTML = "";
+      host.appendChild(root);
+    }
+    var svc = document.getElementById("screen-service");
+    if (!svc) return;
+    document.querySelectorAll(".screen").forEach(function (s) {
+      s.classList.remove("active");
+      s.classList.remove("screen-on");
+    });
+    svc.classList.add("active");
+    svc.classList.add("screen-on");
+  }
   function goSandboxThen(id) {
     window._ltTicketId = id;
     window._ltSandboxFault = id;
@@ -176,6 +192,7 @@
       var ready = document.getElementById("sb-run") || document.getElementById("sb-status") || document.getElementById("sb-ps") || document.getElementById("g-plow");
       if (ready || n > 80) {
         clearInterval(t);
+        parkBayOnService();
         loadTicket(id);
       }
     }, 80);
@@ -202,9 +219,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "10") return;
-    hookBtn.dataset.wired = "10";
-    nxt.dataset.wired = "10";
+    if (hookBtn.dataset.wired === "11") return;
+    hookBtn.dataset.wired = "11";
+    nxt.dataset.wired = "11";
     hookBtn.onclick = function (ev) {
       if (ev) { ev.preventDefault(); ev.stopPropagation(); }
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
