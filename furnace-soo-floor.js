@@ -29,6 +29,35 @@
         if (why) why.textContent = ok ? ("RIGHT — " + GOOD) : ("WRONG — " + WHY_WRONG + " Right path: " + GOOD);
       };
     });
+    mountPs(wrap);
+  }
+
+  var PS_ASK = "Inducer ran. Board will not light. Pressure switch still open. Next move?";
+  var PS_GOOD = "Hose, trap, and vent first. Then meter 24V across the switch. Pull vacuum vs the switch rating. Replace the switch LAST.";
+  var PS_BAD = "Swap the pressure switch so the board sees a close.";
+  var PS_WRONG = "A new switch on a plugged hose or wet trap still sits open. Prove the path before you buy parts.";
+
+  function mountPs(wrap) {
+    if (!wrap || wrap.getAttribute("data-psdrill") === "1") return;
+    wrap.setAttribute("data-psdrill", "1");
+    var box = document.createElement("div");
+    box.className = "el-locker-opts";
+    box.style.marginTop = "12px";
+    box.innerHTML =
+      "<p class='eyebrow'>9 · Pressure-switch prove</p><p>" + PS_ASK + "</p>" +
+      "<button type='button' class='btn' data-ps='1'>" + PS_GOOD + "</button>" +
+      "<button type='button' class='btn' data-ps='0'>" + PS_BAD + "</button>" +
+      "<p class='hub-chip' id='soo-ps-why'>Hose / trap / vent → 24V across → vacuum vs rating → switch last.</p>";
+    wrap.appendChild(box);
+    box.querySelectorAll("[data-ps]").forEach(function (b) {
+      b.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var ok = b.getAttribute("data-ps") === "1";
+        var why = box.querySelector("#soo-ps-why");
+        if (why) why.textContent = ok ? ("RIGHT — " + PS_GOOD) : ("WRONG — " + PS_WRONG + " Right path: " + PS_GOOD);
+      };
+    });
   }
 
   function deepen() {
