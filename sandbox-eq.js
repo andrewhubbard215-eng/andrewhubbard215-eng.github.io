@@ -14,13 +14,13 @@
       if (method && /standing/i.test(method.textContent || "")) method.textContent = "\u2014 charge method after readings settle";
       return;
     }
-    if (ps) ps.textContent = "Standing both sides (equalized)";
-    if (ph) ph.textContent = "Standing both sides (equalized)";
+    if (ps) ps.textContent = "LPC standing (suction hose)";
+    if (ph) ph.textContent = "HPC standing (liquid hose)";
     if (sst) {
       var n = String(sst.textContent || "").match(/(-?\d+)/);
       if (n) sst.textContent = "equalized to ODT " + n[1] + "\u00b0F";
     }
-    if (sct) sct.textContent = "same number both sides";
+    if (sct) sct.textContent = "same P as LPC \u2014 equalized to ODT";
     if (method) method.textContent = "standing \u00b7 LPC = HPC = OD sat \u00b7 no SH/SC until it runs";
     if (chip && !/both sides/.test(chip.textContent || "")) {
       chip.textContent = "EQUALIZED \u2014 unit off. LPC and HPC same sat P. Do not read SH/SC until it runs.";
