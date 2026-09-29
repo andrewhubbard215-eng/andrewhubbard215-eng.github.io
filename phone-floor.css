@@ -89,22 +89,24 @@
     position: relative !important;
     z-index: 4 !important;
     order: -30 !important;
-    flex: 0 0 36px !important;
-    max-height: 36px !important;
+    flex: 0 0 auto !important;
+    max-height: 72px !important;
     min-height: 36px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    white-space: nowrap !important;
-    flex-wrap: nowrap !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    display: flex !important;
     pointer-events: auto;
     background: rgba(11, 18, 32, 0.98);
     margin: 0 !important;
   }
   #sandbox-root #sb-faults .btn {
     display: inline-block;
-    margin: 2px 4px;
-    font-size: 12px;
-    padding: 6px 10px;
+    margin: 2px 3px;
+    font-size: 11px;
+    padding: 5px 8px;
+    white-space: nowrap;
   }
   #sandbox-root #sb-canvas,
   #sandbox-root #sb-canvas-wrap {
@@ -159,7 +161,6 @@
     width: 46px !important;
     height: 46px !important;
   }
-  /* v3.5.200: phone EVAP plate lower-left of the diamond so the canvas "Evaporator" label stays readable */
   #sb-seats .sb-seat[data-seat="evaporator"] {
     left: 2% !important;
     top: 66% !important;
