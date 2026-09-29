@@ -237,15 +237,21 @@
   padding: 4px 0 0;
   flex: 0 0 auto;
 }
-#sb-analog #sb-eq-chip {
-  grid-column: 1 / -1;
+#sandbox-root .sb-gauges #sb-eq-chip,
+#sb-eq-chip {
+  display: block;
   width: 100%;
-  max-width: 36rem;
-  margin: 2px auto 8px;
-  position: relative;
-  z-index: 5;
+  grid-column: 1 / -1;
+  box-sizing: border-box;
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
   background: #1e293b !important;
   color: #fde68a !important;
+  font: 600 13px/1.35 sans-serif;
+  text-align: center;
+  position: relative;
+  z-index: 6;
 }
 #sb-analog canvas {
   width: 168px;
