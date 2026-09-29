@@ -117,13 +117,14 @@
     var s = document.createElement("style");
     s.id = "vm-school-css";
     s.textContent =
-      "#voltmeter-root{padding:12px;max-width:720px;margin:0 auto}" +
+      "#voltmeter-root{padding:16px 28px 28px;max-width:none;width:100%;box-sizing:border-box;min-height:100vh;margin:0}" +
+      "#screen-voltmeter.screen.active,#screen-voltmeter.screen-on{display:block;width:100%;min-height:100vh}" +
       "#voltmeter-root .el-locker-opts{display:flex;flex-direction:column;gap:10px;margin:12px 0}" +
       "#voltmeter-root .vm-opt,#voltmeter-root .btn.vm-opt{" +
       "text-align:left;white-space:normal;min-height:56px;padding:14px 16px;" +
       "font-size:16px;line-height:1.35;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
       "#voltmeter-root #vm-close{min-height:44px;min-width:44px;touch-action:manipulation}" +
-      "#voltmeter-root .vm-probe-bar{margin:0 0 10px;padding:6px 10px;border-radius:8px;" +
+      "#voltmeter-root .vm-probe-bar{position:sticky;top:0;z-index:6;margin:0 0 10px;padding:8px 12px;border-radius:8px;" +
       "background:#1a2430;color:#c9d4de;font-size:12px;letter-spacing:.03em;font-weight:600}" +
       "#voltmeter-root .vm-probe-bar b{color:#7ad0ff}" +
       "#voltmeter-root .vm-bay{display:flex;gap:10px;align-items:stretch;margin:8px 0 12px;flex-wrap:wrap}" +
