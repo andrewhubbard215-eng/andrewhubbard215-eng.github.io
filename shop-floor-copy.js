@@ -1,11 +1,18 @@
-/* Shop-floor copy override v43 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
+/* Shop-floor copy override v45 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
       var t = el.textContent || "";
-      if (/^W\s/.test(t.trim()) && /inducer/i.test(t) && /blower/i.test(t)) {
-        el.textContent = "Call on W \u00b7 inducer \u00b7 PS \u00b7 ignitor \u00b7 valve \u00b7 \u00b5A \u00b7 blower \u00b7 limit";
+      if (/inducer/i.test(t) && /blower/i.test(t) && /ignitor/i.test(t)) {
+        el.textContent = "W \u00b7 inducer \u00b7 PS \u00b7 ignitor \u00b7 valve \u00b7 flame \u00b7 blower";
       }
+    });
+  }
+  function faultChipFit() {
+    document.querySelectorAll("#screen-sandbox button, .sb-fault-chip, [data-fault]").forEach(function (el) {
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/^TXV bulb$/i.test(t)) el.textContent = "TXV strap";
+      if (/^Air in system$/i.test(t)) el.textContent = "Noncondensable";
     });
   }
   function lockerCard() {
@@ -43,7 +50,7 @@
   var TIP_VER = (function () {
     var s = document.querySelector(".version-strip");
     var m = s && (s.textContent || "").match(/v\d+\.\d+\.\d+/);
-    return m ? m[0] : "v3.5.219";
+    return m ? m[0] : "v3.5.223";
   })();
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -165,6 +172,7 @@
   }
   function scrub() {
     vocationalTiles();
+    faultChipFit();
     lockerCard();
     bayStrip();
     partsLeftCompressorBtn();
