@@ -1,17 +1,16 @@
-# HVAC Allstars — shop pass (2026-09-29 shift)
+# HVAC Allstars — shop pass (2026-09-29 shift 2)
 
 ## Live
-- floor v3.5.212
-- SW `lt-allstars-v447`
+- floor v3.5.215
+- SW `lt-allstars-v451`
 - Clock In → shop floor. Dual SKU intact (Lincoln marks campus only).
 
 ## PLAYED
 - Clock-in / floor: pass
-- Sandbox: pass (equalized 295 both sides, Seat 4 LEFT first, analog + digital)
-- Voltmeter school: red sticky bar unstuck; live string / face added per step
+- Voltmeter school: pass (quiz + live string)
 
 ## FIXED
-Voltmeter school probe bar no longer sticky-red. Each step shows a meter face + L1-L2 / R-C / Y-C / T1-T2 string so the bay reads like a call, not a quiz card.
+Voltmeter school keeps a running **sheet** of proven readings (meter, scale, open leg, Y-C, loaded coil, T1-T2). Wrong answers do not stamp the sheet. Bay reads like a no-cool walk, not a flash card.
 
 ## STILL OPEN
 1. Voltmeter school is still choice-based (not probe-on-lugs)
