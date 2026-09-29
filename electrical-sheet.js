@@ -22,12 +22,36 @@
     return /^Replace /i.test(label);
   }
 
+  function maskOpenGiveaway() {
+    var nodes = document.querySelectorAll(
+      "#electrical-root button, #electrical-root [data-node], .el-box, .el-node, .el-string button, .el-string [class*='box']"
+    );
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.dataset && el.dataset.openMasked === "1") continue;
+      var raw = el.textContent || "";
+      if (!/OPEN/i.test(raw) || !/0\.0/.test(raw)) continue;
+      el.dataset.openPlain = raw;
+      el.innerHTML = raw.replace(/OPEN\s*[·•:\-]\s*/i, "");
+      el.dataset.openMasked = "1";
+      el.title = "Meter this box. Dark after gold is the open.";
+    }
+    var brow = document.querySelector("#electrical-root .eyebrow, .el-rail .eyebrow, p.eyebrow");
+    if (brow && /tray on the ladder/i.test(brow.textContent || "")) {
+      brow.textContent = "Walk Y with the meter. Dark after gold is the open.";
+    }
+  }
+
   function onLadderClick(ev) {
     var box = ev.target && ev.target.closest ? ev.target.closest("button, [data-node], .el-box, .el-node") : ev.target;
-    var txt = ((box && box.textContent) || "").replace(/\s+/g, " ");
-    if (/OPEN/i.test(txt) && /0\.0/.test(txt)) {
+    var txt = ((box && (box.dataset && box.dataset.openPlain || box.textContent)) || "").replace(/\s+/g, " ");
+    if ((/OPEN/i.test(txt) && /0\.0/.test(txt)) || (box && box.dataset && box.dataset.openMasked === "1")) {
       var k = ticketKey();
       if (k !== "pending") proved[k] = true;
+      if (box && box.dataset && box.dataset.openPlain) {
+        box.textContent = box.dataset.openPlain;
+        box.dataset.openMasked = "0";
+      }
       lockReplace();
       yell("Open proven. Now you can cut that part.");
       return;
@@ -38,7 +62,7 @@
       ev.stopPropagation();
       ev.stopImmediatePropagation();
       lockReplace();
-      yell("Meter the OPEN box first. Shotgun is a callback.");
+      yell("Meter the 0.0 V box first. Shotgun is a callback.");
     }
   }
 
@@ -73,21 +97,22 @@
         b.style.display = "";
       } else {
         b.disabled = true;
-        b.title = "Meter the OPEN box first. Shotgun is a callback.";
-        b.style.opacity = "0.35";
-        b.style.pointerEvents = "none";
-        b.style.display = "none";
+        b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
+        b.style.setProperty("opacity", "0.35", "important");
+        b.style.setProperty("pointer-events", "none", "important");
+        b.style.setProperty("display", "none", "important");
       }
     }
   }
 
   function paint() {
+    maskOpenGiveaway();
     var k = document.querySelector(".el-ladder-kicker");
     if (k && k.id !== "el-ts-note") {
       var key = ticketKey();
       if (/3A|Hum, no start|Heat pump/i.test(key)) {
         k.textContent =
-          "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter the OPEN, then replace.";
+          "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
       } else {
         k.textContent =
           "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
@@ -99,7 +124,7 @@
       note.id = "el-ts-note";
       note.className = "el-ladder-kicker";
       note.textContent =
-        "No-cool sheet: tap the dark OPEN box (0.0 V) before Replace lights up. Shotgun is a callback.";
+        "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
       ol.parentNode.insertBefore(note, ol);
     }
     lockReplace();
