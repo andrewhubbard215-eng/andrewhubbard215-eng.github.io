@@ -20,17 +20,23 @@
     var box = document.querySelector("#sandbox-root .sb-gauges");
     if (!box) return null;
     var wrap = document.getElementById("sb-analog");
-    if (!wrap || !document.getElementById("sb-g-low") || !document.getElementById("sb-g-high") || !document.getElementById("sb-eq-chip")) {
+    if (!wrap || !document.getElementById("sb-g-low") || !document.getElementById("sb-g-high")) {
       if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
       wrap = document.createElement("div");
       wrap.id = "sb-analog";
       wrap.setAttribute("data-sb-gauges", "1");
       wrap.innerHTML =
         '<canvas id="sb-g-low" width="220" height="220" aria-label="LPC"></canvas>' +
-        '<canvas id="sb-g-high" width="220" height="220" aria-label="HPC"></canvas>' +
-        '<div id="sb-eq-chip" style="display:none;width:100%;margin:4px 0 0;padding:6px 10px;border-radius:8px;background:#1e293b;color:#fde68a;font:600 12px/1.3 sans-serif;text-align:center">EQUALIZED — unit off. Do not read SH/SC until it runs.</div>';
+        '<canvas id="sb-g-high" width="220" height="220" aria-label="HPC"></canvas>';
     }
-    if (wrap.parentNode !== box) box.insertBefore(wrap, box.firstChild);
+    var chip = document.getElementById("sb-eq-chip");
+    if (!chip) {
+      chip = document.createElement("div");
+      chip.id = "sb-eq-chip";
+      chip.textContent = "EQUALIZED — unit off. Same sat P both sides. Do not read SH/SC until it runs.";
+    }
+    if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
+    if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
     return wrap;
   }
   function draw(cv, psi, max, color, label) {
