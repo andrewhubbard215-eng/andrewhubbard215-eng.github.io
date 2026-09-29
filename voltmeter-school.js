@@ -1,4 +1,4 @@
-/* Voltmeter school — 24V control + 240V power. Guided then unguided. Does not replace Follow the call / land-lugs. */
+/* Voltmeter school — 24V control + 240V power. Guided then unguided. Live string strip on the bay. Does not replace Follow the call / land-lugs. */
 (function () {
   "use strict";
   var STEPS = [
@@ -9,7 +9,15 @@
       good: "Confirm the meter on a known live source, then prove the disconnect is dead (or live) before you touch.",
       bad: "Stick the probes in and hope the display means something.",
       whyWrong: "A dead meter lies. Prove the tool, then prove the circuit.",
-      drip: "meter_open"
+      drip: "meter_open",
+      face: "---",
+      unit: "VAC",
+      string: [
+        ["Known live", "prove first"],
+        ["Disconnect", "not yet"],
+        ["L1–L2", "—"],
+        ["R–C", "—"]
+      ]
     },
     {
       id: "scale",
@@ -18,7 +26,15 @@
       good: "VAC, range above line voltage (≈240V / 208V). Don't sit on a 20V scale for line.",
       bad: "Ohms scale across L1–L2 while it's energized.",
       whyWrong: "Ohms on a live circuit cooks the meter and lies to you.",
-      drip: "meter_open"
+      drip: "meter_open",
+      face: "240",
+      unit: "VAC",
+      string: [
+        ["Scale", "VAC > line"],
+        ["L1–L2", "expect ~240"],
+        ["Ohms", "LOCKOUT first"],
+        ["R–C", "24 later"]
+      ]
     },
     {
       id: "line",
@@ -27,7 +43,15 @@
       good: "Lost L2 (or open leg). One side is dead — check disconnect, fuse, lug, or utility.",
       bad: "Compressor is bad because amps will be weird later.",
       whyWrong: "Prove power first. A missing leg is a power problem, not a compressor guess.",
-      drip: "meter_open"
+      drip: "meter_open",
+      face: "0",
+      unit: "L2-G",
+      string: [
+        ["L1–L2", "~240"],
+        ["L1–G", "~120"],
+        ["L2–G", "0 — OPEN"],
+        ["R–C", "not yet"]
+      ]
     },
     {
       id: "control",
@@ -36,7 +60,15 @@
       good: "Thermostat/Y path is open or not calling. Prove R–Y at the thermostat, then at the outdoor board.",
       bad: "Replace the contactor because the outdoor unit is quiet.",
       whyWrong: "No Y means the contactor never got a chance. Prove the 24V string before parts.",
-      drip: "vd_24v"
+      drip: "vd_24v",
+      face: "0",
+      unit: "Y-C",
+      string: [
+        ["L1–L2", "240"],
+        ["R–C", "24"],
+        ["Y–C", "0 — no call"],
+        ["Coil", "dark"]
+      ]
     },
     {
       id: "drop",
@@ -45,7 +77,15 @@
       good: "Excessive drop or weak transformer/load. Prove voltage at the coil with the circuit loaded — not only open-circuit.",
       bad: "Coil is fine because you saw 24V with the contactor unplugged.",
       whyWrong: "Unloaded 24V hides a weak supply. Measure under load.",
-      drip: "vd_24v"
+      drip: "vd_24v",
+      face: "18",
+      unit: "coil V",
+      string: [
+        ["R–C open", "24"],
+        ["Coil loaded", "18 — DROP"],
+        ["Y–C", "call on"],
+        ["T1–T2", "weak pull"]
+      ]
     },
     {
       id: "unguided",
@@ -54,7 +94,15 @@
       good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing to the compressor circuit.",
       bad: "Bad thermostat — Y never left the house.",
       whyWrong: "You already have Y and coil voltage at the outdoor. The break is after the coil — contacts or load side.",
-      drip: "meter_open"
+      drip: "meter_open",
+      face: "0",
+      unit: "T1-T2",
+      string: [
+        ["L1–L2", "240"],
+        ["Y–C / coil", "24 / 24"],
+        ["T1–T2", "0 — OPEN"],
+        ["Contacts", "prove next"]
+      ]
     }
   ];
 
@@ -75,12 +123,30 @@
       "text-align:left;white-space:normal;min-height:56px;padding:14px 16px;" +
       "font-size:16px;line-height:1.35;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
       "#voltmeter-root #vm-close{min-height:44px;min-width:44px;touch-action:manipulation}" +
-      "#voltmeter-root .vm-probe-bar{position:sticky;top:0;z-index:6;margin:0 0 10px;" +
-      "padding:8px 12px;border-radius:8px;background:#7a1020;color:#fff;font-size:13px;" +
-      "letter-spacing:.04em;font-weight:700}" +
-      "#voltmeter-root .vm-probe-bar span{opacity:.85;font-weight:600}" +
+      "#voltmeter-root .vm-probe-bar{margin:0 0 10px;padding:6px 10px;border-radius:8px;" +
+      "background:#1a2430;color:#c9d4de;font-size:12px;letter-spacing:.03em;font-weight:600}" +
+      "#voltmeter-root .vm-probe-bar b{color:#7ad0ff}" +
+      "#voltmeter-root .vm-bay{display:flex;gap:10px;align-items:stretch;margin:8px 0 12px;flex-wrap:wrap}" +
+      "#voltmeter-root .vm-face{min-width:88px;padding:10px 12px;border-radius:10px;background:#0b1220;" +
+      "border:1px solid #2a3a4a;text-align:center}" +
+      "#voltmeter-root .vm-face strong{display:block;font-size:28px;line-height:1;color:#7ad0ff}" +
+      "#voltmeter-root .vm-face span{font-size:11px;letter-spacing:.08em;color:#8aa}" +
+      "#voltmeter-root .vm-string{flex:1;min-width:200px;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;" +
+      "padding:8px 10px;border-radius:10px;background:#101820;border:1px solid #243040;font-size:13px}" +
+      "#voltmeter-root .vm-string i{font-style:normal;color:#8aa}" +
+      "#voltmeter-root .vm-string b{font-weight:700;color:#e8eef4}" +
       "@media (max-width:480px){#voltmeter-root .vm-opt,#voltmeter-root .btn.vm-opt{min-height:64px;padding:16px 18px;font-size:17px}}";
     document.head.appendChild(s);
+  }
+
+  function stringHtml(step) {
+    var rows = step.string || [];
+    var inner = rows.map(function (r) {
+      return "<i>" + r[0] + "</i><b>" + r[1] + "</b>";
+    }).join("");
+    return '<div class="vm-bay">' +
+      '<div class="vm-face"><strong>' + (step.face || "—") + "</strong><span>" + (step.unit || "VAC") + "</span></div>" +
+      '<div class="vm-string">' + inner + "</div></div>";
   }
 
   function mount() {
@@ -103,7 +169,8 @@
         '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
         '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
         '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="vm-probe-bar">BLACK → COM &nbsp;·&nbsp; RED → VΩ &nbsp;·&nbsp; <span>equip ground last</span></p>' +
+        '<p class="vm-probe-bar"><b>BLACK → COM</b>  ·  <b>RED → VΩ</b>  ·  equip ground last</p>' +
+        stringHtml(step) +
         '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " - " + step.label + " of " + STEPS.length + "</p>" +
         "<p>" + step.ask + "</p>" +
         '<div class="el-locker-opts">' +

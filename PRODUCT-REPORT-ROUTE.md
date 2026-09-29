@@ -1,23 +1,22 @@
-# HVAC Allstars — shop pass (2026-09-28 playtest)
+# HVAC Allstars — shop pass (2026-09-29 shift)
 
 ## Live
-- floor v3.5.209
-- SW `lt-allstars-v443`
-- Clock In → shop floor
+- floor v3.5.212
+- SW `lt-allstars-v447`
+- Clock In → shop floor. Dual SKU intact (Lincoln marks campus only).
 
 ## PLAYED
 - Clock-in / floor: pass
 - Sandbox: pass (equalized 295 both sides, Seat 4 LEFT first, analog + digital)
-- Voltmeter school: fail — still quiz, red bar pinned
-- Service calls: fail then fix — fat card covered the system
+- Voltmeter school: red sticky bar unstuck; live string / face added per step
 
 ## FIXED
-Service ticket is a slim top rail. System bay host sits under it. SW v435 / svc-rail.css.
+Voltmeter school probe bar no longer sticky-red. Each step shows a meter face + L1-L2 / R-C / Y-C / T1-T2 string so the bay reads like a call, not a quiz card.
 
 ## STILL OPEN
-1. Voltmeter school is still a quiz, not the live board
+1. Voltmeter school is still choice-based (not probe-on-lugs)
 2. Service CALLS list vs sandbox TICKETS still two tables
 3. Hook gauges on the rail does not yet park the live sandbox in the bay
 
 ## NEXT
-Meter school live board — Black→COM, Red→VΩ, Equip ground tray chip.
+True probe board — Black→COM, Red→VΩ, tap lugs, read the string.
