@@ -201,6 +201,9 @@
   height: 64px;
   object-fit: contain;
   pointer-events: none;
+  background: #e8eef6;
+  border-radius: 10px;
+  padding: 3px;
 }
 #sb-seats .sb-seat span {
   display: block;
