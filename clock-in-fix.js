@@ -307,7 +307,7 @@
     if (btn && btn.getAttribute("data-lt-bound") !== "1") bindStart();
   }, 1000);
   document.addEventListener("click", function (e) {
-    var t = e.target && e.target.closest ? e.target.closest("#el-locker-close, #el-prove-close, #el-soo-close, [data-lt-close-hub]") : null;
+    var t = e.target && e.target.closest ? e.target.closest("#el-hub, #el-locker-close, #el-prove-close, #el-soo-close, [data-lt-close-hub]") : null;
     if (!t) return;
     try {
       var wrap = document.getElementById("el-locker-overlay");
