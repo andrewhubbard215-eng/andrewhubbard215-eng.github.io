@@ -1,4 +1,4 @@
-/* Shop-floor copy override v42 — locker card, WB once, strip names live bay, running kills EQUALIZED */
+/* Shop-floor copy override v43 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -62,7 +62,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - v3.5.205 - " + bay;
+    strip.textContent = "HVAC Allstars - v3.5.219 - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
@@ -76,6 +76,22 @@
       });
     }
     return false;
+  }
+  function lockChargeUntilSeated() {
+    var chg = document.getElementById("sb-charge");
+    if (!chg) return;
+    var left = partsStillOnBench();
+    if (left) {
+      chg.disabled = true;
+      chg.setAttribute("title", "Loop open. Seat 4 LEFT before you weigh charge.");
+      var cap = document.getElementById("sb-chg-v-cap");
+      if (cap && !/SEAT FIRST/i.test(cap.textContent || "")) cap.textContent = "Charge (seat first)";
+    } else {
+      chg.disabled = false;
+      chg.removeAttribute("title");
+      var cap2 = document.getElementById("sb-chg-v-cap");
+      if (cap2 && /seat first/i.test(cap2.textContent || "")) cap2.textContent = "Charge";
+    }
   }
   function partsLeftCompressorBtn() {
     var btn = document.getElementById("sb-run");
@@ -147,6 +163,7 @@
     lockerCard();
     bayStrip();
     partsLeftCompressorBtn();
+    lockChargeUntilSeated();
     standingNotDiagnosis();
     killEqualizedWhileRunning();
     liveShScRail();
