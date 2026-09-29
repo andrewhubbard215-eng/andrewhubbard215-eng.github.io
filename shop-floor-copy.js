@@ -40,6 +40,11 @@
     if (el.offsetParent) return true;
     return false;
   }
+  var TIP_VER = (function () {
+    var s = document.querySelector(".version-strip");
+    var m = s && (s.textContent || "").match(/v\d+\.\d+\.\d+/);
+    return m ? m[0] : "v3.5.219";
+  })();
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -62,7 +67,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - v3.5.219 - " + bay;
+    strip.textContent = "HVAC Allstars - " + TIP_VER + " - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
