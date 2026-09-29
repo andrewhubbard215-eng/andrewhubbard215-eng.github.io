@@ -115,8 +115,8 @@
 }
 @media (min-width: 901px) {
   #sandbox-root #sb-canvas {
-    max-height: min(42vh, 360px) !important;
-    min-height: 260px !important;
+    max-height: min(38vh, 320px) !important;
+    min-height: 240px !important;
     flex: 0 1 auto !important;
   }
 }
@@ -141,17 +141,23 @@
     max-height: none !important;
     z-index: 4;
     margin-top: 4px;
+    margin-bottom: 12px;
+    padding-bottom: 28px !important;
     width: auto !important;
     flex: 0 0 auto !important;
   }
   #sandbox-root #sb-canvas {
     position: relative !important;
-    min-height: 260px !important;
+    min-height: 240px !important;
     padding-bottom: 8px;
   }
   #sandbox-root .sb-main {
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
     height: calc(100dvh - 48px);
+    padding-bottom: 20px;
+  }
+  #sandbox-root .sb-toolbar {
+    margin-bottom: 6px;
   }
 }
 
