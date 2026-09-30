@@ -29,7 +29,22 @@ function paint(){
       cap.className="sb-cond-cap";
       if(el.parentNode) el.parentNode.insertBefore(cap, el);
     }
-    cap.textContent=name;
+    var loopOpen = false;
+    if (id === "sb-charge") {
+      var need = ["compressor", "condenser", "metering", "evaporator"];
+      loopOpen = need.some(function (sid) {
+        var sl = document.querySelector('#sb-slots .sb-slot[data-slot="' + sid + '"]');
+        if (sl) return !(sl.classList.contains("filled") || sl.querySelector("img, strong, .rm"));
+        return !!document.querySelector('[data-left="' + sid + '"], .sb-chip-left');
+      });
+      if (!loopOpen) {
+        var yell = document.getElementById("sb-parts-yell");
+        if (yell && /Compressor stays off|LOOP OPEN|Seat 4 LEFT/i.test(yell.textContent || "")) loopOpen = true;
+      }
+      var runBtn = document.getElementById("sb-run");
+      if (runBtn && /Seat 4 LEFT|Seat parts first/i.test(runBtn.textContent || "")) loopOpen = true;
+    }
+    cap.textContent = (id === "sb-charge" && loopOpen) ? "No weigh-in" : name;
     var v=document.getElementById(vid);
     if(!v){
       v=document.createElement("span");
@@ -37,7 +52,14 @@ function paint(){
       v.className="sb-cond-val";
     }
     v.style.cssText="display:block;margin:0 0 2px;font-variant-numeric:tabular-nums;font-weight:800;color:#5eead4;white-space:nowrap;font-size:18px;line-height:1.1;letter-spacing:.02em";
-    v.textContent=el.value+suf;
+    if (id === "sb-charge" && loopOpen) {
+      v.textContent = "SEAT LEFT";
+      v.style.color = "#fbbf24";
+      el.disabled = true;
+    } else {
+      v.textContent=el.value+suf;
+      if (id === "sb-charge") el.disabled = false;
+    }
     if(cap.nextSibling!==v){
       if(cap.parentNode) cap.parentNode.insertBefore(v, cap.nextSibling);
     }
