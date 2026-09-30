@@ -1,3 +1,4 @@
+/* v3.5.248 — pan-y rail + seated photo-only; layout.css must not kill flick */
 /* v3.5.230 — rail scroll + seated chrome gone. Last rule wins over touch-action:none. */
 #sandbox-root .sb-palette,
 #sandbox-root aside.sb-palette,
@@ -40,4 +41,28 @@ html.lt-dragging-part #sandbox-root [data-part] {
 .hub-nav {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
+}
+
+/* v3.5.248 pan-y append */
+
+#sandbox-root [data-part="compressor"],
+#sandbox-root [data-part="condenser"],
+#sandbox-root [data-part="metering"],
+#sandbox-root [data-part="evaporator"] {
+  touch-action: pan-y !important;
+}
+html.lt-dragging-part #sandbox-root [data-part] {
+  touch-action: none !important;
+}
+@media (max-width: 900px) {
+  #sandbox-root .sb-palette,
+  #sandbox-root aside.sb-palette {
+    overflow-y: auto !important;
+    max-height: 28vh !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  #sb-ts { max-height: 28px !important; overflow: hidden !important; }
+  #sb-ts li { display: none !important; }
+  #sb-ts li.wait { display: flex !important; min-height: 24px !important; padding: 2px 6px !important; }
+  #sb-ts li.wait p { display: none !important; }
 }
