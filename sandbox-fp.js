@@ -10,8 +10,8 @@
     if (Math.abs(sh - tgtSH) <= 4 && Math.abs(sc - tgtSC) <= 4)
       return "HUB: SH/SC in band. That's a charged, breathing system.";
     if (hiSH && loSC) return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
-    if (hiSH && hiSC) return "HUB: high SH + high SC = restriction or TXV nearly closed. Check drier drop and bulb strap before gas.";
-    if (loSH && hiSC) return "HUB: low SH + high SC = overcharge or TXV too open. Recover to nameplate. Slug risk.";
+    if (hiSH && hiSC) return "HUB: high SH + high SC = restriction / plugged drier. Cold at drier outlet. Do not add gas.";
+    if (loSH && hiSC) return "HUB: low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.";
     if (loSH && loSC) return "HUB: low SH + low SC = airflow first. Dirty evap, blower, or filter — not a charge dart.";
     if (hiSH) return "HUB: high SH only — evaporator starved. Confirm SC before you call it a leak.";
     if (hiSC) return "HUB: high SC only — stacked liquid. Weigh-out before you add.";
