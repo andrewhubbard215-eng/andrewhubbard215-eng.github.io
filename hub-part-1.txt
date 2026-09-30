@@ -36,7 +36,7 @@
       tags: ["noncondensable", "non-condensable", "air in system", "nitrogen left"],
       topic: "Non-condensables",
       answer:
-        "Air/nitrogen left in the system raises head pressure and SC weirdly, reduces capacity, can look like overcharge. Cure: recover, evacuate properly to ≤500 microns with decay, recharge by weight. This is why vacuum discipline exists — not to torture apprentices.",
+        "Air/noncondensables = high head AND high SC — recover, evacuate, weigh back. Can look like overcharge; dirty condenser is high head with SC about normal. Cure: recover, evacuate properly to ≤500 microns with decay, weigh back. This is why vacuum discipline exists — not to torture apprentices.",
     },
     {
       tags: ["pump down", "front seat", "back seat", "mid seat", "service valve positions"],
