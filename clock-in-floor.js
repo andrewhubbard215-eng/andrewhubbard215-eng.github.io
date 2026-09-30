@@ -1,4 +1,4 @@
-/* Clock-in floor v45 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v46 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -12,6 +12,9 @@
     }
   }
   function goHub() {
+    if (typeof window.ltRestoreSandboxBay === "function") {
+      try { window.ltRestoreSandboxBay(); } catch (_) {}
+    }
     if (typeof window.ltGoHub === "function") {
       try { window.ltGoHub(); return; } catch (_) {}
     }
