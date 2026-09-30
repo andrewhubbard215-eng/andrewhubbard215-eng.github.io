@@ -1,1 +1,1 @@
-PLACEHOLDER
+@/tmp/hub_for_mcp.js
