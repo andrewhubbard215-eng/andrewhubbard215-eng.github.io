@@ -1,18 +1,17 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v490";
+const VER = "lt-allstars-v492";
 const CORE = [
   "./",
   "./index.html",
   "./nocool-lock.js?v=2",
   "./sku.js?v=17",
-  "./style.css?v=146",
+  "./style.css?v=147",
   "./svc-rail.css?v=1",
-  "./sandbox-layout.css?v=38",
+  "./sandbox-layout.css?v=40",
   "./sandbox-faults-wrap.css?v=2",
-  "./sandbox-pc.css?v=9",
+  "./sandbox-pc.css?v=10",
   "./phone-floor.css?v=40",
-  "./phone-p0.css?v=5",
-  "./sandbox-play.css?v=5",
+  "./phone-p0.css?v=7",
   "./phone-rail.css?v=1",
   "./saturday-phone.css?v=1",
   "./sb-tabs.css?v=3",
@@ -20,11 +19,11 @@ const CORE = [
   "./game.js?v=206",
   "./teach-locks.js?v=2",
   "./shop-floor-copy.js?v=46",
-  "./sandbox.js?v=164",
+  "./sandbox.js?v=166",
   "./sandbox-hunt.js?v=2",
   "./sandbox-eq.js?v=4",
   "./sandbox-hook.js?v=18",
-  "./sandbox-seats.js?v=27",
+  "./sandbox-seats.js?v=29",
   "./sandbox-yell.js?v=5",
   "./lugs-lock.js?v=1",
   "./sandbox-ts.js?v=11",
@@ -87,7 +86,7 @@ const CORE = [
   "./exam-untimed.js?v=3",
   "./exam-cutout.js?v=3",
   "./board-codes.css?v=4",
-  "./dragdrop.js?v=49",
+  "./dragdrop.js?v=50",
   "./webgl-cycle.js?v=57",
   "./minisplit.js?v=10",
   "./minisplit-phone.js?v=4",
@@ -122,7 +121,9 @@ self.addEventListener("fetch", function (e) {
   var url = new URL(e.request.url);
   var isNav = e.request.mode === "navigate" || e.request.destination === "document" ||
     /\/$|\.html$/i.test(url.pathname) || url.pathname === "/" || url.pathname.endsWith("/index.html");
-  if (isNav) {
+  var isAsset = /\.(css|js)(\?|$)/i.test(url.pathname + url.search) ||
+    /\.(css|js)$/i.test(url.pathname);
+  if (isNav || isAsset) {
     e.respondWith(fetch(e.request).then(function (res) {
       try {
         var copy = res.clone();
@@ -130,7 +131,9 @@ self.addEventListener("fetch", function (e) {
       } catch (err) {}
       return res;
     }).catch(function () {
-      return caches.match(e.request).then(function (hit) { return hit || caches.match("./index.html"); });
+      return caches.match(e.request).then(function (hit) {
+        return hit || (isNav ? caches.match("./index.html") : undefined);
+      });
     }));
     return;
   }
