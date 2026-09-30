@@ -1,4 +1,24 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Lincoln Tech HVAC Allstars</title>
-<script>location.replace("app.html?v=233");</script>
-<meta http-equiv="refresh" content="0;url=app.html?v=233" />
-</head><body><p><a href="app.html?v=233">Open HVAC Allstars v3.5.233</a></p></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><title>Lincoln Tech HVAC Allstars</title>
+<script>
+(function () {
+  var url = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/79f34a89d01dfb345ae5f8d7e9e25b12aa0aadc5/index.html";
+  fetch(url, { cache: "no-store" }).then(function (r) {
+    if (!r.ok) throw new Error("tip fetch " + r.status);
+    return r.text();
+  }).then(function (html) {
+    html = html
+      .replace(/v3\.5\.232/g, "v3.5.233")
+      .replace('phone-p0.css?v=2" />', 'phone-p0.css?v=2" /><link rel="stylesheet" href="phone-gauges-233.css?v=1" /><link rel="stylesheet" href="phone-gauges-clip-233.css?v=1" />')
+      .replace('route-floor.js?v=11"></script>', 'route-floor.js?v=12"></script><script src="bay-restore.js?v=1"></script>')
+      .replace("sandbox-seats.js?v=21", "sandbox-seats.js?v=22")
+      .replace("clock-in-floor.js?v=45", "clock-in-floor.js?v=46")
+      .replace("sw.js?v=470", "sw.js?v=471");
+    document.open();
+    document.write(html);
+    document.close();
+  }).catch(function (e) {
+    document.body.textContent = "Allstars tip load failed. Hard-refresh. " + e;
+  });
+})();
+</script>
+</head><body style="background:#14171a;color:#e2e8f0;font:16px/1.4 sans-serif;padding:24px">Loading HVAC Allstars v3.5.233…</body></html>
