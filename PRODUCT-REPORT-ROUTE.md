@@ -1,17 +1,18 @@
-# HVAC Allstars — shop pass (2026-09-29 Lane C-plus)
+# HVAC Allstars — shop pass (2026-09-30 Lane A)
 
 ## Live
-- floor v3.5.224
-- SW `lt-allstars-v461`
+- floor v3.5.240
+- SW `lt-allstars-v478`
 - Clock In → shop floor. Dual SKU intact.
 
 ## PLAYED
 - Clock-in / floor: pass
-- System sandbox: pass (LEFT parts, standing P, start locked)
-- Service calls: Hook gauges left an empty black bay (sandbox jumped screens)
+- System sandbox: pass (LEFT parts, standing P, analog + digital)
+- Voltmeter school: fail (still multiple-choice, not probe-on-lugs)
+- Service calls: fail — Hook gauges jumped to full sandbox, ticket rail gone, empty bay before hook
 
 ## FIXED
-Hook gauges now parks the live sandbox in `#svc-system-host`. Ticket rail stays. Needles + LEFT parts stay on the call.
+Hook gauges keeps the live sandbox parked in `#svc-system-host`. Sandbox screen cannot steal the call. Ticket rail stays slim. Needles stay on the ticket.
 
 ## STILL OPEN
 1. Voltmeter school still choice-based (not probe-on-lugs)
