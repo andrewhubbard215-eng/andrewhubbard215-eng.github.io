@@ -49,6 +49,18 @@
       a: 0,
       why: "One light then open is draft dying under heat. Prove hose, trap, and vent with the unit hot. Match pull to the rating printed on the switch. Switch last.",
       whyWrong: "One light does not prove a bad board or a bad switch. Heat changes draft. Prove again running."
+    },
+    {
+      q: "No-cool. Call is on, 240 at the disconnect, R–C is 24V, Y is live. Contactor never pulls. Float switch is in the drain pan. Next prove?",
+      choices: [
+        "Open the float, meter across it. Stuck-open float drops Y before HPC/LPC/coil. Clear the drain, then prove the rest of the string.",
+        "Add gas first — no-cool always means undercharge",
+        "Jump the float and leave it jumped so the house stays cold",
+        "Replace the compressor — Y is hot so the motor is dead"
+      ],
+      a: 0,
+      why: "No-cool sheet: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. A full pan opens the float and kills Y to the coil. Prove the float before you condemn safeties or the compressor.",
+      whyWrong: "Gas-first or jumping a safety hides a plugged drain. First-year techs skip the pan and eat a callback."
     }
   ];
   function inject() {
@@ -57,9 +69,9 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected2) return true;
+    if (bank[key]._cutoutInjected3) return true;
     ITEMS.forEach(function (it) { bank[key].push(it); });
-    bank[key]._cutoutInjected2 = true;
+    bank[key]._cutoutInjected3 = true;
     return true;
   }
   var n = 0;
