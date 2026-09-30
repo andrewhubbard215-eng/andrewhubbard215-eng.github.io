@@ -8,7 +8,7 @@
       tags: ["commandment", "commandments", "ten commandments", "shop law", "hvac jesus", "gauges of god"],
       topic: "The HVAC Commandments",
       answer:
-        "The ten shop laws: 1) Recover first — never vent. 2) Nut on the tube before you flare. 3) Dry nitrogen only. 4) Microns at the system, not a compound gauge. 5) Don't top off a leaker — recover, repair, evacuate, weigh in. 6) Lockout before ohms or µF. 7) Nameplate is law (MCA/MOP/charge). 8) SH = suction temp − evap sat; SC = cond sat − liquid temp. 9) Airflow before charge. 10) Lincoln Tech is home base — log it, teach the next helper. Open HVAC Commandments on the shop floor or ask me any one of them.",
+        "The ten shop laws: 1) Recover first — never vent. 2) Nut on the tube before you flare. 3) Dry nitrogen only. 4) Microns at the system, not a compound gauge. 5) Don't top off a leaker — recover, repair, evacuate, weigh in. 6) Lockout before ohms or µF. 7) Nameplate is law (MCA/MOP/charge). 8) SH = suction line T − dew point; SC = start of boiling − liquid line T. 9) Airflow before charge. 10) Lincoln Tech is home base — log it, teach the next helper. Open HVAC Commandments on the shop floor or ask me any one of them.",
     },
     {
       tags: ["nameplate", "data plate", "label", "model number", "serial number", "read plate"],
@@ -51,19 +51,19 @@
       tags: ["fingerprint", "pressure diagnosis", "gauge reading", "what do pressures mean"],
       topic: "Pressure fingerprints",
       answer:
-        "High SH + low SC → undercharge/leak. High SH + high/normal SC → liquid-line restriction or TXV issue. Low SH + high SC → overcharge or low evaporator load/airflow on some systems. High head + high SC + high amps → dirty condenser or non-condensables. Low head + low suction both → severe undercharge or weak compressor. Always pair SH with SC. One number is a coin flip.",
+        "High SH + low SC → undercharge/leak — find the leak, do not top off, do not turn the TXV. High SH + high SC → restriction / plugged drier — cold at drier outlet, do not add gas. Low SH + high SC → overcharge — recover to nameplate. High head + SC about normal + high amps → dirty condenser — wash the coil, do not pull gas. High head AND high SC → air/noncondensables — recover, evacuate, weigh back. SH near zero with ice → airflow first, do not add gas. Always pair SH with SC. One number is a coin flip.",
     },
     {
       tags: ["superheat", "how to measure superheat", "calculate superheat"],
       topic: "Measuring superheat",
       answer:
-        "Superheat = suction line temperature at the evaporator outlet (or compressor inlet, be consistent) minus saturated suction temperature from the PT chart at suction pressure. TXV systems often target moderate SH (OEM range). Fixed orifice often charged by superheat charts vs outdoor/indoor wet bulb. Low SH risks liquid floodback. High SH means starved evaporator.",
+        "Superheat = suction line T minus dew point (from the PT chart at suction pressure). TXV systems often target moderate SH (OEM range). Fixed orifice often charged by superheat charts vs outdoor/indoor wet bulb. Low SH risks liquid floodback. High SH means starved evaporator.",
     },
     {
       tags: ["subcooling", "how to measure subcooling", "calculate subcooling"],
       topic: "Measuring subcooling",
       answer:
-        "Subcooling = saturated liquid temp from PT chart at liquid-line pressure minus actual liquid-line temperature. TXV systems are often charged by SC + weigh-in. High SC can mean overcharge or restricted condenser flow. Low SC often undercharge. Measure liquid line temp with good contact, out of direct sun when possible.",
+        "Subcooling = start of boiling minus liquid line T (from the PT chart at liquid-line pressure). TXV systems are often charged by SC + weigh-in. High SC can mean overcharge or air/noncondensables. Low SC often undercharge. Measure liquid line temp with good contact, out of direct sun when possible.",
     },
     {
       tags: ["short cycle", "short cycling", "turns on and off", "cycling"],
@@ -243,13 +243,13 @@
       tags: ["dirty condenser", "dirty coil", "high head"],
       topic: "Dirty condenser",
       answer:
-        "High head, high SC, high amps. Clean coil, clear bushes, recheck. Don't remove charge to mask high head. 🔍 Scan unit photos often catch matted fins and juniper attacks.",
+        "High head, SC about normal, high amps. Wash the coil, clear bushes, recheck. Do not pull gas to mask high head. 🔍 Scan unit photos often catch matted fins and juniper attacks.",
     },
     {
       tags: ["txv", "restriction", "filter drier", "metering"],
       topic: "Restriction / TXV",
       answer:
-        "High SH with healthy/high SC — liquid is in the condenser, evaporator is starved. Check drier delta-T, TXV bulb mount/powerhead, inlet screen. Replace drier anytime you open a burned-out or dirty system.",
+        "High SH and high SC — restriction / plugged drier. Cold at drier outlet. Do not add gas. TXV flash is at the seat, not the power head; stem in clockwise raises SH. Check drier delta-T, bulb strap, inlet screen. Replace drier anytime you open a burned-out or dirty system.",
     },
     {
       tags: ["no cool", "not cooling", "warm air", "blowing warm"],
@@ -337,7 +337,7 @@
       "OSHA: damaged cords out of service. Class C (or rated multi-class) extinguisher for energized electrical — not the kitchen K can.",
     ],
     lincoln: [
-      "Lincoln Tech: SH = suction temp minus evap sat. SC = cond sat minus liquid temp. Read both or you're guessing.",
+      "Lincoln Tech: SH = suction line T minus dew point. SC = start of boiling minus liquid line T. Read both or you're guessing.",
       "LT curriculum: airflow before charge. Iced suction + near-zero SH is usually filter/blower/coil, not 'add gas.'",
       "LT: nut on the tube before you flare. Deburr. Torque. That's HCR lab, not optional flavor.",
       "LT: nameplate is law — refrigerant, charge, MCA/MOP. OCR is a hint; your eyes are the final.",
@@ -736,7 +736,7 @@
         severity: "high",
         title: "Dirty coil / heavy soil",
         detail:
-          "Brown/dark texture dominance — outdoor or indoor coil likely fouled. High head, high SC, sad capacity. Clean the coil; don't 'fix' head pressure by recovering charge.",
+          "Brown/dark texture dominance — outdoor or indoor coil likely fouled. High head, SC about normal, sad capacity. Wash the coil; do not pull gas to mask head pressure.",
       });
     }
     if (stats.greenish >= 8) {
