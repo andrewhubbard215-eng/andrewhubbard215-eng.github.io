@@ -1,7 +1,26 @@
-/* Pulse LEFT rail parts if Start is hit with the loop still open. */
+/* Pulse LEFT rail + allow phone to scroll the parts list. */
 (function(){
   if (window.__ltSeatNudge) return;
   window.__ltSeatNudge = 1;
+
+  function railScroll(){
+    var root = document.getElementById("sandbox-root");
+    if (!root) return;
+    var pal = root.querySelector(".sb-palette, aside.sb-palette, .parts-tray, [data-parts-tray]");
+    if (pal) {
+      pal.style.setProperty("overflow-y", "auto", "important");
+      pal.style.setProperty("overflow-x", "hidden", "important");
+      pal.style.webkitOverflowScrolling = "touch";
+      pal.style.maxHeight = "100%";
+      pal.style.minHeight = "0";
+    }
+    root.querySelectorAll("[data-part]").forEach(function(el){
+      el.style.setProperty("touch-action", "pan-y", "important");
+    });
+  }
+  railScroll();
+  setInterval(railScroll, 800);
+
   document.addEventListener("click", function(ev){
     var run = document.getElementById("sb-run");
     if (!run || !(ev.target === run || run.contains(ev.target))) return;
