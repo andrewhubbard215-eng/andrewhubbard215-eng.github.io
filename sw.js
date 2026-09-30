@@ -9,6 +9,7 @@ const CORE = [
   "./sandbox-layout.css?v=33",
   "./sandbox-pc.css?v=4",
   "./phone-floor.css?v=40",
+  "./phone-p0.css?v=1",
   "./phone-rail.css?v=1",
   "./saturday-phone.css?v=1",
   "./sb-tabs.css?v=3",
