@@ -1,0 +1,74 @@
+/* v3.5.226 PC fullscreen — diamond owns the screen. Kill the 320px cap. */
+@media (min-width: 901px) {
+  #screen-sandbox.screen.active,
+  #sandbox-root,
+  #sandbox-root .sb-layout {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap,
+  #sb-canvas-wrap {
+    height: calc(100dvh - 168px) !important;
+    max-height: none !important;
+    min-height: 420px !important;
+    flex: 1 1 auto !important;
+  }
+  #sandbox-root #sb-canvas {
+    max-height: none !important;
+  }
+  #sandbox-root .sb-toolbar {
+    max-height: 56px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+  #sandbox-root #sb-faults,
+  #sandbox-root #sb-phone-tip,
+  #sb-sysbanner,
+  .sb-sysbanner,
+  #sb-dispatch,
+  .sb-dispatch {
+    max-height: 36px !important;
+    overflow: hidden !important;
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+  #sandbox-root #sb-faults:hover,
+  #sb-sysbanner:hover,
+  .sb-sysbanner:hover,
+  #sb-dispatch:hover {
+    max-height: 24vh !important;
+    overflow: auto !important;
+  }
+  .sb-float-win,
+  .sb-labboard,
+  [data-sop],
+  #sb-sop,
+  .sb-sop,
+  .charge-sop {
+    position: fixed !important;
+    top: 56px !important;
+    right: 12px !important;
+    left: auto !important;
+    width: 240px !important;
+    max-height: 36px !important;
+    overflow: hidden !important;
+    z-index: 20 !important;
+  }
+  .sb-float-win:hover,
+  .sb-labboard:hover,
+  [data-sop]:hover,
+  #sb-sop:hover,
+  .charge-sop:hover,
+  .sb-float-win:focus-within {
+    max-height: 40vh !important;
+    overflow: auto !important;
+  }
+  .hub-chat, #hub-chat, .chat-fab {
+    position: fixed !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    max-width: 48px !important;
+    z-index: 8 !important;
+  }
+}
