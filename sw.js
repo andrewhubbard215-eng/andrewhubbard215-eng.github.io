@@ -37,6 +37,7 @@ const CORE = [
   "./sandbox-td.js?v=7",
   "./analog-gauges.js?v=7",
   "./route-floor.js?v=13",
+  "./route-park.js?v=1",
   "./bay-restore.js?v=1",
   "./route-boot-fix.js?v=1",
   "./charge-floor.js?v=3",
