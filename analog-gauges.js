@@ -141,6 +141,18 @@
     mo.observe(root, { childList: true, subtree: true, characterData: true });
   }
   setInterval(function () { watch(); tick(); }, 250);
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (!t) return;
+    var id = t.id || "";
+    var txt = (t.textContent || "");
+    if (id === "sb-run" || /start compressor|stop compressor/i.test(txt)) {
+      last = "";
+      setTimeout(tick, 30);
+      setTimeout(tick, 200);
+      setTimeout(tick, 500);
+    }
+  }, true);
   if (document.readyState === "complete") { watch(); tick(); }
   else window.addEventListener("load", function () { watch(); tick(); });
 })();
