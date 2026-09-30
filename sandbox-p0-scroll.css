@@ -1,2 +1,1 @@
-#sandbox-root [data-part] { touch-action: pan-y !important; }
-#sandbox-root .sb-palette { overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
+/* intentionally empty */
