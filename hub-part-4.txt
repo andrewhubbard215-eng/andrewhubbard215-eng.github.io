@@ -1,0 +1,225 @@
+      const joke = JOKES[(Math.random() * JOKES.length) | 0];
+      out = Math.random() < 0.45 ? joke + " — " + answer : answer + " " + joke;
+    }
+    const pre = WIT_PREFIX[(Math.random() * WIT_PREFIX.length) | 0];
+    const suf = WIT_SUFFIX[(Math.random() * WIT_SUFFIX.length) | 0];
+    return pre + out + suf;
+  }
+
+  const WIT_PREFIX = [
+    "",
+    "Listen carefully — ",
+    "Okay, plot armor off for a second. ",
+    "Real talk between chaos: ",
+    "Put the witty banter on mute for 10 seconds: ",
+  ];
+
+  const WIT_SUFFIX = [
+    "",
+    " Now go be dangerous in a competent way.",
+    " You're welcome. Don't make me say it twice.",
+    " Try it in the sim before you embarrass us in lab.",
+    " Fourth wall says you're still reading. Good.",
+    " If that was on a service call, you might keep your stars.",
+  ];
+
+  function normalize(s) {
+    return (s || "").toLowerCase().replace(/\s+/g, " ").trim();
+  }
+
+  function score(query, entry) {
+    const q = normalize(query);
+    let s = 0;
+    for (const tag of entry.tags) {
+      if (q.includes(tag.toLowerCase())) s += tag.length > 3 ? 3 : 2;
+    }
+    // bonus for topic words
+    for (const w of entry.topic.toLowerCase().split(/\s+/)) {
+      if (w.length > 3 && q.includes(w)) s += 1;
+    }
+    return s;
+  }
+
+  function match(query) {
+    let best = null;
+    let bestScore = 0;
+    for (const e of KB) {
+      const sc = score(query, e);
+      if (sc > bestScore) {
+        bestScore = sc;
+        best = e;
+      }
+    }
+    if (bestScore < 2) return null;
+    return best;
+  }
+
+  function contextHint(ctx) {
+    if (!ctx) return "";
+    if (ctx.unit) {
+      const map = {
+        hcr101: "HCR101 climate control",
+        hcr102: "HCR102 electricity",
+        hcr105: "HCR105 basic refrigeration",
+        hcr117: "HCR117 air conditioning",
+        hcr108: "HCR108 design / energy",
+        hcr109: "HCR109 commercial refrigeration",
+        hcr110: "HCR110 troubleshooting",
+        epa608: "EPA 608 prep",
+        piping: "piping / brazing shop lab",
+      };
+      const label = map[ctx.unit] || ctx.unit;
+      return " [Curriculum focus: " + label + " — keep answers aligned to that unit.]";
+    }
+    if (ctx.mode === "minisplit" && ctx.step) {
+      return " (You're on mini-split step: " + ctx.step + " — don't skip N₂ or microns.)";
+    }
+    if (ctx.mode === "sandbox") {
+      return " (Sandbox is live — watch SH/SC and flow while you poke the system.)";
+    }
+    if (ctx.mode === "service") {
+      return " (Service route active — read the vitals before you hero-quote the customer.)";
+    }
+    if (ctx.mode === "curriculum") {
+      return " (You're in the curriculum planner — ask for a study plan or unit drills.)";
+    }
+    if (ctx.mode === "quiz") {
+      return " (Quiz Arena mode — I'll coach EPA 608, OSHA 30, and LT curriculum.)";
+    }
+    return "";
+  }
+
+  function ask(query, ctx) {
+    const q = normalize(query);
+    const wantRandom = !q || /^(joke|jokes|random|teach|teach me|quiz|quiz me|anything|go|hit me|another)$/.test(q) || q.length < 3;
+    if (wantRandom) {
+      const r = randomPackTip();
+      return {
+        topic: r.label,
+        text: dress("[" + r.label + "] " + r.tip),
+      };
+    }
+    const hit = match(q);
+    if (!hit) {
+      const r = randomPackTip();
+      return {
+        topic: r.label,
+        text: dress("I stay on EPA 608, OSHA 30, and Lincoln Tech curriculum. Random " + r.label + ": " + r.tip),
+      };
+    }
+    return {
+      topic: hit.topic,
+      text: dress(hit.answer + contextHint(ctx)),
+    };
+  }
+
+  // ---- UI ----
+  // ---- Nameplate / label OCR helpers ----
+  function parseNameplate(text) {
+    const t = text || "";
+    const up = t.toUpperCase();
+    const fields = {};
+
+    const model =
+      t.match(/\b(?:MODEL|MDL|MOD)[:\s#]*([A-Z0-9][A-Z0-9\-\/]{3,})/i) ||
+      t.match(/\b([A-Z]{2,}\d{2,}[A-Z0-9\-]{2,})\b/);
+    if (model) fields.model = model[1];
+
+    const serial =
+      t.match(/\b(?:SERIAL|SER|S\/N|SN)[:\s#]*([A-Z0-9\-]{5,})/i);
+    if (serial) fields.serial = serial[1];
+
+    const refrig =
+      t.match(/\b(R-?22|R-?410A|R-?32|R-?134A|R-?407C|R-?454B|R-?290)\b/i);
+    if (refrig) fields.refrigerant = refrig[1].toUpperCase().replace(/^R([0-9])/, "R-$1").replace("R-410A", "R-410A");
+
+    const charge =
+      t.match(/\b(?:FACTORY\s*)?CHARGE[:\s]*([\d.]+)\s*(OZ|LB|LBS|KG|G)\b/i) ||
+      t.match(/\b([\d.]+)\s*(OZ|LB)\s*(?:OF\s+)?(?:R-?\d)/i);
+    if (charge) fields.charge = charge[1] + " " + charge[2].toUpperCase();
+
+    const volts =
+      t.match(/\b(\d{3})\s*[/V]?\s*(\d{2,3})?\s*V\b/i) ||
+      t.match(/\b(?:VOLTAGE|VOLTS|V)[:\s]*(\d{3})/i);
+    if (volts) fields.voltage = volts[0].replace(/\s+/g, " ").trim();
+
+    const phase = t.match(/\b(1|3)\s*PH\b/i) || t.match(/\bSINGLE\s*PHASE\b/i) || t.match(/\bTHREE\s*PHASE\b/i);
+    if (phase) fields.phase = phase[0];
+
+    const mca = t.match(/\bMCA[:\s]*([\d.]+)/i);
+    if (mca) fields.mca = mca[1] + " A";
+    const mop = t.match(/\b(?:MOP|MAX\s*FUSE|MOCP)[:\s]*([\d.]+)/i);
+    if (mop) fields.mop = mop[1] + " A";
+
+    const rla = t.match(/\bRLA[:\s]*([\d.]+)/i);
+    if (rla) fields.rla = rla[1] + " A";
+    const lra = t.match(/\bLRA[:\s]*([\d.]+)/i);
+    if (lra) fields.lra = lra[1] + " A";
+
+    const ton = t.match(/\b([\d.]+)\s*(?:TON|TONS)\b/i);
+    if (ton) fields.capacity = ton[1] + " ton";
+
+    const seer = t.match(/\bSEER2?[:\s]*([\d.]+)/i);
+    if (seer) fields.seer = seer[0];
+
+    const brandHints = [
+      ["GOODMAN", "Goodman"],
+      ["CARRIER", "Carrier"],
+      ["DAIKIN", "Daikin"],
+      ["TRANE", "Trane"],
+      ["RHEEM", "Rheem"],
+      ["LENNOX", "Lennox"],
+      ["MITSUBISHI", "Mitsubishi"],
+      ["YORK", "York"],
+      ["BRYANT", "Bryant"],
+      ["AMANA", "Amana"],
+      ["LG ", "LG"],
+      ["SAMSUNG", "Samsung"],
+      ["BOSCH", "Bosch"],
+      ["AMERICAN STANDARD", "American Standard"],
+    ];
+    for (const [k, v] of brandHints) {
+      if (up.includes(k.trim())) {
+        fields.brand = v;
+        break;
+      }
+    }
+
+    return fields;
+  }
+
+  function interpretLabel(rawText, fields) {
+    const lines = [];
+    lines.push("I stared at that nameplate so you don't have to. Here's the field readout:");
+
+    const order = [
+      ["brand", "Brand"],
+      ["model", "Model"],
+      ["serial", "Serial"],
+      ["refrigerant", "Refrigerant"],
+      ["charge", "Factory charge"],
+      ["voltage", "Voltage"],
+      ["phase", "Phase"],
+      ["capacity", "Capacity"],
+      ["mca", "MCA"],
+      ["mop", "MOP / max fuse"],
+      ["rla", "RLA"],
+      ["lra", "LRA"],
+      ["seer", "Efficiency"],
+    ];
+    let found = 0;
+    for (const [k, label] of order) {
+      if (fields[k]) {
+        lines.push("• " + label + ": " + fields[k]);
+        found++;
+      }
+    }
+
+    if (!found) {
+      lines.push("• Couldn't lock clean fields — OCR saw noise. Retake closer, brighter, square-on.");
+    }
+
+    lines.push("");
+    if (fields.refrigerant) {
+      lines.push(
+        "Refrigerant " +
