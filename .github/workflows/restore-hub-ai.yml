@@ -1,0 +1,29 @@
+name: restore-hub-ai
+on:
+  workflow_dispatch:
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch patched hub-ai.js
+        run: |
+          curl -fsSL -o hub-ai.js "https://raw.githubusercontent.com/andrewhubbard515-web/andrewhubbard215-eng.github.io-teachlocks/2e392078a43a31a6998f2a30c5593ebe98e871e9/hub-ai.js"
+          python3 - <<'PY'
+          from pathlib import Path
+          c = Path('hub-ai.js').read_text()
+          assert 'dew point' in c and 'start of boiling' in c
+          assert 'evap sat' not in c
+          assert 'clockwise raises SH' in c
+          print('locks_ok', len(c))
+          PY
+      - name: Commit hub-ai.js
+        run: |
+          git config user.name "andrewhubbard215-eng"
+          git config user.email "andrewhubbard215@gmail.com"
+          git add hub-ai.js
+          git diff --cached --quiet && echo 'no change' && exit 0
+          git commit -m "Allstars teaching lock: hub-ai.js source — dew/boiling, fingerprints, dirty condenser SC~normal, TXV seat"
+          git push
