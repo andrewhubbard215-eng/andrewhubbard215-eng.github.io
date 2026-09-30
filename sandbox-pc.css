@@ -1,4 +1,4 @@
-/* v3.5.237 Allstars — PC diamond + gauges+Start; fault chips wrap */
+/* v3.5.230 Allstars — PC diamond + gauges+Start one view; Start not a sliver */
 @media (min-width: 901px) {
   #screen-sandbox.screen.active,
   #sandbox-root,
@@ -32,8 +32,9 @@
   }
   #sandbox-root .sb-toolbar {
     flex: 0 0 auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    max-height: 48px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
   }
   #sandbox-root .sb-gauges,
   #sandbox-root [data-sb-gauges] {
@@ -50,15 +51,16 @@
   #sandbox-root #sb-phone-tip,
   #sb-left-strip,
   .sb-hub-coach {
-    max-height: none !important;
-    overflow: visible !important;
-    white-space: normal !important;
+    max-height: 20px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
     font-size: 12px !important;
   }
   #sandbox-root #sb-faults {
-    max-height: none !important;
-    overflow: visible !important;
+    max-height: 28px !important;
+    overflow: hidden !important;
   }
+  #sandbox-root #sb-faults:hover { max-height: 18vh !important; overflow: auto !important; }
   .sb-float-win, .sb-labboard, #sb-howto, [data-sop], .charge-sop {
     position: fixed !important;
     top: 48px !important;
@@ -81,7 +83,7 @@
 @media (min-width: 901px) and (max-height: 860px) {
   #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 130px !important; }
   #sb-analog canvas { width: 96px !important; height: 96px !important; }
-  #sandbox-root .sb-toolbar { max-height: none !important; }
+  #sandbox-root .sb-toolbar { max-height: 44px !important; }
 }
 @media (min-width: 901px) and (min-height: 1000px) {
   #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 180px !important; }
@@ -127,11 +129,12 @@
     writing-mode: horizontal-tb !important;
     transform: none !important;
   }
+  /* toolbar = OD/ID/Charge only after Start moved out */
   #sandbox-root .sb-toolbar {
-    max-height: none !important;
-    overflow: visible !important;
+    max-height: 40px !important;
   }
   #sandbox-root .sb-toolbar #sb-run {
+    /* if still in toolbar before JS moves it */
     min-width: 148px !important;
     min-height: 40px !important;
   }
