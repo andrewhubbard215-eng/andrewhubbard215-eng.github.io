@@ -1,1 +1,1 @@
-@/tmp/hub_for_mcp.js
+TEST_RESTORE_MARKER
