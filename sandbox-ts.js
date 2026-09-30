@@ -7,9 +7,9 @@
   var STEPS = [
     { n: "1", title: "Standing first", body: "Unit off. Equalized P/T only. No SH/SC until the compressor is running." },
     { n: "2", title: "Seat the four LEFT", body: "Compressor, condenser, TXV, evaporator on the LEFT tray. Then start." },
-    { n: "3", title: "Read SH", body: "SH = suction line − SST. TXV: 8–14° is a check. Piston: charge by SH." },
-    { n: "4", title: "Read SC", body: "SC = SCT − liquid line. TXV: charge by SC 8–14°. Low SC = undercharge/leak — non-condensables raise head, they do not drop SC." },
-    { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High head + high SC = overcharge or restriction. High head + low-to-normal SC = condenser air." }
+    { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
+    { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
+    { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High SH + high SC = restriction. Low SH + high SC = overcharge. High head + SC about normal = dirty condenser. High head + high SC = air/noncondensables." }
   ];
 
   function injectCss() {
