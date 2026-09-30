@@ -14,7 +14,6 @@
       .replace("sandbox-seats.js?v=21", "sandbox-seats.js?v=22")
       .replace("clock-in-floor.js?v=45", "clock-in-floor.js?v=46")
       .replace("sw.js?v=470", "sw.js?v=471");
-    html = html.split("</" + "script").join("<" + "\\/" + "script");
     document.open();
     document.write(html);
     document.close();
