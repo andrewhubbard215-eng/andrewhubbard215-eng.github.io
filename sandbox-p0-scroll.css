@@ -1,20 +1,6 @@
-/* v3.5.249 P0 — AFTER layout: pan-y + rail + TS one line + hide seated chip */
-#sandbox-root [data-part="compressor"],
-#sandbox-root [data-part="condenser"],
-#sandbox-root [data-part="metering"],
-#sandbox-root [data-part="evaporator"]{touch-action:pan-y!important;cursor:grab;user-select:none;-webkit-user-select:none}
-html.lt-dragging-part #sandbox-root [data-part]{touch-action:none!important}
-#sandbox-root .sb-palette,#sandbox-root aside.sb-palette,#sandbox-root .parts-tray,#sandbox-root #sb-bin{
-overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;min-height:0!important}
-#sandbox-root .sb-palette [data-part].primary,#sandbox-root .sb-palette .btn.primary[data-part]{display:none!important}
-#sb-seats .sb-seat:not(.on){min-width:48px!important;min-height:48px!important;width:52px!important;height:52px!important;border:2px dashed #f59e0b!important;background:transparent!important;border-radius:8px!important;padding:2px!important}
-#sb-seats .sb-seat:not(.on) img{display:none!important}
-#sb-seats .sb-seat.on{background:transparent!important;border:none!important;box-shadow:none!important;outline:none!important;min-width:0!important;min-height:0!important;padding:0!important;border-radius:0!important}
-#sb-seats .sb-seat.on img{background:transparent!important;border:none!important;padding:0!important;border-radius:0!important;width:56px!important;height:56px!important}
-@media(max-width:900px){
-#sandbox-root #sb-canvas-wrap,#sb-canvas-wrap{flex:0 1 36vh!important;max-height:36vh!important;min-height:150px!important}
-#sb-ts{max-height:20px!important;overflow:hidden!important;margin:0!important}
-#sb-ts li{display:none!important}
-#sb-ts li.wait{display:flex!important;min-height:18px!important;padding:1px 4px!important}
-#sb-ts li.wait p{display:none!important}
+/* Restore: do not hide seated rail chips. Only allow flick. */
+#sandbox-root [data-part] { touch-action: pan-y !important; display: block !important; }
+#sb-seats .sb-seat.on {
+  background: transparent !important;
+  border: none !important;
 }

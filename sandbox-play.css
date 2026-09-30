@@ -1,107 +1,32 @@
-/* v3.5.249 — phone shrink + seated BOX gone (photo stays) + rail flick */
+/* RESTORE v3.5.210 bay. No 32vh crush. No hiding rail chips. */
 #sandbox-root .sb-palette,
 #sandbox-root aside.sb-palette,
-#sandbox-root .parts-tray,
-#sandbox-root [data-parts-tray] {
+#sandbox-root .parts-tray {
   overflow-y: auto !important;
-  overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
-  max-height: 100%;
-  min-height: 0;
-  overscroll-behavior: contain;
 }
-#sandbox-root [data-part],
-#sandbox-root [data-part="compressor"],
-#sandbox-root [data-part="condenser"],
-#sandbox-root [data-part="metering"],
-#sandbox-root [data-part="evaporator"] {
+#sandbox-root [data-part] {
   touch-action: pan-y !important;
+  display: block !important;
 }
 html.lt-dragging-part #sandbox-root [data-part] {
   touch-action: none !important;
 }
-
-/* After install: dashed box / fill / label gone. Part photo stays. */
 #sb-seats .sb-seat.on {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  outline: none !important;
-  filter: none !important;
-  opacity: 1 !important;
 }
 #sb-seats .sb-seat.on span { display: none !important; }
 #sb-seats .sb-seat.on img {
   background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
   padding: 0 !important;
-  border-radius: 0 !important;
+  border: none !important;
 }
-
-/* After install: LEFT rail chip for that part leaves the list */
-#sandbox-root [data-part].primary,
-#sandbox-root [data-part][aria-pressed="true"],
-#sandbox-root [data-part].seated,
-#sandbox-root [data-part].on {
-  display: none !important;
-}
-
-#sandbox-root #sb-run,
-#sandbox-root button#sb-run {
-  min-height: 44px !important;
-  min-width: 132px !important;
-  z-index: 20 !important;
-}
-#screen-hub.screen.active,
-#hub-options,
-.hub-nav {
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 900px) {
-  #sandbox-root .sb-layout {
-    grid-template-columns: 72px minmax(0, 1fr) !important;
+@media (min-width: 901px) {
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap {
+    max-height: none !important;
+    min-height: 420px !important;
   }
-  #sandbox-root .sb-palette,
-  #sandbox-root aside.sb-palette {
-    width: 72px !important;
-    max-width: 72px !important;
-    overflow-y: auto !important;
-    max-height: 72vh !important;
-    -webkit-overflow-scrolling: touch;
-  }
-  #sandbox-root #sb-canvas-wrap,
-  #sandbox-root #sb-canvas {
-    min-height: 28vh !important;
-    max-height: 34vh !important;
-    height: 32vh !important;
-  }
-  #sb-seats .sb-seat {
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
-    max-width: 56px !important;
-    max-height: 56px !important;
-    padding: 0 !important;
-  }
-  #sb-seats .sb-seat img {
-    width: 40px !important;
-    height: 40px !important;
-  }
-  #sandbox-root .sb-gauges {
-    max-height: 18vh !important;
-    min-height: 0 !important;
-  }
-  #sb-analog canvas {
-    width: 64px !important;
-    height: 64px !important;
-  }
-  #sb-ts { max-height: 22px !important; overflow: hidden !important; }
-  #sb-ts li { display: none !important; }
-  #sb-ts li.wait { display: flex !important; min-height: 20px !important; padding: 2px 6px !important; }
-  #sb-ts li.wait p { display: none !important; }
-  #sandbox-root .sb-toolbar { max-height: 48px !important; overflow-x: auto !important; }
 }
