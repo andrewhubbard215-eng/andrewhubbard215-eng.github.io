@@ -1,8 +1,7 @@
 window.__QA_PARTS=window.__QA_PARTS||[];
 window.__QA_PARTS[7]=(
-  " Live circuits bite.\",\n      },\n      {\n        q: \"HVAC Commandment 8 \u2014 superheat is:\",\n        choices: [\"Cond sat min" +
-  "us liquid temp\", \"Suction temp minus evaporator sat\", \"Head pressure minus suction\", \"Whatever the analog gauges say\"],\n" +
-  "        a: 1,\n        why: \"SH = suction temp \u2212 evap sat. SC = cond sat \u2212 liquid temp.\",\n      },\n      {\n        q: \"HV" +
+  " Live circuits bite.\",\n      },\n      {\n        q: \"HVAC Commandment 8 \u2014 superheat is:\",\n        choices: [\"Head pressure minus OD temp\", \"Suction line T minus dew point\", \"Head pressure minus suction\", \"Whatever the analog gauges say\"],\n" +
+  "        a: 1,\n        why: \"SH = suction line T \u2212 dew point. SC = start of boiling \u2212 liquid line T.\",\n      },\n      {\n        q: \"HV" +
   "AC Commandment 9 \u2014 iced suction and near-zero SH is usually:\",\n        choices: [\"Low charge \u2014 add gas\", \"Airflow (filte" +
   "r, blower, coil) \u2014 don't add gas yet\", \"A good TXV\", \"Normal on R-410A\"],\n        a: 1,\n        why: \"Airflow before cha" +
   "rge.\",\n      },\n    ],\n  };\n\n  function shuffleQuestion(q) {\n    const n = (q.choices || []).length;\n    if (n < 2) retu" +

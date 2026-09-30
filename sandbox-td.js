@@ -71,7 +71,7 @@
         var evNote = ev < 12 ? "low — airflow / load" : ev > 22 ? "high — dirty coil / low airflow" : "seat 15–20° air DX";
         etd.textContent = "Evap TD " + ev + "\u00b0 (ID\u2212SST) \u00b7 " + evNote;
       } else {
-        etd.textContent = "SH = suction T \u2212 evap sat (SST) — off until compressor runs";
+        etd.textContent = "SH = suction line T \u2212 dew point — off until compressor runs";
       }
     }
     if (ctd) {
@@ -80,7 +80,7 @@
         var cdNote = cd < 15 ? "low — airflow / charge" : cd > 35 ? "high — dirty cond / low CFM" : "seat 20–30° air-cooled";
         ctd.textContent = "Cond TD " + cd + "\u00b0 (SCT\u2212OD) \u00b7 " + cdNote;
       } else {
-        ctd.textContent = "SC = cond sat (SCT) \u2212 liquid T — off until compressor runs";
+        ctd.textContent = "SC = start of boiling \u2212 liquid line T — off until compressor runs";
       }
     }
     if (method) {
