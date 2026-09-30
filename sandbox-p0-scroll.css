@@ -1,6 +1,1 @@
-/* Restore: do not hide seated rail chips. Only allow flick. */
-#sandbox-root [data-part] { touch-action: pan-y !important; display: block !important; }
-#sb-seats .sb-seat.on {
-  background: transparent !important;
-  border: none !important;
-}
+/* v3.5.250 RESTORE — intentionally empty. Layout owns pan-y. */
