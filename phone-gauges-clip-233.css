@@ -1,0 +1,8 @@
+/* v3.5.233 phone gauges clip override */
+@media (max-width: 900px) {
+  #sandbox-root .sb-main { overflow-y: auto !important; }
+  #sandbox-root .sb-gauges {
+    max-height: none !important;
+    min-height: 100px !important;
+  }
+}
