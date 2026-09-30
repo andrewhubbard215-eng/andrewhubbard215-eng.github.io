@@ -134,7 +134,20 @@
       var yell = document.getElementById("sb-parts-yell");
       if (yell && yell.parentNode) yell.parentNode.removeChild(yell);
     }
+    lockChargeUntilSeated();
     paintStrip();
+  }
+
+  function lockChargeUntilSeated() {
+    var chg = document.getElementById("sb-charge");
+    if (!chg) return;
+    var closed = allSeated();
+    chg.disabled = !closed;
+    chg.title = closed
+      ? "Nameplate charge % after the loop is closed"
+      : "Loop open — do not dump charge. Seat COMP · COND · TXV · EVAP first.";
+    var lab = chg.closest("label") || chg.parentNode;
+    if (lab && lab.style) lab.style.opacity = closed ? "" : "0.45";
   }
 
   function flashMissing() {
