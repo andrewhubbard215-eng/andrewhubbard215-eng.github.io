@@ -1,1 +1,46 @@
-/* empty — no phone-p0 overlay; rail/layout live in sandbox-layout + phone-floor */
+/* v3.5.254 — after Clock In the shop floor must scroll. No black slab. */
+@media (max-width: 900px) {
+  #screen-title:not(.active) {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  #screen-hub.screen.active {
+    display: block !important;
+    position: relative !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh;
+    background: #14171a !important;
+  }
+  #daily-root:empty,
+  #daily-root:not(:has(*)) {
+    display: none !important;
+    min-height: 0 !important;
+    height: 0 !important;
+  }
+  #hub-options,
+  .hub-nav {
+    overflow: visible !important;
+    padding-bottom: 96px !important;
+  }
+  .mode-card {
+    min-height: 48px !important;
+  }
+  .sb-palette,
+  .parts-tray,
+  #sandbox-root aside,
+  #sandbox-root [data-parts-tray] {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    max-height: 100dvh !important;
+    touch-action: pan-y;
+  }
+  #sandbox-root [data-part] {
+    touch-action: pan-y !important;
+    min-height: 44px !important;
+  }
+}
