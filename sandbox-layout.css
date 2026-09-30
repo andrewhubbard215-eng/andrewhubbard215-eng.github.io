@@ -114,10 +114,12 @@
   z-index: 9;
 }
 @media (min-width: 901px) {
-  #sandbox-root #sb-canvas {
-    max-height: min(38vh, 320px) !important;
-    min-height: 240px !important;
-    flex: 0 1 auto !important;
+  /* diamond owns the screen — never stamp the board to 38vh/320px */
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap {
+    max-height: none !important;
+    min-height: 420px !important;
+    flex: 1 1 auto !important;
   }
 }
 
@@ -152,9 +154,9 @@
     padding-bottom: 8px;
   }
   #sandbox-root .sb-main {
-    overflow-y: auto !important;
+    overflow: hidden !important;
     height: calc(100dvh - 48px);
-    padding-bottom: 20px;
+    padding-bottom: 8px;
   }
   #sandbox-root .sb-toolbar {
     margin-bottom: 6px;
@@ -166,7 +168,15 @@
   position: relative;
   flex: 1 1 52%;
   min-height: 260px;
-  height: min(42vh, 360px);
+  height: auto;
+}
+@media (min-width: 901px) {
+  #sb-canvas-wrap {
+    flex: 1 1 auto !important;
+    min-height: 420px !important;
+    height: calc(100dvh - 220px) !important;
+    max-height: none !important;
+  }
 }
 #sb-seats {
   position: absolute;
@@ -178,7 +188,8 @@
   pointer-events: auto;
   position: absolute;
   min-width: 84px;
-  min-height: 84px;
+  min-height: 64px; /* empty drop target — never 0/auto */
+  height: 84px;
   border-radius: 16px;
   border: 2px dashed #f59e0b;
   background: rgba(15, 23, 42, 0.72);
@@ -211,10 +222,11 @@
   letter-spacing: .04em;
   color: #fbbf24;
 }
-#sb-seats .sb-seat[data-seat="compressor"] { left: 7%; top: 28%; transform: translate(0, 0); }
-#sb-seats .sb-seat[data-seat="condenser"] { left: 62%; top: 4%; transform: translate(0, 0); }
-#sb-seats .sb-seat[data-seat="metering"] { right: 7%; top: 28%; left: auto; transform: translate(0, 0); }
-#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 48%; transform: translate(-50%, 0); }
+/* Fallback % until JS layoutSeats pins plates to canvas nodes (120,150)/(320,70)/(520,150)/(320,220) */
+#sb-seats .sb-seat[data-seat="compressor"] { left: 18.75%; top: 53.6%; transform: translate(-50%, -50%); }
+#sb-seats .sb-seat[data-seat="condenser"] { left: 50%; top: 25%; transform: translate(-50%, -50%); }
+#sb-seats .sb-seat[data-seat="metering"] { left: 81.25%; top: 53.6%; right: auto; transform: translate(-50%, -50%); }
+#sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 78.6%; transform: translate(-50%, -50%); }
 #sb-seats .sb-seat.on {
   background: rgba(206, 0, 52, 0.88);
   border: 2px solid #5eead4;
@@ -225,7 +237,13 @@
   color: #f7f3ea;
 }
 @media (min-width: 901px) {
-  #sb-seats .sb-seat { min-width: 88px; min-height: 88px; }
+  #sb-seats .sb-seat {
+    min-width: 88px;
+    min-height: 88px;
+    max-width: 120px;
+    max-height: 120px;
+    width: 96px;
+  }
   #sb-seats .sb-seat img { width: 68px; height: 68px; }
 }
 
@@ -273,7 +291,7 @@
     min-height: 0 !important;
     box-sizing: border-box;
   }
-  #sb-seats .sb-seat[data-seat="evaporator"] { left: 59% !important; top: 63% !important; transform: none !important; }
+  /* evaporator stays on bottom diamond node — JS layoutSeats owns final px */
   #sandbox-root .sb-gauges {
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) !important;
     align-items: start;
@@ -302,4 +320,24 @@
   flex: 1 1 100%;
   width: 100%;
   min-width: 120px;
+}
+
+
+/* Two-way seating: rail drag ghost + hittable empty seats */
+#sandbox-root [data-part="compressor"],
+#sandbox-root [data-part="condenser"],
+#sandbox-root [data-part="metering"],
+#sandbox-root [data-part="evaporator"] {
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+html.lt-dragging-part,
+html.lt-dragging-part * {
+  cursor: grabbing !important;
+}
+#sb-seats .sb-seat {
+  /* empty drop pad — never collapse */
+  min-height: 64px;
 }
