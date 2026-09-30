@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v486";
+const VER = "lt-allstars-v488";
 const CORE = [
   "./",
   "./index.html",
@@ -7,11 +7,12 @@ const CORE = [
   "./sku.js?v=17",
   "./style.css?v=146",
   "./svc-rail.css?v=1",
-  "./sandbox-layout.css?v=35",
+  "./sandbox-layout.css?v=36",
   "./sandbox-faults-wrap.css?v=2",
-  "./sandbox-pc.css?v=6",
+  "./sandbox-pc.css?v=7",
   "./phone-floor.css?v=40",
-  "./phone-p0.css?v=2",
+  "./phone-p0.css?v=3",
+  "./sandbox-play.css?v=3",
   "./phone-gauges-233.css?v=1",
   "./phone-gauges-clip-233.css?v=1",
   "./phone-rail.css?v=1",
@@ -25,15 +26,15 @@ const CORE = [
   "./sandbox-hunt.js?v=2",
   "./sandbox-eq.js?v=4",
   "./sandbox-hook.js?v=18",
-  "./sandbox-seats.js?v=24",
-  "./sandbox-seats.p0.js?v=3",
-  "./sandbox-seats.p1.js?v=3",
-  "./sandbox-seats.p2.js?v=5",
+  "./sandbox-seats.js?v=25",
+  "./sandbox-seats.p0.js?v=4",
+  "./sandbox-seats.p1.js?v=4",
+  "./sandbox-seats.p2.js?v=6",
   "./sandbox-seat-nudge.js?v=1",
   "./sandbox-yell.js?v=5",
   "./lugs-lock.js?v=1",
-  "./sandbox-ts.js?v=10",
-  "./sandbox-sliders.js?v=9",
+  "./sandbox-ts.js?v=11",
+  "./sandbox-sliders.js?v=10",
   "./sandbox-stand.js?v=1",
   "./sandbox-cutout.js?v=1",
   "./sandbox-td.js?v=7",
@@ -124,6 +125,21 @@ self.addEventListener("activate", function (e) {
 });
 self.addEventListener("fetch", function (e) {
   if (e.request.method !== "GET") return;
+  var url = new URL(e.request.url);
+  var isNav = e.request.mode === "navigate" || e.request.destination === "document" ||
+    /\/$|\.html$/i.test(url.pathname) || url.pathname === "/" || url.pathname.endsWith("/index.html");
+  if (isNav) {
+    e.respondWith(fetch(e.request).then(function (res) {
+      try {
+        var copy = res.clone();
+        caches.open(VER).then(function (c) { c.put(e.request, copy); });
+      } catch (err) {}
+      return res;
+    }).catch(function () {
+      return caches.match(e.request).then(function (hit) { return hit || caches.match("./index.html"); });
+    }));
+    return;
+  }
   e.respondWith(caches.match(e.request).then(function (hit) {
     return hit || fetch(e.request);
   }));
