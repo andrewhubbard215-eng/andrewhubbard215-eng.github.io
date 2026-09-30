@@ -1,1 +1,146 @@
-@/workspace/hvac/tip-shift/sandbox-pc.css
+/* v3.5.230 Allstars — PC diamond + gauges+Start one view; Start not a sliver */
+@media (min-width: 901px) {
+  #screen-sandbox.screen.active,
+  #sandbox-root,
+  #sandbox-root .sb-layout {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+  #sandbox-root .sb-main {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    gap: 2px !important;
+  }
+  #sandbox-root #sb-canvas-wrap,
+  #sb-canvas-wrap {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap > #sb-canvas {
+    max-height: none !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  #sandbox-root .sb-toolbar {
+    flex: 0 0 auto !important;
+    max-height: 48px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+  #sandbox-root .sb-gauges,
+  #sandbox-root [data-sb-gauges] {
+    flex: 0 0 auto !important;
+    max-height: 160px !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 2px 8px 4px !important;
+  }
+  #sb-analog canvas {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  #sandbox-root #sb-phone-tip,
+  #sb-left-strip,
+  .sb-hub-coach {
+    max-height: 20px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+  #sandbox-root #sb-faults {
+    max-height: 28px !important;
+    overflow: hidden !important;
+  }
+  #sandbox-root #sb-faults:hover { max-height: 18vh !important; overflow: auto !important; }
+  .sb-float-win, .sb-labboard, #sb-howto, [data-sop], .charge-sop {
+    position: fixed !important;
+    top: 48px !important;
+    right: 10px !important;
+    max-height: 32px !important;
+    overflow: hidden !important;
+    width: 200px !important;
+    z-index: 20 !important;
+  }
+  .sb-float-win:hover, #sb-howto:hover, .sb-labboard:hover {
+    max-height: 36vh !important;
+    overflow: auto !important;
+  }
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat {
+    display: none !important;
+  }
+}
+@media (min-width: 901px) and (max-height: 860px) {
+  #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 130px !important; }
+  #sb-analog canvas { width: 96px !important; height: 96px !important; }
+  #sandbox-root .sb-toolbar { max-height: 44px !important; }
+}
+@media (min-width: 901px) and (min-height: 1000px) {
+  #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 180px !important; }
+  #sb-analog canvas { width: 130px !important; height: 130px !important; }
+}
+
+/* Sep30: LEFT rail scrolls on PC — never overflow:hidden */
+@media (min-width: 901px) {
+  #sandbox-root .sb-palette,
+  #sandbox-root #sb-bin,
+  #sandbox-root .parts-tray {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* Sep30 Hub: Start next to gauges — never a right-edge sliver */
+@media (min-width: 901px) {
+  #sb-gauge-run {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+    max-height: 180px !important;
+    overflow: hidden !important;
+    flex: 0 0 auto !important;
+  }
+  #sb-gauge-run .sb-gauges {
+    flex: 1 1 auto !important;
+    max-height: 160px !important;
+  }
+  #sb-gauge-run #sb-run {
+    flex: 0 0 auto !important;
+    min-width: 160px !important;
+    min-height: 52px !important;
+    height: auto !important;
+    max-width: 220px !important;
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+  }
+  /* toolbar = OD/ID/Charge only after Start moved out */
+  #sandbox-root .sb-toolbar {
+    max-height: 40px !important;
+  }
+  #sandbox-root .sb-toolbar #sb-run {
+    /* if still in toolbar before JS moves it */
+    min-width: 148px !important;
+    min-height: 40px !important;
+  }
+}
+@media (min-width: 901px) and (max-height: 860px) {
+  #sb-gauge-run { max-height: 150px !important; }
+  #sb-gauge-run .sb-gauges { max-height: 130px !important; }
+  #sb-gauge-run #sb-run { min-height: 44px !important; min-width: 140px !important; }
+}
