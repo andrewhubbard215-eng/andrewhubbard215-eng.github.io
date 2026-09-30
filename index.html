@@ -6,14 +6,15 @@
     if (!r.ok) throw new Error("tip fetch " + r.status);
     return r.text();
   }).then(function (html) {
+    var end = "<" + "/script>";
     html = html
       .replace(/v3\.5\.232/g, "v3.5.233")
       .replace('phone-p0.css?v=2" />', 'phone-p0.css?v=2" /><link rel="stylesheet" href="phone-gauges-233.css?v=1" /><link rel="stylesheet" href="phone-gauges-clip-233.css?v=1" />')
-      .replace('route-floor.js?v=11"></script>', 'route-floor.js?v=12"></script><script src="bay-restore.js?v=1"></script>')
+      .replace('route-floor.js?v=11">' + end, 'route-floor.js?v=12">' + end + '<script src="bay-restore.js?v=1">' + end)
       .replace("sandbox-seats.js?v=21", "sandbox-seats.js?v=22")
       .replace("clock-in-floor.js?v=45", "clock-in-floor.js?v=46")
       .replace("sw.js?v=470", "sw.js?v=471");
-    html = html.replace(/<\/script/gi, "<\\/script");
+    html = html.split("</" + "script").join("<" + "\\/" + "script");
     document.open();
     document.write(html);
     document.close();
