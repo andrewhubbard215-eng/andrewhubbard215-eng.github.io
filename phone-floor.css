@@ -154,18 +154,19 @@
     overflow-x: auto;
   }
   #sb-seats .sb-seat {
-    min-width: 58px !important;
-    min-height: 58px !important;
+    min-width: 64px !important;
+    min-height: 64px !important; /* empty drop target — never 0/auto */
+    max-width: 78px !important;
+    max-height: 78px !important;
+    width: 70px !important;
+    height: 70px !important;
   }
   #sb-seats .sb-seat img {
     width: 46px !important;
     height: 46px !important;
   }
-  #sb-seats .sb-seat[data-seat="evaporator"] {
-    left: 2% !important;
-    top: 66% !important;
-    transform: none !important;
-  }
+  /* seat plates stick to canvas nodes via layoutSeats — do not shove EVAP off diamond */
+
   .sb-layout {
     display: grid !important;
     grid-template-columns: 76px minmax(0, 1fr) !important;
@@ -243,4 +244,74 @@ body.lab-open .version-strip {
   left: 108px;
   padding-left: 8px;
   z-index: 6;
+}
+
+/* lt-phone-bay-one-screen — diamond + 4 parts + Start, SOP/chat collapsed */
+@media (max-width: 900px) {
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat,
+  #app:has(#screen-sandbox.active) .sb-float-win:not(.collapsed),
+  #sandbox-root #sb-howto,
+  #sandbox-root .sb-labboard,
+  #sandbox-root #sb-formula,
+  #sandbox-root #sb-shsc-formula {
+    display: none !important;
+  }
+  #sandbox-root #sb-phone-tip {
+    max-height: 18px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-size: 11px !important;
+  }
+}
+
+/* lt-phone-start-on-screen */
+@media (max-width: 900px) {
+  #sandbox-root .sb-main {
+    overflow-y: auto !important;
+    max-height: 100dvh !important;
+  }
+  #sandbox-root #sb-canvas-wrap,
+  #sandbox-root #sb-canvas {
+    min-height: 34vh !important;
+    max-height: 36vh !important;
+    height: 34vh !important;
+    flex: 0 0 34vh !important;
+  }
+  #sandbox-root .sb-gauges {
+    max-height: 14vh !important;
+    min-height: 0 !important;
+    order: 20 !important;
+    overflow: hidden !important;
+  }
+  #sandbox-root .sb-toolbar {
+    order: 15 !important;
+    max-height: 56px !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 12 !important;
+    background: rgba(11,18,32,.98) !important;
+  }
+  #sandbox-root #sb-run {
+    position: sticky !important;
+    bottom: 4px !important;
+    z-index: 13 !important;
+  }
+  #sb-analog canvas { width: 72px !important; height: 72px !important; }
+}
+
+@media (max-width: 900px) {
+  #sandbox-root #sb-eq-chip,
+  #sandbox-root #sb-formula,
+  #sandbox-root #sb-shsc-formula { display: none !important; }
+}
+
+/* lt-phone-gauges-clip — Start stays on screen; gauges share remaining strip */
+@media (max-width: 900px) {
+  #sandbox-root .sb-main { overflow: hidden !important; }
+  #sandbox-root .sb-gauges {
+    max-height: calc(100dvh - 640px) !important;
+    min-height: 72px !important;
+  }
 }
