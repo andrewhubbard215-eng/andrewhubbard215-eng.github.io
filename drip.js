@@ -78,7 +78,7 @@
   }
   register("manifold_colors", "sandbox|gauges", "Blue hugs suction, red hugs liquid, yellow is the utility. Colors keep you from swapping tanks blind.", "manifold hose colors");
   register("sh_coil", "sandbox", "Coil SH is at the bulb. Total SH is at the compressor. Target SH is the chart.", "coil SH");
-  register("sc_dirty", "sandbox", "High SC on a dirty roof can look like overcharge. Wash the coil first.", "dirty condenser");
+  register("sc_dirty", "sandbox", "High head with SC about normal on a dirty roof is a dirty condenser, not overcharge. Wash the coil; do not pull gas.", "dirty condenser");
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { ensureEar(); });
   else ensureEar();
   global.LtDrip = { register: register, trigger: trigger, nudge: nudge, show: show, hide: hide, tips: tips };
