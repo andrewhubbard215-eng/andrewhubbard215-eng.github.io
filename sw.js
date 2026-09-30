@@ -1,9 +1,9 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v480";
+const VER = "lt-allstars-v481";
 const CORE = [
   "./",
   "./index.html",
-  "./nocool-lock.js?v=1",
+  "./nocool-lock.js?v=2",
   "./sku.js?v=17",
   "./style.css?v=146",
   "./svc-rail.css?v=1",

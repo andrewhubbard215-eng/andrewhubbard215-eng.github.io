@@ -28,19 +28,24 @@
     var b = document.getElementById("el-replace");
     if (!b) return;
     if (!armed()) return;
+    if (!b.dataset.plainLabel) b.dataset.plainLabel = (b.textContent || "").trim();
     if (proved) {
       b.disabled = false;
+      b.textContent = b.dataset.plainLabel;
       b.style.removeProperty("display");
       b.style.removeProperty("opacity");
       b.style.removeProperty("pointer-events");
+      b.style.removeProperty("filter");
       b.removeAttribute("title");
       return;
     }
     b.disabled = true;
-    b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
-    b.style.setProperty("display", "none", "important");
-    b.style.setProperty("opacity", "0.35", "important");
+    b.textContent = "Meter the 0.0 V open first";
+    b.title = "Walk gold then dark. Shotgun is a callback.";
+    b.style.removeProperty("display");
+    b.style.setProperty("opacity", "0.55", "important");
     b.style.setProperty("pointer-events", "none", "important");
+    b.style.setProperty("filter", "grayscale(0.35)", "important");
   }
 
   function onClick(ev) {
