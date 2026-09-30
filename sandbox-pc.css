@@ -1,44 +1,91 @@
-/* v3.5.226 Allstars only — PC / fullscreen diamond owns the screen */
+/* v3.5.226 Allstars — PC diamond owns screen; gauges+Start stay on one view */
 @media (min-width: 901px) {
   #screen-sandbox.screen.active,
-  #sandbox-root {
+  #sandbox-root,
+  #sandbox-root .sb-layout {
     height: 100dvh !important;
     max-height: 100dvh !important;
     overflow: hidden !important;
   }
   #sandbox-root .sb-main {
-    height: calc(100dvh - 48px) !important;
+    height: 100% !important;
+    max-height: 100% !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
+    min-height: 0 !important;
+    gap: 2px !important;
   }
+  #sandbox-root #sb-canvas-wrap,
   #sb-canvas-wrap {
     flex: 1 1 auto !important;
-    min-height: 62vh !important;
-    height: auto !important;
+    min-height: 0 !important;
     max-height: none !important;
+    height: auto !important;
   }
   #sandbox-root #sb-canvas,
   #sandbox-root #sb-canvas-wrap > #sb-canvas {
     max-height: none !important;
-    min-height: 0 !important;
     height: 100% !important;
+    min-height: 0 !important;
     flex: 1 1 auto !important;
   }
   #sandbox-root .sb-toolbar {
     flex: 0 0 auto !important;
-    max-height: 52px !important;
-    overflow: hidden !important;
-  }
-  #sandbox-root .sb-toolbar:hover,
-  #sandbox-root .sb-toolbar:focus-within {
-    max-height: 22vh !important;
-    overflow: auto !important;
+    max-height: 48px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
   }
   #sandbox-root .sb-gauges,
   #sandbox-root [data-sb-gauges] {
     flex: 0 0 auto !important;
-    max-height: 28vh;
-    overflow: auto;
+    max-height: 160px !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 2px 8px 4px !important;
   }
+  #sb-analog canvas {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  #sandbox-root #sb-phone-tip,
+  #sb-left-strip,
+  .sb-hub-coach {
+    max-height: 20px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+  #sandbox-root #sb-faults {
+    max-height: 28px !important;
+    overflow: hidden !important;
+  }
+  #sandbox-root #sb-faults:hover { max-height: 18vh !important; overflow: auto !important; }
+  .sb-float-win, .sb-labboard, #sb-howto, [data-sop], .charge-sop {
+    position: fixed !important;
+    top: 48px !important;
+    right: 10px !important;
+    max-height: 32px !important;
+    overflow: hidden !important;
+    width: 200px !important;
+    z-index: 20 !important;
+  }
+  .sb-float-win:hover, #sb-howto:hover, .sb-labboard:hover {
+    max-height: 36vh !important;
+    overflow: auto !important;
+  }
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat {
+    display: none !important;
+  }
+}
+@media (min-width: 901px) and (max-height: 860px) {
+  #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 130px !important; }
+  #sb-analog canvas { width: 96px !important; height: 96px !important; }
+  #sandbox-root .sb-toolbar { max-height: 44px !important; }
+}
+@media (min-width: 901px) and (min-height: 1000px) {
+  #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges] { max-height: 180px !important; }
+  #sb-analog canvas { width: 130px !important; height: 130px !important; }
 }
