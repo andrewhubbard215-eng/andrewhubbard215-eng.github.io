@@ -1,1 +1,2 @@
-/* v3.5.250 RESTORE — intentionally empty. Layout owns pan-y. */
+#sandbox-root [data-part] { touch-action: pan-y !important; }
+#sandbox-root .sb-palette { overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
