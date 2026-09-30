@@ -1,1 +1,1 @@
-@/tmp/seats_loader.js
+!async function(){var u=["sandbox-seats.p0.js?v=1","sandbox-seats.p1.js?v=1","sandbox-seats.p2.js?v=1"];var p=await Promise.all(u.map(function(x){return fetch(x,{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("seat part "+x);return r.text()})}));(0,eval)(p.join(""))}();
