@@ -6,7 +6,7 @@ window.__QA_PARTS[5]=(
   "        choices: [\"Low on 410A \u2014 add gas\", \"Defrost sensor/board, not a charge problem first\", \"TXV stuck open\", \"Dirty " +
   "indoor filter only\"],\n        a: 1,\n        why: \"Force defrost. Confirm RV shift and fan stop. Then sensors/board. Don'" +
   "t top off a glacier.\",\n      },\n      {\n        q: \"Ice on the suction line with near-zero superheat often points first " +
-  "to:\",\n        choices: [\"Need more refrigerant immediately\", \"Low airflow or overcharge issues \u2014 diagnose before adding " +
+  "to:\",\n        choices: [\"Need more refrigerant immediately\", \"Low airflow (filter/blower/coil) \u2014 diagnose before adding " +
   "gas\", \"Failed crankcase heater only\", \"Wrong thermostat color wires\"],\n        a: 1,\n        why: \"Fix airflow (filter/b" +
   "lower/coil) before pouring in refrigerant.\",\n      },\n      {\n        q: \"MCA on a nameplate is used primarily to:\",\n   " +
   "     choices: [\"Set the thermostat schedule\", \"Size wire/circuit ampacity minimum\", \"Choose refrigerant type\", \"Measure " +
