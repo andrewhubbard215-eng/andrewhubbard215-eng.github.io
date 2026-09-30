@@ -1,1 +1,213 @@
-file:///workspace/hvac/tip-shift/phone-p0.css
+@media (max-width: 900px) {
+#screen-hub.screen.active {
+display: block !important;
+position: absolute !important;
+inset: 0 !important;
+height: 100dvh !important;
+max-height: 100dvh !important;
+overflow-x: hidden !important;
+overflow-y: auto !important;
+-webkit-overflow-scrolling: touch;
+overscroll-behavior-y: contain;
+z-index: 2;
+}
+#daily-root:empty {
+display: none !important;
+margin: 0 !important;
+padding: 0 !important;
+height: 0 !important;
+max-height: 0 !important;
+}
+#daily-root {
+max-height: 72px !important;
+overflow: hidden !important;
+margin: 6px 12px !important;
+}
+#daily-root .daily-panel,
+#daily-root video,
+#daily-root iframe,
+#daily-root .daily-hero {
+max-height: 72px !important;
+overflow: hidden !important;
+}
+#hub-options,
+#screen-hub .hub-grid,
+#screen-hub .hub-nav {
+padding-bottom: 96px !important;
+}
+#screen-hub .hub-head {
+flex-shrink: 0;
+}
+#sandbox-root .sb-palette,
+#sandbox-root .parts-tray,
+#sandbox-root .sb-tray,
+#sandbox-root [data-parts-tray],
+#sandbox-root #sb-bin,
+#sandbox-root .sb-bin {
+overflow-x: hidden !important;
+overflow-y: auto !important;
+-webkit-overflow-scrolling: touch;
+max-height: 28vh !important;
+height: auto !important;
+min-height: 0 !important;
+align-self: start !important;
+grid-row: 1 / span 1 !important;
+}
+#sandbox-root .sb-palette .btn[data-part],
+#sandbox-root .sb-palette [data-part],
+#sandbox-root #sb-bin .sb-item,
+#sandbox-root .sb-item {
+padding: 4px !important;
+min-height: 0 !important;
+width: auto !important;
+max-width: 100% !important;
+}
+#sandbox-root .sb-palette .btn[data-part] img,
+#sandbox-root .sb-item img,
+#sandbox-root #sb-bin img {
+width: 40px !important;
+height: 40px !important;
+object-fit: contain !important;
+display: block !important;
+margin: 0 auto !important;
+}
+#sb-seats .sb-seat {
+min-width: 64px !important;
+min-height: 64px !important;
+}
+}
+@media (min-width: 901px) {
+#sandbox-root .sb-palette,
+#sandbox-root .parts-tray,
+#sandbox-root .sb-tray,
+#sandbox-root [data-parts-tray],
+#sandbox-root #sb-bin,
+#sandbox-root .sb-bin {
+overflow-x: hidden !important;
+overflow-y: auto !important;
+-webkit-overflow-scrolling: touch;
+max-height: 100% !important;
+height: 100% !important;
+min-height: 0 !important;
+}
+#sb-seats .sb-seat {
+min-width: 64px !important;
+min-height: 64px !important;
+}
+}
+#sb-seats .sb-seat.on,
+.sb-slot.filled {
+background: transparent !important;
+border: none !important;
+box-shadow: none !important;
+outline: none !important;
+}
+#sb-seats .sb-seat.on span { display: none !important; }
+#sb-seats .sb-seat.on img {
+background: transparent !important;
+border: none !important;
+box-shadow: none !important;
+padding: 0 !important;
+}
+#sb-seats .sb-seat:not(.on) {
+border: 2px dashed #f59e0b !important;
+background: rgba(15, 23, 42, 0.72) !important;
+min-width: 64px !important;
+min-height: 64px !important;
+}
+#sandbox-root .sb-palette [data-part].primary,
+#sandbox-root .sb-palette .btn.primary[data-part] {
+background: transparent !important;
+border: none !important;
+box-shadow: none !important;
+outline: none !important;
+opacity: 0.55;
+}
+@media (max-width: 900px) {
+#screen-sandbox.screen.active,
+#sandbox-root {
+height: 100dvh !important;
+max-height: 100dvh !important;
+overflow: hidden !important;
+}
+#sandbox-root .sb-layout {
+height: 100% !important;
+max-height: 100dvh !important;
+overflow: hidden !important;
+grid-template-columns: 84px 1fr !important;
+gap: 4px !important;
+padding: 4px !important;
+}
+#sandbox-root .sb-palette {
+max-height: 100% !important;
+overflow-y: auto !important;
+}
+#sandbox-root .sb-main {
+display: flex !important;
+flex-direction: column !important;
+min-height: 0 !important;
+height: 100% !important;
+overflow: hidden !important;
+gap: 2px !important;
+}
+#sandbox-root #sb-phone-tip {
+flex: 0 0 auto !important;
+font-size: 12px !important;
+max-height: 18px !important;
+overflow: hidden !important;
+white-space: nowrap !important;
+margin: 0 !important;
+}
+#sandbox-root #sb-faults,
+#sandbox-root #sb-formula,
+#sandbox-root #sb-fault,
+#sb-left-strip {
+display: none !important;
+}
+#sandbox-root #sb-canvas-wrap,
+#sb-canvas-wrap {
+flex: 1 1 auto !important;
+min-height: 0 !important;
+max-height: none !important;
+}
+#sandbox-root #sb-canvas {
+max-height: none !important;
+height: 100% !important;
+}
+#sandbox-root .sb-toolbar {
+display: none !important;
+}
+#sb-gauge-run {
+display: flex !important;
+flex-direction: column !important;
+flex: 0 0 auto !important;
+gap: 4px !important;
+padding: 2px 4px 6px !important;
+max-height: 28vh !important;
+}
+#sb-gauge-run .sb-gauges {
+display: grid !important;
+grid-template-columns: 1fr 1fr !important;
+gap: 4px !important;
+max-height: 14vh !important;
+overflow: hidden !important;
+font-size: 11px !important;
+}
+#sb-gauge-run .sb-gauges .panel {
+padding: 4px !important;
+}
+#sb-gauge-run #sb-run {
+width: 100% !important;
+min-height: 48px !important;
+min-width: 0 !important;
+font-size: 15px !important;
+font-weight: 800 !important;
+}
+#sandbox-root #sb-status {
+flex: 0 0 auto !important;
+max-height: 16px !important;
+overflow: hidden !important;
+font-size: 11px !important;
+margin: 0 !important;
+}
+}
