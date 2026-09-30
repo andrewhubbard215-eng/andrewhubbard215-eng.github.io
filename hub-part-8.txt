@@ -1,1 +1,41 @@
-PLACEHOLDER_WILL_REPLACE
+        text: "Stay sharp on: " + c.focus.join(", ") + ". Lab is not a dress rehearsal for chaos — unless it's controlled chaos.",
+      });
+    }
+  }
+
+  let enabled = true;
+
+  function setEnabled(on) {
+    enabled = on !== false;
+    const fab = document.getElementById("hub-ai-fab");
+    if (fab) fab.classList.toggle("hub-ai-off", !enabled);
+    if (!enabled) close();
+  }
+
+  function isEnabled() {
+    return enabled;
+  }
+
+  function init(opts) {
+    if (opts && opts.getContext) getContext = opts.getContext;
+    mountButton();
+    ensurePanel();
+    close();
+    setEnabled(enabled);
+  }
+
+  global.HubAI = {
+    init,
+    open,
+    close,
+    toggle,
+    ask,
+    setEnabled,
+    isEnabled,
+    KB,
+    parseNameplate,
+    readLabelImage,
+    scanUnitPhoto,
+    coachUnit,
+  };
+})(window);
