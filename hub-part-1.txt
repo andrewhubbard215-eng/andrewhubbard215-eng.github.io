@@ -1,1 +1,92 @@
-LOADING
+      topic: "Contactors",
+      answer:
+        "Pitted/burned contacts, welded closed, or weak coil. Check coil voltage when calling, amp side for voltage drop across contacts under load. Buzzing contactor = low voltage or failing coil. Replace with correct FLA rating. A welded contactor can run the unit when the thermostat is off — classic 'won't shut off' call.",
+    },
+    {
+      tags: ["thermostat", "stat wiring", "r w y g c", "common wire"],
+      topic: "Thermostat basics",
+      answer:
+        "R power, C common, Y compressor, G fan, W heat, O/B heat pump reversing. Floating rings and bad C wire cause random Wi-Fi stat death. Verify 24V between R and C. Heat pump: confirm O vs B energized in cool or heat per OEM. Don't assume colors are gospel — meter and diagram beat tradition.",
+    },
+    {
+      tags: ["heat pump", "reversing valve", "defrost", "aux heat", "emergency heat"],
+      topic: "Heat pumps",
+      answer:
+        "Reversing valve shifts cool/heat. Defrost melts outdoor ice in heat mode — hiss, steam, cool air indoors briefly is normal during defrost. Aux/emergency heat is electric strips — expensive, for low ambient or defrost. Diagnose: mode correct, outdoor coil clean, proper charge (critical on heat pumps), sensors intact. Don't condemn the valve first without temperature change across it when energized.",
+    },
+    {
+      tags: ["furnace", "gas heat", "ignitor", "flame sensor", "inducer"],
+      topic: "Gas furnace quick path",
+      answer:
+        "Call for heat → inducer → pressure switch → ignition → flame sense → gas valve stays. Clean flame sensor with emery cloth carefully. Inducer and pressure switch are common no-heat. Limit trips = airflow (filter/coil/duct). Carbon monoxide is not a training sim problem — real world, use CO sense and respect venting. If unsure on gas, escalate.",
+    },
+    {
+      tags: ["condensate", "drain", "water leak", "float switch", "pan"],
+      topic: "Condensate",
+      answer:
+        "Drain must slope downhill continuously. Clean trap and line (vinegar/bleach per practice, or nitrogen blow-out carefully). Float switch should kill Y on overflow — test it. Secondary pan and wet switch save ceilings. Algae tablets help. Water on the floor is a customer relationship problem as much as a mechanical one.",
+    },
+    {
+      tags: ["airflow", "filter", "cfm", "static pressure", "blower"],
+      topic: "Airflow",
+      answer:
+        "Dirty filter, blocked return, closed supply registers, dirty indoor coil, wrong blower speed, undersized duct. Low airflow → ice, high SH sometimes, high delta-T, unhappy TXV. Measure static if you can. 'Add gas' will not fix a stuffed filter. Change the filter before you change the compressor.",
+    },
+    {
+      tags: ["noncondensable", "non-condensable", "air in system", "nitrogen left"],
+      topic: "Non-condensables",
+      answer:
+        "Air/nitrogen left in the system raises head pressure and SC weirdly, reduces capacity, can look like overcharge. Cure: recover, evacuate properly to ≤500 microns with decay, recharge by weight. This is why vacuum discipline exists — not to torture apprentices.",
+    },
+    {
+      tags: ["pump down", "front seat", "back seat", "mid seat", "service valve positions"],
+      topic: "Service valve positions",
+      answer:
+        "Back seated: normal run, gauge port closed. Mid seated: gauges can read. Front seated: valve closed to coil/lines — used carefully for pump-down on some systems. Know the valve before you spin it. Mini-splits often use hex service valves to release factory charge after vacuum — different muscle memory than old residential king valves.",
+    },
+    {
+      tags: ["recovery", "recover refrigerant", "push pull", "tank"],
+      topic: "Recovery",
+      answer:
+        "EPA 608: recover before opening. Use recovery machine and DOT tank rated for the refrigerant. Tank upright for vapor, correct for liquid per procedure. Don't overfill (80% rule / scale). Push-pull for large liquid loads. Label recovered refrigerant. Venting is illegal and on-brand for villains only.",
+    },
+    {
+      tags: ["vacuum pump oil", "pump maintenance", "micron won't drop"],
+      topic: "Vacuum won't pull down",
+      answer:
+        "Change vacuum pump oil when milky or after wet systems. Use short large-diameter vacuum-rated hoses. Remove schrader cores. Check for leaks on gauge manifold. System leak or moisture will stop you at a plateau. Isolate and decay-test. If pump and blank-off pull deep but system won't, the leak is in the circuit — not the multiverse.",
+    },
+    {
+      tags: ["lineset size", "pipe size", "suction size", "liquid size"],
+      topic: "Line sizing",
+      answer:
+        "Follow OEM charts for suction and liquid diameter vs capacity and length. Undersized suction = capacity loss and oil return risk. Oversized can hurt oil return too. Insulate suction fully; UV-protect outdoor insulation. Minimize elbows. Trap rules for long vertical lifts — OEM dependent. When in doubt, the manual beats the supply-house guess.",
+    },
+    {
+      tags: ["insulation", "uv tape", "armaflex", "suction insulation"],
+      topic: "Insulation",
+      answer:
+        "Suction line insulation prevents condensation and capacity loss. Seal seams; cover outdoor sections from sun (UV tape or jacket). Missing insulation = sweaty lines, ceiling stains, efficiency loss. Liquid line usually uninsulated unless OEM says otherwise or runs through hot attic in special cases.",
+    },
+    {
+      tags: ["oil", "poe", "pag", "oil return", "acid"],
+      topic: "Oil & acid",
+      answer:
+        "POE is hygroscopic — keep containers capped. After burnout, use burnout drier procedures and proper flush practices per OEM. Acid test kits exist for a reason. Moisture + refrigerant + oil → acid → dead compressor windings. Vacuum and driers are how you avoid that horror movie.",
+    },
+    {
+      tags: ["burnout", "compressor failure", "replace compressor"],
+      topic: "Compressor burnout",
+      answer:
+        "Confirm electrically (windings to ground, open windings) and mechanically. After burnout: recover, replace compressor, replace drier(s), clean up contaminants per procedure, evacuate deep, charge by weight. Find WHY it failed (airflow, charge, short cycling, electrical) or the new one dies for the same reason — expensive déjà vu.",
+    },
+    {
+      tags: ["customer", "explain", "talk to customer", "how to explain"],
+      topic: "Customer talk",
+      answer:
+        "Plain language: 'Your outdoor coil is clogged so heat can't leave the system' beats 'elevated SC with non-optimal heat rejection.' Show the dirty filter. Offer options with prices if you're in that role. Spicy jokes stay in the truck unless you know the customer. Document what you found. Callbacks hate surprises.",
+    },
+    {
+      tags: ["weigh", "scale", "charge by weight", "critical charge"],
+      topic: "Weigh-in charging",
+      answer:
