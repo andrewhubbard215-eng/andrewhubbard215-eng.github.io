@@ -1,8 +1,8 @@
-# HVAC Allstars — shop pass (2026-09-30 Lane A)
+# HVAC Allstars — shop pass (2026-09-30 Lane C-plus)
 
 ## Live
-- floor v3.5.240
-- SW `lt-allstars-v478`
+- floor v3.5.253
+- SW `lt-allstars-v493`
 - Clock In → shop floor. Dual SKU intact.
 
 ## PLAYED
@@ -12,6 +12,8 @@
 - Service calls: fail — Hook gauges jumped to full sandbox, ticket rail gone, empty bay before hook
 
 ## FIXED
+Cache bump: index ?v= aligned to SW CORE; SW 492→493; strip 252→253.
+
 Hook gauges keeps the live sandbox parked in `#svc-system-host`. Sandbox screen cannot steal the call. Ticket rail stays slim. Needles stay on the ticket.
 
 ## STILL OPEN
