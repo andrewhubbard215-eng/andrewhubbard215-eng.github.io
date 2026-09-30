@@ -228,13 +228,35 @@
 #sb-seats .sb-seat[data-seat="metering"] { left: 81.25%; top: 53.6%; right: auto; transform: translate(-50%, -50%); }
 #sb-seats .sb-seat[data-seat="evaporator"] { left: 50%; top: 78.6%; transform: translate(-50%, -50%); }
 #sb-seats .sb-seat.on {
-  background: rgba(206, 0, 52, 0.88);
-  border: 2px solid #5eead4;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
   opacity: 1;
   filter: none;
 }
 #sb-seats .sb-seat.on span {
-  color: #f7f3ea;
+  color: #94a3b8;
+  opacity: 0.7;
+}
+/* Seated slot chrome gone — part photo stays */
+.sb-slot.filled {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* LEFT rail chip after place — chrome gone, icon dim/checked */
+#sandbox-root .sb-palette [data-part].primary,
+#sandbox-root .sb-palette .btn.primary[data-part],
+#sandbox-root #sb-bin .sb-item.on,
+#sandbox-root .sb-item.filled {
+  background: transparent !important;
+  border-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  opacity: 0.55;
 }
 @media (min-width: 901px) {
   #sb-seats .sb-seat {
