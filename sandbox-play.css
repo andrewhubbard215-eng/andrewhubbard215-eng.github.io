@@ -1,0 +1,43 @@
+/* v3.5.230 — rail scroll + seated chrome gone. Last rule wins over touch-action:none. */
+#sandbox-root .sb-palette,
+#sandbox-root aside.sb-palette,
+#sandbox-root .parts-tray,
+#sandbox-root [data-parts-tray] {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  max-height: 100%;
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+#sandbox-root [data-part],
+#sandbox-root [data-part="compressor"],
+#sandbox-root [data-part="condenser"],
+#sandbox-root [data-part="metering"],
+#sandbox-root [data-part="evaporator"] {
+  touch-action: pan-y !important;
+}
+html.lt-dragging-part #sandbox-root [data-part] {
+  touch-action: none !important;
+}
+#sb-seats .sb-seat.on,
+#sb-seats .sb-seat.on * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+}
+#sb-seats .sb-seat.on span { display: none !important; }
+#sandbox-root #sb-run,
+#sandbox-root button#sb-run {
+  min-height: 48px !important;
+  min-width: 148px !important;
+  z-index: 20 !important;
+}
+#screen-hub.screen.active,
+#hub-options,
+.hub-nav {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
