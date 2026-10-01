@@ -20,7 +20,7 @@
       document.head.appendChild(s);
     }
     s.textContent =
-      "#sb-ts{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;min-height:0;max-height:none;flex:0 0 auto}" +
+      "#sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{list-style:none;margin:6px 0 0!important;padding:0!important;display:grid!important;gap:3px;min-height:32px!important;max-height:22vh!important;overflow-y:auto!important;flex:0 0 auto;visibility:visible!important}" +
       "#sb-ts li{min-height:32px;padding:5px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
@@ -30,7 +30,7 @@
       "#sb-ts li p{display:none;margin:0;flex:1 1 100%;font-size:12px;color:#9aa3ad}" +
       "#sb-ts li.wait p{display:block}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}" +
-      "@media (max-width:480px){#sb-ts{max-height:28vh;overflow-y:auto;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
+      "@media (max-width:480px){#sandbox-root #sb-ts,#sandbox-root #sb-ts:hover,#sandbox-root #sb-ts:focus-within{max-height:28vh!important;overflow-y:auto!important;display:grid!important;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
   }
 
   function mountList() {
@@ -57,6 +57,14 @@
     } else if (!ol.parentNode && root) {
       root.appendChild(ol);
     }
+    ol.style.setProperty("display", "grid", "important");
+    ol.style.setProperty("flex", "0 0 auto", "important");
+    ol.style.setProperty("height", "auto", "important");
+    ol.style.setProperty("min-height", "96px", "important");
+    ol.style.setProperty("max-height", "22vh", "important");
+    ol.style.setProperty("overflow-y", "auto", "important");
+    ol.style.setProperty("visibility", "visible", "important");
+    ol.style.setProperty("margin", "6px 0 0", "important");
     return ol;
   }
 

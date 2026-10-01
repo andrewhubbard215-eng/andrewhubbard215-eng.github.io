@@ -1,5 +1,6 @@
-2026-10-01 shop hour
-Played recovery: seat machine, scale, tank, blue on LO, red on HI, machine ON. Gauges dropped (162 to 156), scale climbed. No crash. Phone 390 did not overflow.
-Strip still said v3.5.294 — old shell. SW install was failing addAll on route-boot-form.js and clock-in-floor.b64.0.txt (both 404). Dropped those. Cache route-boot-fix.js instead.
-Cache: sw.js lt-allstars-v536. Tip v3.5.299. Register sw.js?v=536.
-Next: hard-refresh phone, confirm strip reads v3.5.299, then run recovery to the 80% WC stop and shut the machine off.
+2026-10-01 evening save
+Played phone 390 and desktop. Clock in, Saturday callback tickets, Recovery tap-arm (machine seats). No crash.
+Prior hour dropped 404s from SW addAll (route-boot-form.js, clock-in-floor.b64.0.txt). Kept that.
+TS sheet was on the bay at 0px — layout and phone CSS display:none. Sheet now stays readable (22vh, current step open). Strip reads v3.5.300.
+Cache: sw.js lt-allstars-v537. sandbox-ts.js?v=13. shop-floor-copy.js?v=50.
+Next: hard-refresh phone. Seat four LEFT, start compressor, read SH/SC against the sheet.
