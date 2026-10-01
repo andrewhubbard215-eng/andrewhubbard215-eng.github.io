@@ -23,3 +23,4 @@ window.__LT_RC_SRC+="= t.getAttribute(\"data-rc-part\");\n      var hose = t.get
 window.__LT_RC_SRC+="ibute(\"data-rc-hose\");\n      drag = part ? { kind: \"part\", i"
 window.__LT_RC_SRC+="d: part } : { kind: \"hose\", id: hose };\n      armed = null;\n"
 window.__LT_RC_SRC+="      try {\n        ev.dataTransfer.setData(\""
+window.__LT_RC_SRC+="";
