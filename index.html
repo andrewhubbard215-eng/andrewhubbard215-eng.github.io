@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="truck-pouch.css?v=8" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
   <link rel="stylesheet" href="phone-floor.css?v=43" />
-  <link rel="stylesheet" href="phone-p0.css?v=11" />
+  <link rel="stylesheet" href="phone-p0.css?v=12" />
   <link rel="stylesheet" href="phone-rail.css?v=1" />
   <link rel="stylesheet" href="saturday-phone.css?v=1" />
   <link rel="manifest" href="manifest.webmanifest" />
@@ -99,7 +99,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.258 - shop floor</p>
+    <p class="version-strip">HVAC Allstars - v3.5.259 - shop floor</p>
   </div>
   <script src="sku.js?v=17"></script>
   <script src="commandments.js?v=120"></script>
@@ -163,6 +163,7 @@
   <script src="sandbox-packs.js?v=1"></script>
   <script src="sandbox-poster.js?v=1"></script>
   <script src="sandbox-sound.js?v=1"></script>
+  <script src="sandbox-ghost.js?v=1"></script>
   <script src="sandbox-yell.js?v=5"></script>
   <script src="lugs-lock.js?v=1"></script>
   <script src="clock-in-form.js?v=21"></script>
@@ -193,7 +194,7 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=498").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=499").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
