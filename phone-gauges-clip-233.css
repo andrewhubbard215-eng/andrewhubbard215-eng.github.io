@@ -1,8 +1,21 @@
-/* v3.5.233 phone gauges clip override */
+/* v3.5.282 phone gauges — keep strip unclipped after phone-p0 */
 @media (max-width: 900px) {
-  #sandbox-root .sb-main { overflow-y: auto !important; }
+  #sandbox-root .sb-layout > .sb-main { overflow: hidden !important; }
+  #sandbox-root #sb-gauge-run,
+  #sb-gauge-run {
+    overflow: visible !important;
+    max-height: 190px !important;
+  }
+  #sandbox-root #sb-gauge-run .sb-gauges,
   #sandbox-root .sb-gauges {
     max-height: none !important;
     min-height: 100px !important;
+    overflow: visible !important;
+  }
+  #sandbox-root #sb-gauge-run #sb-analog,
+  #sb-analog {
+    max-height: none !important;
+    overflow: visible !important;
+    visibility: visible !important;
   }
 }
