@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v509";
+const VER = "lt-allstars-v510";
 const CORE = [
   "./",
   "./index.html",
@@ -113,9 +113,6 @@ const CORE = [
   "./truck-pouch.css?v=8",
   "./exam-untimed.js?v=3",
   "./exam-cutout.js?v=3",
-  "./epa-exam-bank.js?v=1",
-  "./exam-epa.js?v=1",
-  "./exam-epa.css?v=1",
   "./board-codes.css?v=4",
   "./dragdrop.js?v=50",
   "./webgl-cycle.js?v=57",
@@ -133,12 +130,16 @@ const CORE = [
   "./daily.js?v=3",
   "./daily-clock.js?v=1",
   "./clock-in-form.js?v=21",
-  "./clock-in-fix.js?v=30",
-  "./clock-in-fix.js?v=31",
+
   "./clock-in-floor.js?v=48",
   "./shop-labs-data.js?v=3",
   "./shop-labs-floor.js?v=5",
-  "./shop-labs-print.js?v=1"
+  "./shop-labs-print.js?v=1",
+  "./clock-in-fix.js?v=32",
+  "./clock-in-fix.b64.0.txt?v=32",
+  "./epa-exam-bank.js?v=2",
+  "./exam-epa.js?v=2",
+  "./exam-epa.css?v=2",
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));

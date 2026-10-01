@@ -9,17 +9,17 @@
   (function () {
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
-      html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.2[6-7][0-9]/g, "v3.5.272");
-      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=512");
-      html = html.replace(/electrical-lite\.js\?v=\d+/g, "electrical-lite.js?v=10");
-      html = html.replace(/clock-in-form\.js\?v=\d+/g, "clock-in-form.js?v=31");
-      html = html.replace(/lugs-lock\.js\?v=\d+/g, "lugs-lock.js?v=2");
-      html = html.replace(/clock-in-floor\.js\?v=4[6-8]/g, "clock-in-floor.js?v=48");
-      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=8");
-      html = html.replace(/refrigerant-flow\.js\?v=\d+/g, "refrigerant-flow.js?v=2");
+      html = html.replace(/phone-p0\\.css\\?v=13/g, "phone-p0.css?v=14");
+      html = html.replace(/v3\\.5\\.2[6-7][0-9]/g, "v3.5.273");
+      html = html.replace(/sw\\.js\\?v=5[0-9][0-9]/g, "sw.js?v=513");
+      html = html.replace(/electrical-lite\\.js\\?v=\\d+/g, "electrical-lite.js?v=10");
+      html = html.replace(/clock-in-form\\.js\\?v=\\d+/g, "clock-in-fix.js?v=32");
+      html = html.replace(/lugs-lock\\.js\\?v=\\d+/g, "lugs-lock.js?v=2");
+      html = html.replace(/clock-in-floor\\.js\\?v=4[6-8]/g, "clock-in-floor.js?v=48");
+      html = html.replace(/analog-gauges\\.js\\?v=\\d+/g, "analog-gauges.js?v=8");
+      html = html.replace(/refrigerant-flow\\.js\\?v=\\d+/g, "refrigerant-flow.js?v=2");
       html = html.replace(
-        /Hook gauges - read SH\/SC - pick the fault/g,
+        /Hook gauges - read SH\\/SC - pick the fault/g,
         "Meter leads · airflow before charge · no jump safety"
       );
       if (html.indexOf("phone-gauges-233.css") === -1) {
@@ -34,33 +34,50 @@
           '  <link rel="stylesheet" href="theme-amber-bench.css?v=2" />\n</head>'
         );
       } else {
-        html = html.replace(/theme-amber-bench\.css\?v=\d+/g, "theme-amber-bench.css?v=2");
+        html = html.replace(/theme-amber-bench\\.css\\?v=\\d+/g, "theme-amber-bench.css?v=2");
       }
-      html = html.replace(/recovery-room\.js\?v=\d+/g, "recovery-room.js?v=4");
-      html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=4");
-      html = html.replace(/recovery-room\.g(\d)\.js\?v=\d+/g, "recovery-room.g$1.js?v=4");
+      html = html.replace(/recovery-room\\.js\\?v=\\d+/g, "recovery-room.js?v=4");
+      html = html.replace(/recovery-room\\.css\\?v=\\d+/g, "recovery-room.css?v=4");
+      html = html.replace(/recovery-room\\.g(\\d)\\.js\\?v=\\d+/g, "recovery-room.g$1.js?v=4");
       if (html.indexOf("service-meter.js") === -1) {
         html = html.replace(
-          '<script src="recovery-room.js?v=4"><\/script>',
-          '<script src="recovery-room.js?v=4"><\/script>\n  <script src="service-meter.js?v=1"><\/script>'
+          '<script src="recovery-room.js?v=4"><\\/script>',
+          '<script src="recovery-room.js?v=4"><\\/script>\n  <script src="service-meter.js?v=1"><\\/script>'
         );
       }
       if (html.indexOf("refrigerant-flow.js") === -1) {
         html = html.replace(
-          '<script src="analog-gauges.js?v=8"><\/script>',
-          '<script src="analog-gauges.js?v=8"><\/script>\n  <script src="refrigerant-flow.js?v=2"><\/script>'
+          '<script src="analog-gauges.js?v=8"><\\/script>',
+          '<script src="analog-gauges.js?v=8"><\\/script>\n  <script src="refrigerant-flow.js?v=2"><\\/script>'
         );
       }
       if (html.indexOf("land-lugs-route.js") === -1) {
         html = html.replace(
           '<script src="clock-in-form.js',
-          '<script src="land-lugs-route.js?v=2"><\/script>\n  <script src="clock-in-form.js'
+          '<script src="land-lugs-route.js?v=2"><\\/script>\n  <script src="clock-in-form.js'
         );
       }
       if (html.indexOf('href="/desk/"') === -1) {
         html = html.replace(
           '<button class="mode-card" data-mode="rapture"',
           '<a class="mode-card" href="/desk/" id="hub-desk-door"><h3>Instructor Desk</h3><p>Separate door — students stay on the shop floor</p></a>\n        <button class="mode-card" data-mode="rapture"'
+        );
+      }
+
+      html = html.replace(/clock-in-fix\\.js\\?v=\\d+/g, "clock-in-fix.js?v=32");
+      html = html.replace(/exam-epa\\.js\\?v=\\d+/g, "exam-epa.js?v=2");
+      html = html.replace(/epa-exam-bank\\.js\\?v=\\d+/g, "epa-exam-bank.js?v=2");
+      html = html.replace(/exam-epa\\.css\\?v=\\d+/g, "exam-epa.css?v=2");
+      if (html.indexOf("epa-exam-bank.js") === -1) {
+        html = html.replace(
+          '<script src="clock-in-fix.js?v=32"><\\/script>',
+          '<script src="epa-exam-bank.js?v=2"><\\/script>\n  <script src="exam-epa.js?v=2"><\\/script>\n  <script src="clock-in-fix.js?v=32"><\\/script>'
+        );
+      }
+      if (html.indexOf("exam-epa.css") === -1) {
+        html = html.replace(
+          '</head>',
+          '  <link rel="stylesheet" href="exam-epa.css?v=2" />\n</head>'
         );
       }
       return html;
@@ -73,14 +90,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.272 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.273 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=512").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=513").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.272 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.273 - shop floor</p>
 </body>
 </html>
