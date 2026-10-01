@@ -144,3 +144,98 @@
   #sb-gauge-run .sb-gauges { max-height: 130px !important; }
   #sb-gauge-run #sb-run { min-height: 44px !important; min-width: 140px !important; }
 }
+
+/* Sep30 Hub: 2-col only — kill empty third black field; chips LEFT; diamond fills; gauges+Start with diamond */
+@media (min-width: 901px) {
+  #sandbox-root .sb-layout,
+  #screen-sandbox .sb-layout {
+    display: grid !important;
+    grid-template-columns: 168px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+    gap: 0 !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    direction: ltr !important;
+  }
+  #sandbox-root .sb-palette,
+  #sandbox-root aside.sb-palette,
+  #sandbox-root .sb-layout > .sb-palette,
+  #sandbox-root .sb-layout > aside.sb-palette {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    order: 0 !important;
+    width: 168px !important;
+    max-width: 168px !important;
+    min-width: 148px !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    transform: none !important;
+    inset: auto !important;
+    border-right: 3px solid #CE0034 !important;
+  }
+  #sandbox-root .sb-main,
+  #sandbox-root .sb-layout > .sb-main {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    order: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    gap: 2px !important;
+  }
+  /* Diamond fills the bay (not a thin strip over black) */
+  #sandbox-root #sb-canvas-wrap,
+  #sandbox-root .sb-stage-wrap {
+    flex: 1 1 auto !important;
+    min-height: 280px !important;
+    max-height: none !important;
+    height: auto !important;
+    position: relative !important;
+  }
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap > #sb-canvas {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: 100% !important;
+  }
+  /* gauges + Start sit with diamond — not under empty black field */
+  #sb-gauge-run {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex: 0 0 auto !important;
+    max-height: 180px !important;
+    margin: 0 !important;
+    padding: 4px 8px 8px !important;
+    background: rgba(11, 18, 32, 0.97) !important;
+  }
+  #sandbox-root .sb-gauges,
+  #sandbox-root [data-sb-gauges],
+  #sb-gauge-run .sb-gauges {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    transform: none !important;
+    flex: 1 1 auto !important;
+    max-height: 160px !important;
+    margin: 0 !important;
+    padding: 2px 0 !important;
+  }
+  #sandbox-root .sb-gauges .panel {
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    max-width: none !important;
+  }
+}
