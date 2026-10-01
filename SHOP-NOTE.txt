@@ -1,6 +1,6 @@
-2026-10-01 shop hour (late)
-Played live. Clock in, Goodman GSX piston pack, Dirty ID, compressor ran. No crash.
-Bug: banner said PISTON, sb-method still said TXV charge by SC 8-14. Zone A metering click was forcing txv over the pack.
-Fixed: charge method follows pack banner / LtActivePack. Piston charges by target SH (ODB/WB), SC is the check. EEV still weigh-in. TXV still SC 8-14. Dirty ID TD note still fires (evap TD high).
-Cache: sw.js lt-allstars-v531. Boot pins shop-floor-copy v49, sandbox-td v8, sandbox-packs v2.
-Next: hard-refresh, Goodman GSX, start, confirm method line says Piston charge by SH. Then a restriction call on TXV so strap vs liquid-line restriction stays distinct.
+2026-10-01 shop hour
+Played live. Clock in, Goodman GSX piston pack, compressor ran. Method line said Charge by SH. No crash.
+Bug: Restriction chip said high SH + high SC but manifold stayed SC 10 / 442 head. TXV strap said SH wild and gauges sat at 10 SH — hunt overlay never bound.
+Fixed: drier restriction seats 98/360, SH 28, SC 22, cold-outlet note. TXV strap hunts SH, SC stays 10. Not the same call.
+Cache: sw.js lt-allstars-v532. Boot pins sandbox-hunt v3.
+Next: hard-refresh, Trane XR, Restriction then TXV strap. Confirm SC 22 vs hunting SH. Then a leak chip so high SH + low SC stays distinct from the drier.
