@@ -18,7 +18,7 @@
   function next() {
     if (n >= total) { boot(); return; }
     var s = document.createElement("script");
-    s.src = "recovery-room.s" + n + ".js?v=6";
+    s.src = "recovery-room.s" + n + ".js?v=7";
     s.onload = function () { n += 1; next(); };
     s.onerror = function () {
       console.error("rc src chunk fail", n);
