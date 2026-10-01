@@ -1,7 +1,7 @@
 /* Allstars Recovery photo bench gzip loader */
 (function () {
   "use strict";
-  var n = 0;
+  var n = 0, total = 2;
   function boot() {
     var b64 = window.__LT_RC_GZ;
     if (!b64) return;
@@ -24,9 +24,9 @@
     } catch (e) { fail(e); }
   }
   function next() {
-    if (n >= 2) { boot(); return; }
+    if (n >= total) { boot(); return; }
     var s = document.createElement("script");
-    s.src = "recovery-room.g" + n + ".js?v=2";
+    s.src = "recovery-room.g" + n + ".js?v=3";
     s.onload = function () { n += 1; next(); };
     s.onerror = function () { console.error("rc gz chunk fail", n); };
     document.head.appendChild(s);
