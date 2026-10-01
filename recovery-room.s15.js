@@ -23,3 +23,4 @@ window.__LT_RC_SRC+="ddEventListener(\n      \"pointerdown\",\n      function (e
 window.__LT_RC_SRC+="        var t = ev.target.closest(\"[data-rc-part], [data-rc-"
 window.__LT_RC_SRC+="hose]\");\n        if (!t || ev.button) return;\n        if (ev"
 window.__LT_RC_SRC+=".target.closest(\"#rc-machine-sw,#rc-vacuum-sw"
+window.__LT_RC_SRC+="";
