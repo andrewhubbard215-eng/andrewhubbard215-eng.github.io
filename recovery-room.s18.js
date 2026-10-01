@@ -1,5 +1,5 @@
 window.__LT_RC_SRC=(window.__LT_RC_SRC||"");
-window.__LT_RC_SRC+="\n        var hit = ev.target.closest(\"[data-rc-port], [data-rc-drop]"
+window.__LT_RC_SRC+="\n        if (ev.target.closest(\"[data-rc-hose], .rc-chip, .rc-hook\")) return;\n        var hit = ev.target.closest(\"[data-rc-port], [data-rc-drop]"
 window.__LT_RC_SRC+=", .rc-unit-stage, #rc-tray\");\n        if (!hit) {\n          setStatu"
 window.__LT_RC_SRC+="s(\"Still armed. Tap a port or the outdoor unit.\", true);\n          r"
 window.__LT_RC_SRC+="eturn;\n        }\n        applyDrop(armed, ev.clientX, ev.clientY);\n "
