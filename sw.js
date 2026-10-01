@@ -83,8 +83,6 @@ const CORE = [
   "./electrical-lite.js?v=10",
   "./electrical-lite.b64.3.txt?v=10",
   "./electrical-lite.b64.2.txt?v=10",
-  "./clock-in-form.b64.0.txt?v=31",
-  "./clock-in-form.b64.1.txt?v=31",
   "./electrical-lite.b64.0.txt?v=10",
   "./electrical-lite.b64.1.txt?v=10",
   "./land-lugs-route.js?v=2",
@@ -129,17 +127,18 @@ const CORE = [
   "./curriculum.js",
   "./daily.js?v=3",
   "./daily-clock.js?v=1",
-  "./clock-in-form.js?v=21",
 
   "./clock-in-floor.js?v=48",
   "./shop-labs-data.js?v=3",
   "./shop-labs-floor.js?v=5",
   "./shop-labs-print.js?v=1",
-  "./clock-in-fix.js?v=32",
-  "./clock-in-fix.b64.0.txt?v=32",
   "./epa-exam-bank.js?v=2",
   "./exam-epa.js?v=2",
   "./exam-epa.css?v=2",
+  "./clock-in-form.js?v=32",
+  "./clock-in-form.b64.0.txt?v=32",
+  "./clock-in-fix.js?v=32",
+  "./clock-in-fix.b64.0.txt?v=32",
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));
