@@ -1,6 +1,6 @@
 /* electrical-lite photo bench gzip loader v9 */
 (function(){
-  var n=2, i=0, b64="";
+  var n=4, i=0, b64="";
   function next(){
     if(i>=n){
       try{
