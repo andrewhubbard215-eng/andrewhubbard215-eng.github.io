@@ -1,18 +1,18 @@
-/* v3.5.233 phone gauges strip — fixed compact manifold always on screen */
+/* Phone gauges strip — both analog faces on screen */
 @media (max-width: 900px) {
   #sandbox-root .sb-main {
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important;
+    overflow-y: auto !important;
     min-height: 0 !important;
     height: 100% !important;
-    padding-bottom: 210px !important;
+    padding-bottom: 240px !important;
   }
   #sandbox-root #sb-canvas-wrap,
   #sb-canvas-wrap {
     flex: 1 1 auto !important;
     min-height: 0 !important;
-    max-height: calc(100dvh - 260px) !important;
+    max-height: calc(100dvh - 300px) !important;
     height: auto !important;
   }
   #sandbox-root #sb-canvas {
@@ -21,15 +21,15 @@
   }
   #sb-gauge-run {
     position: fixed !important;
-    left: 90px !important;
+    left: 4px !important;
     right: 4px !important;
     bottom: 4px !important;
     display: flex !important;
     flex-direction: column !important;
     flex: 0 0 auto !important;
-    max-height: 200px !important;
-    min-height: 150px !important;
-    overflow: hidden !important;
+    max-height: 240px !important;
+    min-height: 180px !important;
+    overflow: visible !important;
     visibility: visible !important;
     opacity: 1 !important;
     z-index: 40 !important;
@@ -46,9 +46,9 @@
     gap: 4px !important;
     order: 1 !important;
     flex: 1 1 auto !important;
-    max-height: 110px !important;
-    min-height: 88px !important;
-    overflow: hidden !important;
+    max-height: none !important;
+    min-height: 120px !important;
+    overflow: visible !important;
     visibility: visible !important;
     opacity: 1 !important;
     margin: 0 !important;
@@ -68,14 +68,15 @@
     grid-template-columns: 1fr 1fr !important;
     grid-column: 1 / -1 !important;
     justify-items: center !important;
-    max-height: 76px !important;
-    overflow: hidden !important;
+    max-height: none !important;
+    overflow: visible !important;
     visibility: visible !important;
   }
   #sb-analog canvas {
-    width: 68px !important;
-    height: 68px !important;
-    max-width: 38vw !important;
+    width: min(42vw, 140px) !important;
+    height: auto !important;
+    max-width: 42vw !important;
+    display: block !important;
   }
   #sb-gauge-run #sb-run,
   #sandbox-root #sb-run {
@@ -105,11 +106,15 @@
     overflow: hidden !important;
     max-height: 4.2em !important;
   }
-  #sandbox-root .sb-gauges #sb-ps,
+  #sandbox-root .sb-gauges #sb-ps {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #38bdf8 !important;
+  }
   #sandbox-root .sb-gauges #sb-ph {
     font-size: 16px !important;
     font-weight: 800 !important;
-    color: #5eead4 !important;
+    color: #f43f5e !important;
   }
   #sandbox-root .sb-gauges #sb-sh,
   #sandbox-root .sb-gauges #sb-sc {
