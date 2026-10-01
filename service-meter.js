@@ -1,19 +1,21 @@
-/* service-meter boot — assemble parts then run */
+/* service-meter b64 boot */
 (function(){
-  var N=2, loaded=0, booted=false;
+  var N=5, loaded=0;
   function go(){
-    if(booted||loaded<N) return;
-    var P=window.__SM_PARTS; if(!P) return;
-    var s=""; for(var i=0;i<N;i++){ if(typeof P[i]!=="string") return; s+=P[i]; }
-    booted=true;
-    try{ (0,eval)(s); }catch(e){ console.error("service-meter", e); }
+    if(loaded<N) return;
+    var parts=window.__SM_B64||[];
+    var b=""; for(var i=0;i<N;i++){ if(typeof parts[i]!=="string") return; b+=parts[i]; }
+    try {
+      var bin=atob(b);
+      var s=decodeURIComponent(Array.prototype.map.call(bin,function(c){return "%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);}).join(""));
+      (0,eval)(s);
+    } catch(e) { console.error("service-meter", e); }
   }
   for(var i=0;i<N;i++){(function(i){
     var el=document.createElement("script");
-    el.src="service-meter.p"+i+".js?v=1";
+    el.src="service-meter.b"+i+".js?v=1";
     el.async=false;
     el.onload=function(){ loaded++; go(); };
-    el.onerror=function(){ console.error("service-meter part", i); };
     (document.head||document.documentElement).appendChild(el);
   })(i);}
 })();
