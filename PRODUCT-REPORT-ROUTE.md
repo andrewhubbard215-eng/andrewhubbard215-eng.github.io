@@ -1,25 +1,22 @@
-# HVAC Allstars — shop pass (2026-10-01 route)
+# HVAC Allstars — shop pass (2026-10-01 lane A)
 
 ## Live
-- floor v3.5.280
+- floor v3.5.290
+- SW lt-allstars-v526
 - Clock In → Service calls → Hook gauges
 
 ## PLAYED
-- Clock-in: pass (shop floor, v3.5.279 before this ship)
-- Service calls: ticket rail + customer quote + stars present
-- Hook gauges before this ship: button said "Hook meter leads"; Saturday meter stayed on Ken's iced coil and did not follow the open-system ticket
-- Next random ticket before this ship: quiz ticket swapped; manifold fingerprint did not
+- Clock-in: pass (shop floor fills the window, v3.5.289 before this ship)
+- Service calls: ticket rail + customer quote + stars present. Hook gauges seats dirty-cond Blue 128 / Red 455 / SH 9 / SC 11
+- Yellow hose had no cap port — drop did not land. Gauge digits were 16px under the needle, not a center window
+- Meter school / sandbox / HUB not re-walked this pass (service bay owned the screen)
 
 ## SHIPPED
-- `route-ticket-gauges.js` parks the manifold in `#svc-system-host`
-- Hook gauges seats Blue/Red needles + SH/SC from the ticket fingerprint (open, airflow, restriction, dirty condenser, lineset, undercharge)
-- Next random ticket calls `ServiceCalls.nextTicket` and repaints; fault key must change
-- Dispatch radio, streak, customer quote, pay stub, haptic on seat
-- Dispatch is not fixed over the hose drop; palette stays left; preview stays sticky
-- Store listing not touched — no campus marks added
+- `route-ticket-gauges.js` yellow cap port. Blue only on suction, red only on liquid, yellow only on the cap. Landed chip is removed
+- Analog faces keep the needle. Center digital is 32px psig. Preview line is 18px
+- Cache bump: script v=2, floor v3.5.290, SW v526
 
-## STILL SUCKS
-- Service quiz table and sandbox ticket table are still two lists
+## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs
-- Analog faces in the call bay are a seated manifold, not the full four-part glass, until the sandbox root is actually mounted
-- Play Console still needs a human upload
+- Service quiz table and sandbox ticket table are still two lists
+- Uncle Ray nameplate still says R-22 TXV
