@@ -1,1 +1,42 @@
-file:///workspace/hvac/tip-shift/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Lincoln Tech HVAC Allstars</title>
+  <script>
+  (function () {
+    var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
+    function patch(html) {
+      html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
+      html = html.replace(/v3\.5\.260/g, "v3.5.261");
+      html = html.replace(/sw\.js\?v=500/g, "sw.js?v=501");
+      html = html.replace(
+        /Hook gauges - read SH\/SC - pick the fault/g,
+        "Meter leads · airflow before charge · no jump safety"
+      );
+      if (html.indexOf("service-meter.js") === -1) {
+        html = html.replace(
+          '<script src="recovery-room.js?v=1"><\/script>',
+          '<script src="recovery-room.js?v=1"><\/script>\n  <script src="service-meter.js?v=1"><\/script>'
+        );
+      }
+      return html;
+    }
+    fetch(SRC, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("boot fetch " + r.status); return r.text(); })
+      .then(function (html) {
+        document.open();
+        document.write(patch(html));
+        document.close();
+      })
+      .catch(function (e) {
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p>";
+      });
+  })();
+  </script>
+</head>
+<body>
+  <p style="font:16px/1.4 sans-serif;padding:24px;color:#e2e8f0;background:#0f172a;min-height:100vh">Loading HVAC Allstars shop floor…</p>
+</body>
+</html>
