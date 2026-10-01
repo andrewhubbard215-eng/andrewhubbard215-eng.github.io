@@ -1,4 +1,4 @@
-/* Shop-floor copy override v48 — piston charges by target SH, TXV by SC */
+/* Shop-floor copy override v49 — piston charges by target SH, TXV by SC */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -157,6 +157,16 @@
     return "";
   }
   function meteringKind() {
+    var banner = document.getElementById("sb-sysbanner");
+    var btxt = (banner && banner.textContent) || "";
+    if (/PISTON/i.test(btxt)) return "piston";
+    if (/\bEEV\b/i.test(btxt)) return "eev";
+    if (window.LtActivePack && window.LtActivePack.metering) {
+      var pm = String(window.LtActivePack.metering);
+      if (pm === "piston" || pm === "orifice") return "piston";
+      if (pm === "eev") return "eev";
+      if (pm === "txv") return "txv";
+    }
     if (window.LtMeteringKind === "piston" || window.LtMeteringKind === "orifice") return "piston";
     if (window.LtMeteringKind === "eev") return "eev";
     if (window.LtMeteringKind === "txv") return "txv";

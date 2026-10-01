@@ -210,6 +210,10 @@
       met.addEventListener(
         "click",
         function () {
+          if (window.LtActivePack && window.LtActivePack.metering) {
+            setMetering(window.LtActivePack.metering);
+            return;
+          }
           setMetering("txv");
         },
         true

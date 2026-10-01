@@ -1,7 +1,6 @@
-2026-10-01 shop hour
-Played live. Clock in, seated four, compressor ran. No crash.
-Healthy TXV: 162/442, 10 SH / 10 SC, evap TD 18, cond TD 25.
-Fixed: piston was still stamped as TXV charge-by-SC on the status rail and SH/SC seats. shop-floor-copy.js v48 follows metering: piston charges by target SH (ODB/WB), SC is the check; TXV still charges by SC 8-14; EEV is weigh-in.
-Cache: sw.js lt-allstars-v530. Boot still pins shop-floor-copy.js?v=47 until the injector is bumped; network-first SW should pick up the file.
-Pages CDN may lag the raw main commit.
-Next: confirm piston rail after Pages catches up, then a dirty-coil call so TD notes fire.
+2026-10-01 shop hour (late)
+Played live. Clock in, Goodman GSX piston pack, Dirty ID, compressor ran. No crash.
+Bug: banner said PISTON, sb-method still said TXV charge by SC 8-14. Zone A metering click was forcing txv over the pack.
+Fixed: charge method follows pack banner / LtActivePack. Piston charges by target SH (ODB/WB), SC is the check. EEV still weigh-in. TXV still SC 8-14. Dirty ID TD note still fires (evap TD high).
+Cache: sw.js lt-allstars-v531. Boot pins shop-floor-copy v49, sandbox-td v8, sandbox-packs v2.
+Next: hard-refresh, Goodman GSX, start, confirm method line says Piston charge by SH. Then a restriction call on TXV so strap vs liquid-line restriction stays distinct.

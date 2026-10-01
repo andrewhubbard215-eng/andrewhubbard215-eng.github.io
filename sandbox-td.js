@@ -37,6 +37,16 @@
     return false;
   }
   function meteringKind() {
+    var banner = document.getElementById("sb-sysbanner");
+    var btxt = (banner && banner.textContent) || "";
+    if (/PISTON/i.test(btxt)) return "piston";
+    if (/\bEEV\b/i.test(btxt)) return "eev";
+    if (window.LtActivePack && window.LtActivePack.metering) {
+      var pm = String(window.LtActivePack.metering);
+      if (pm === "piston" || pm === "orifice") return "piston";
+      if (pm === "eev") return "eev";
+      if (pm === "txv") return "txv";
+    }
     if (window.LtMeteringKind === "orifice" || window.LtMeteringKind === "piston") return "piston";
     if (window.LtMeteringKind === "eev") return "eev";
     if (window.LtMeteringKind === "txv") return "txv";
