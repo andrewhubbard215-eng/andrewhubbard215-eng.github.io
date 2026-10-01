@@ -1,0 +1,108 @@
+/* All-Star Exam — EPA section runner (dark bay theme) */
+#quiz-root {
+  --epa-line: rgba(255, 255, 255, 0.14);
+  --epa-card: rgba(28, 39, 51, 0.95);
+  --epa-ink: var(--fg, #fff);
+  --epa-muted: var(--muted, #a8b0b8);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 14px 28px;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+.epa-game { max-width: 760px; margin: 0 auto; color: var(--epa-ink); }
+.epa-label {
+  display: inline-block; font-size: .78rem; font-weight: 800; letter-spacing: .3px;
+  background: #1a1a1a; color: #ffb3c3; border-radius: 6px; padding: 4px 10px; margin-bottom: 10px;
+}
+.epa-label.small { margin: 16px 0 0; font-size: .7rem; }
+.epa-h { margin: 14px 0 8px; font-size: 1.05rem; color: #ff8fa3; }
+.epa-note { color: var(--epa-muted); font-size: .9rem; margin: 6px 0 10px; line-height: 1.45; }
+.epa-sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.epa-sec-btn {
+  text-align: left; border: 2px solid var(--epa-line); background: var(--epa-card); border-radius: 12px;
+  padding: 12px; cursor: pointer; min-height: 84px; display: flex; flex-direction: column; gap: 3px;
+  color: var(--epa-ink);
+}
+.epa-sec-btn.active { border-color: var(--lt-red, #CE0034); background: rgba(206,0,52,0.16); box-shadow: inset 4px 0 0 var(--lt-red, #CE0034); }
+.epa-sec-name { font-weight: 800; font-size: 1.05rem; }
+.epa-sec-meta, .epa-sec-best { font-size: .8rem; color: var(--epa-muted); }
+.epa-sec-best { color: #ffb3c3; font-weight: 650; }
+.epa-opts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 14px 0 4px; }
+.epa-seg { display: inline-flex; border: 1px solid var(--epa-line); border-radius: 10px; overflow: hidden; }
+.epa-seg button {
+  border: 0; background: var(--epa-card); color: var(--epa-ink); padding: 10px 14px; font-weight: 700; cursor: pointer; min-height: 44px;
+}
+.epa-seg button.on { background: var(--lt-red, #CE0034); color: #fff; }
+.epa-start { font-size: 1.05rem; padding: 14px 22px; min-height: 52px; margin: 6px 0 4px; }
+.epa-hud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.epa-stat {
+  background: rgba(255,255,255,0.08); border-radius: 999px; padding: 6px 12px; font-size: .85rem; white-space: nowrap;
+}
+.epa-secname { background: #1a1a1a; color: #fff; font-weight: 700; }
+.epa-progress { height: 6px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; margin-bottom: 12px; }
+.epa-progress span { display: block; height: 100%; background: var(--lt-red, #CE0034); transition: width .2s; }
+.epa-q { font-size: 1.15rem; font-weight: 650; line-height: 1.4; margin: 6px 0 12px; }
+.epa-choices { display: flex; flex-direction: column; gap: 8px; }
+.epa-choice {
+  display: flex; gap: 12px; align-items: center; text-align: left; width: 100%;
+  min-height: 58px; padding: 12px 14px; font-size: 1.02rem; line-height: 1.35;
+  border: 2px solid var(--epa-line); background: var(--epa-card); border-radius: 12px; cursor: pointer; color: var(--epa-ink);
+}
+.epa-choice:hover:not([disabled]) { border-color: #d9b3bf; background: rgba(206,0,52,0.12); }
+.epa-choice .epa-key {
+  flex: 0 0 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,0.1);
+  display: grid; place-items: center; font-weight: 800;
+}
+.epa-choice.picked { border-color: #fff; background: rgba(255,255,255,0.1); }
+.epa-choice.picked .epa-key { background: #fff; color: #111; }
+.epa-choice.right { border-color: var(--ok, #7fd99a); background: rgba(127,217,154,0.14); }
+.epa-choice.right .epa-key { background: var(--ok, #7fd99a); color: #111; }
+.epa-choice.wrong { border-color: var(--lt-red, #CE0034); background: rgba(206,0,52,0.18); }
+.epa-choice.wrong .epa-key { background: var(--lt-red, #CE0034); color: #fff; }
+.epa-choice.dim { opacity: .55; }
+.epa-choice[disabled] { cursor: default; }
+.epa-feedback { margin-top: 12px; border-radius: 12px; padding: 12px 14px; border: 1px solid; }
+.epa-feedback.ok { background: rgba(127,217,154,0.12); border-color: rgba(127,217,154,0.45); }
+.epa-feedback.bad { background: rgba(206,0,52,0.14); border-color: rgba(206,0,52,0.45); }
+.epa-feedback > strong { font-size: 1.05rem; }
+.epa-why-wrong, .epa-why-right { margin: 8px 0 0; line-height: 1.45; }
+.epa-why-wrong span, .epa-why-right span { font-weight: 800; }
+.epa-why-wrong span { color: #ff8fa3; }
+.epa-why-right span { color: var(--ok, #7fd99a); }
+.epa-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.epa-nav .btn { min-height: 48px; padding: 10px 16px; }
+.epa-next { margin-left: auto; min-width: 120px; }
+.epa-next[disabled] { opacity: .45; cursor: not-allowed; }
+.epa-total { font-size: 2.2rem; font-weight: 800; margin: 4px 0 8px; }
+.epa-total small { font-size: .9rem; color: var(--epa-muted); font-weight: 600; margin-left: 8px; }
+.epa-res { display: flex; flex-direction: column; gap: 6px; }
+.epa-res-row {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+  border: 1px solid var(--epa-line); border-radius: 10px; padding: 10px 12px; background: var(--epa-card);
+}
+.epa-res-row.pass { border-left: 5px solid var(--ok, #7fd99a); }
+.epa-res-row.fail { border-left: 5px solid var(--lt-red, #CE0034); }
+.epa-res-name { font-weight: 700; }
+.epa-res-score { font-variant-numeric: tabular-nums; font-weight: 700; }
+.epa-res-tag { font-size: .78rem; font-weight: 800; letter-spacing: .3px; }
+.epa-res-row.pass .epa-res-tag { color: var(--ok, #7fd99a); }
+.epa-res-row.fail .epa-res-tag { color: #ff8fa3; }
+.epa-hub {
+  background: #2b0a12; color: #fff; border-left: 5px solid var(--lt-red, #CE0034);
+  border-radius: 10px; padding: 12px 14px; margin: 12px 0;
+}
+.epa-hub b { color: #ffb3c3; }
+.epa-miss { border: 1px solid var(--epa-line); border-radius: 12px; padding: 12px; margin: 8px 0; background: var(--epa-card); }
+.epa-miss-tag { font-size: .72rem; font-weight: 800; color: #ff8fa3; text-transform: uppercase; letter-spacing: .3px; }
+.epa-miss-q { margin: 4px 0 0; font-weight: 650; }
+#epa-other-packs { margin-top: 10px; width: 100%; }
+@media (max-width: 480px) {
+  .epa-sec-grid { grid-template-columns: 1fr 1fr; }
+  .epa-q { font-size: 1.05rem; }
+  .epa-choice { font-size: .98rem; min-height: 56px; }
+  .epa-next { flex: 1 1 100%; margin-left: 0; order: -1; }
+  .epa-nav .btn { flex: 1 1 auto; }
+  .epa-opts { flex-direction: column; align-items: stretch; }
+  .epa-seg button { flex: 1; }
+}
