@@ -1,5 +1,6 @@
 2026-10-01 shop hour
 Played live. Clock in and sandbox opened. No crash.
 Fixed: standing P was stamped onto status, left-strip, and the SH/SC formula. shop-floor-copy.js v47 stamps status only and restores formula and left-strip if clobbered.
-Cache: sw.js lt-allstars-v528, shop-floor-copy.js?v=47.
-Boot index still needs v3.5.292 and the v=47 pin if this note lands first.
+Cache: sw.js lt-allstars-v528. Boot pins shop-floor-copy.js?v=47 and v3.5.292.
+Pages CDN may lag the raw main commit.
+Next: confirm formula line on the sandbox after Pages catches up, then seat four and start the compressor.
