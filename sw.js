@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v503";
+const VER = "lt-allstars-v504";
 const CORE = [
   "./",
   "./index.html",
@@ -28,7 +28,22 @@ const CORE = [
   "./sandbox-poster.js?v=1",
   "./sandbox-sound.js?v=1",
   "./sandbox-ghost.js?v=1",
-  "./recovery-room.js?v=1",
+  "./recovery-room.js?v=2",
+  "./parts/rc/outdoor-unit.png?v=2",
+  "./parts/rc/machine.png?v=2",
+  "./parts/rc/tank.png?v=2",
+  "./parts/rc/scale.png?v=2",
+  "./parts/rc/gauges.png?v=2",
+  "./parts/rc/vacuum.png?v=2",
+  "./parts/rc/hoses.png?v=2",
+  "./parts/rc/ice-bucket.png?v=2",
+  "./parts/rc/machine-bay.png?v=2",
+  "./parts/rc/tank-bay.png?v=2",
+  "./parts/rc/scale-bay.png?v=2",
+  "./parts/rc/gauges-bay.png?v=2",
+  "./parts/rc/vacuum-bay.png?v=2",
+  "./parts/rc/hoses-bay.png?v=2",
+  "./parts/rc/ice-bucket-bay.png?v=2",
   "./service-meter.js?v=1",
   "./service-meter.b0.js?v=1",
   "./service-meter.b1.js?v=1",
