@@ -1,20 +1,15 @@
-/* epa-exam-bank gzip loader v2 — single complete chunk */
+/* epa-exam-bank plain multi-part loader v4 — no gzip */
 (function(){
-  var n=1, i=0, b64="";
+  var n=3, i=0, code="";
   function next(){
     if(i>=n){
-      try{
-        var bin=atob(b64), bytes=new Uint8Array(bin.length);
-        for(var j=0;j<bin.length;j++) bytes[j]=bin.charCodeAt(j);
-        new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text()
-          .then(function(t){ (0,eval)(t); }).catch(function(e){ console.error("epa-exam-bank inflate", e); });
-      }catch(e){ console.error(e); }
+      try{ (0,eval)(code); }catch(e){ console.error("epa-exam-bank eval", e); }
       return;
     }
-    fetch("epa-exam-bank.b64."+i+".txt?v=2").then(function(r){
-      if(!r.ok) throw new Error("chunk "+i+" HTTP "+r.status);
+    fetch("epa-exam-bank.p"+i+".js?v=4").then(function(r){
+      if(!r.ok) throw new Error("part "+i+" HTTP "+r.status);
       return r.text();
-    }).then(function(t){ b64+=t.trim(); i++; next(); }).catch(function(e){ console.error("epa-exam-bank chunk", i, e); });
+    }).then(function(t){ code+=t; i++; next(); }).catch(function(e){ console.error("epa-exam-bank part", i, e); });
   }
   next();
 })();
