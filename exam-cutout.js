@@ -61,6 +61,18 @@
       a: 0,
       why: "No-cool sheet: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. A full pan opens the float and kills Y to the coil. Prove the float before you condemn safeties or the compressor.",
       whyWrong: "Gas-first or jumping a safety hides a plugged drain. First-year techs skip the pan and eat a callback."
+    },
+    {
+      q: "Inducer hums, no spin. Pressure switch stays open. Hose, trap, and vent are clear. What do you prove before a board?",
+      choices: [
+        "120V at the inducer plug, then amp against the nameplate. Hums with no spin is a seized or open-start motor — not a board that never saw a close.",
+        "Swap the board — the switch never closed so the board is blind",
+        "Jump the pressure switch and ship it",
+        "New pressure switch — the motor is humming so draft is fine"
+      ],
+      a: 0,
+      why: "Prove the draft motor before the board. Voltage at the plug means the board already called. No spin + hum = inducer, not IFC. Switch last, after vacuum vs the rating on the door sticker.",
+      whyWrong: "A board does not spin the wheel. Hums with voltage at the plug is a motor prove. Jumping the switch skips the draft path."
     }
   ];
   function inject() {
@@ -69,9 +81,9 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected3) return true;
+    if (bank[key]._cutoutInjected4) return true;
     ITEMS.forEach(function (it) { bank[key].push(it); });
-    bank[key]._cutoutInjected3 = true;
+    bank[key]._cutoutInjected4 = true;
     return true;
   }
   var n = 0;
