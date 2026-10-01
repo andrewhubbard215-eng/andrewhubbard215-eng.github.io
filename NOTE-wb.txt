@@ -1,1 +1,2 @@
 store SKU = same richness minus Lincoln catalog. Use ?sku=store
+2026-10-01 shop: service calls hide Saturday airflow meter bay unless ticket is Ken iced-filter. v3.5.288 sw v524.

@@ -1,4 +1,4 @@
-/* Shop floor: no-cool sheet separators + Saturday meter is not the ticket above. */
+/* Shop floor: Saturday meter stays on Ken's iced-filter ticket only. */
 (function () {
   "use strict";
   function cleanSheet() {
@@ -8,21 +8,22 @@
     var next = html.replace(/(?:\s*-\s*){2,}/g, " - ").replace(/\s{2,}/g, " ");
     if (next !== html) y.innerHTML = next;
   }
+  function isKenAir(name, job) {
+    return /ken/i.test(name) && /barber|ice|suction|filter|airflow/i.test(name + " " + job);
+  }
   function matchMeter() {
     var nameEl = document.getElementById("svc-name");
     var jobEl = document.getElementById("svc-job");
     var ticket = document.querySelector(".sm-ticket");
+    var wrap = document.querySelector(".sm-wrap");
     if (!nameEl || !ticket) return;
     var name = (nameEl.textContent || "").trim();
     var job = jobEl ? (jobEl.textContent || "").trim() : "";
     if (!name) return;
-    var ken = /ken/i.test(name) && /barber|ice|suction|filter/i.test(name + " " + job);
-    if (ken) {
-      ticket.innerHTML = "<strong>SATURDAY · Ken — barbershop</strong> · suction iced · filter black · ODT 88° · same ticket";
-      return;
-    }
-    var safe = name.replace(/[<>]/g, "");
-    ticket.innerHTML = "<strong>METER BAY · Saturday airflow drill</strong> · Ken · iced suction · black filter · ODT 88° · not " + safe + " — do not write these readings on the ticket above";
+    var ken = isKenAir(name, job);
+    if (wrap) wrap.style.display = ken ? "" : "none";
+    if (!ken) return;
+    ticket.innerHTML = "<strong>SATURDAY \u00b7 Ken \u2014 barbershop</strong> \u00b7 suction iced \u00b7 filter black \u00b7 ODT 88\u00b0 \u00b7 same ticket \u00b7 airflow before charge";
   }
   function tick() {
     cleanSheet();
