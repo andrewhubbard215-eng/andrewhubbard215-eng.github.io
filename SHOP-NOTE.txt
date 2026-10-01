@@ -1,5 +1,5 @@
 2026-10-01 shop hour
-Recovery door was dead: loader waited on s18-s23 (404) and never booted. Shipped s18 close-out — tap arms the hose, next tap seats. Wrong port is one shop line (blue on HI / red on LO). Scale is the proof. 80% WC is a stop. Vacuum separate.
-Cache: sw.js lt-allstars-v535. Loader recovery-room.js?v=7, chunks ?v=7, tip v3.5.298.
-Played: Clock In, Recovery room paints, blue tap arms, HI tap says wrong port.
-Next: phone 390 hard-refresh. Seat machine, scale, tank, blue on LO, red on HI, flip machine, watch needles drop and scale climb to 80% stop.
+Played recovery: seat machine, scale, tank, blue on LO, red on HI, machine ON. Gauges dropped (162 to 156), scale climbed. No crash. Phone 390 did not overflow.
+Strip still said v3.5.294 — old shell. SW install was failing addAll on route-boot-form.js and clock-in-floor.b64.0.txt (both 404). Dropped those. Cache route-boot-fix.js instead.
+Cache: sw.js lt-allstars-v536. Tip v3.5.299. Register sw.js?v=536.
+Next: hard-refresh phone, confirm strip reads v3.5.299, then run recovery to the 80% WC stop and shut the machine off.
