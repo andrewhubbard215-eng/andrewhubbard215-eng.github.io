@@ -16,7 +16,8 @@
       html = html.replace(/sw\.js\?v=500/g, "sw.js?v=503");
       html = html.replace(/sw\.js\?v=501/g, "sw.js?v=503");
       html = html.replace(/sw\.js\?v=502/g, "sw.js?v=503");
-      html = html.replace(/clock-in-floor\.js\?v=46/g, "clock-in-floor.js?v=47");
+      html = html.replace(/clock-in-floor\.js\?v=46/g, "clock-in-floor.js?v=48");
+      html = html.replace(/clock-in-floor\.js\?v=47/g, "clock-in-floor.js?v=48");
       html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=8");
       html = html.replace(
         /Hook gauges - read SH\/SC - pick the fault/g,
@@ -30,8 +31,8 @@
       }
       if (html.indexOf("service-meter.js") === -1) {
         html = html.replace(
-          '<script src="recovery-room.js?v=1"><\\/script>',
-          '<script src="recovery-room.js?v=1"><\\/script>\n  <script src="service-meter.js?v=1"><\\/script>'
+          '<script src="recovery-room.js?v=1"><\/script>',
+          '<script src="recovery-room.js?v=1"><\/script>\n  <script src="service-meter.js?v=1"><\/script>'
         );
       }
       if (html.indexOf('href="/desk/"') === -1) {
