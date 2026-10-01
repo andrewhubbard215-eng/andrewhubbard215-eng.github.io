@@ -1,1 +1,332 @@
-WILL_LOAD
+/* Phone playability — diamond on screen, parts LEFT, HUB AI off the lab. */
+.mode-card-hero {
+  padding: 16px 20px;
+  gap: 14px;
+}
+.mode-card-hero h3,
+.mode-card-hero p {
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .hub-ai-dock, #hub-ai, .hub-chat, [data-hub-dock] {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    left: auto;
+    width: min(280px, 46vw);
+    max-height: 28vh;
+    z-index: 8;
+  }
+  body.lab-open .hub-ai-dock,
+  body.lab-open #hub-ai,
+  body.lab-open .ask-hub {
+    transform: scale(0.82);
+    transform-origin: bottom right;
+    opacity: 0.85;
+  }
+  #sandbox-root, #electrical-root, #quiz-root {
+    padding-bottom: 8px;
+  }
+  .sb-layout {
+    display: grid !important;
+    grid-template-columns: 96px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
+    height: 100%;
+    max-height: 100dvh;
+  }
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 96px;
+    max-width: 96px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    order: unset !important;
+    border-right: 1px solid rgba(42, 54, 68, 0.9);
+    border-top: none !important;
+  }
+  .sb-main {
+    grid-column: 2;
+    grid-row: 1;
+    order: unset !important;
+    min-height: 0;
+    min-width: 0;
+  }
+  .sb-gauges {
+    grid-column: 2;
+    grid-row: 2;
+    order: unset !important;
+    max-height: 22vh;
+    border-left: none !important;
+    border-top: 1px solid rgba(42, 54, 68, 0.9);
+  }
+  .dx-diamond, .sb-diamond, [data-dx-diamond], .sb-stage-wrap {
+    min-height: 48vh;
+    width: 100%;
+  }
+  .el-ladder, .ladder, #ladder {
+    font-size: 13px;
+    line-height: 1.25;
+    overflow: auto;
+    max-height: 70vh;
+  }
+  #screen-hub.screen.active {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #hub-options, .hub-nav {
+    padding-bottom: 64px;
+  }
+  .hub-nav .mode-card {
+    min-height: 48px;
+  }
+  .hub-nav .mode-card:last-child {
+    margin-bottom: 12px;
+  }
+}
+@media (max-width: 480px) {
+  #sandbox-root #sb-faults {
+    position: relative !important;
+    z-index: 4 !important;
+    order: -30 !important;
+    flex: 0 0 auto !important;
+    max-height: 72px !important;
+    min-height: 36px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    display: flex !important;
+    pointer-events: auto;
+    background: rgba(11, 18, 32, 0.98);
+    margin: 0 !important;
+  }
+  #sandbox-root #sb-faults .btn {
+    display: inline-block;
+    margin: 2px 3px;
+    font-size: 11px;
+    padding: 5px 8px;
+    white-space: nowrap;
+  }
+  #sandbox-root #sb-canvas,
+  #sandbox-root #sb-canvas-wrap {
+    position: relative !important;
+    z-index: 1 !important;
+    order: -20 !important;
+    min-height: 0 !important;
+    max-height: 26vh !important;
+    height: 26vh !important;
+    flex: 0 0 auto !important;
+  }
+  #sandbox-root .sb-gauges {
+    position: relative !important;
+    z-index: 3 !important;
+    max-height: 28vh !important;
+    min-height: 22vh !important;
+    overflow-x: auto;
+  }
+  body.lab-open .hub-ai-fab,
+  body.lab-open #hub-ai-fab,
+  body.lab-open .ask-hub,
+  body.lab-open [data-hub-fab],
+  body.lab-open .hub-ai-dock,
+  body.lab-open #hub-ai,
+  body.lab-open .hub-chat,
+  body.lab-open .hub-ai-panel,
+  body.lab-open [data-hub-dock],
+  #screen-sandbox.active ~ .hub-ai-dock,
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat,
+  #app:has(#screen-sandbox.active) .hub-ai-panel,
+  #app:has(#screen-electrical.active) .hub-ai-dock,
+  #app:has(#screen-electrical.active) #hub-ai,
+  #app:has(#screen-electrical.active) .hub-chat {
+    display: none !important;
+  }
+  #sandbox-root .sb-main {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #sandbox-root .sb-toolbar {
+    order: 9 !important;
+    max-height: 72px;
+    overflow-x: auto;
+  }
+  #sb-seats .sb-seat {
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 78px !important;
+    max-height: 78px !important;
+    width: 70px !important;
+    height: 70px !important;
+  }
+  #sb-seats .sb-seat img {
+    width: 46px !important;
+    height: 46px !important;
+  }
+  .sb-layout {
+    display: grid !important;
+    grid-template-columns: 76px minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
+    height: 100%;
+    max-height: 100dvh;
+    min-height: 0;
+  }
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 76px !important;
+    max-width: 76px !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    order: unset !important;
+  }
+  .sb-main {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+  }
+  .sb-gauges {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: 28vh;
+  }
+  .el-ladder, .ladder, #ladder, .el-ladder-wrap {
+    font-size: 12px;
+    line-height: 1.3;
+    overflow: auto;
+    max-height: 68vh;
+  }
+}
+.version-strip {
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .version-strip {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 4px 10px 10px;
+    background: linear-gradient(transparent, rgba(8,10,12,.92) 40%);
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: rgba(220,228,234,.55);
+  }
+  #minisplit-root,
+  #electrical-root,
+  #sandbox-root,
+  #service-root,
+  #quiz-root {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  #screen-sandbox.screen.active,
+  #screen-electrical.screen.active,
+  #screen-minisplit.screen.active {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+}
+#app:has(#screen-sandbox.active) .version-strip,
+#app:has(#screen-electrical.active) .version-strip,
+body.lab-open .version-strip {
+  left: 108px;
+  padding-left: 8px;
+  z-index: 6;
+}
+@media (max-width: 900px) {
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat,
+  #app:has(#screen-sandbox.active) .sb-float-win:not(.collapsed),
+  #sandbox-root #sb-howto,
+  #sandbox-root .sb-labboard,
+  #sandbox-root #sb-formula,
+  #sandbox-root #sb-shsc-formula {
+    display: none !important;
+  }
+  #sandbox-root #sb-phone-tip {
+    max-height: 18px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-size: 11px !important;
+  }
+}
+@media (max-width: 900px) {
+  #sandbox-root .sb-main {
+    overflow-y: auto !important;
+    max-height: 100dvh !important;
+  }
+  #sandbox-root #sb-canvas-wrap,
+  #sandbox-root #sb-canvas {
+    min-height: 0 !important;
+    max-height: 26vh !important;
+    height: 26vh !important;
+    flex: 0 0 auto !important;
+  }
+  #sandbox-root .sb-gauges {
+    max-height: 14vh !important;
+    min-height: 0 !important;
+    order: 20 !important;
+    overflow: hidden !important;
+  }
+  #sandbox-root .sb-toolbar {
+    order: 15 !important;
+    max-height: 56px !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 12 !important;
+    background: rgba(11,18,32,.98) !important;
+  }
+  #sandbox-root #sb-run {
+    position: sticky !important;
+    bottom: 4px !important;
+    z-index: 13 !important;
+  }
+  #sb-analog canvas { width: 72px !important; height: 72px !important; }
+}
+@media (max-width: 900px) {
+  #sandbox-root #sb-eq-chip,
+  #sandbox-root #sb-formula,
+  #sandbox-root #sb-shsc-formula { display: none !important; }
+}
+@media (max-width: 900px) {
+  #sandbox-root .sb-main { overflow: hidden !important; }
+  #sandbox-root .sb-gauges {
+    max-height: calc(100dvh - 640px) !important;
+    min-height: 72px !important;
+  }
+}
+@media (max-width: 900px) {
+  #sandbox-root .sb-gauges {
+    order: unset !important;
+    max-height: 34vh !important;
+    min-height: 0 !important;
+    position: relative !important;
+    transform: none !important;
+  }
+  #sandbox-root .sb-toolbar {
+    order: 5 !important;
+    position: relative !important;
+    bottom: auto !important;
+    max-height: 48px !important;
+  }
+  #sandbox-root #sb-run {
+    position: relative !important;
+    bottom: auto !important;
+  }
+  #sandbox-root .sb-gauges .panel {
+    margin: 0 !important;
+    padding: 4px 6px !important;
+    max-width: none !important;
+  }
+}
