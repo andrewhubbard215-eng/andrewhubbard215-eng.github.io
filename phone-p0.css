@@ -73,3 +73,84 @@ body:has(#screen-hub.active){overflow: hidden !important;height: 100dvh !importa
 #sb-seats .sb-seat.on span{display: none !important;}
 #sb-seats .sb-seat.on img{background: transparent !important;box-shadow: none !important;border: none !important;border-radius: 0 !important;padding: 0 !important;filter: none !important;}
 #sb-seats .sb-seat:not(.on){border: 2px dashed #f59e0b !important;background: rgba(15, 23, 42, 0.72) !important;}
+
+/* Two-zone LEFT rail — Zone A fixed, Zone B scrolls */
+#sandbox-root .sb-palette,
+#sandbox-root aside.sb-palette{
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  gap:0!important;
+}
+#sandbox-root .sb-zone-a{
+  flex:0 0 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+  padding-bottom:4px!important;
+  border-bottom:1px solid rgba(42,54,68,.9)!important;
+}
+#sandbox-root .sb-zone-b{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y!important;
+  overscroll-behavior-y:contain;
+  padding:4px 0 8px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:3px!important;
+}
+#sandbox-root .sb-zone-label{
+  margin:6px 2px 2px!important;
+  font-size:9px!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+  opacity:.65!important;
+  color:#94a3b8!important;
+}
+#sandbox-root .sb-pack,
+#sandbox-root .sb-field{
+  min-height:44px!important;
+  height:auto!important;
+  width:100%!important;
+  flex:0 0 auto!important;
+  padding:6px 4px!important;
+  font-size:10px!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  text-align:center!important;
+  box-sizing:border-box!important;
+}
+#sandbox-root .sb-field-ico{
+  width:18px!important;
+  height:18px!important;
+  object-fit:contain!important;
+  flex:0 0 auto!important;
+  background:#e8eef6!important;
+  border-radius:4px!important;
+  padding:1px!important;
+}
+#sandbox-root .sb-sound-mute{
+  flex:0 0 auto!important;
+  min-height:36px!important;
+  font-size:11px!important;
+  margin-left:auto!important;
+}
+#sb-poster{z-index:2!important;}
+#sb-seats{z-index:6!important;}
+#sandbox-root #sb-sysbanner{
+  flex:0 0 auto!important;
+  max-height:16px!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  font-size:10px!important;
+  margin:0!important;
+  order:2!important;
+}
