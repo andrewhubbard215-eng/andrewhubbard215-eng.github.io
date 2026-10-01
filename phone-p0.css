@@ -150,7 +150,28 @@ body:has(#screen-hub.active){overflow: hidden !important;height: 100dvh !importa
   max-height:16px!important;
   overflow:hidden!important;
   white-space:nowrap!important;
+  order:2!important;
   font-size:10px!important;
   margin:0!important;
-  order:2!important;
 }
+
+/* Ghost-shell See Inside */
+#sandbox-root .sb-ghost-toggle{
+  flex:0 0 auto!important;
+  min-height:36px!important;
+  font-size:11px!important;
+}
+#sandbox-root .sb-ghost-narrate{
+  flex:0 0 auto!important;
+  order:2!important;
+  margin:0!important;
+  padding:2px 4px!important;
+  max-height:36px!important;
+  overflow:hidden!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+  color:#e2e8f0!important;
+  background:rgba(15,23,42,.72)!important;
+  border-left:3px solid #38bdf8!important;
+}
+#sb-ghost{z-index:3!important;}
