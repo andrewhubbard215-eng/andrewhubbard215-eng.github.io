@@ -12,3 +12,15 @@
   #sandbox-root .sb-main{overflow:hidden !important;height:calc(100dvh - 48px);}
 }
 #sandbox-root #sb-ts{max-height:0 !important;overflow:hidden !important;margin:0 !important;padding:0 !important;}
+
+/* shop: seat line above fault chips; gauges scroll, not clipped */
+@media (min-width:901px){
+  #sandbox-root .sb-main{overflow-y:auto !important; overflow-x:hidden !important;}
+  #sandbox-root #sb-canvas{padding-top:36px !important;}
+  #sandbox-root #sb-faults{margin-bottom:4px;}
+  #sandbox-root .sb-gauges, #sandbox-root [data-sb-gauges]{padding-bottom:36px !important;}
+}
+#sandbox-root #sb-phone-tip, #sandbox-root .sb-seat-tip{
+  position:relative !important; z-index:10 !important; background:rgba(11,18,32,0.92);
+  padding:4px 10px !important;
+}

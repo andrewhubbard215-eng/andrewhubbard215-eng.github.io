@@ -37,3 +37,8 @@
     overflow: visible !important;
   }
 }
+#sandbox-root #sb-phone-tip, #sandbox-root .sb-seat-tip{
+  width:100%;
+  box-sizing:border-box;
+  background:rgba(11,18,32,0.95);
+}
