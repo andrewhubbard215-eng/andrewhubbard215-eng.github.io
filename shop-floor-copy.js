@@ -1,4 +1,4 @@
-/* Shop-floor copy override v46 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
+/* Shop-floor copy override v47 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -101,7 +101,7 @@
       chg.setAttribute("title", "Loop open. Seat 4 LEFT before you weigh charge.");
       var cap = document.getElementById("sb-chg-v-cap");
       if (cap && !/SEAT FIRST/i.test(cap.textContent || "")) cap.textContent = "Charge (seat first)";
-    } else {
+      } else {
       chg.disabled = false;
       chg.removeAttribute("title");
       var cap2 = document.getElementById("sb-chg-v-cap");
@@ -127,13 +127,21 @@
   function standingNotDiagnosis() {
     var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
     if (compressorRunning()) return;
-    document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status, #screen-sandbox p").forEach(function (el) {
-      if (el.children && el.children.length) return;
-      var t = el.textContent || "";
-      if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t))) {
-        if (t !== line) el.textContent = line;
+    var status = document.getElementById("sb-status");
+    if (status && !(status.children && status.children.length)) {
+      var t = status.textContent || "";
+      if (!t || /Standing pressures/i.test(t) || /Standing P/i.test(t) || /equalized/i.test(t)) {
+        if (t !== line) status.textContent = line;
       }
-    });
+    }
+    var formula = document.getElementById("sb-formula");
+    if (formula && (formula.textContent || "") === line) {
+      formula.textContent = "SH = suction line T \u2212 dew point. SC = bubble point \u2212 liquid line T. Off until the compressor runs.";
+    }
+    var strip = document.getElementById("sb-left-strip");
+    if (strip && (strip.textContent || "") === line) {
+      strip.textContent = "Parts stay LEFT until you seat them. Standing P is not superheat.";
+    }
   }
   function killEqualizedWhileRunning() {
     if (!compressorRunning()) return;
