@@ -1,25 +1,25 @@
-# HVAC Allstars — shop pass (2026-09-30 Lane C-plus)
+# HVAC Allstars — shop pass (2026-10-01 route)
 
 ## Live
-- floor v3.5.253
-- SW `lt-allstars-v493`
-- Clock In → shop floor. Dual SKU intact.
+- floor v3.5.280
+- Clock In → Service calls → Hook gauges
 
 ## PLAYED
-- Clock-in / floor: pass
-- System sandbox: pass (LEFT parts, standing P, analog + digital)
-- Voltmeter school: fail (still multiple-choice, not probe-on-lugs)
-- Service calls: fail — Hook gauges jumped to full sandbox, ticket rail gone, empty bay before hook
+- Clock-in: pass (shop floor, v3.5.279 before this ship)
+- Service calls: ticket rail + customer quote + stars present
+- Hook gauges before this ship: button said "Hook meter leads"; Saturday meter stayed on Ken's iced coil and did not follow the open-system ticket
+- Next random ticket before this ship: quiz ticket swapped; manifold fingerprint did not
 
-## FIXED
-Cache bump: index ?v= aligned to SW CORE; SW 492→493; strip 252→253.
+## SHIPPED
+- `route-ticket-gauges.js` parks the manifold in `#svc-system-host`
+- Hook gauges seats Blue/Red needles + SH/SC from the ticket fingerprint (open, airflow, restriction, dirty condenser, lineset, undercharge)
+- Next random ticket calls `ServiceCalls.nextTicket` and repaints; fault key must change
+- Dispatch radio, streak, customer quote, pay stub, haptic on seat
+- Dispatch is not fixed over the hose drop; palette stays left; preview stays sticky
+- Store listing not touched — no campus marks added
 
-Hook gauges keeps the live sandbox parked in `#svc-system-host`. Sandbox screen cannot steal the call. Ticket rail stays slim. Needles stay on the ticket.
-
-## STILL OPEN
-1. Voltmeter school still choice-based (not probe-on-lugs)
-2. Service CALLS list vs sandbox TICKETS still two tables
-3. True probe board — Black→COM, Red→VΩ
-
-## NEXT
-Probe board. Then one ticket table.
+## STILL SUCKS
+- Service quiz table and sandbox ticket table are still two lists
+- Voltmeter school is still choices, not probe-on-lugs
+- Analog faces in the call bay are a seated manifold, not the full four-part glass, until the sandbox root is actually mounted
+- Play Console still needs a human upload

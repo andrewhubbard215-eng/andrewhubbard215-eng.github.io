@@ -23,3 +23,14 @@
     max-height: 22vh;
   }
 }
+
+/* Dispatch sits above the hose drop. Palette stays left. Preview stays up. */
+@media (max-width: 480px) {
+  #lt-dispatch, .svc-rail, #screen-service .svc-card {
+    position: relative !important;
+    bottom: auto !important;
+  }
+  #svc-system-host { padding-bottom: 16px; }
+  .lt-palette, .sb-palette { left: 0 !important; }
+  #lt-preview { position: sticky; top: 0; z-index: 5; }
+}

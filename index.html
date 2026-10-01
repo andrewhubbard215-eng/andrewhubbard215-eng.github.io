@@ -10,7 +10,7 @@
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.2[6-7][0-9]/g, "v3.5.279");
+      html = html.replace(/v3\.5\.2[6-7][0-9]/g, "v3.5.280");
       html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=516");
       html = html.replace(/electrical-lite\.js\?v=\d+/g, "electrical-lite.js?v=10");
       html = html.replace(/clock-in-form\.js\?v=\d+/g, "clock-in-form.js?v=32");
@@ -20,9 +20,10 @@
       html = html.replace(/clock-in-floor\.js\?v=4[6-8]/g, "clock-in-floor.js?v=48");
       html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=8");
       html = html.replace(/refrigerant-flow\.js\?v=\d+/g, "refrigerant-flow.js?v=2");
+      html = html.replace(/v3\.5\.279/g, "v3.5.280");
       html = html.replace(
-        /Hook gauges - read SH\/SC - pick the fault/g,
-        "Meter leads · airflow before charge · no jump safety"
+        /Meter leads · airflow before charge · no jump safety/g,
+        "Hook gauges - read SH/SC - pick the fault"
       );
       if (html.indexOf("phone-gauges-233.css") === -1) {
         html = html.replace(
@@ -84,6 +85,12 @@
         html = html.replace(/exam-cutout\.js\?v=\d+/g, "exam-cutout.js?v=4");
       }
       html = html.replace(/phone-gauges-233\.css\?v=\d+/g, "phone-gauges-233.css?v=3");
+      if (html.indexOf("route-ticket-gauges.js") === -1) {
+        html = html.replace(
+          "</body>",
+          '<script src="route-ticket-gauges.js?v=1"><\/script>\n</body>'
+        );
+      }
       return html;
     }
     fetch(SRC, { cache: "no-store" })
@@ -94,7 +101,7 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.279 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.280 - shop floor</p>";
       });
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=516").catch(function () {});
   })();
@@ -102,6 +109,6 @@
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.279 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.280 - shop floor</p>
 </body>
 </html>
