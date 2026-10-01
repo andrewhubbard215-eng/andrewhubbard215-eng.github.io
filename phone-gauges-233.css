@@ -1,54 +1,67 @@
-/* Phone gauges strip — both analog faces on screen */
+/* Phone gauges strip — both analog faces + digital LPC/HPC + Start on first screen */
+/* v4: win specificity vs phone-p0 (.sb-layout > .sb-main overflow:hidden) and load-last */
 @media (max-width: 900px) {
+  #sandbox-root .sb-layout > .sb-main,
   #sandbox-root .sb-main {
     display: flex !important;
     flex-direction: column !important;
-    overflow-y: auto !important;
+    overflow: hidden !important;
     min-height: 0 !important;
     height: 100% !important;
-    padding-bottom: 240px !important;
+    padding-bottom: 200px !important;
+    box-sizing: border-box !important;
   }
   #sandbox-root #sb-canvas-wrap,
+  #sandbox-root .sb-layout > .sb-main #sb-canvas-wrap,
   #sb-canvas-wrap {
     flex: 1 1 auto !important;
     min-height: 0 !important;
-    max-height: calc(100dvh - 230px) !important;
-    min-height: 240px !important;
+    max-height: calc(100dvh - 210px) !important;
     height: auto !important;
   }
   #sandbox-root #sb-canvas {
     height: 100% !important;
     max-height: 100% !important;
   }
+  #sandbox-root #sb-gauge-run,
   #sb-gauge-run {
     position: fixed !important;
-    left: 96px !important;
+    left: 88px !important;
     right: 4px !important;
-    bottom: 4px !important;
+    bottom: 22px !important;
     display: flex !important;
     flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
     flex: 0 0 auto !important;
-    max-height: 168px !important;
-    min-height: 0 !important;
+    max-height: 190px !important;
+    min-height: 150px !important;
+    height: auto !important;
     overflow: visible !important;
     visibility: visible !important;
     opacity: 1 !important;
-    z-index: 40 !important;
+    z-index: 50 !important;
     background: rgba(11, 18, 32, 0.98) !important;
     padding: 4px 6px 6px !important;
     border: 1px solid #334155 !important;
     border-radius: 8px !important;
     box-sizing: border-box !important;
+    margin: 0 !important;
+    order: unset !important;
+    transform: none !important;
   }
+  #sandbox-root #sb-gauge-run > .sb-gauges,
   #sb-gauge-run > .sb-gauges,
   #sandbox-root #sb-gauge-run .sb-gauges {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 4px !important;
+    grid-template-rows: auto auto !important;
+    gap: 2px 4px !important;
     order: 1 !important;
     flex: 1 1 auto !important;
     max-height: none !important;
-    min-height: 120px !important;
+    min-height: 110px !important;
+    height: auto !important;
     overflow: visible !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -61,34 +74,51 @@
     right: auto !important;
     transform: none !important;
   }
-  #sb-gauge-run > #sb-run {
-    order: 2 !important;
-  }
+  #sandbox-root #sb-gauge-run #sb-analog,
+  #sb-gauge-run #sb-analog,
   #sb-analog {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     grid-column: 1 / -1 !important;
     justify-items: center !important;
+    align-content: start !important;
+    gap: 2px !important;
     max-height: none !important;
+    min-height: 72px !important;
+    height: auto !important;
     overflow: visible !important;
     visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
+  #sandbox-root #sb-gauge-run #sb-analog canvas,
+  #sb-gauge-run #sb-analog canvas,
   #sb-analog canvas {
-    width: min(42vw, 140px) !important;
+    width: min(36vw, 100px) !important;
     height: auto !important;
-    max-width: 42vw !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
     display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
-  #sb-gauge-run #sb-run,
+  #sandbox-root #sb-gauge-run > #sb-run,
+  #sb-gauge-run > #sb-run,
+  #sandbox-root #sb-gauge-run #sb-run,
   #sandbox-root #sb-run {
     position: relative !important;
     bottom: auto !important;
+    top: auto !important;
     order: 2 !important;
     display: block !important;
     width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
     min-height: 40px !important;
     margin-top: 2px !important;
     visibility: visible !important;
+    z-index: 51 !important;
   }
   #sandbox-root .sb-gauges #sb-sst,
   #sandbox-root .sb-gauges #sb-sl,
@@ -101,19 +131,21 @@
   #sandbox-root .sb-gauges .sb-td {
     display: none !important;
   }
-  #sandbox-root .sb-gauges .panel {
+  #sandbox-root .sb-gauges .panel,
+  #sb-gauge-run .sb-gauges .panel {
     padding: 2px 4px !important;
     font-size: 11px !important;
     overflow: hidden !important;
     max-height: 4.2em !important;
+    margin: 0 !important;
   }
   #sandbox-root .sb-gauges #sb-ps {
-    font-size: 16px !important;
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: #38bdf8 !important;
   }
   #sandbox-root .sb-gauges #sb-ph {
-    font-size: 16px !important;
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: #f43f5e !important;
   }
@@ -123,16 +155,13 @@
     font-weight: 700 !important;
     color: #fde68a !important;
   }
+  /* Keep HUB coach / version strip from covering dials */
+  .version-strip {
+    z-index: 6 !important;
+  }
 }
 
-/* Morning: gauges stay in the main column. Rail stays grabbable. */
 @media (max-width: 900px) {
   #sandbox-root .sb-palette { position: relative !important; z-index: 50 !important; }
   #sb-seats .sb-seat { z-index: 6; }
-  #screen-electrical .ladder, #screen-electrical .rung, #screen-electrical .elec-lite,
-  #screen-electrical button, #screen-electrical .chip {
-    font-size: 15px !important;
-    line-height: 1.3 !important;
-  }
-  #screen-electrical { overflow: auto !important; -webkit-overflow-scrolling: touch; }
 }
