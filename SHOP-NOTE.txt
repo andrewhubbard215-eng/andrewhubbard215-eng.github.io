@@ -1,0 +1,4 @@
+2026-10-01 shop hour
+Live app clocked in. Sandbox opened. No crash.
+Bug: standing P line was copied onto sb-status, sb-left-strip, and sb-formula, so the SH/SC formula was gone.
+Fix: shop-floor-copy.js stamps status only and restores formula + left-strip if clobbered. SW lt-allstars-v528. Boot v3.5.292. shop-floor-copy.js?v=47.
