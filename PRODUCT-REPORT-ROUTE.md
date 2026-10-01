@@ -1,20 +1,18 @@
-# HVAC Allstars — shop pass (2026-10-01 lane A)
+# HVAC Allstars — shop pass (2026-10-01 lane C-plus)
 
 ## Live
-- floor v3.5.290
-- SW lt-allstars-v526
+- floor v3.5.300
+- SW lt-allstars-v537
+- register sw.js?v=537
 - Clock In → Service calls → Hook gauges
+- sandbox-ts.js?v=13 (no hook inject). shop-floor-copy.js?v=50. sku.js?v=17 branding-only.
 
 ## PLAYED
-- Clock-in: pass (shop floor fills the window, v3.5.289 before this ship)
-- Service calls: ticket rail + customer quote + stars present. Hook gauges seats dirty-cond Blue 128 / Red 455 / SH 9 / SC 11
-- Yellow hose had no cap port — drop did not land. Gauge digits were 16px under the needle, not a center window
-- Meter school / sandbox / HUB not re-walked this pass (service bay owned the screen)
+- Cache pass only. index.html patch keys match sw.js CORE for tonight's bumped files. No feature work.
+- Prior shop note: Clock-in pass, service bay owned the screen. Meter school / sandbox / HUB not re-walked.
 
 ## SHIPPED
-- `route-ticket-gauges.js` yellow cap port. Blue only on suction, red only on liquid, yellow only on the cap. Landed chip is removed
-- Analog faces keep the needle. Center digital is 32px psig. Preview line is 18px
-- Cache bump: script v=2, floor v3.5.290, SW v526
+- No query bump this pass. HEAD already v3.5.300 / lt-allstars-v537. Pages last-modified matches that commit.
 
 ## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs
