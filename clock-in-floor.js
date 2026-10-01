@@ -1,4 +1,4 @@
-/* Clock-in floor v46 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v47 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -79,6 +79,39 @@
       } catch (_) {}
       return;
     }
+    if (m === "quiz" && window.QuizArena && typeof window.QuizArena.start === "function") {
+      show("quiz");
+      try { window.QuizArena.start(document.getElementById("quiz-root"), { onHub: goHub }); } catch (_) {}
+      return;
+    }
+    if (m === "minisplit" && window.MiniSplit && typeof window.MiniSplit.start === "function") {
+      show("minisplit");
+      try { window.MiniSplit.start(document.getElementById("minisplit-root")); } catch (_) {}
+      return;
+    }
+    if (m === "epa608") {
+      show("epa608");
+      var E = window.Epa608Tutor || window.Epa608;
+      if (E && typeof E.start === "function") { try { E.start(document.getElementById("epa608-root")); } catch (_) {} }
+      return;
+    }
+    if (m === "commandments") {
+      show("commandments");
+      var C = window.HvacCommandments || window.Commandments;
+      if (C && typeof C.start === "function") { try { C.start(document.getElementById("commandments-root")); } catch (_) {} }
+      return;
+    }
+    if (m === "recovery") {
+      show("recovery");
+      if (window.LtRecoveryRoom && typeof window.LtRecoveryRoom.start === "function") {
+        try { window.LtRecoveryRoom.start(document.getElementById("recovery-root")); } catch (_) {}
+      }
+      return;
+    }
+    if (m === "desk") {
+      try { window.location.href = "/desk/"; } catch (_) {}
+      return;
+    }
     if (typeof window.ltPlayGo === "function") {
       try {
         var handled = window.ltPlayGo(m);
@@ -88,17 +121,21 @@
     show(m);
   }
   function bindCards() {
-    document.querySelectorAll(".mode-card[data-mode]").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "45") return;
-      card.setAttribute("data-lt-bound", "45");
+    document.querySelectorAll(".mode-card").forEach(function (card) {
+      if (card.getAttribute("data-lt-bound") === "47") return;
+      card.setAttribute("data-lt-bound", "47");
       card.addEventListener(
         "click",
         function (e) {
+          var mode = card.getAttribute("data-mode");
+          var href = card.getAttribute("href") || "";
+          if (!mode && /\/desk\/?$/.test(href)) mode = "desk";
+          if (!mode) return;
           if (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
           }
-          openMode(card.getAttribute("data-mode"));
+          openMode(mode);
         },
         true
       );
