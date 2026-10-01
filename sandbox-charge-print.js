@@ -1,8 +1,7 @@
 /* Charge off nameplate must move SH/SC. TXV: low charge = high SH, low SC. */
 (function () {
   "use strict";
-  var lastSh = null;
-  var lastSc = null;
+  var lastKey = "";
 
   function charge() {
     var s = document.getElementById("sb-charge");
@@ -24,25 +23,26 @@
   function paint() {
     var sh = document.getElementById("sb-sh");
     var sc = document.getElementById("sb-sc");
-    if (!sh || !sc || !running()) {
-      lastSh = null;
-      lastSc = null;
-      return;
-    }
+    if (!sh || !sc || !running()) return;
     var rawSh = readNum(sh);
     var rawSc = readNum(sc);
     if (rawSh == null || rawSc == null) return;
-    if (lastSh != null && Math.abs(rawSh - lastSh) < 0.05 && lastSc != null && Math.abs(rawSc - lastSc) < 0.05) return;
     var d = (100 - charge()) / 100;
+    var key = charge().toFixed(0) + "|" + rawSh.toFixed(1) + "|" + rawSc.toFixed(1);
+    if (key === lastKey) return;
+    if (Math.abs(d) < 0.04) {
+      lastKey = key;
+      return;
+    }
     var shv = Math.round((rawSh + d * 40) * 10) / 10;
     var scv = Math.round((rawSc - d * 32) * 10) / 10;
     if (shv < 0) shv = 0;
     if (scv < 0) scv = 0;
-    lastSh = shv;
-    lastSc = scv;
-    if (Math.abs(d) < 0.04) return;
-    sh.textContent = shv.toFixed(1) + " °F SH  (seat 8–14)";
-    sc.textContent = scv.toFixed(1) + " °F SC  (seat 8–14)";
+    var shTxt = shv.toFixed(1) + " °F SH  (seat 8–14)";
+    var scTxt = scv.toFixed(1) + " °F SC  (seat 8–14)";
+    lastKey = charge().toFixed(0) + "|" + shv.toFixed(1) + "|" + scv.toFixed(1);
+    sh.textContent = shTxt;
+    sc.textContent = scTxt;
     var gsh = document.getElementById("g-sh");
     var gsc = document.getElementById("g-sc");
     if (gsh) gsh.textContent = shv.toFixed(1);
@@ -50,11 +50,4 @@
   }
 
   setInterval(paint, 350);
-  document.addEventListener("input", function (e) {
-    if (e.target && e.target.id === "sb-charge") {
-      lastSh = null;
-      lastSc = null;
-      paint();
-    }
-  });
 })();
