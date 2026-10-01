@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v510";
+const VER = "lt-allstars-v515";
 const CORE = [
   "./",
   "./index.html",
@@ -132,7 +132,16 @@ const CORE = [
   "./shop-labs-data.js?v=3",
   "./shop-labs-floor.js?v=5",
   "./shop-labs-print.js?v=1",
-  "./epa-exam-bank.js?v=2",
+  "./epa-exam-bank.js?v=7",
+  "./epa-exam-bank.b64.0.txt?v=7",
+  "./epa-exam-bank.b64.1.txt?v=7",
+  "./epa-exam-bank.b64.2.txt?v=7",
+  "./epa-exam-bank.b64.3.txt?v=7",
+  "./epa-exam-bank.b64.4.txt?v=7",
+  "./epa-exam-bank.b64.5.txt?v=7",
+  "./epa-exam-bank.b64.6.txt?v=7",
+  "./epa-exam-bank.b64.7.txt?v=7",
+  "./epa-exam-bank.b64.8.txt?v=7",
   "./exam-epa.js?v=2",
   "./exam-epa.css?v=2",
   "./clock-in-form.js?v=32",
