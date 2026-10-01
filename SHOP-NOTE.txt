@@ -1,5 +1,4 @@
 2026-10-01 shop hour
-Recovery only. Hoses drag like Land Lugs on 390: photo chips blue/red (+ yellow vac after pull), 8px slop, pointer capture, ghost, elementsFromPoint, tap-to-seat.
-Manifold needles drop while machine runs. Micron gauge separate on vacuum step — not mixed into recovery. Scale is proof; 80% WC is STOP; machine back to tray; vacuum next.
-Cache: sw.js lt-allstars-v533. Recovery plain src s0-s3 ?v=5. Tip v3.5.297.
-Next: hard-refresh Recovery door on phone 390. Blue→LO, red→HI. Wrong port = one shop line.
+Recovery door was dead: loader waited on s18-s23 (404) and never booted. Shipped s18 close-out — tap-to-seat, wrong port one shop line (blue on HI / red on LO), machine/vacuum switches, scale proof, 80% stop.
+Cache: sw.js lt-allstars-v534. Loader recovery-room.js?v=6, chunks ?v=6, tip v3.5.298.
+Next: phone 390 hard-refresh Recovery. Blue chip to LO, red chip to HI. Confirm needles drop and scale climbs.
