@@ -10,10 +10,11 @@
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.26[0-5]/g, "v3.5.266");
-      html = html.replace(/sw\.js\?v=50[0-5]/g, "sw.js?v=506");
+      html = html.replace(/v3\.5\.26[0-6]/g, "v3.5.267");
+      html = html.replace(/sw\.js\?v=50[0-6]/g, "sw.js?v=507");
       html = html.replace(/clock-in-floor\.js\?v=4[6-8]/g, "clock-in-floor.js?v=48");
       html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=8");
+      html = html.replace(/refrigerant-flow\.js\?v=\d+/g, "refrigerant-flow.js?v=2");
       html = html.replace(
         /Hook gauges - read SH\/SC - pick the fault/g,
         "Meter leads · airflow before charge · no jump safety"
@@ -41,7 +42,7 @@
       if (html.indexOf("refrigerant-flow.js") === -1) {
         html = html.replace(
           '<script src="analog-gauges.js?v=8"><\/script>',
-          '<script src="analog-gauges.js?v=8"><\/script>\n  <script src="refrigerant-flow.js?v=1"><\/script>'
+          '<script src="analog-gauges.js?v=8"><\/script>\n  <script src="refrigerant-flow.js?v=2"><\/script>'
         );
       }
       if (html.indexOf('href="/desk/"') === -1) {
@@ -60,14 +61,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.266 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.267 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=506").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=507").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.266 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.267 - shop floor</p>
 </body>
 </html>
