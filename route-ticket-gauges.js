@@ -1,10 +1,10 @@
 /* Shop floor: Hook gauges seats the ticket fingerprint on the manifold.
-   Needles + SH/SC follow the call. Next ticket must change the fault.
+   Needles + large center psig. Yellow caps on its own port and the chip goes away.
    Dispatch stays above the drop — it does not cover hoses. Palette stays left. */
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 1;
+  window.__ltTicketGauges = 2;
 
   var lastKey = "";
   var seated = false;
@@ -61,7 +61,7 @@
     var w = canvas.width;
     var h = canvas.height;
     var cx = w / 2;
-    var cy = h / 2 + 8;
+    var cy = h / 2 + 6;
     var r = Math.min(w, h) * 0.42;
     ctx.clearRect(0, 0, w, h);
     ctx.beginPath();
@@ -80,7 +80,7 @@
     var ang = Math.PI * 0.75 + frac * Math.PI * 1.5;
     ctx.beginPath();
     ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(ang) * (r - 10), cy + Math.sin(ang) * (r - 10));
+    ctx.lineTo(cx + Math.cos(ang) * (r - 14), cy + Math.sin(ang) * (r - 14));
     ctx.strokeStyle = needle;
     ctx.lineWidth = 3;
     ctx.stroke();
@@ -89,9 +89,11 @@
     ctx.fillStyle = "#f4e7c8";
     ctx.fill();
     ctx.fillStyle = "#f4e7c8";
-    ctx.font = "16px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText(String(psig), cx, cy + r * 0.55);
+    ctx.font = "bold 32px sans-serif";
+    ctx.fillText(String(psig), cx, cy + 10);
+    ctx.font = "12px sans-serif";
+    ctx.fillText("psig", cx, cy + 26);
   }
 
   function quoteOf(c) {
@@ -106,7 +108,7 @@
 
   function streak() {
     var el = document.getElementById("svc-rating");
-    return (el && el.textContent.trim()) || "★★★★★";
+    return (el && el.textContent.trim()) || "\u2605\u2605\u2605\u2605\u2605";
   }
 
   function pay(c) {
@@ -115,11 +117,29 @@
     return base[id] || 90;
   }
 
+  function hoseFits(port, hose) {
+    var want = port.getAttribute("data-port");
+    if (want === "suction") return hose === "blue";
+    if (want === "liquid") return hose === "red";
+    if (want === "cap") return hose === "yellow";
+    return false;
+  }
+
+  function land(bay, port, hose) {
+    if (!hoseFits(port, hose)) return;
+    port.textContent = hose === "yellow" ? "Yellow capped" : hose + " seated";
+    port.classList.add("seated");
+    var chip = bay.querySelector('.lt-hose[data-hose="' + hose + '"]');
+    if (chip) chip.remove();
+    if (bay.querySelector("#lt-port-suction.seated") && bay.querySelector("#lt-port-liquid.seated")) seat(call());
+  }
+
   function ensureBay() {
     var host = document.getElementById("svc-system-host");
     if (!host) return null;
     var bay = document.getElementById("lt-ticket-bay");
-    if (bay && bay.parentNode === host) return bay;
+    if (bay && bay.parentNode === host && bay.querySelector("#lt-port-cap")) return bay;
+    if (bay) bay.remove();
     bay = document.createElement("div");
     bay.id = "lt-ticket-bay";
     bay.innerHTML =
@@ -129,7 +149,7 @@
       '<span id="lt-quote"></span>' +
       '<span id="lt-stub"></span>' +
       "</div>" +
-      '<div id="lt-preview" class="lt-preview">Blue — · Red — · SH — · SC —</div>' +
+      '<div id="lt-preview" class="lt-preview">Blue \u2014 \u00b7 Red \u2014 \u00b7 SH \u2014 \u00b7 SC \u2014</div>' +
       '<div class="lt-floor">' +
       '<aside class="lt-palette" aria-label="Hose palette">' +
       '<button type="button" class="lt-hose" draggable="true" data-hose="blue">Blue hose</button>' +
@@ -142,6 +162,7 @@
       '<div class="lt-ports">' +
       '<div class="lt-port" data-port="suction" id="lt-port-suction">Suction port</div>' +
       '<div class="lt-port" data-port="liquid" id="lt-port-liquid">Liquid port</div>' +
+      '<div class="lt-port" data-port="cap" id="lt-port-cap">Yellow cap</div>' +
       "</div>" +
       '<p id="lt-fault" class="lt-fault"></p>' +
       "</div></div>";
@@ -155,15 +176,11 @@
       port.addEventListener("dragover", function (ev) { ev.preventDefault(); });
       port.addEventListener("drop", function (ev) {
         ev.preventDefault();
-        var hose = ev.dataTransfer.getData("text/plain");
-        port.textContent = hose + " seated";
-        port.classList.add("seated");
-        var both = bay.querySelectorAll(".lt-port.seated").length >= 2;
-        if (both) seat(call());
+        land(bay, port, ev.dataTransfer.getData("text/plain"));
       });
       port.addEventListener("click", function () {
-        port.classList.add("seated");
-        if (bay.querySelectorAll(".lt-port.seated").length >= 2) seat(call());
+        var hose = port.getAttribute("data-port") === "suction" ? "blue" : port.getAttribute("data-port") === "liquid" ? "red" : "yellow";
+        land(bay, port, hose);
       });
     });
     return bay;
@@ -173,18 +190,18 @@
     drawFace(document.getElementById("lt-g-low"), fp.blue, 250, "#1d4e89", "#7eb6ff");
     drawFace(document.getElementById("lt-g-high"), fp.red, 500, "#8a1d2b", "#ff8b8b");
     var preview = document.getElementById("lt-preview");
-    if (preview) preview.textContent = "Blue " + fp.blue + " · Red " + fp.red + " · SH " + fp.sh + "° · SC " + fp.sc + "°";
+    if (preview) preview.textContent = "Blue " + fp.blue + " \u00b7 Red " + fp.red + " \u00b7 SH " + fp.sh + "\u00b0 \u00b7 SC " + fp.sc + "\u00b0";
     var radio = document.getElementById("lt-radio");
     var score = (document.getElementById("svc-score") || {}).textContent || "";
-    if (radio) radio.textContent = "Dispatch · " + (score || "on site") + " · " + (c.name || "tech");
+    if (radio) radio.textContent = "Dispatch \u00b7 " + (score || "on site") + " \u00b7 " + (c.name || "tech");
     var st = document.getElementById("lt-streak");
     if (st) st.textContent = streak();
     var q = document.getElementById("lt-quote");
-    if (q) q.textContent = "“" + quoteOf(c) + "”";
+    if (q) q.textContent = "\u201c" + quoteOf(c) + "\u201d";
     var stub = document.getElementById("lt-stub");
-    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " · " + fp.id;
+    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 " + fp.id;
     var fault = document.getElementById("lt-fault");
-    if (fault) fault.textContent = fp.id + " · " + (c.vitals || c.job || "");
+    if (fault) fault.textContent = fp.id + " \u00b7 " + (c.vitals || c.job || "");
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
@@ -206,12 +223,14 @@
   function bind() {
     var hook = document.getElementById("svc-hook");
     if (hook) hook.textContent = "Hook gauges";
-    if (hook && hook.dataset.ltHook !== "1") {
-      hook.dataset.ltHook = "1";
+    if (hook && hook.dataset.ltHook !== "2") {
+      hook.dataset.ltHook = "2";
       hook.addEventListener("click", function () {
-        ensureBay();
-        var ports = document.querySelectorAll("#lt-ticket-bay .lt-port");
-        ports.forEach(function (p) { p.classList.add("seated"); });
+        var bay = ensureBay();
+        if (!bay) return;
+        land(bay, bay.querySelector("#lt-port-suction"), "blue");
+        land(bay, bay.querySelector("#lt-port-liquid"), "red");
+        land(bay, bay.querySelector("#lt-port-cap"), "yellow");
         seat(call());
       });
     }
@@ -227,7 +246,7 @@
           var fp = seat(c);
           var tag = document.getElementById("lt-fault");
           var did = changed ? changed.changed : fp.key !== prev.key;
-          if (tag) tag.textContent = (did ? "FAULT CHANGED · " : "SAME FAULT · ") + fp.id + " · " + (c.vitals || c.job || "");
+          if (tag) tag.textContent = (did ? "FAULT CHANGED \u00b7 " : "SAME FAULT \u00b7 ") + fp.id + " \u00b7 " + (c.vitals || c.job || "");
         }, 40);
       });
     }
@@ -238,13 +257,14 @@
   css.textContent =
     "#lt-ticket-bay{display:flex;flex-direction:column;min-height:220px;background:#0b1218;color:#f4e7c8}" +
     "#lt-dispatch{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:6px 10px;background:#14110c;border-bottom:2px solid #CE0034;font-size:12px}" +
-    "#lt-preview{position:sticky;top:0;z-index:3;padding:4px 10px;background:#102033;font-size:13px;letter-spacing:.02em}" +
+    "#lt-preview{position:sticky;top:0;z-index:3;padding:6px 10px;background:#102033;font-size:18px;font-weight:700;letter-spacing:.02em}" +
     ".lt-floor{display:grid;grid-template-columns:108px minmax(0,1fr);gap:8px;padding:8px;align-items:start}" +
     ".lt-palette{display:flex;flex-direction:column;gap:6px}" +
     ".lt-hose,.lt-port{font:13px/1.2 sans-serif;padding:8px;border:1px solid #8a7344;background:#1c1812;color:#f4e7c8;text-align:left}" +
     ".lt-glass{display:grid;grid-template-columns:1fr 1fr;gap:6px}" +
-    ".lt-ports{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:6px}" +
+    ".lt-ports{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}" +
     ".lt-port.seated{border-color:#7eb6ff}" +
+    "#lt-port-cap.seated{border-color:#e2c15a}" +
     ".lt-fault{grid-column:1/-1;margin:4px 0 12px;font-size:12px;opacity:.9}" +
     "@media(max-width:480px){#lt-dispatch{position:relative!important;bottom:auto!important}#svc-system-host{padding-bottom:12px}.lt-floor{grid-template-columns:108px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:4}}";
   document.head.appendChild(css);
@@ -253,7 +273,7 @@
     bind();
     var svc = document.getElementById("screen-service");
     if (!seated || !svc || !svc.classList.contains("active")) return;
-    if (!document.getElementById("lt-ticket-bay")) {
+    if (!document.getElementById("lt-port-cap")) {
       ensureBay();
       var c = call();
       paint(fingerprint(c), c);
