@@ -111,7 +111,8 @@
 
   function pay(c) {
     var base = { open: 140, airflow: 86, restriction: 110, "dirty-cond": 95, "undercharge-lineset": 125, undercharge: 118 };
-    return base[c._fp] || 90;
+    var id = typeof c === "string" ? c : (c && (c.id || c._fp));
+    return base[id] || 90;
   }
 
   function ensureBay() {
@@ -181,7 +182,7 @@
     var q = document.getElementById("lt-quote");
     if (q) q.textContent = "“" + quoteOf(c) + "”";
     var stub = document.getElementById("lt-stub");
-    if (stub) stub.textContent = "Stub $" + pay(fp) + " · " + fp.id;
+    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " · " + fp.id;
     var fault = document.getElementById("lt-fault");
     if (fault) fault.textContent = fp.id + " · " + (c.vitals || c.job || "");
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id };
@@ -204,9 +205,9 @@
 
   function bind() {
     var hook = document.getElementById("svc-hook");
+    if (hook) hook.textContent = "Hook gauges";
     if (hook && hook.dataset.ltHook !== "1") {
       hook.dataset.ltHook = "1";
-      hook.textContent = "Hook gauges";
       hook.addEventListener("click", function () {
         ensureBay();
         var ports = document.querySelectorAll("#lt-ticket-bay .lt-port");
@@ -248,7 +249,16 @@
     "@media(max-width:480px){#lt-dispatch{position:relative!important;bottom:auto!important}#svc-system-host{padding-bottom:12px}.lt-floor{grid-template-columns:108px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:4}}";
   document.head.appendChild(css);
   bind();
-  setInterval(bind, 800);
+  setInterval(function () {
+    bind();
+    var svc = document.getElementById("screen-service");
+    if (!seated || !svc || !svc.classList.contains("active")) return;
+    if (!document.getElementById("lt-ticket-bay")) {
+      ensureBay();
+      var c = call();
+      paint(fingerprint(c), c);
+    }
+  }, 500);
   window.ltTicketFingerprint = function () {
     var c = call();
     return fingerprint(c);
