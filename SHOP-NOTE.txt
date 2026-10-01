@@ -1,4 +1,5 @@
 2026-10-01 shop hour
-Recovery door was dead: loader waited on s18-s23 (404) and never booted. Shipped s18 close-out — tap-to-seat, wrong port one shop line (blue on HI / red on LO), machine/vacuum switches, scale proof, 80% stop.
-Cache: sw.js lt-allstars-v534. Loader recovery-room.js?v=6, chunks ?v=6, tip v3.5.298.
-Next: phone 390 hard-refresh Recovery. Blue chip to LO, red chip to HI. Confirm needles drop and scale climbs.
+Recovery door was dead: loader waited on s18-s23 (404) and never booted. Shipped s18 close-out — tap arms the hose, next tap seats. Wrong port is one shop line (blue on HI / red on LO). Scale is the proof. 80% WC is a stop. Vacuum separate.
+Cache: sw.js lt-allstars-v535. Loader recovery-room.js?v=7, chunks ?v=7, tip v3.5.298.
+Played: Clock In, Recovery room paints, blue tap arms, HI tap says wrong port.
+Next: phone 390 hard-refresh. Seat machine, scale, tank, blue on LO, red on HI, flip machine, watch needles drop and scale climb to 80% stop.
