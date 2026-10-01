@@ -26,7 +26,7 @@
   function next() {
     if (n >= total) { boot(); return; }
     var s = document.createElement("script");
-    s.src = "recovery-room.g" + n + ".js?v=3";
+    s.src = "recovery-room.g" + n + ".js?v=4";
     s.onload = function () { n += 1; next(); };
     s.onerror = function () { console.error("rc gz chunk fail", n); };
     document.head.appendChild(s);
