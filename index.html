@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="truck-pouch.css?v=8" />
   <link rel="stylesheet" href="board-codes.css?v=4" />
   <link rel="stylesheet" href="phone-floor.css?v=43" />
-  <link rel="stylesheet" href="phone-p0.css?v=12" />
+  <link rel="stylesheet" href="phone-p0.css?v=13" />
   <link rel="stylesheet" href="phone-rail.css?v=1" />
   <link rel="stylesheet" href="saturday-phone.css?v=1" />
   <link rel="manifest" href="manifest.webmanifest" />
@@ -56,6 +56,7 @@
         <button class="mode-card" data-mode="float" type="button"><h3>Float prove</h3><p>Call → 240 → R–C → Y → HPC → LPC → float → coil</p></button>
         <button class="mode-card" data-mode="film" type="button"><h3>Component film</h3><p>Rex · scroll · oil · gas · hydronic</p></button>
         <button class="mode-card" data-mode="shoplabs" type="button"><h3>Lab packets</h3><p><span class="lincoln-only">Plywood wall · Lincoln catalog · filler</span><span class="store-only">Plywood electrical wall · 90-min bays</span></p></button>
+        <button class="mode-card" data-mode="recovery" type="button"><h3>Recovery room</h3><p>Drag hoses · scale is proof · 80% stop · vacuum separate</p></button>
         <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III - recovery law</p></button>
         <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3><p>Shop rules that keep you from a callback</p></button>
         <button class="mode-card" data-mode="elguide" type="button"><h3>Land lugs</h3><p>L1 LINE / L2 LINE / HERM / C R S - chips LEFT</p></button>
@@ -96,10 +97,11 @@
     </section>
     <section id="screen-film" class="screen"><div id="film-root"></div></section>
     <section id="screen-shoplabs" class="screen"><div id="shoplabs-root"></div></section>
+    <section id="screen-recovery" class="screen"><div id="recovery-root"></div></section>
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.259 - shop floor</p>
+    <p class="version-strip">HVAC Allstars - v3.5.260 - shop floor</p>
   </div>
   <script src="sku.js?v=17"></script>
   <script src="commandments.js?v=120"></script>
@@ -164,6 +166,7 @@
   <script src="sandbox-poster.js?v=1"></script>
   <script src="sandbox-sound.js?v=1"></script>
   <script src="sandbox-ghost.js?v=1"></script>
+  <script src="recovery-room.js?v=1"></script>
   <script src="sandbox-yell.js?v=5"></script>
   <script src="lugs-lock.js?v=1"></script>
   <script src="clock-in-form.js?v=21"></script>
@@ -194,7 +197,7 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=499").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=500").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
