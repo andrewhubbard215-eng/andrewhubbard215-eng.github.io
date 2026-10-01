@@ -1,7 +1,7 @@
 /* Allstars Recovery photo bench plain-src loader v5 */
 (function () {
   "use strict";
-  var n = 0, total = 4;
+  var n = 0, total = 8;
   function boot() {
     var src = window.__LT_RC_SRC;
     if (!src) return;
