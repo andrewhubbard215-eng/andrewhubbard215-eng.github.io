@@ -1,6 +1,5 @@
 2026-10-01 shop hour
-Played live. Clock in, Goodman GSX piston pack, compressor ran. Method line said Charge by SH. No crash.
-Bug: Restriction chip said high SH + high SC but manifold stayed SC 10 / 442 head. TXV strap said SH wild and gauges sat at 10 SH — hunt overlay never bound.
-Fixed: drier restriction seats 98/360, SH 28, SC 22, cold-outlet note. TXV strap hunts SH, SC stays 10. Not the same call.
-Cache: sw.js lt-allstars-v532. Boot pins sandbox-hunt v3.
-Next: hard-refresh, Trane XR, Restriction then TXV strap. Confirm SC 22 vs hunting SH. Then a leak chip so high SH + low SC stays distinct from the drier.
+Recovery only. Hoses drag like Land Lugs on 390: photo chips blue/red (+ yellow vac after pull), 8px slop, pointer capture, ghost, elementsFromPoint, tap-to-seat.
+Manifold needles drop while machine runs. Micron gauge separate on vacuum step — not mixed into recovery. Scale is proof; 80% WC is STOP; machine back to tray; vacuum next.
+Cache: sw.js lt-allstars-v533. Recovery ?v=5. Tip v3.5.297.
+Next: hard-refresh Recovery door on phone 390. Blue→LO, red→HI. Wrong port = one shop line.
