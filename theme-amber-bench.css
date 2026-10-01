@@ -1,0 +1,59 @@
+/* HVAC Allstars — Amber bench theme. Sizes unchanged. */
+:root {
+  --lt-red: #c45a12;
+  --lt-red-dark: #8a3d0c;
+  --lt-black: #120e09;
+  --bg: #0c0a07;
+  --surface: #17120c;
+  --surface-2: #221a12;
+  --fg: #f4e7c8;
+  --muted: #c4ab7a;
+  --accent: #f0b429;
+  --accent-soft: rgba(240, 180, 41, 0.18);
+  --gold: #f0b429;
+  --danger: #e24b4b;
+  --ok: #5eead4;
+  --border: #5a4424;
+}
+html, body {
+  background: radial-gradient(ellipse at 50% 0%, #2a1c0c 0%, #0c0a07 55%) !important;
+  color: #f4e7c8 !important;
+}
+.panel, .title-card, .title-hero, .mode-card, .hub-head {
+  background: rgba(18, 14, 9, 0.92) !important;
+  border-color: #5a4424 !important;
+}
+.mode-card-hero {
+  border-color: #f0b429 !important;
+  background: linear-gradient(90deg, rgba(196, 90, 18, 0.35), rgba(18, 14, 9, 0.92)) !important;
+}
+.mode-card-hero h3, h1, h2, h3, .eyebrow {
+  color: #f0b429 !important;
+}
+.btn.primary, .game-name-btn {
+  background: #c45a12 !important;
+  border-color: #f0b429 !important;
+  color: #fff8e8 !important;
+}
+#sandbox-root .sb-toolbar,
+#sandbox-root #sb-run,
+#sb-gauge-run {
+  background: rgba(18, 14, 9, 0.97) !important;
+  border-color: #5a4424 !important;
+  color: #f4e7c8 !important;
+}
+#sandbox-root #sb-run,
+#sandbox-root button#sb-run.btn {
+  background: #c45a12 !important;
+  border: 1px solid #f0b429 !important;
+  color: #fff8e8 !important;
+}
+#sb-eq-chip {
+  background: #221a12 !important;
+  color: #f0b429 !important;
+  border: 1px solid #5a4424;
+}
+#screen-hub .bg-plate {
+  filter: sepia(0.35) saturate(0.7) brightness(0.55);
+}
+.version-strip { color: #c4ab7a !important; }
