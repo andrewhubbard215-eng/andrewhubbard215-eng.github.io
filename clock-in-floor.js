@@ -1,4 +1,4 @@
-/* Clock-in floor v47 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v48 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -122,8 +122,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "47") return;
-      card.setAttribute("data-lt-bound", "47");
+      if (card.getAttribute("data-lt-bound") === "48") return;
+      card.setAttribute("data-lt-bound", "48");
       card.addEventListener(
         "click",
         function (e) {
@@ -164,11 +164,42 @@
       obs.observe(el, { childList: true, subtree: true });
     } catch (_) {}
   }
+  function labFromQuery() {
+    try {
+      var q = new URLSearchParams(location.search || "").get("lab");
+      if (!q) return null;
+      var map = {
+        sandbox: "sandbox",
+        lugs: "elguide",
+        electrical: "electrical",
+        epa: "epa608",
+        epa608: "epa608",
+        service: "service"
+      };
+      return map[String(q).toLowerCase()] || null;
+    } catch (_) {
+      return null;
+    }
+  }
+  function openLabDoor() {
+    var lab = labFromQuery();
+    if (!lab || window.__ltLabOpened) return;
+    window.__ltLabOpened = 1;
+    try {
+      var start = document.getElementById("btn-start");
+      if (start) start.click();
+    } catch (_) {}
+    setTimeout(function () {
+      try { openMode(lab); } catch (_) {}
+    }, 280);
+  }
   function afterBlob() {
     rootPatch("sandbox-root", /Loading system bay/, "sb-load-hub", "Loading system bay\u2026 seat LEFT when the gauges paint.");
     rootPatch("electrical-root", /Loading land lugs/, "el-load-hub", "Loading land lugs\u2026 chips LEFT.");
     bindCards();
     setInterval(bindCards, 1000);
+    setTimeout(openLabDoor, 500);
+    setTimeout(openLabDoor, 1400);
   }
   afterBlob();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindCards);
