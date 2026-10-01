@@ -1,4 +1,4 @@
-/* Shop-floor copy override v47 — locker card, WB once, strip names live bay, running kills EQUALIZED, charge locked until LEFT seated */
+/* Shop-floor copy override v48 — piston charges by target SH, TXV by SC */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -50,11 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = (function () {
-    var s = document.querySelector(".version-strip");
-    var m = s && (s.textContent || "").match(/v\d+\.\d+\.\d+/);
-    return m ? m[0] : "v3.5.223";
-  })();
+  var TIP_VER = "v3.5.294";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -101,7 +97,7 @@
       chg.setAttribute("title", "Loop open. Seat 4 LEFT before you weigh charge.");
       var cap = document.getElementById("sb-chg-v-cap");
       if (cap && !/SEAT FIRST/i.test(cap.textContent || "")) cap.textContent = "Charge (seat first)";
-      } else {
+    } else {
       chg.disabled = false;
       chg.removeAttribute("title");
       var cap2 = document.getElementById("sb-chg-v-cap");
@@ -127,21 +123,13 @@
   function standingNotDiagnosis() {
     var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
     if (compressorRunning()) return;
-    var status = document.getElementById("sb-status");
-    if (status && !(status.children && status.children.length)) {
-      var t = status.textContent || "";
-      if (!t || /Standing pressures/i.test(t) || /Standing P/i.test(t) || /equalized/i.test(t)) {
-        if (t !== line) status.textContent = line;
+    document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status, #screen-sandbox p").forEach(function (el) {
+      if (el.children && el.children.length) return;
+      var t = el.textContent || "";
+      if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t))) {
+        if (t !== line) el.textContent = line;
       }
-    }
-    var formula = document.getElementById("sb-formula");
-    if (formula && (formula.textContent || "") === line) {
-      formula.textContent = "SH = suction line T \u2212 dew point. SC = bubble point \u2212 liquid line T. Off until the compressor runs.";
-    }
-    var strip = document.getElementById("sb-left-strip");
-    if (strip && (strip.textContent || "") === line) {
-      strip.textContent = "Parts stay LEFT until you seat them. Standing P is not superheat.";
-    }
+    });
   }
   function killEqualizedWhileRunning() {
     if (!compressorRunning()) return;
@@ -161,14 +149,40 @@
   }
   function scrapeDeg(kind) {
     var re = new RegExp("(-?\\d+(?:\\.\\d+)?)\\s*°?\\s*F?\\s*" + kind + "\\b", "i");
-    var nodes = document.querySelectorAll("#screen-sandbox *");
+    var nodes = document.querySelectorAll("#sb-sh, #sb-sc");
     for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      if (el.children && el.children.length) continue;
-      var m = (el.textContent || "").match(re);
-      if (m) return m[1] + "° " + kind;
+      var m = (nodes[i].textContent || "").match(re);
+      if (m && new RegExp(kind, "i").test(nodes[i].textContent || "")) return m[1] + "° " + kind;
     }
     return "";
+  }
+  function meteringKind() {
+    if (window.LtMeteringKind === "piston" || window.LtMeteringKind === "orifice") return "piston";
+    if (window.LtMeteringKind === "eev") return "eev";
+    if (window.LtMeteringKind === "txv") return "txv";
+    var pressed = document.querySelector('#sandbox-root [data-part="metering"].primary, button.primary[data-part="metering"]');
+    var label = (pressed && pressed.textContent) || "";
+    if (/piston|orifice/i.test(label)) return "piston";
+    if (/eev/i.test(label)) return "eev";
+    return "txv";
+  }
+  function pistonTarget() {
+    var method = document.getElementById("sb-method");
+    var m = method && (method.textContent || "").match(/SH\s+(\d+)/);
+    if (m) return m[1];
+    var od = Number((document.getElementById("sb-out") || {}).value || 95);
+    var wb = Number((document.getElementById("sb-wb") || {}).value || 63);
+    if (!isFinite(od)) od = 95;
+    if (!isFinite(wb)) wb = 63;
+    return String(Math.max(6, Math.min(18, Math.round(20 - 0.08 * (od - 82) - 0.55 * (wb - 63)))));
+  }
+  function paintSeat(id, note) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var t = el.textContent || "";
+    if (!/\d/.test(t) || /off \(no/i.test(t)) return;
+    var next = /\(/.test(t) ? t.replace(/\([^)]*\)/, "(" + note + ")") : t + "  (" + note + ")";
+    if (next !== t) el.textContent = next;
   }
   function liveShScRail() {
     var btn = document.getElementById("sb-run");
@@ -178,7 +192,22 @@
     var sh = scrapeDeg("SH");
     var sc = scrapeDeg("SC");
     if (!sh || !sc) return;
-    var line = "Running \u2014 " + sh + " / " + sc + " (TXV seats 8–14 both). Charge by SC, SH is the check.";
+    var kind = meteringKind();
+    var line;
+    if (kind === "piston") {
+      var tgt = pistonTarget();
+      line = "Running \u2014 " + sh + " / " + sc + " (piston target SH " + tgt + "\u00b0). Charge by SH. SC is the check.";
+      paintSeat("sb-sh", "target " + tgt + "\u00b0 SH");
+      paintSeat("sb-sc", "check only");
+    } else if (kind === "eev") {
+      line = "Running \u2014 " + sh + " / " + sc + ". EEV: weigh-in. SH/SC are checks.";
+      paintSeat("sb-sh", "check only");
+      paintSeat("sb-sc", "check only");
+    } else {
+      line = "Running \u2014 " + sh + " / " + sc + " (TXV seats 8\u201314 both). Charge by SC, SH is the check.";
+      paintSeat("sb-sh", "seat 8\u201314");
+      paintSeat("sb-sc", "seat 8\u201314");
+    }
     if (st.textContent !== line) st.textContent = line;
   }
   function scrub() {
