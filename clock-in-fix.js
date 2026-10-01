@@ -1,6 +1,6 @@
-/* clock-in-fix gzip loader v31 */
+/* clock-in-fix gzip loader v32 — single complete chunk */
 (function(){
-  var n=2, i=0, b64="";
+  var n=1, i=0, b64="";
   function next(){
     if(i>=n){
       try{
@@ -11,8 +11,10 @@
       }catch(e){ console.error(e); }
       return;
     }
-    fetch("clock-in-fix.b64."+i+".txt?v=31").then(function(r){return r.text();})
-      .then(function(t){ b64+=t; i++; next(); }).catch(function(e){ console.error("clock-in-fix chunk", i, e); });
+    fetch("clock-in-fix.b64."+i+".txt?v=32").then(function(r){
+      if(!r.ok) throw new Error("chunk "+i+" HTTP "+r.status);
+      return r.text();
+    }).then(function(t){ b64+=t.trim(); i++; next(); }).catch(function(e){ console.error("clock-in-fix chunk", i, e); });
   }
   next();
 })();
