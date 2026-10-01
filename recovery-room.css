@@ -52,3 +52,19 @@
 .rc-unit-stage,.rc-tray-col{touch-action:none}
 html.rc-dragging,html.rc-dragging body{overflow:hidden;touch-action:none}
 #rc-drag-ghost{touch-action:none}
+
+/* Hose photo chips — tray only; layout grid unchanged */
+.rc-hose{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 3px;border-width:2px}
+.rc-hose img{width:44px;height:44px;object-fit:contain;pointer-events:none;border-radius:8px;background:#efe6d6}
+.rc-hose .rc-hose-cap{font:700 9px/1.1 system-ui,sans-serif;text-align:center}
+.rc-hose-blue{border-color:#2563eb}
+.rc-hose-red{border-color:#ef4444}
+.rc-hose-yellow{border-color:#eab308}
+.rc-hose-landed{opacity:.85;outline:2px solid #22c55e}
+.rc-port{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.rc-port img{width:28px;height:28px;object-fit:contain;pointer-events:none;border-radius:6px}
+.rc-port-blue.rc-on{border-color:#2563eb}
+.rc-port-red.rc-on{border-color:#ef4444}
+.rc-manifold-lo canvas,.rc-manifold-hi canvas{display:block;width:min(28vw,110px);max-width:100%;height:auto;margin:2px auto 0}
+.rc-micron{border-color:#eab308}
+.rc-micron[hidden]{display:none!important}
