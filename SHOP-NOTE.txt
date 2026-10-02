@@ -1,6 +1,7 @@
 2026-10-02 afternoon shift
-Played clock-in and service calls. Floor up. No crash. DIY Dave was live.
-Uncle Ray and DIY Dave now get their own plates. Sheet is complaint + nameplate weather.
-Oil, open-to-atmosphere, high head, and matted coil stay off the sheet. Gauges still seat from the call.
-Strip v3.5.310. Cache sw.js lt-allstars-v548. svc-ticket-match.js?v=7.
-Next: confirm Ken barbershop plate on a live next-ticket hop, airflow before charge, no black-filter on the sheet.
+Played clock-in and service calls. Floor up. No crash.
+Uncle Ray and DIY Dave plates live: complaint + nameplate weather. No oil, no open-to-atmosphere, no matted coil, no high head on the sheet.
+Jess and Priya plates still clean on a next-ticket hop.
+route-park.js still rewrites R-22 to R-410A on the service screen, so Ray's plate shows 410A.
+Strip source v3.5.310. Cache sw.js lt-allstars-v548. svc-ticket-match.js?v=7. Bay stamp still reads 303 until shop-floor-copy.js?v=54 lands in the boot.
+Next: stop route-park from lying about Ray's nameplate, or mark the plate as the floor gas on purpose.
