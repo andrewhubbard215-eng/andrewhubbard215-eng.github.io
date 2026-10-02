@@ -1,7 +1,5 @@
-2026-10-02 afternoon shift
-Played clock-in and service calls. Floor up. No crash.
-Uncle Ray and DIY Dave plates live: complaint + nameplate weather. No oil, no open-to-atmosphere, no matted coil, no high head on the sheet.
-Jess and Priya plates still clean on a next-ticket hop.
-route-park.js still rewrites R-22 to R-410A on the service screen, so Ray's plate shows 410A.
-Strip source v3.5.310. Cache sw.js lt-allstars-v548. svc-ticket-match.js?v=7. Bay stamp still reads 303 until shop-floor-copy.js?v=54 lands in the boot.
-Next: stop route-park from lying about Ray's nameplate, or mark the plate as the floor gas on purpose.
+2026-10-02 late shift
+Played clock-in and Ken's barbershop call. Floor up. No crash.
+Stopped route-park from rewriting every R-22 nameplate to R-410A. Ray's ranch plate stays R-22. Nameplate is law.
+Strip v3.5.311. Cache sw.js lt-allstars-v549. route-park.js?v=3.
+Next: hop to Uncle Ray and confirm the sheet still says R-22 after 10 seconds, then check gauges use a 22 P/T not a 410A chart.

@@ -1,4 +1,5 @@
-/* Lane A park overlay — sandbox stays on the ticket until Shop floor. */
+/* Lane A park overlay — sandbox stays on the ticket until Shop floor.
+   Nameplate is law. Do not rewrite R-22 to R-410A — Uncle Ray's ranch is still 22. */
 (function () {
   "use strict";
   function parkBayOnService() {
@@ -27,17 +28,6 @@
   }
   function releasePark() {
     window._ltKeepServiceBay = false;
-  }
-  function nameplate410() {
-    var root = document.getElementById("screen-service");
-    if (!root || typeof document.createTreeWalker !== "function") return;
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
-    var n;
-    while ((n = walker.nextNode())) {
-      if (n.nodeValue && n.nodeValue.indexOf("R-22") !== -1) {
-        n.nodeValue = n.nodeValue.replace(/R-22/g, "R-410A");
-      }
-    }
   }
   function wireHook() {
     var btn = document.getElementById("svc-hook");
@@ -78,11 +68,9 @@
   function boot() {
     wireHook();
     wireLeave();
-    nameplate410();
     setInterval(function () {
       wireHook();
       wireLeave();
-      nameplate410();
       if (window._ltKeepServiceBay) parkBayOnService();
     }, 250);
   }
