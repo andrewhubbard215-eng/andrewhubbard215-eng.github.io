@@ -1,4 +1,4 @@
-2026-10-02 morning
-Played clock-in and service calls. No crash.
-Delgado ticket was printing the answer: prompt said both gauges low, stub and glass named undercharge before the tech picked. Prompt is complaint-only. Stub is pay + read the manifold. Glass says name the fault on the sheet.
-Strip v3.5.304. Cache sw.js lt-allstars-v541. service.js?v=110. route-ticket-gauges.js?v=3.
+2026-10-02 mid-morning
+Played clock-in and Ken barbershop service call. No crash.
+Saturday meter line was naming the fix: airflow before charge. Ticket is complaint only — iced suction, black filter, meter the glass.
+Strip v3.5.305. Cache sw.js lt-allstars-v542. svc-ticket-match.js?v=3.

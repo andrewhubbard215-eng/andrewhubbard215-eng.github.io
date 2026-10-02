@@ -23,7 +23,7 @@
     var ken = isKenAir(name, job);
     if (wrap) wrap.style.display = ken ? "" : "none";
     if (!ken) return;
-    ticket.innerHTML = "<strong>SATURDAY \u00b7 Ken \u2014 barbershop</strong> \u00b7 suction iced \u00b7 filter black \u00b7 ODT 88\u00b0 \u00b7 same ticket \u00b7 airflow before charge";
+    ticket.innerHTML = "<strong>SATURDAY \u00b7 Ken \u2014 barbershop</strong> \u00b7 suction iced \u00b7 filter black \u00b7 ODT 88\u00b0 \u00b7 same ticket \u00b7 meter filter and glass";
   }
   function tick() {
     cleanSheet();
