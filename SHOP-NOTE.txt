@@ -1,6 +1,5 @@
-2026-10-01 late save
-Played sandbox. Clock in, seat four LEFT, start compressor. Healthy split: 162/442, SH 10, SC 10. No crash.
-TS step 1 body was getting overwritten by the running-P sweeper (EQUALIZED + unit off leaf match). Sweeper now skips #sb-ts. Sheet restores its own copy and advances only from the bay: seat, run, live SH, live SC, then name a fault.
-Strip reads v3.5.301.
-Cache: sw.js lt-allstars-v538. sandbox-ts.js?v=14. shop-floor-copy.js?v=51.
-Next: hard-refresh, seat LEFT, run, confirm step 1 still says equalized P/T, then pick Leak and read the fingerprint line.
+2026-10-02 morning
+Played clock-in and sandbox. Seated compressor from the left rail. No crash.
+Phone: killed the 22vh diamond clip so COMP/COND/TXV/EVAP stay on screen. Ladder 15px. HUB dock stays off an open lab.
+Shipped inducer prove sheet: call → motor voltage/amps → hose/trap/vent → 24V across → vacuum vs rating → switch last. Wrong picks say why.
+Strip v3.5.302. Cache sw.js lt-allstars-v539. phone-floor.css?v=45. inducer-prove.js?v=1.

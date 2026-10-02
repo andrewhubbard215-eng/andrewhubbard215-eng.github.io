@@ -85,3 +85,27 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 #sandbox-root .sb-toolbar{order: 5 !important;position: relative !important;bottom: auto !important;max-height: 48px !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;}
 #sandbox-root .sb-gauges .panel{margin: 0 !important;padding: 4px 6px !important;max-width: none !important;}}
+
+/* morning 2026-10-02 — whole diamond on the phone, HUB off the lab */
+@media (max-width: 900px) {
+  #sandbox-root #sb-canvas-wrap,
+  #sandbox-root #sb-canvas {
+    max-height: none !important;
+    height: auto !important;
+    min-height: 52vh !important;
+    flex: 1 1 auto !important;
+  }
+  #sandbox-root #sb-seats { min-height: 52vh !important; }
+  .el-ladder, .ladder, #ladder, .el-ladder-wrap {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    max-height: 72vh !important;
+  }
+  body.lab-open .hub-ai-dock,
+  body.lab-open #hub-ai,
+  body.lab-open .ask-hub,
+  #screen-sandbox.active ~ #hub-ai,
+  .screen.active .hub-ai-dock {
+    display: none !important;
+  }
+}
