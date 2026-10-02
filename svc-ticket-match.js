@@ -6,7 +6,18 @@
     var y = document.getElementById("svc-vitals");
     if (!y) return;
     var html = y.innerHTML;
-    var next = html.replace(/(?:\s*-\s*){2,}/g, " - ").replace(/\s{2,}/g, " ");
+    var next = html
+      .replace(/TXV:\s*charge by SC[^.]*\./gi, "")
+      .replace(/Piston:\s*charge by SH[^.]*\./gi, "")
+      .replace(/oil on the slab/gi, "")
+      .replace(/lines cut\s*-\s*no recovery/gi, "")
+      .replace(/Open to atmosphere[^-]*/gi, "")
+      .replace(/oil smell\s*-\s*no recovery gear/gi, "")
+      .replace(/18\" clearance gone/gi, "")
+      .replace(/1\" filter black/gi, "")
+      .replace(/Coil matted/gi, "")
+      .replace(/(?:\s*-\s*){2,}/g, " - ")
+      .replace(/\s{2,}/g, " ");
     if (next !== html) y.innerHTML = next;
   }
   function isKenAir(name, job) {
