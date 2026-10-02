@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v547";
+const VER = "lt-allstars-v548";
 const CORE = [
   "./",
   "./index.html",
@@ -43,7 +43,7 @@ const CORE = [
   "./parts/condenser.png",
   "./parts/gauges.png",
   "./service-meter.js?v=1",
-  "./svc-ticket-match.js?v=6",
+  "./svc-ticket-match.js?v=7",
   "./service-meter.b0.js?v=1",
   "./service-meter.b1.js?v=1",
   "./service-meter.b2.js?v=1",

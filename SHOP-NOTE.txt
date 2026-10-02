@@ -1,6 +1,6 @@
-2026-10-02 afternoon
-Played clock-in. Floor up. No crash.
-Priya zone and Jess lineset sheets no longer name cold liquid or bubble in glass.
-Sheet is complaint + nameplate weather. Gauges still seat from the call fingerprint.
-Strip v3.5.309. Cache sw.js lt-allstars-v547. svc-ticket-match.js?v=6.
-Next: Uncle Ray / DIY Dave plates — confirm oil and open-system stay off the sheet on a live route, not only the scrub.
+2026-10-02 afternoon shift
+Played clock-in and service calls. Floor up. No crash. DIY Dave was live.
+Uncle Ray and DIY Dave now get their own plates. Sheet is complaint + nameplate weather.
+Oil, open-to-atmosphere, high head, and matted coil stay off the sheet. Gauges still seat from the call.
+Strip v3.5.310. Cache sw.js lt-allstars-v548. svc-ticket-match.js?v=7.
+Next: confirm Ken barbershop plate on a live next-ticket hop, airflow before charge, no black-filter on the sheet.
