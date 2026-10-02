@@ -1,1 +1,199 @@
-PLACEHOLDER
+/* Phone gauges strip — both analog faces + digital LPC/HPC + Start on first screen */
+/* v6: rail-matched left (~phone-rail 108px) + smaller faces so HPC + Start stay on 390px */
+@media (max-width: 900px) {
+  #sandbox-root .sb-layout > .sb-main,
+  #sandbox-root .sb-main {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+  }
+  #sandbox-root #sb-canvas-wrap,
+  #sandbox-root .sb-layout > .sb-main #sb-canvas-wrap,
+  #sb-canvas-wrap {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 220px) !important;
+    height: auto !important;
+  }
+  #sandbox-root #sb-canvas {
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+  #sandbox-root #sb-gauge-run,
+  #sb-gauge-run {
+    position: fixed !important;
+    left: 112px !important;
+    right: 4px !important;
+    width: auto !important;
+    max-width: calc(100vw - 116px) !important;
+    bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    flex: 0 0 auto !important;
+    max-height: 200px !important;
+    min-height: 148px !important;
+    height: auto !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 200 !important;
+    background: rgba(11, 18, 32, 0.98) !important;
+    padding: 4px 6px 6px !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    order: unset !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+  #sandbox-root #sb-gauge-run > .sb-gauges,
+  #sb-gauge-run > .sb-gauges,
+  #sandbox-root #sb-gauge-run .sb-gauges {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto !important;
+    gap: 2px 4px !important;
+    order: 1 !important;
+    flex: 1 1 auto !important;
+    max-height: none !important;
+    min-height: 100px !important;
+    height: auto !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #sandbox-root #sb-gauge-run #sb-analog,
+  #sb-gauge-run #sb-analog,
+  #sb-analog {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-column: 1 / -1 !important;
+    justify-items: center !important;
+    align-content: start !important;
+    gap: 2px !important;
+    max-height: none !important;
+    min-height: 64px !important;
+    height: auto !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #sandbox-root #sb-gauge-run #sb-analog canvas,
+  #sb-gauge-run #sb-analog canvas,
+  #sb-analog canvas {
+    width: min(26vw, 78px) !important;
+    height: auto !important;
+    max-width: 78px !important;
+    max-height: 78px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  #sandbox-root #sb-gauge-run > #sb-run,
+  #sb-gauge-run > #sb-run,
+  #sandbox-root #sb-gauge-run #sb-run,
+  #sandbox-root #sb-run {
+    position: relative !important;
+    bottom: auto !important;
+    top: auto !important;
+    order: 2 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    margin-top: 2px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 10px 8px !important;
+    box-sizing: border-box !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 201 !important;
+    pointer-events: auto !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+  }
+  #sandbox-root .sb-gauges #sb-sst,
+  #sandbox-root .sb-gauges #sb-sl,
+  #sandbox-root .sb-gauges #sb-sct,
+  #sandbox-root .sb-gauges #sb-ll,
+  #sandbox-root .sb-gauges #sb-etd,
+  #sandbox-root .sb-gauges #sb-ctd,
+  #sandbox-root .sb-gauges #sb-method,
+  #sandbox-root .sb-gauges [id*="td"],
+  #sandbox-root .sb-gauges .sb-td {
+    display: none !important;
+  }
+  #sandbox-root .sb-gauges .panel,
+  #sb-gauge-run .sb-gauges .panel {
+    padding: 2px 4px !important;
+    font-size: 11px !important;
+    overflow: hidden !important;
+    max-height: 4.2em !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #sandbox-root .sb-gauges #sb-ps {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: #38bdf8 !important;
+  }
+  #sandbox-root .sb-gauges #sb-ph {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: #f43f5e !important;
+  }
+  #sandbox-root .sb-gauges #sb-sh,
+  #sandbox-root .sb-gauges #sb-sc {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #fde68a !important;
+  }
+  .version-strip {
+    z-index: 6 !important;
+  }
+  #sandbox-root .sb-palette,
+  #sandbox-root aside.sb-palette,
+  #sandbox-root #sb-bin,
+  #sandbox-root .sb-zone-b {
+    touch-action: pan-y !important;
+  }
+  #sandbox-root .sb-palette [data-part],
+  #sandbox-root .sb-palette .btn[data-part],
+  #sandbox-root #sb-bin .sb-item,
+  #sandbox-root .sb-zone-a [data-part] {
+    touch-action: pan-y !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #sandbox-root .sb-palette { position: relative !important; z-index: 50 !important; }
+  #sb-seats .sb-seat { z-index: 6; }
+}
