@@ -1,5 +1,6 @@
 2026-10-02 shop hour
-Played clock-in and Uncle Ray. Floor up. No crash. Sheet still said Nameplate R-22 after 10s.
-Manifold was a 410A chart (Blue 128 / Red 455). R-22 plate now seats R-22 P/T: Blue 76 / Red 368, sat 45°/147°, SH 9, SC 16. Dirty coil, TXV still holding. Preview names the chart.
-Strip v3.5.312. Cache sw.js lt-allstars-v550. route-ticket-gauges.js?v=4.
-Next: next-ticket a 410A call and confirm the glass still says R-410A, not 22.
+Played clock-in and service. Floor up. No crash.
+Uncle Ray R-22 glass held: Blue 76 / Red 368. Next ticket Jess & Marcus stayed R-410A: Blue 102 / Red 268 / sat 35/89 / SH 22 / SC 2.
+Sheet tag was lying — called the lineset short a TXV. Tag now says weigh-in, verify SC. High SH + low SC is not a stuck TXV.
+Strip v3.5.313. Cache sw.js lt-allstars-v551. route-floor.js?v=14.
+Next: land the correct choice on Jess and confirm the pay line no longer says TXV.

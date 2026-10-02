@@ -1,4 +1,4 @@
-/* Route floor overlay v11 — ticket → hook gauges → live bay stays on the call. */
+/* Route floor overlay v12 — Jess is a short lineset, not a dead TXV — ticket → hook gauges → live bay stays on the call. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -7,9 +7,9 @@
     { re: /Priya/i, id: "drier" },
     { re: /Ray/i, id: "dirty-odu" },
     { re: /Dave/i, id: "air" },
-    { re: /Jess|Marcus/i, id: "txv-bulb" }
+    { re: /Jess|Marcus/i, id: "lineset" }
   ];
-  var ORDER = ["leak", "dirty-idu", "drier", "dirty-odu", "air", "overcharge", "txv-bulb", "od-fan"];
+  var ORDER = ["leak", "dirty-idu", "drier", "dirty-odu", "air", "overcharge", "lineset", "od-fan"];
   function css() {
     var s = document.getElementById("route-floor-css");
     if (!s) {
@@ -98,6 +98,7 @@
     "dirty-odu": "Rooftop high head",
     air: "Air in the circuit",
     overcharge: "Someone dumped a jug",
+    lineset: "Lineset short of factory charge",
     "txv-bulb": "TXV lost its mind",
     "od-fan": "Condenser fan dead"
   };
@@ -132,7 +133,7 @@
   function tagService(id, job) {
     var tag = document.querySelector(".svc-fault-tag");
     var fp = (job && job.fingerprint) || TITLES[id] || id;
-    if (tag) tag.textContent = "Ticket: " + fp;
+    if (tag) tag.textContent = "Ticket: " + (id === "lineset" ? "Lineset short of factory charge — weigh in, verify SC" : fp);
     var pay = document.getElementById("svc-pay");
     if (pay) pay.textContent = "Live fault " + (job && job.name ? job.name : id) + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
   }
