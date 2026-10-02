@@ -1,4 +1,4 @@
-/* Route floor overlay v12 — Jess is a short lineset, not a dead TXV — ticket → hook gauges → live bay stays on the call. */
+/* Route floor overlay v15 — Jess weigh-in lands; pay line never calls it a TXV. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -135,7 +135,13 @@
     var fp = (job && job.fingerprint) || TITLES[id] || id;
     if (tag) tag.textContent = "Ticket: " + (id === "lineset" ? "Lineset short of factory charge — weigh in, verify SC" : fp);
     var pay = document.getElementById("svc-pay");
-    if (pay) pay.textContent = "Live fault " + (job && job.name ? job.name : id) + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
+    if (pay) pay.textContent = payCopy(id, job);
+  }
+  function payCopy(id, job) {
+    if (id === "lineset") return "Pay stub $18.40/hr · weigh-in per lineset chart · verify SC · not a stuck TXV";
+    var name = job && job.name ? job.name : id;
+    if (/txv/i.test(String(name)) && id === "lineset") name = "Lineset short of factory charge";
+    return "Live fault " + name + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
   }
   function currentJobId() {
     var name = ((document.getElementById("svc-name") || {}).textContent) || "";
@@ -156,7 +162,9 @@
     }
     window._ltTicketId = id;
     var pay = document.getElementById("svc-pay");
-    if (pay) pay.textContent = "Next ticket · fault changed to " + (TITLES[id] || id) + " · Hook gauges.";
+    if (pay) pay.textContent = id === "lineset"
+      ? "Next ticket · Jess · weigh-in, verify SC · Hook gauges. Not a TXV."
+      : "Next ticket · fault changed to " + (TITLES[id] || id) + " · Hook gauges.";
     if (document.getElementById("sandbox-root") && document.getElementById("sb-ps")) loadTicket(id);
     tagService(id, { name: TITLES[id], fingerprint: TITLES[id] });
     return id;
@@ -220,9 +228,25 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "11") return;
-    hookBtn.dataset.wired = "11";
-    nxt.dataset.wired = "11";
+    if (hookBtn.dataset.wired === "15") return;
+    hookBtn.dataset.wired = "15";
+    nxt.dataset.wired = "15";
+    if (!window.__ltJessLand) {
+      window.__ltJessLand = 1;
+      document.addEventListener("click", function (ev) {
+        var btn = ev.target && ev.target.closest && ev.target.closest(".svc-choice");
+        if (!btn) return;
+        var who = ((document.getElementById("svc-name") || {}).textContent) || "";
+        if (!/Jess|Marcus/i.test(who)) return;
+        var line = document.getElementById("svc-pay");
+        if (!line) return;
+        if (/weigh in|lineset chart|verify SC/i.test(btn.textContent || "")) {
+          line.textContent = "LANDED · weigh-in additional charge · verify SC · pay stub $18.40/hr · not a TXV call";
+        } else {
+          line.textContent = "Callback · guessed the charge · pay stub held · not a TXV call";
+        }
+      }, true);
+    }
     hookBtn.onclick = function (ev) {
       if (ev) { ev.preventDefault(); ev.stopPropagation(); }
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}

@@ -1,6 +1,5 @@
 2026-10-02 shop hour
-Played clock-in and service. Floor up. No crash.
-Uncle Ray R-22 glass held: Blue 76 / Red 368. Next ticket Jess & Marcus stayed R-410A: Blue 102 / Red 268 / sat 35/89 / SH 22 / SC 2.
-Sheet tag was lying — called the lineset short a TXV. Tag now says weigh-in, verify SC. High SH + low SC is not a stuck TXV.
-Strip v3.5.313. Cache sw.js lt-allstars-v551. route-floor.js?v=14.
-Next: land the correct choice on Jess and confirm the pay line no longer says TXV.
+Played clock-in and service. Floor up. No crash. Live cache still showed v3.5.312 until this bump.
+Jess & Marcus: correct choice is weigh-in per lineset chart, verify SC. Pay line no longer says TXV. Landed click stamps LANDED · weigh-in · not a TXV call.
+Strip v3.5.314. Cache sw.js lt-allstars-v552. route-floor.js?v=15.
+Next: confirm Jess gauges read high SH / low SC on the glass, not a restriction fingerprint.
