@@ -1,6 +1,6 @@
-2026-10-02 midday
-Played clock-in and DIY Dave garage call. No crash.
-Sheet still dumped oil-on-slab and the TXV/piston charge lecture.
-Sheet is complaint + nameplate weather only. Juniper clearance and oil-on-slab stripped from the plate.
-Strip v3.5.307. Cache sw.js lt-allstars-v545. service.js?v=111. svc-ticket-match.js?v=5.
-Next: Priya zone and Jess lineset plates still hint the fault (cold liquid, bubble in glass). Scrub those the same way.
+2026-10-02 afternoon
+Played clock-in. Floor up. No crash.
+Priya zone and Jess lineset sheets no longer name cold liquid or bubble in glass.
+Sheet is complaint + nameplate weather. Gauges still seat from the call fingerprint.
+Strip v3.5.309. Cache sw.js lt-allstars-v547. svc-ticket-match.js?v=6.
+Next: Uncle Ray / DIY Dave plates — confirm oil and open-system stay off the sheet on a live route, not only the scrub.
