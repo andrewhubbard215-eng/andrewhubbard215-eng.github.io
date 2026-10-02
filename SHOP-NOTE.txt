@@ -1,4 +1,6 @@
-2026-10-02 mid-morning
-Played clock-in and Ken barbershop service call. No crash.
-Saturday meter line was naming the fix: airflow before charge. Ticket is complaint only — iced suction, black filter, meter the glass.
-Strip v3.5.305. Cache sw.js lt-allstars-v542. svc-ticket-match.js?v=3.
+2026-10-02 late morning
+Played clock-in and Ken barbershop. No crash.
+Sheet was still naming the black filter and lecturing charge-by-SC on an ice call.
+Ken sheet is complaint + nameplate weather only. Meter filter and glass before the jug.
+Strip v3.5.306. Cache sw.js lt-allstars-v544. svc-ticket-match.js?v=4.
+Next: other tickets still leak diagnosis in the plate (junipers, oil on slab). Scrub those the same way.
