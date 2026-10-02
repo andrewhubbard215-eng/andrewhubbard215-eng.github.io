@@ -1,20 +1,23 @@
-# HVAC Allstars — shop pass (2026-10-01 lane C-plus)
+# HVAC Allstars — shop pass (2026-10-02 lane A)
 
 ## Live
-- floor v3.5.300
-- SW lt-allstars-v537
-- register sw.js?v=537
-- Clock In → Service calls → Hook gauges
-- sandbox-ts.js?v=13 (no hook inject). shop-floor-copy.js?v=50. sku.js?v=17 branding-only.
+- floor v3.5.308
+- SW lt-allstars-v546
+- register sw.js?v=546
+- route-park.js?v=2 — Shop floor releases the ticket park
+- shop-floor-copy.js?v=53. sandbox-ts.js?v=14 (no hook inject). sku.js?v=17 branding-only.
 
 ## PLAYED
-- Cache pass only. index.html patch keys match sw.js CORE for tonight's bumped files. No feature work.
-- Prior shop note: Clock-in pass, service bay owned the screen. Meter school / sandbox / HUB not re-walked.
+- Clock-in pass. Service calls: Uncle Ray ticket, hook gauges, needles up, Blue 128 / Red 455 on the glass.
+- Shop floor button was dead after Hook gauges (park flag never cleared).
+- Voltmeter school: direction bar at top (Black COM / Red VΩ). Still choices, not probe-on-lugs.
+- Sandbox / HUB not fully re-walked after the trap. PC fills 1440×900.
 
 ## SHIPPED
-- No query bump this pass. HEAD already v3.5.300 / lt-allstars-v537. Pages last-modified matches that commit.
+- Hook gauges still parks the system on the ticket. Shop floor and locker clear the park.
+- Uncle Ray nameplate copy reads R-410A, not R-22. Pressures unchanged.
 
 ## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs
 - Service quiz table and sandbox ticket table are still two lists
-- Uncle Ray nameplate still says R-22 TXV
+- Ticket rail is a full-width banner, not a slim side rail
