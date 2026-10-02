@@ -199,9 +199,9 @@
     var q = document.getElementById("lt-quote");
     if (q) q.textContent = "\u201c" + quoteOf(c) + "\u201d";
     var stub = document.getElementById("lt-stub");
-    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 " + fp.id;
+    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 read the manifold";
     var fault = document.getElementById("lt-fault");
-    if (fault) fault.textContent = fp.id + " \u00b7 " + (c.vitals || c.job || "");
+    if (fault) fault.textContent = "Numbers on the glass. Name the fault on the sheet \u2014 not here.";
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
@@ -246,7 +246,7 @@
           var fp = seat(c);
           var tag = document.getElementById("lt-fault");
           var did = changed ? changed.changed : fp.key !== prev.key;
-          if (tag) tag.textContent = (did ? "FAULT CHANGED \u00b7 " : "SAME FAULT \u00b7 ") + fp.id + " \u00b7 " + (c.vitals || c.job || "");
+          if (tag) tag.textContent = did ? "Next ticket. Fault changed \u2014 read the glass." : "Same fault. Hit next again.";
         }, 40);
       });
     }

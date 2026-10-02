@@ -1,4 +1,4 @@
-2026-10-02 midday
-Played clock-in and sandbox. No crash.
-Glass was printing TXV seat 8–14 even on a piston. Charge print now: TXV charge by SC 8–14; piston charge by chart SH from OD dry bulb + indoor WB, SC is not the ticket.
-Strip v3.5.303. Cache sw.js lt-allstars-v540. sandbox-charge-print.js?v=5.
+2026-10-02 morning
+Played clock-in and service calls. No crash.
+Delgado ticket was printing the answer: prompt said both gauges low, stub and glass named undercharge before the tech picked. Prompt is complaint-only. Stub is pay + read the manifold. Glass says name the fault on the sheet.
+Strip v3.5.304. Cache sw.js lt-allstars-v541. service.js?v=110. route-ticket-gauges.js?v=3.
