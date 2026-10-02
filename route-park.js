@@ -30,29 +30,28 @@
   }
   function nameplate410() {
     var root = document.getElementById("screen-service");
-    if (!root) return;
-    var nodes = root.querySelectorAll("p, span, li, div");
-    for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      if (el.children && el.children.length) continue;
-      var t = el.textContent || "";
-      if (t.indexOf("R-22") === -1) continue;
-      var next = t.replace(/R-22/g, "R-410A");
-      if (next !== t) el.textContent = next;
+    if (!root || typeof document.createTreeWalker !== "function") return;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue && n.nodeValue.indexOf("R-22") !== -1) {
+        n.nodeValue = n.nodeValue.replace(/R-22/g, "R-410A");
+      }
     }
   }
   function wireHook() {
     var btn = document.getElementById("svc-hook");
-    if (!btn || btn.dataset.parkWired === "2") return;
-    btn.dataset.parkWired = "2";
+    if (!btn || btn.dataset.parkWired === "3") return;
+    btn.dataset.parkWired = "3";
     btn.addEventListener("click", function () {
       window._ltKeepServiceBay = true;
       var n = 0;
       var t = setInterval(function () {
         n++;
+        if (!window._ltKeepServiceBay) { clearInterval(t); return; }
         parkBayOnService();
-        var root = document.getElementById("sandbox-root");
-        if ((root && root.parentNode && root.parentNode.id === "svc-system-host" && n > 8) || n > 50) {
+        var box = document.getElementById("sandbox-root");
+        if ((box && box.parentNode && box.parentNode.id === "svc-system-host" && n > 8) || n > 50) {
           clearInterval(t);
           parkBayOnService();
         }
