@@ -11,7 +11,7 @@
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
       html = html.replace(/v3\.5\.\d+/g, "v3.5.306");
-      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=543");
+      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=544");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=52");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=14");
@@ -53,18 +53,18 @@
       html = html.replace(/recovery-room\.js\?v=\d+/g, "recovery-room.js?v=7");
       html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=4");
       html = html.replace(/recovery-room\.g(\d)\.js\?v=\d+/g, "recovery-room.g$1.js?v=4");
-      html = html.replace(/svc-ticket-match\.js\?v=\d+/g, "svc-ticket-match.js?v=3");
+      html = html.replace(/svc-ticket-match\.js\?v=\d+/g, "svc-ticket-match.js?v=4");
       html = html.replace(/route-ticket-gauges\.js\?v=\d+/g, "route-ticket-gauges.js?v=3");
       if (html.indexOf("service-meter.js") === -1) {
         html = html.replace(
           '<script src="recovery-room.js?v=7"><\/script>',
-          '<script src="recovery-room.js?v=7"><\/script>\n  <script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=3"><\/script>'
+          '<script src="recovery-room.js?v=7"><\/script>\n  <script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=4"><\/script>'
         );
       }
       if (html.indexOf("svc-ticket-match.js") === -1) {
         html = html.replace(
           '<script src="service-meter.js?v=1"><\/script>',
-          '<script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=3"><\/script>'
+          '<script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=4"><\/script>'
         );
       }
       if (html.indexOf("refrigerant-flow.js") === -1) {
@@ -138,7 +138,7 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.306 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=543").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=544").catch(function () {});
   })();
   </script>
 </head>
