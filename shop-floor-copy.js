@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.300";
+  var TIP_VER = "v3.5.301";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -141,6 +141,7 @@
     });
     document.querySelectorAll("*").forEach(function (el) {
       if (el.children && el.children.length) return;
+      if (el.closest && el.closest("#sb-ts")) return;
       var t = el.textContent || "";
       if (/EQUALIZED/i.test(t) && /unit off/i.test(t) && t.length < 160) {
         el.textContent = "RUNNING \u2014 split P. Read SH and SC together. Standing sat is off the table.";

@@ -1,7 +1,6 @@
-/* Shop save — TS sheet must stay readable (was crushed to 0px).
-   v8 — do NOT reload sandbox-hook. index.html already ships hook v=18.
-   Old loadHook() stripped v=18 and injected v=15 every 800ms.
-   v9 — removed stray } after this comment (parse crash). */
+/* Shop save — TS sheet follows the bay, not a free tap.
+   v14 — restore step copy (running-P sweeper was clobbering step 1).
+   Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
   var STEPS = [
@@ -11,6 +10,7 @@
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
     { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High SH + high SC = restriction. Low SH + high SC = overcharge. High head + SC about normal = dirty condenser. High head + high SC = air/noncondensables." }
   ];
+  var named = false;
 
   function injectCss() {
     var s = document.getElementById("sb-ts-fix-css");
@@ -21,7 +21,7 @@
     }
     s.textContent =
       "#sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{list-style:none;margin:6px 0 0!important;padding:0!important;display:grid!important;gap:3px;min-height:32px!important;max-height:22vh!important;overflow-y:auto!important;flex:0 0 auto;visibility:visible!important}" +
-      "#sb-ts li{min-height:32px;padding:5px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:pointer;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
+      "#sb-ts li{min-height:32px;padding:5px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:default;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
       "#sb-ts li b{width:22px;height:22px;border-radius:4px;background:#CE0034;color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}" +
@@ -76,47 +76,80 @@
       el = document.createElement("span");
       el.id = "pv-ts";
       el.className = "pv-ts";
-      el.textContent = "TS \u00b7 close the loop";
+      el.textContent = "TS · close the loop";
       bar.appendChild(el);
     }
     return el;
   }
 
-  function armTaps(ol) {
-    if (!ol || ol.__tsTap) return;
-    ol.__tsTap = 1;
-    ol.addEventListener("click", function (e) {
-      var li = e.target.closest("li");
-      if (!li || !ol.contains(li)) return;
-      var wait = ol.querySelector("li.wait");
-      if (wait && li !== wait) {
-        wait.scrollIntoView({ block: "nearest", behavior: "smooth" });
-        return;
-      }
-      if (li.classList.contains("wait")) {
-        li.classList.remove("wait");
-        li.classList.add("done");
-        var nxt = li.nextElementSibling;
-        if (nxt && nxt.tagName === "LI") nxt.classList.add("wait");
-        paintStrip();
-      }
+  function armFault() {
+    var box = document.getElementById("sb-faults");
+    if (!box || box.__tsFault) return;
+    box.__tsFault = 1;
+    box.addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      named = true;
+      paintStrip();
     });
+  }
+
+  function bay() {
+    var run = document.getElementById("sb-run");
+    var on = !!(run && /stop/i.test(run.textContent || ""));
+    var strip = ((document.getElementById("sb-left-strip") || {}).textContent) || "";
+    var seated = /COMP/i.test(strip) && /COND/i.test(strip) && /TXV/i.test(strip) && /EVAP/i.test(strip) && /seated/i.test(strip);
+    var sh = ((document.getElementById("sb-sh") || {}).textContent) || "";
+    var sc = ((document.getElementById("sb-sc") || {}).textContent) || "";
+    var shOk = on && /\d/.test(sh) && /SH/i.test(sh) && !/no SH/i.test(sh);
+    var scOk = on && /\d/.test(sc) && /SC/i.test(sc) && !/no SC/i.test(sc);
+    if (!on) named = false;
+    return { on: on, seated: seated, shOk: shOk, scOk: scOk };
+  }
+
+  function stageOf(b) {
+    if (!(b.seated && b.on && b.shOk && b.scOk)) {
+      if (b.seated && b.on && b.shOk) return 3;
+      if (b.seated) return 2;
+      return 1;
+    }
+    return named ? 6 : 5;
+  }
+
+  function sync(ol) {
+    var lis = ol.querySelectorAll("li");
+    STEPS.forEach(function (step, i) {
+      var li = lis[i];
+      if (!li) return;
+      var p = li.querySelector("p");
+      var strong = li.querySelector("strong");
+      if (strong && strong.textContent !== step.title) strong.textContent = step.title;
+      if (p && p.textContent !== step.body) p.textContent = step.body;
+    });
+    var stage = stageOf(bay());
+    Array.prototype.forEach.call(lis, function (li, i) {
+      li.classList.remove("wait", "done");
+      if (i + 1 < stage) li.classList.add("done");
+      else if (i + 1 === stage) li.classList.add("wait");
+    });
+    return stage;
   }
 
   function paintStrip() {
     var ol = document.getElementById("sb-ts") || mountList();
     var el = ensureStrip();
     if (!ol) return;
-    armTaps(ol);
+    armFault();
+    var stage = sync(ol);
     if (!el) return;
-    var wait = ol.querySelector("li.wait");
-    if (!wait) {
-      el.textContent = "TS \u00b7 SH/SC in band";
+    if (stage > 5) {
+      el.textContent = "TS · fingerprint named";
       return;
     }
-    var n = (wait.querySelector("b") || {}).textContent || "?";
-    var title = (wait.querySelector("strong") || {}).textContent || "next step";
-    el.textContent = "TS " + n + " \u00b7 " + title;
+    var wait = ol.querySelector("li.wait");
+    var n = wait ? ((wait.querySelector("b") || {}).textContent || "?") : "?";
+    var title = wait ? ((wait.querySelector("strong") || {}).textContent || "next step") : "next step";
+    el.textContent = "TS " + n + " · " + title;
   }
 
   function boot() {
