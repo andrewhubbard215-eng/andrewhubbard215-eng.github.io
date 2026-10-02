@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 3;
+  window.__ltTicketGauges = 4;
 
   var lastKey = "";
   var seated = false;
@@ -241,7 +241,9 @@
     var stub = document.getElementById("lt-stub");
     if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 read the manifold";
     var fault = document.getElementById("lt-fault");
-    if (fault) fault.textContent = "Numbers on the glass. Name the fault on the sheet \u2014 not here.";
+    if (fault) fault.textContent = fp.id === "undercharge-lineset"
+      ? "Glass: SH " + fp.sh + " high · SC " + fp.sc + " low · not a restriction (that one is high SH and high SC)."
+      : "Numbers on the glass. Name the fault on the sheet — not here.";
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");

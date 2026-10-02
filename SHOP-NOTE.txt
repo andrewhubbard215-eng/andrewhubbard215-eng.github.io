@@ -1,5 +1,6 @@
 2026-10-02 shop hour
-Played clock-in and service. Floor up. No crash. Live cache still showed v3.5.312 until this bump.
-Jess & Marcus: correct choice is weigh-in per lineset chart, verify SC. Pay line no longer says TXV. Landed click stamps LANDED · weigh-in · not a TXV call.
-Strip v3.5.314. Cache sw.js lt-allstars-v552. route-floor.js?v=15.
-Next: confirm Jess gauges read high SH / low SC on the glass, not a restriction fingerprint.
+Played clock-in and service. Floor up. No crash. Live cache was v3.5.314; index already 3.5.315.
+Jess glass confirmed: Blue 102 / Red 268 / SH 22 / SC 2 — undercharge lineset, not Priya restriction (SH 35 / SC 14).
+Fix: ticket tag no longer spoils weigh-in. Glass line says high SH · low SC · not a restriction. Sheet no longer says chart stays in the truck.
+Strip v3.5.316. Cache sw.js lt-allstars-v554. route-floor.js?v=16. route-ticket-gauges.js?v=5. svc-ticket-match.js?v=8.
+Next: next-ticket sometimes repeats Delgado; force a different fault on the second click.

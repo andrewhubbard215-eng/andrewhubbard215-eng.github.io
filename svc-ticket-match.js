@@ -52,7 +52,7 @@
     return "<strong>NO-COOL SHEET</strong> - Complaint only - <em>Nameplate</em> R-410A TXV - 3-zone - ODT 90\u00b0 - conf room IDB 81\u00b0 - Other zones still pulling. Hook gauges on that zone before you call the whole system.";
   }
   function jessSheet() {
-    return "<strong>NO-COOL SHEET</strong> - Complaint only - <em>Nameplate</em> R-410A TXV - factory 6.3 lb - 75 ft lineset - ODT 84\u00b0 - Two-day install. Hook gauges and read the sight glass. Chart stays in the truck.";
+    return "<strong>NO-COOL SHEET</strong> - Complaint only - <em>Nameplate</em> R-410A TXV - factory 6.3 lb - 75 ft lineset - ODT 84\u00b0 - Two-day install. Hook gauges. High SH with low SC is not a restriction. Chart is for after you read the glass.";
   }
   function raySheet() {
     return "<strong>NO-COOL SHEET</strong> - Complaint only - <em>Nameplate</em> R-22 TXV - ODT 95\u00b0 - IDB 80\u00b0 - ranch, runs all day, never catches up. Hook gauges. Airflow and the coil face before the jug.";

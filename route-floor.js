@@ -1,4 +1,4 @@
-/* Route floor overlay v15 — Jess weigh-in lands; pay line never calls it a TXV. */
+/* Route floor overlay v16 — Jess glass is high SH / low SC. Tag does not spoil the weigh-in. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -133,7 +133,7 @@
   function tagService(id, job) {
     var tag = document.querySelector(".svc-fault-tag");
     var fp = (job && job.fingerprint) || TITLES[id] || id;
-    if (tag) tag.textContent = "Ticket: " + (id === "lineset" ? "Lineset short of factory charge — weigh in, verify SC" : fp);
+    if (tag) tag.textContent = "Ticket: " + (id === "lineset" ? "Glass only — high SH · low SC · not a restriction" : fp);
     var pay = document.getElementById("svc-pay");
     if (pay) pay.textContent = payCopy(id, job);
   }
@@ -228,9 +228,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "15") return;
-    hookBtn.dataset.wired = "15";
-    nxt.dataset.wired = "15";
+    if (hookBtn.dataset.wired === "16") return;
+    hookBtn.dataset.wired = "16";
+    nxt.dataset.wired = "16";
     if (!window.__ltJessLand) {
       window.__ltJessLand = 1;
       document.addEventListener("click", function (ev) {
