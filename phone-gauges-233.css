@@ -1,5 +1,5 @@
 /* Phone gauges strip — both analog faces + digital LPC/HPC + Start on first screen */
-/* v6: rail-matched left (~phone-rail 108px) + smaller faces so HPC + Start stay on 390px */
+/* v7: pointer-events none on strip/canvases so TXV/EVAP seats clickable; Start stays auto */
 @media (max-width: 900px) {
   #sandbox-root .sb-layout > .sb-main,
   #sandbox-root .sb-main {
@@ -51,7 +51,7 @@
     margin: 0 !important;
     order: unset !important;
     transform: none !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run > .sb-gauges,
   #sb-gauge-run > .sb-gauges,
@@ -79,6 +79,7 @@
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run #sb-analog,
   #sb-gauge-run #sb-analog,
@@ -100,10 +101,13 @@
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run #sb-analog canvas,
   #sb-gauge-run #sb-analog canvas,
-  #sb-analog canvas {
+  #sb-analog canvas,
+  #sb-g-low,
+  #sb-g-high {
     width: min(26vw, 78px) !important;
     height: auto !important;
     max-width: 78px !important;
@@ -111,6 +115,7 @@
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run > #sb-run,
   #sb-gauge-run > #sb-run,
@@ -159,6 +164,7 @@
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    pointer-events: none !important;
   }
   #sandbox-root .sb-gauges #sb-ps {
     font-size: 15px !important;

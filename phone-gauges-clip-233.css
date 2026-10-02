@@ -1,4 +1,4 @@
-/* v4: keep strip unclipped after phone-p0 / layout overflow */
+/* v5: keep strip unclipped; click-through so seats under gauges work; Start stays auto */
 @media (max-width: 900px) {
   #sandbox-root .sb-layout > .sb-main { overflow: hidden !important; }
   #sandbox-root #sb-gauge-run,
@@ -8,24 +8,30 @@
     visibility: visible !important;
     opacity: 1 !important;
     z-index: 200 !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run .sb-gauges,
   #sandbox-root .sb-gauges {
     max-height: none !important;
     min-height: 100px !important;
     overflow: visible !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run #sb-analog,
-  #sb-analog {
+  #sb-analog,
+  #sb-g-low,
+  #sb-g-high,
+  #sb-analog canvas {
     max-height: none !important;
     overflow: visible !important;
     visibility: visible !important;
+    pointer-events: none !important;
   }
   #sandbox-root #sb-gauge-run #sb-run,
   #sandbox-root #sb-run {
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
+    pointer-events: auto !important;
   }
 }
