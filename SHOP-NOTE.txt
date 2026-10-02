@@ -1,5 +1,5 @@
-2026-10-02 late shift
-Played clock-in and Ken's barbershop call. Floor up. No crash.
-Stopped route-park from rewriting every R-22 nameplate to R-410A. Ray's ranch plate stays R-22. Nameplate is law.
-Strip v3.5.311. Cache sw.js lt-allstars-v549. route-park.js?v=3.
-Next: hop to Uncle Ray and confirm the sheet still says R-22 after 10 seconds, then check gauges use a 22 P/T not a 410A chart.
+2026-10-02 shop hour
+Played clock-in and Uncle Ray. Floor up. No crash. Sheet still said Nameplate R-22 after 10s.
+Manifold was a 410A chart (Blue 128 / Red 455). R-22 plate now seats R-22 P/T: Blue 76 / Red 368, sat 45°/147°, SH 9, SC 16. Dirty coil, TXV still holding. Preview names the chart.
+Strip v3.5.312. Cache sw.js lt-allstars-v550. route-ticket-gauges.js?v=4.
+Next: next-ticket a 410A call and confirm the glass still says R-410A, not 22.

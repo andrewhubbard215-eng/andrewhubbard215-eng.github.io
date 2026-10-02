@@ -1,13 +1,16 @@
 /* Shop floor: Hook gauges seats the ticket fingerprint on the manifold.
    Needles + large center psig. Yellow caps on its own port and the chip goes away.
-   Dispatch stays above the drop — it does not cover hoses. Palette stays left. */
+   Dispatch stays above the drop — it does not cover hoses. Palette stays left.
+   Nameplate picks the P/T. R-22 glass is not a 410A chart. */
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 2;
+  window.__ltTicketGauges = 3;
 
   var lastKey = "";
   var seated = false;
+  var PT22 = [40,25, 49,30, 55,32, 62,35, 69,40, 76,45, 84,50, 93,55, 102,60, 111,65, 121,70, 132,75, 144,80, 156,85, 168,90, 182,95, 196,100, 211,105, 226,110, 243,115, 260,120, 278,125, 297,130, 317,135, 337,140, 359,145, 382,150];
+  var PT410 = [70,25, 92,32, 118,40, 130,45, 143,50, 157,55, 171,60, 187,65, 202,70, 218,75, 236,80, 254,85, 274,90, 295,95, 317,100, 340,105, 365,110, 391,115, 418,120, 446,125, 476,130, 508,135, 541,140];
 
   function call() {
     var list = (window.ServiceCalls && window.ServiceCalls.CALLS) || [];
@@ -27,6 +30,24 @@
     return m ? Number(m[1]) : fallback;
   }
 
+  function is22(c) {
+    var blob = ((c.plate || "") + " " + (c.job || "") + " " + (c.vitals || "") + " " + (c.name || "")).toLowerCase();
+    return /r-?\s*22|hcfc-?\s*22/.test(blob) && !/410/.test(blob);
+  }
+
+  function satOf(psig, table) {
+    if (psig <= table[0]) return table[1];
+    var i;
+    for (i = 0; i < table.length - 2; i += 2) {
+      if (psig <= table[i + 2]) {
+        var span = table[i + 2] - table[i] || 1;
+        var t = (psig - table[i]) / span;
+        return table[i + 1] + t * (table[i + 3] - table[i + 1]);
+      }
+    }
+    return table[table.length - 1];
+  }
+
   function fingerprint(c) {
     var blob = ((c.vitals || "") + " " + (c.job || "") + " " + (c.plate || "")).toLowerCase();
     var sh = num(c.vitals, /sh\s*~?\s*(-?\d+)/i, null);
@@ -34,6 +55,7 @@
     var blue = 118;
     var red = 340;
     var id = "normal";
+    var gas = is22(c) ? "R-22" : "R-410A";
     if (/open to atmosphere|lines cut|system opened|oil smell/.test(blob)) {
       id = "open"; blue = 0; red = 0; sh = 0; sc = 0;
     } else if (/filter black|low airflow|iced|popsicle|~0/.test(blob)) {
@@ -50,9 +72,24 @@
       if (sh != null && sh >= 20) blue = 96;
       if (sc != null && sc <= 5) red = 260;
     }
+    if (gas === "R-22" && id !== "open") {
+      if (id === "dirty-cond") {
+        blue = 76; red = 368; sh = sh == null ? 9 : sh; sc = 16;
+      } else if (id === "airflow") {
+        blue = 48; red = 176;
+      } else if (id === "restriction") {
+        blue = 42; red = 188;
+      } else if (id === "undercharge") {
+        blue = 55; red = 158;
+      } else if (id === "undercharge-lineset") {
+        blue = 60; red = 172;
+      } else {
+        blue = 70; red = 260;
+      }
+    }
     if (sh == null) sh = 12;
     if (sc == null) sc = 10;
-    return { id: id, blue: blue, red: red, sh: sh, sc: sc, key: id + ":" + blue + ":" + red + ":" + sh + ":" + sc };
+    return { id: id, gas: gas, blue: blue, red: red, sh: sh, sc: sc, key: gas + ":" + id + ":" + blue + ":" + red + ":" + sh + ":" + sc };
   }
 
   function drawFace(canvas, psig, max, face, needle) {
@@ -187,10 +224,13 @@
   }
 
   function paint(fp, c) {
-    drawFace(document.getElementById("lt-g-low"), fp.blue, 250, "#1d4e89", "#7eb6ff");
+    drawFace(document.getElementById("lt-g-low"), fp.blue, fp.gas === "R-22" ? 200 : 250, "#1d4e89", "#7eb6ff");
     drawFace(document.getElementById("lt-g-high"), fp.red, 500, "#8a1d2b", "#ff8b8b");
     var preview = document.getElementById("lt-preview");
-    if (preview) preview.textContent = "Blue " + fp.blue + " \u00b7 Red " + fp.red + " \u00b7 SH " + fp.sh + "\u00b0 \u00b7 SC " + fp.sc + "\u00b0";
+    var table = fp.gas === "R-22" ? PT22 : PT410;
+    var satL = Math.round(satOf(fp.blue, table));
+    var satH = Math.round(satOf(fp.red, table));
+    if (preview) preview.textContent = fp.gas + " chart \u00b7 Blue " + fp.blue + " \u00b7 Red " + fp.red + " \u00b7 sat " + satL + "\u00b0/" + satH + "\u00b0 \u00b7 SH " + fp.sh + "\u00b0 \u00b7 SC " + fp.sc + "\u00b0";
     var radio = document.getElementById("lt-radio");
     var score = (document.getElementById("svc-score") || {}).textContent || "";
     if (radio) radio.textContent = "Dispatch \u00b7 " + (score || "on site") + " \u00b7 " + (c.name || "tech");
@@ -202,7 +242,7 @@
     if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 read the manifold";
     var fault = document.getElementById("lt-fault");
     if (fault) fault.textContent = "Numbers on the glass. Name the fault on the sheet \u2014 not here.";
-    window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id };
+    window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
     if (plow) plow.textContent = String(fp.blue);
@@ -223,8 +263,8 @@
   function bind() {
     var hook = document.getElementById("svc-hook");
     if (hook) hook.textContent = "Hook gauges";
-    if (hook && hook.dataset.ltHook !== "2") {
-      hook.dataset.ltHook = "2";
+    if (hook && hook.dataset.ltHook !== "3") {
+      hook.dataset.ltHook = "3";
       hook.addEventListener("click", function () {
         var bay = ensureBay();
         if (!bay) return;
