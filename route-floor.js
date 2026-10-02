@@ -1,4 +1,4 @@
-/* Route floor overlay v16 — Jess glass is high SH / low SC. Tag does not spoil the weigh-in. */
+/* Route floor overlay v17 — Jess glass is high SH / low SC. Tag does not spoil the weigh-in. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -152,8 +152,18 @@
   }
   function advanceTicket() {
     var prev = window._ltTicketId || currentJobId();
+    var prevName = ((document.getElementById("svc-name") || {}).textContent) || "";
     if (window.ServiceCalls && typeof window.ServiceCalls.nextTicket === "function") {
-      try { window.ServiceCalls.nextTicket(); } catch (e) {}
+      var n = 0;
+      try {
+        window.ServiceCalls.nextTicket();
+        var name = ((document.getElementById("svc-name") || {}).textContent) || "";
+        while (name && prevName && name === prevName && n < 5) {
+          window.ServiceCalls.nextTicket();
+          name = ((document.getElementById("svc-name") || {}).textContent) || "";
+          n++;
+        }
+      } catch (e) {}
     }
     var id = currentJobId();
     if (id === prev) {
@@ -228,9 +238,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "16") return;
-    hookBtn.dataset.wired = "16";
-    nxt.dataset.wired = "16";
+    if (hookBtn.dataset.wired === "17") return;
+    hookBtn.dataset.wired = "17";
+    nxt.dataset.wired = "17";
     if (!window.__ltJessLand) {
       window.__ltJessLand = 1;
       document.addEventListener("click", function (ev) {

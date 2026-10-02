@@ -1,6 +1,5 @@
-2026-10-02 shop hour
-Played clock-in and service. Floor up. No crash. Live cache was v3.5.314; index already 3.5.315.
-Jess glass confirmed: Blue 102 / Red 268 / SH 22 / SC 2 — undercharge lineset, not Priya restriction (SH 35 / SC 14).
-Fix: ticket tag no longer spoils weigh-in. Glass line says high SH · low SC · not a restriction. Sheet no longer says chart stays in the truck.
-Strip v3.5.316. Cache sw.js lt-allstars-v554. route-floor.js?v=16. route-ticket-gauges.js?v=5. svc-ticket-match.js?v=8.
-Next: next-ticket sometimes repeats Delgado; force a different fault on the second click.
+2026-10-02 evening SAVE
+Played phone 390 and desktop service + sandbox. No crash.
+Fix: Next random ticket double-fired (gauges listener + route-floor) and could land back on Delgado while the sheet still said Call 1. Gauges seats glass only. Route-floor advances once and skips a same-name repeat.
+Strip v3.5.317. Cache sw.js lt-allstars-v555. route-floor.js?v=17. route-ticket-gauges.js?v=6. shop-floor-copy.js?v=57.
+Next: phone Saturday sheet stacks the ladder under the ticket; desktop hook-gauges bay height.

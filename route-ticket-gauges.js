@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 4;
+  window.__ltTicketGauges = 5;
 
   var lastKey = "";
   var seated = false;
@@ -280,16 +280,15 @@
     if (next && next.dataset.ltNext !== "1") {
       next.dataset.ltNext = "1";
       next.addEventListener("click", function () {
-        var prev = fingerprint(call());
-        var changed = null;
-        if (window.ServiceCalls && window.ServiceCalls.nextTicket) changed = window.ServiceCalls.nextTicket();
+        var prevName = ((document.getElementById("svc-name") || {}).textContent) || "";
         setTimeout(function () {
           var c = call();
           var fp = seat(c);
           var tag = document.getElementById("lt-fault");
-          var did = changed ? changed.changed : fp.key !== prev.key;
+          var name = ((document.getElementById("svc-name") || {}).textContent) || "";
+          var did = name !== prevName;
           if (tag) tag.textContent = did ? "Next ticket. Fault changed \u2014 read the glass." : "Same fault. Hit next again.";
-        }, 40);
+        }, 60);
       });
     }
   }
