@@ -230,9 +230,15 @@
     root.innerHTML = wallSheet();
     document.title = "Plywood wall hang list";
   } else {
-    var lab = find(id) || allLabs()[0];
+    var lab = find(id);
     if (!lab) {
-      root.innerHTML = "<p>No lab.</p>";
+      root.innerHTML =
+        '<article class="lab-sheet"><p class="copy-banner">Miss. No packet for that id.</p><h1>No packet</h1><p>That lab is not on this locker. Go back and pick one. Do not print wall 1 by mistake.</p></article>';
+      document.title = "No packet";
+      if (bar) {
+        bar.innerHTML =
+          '<a class="btn" href="index.html">Shop floor</a><a class="btn" href="labs-print.html?wall=1">Hang list</a>';
+      }
       return;
     }
     root.innerHTML = packet(lab, !student);
