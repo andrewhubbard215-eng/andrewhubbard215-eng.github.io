@@ -1,4 +1,10 @@
 2026-10-03 shop SAVE
+Played live clock-in. Hub cards up. Sandbox, exam, ladder, Saturday sheet, service calls, mini-split on the floor. No crash. Strip v3.5.327.
+Fix: All-Star Exam overcharge item — suction 140 / SH 4 / liquid 420 / SC 18, suction line sweats home. Recover. Do not add gas. Why-wrong: sweat is not low charge; high head with low SH is not a restriction.
+Strip v3.5.328. Cache sw.js lt-allstars-v566. exam-cutout.js?v=9. shop-floor-copy.js?v=61.
+Next: hard-refresh and confirm overcharge item in the charge bank.
+
+2026-10-03 shop SAVE
 Played live clock-in and All-Star Exam menu. Hub cards up. No crash.
 Strip still said v3.5.325 — shop-floor-copy TIP_VER overwrote boot 326.
 Fix: TIP_VER v3.5.327. Exam item — high SH + high SC is restriction, not low charge. Do not add gas.

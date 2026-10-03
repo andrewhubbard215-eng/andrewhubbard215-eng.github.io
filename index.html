@@ -10,9 +10,9 @@
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.\d+/g, "v3.5.327");
-      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=565");
-      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=60");
+      html = html.replace(/v3\.5\.\d+/g, "v3.5.328");
+      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=566");
+      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=61");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=14");
@@ -96,10 +96,10 @@
       if (html.indexOf("exam-cutout.js") === -1) {
         html = html.replace(
           "</body>",
-          '<script src="exam-cutout.js?v=8"><\/script>\n</body>'
+          '<script src="exam-cutout.js?v=9"><\/script>\n</body>'
         );
       } else {
-        html = html.replace(/exam-cutout\.js\?v=\d+/g, "exam-cutout.js?v=8");
+        html = html.replace(/exam-cutout\.js\?v=\d+/g, "exam-cutout.js?v=9");
       }
       html = html.replace(/phone-gauges-233\.css\?v=\d+/g, "phone-gauges-233.css?v=7");
       html = html.replace(/phone-gauges-clip-233\.css\?v=\d+/g, "phone-gauges-clip-233.css?v=5");
@@ -148,14 +148,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.327 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.328 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=565").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=566").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.327 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.328 - shop floor</p>
 </body>
 </html>
