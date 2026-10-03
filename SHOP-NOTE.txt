@@ -1,3 +1,9 @@
+2026-10-03 evening SAVE
+Played live clock-in on phone (390) and desktop. Hub cards up. Sandbox boots. No crash.
+Shipped: phone fault chips scroll. Restriction, Overcharge, OD fan, Noncondensable, TXV strap were past the right edge — overflow hidden, 32px clip. Fingerprint row now slides. Thumb targets 40px.
+Strip v3.5.334. Cache sw.js lt-allstars-v572. phone-floor.css?v=46.
+Next: hard-refresh, open sandbox on a phone, slide the fault row, name a fingerprint after the compressor is running.
+
 2026-10-03 shop SAVE
 Played live clock-in. Hub cards up. No crash.
 Shipped: All-Star Exam weak-valves item — suction 165 / SH 22, liquid 250 / SC 3, amps under nameplate, clean coil.
