@@ -1,4 +1,4 @@
-/* Shop-floor copy override v58 — piston charges by target SH, TXV by SC */
+/* Shop-floor copy override v62 — piston charges by target SH, TXV by SC */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.328";
+  var TIP_VER = "v3.5.329";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
