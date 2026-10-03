@@ -10,8 +10,8 @@
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.\d+/g, "v3.5.325");
-      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=563");
+      html = html.replace(/v3\.5\.\d+/g, "v3.5.326");
+      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=564");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=59");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
@@ -134,6 +134,10 @@
           '<script src="sandbox-charge-print.js?v=5"><\/script>\n</body>'
         );
       }
+      html = html.replace(/svc-rail\.css\?v=\d+/g, "svc-rail.css?v=2");
+      if (html.indexOf("svc-rail.css") === -1) {
+        html = html.replace("</head>", '  <link rel="stylesheet" href="svc-rail.css?v=2" />\n</head>');
+      }
       return html;
     }
     fetch(SRC, { cache: "no-store" })
@@ -144,14 +148,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.325 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.326 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=563").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=564").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.325 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.326 - shop floor</p>
 </body>
 </html>
