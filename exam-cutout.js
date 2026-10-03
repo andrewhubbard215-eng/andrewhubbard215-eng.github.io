@@ -97,6 +97,18 @@
       a: 0,
       why: "Hum with the contactor pulled in is a start prove, not a seized scroll. Lock out, meter the dual run cap, replace an open or shorted cap. A hard-start on a dead cap still eats the compressor.",
       whyWrong: "Cutting a winding or jumping HERM to C is not a repair. Cap first, compressor last."
+    },
+    {
+      q: "Dual run cap is stamped 45/5 µF. Meter reads 28 µF HERM and 5 µF FAN. Compressor hums, fan runs. What do you do?",
+      choices: [
+        "Lock it out. HERM is weak — under about 90% of the stamp. Replace the cap. Do not condemn the compressor on a low µF.",
+        "Fan side matches the stamp, so the cap is good — change the compressor",
+        "Add a hard-start and leave the 28 µF",
+        "Jump HERM to FAN and ship it"
+      ],
+      a: 0,
+      why: "A run cap goes weak before it goes open. Replace under about 90% of the stamp (45 µF wants about 40 µF or better). 28 µF will hum the compressor and cook the winding. Fan µF can still read fine.",
+      whyWrong: "A good FAN side does not clear HERM. A hard-start on a weak cap still eats the compressor. Cap first, compressor last."
     }
   ];
   function inject() {
@@ -105,9 +117,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected6) return true;
-    ITEMS.forEach(function (it) { bank[key].push(it); });
-    bank[key]._cutoutInjected6 = true;
+    if (bank[key]._cutoutInjected7) return true;
+    ITEMS.forEach(function (it) {
+      var have = bank[key].some(function (q) { return q && q.q === it.q; });
+      if (!have) bank[key].push(it);
+    });
+    bank[key]._cutoutInjected7 = true;
     return true;
   }
   var n = 0;

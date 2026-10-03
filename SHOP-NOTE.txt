@@ -1,4 +1,11 @@
 2026-10-03 shop SAVE
+Played live clock-in and All-Star Exam (phone). Hub cards up. Sections load. No crash.
+Strip showed v3.5.323 because shop-floor-copy TIP_VER overwrote the boot patch.
+Fix: All-Star Exam weak-cap item — 45/5 stamp, 28 µF HERM, fan side still 5. Replace under ~90% of stamp before you condemn the compressor. Why-wrong: good FAN side does not clear HERM; hard-start on a weak cap still eats it.
+Strip v3.5.325. Cache sw.js lt-allstars-v563. exam-cutout.js?v=7. shop-floor-copy.js?v=59.
+Next: confirm weak-cap item after hard refresh.
+
+2026-10-03 shop SAVE
 Played live clock-in and Saturday callback (phone 390x640). Hub cards up. Meter in column (y=491, h=141). No crash.
 All-Star Exam: hum / no-start item — lock out, meter dual run cap before you cut a winding. Why-wrong: hard-start on a dead cap still eats the compressor.
 Strip v3.5.324. Cache sw.js lt-allstars-v562. exam-cutout.js?v=6.
