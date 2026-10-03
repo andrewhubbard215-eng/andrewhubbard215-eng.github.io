@@ -157,6 +157,18 @@
       a: 0,
       why: "Low airflow lets the coil get too cold: superheat collapses and the coil ices. Subcool stays near target and head is not stacked, so this is not overcharge. Overcharge is low SH with high SC and high head. Fix the filter and the return before you touch the charge.",
       whyWrong: "Low SH with a normal SC is not overcharge. Adding gas on an iced coil floods it worse. Ice alone is not a TXV — restriction is high SH and high SC."
+    },
+    {
+      q: "R-410A. Suction 118 psig, SH 12 F. Liquid 450 psig, SC 15 F. Outdoor coil is packed with cottonwood. Indoor delta-T is weak. What is the call?",
+      choices: [
+        "Dirty condenser — heat cannot leave. Wash the outdoor coil, then re-read SH/SC. Do not recover yet.",
+        "Overcharge — high head always means recover",
+        "Low charge — add gas until head falls",
+        "Restriction — high head means a liquid-line drier"
+      ],
+      a: 0,
+      why: "A matted outdoor coil cannot reject heat. Head climbs and subcool stacks a little while superheat stays near target. Overcharge is low SH with high SC and a suction line sweating home. Wash the coil, then re-read before you touch the charge.",
+      whyWrong: "High head alone is not an overcharge. Overcharge floods the evaporator (low SH). Recovering a correct charge after a dirty coil leaves the system short."
     }
   ];
   function inject() {
@@ -165,12 +177,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected11) return true;
+    if (bank[key]._cutoutInjected12) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected11 = true;
+    bank[key]._cutoutInjected12 = true;
     return true;
   }
   var n = 0;

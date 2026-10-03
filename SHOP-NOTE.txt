@@ -1,4 +1,11 @@
 2026-10-03 shop SAVE
+Played live clock-in. Hub cards up. No crash.
+Shipped: All-Star Exam dirty-condenser item — suction 118 / SH 12, liquid 450 / SC 15, cottonwood on the outdoor coil. High head with near-target SH is heat rejection, not overcharge. Wash the coil, then re-read before you recover.
+Why-wrong: high head alone is not a recover call. Overcharge floods the evaporator (low SH).
+Strip v3.5.331. Cache sw.js lt-allstars-v569. exam-cutout.js?v=12. shop-floor-copy.js?v=64.
+Next: hard-refresh and confirm dirty-condenser item in the charge bank. Ladder type and Saturday sheet on short phones still open.
+
+2026-10-03 shop SAVE
 Played live clock-in and All-Star Exam. Hub cards up. Sections load. No crash.
 Shipped: All-Star Exam low-airflow item — suction 105 / SH 3, liquid 310 / SC 10, iced coil, packed filter. Low SH with normal SC is airflow, not overcharge. Change the filter before you touch the charge.
 Why-wrong: low SH alone is not a recover call. Ice is not a TXV. Adding gas on an iced coil floods it.
