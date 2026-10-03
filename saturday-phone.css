@@ -1,4 +1,4 @@
-/* Evening SAVE — Saturday callback tickets must not sit under the LEFT rail */
+/* Phone Saturday — parts tray capped so the no-cool sheet stays on screen */
 @media (max-width: 900px) {
   #screen-electrical.screen.active,
   #electrical-root {
@@ -7,24 +7,32 @@
   #electrical-root .el-layout {
     display: flex !important;
     flex-direction: column !important;
-    height: 100%;
-    min-height: 0;
-    max-height: 100dvh;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
   }
-  #electrical-root .el-layout > aside.sb-palette {
+  #electrical-root .el-layout > aside.sb-palette,
+  #electrical-root aside.sb-palette {
     position: relative !important;
     left: auto !important;
     top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    inset: auto !important;
+    transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    max-height: 34vh;
-    overflow-x: auto;
-    overflow-y: auto;
+    height: 30vh !important;
+    max-height: 30vh !important;
+    min-height: 0 !important;
+    flex: 0 0 30vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     border-right: none !important;
     border-bottom: 1px solid rgba(42, 54, 68, 0.9);
     z-index: 4;
-    flex: 0 0 auto;
   }
   #electrical-root .el-modes {
     display: flex;
@@ -48,24 +56,33 @@
     margin-left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     z-index: 1;
+  }
+  #electrical-root .el-jobs {
+    display: block !important;
+    padding-bottom: 18px;
   }
   #electrical-root .el-meter,
   #electrical-root .el-dmm,
   #electrical-root aside.el-meter {
     position: relative !important;
     width: 100% !important;
-    max-height: 28vh;
+    max-height: 22vh !important;
     overflow: auto;
   }
 }
 @media (max-width: 480px) {
-  #electrical-root .el-layout > aside.sb-palette {
-    max-height: 30vh;
+  #electrical-root .el-layout > aside.sb-palette,
+  #electrical-root aside.sb-palette {
+    height: 28vh !important;
+    max-height: 28vh !important;
+    flex-basis: 28vh !important;
   }
   #electrical-root .el-job-card,
   #electrical-root .el-call-card,

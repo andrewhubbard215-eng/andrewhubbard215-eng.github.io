@@ -1,5 +1,6 @@
 2026-10-02 evening SAVE
-Played phone 390 and desktop service + sandbox. No crash.
-Fix: Next random ticket double-fired (gauges listener + route-floor) and could land back on Delgado while the sheet still said Call 1. Gauges seats glass only. Route-floor advances once and skips a same-name repeat.
-Strip v3.5.317. Cache sw.js lt-allstars-v555. route-floor.js?v=17. route-ticket-gauges.js?v=6. shop-floor-copy.js?v=57.
-Next: phone Saturday sheet stacks the ladder under the ticket; desktop hook-gauges bay height.
+Played desktop clock-in and Saturday callback. No crash.
+Phone 390: parts tray (aside.sb-palette) ate the viewport (max-height not sticking) and the no-cool sheet clipped to 24px under it.
+Fix: saturday-phone.css caps the tray at 28vh and lets .el-jobs scroll the calls.
+Strip v3.5.318. Cache sw.js lt-allstars-v556. saturday-phone.css?v=2.
+Next: desktop hook-gauges bay height.
