@@ -1,4 +1,10 @@
 2026-10-03 shop SAVE
+Played live clock-in. Hub cards up. No crash. Follow-the-call click stalled the browser session (page hung on the second tap) — not a boot crash.
+Ladder node small-print was 10px (b was 14px). Phone 480: names 16px, subline 13px, kicker 14px, meter read 16px. Tray cap left at 28vh.
+Strip v3.5.322. Cache sw.js lt-allstars-v560. saturday-phone.css?v=3.
+Next: Saturday sheet still under tray on short phones; confirm ladder after hard refresh.
+
+2026-10-03 shop SAVE
 Played live clock-in and service call (DIY Dave, system opened). No crash.
 Hook gauges raised a live-fault chip but the manifold preview stayed Blue/Red/SH/SC dashes. Fault line sat on the 600px fold (height 0).
 Fix: ticket bay paints SH/SC whenever the glass is still blank. Short desktops cap faces at 132px and the service screen scrolls so ports and the fault line stay on the bench.
@@ -11,10 +17,3 @@ Phone 390: left rail 84px, diamond canvas 298x497 fully on screen (right edge 38
 Shipped: All-Star Exam flame-sense item — prove 1–5 µA before a board. Why-wrong: pretty flame / jumper is not a prove.
 Strip v3.5.319. Cache sw.js lt-allstars-v557. exam-cutout.js?v=5.
 Next: desktop hook-gauges bay height; ladder phone type size; Saturday sheet still under tray on short phones.
-
-2026-10-02 evening SAVE
-Played desktop clock-in and Saturday callback. No crash.
-Phone 390: parts tray (aside.sb-palette) ate the viewport (max-height not sticking) and the no-cool sheet clipped to 24px under it.
-Fix: saturday-phone.css caps the tray at 28vh and lets .el-jobs scroll the calls.
-Strip v3.5.318. Cache sw.js lt-allstars-v556. saturday-phone.css?v=2.
-Next: desktop hook-gauges bay height.

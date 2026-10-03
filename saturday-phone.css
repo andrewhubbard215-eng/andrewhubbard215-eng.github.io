@@ -90,4 +90,31 @@
     margin-left: 0 !important;
     width: auto !important;
   }
+  /* Ladder names were 14/10px — unreadable on a phone bench */
+  #electrical-root .el-ladder,
+  #electrical-root .el-ladder-wrap,
+  #electrical-root .ladder {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+  #electrical-root .el-node {
+    min-width: 88px;
+    min-height: 56px;
+  }
+  #electrical-root .el-node b {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+  #electrical-root .el-node small {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+  #electrical-root .el-ladder-kicker,
+  #electrical-root #el-ts-note {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+  #electrical-root .el-ladder-read {
+    font-size: 16px !important;
+  }
 }
