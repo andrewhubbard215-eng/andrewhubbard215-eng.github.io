@@ -1,4 +1,11 @@
 2026-10-03 shop SAVE
+Played live clock-in and All-Star Exam. Hub cards up. Sections load. No crash.
+Shipped: All-Star Exam low-airflow item — suction 105 / SH 3, liquid 310 / SC 10, iced coil, packed filter. Low SH with normal SC is airflow, not overcharge. Change the filter before you touch the charge.
+Why-wrong: low SH alone is not a recover call. Ice is not a TXV. Adding gas on an iced coil floods it.
+Strip v3.5.330. Cache sw.js lt-allstars-v568. exam-cutout.js?v=11. shop-floor-copy.js?v=63.
+Next: hard-refresh and confirm low-airflow item in the charge bank. Ladder type and Saturday sheet on short phones still open.
+
+2026-10-03 shop SAVE
 Played live clock-in and Saturday callback (phone 390). Hub cards up. No crash.
 Shipped: All-Star Exam low-charge item — suction 95 / SH 26, liquid 280 / SC 2. High SH + low SC is low charge, not a restriction. Leak-check, then weigh in.
 Why-wrong: high SH alone is not a TXV; recovering on low SC empties a short system.

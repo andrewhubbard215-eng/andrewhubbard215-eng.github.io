@@ -145,6 +145,18 @@
       a: 0,
       why: "Low charge starves the evaporator (high superheat) and does not stack liquid (low subcool). Restriction is high SH and high SC together. Prove the leak path, then weigh in to target.",
       whyWrong: "High SH alone is not a restriction. A restriction stacks subcool. Recovering on low SC empties a system that is already short."
+    },
+    {
+      q: "R-410A. Suction 105 psig, SH 3 F. Liquid 310 psig, SC 10 F. Evaporator is icing. Return filter is packed. Indoor delta-T is weak. What is the call?",
+      choices: [
+        "Low indoor airflow — dirty filter or blocked return. Change the filter, clear the return, prove airflow. Do not recover.",
+        "Overcharge — low SH means recover until the coil thaws",
+        "Low charge — add gas until the ice melts",
+        "Restriction — ice on the coil always means a TXV"
+      ],
+      a: 0,
+      why: "Low airflow lets the coil get too cold: superheat collapses and the coil ices. Subcool stays near target and head is not stacked, so this is not overcharge. Overcharge is low SH with high SC and high head. Fix the filter and the return before you touch the charge.",
+      whyWrong: "Low SH with a normal SC is not overcharge. Adding gas on an iced coil floods it worse. Ice alone is not a TXV — restriction is high SH and high SC."
     }
   ];
   function inject() {
@@ -153,12 +165,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected10) return true;
+    if (bank[key]._cutoutInjected11) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected10 = true;
+    bank[key]._cutoutInjected11 = true;
     return true;
   }
   var n = 0;
