@@ -1,11 +1,12 @@
-# HVAC Allstars — shop pass (2026-10-03 lane A)
+# HVAC Allstars — shop pass (2026-10-03 lane C-plus)
 
 ## Live
-- floor v3.5.326
-- SW lt-allstars-v564
-- register sw.js?v=564
+- floor v3.5.335
+- SW lt-allstars-v573
+- register sw.js?v=573
 - svc-rail.css?v=2 — ticket is a 300px side rail, system stays clickable
 - sku.js?v=17 branding-only. sandbox-ts.js?v=14 (no hook inject).
+- phone-floor.css?v=46 (matches boot and CORE)
 
 ## PLAYED
 - Clock-in pass. Shop floor fills 1440×900.
@@ -15,6 +16,7 @@
 
 ## SHIPPED
 - Service ticket is a slim left rail. Manifold stays on the right and clickable. Choices stay in the rail.
+- Cache register was stuck on sw.js?v=571 while sw.js VER was lt-allstars-v572. Register now matches v573 so tonight's phone-floor.css?v=46 precache installs.
 
 ## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs
