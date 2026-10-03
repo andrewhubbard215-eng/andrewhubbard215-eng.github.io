@@ -109,6 +109,18 @@
       a: 0,
       why: "A run cap goes weak before it goes open. Replace under about 90% of the stamp (45 µF wants about 40 µF or better). 28 µF will hum the compressor and cook the winding. Fan µF can still read fine.",
       whyWrong: "A good FAN side does not clear HERM. A hard-start on a weak cap still eats the compressor. Cap first, compressor last."
+    },
+    {
+      q: "R-410A. Suction 100 psig, SH 28 F. Liquid 340 psig, SC 22 F. Indoor delta-T is weak. What is the call?",
+      choices: [
+        "High SH and high SC together — restriction (TXV, drier, or kink). Do not add gas.",
+        "Low charge — add gas until SH comes down",
+        "Overcharge — recover until head falls",
+        "Bad valves — high SC always means a weak compressor"
+      ],
+      a: 0,
+      why: "Starved evaporator is high superheat. Liquid stacking ahead of a restriction is high subcool. Low charge is high SH and low SC. Adding gas on a restriction floods the condenser and trips HPC.",
+      whyWrong: "Gas-first on high SH ignores subcool. High SC is not overcharge when SH is also high, and it is not a compressor call."
     }
   ];
   function inject() {
@@ -117,12 +129,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected7) return true;
+    if (bank[key]._cutoutInjected8) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected7 = true;
+    bank[key]._cutoutInjected8 = true;
     return true;
   }
   var n = 0;

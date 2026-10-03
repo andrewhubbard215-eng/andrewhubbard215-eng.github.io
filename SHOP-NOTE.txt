@@ -1,4 +1,11 @@
 2026-10-03 shop SAVE
+Played live clock-in and All-Star Exam menu. Hub cards up. No crash.
+Strip still said v3.5.325 — shop-floor-copy TIP_VER overwrote boot 326.
+Fix: TIP_VER v3.5.327. Exam item — high SH + high SC is restriction, not low charge. Do not add gas.
+Strip v3.5.327. Cache sw.js lt-allstars-v565. exam-cutout.js?v=8. shop-floor-copy.js?v=60.
+Next: hard-refresh and confirm restriction item in Core/charge bank.
+
+2026-10-03 shop SAVE
 Played live clock-in and All-Star Exam (phone). Hub cards up. Sections load. No crash.
 Strip showed v3.5.323 because shop-floor-copy TIP_VER overwrote the boot patch.
 Fix: All-Star Exam weak-cap item — 45/5 stamp, 28 µF HERM, fan side still 5. Replace under ~90% of stamp before you condemn the compressor. Why-wrong: good FAN side does not clear HERM; hard-start on a weak cap still eats it.
