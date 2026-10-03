@@ -1,3 +1,10 @@
+2026-10-03 shop SAVE
+Played live clock-in and service call (DIY Dave, system opened). No crash.
+Hook gauges raised a live-fault chip but the manifold preview stayed Blue/Red/SH/SC dashes. Fault line sat on the 600px fold (height 0).
+Fix: ticket bay paints SH/SC whenever the glass is still blank. Short desktops cap faces at 132px and the service screen scrolls so ports and the fault line stay on the bench.
+Strip v3.5.321. Cache sw.js lt-allstars-v559. route-ticket-gauges.js?v=8.
+Next: ladder phone type size; Saturday sheet under tray on short phones.
+
 2026-10-03 morning SAVE
 Played live clock-in, DX sandbox (phone 390), furnace SOO. No crash.
 Phone 390: left rail 84px, diamond canvas 298x497 fully on screen (right edge 386/390). Drag seats COMP/COND/TXV/EVAP on the diamond.
