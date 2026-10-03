@@ -181,6 +181,18 @@
       a: 0,
       why: "Air does not condense. It steals condenser volume, so head climbs and subcool looks high while superheat stays near target and the discharge line runs hot. A clean coil rules out heat-rejection. Overcharge floods the evaporator (low SH). Recover, vacuum, then weigh in to nameplate.",
       whyWrong: "High SC with near-target SH is not overcharge. Washing a clean coil does not drop head from air. Adding gas on high head trips HPC."
+    },
+    {
+      q: "R-410A. Suction 165 psig, SH 22 F. Liquid 250 psig, SC 3 F. Compressor amps are well under nameplate. Indoor delta-T is weak. Coil is clean. What is the call?",
+      choices: [
+        "Weak valves — compressor is not pumping. Prove amps vs nameplate, then recover and replace. Do not add gas.",
+        "Overcharge — high suction means recover until head climbs",
+        "Low charge — add gas until suction falls",
+        "Dirty condenser — wash the coil until head comes up"
+      ],
+      a: 0,
+      why: "A compressor that cannot pump shows high suction, low head, low subcool, and amps under the nameplate. Superheat stays high because mass flow is weak. Overcharge is low SH with high SC. Low charge is high SH with low suction, not 165 psig. Clean coil rules out heat rejection.",
+      whyWrong: "High suction is not overcharge. Adding gas on a weak compressor does not build head. Washing a clean coil does not fix valves."
     }
   ];
   function inject() {
@@ -189,12 +201,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected13) return true;
+    if (bank[key]._cutoutInjected14) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected13 = true;
+    bank[key]._cutoutInjected14 = true;
     return true;
   }
   var n = 0;

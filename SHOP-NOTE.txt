@@ -1,4 +1,13 @@
 2026-10-03 shop SAVE
+Played live clock-in. Hub cards up. No crash.
+Shipped: All-Star Exam weak-valves item — suction 165 / SH 22, liquid 250 / SC 3, amps under nameplate, clean coil.
+Compressor is not pumping. High suction + low head + low amps is not overcharge and not low charge.
+Prove amps vs nameplate, recover, replace. Do not add gas.
+Why-wrong: high suction is not a recover-for-overcharge call. Adding gas does not build head on bad valves.
+Strip v3.5.333. Cache sw.js lt-allstars-v571. exam-cutout.js?v=14. shop-floor-copy.js?v=66.
+Next: hard-refresh and confirm weak-valves item in the charge bank. Ladder type and Saturday sheet on short phones still open.
+
+2026-10-03 shop SAVE
 Played live clock-in and All-Star Exam.
 Hub cards up. Sections load. No crash.
 Shipped: All-Star Exam non-condensables item — suction 125 / SH 14, liquid 490 / SC 22, clean coil, discharge too hot to hold.
