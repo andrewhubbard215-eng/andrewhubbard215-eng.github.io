@@ -182,6 +182,10 @@
   function parkBayOnService() {
     var host = document.getElementById("svc-system-host");
     var root = document.getElementById("sandbox-root");
+    if (document.getElementById("lt-ticket-bay")) {
+      if (root && host && root.parentNode === host) root.remove();
+      return;
+    }
     if (host && root && root.parentNode !== host) {
       host.innerHTML = "";
       host.appendChild(root);
@@ -238,9 +242,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "17") return;
-    hookBtn.dataset.wired = "17";
-    nxt.dataset.wired = "17";
+    if (hookBtn.dataset.wired === "18") return;
+    hookBtn.dataset.wired = "18";
+    nxt.dataset.wired = "18";
     if (!window.__ltJessLand) {
       window.__ltJessLand = 1;
       document.addEventListener("click", function (ev) {
@@ -261,8 +265,14 @@
       if (ev) { ev.preventDefault(); ev.stopPropagation(); }
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
       window._ltStreak = (window._ltStreak || 0) + 1;
+      window._ltTicketId = currentJobId();
       var pay = document.getElementById("svc-pay");
       if (pay) pay.textContent = "Pay stub $18.40/hr · streak " + window._ltStreak + " · HUB: hook the ports.";
+      tagService(window._ltTicketId, { name: TITLES[window._ltTicketId], fingerprint: TITLES[window._ltTicketId] });
+      if (window.ltHookTicketGauges) {
+        window.ltHookTicketGauges();
+        return;
+      }
       goSandboxThen(currentJobId());
     };
     nxt.onclick = function (ev) {

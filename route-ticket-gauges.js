@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 5;
+  window.__ltTicketGauges = 6;
 
   var lastKey = "";
   var seated = false;
@@ -28,6 +28,12 @@
   function num(text, re, fallback) {
     var m = String(text || "").match(re);
     return m ? Number(m[1]) : fallback;
+  }
+
+  function sheetText() {
+    var tag = document.querySelector(".svc-fault-tag");
+    var pay = document.getElementById("svc-pay");
+    return (((tag && tag.textContent) || "") + " " + ((pay && pay.textContent) || "")).toLowerCase();
   }
 
   function is22(c) {
@@ -56,7 +62,23 @@
     var red = 340;
     var id = "normal";
     var gas = is22(c) ? "R-22" : "R-410A";
-    if (/open to atmosphere|lines cut|system opened|oil smell/.test(blob)) {
+    var sheet = sheetText();
+    var routeId = window._ltTicketId || "";
+    var routeGlass = {
+      leak: ["undercharge", 92, 248, 28, 4],
+      "dirty-idu": ["airflow", 62, 300, 0, 10],
+      drier: ["restriction", 74, 286, 35, 14],
+      "dirty-odu": ["dirty-cond", 128, 455, 9, 11],
+      air: ["air", 132, 478, 8, 22],
+      overcharge: ["overcharge", 140, 490, 4, 20],
+      lineset: ["undercharge-lineset", 102, 268, 22, 2],
+      "od-fan": ["dirty-cond", 118, 430, 10, 16]
+    };
+    if (/air in the circuit|noncondensables|high head - high sc/.test(sheet)) {
+      id = "air"; blue = 132; red = 478; sh = 8; sc = 22;
+    } else if (routeGlass[routeId]) {
+      id = routeGlass[routeId][0]; blue = routeGlass[routeId][1]; red = routeGlass[routeId][2]; sh = routeGlass[routeId][3]; sc = routeGlass[routeId][4];
+    } else if (/open to atmosphere|lines cut|system opened|oil smell/.test(blob) && !/air in the circuit|noncondens/.test(sheet)) {
       id = "open"; blue = 0; red = 0; sh = 0; sc = 0;
     } else if (/filter black|low airflow|iced|popsicle|~0/.test(blob)) {
       id = "airflow"; blue = 62; red = 300; sh = sh == null ? 0 : sh; sc = sc == null ? 10 : sc;
@@ -72,7 +94,7 @@
       if (sh != null && sh >= 20) blue = 96;
       if (sc != null && sc <= 5) red = 260;
     }
-    if (gas === "R-22" && id !== "open") {
+    if (gas === "R-22" && id !== "open" && id !== "air" && id !== "overcharge") {
       if (id === "dirty-cond") {
         blue = 76; red = 368; sh = sh == null ? 9 : sh; sc = 16;
       } else if (id === "airflow") {
@@ -164,6 +186,7 @@
 
   function land(bay, port, hose) {
     if (!hoseFits(port, hose)) return;
+    try { if (navigator.vibrate) navigator.vibrate(hose === "yellow" ? 12 : 20); } catch (e) {}
     port.textContent = hose === "yellow" ? "Yellow capped" : hose + " seated";
     port.classList.add("seated");
     var chip = bay.querySelector('.lt-hose[data-hose="' + hose + '"]');
@@ -307,21 +330,33 @@
     ".lt-port.seated{border-color:#7eb6ff}" +
     "#lt-port-cap.seated{border-color:#e2c15a}" +
     ".lt-fault{grid-column:1/-1;margin:4px 0 12px;font-size:12px;opacity:.9}" +
-    "@media(max-width:480px){#lt-dispatch{position:relative!important;bottom:auto!important}#svc-system-host{padding-bottom:12px}.lt-floor{grid-template-columns:108px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:4}}";
+    "@media(max-width:480px){#lt-dispatch,#sb-dispatch{position:relative!important;bottom:auto!important;max-height:22vh;overflow:auto}#svc-system-host{padding-bottom:72px}.lt-floor{grid-template-columns:92px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:6;pointer-events:auto}#lt-preview{position:sticky;top:0;z-index:5}#screen-service #sb-gauge-run{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;z-index:1!important;pointer-events:none}#lt-port-suction,#lt-port-liquid,#lt-port-cap,.lt-hose{pointer-events:auto;position:relative;z-index:7}}";
   document.head.appendChild(css);
   bind();
   setInterval(function () {
     bind();
     var svc = document.getElementById("screen-service");
-    if (!seated || !svc || !svc.classList.contains("active")) return;
-    if (!document.getElementById("lt-port-cap")) {
-      ensureBay();
-      var c = call();
-      paint(fingerprint(c), c);
+    if (!svc || !svc.classList.contains("active")) return;
+    if (!document.getElementById("lt-ticket-bay")) ensureBay();
+    var c = call();
+    var fp = fingerprint(c);
+    if (fp.key !== lastKey) {
+      lastKey = fp.key;
+      seated = true;
+      paint(fp, c);
     }
   }, 500);
   window.ltTicketFingerprint = function () {
     var c = call();
     return fingerprint(c);
+  };
+  window.ltHookTicketGauges = function () {
+    ensureBay();
+    var c = call();
+    var fp = fingerprint(c);
+    lastKey = fp.key;
+    seated = true;
+    paint(fp, c);
+    return fp;
   };
 })();

@@ -1,5 +1,5 @@
 HVAC ALLSTARS — Google Play listing copy
-SKU: store (no Lincoln trademarks)
+SKU: store (no campus trademarks)
 Suggested price: $9.99 paid-up-front (stub — no merchant wired)
 
 SHORT DESCRIPTION (max 80 chars)
@@ -37,5 +37,8 @@ SUPPORT URL
 
 YOU STILL CLICK (cannot be done in this shop)
 1) Google Play Developer account (~$25) and sign the store AAB with YOUR keystore.
-2) Legal: campus SKU may use Lincoln marks; this store SKU must not. Get Lincoln in writing before a campus listing.
+2) Legal: campus edition is separate; this store SKU carries no campus marks. Get written approval before a campus listing.
 3) Play Console → create app → upload AAB → paste this copy → Publish.
+
+WHAT'S NEW (shop pass)
+Hook gauges seats the ticket fingerprint on the manifold (needles + SH/SC). Next ticket changes the fault. Dispatch stays above the hose drop. Palette stays left.
