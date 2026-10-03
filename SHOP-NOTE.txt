@@ -1,4 +1,10 @@
 2026-10-03 shop SAVE
+Played live clock-in and Saturday callback (phone 390x640). Hub cards up. Meter in column (y=491, h=141). No crash.
+All-Star Exam: hum / no-start item — lock out, meter dual run cap before you cut a winding. Why-wrong: hard-start on a dead cap still eats the compressor.
+Strip v3.5.324. Cache sw.js lt-allstars-v562. exam-cutout.js?v=6.
+Next: confirm exam item after hard refresh.
+
+2026-10-03 shop SAVE
 Played live clock-in (phone 390x640). Hub cards up. No crash.
 Saturday callback: parts tray on top, job cards scroll. DMM sheet sat at y=645 — clipped. style.css drawer still had translateY(110%) on .el-meter; phone CSS never cleared it.
 Fix: saturday-phone.css transform none, meter stays in the column under the jobs (22vh, red rail).

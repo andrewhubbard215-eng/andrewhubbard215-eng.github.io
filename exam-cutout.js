@@ -85,6 +85,18 @@
       a: 0,
       why: "Flame prove is microamps, not your eyes. Typical good rod is about 1–5 µA. Clean the rod, check porcelain and ground, then re-meter before you buy a board.",
       whyWrong: "A pretty flame is not a prove. Eyes and a jumper skip the µA path. Dirty rod and bad ground fake a dead board."
+    },
+    {
+      q: "Contactor is in. Compressor hums, no start. What do you do before you cut a winding?",
+      choices: [
+        "Lock it out. Meter the dual run cap (HERM/C and FAN/C). Open or shorted cap — replace the cap, do not condemn the compressor on a hum.",
+        "Cut the common winding so it stops humming",
+        "Add a hard-start and leave the dead cap",
+        "Jump HERM to C and ship it"
+      ],
+      a: 0,
+      why: "Hum with the contactor pulled in is a start prove, not a seized scroll. Lock out, meter the dual run cap, replace an open or shorted cap. A hard-start on a dead cap still eats the compressor.",
+      whyWrong: "Cutting a winding or jumping HERM to C is not a repair. Cap first, compressor last."
     }
   ];
   function inject() {
@@ -93,9 +105,9 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected5) return true;
+    if (bank[key]._cutoutInjected6) return true;
     ITEMS.forEach(function (it) { bank[key].push(it); });
-    bank[key]._cutoutInjected5 = true;
+    bank[key]._cutoutInjected6 = true;
     return true;
   }
   var n = 0;
