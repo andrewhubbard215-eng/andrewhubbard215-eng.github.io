@@ -73,6 +73,18 @@
       a: 0,
       why: "Prove the draft motor before the board. Voltage at the plug means the board already called. No spin + hum = inducer, not IFC. Switch last, after vacuum vs the rating on the door sticker.",
       whyWrong: "A board does not spin the wheel. Hums with voltage at the plug is a motor prove. Jumping the switch skips the draft path."
+    },
+    {
+      q: "Flame is visible. Board drops on flame sense. What do you prove before a new board?",
+      choices: [
+        "Microamps in series with the flame rod — good rod is about 1–5 µA. Low µA: dirty rod, cracked porcelain, poor ground, or weak flame. Clean and re-meter.",
+        "Eyes say the flame is blue, so the board is bad",
+        "Jump the flame sensor and leave the jumper",
+        "Swap the gas valve — visible flame means the rod is fine"
+      ],
+      a: 0,
+      why: "Flame prove is microamps, not your eyes. Typical good rod is about 1–5 µA. Clean the rod, check porcelain and ground, then re-meter before you buy a board.",
+      whyWrong: "A pretty flame is not a prove. Eyes and a jumper skip the µA path. Dirty rod and bad ground fake a dead board."
     }
   ];
   function inject() {
@@ -81,9 +93,9 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected4) return true;
+    if (bank[key]._cutoutInjected5) return true;
     ITEMS.forEach(function (it) { bank[key].push(it); });
-    bank[key]._cutoutInjected4 = true;
+    bank[key]._cutoutInjected5 = true;
     return true;
   }
   var n = 0;
