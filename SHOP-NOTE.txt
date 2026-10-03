@@ -1,15 +1,9 @@
 2026-10-03 shop SAVE
-Played live clock-in. Hub cards up. Sandbox, exam, ladder, Saturday sheet, service calls, mini-split on the floor. No crash. Strip v3.5.327.
-Fix: All-Star Exam overcharge item — suction 140 / SH 4 / liquid 420 / SC 18, suction line sweats home. Recover. Do not add gas. Why-wrong: sweat is not low charge; high head with low SH is not a restriction.
-Strip v3.5.328. Cache sw.js lt-allstars-v566. exam-cutout.js?v=9. shop-floor-copy.js?v=61.
-Next: hard-refresh and confirm overcharge item in the charge bank.
-
-2026-10-03 shop SAVE
-Played live clock-in and All-Star Exam menu. Hub cards up. No crash.
-Strip still said v3.5.325 — shop-floor-copy TIP_VER overwrote boot 326.
-Fix: TIP_VER v3.5.327. Exam item — high SH + high SC is restriction, not low charge. Do not add gas.
-Strip v3.5.327. Cache sw.js lt-allstars-v565. exam-cutout.js?v=8. shop-floor-copy.js?v=60.
-Next: hard-refresh and confirm restriction item in Core/charge bank.
+Played live clock-in and Saturday callback (phone 390). Hub cards up. No crash.
+Shipped: All-Star Exam low-charge item — suction 95 / SH 26, liquid 280 / SC 2. High SH + low SC is low charge, not a restriction. Leak-check, then weigh in.
+Why-wrong: high SH alone is not a TXV; recovering on low SC empties a short system.
+Strip v3.5.329. Cache sw.js lt-allstars-v567. exam-cutout.js?v=10. shop-floor-copy.js?v=62.
+Next: hard-refresh and confirm low-charge item in the charge bank. Ladder type and Saturday sheet on short phones still open.
 
 2026-10-03 shop SAVE
 Played live clock-in and All-Star Exam (phone). Hub cards up. Sections load. No crash.
@@ -17,36 +11,3 @@ Strip showed v3.5.323 because shop-floor-copy TIP_VER overwrote the boot patch.
 Fix: All-Star Exam weak-cap item — 45/5 stamp, 28 µF HERM, fan side still 5. Replace under ~90% of stamp before you condemn the compressor. Why-wrong: good FAN side does not clear HERM; hard-start on a weak cap still eats it.
 Strip v3.5.325. Cache sw.js lt-allstars-v563. exam-cutout.js?v=7. shop-floor-copy.js?v=59.
 Next: confirm weak-cap item after hard refresh.
-
-2026-10-03 shop SAVE
-Played live clock-in and Saturday callback (phone 390x640). Hub cards up. Meter in column (y=491, h=141). No crash.
-All-Star Exam: hum / no-start item — lock out, meter dual run cap before you cut a winding. Why-wrong: hard-start on a dead cap still eats the compressor.
-Strip v3.5.324. Cache sw.js lt-allstars-v562. exam-cutout.js?v=6.
-Next: confirm exam item after hard refresh.
-
-2026-10-03 shop SAVE
-Played live clock-in (phone 390x640). Hub cards up. No crash.
-Saturday callback: parts tray on top, job cards scroll. DMM sheet sat at y=645 — clipped. style.css drawer still had translateY(110%) on .el-meter; phone CSS never cleared it.
-Fix: saturday-phone.css transform none, meter stays in the column under the jobs (22vh, red rail).
-Strip v3.5.323. Cache sw.js lt-allstars-v561. saturday-phone.css?v=4.
-Next: confirm meter after hard refresh; ladder type already bumped.
-
-2026-10-03 shop SAVE
-Played live clock-in. Hub cards up. No crash. Follow-the-call click stalled the browser session (page hung on the second tap) — not a boot crash.
-Ladder node small-print was 10px (b was 14px). Phone 480: names 16px, subline 13px, kicker 14px, meter read 16px. Tray cap left at 28vh.
-Strip v3.5.322. Cache sw.js lt-allstars-v560. saturday-phone.css?v=3.
-Next: Saturday sheet still under tray on short phones; confirm ladder after hard refresh.
-
-2026-10-03 shop SAVE
-Played live clock-in and service call (DIY Dave, system opened). No crash.
-Hook gauges raised a live-fault chip but the manifold preview stayed Blue/Red/SH/SC dashes. Fault line sat on the 600px fold (height 0).
-Fix: ticket bay paints SH/SC whenever the glass is still blank. Short desktops cap faces at 132px and the service screen scrolls so ports and the fault line stay on the bench.
-Strip v3.5.321. Cache sw.js lt-allstars-v559. route-ticket-gauges.js?v=8.
-Next: ladder phone type size; Saturday sheet under tray on short phones.
-
-2026-10-03 morning SAVE
-Played live clock-in, DX sandbox (phone 390), furnace SOO. No crash.
-Phone 390: left rail 84px, diamond canvas 298x497 fully on screen (right edge 386/390). Drag seats COMP/COND/TXV/EVAP on the diamond.
-Shipped: All-Star Exam flame-sense item — prove 1–5 µA before a board. Why-wrong: pretty flame / jumper is not a prove.
-Strip v3.5.319. Cache sw.js lt-allstars-v557. exam-cutout.js?v=5.
-Next: desktop hook-gauges bay height; ladder phone type size; Saturday sheet still under tray on short phones.

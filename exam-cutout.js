@@ -133,6 +133,18 @@
       a: 0,
       why: "Overcharge stacks liquid in the condenser (high subcool) and floods the evaporator (low superheat). A suction line sweating back to the shell is liquid coming home. Recover to the nameplate or to target SC. Adding gas trips HPC.",
       whyWrong: "Sweat on the suction line is not a low-charge call. High head with low SH is not a restriction — restriction is high SH and high SC together."
+    },
+    {
+      q: "R-410A. Suction 95 psig, SH 26 F. Liquid 280 psig, SC 2 F. Indoor delta-T is weak. Evaporator is not flooded. What is the call?",
+      choices: [
+        "High SH and low SC — low charge. Leak-check, then weigh in. Do not call it a restriction.",
+        "Restriction — high SH always means a TXV or drier",
+        "Overcharge — recover until the suction line warms up",
+        "Bad valves — change the compressor before you touch the charge"
+      ],
+      a: 0,
+      why: "Low charge starves the evaporator (high superheat) and does not stack liquid (low subcool). Restriction is high SH and high SC together. Prove the leak path, then weigh in to target.",
+      whyWrong: "High SH alone is not a restriction. A restriction stacks subcool. Recovering on low SC empties a system that is already short."
     }
   ];
   function inject() {
@@ -141,12 +153,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected9) return true;
+    if (bank[key]._cutoutInjected10) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected9 = true;
+    bank[key]._cutoutInjected10 = true;
     return true;
   }
   var n = 0;
