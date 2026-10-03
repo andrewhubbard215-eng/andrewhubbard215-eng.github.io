@@ -1,4 +1,14 @@
 2026-10-03 shop SAVE
+Played live clock-in and All-Star Exam.
+Hub cards up. Sections load. No crash.
+Shipped: All-Star Exam non-condensables item — suction 125 / SH 14, liquid 490 / SC 22, clean coil, discharge too hot to hold.
+Air steals condenser volume. High head + high SC + near-target SH is not overcharge and not a dirty coil.
+Recover, deep vacuum, weigh in.
+Why-wrong: high SC alone is not a recover-for-overcharge call when SH is near target. Washing a clean coil does not drop head from air.
+Strip v3.5.332. Cache sw.js lt-allstars-v570. exam-cutout.js?v=13. shop-floor-copy.js?v=65.
+Next: hard-refresh and confirm non-condensables item in the charge bank. Ladder type and Saturday sheet on short phones still open.
+
+2026-10-03 shop SAVE
 Played live clock-in. Hub cards up. No crash.
 Shipped: All-Star Exam dirty-condenser item — suction 118 / SH 12, liquid 450 / SC 15, cottonwood on the outdoor coil. High head with near-target SH is heat rejection, not overcharge. Wash the coil, then re-read before you recover.
 Why-wrong: high head alone is not a recover call. Overcharge floods the evaporator (low SH).

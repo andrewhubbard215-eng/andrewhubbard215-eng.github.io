@@ -169,6 +169,18 @@
       a: 0,
       why: "A matted outdoor coil cannot reject heat. Head climbs and subcool stacks a little while superheat stays near target. Overcharge is low SH with high SC and a suction line sweating home. Wash the coil, then re-read before you touch the charge.",
       whyWrong: "High head alone is not an overcharge. Overcharge floods the evaporator (low SH). Recovering a correct charge after a dirty coil leaves the system short."
+    },
+    {
+      q: "R-410A. Suction 125 psig, SH 14 F. Liquid 490 psig, SC 22 F. Outdoor coil is clean. Ambient 85 F. Discharge line is too hot to hold. What is the call?",
+      choices: [
+        "Non-condensables — air in the system. Recover, pull a deep vacuum, weigh in. Do not wash a clean coil.",
+        "Overcharge — high SC means recover until head falls",
+        "Dirty condenser — high head always means wash the outdoor coil",
+        "Low charge — add gas until the discharge line cools"
+      ],
+      a: 0,
+      why: "Air does not condense. It steals condenser volume, so head climbs and subcool looks high while superheat stays near target and the discharge line runs hot. A clean coil rules out heat-rejection. Overcharge floods the evaporator (low SH). Recover, vacuum, then weigh in to nameplate.",
+      whyWrong: "High SC with near-target SH is not overcharge. Washing a clean coil does not drop head from air. Adding gas on high head trips HPC."
     }
   ];
   function inject() {
@@ -177,12 +189,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected12) return true;
+    if (bank[key]._cutoutInjected13) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected12 = true;
+    bank[key]._cutoutInjected13 = true;
     return true;
   }
   var n = 0;
