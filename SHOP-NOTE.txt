@@ -1,4 +1,11 @@
 2026-10-03 shop SAVE
+Played live clock-in (phone 390x640). Hub cards up. No crash.
+Saturday callback: parts tray on top, job cards scroll. DMM sheet sat at y=645 — clipped. style.css drawer still had translateY(110%) on .el-meter; phone CSS never cleared it.
+Fix: saturday-phone.css transform none, meter stays in the column under the jobs (22vh, red rail).
+Strip v3.5.323. Cache sw.js lt-allstars-v561. saturday-phone.css?v=4.
+Next: confirm meter after hard refresh; ladder type already bumped.
+
+2026-10-03 shop SAVE
 Played live clock-in. Hub cards up. No crash. Follow-the-call click stalled the browser session (page hung on the second tap) — not a boot crash.
 Ladder node small-print was 10px (b was 14px). Phone 480: names 16px, subline 13px, kicker 14px, meter read 16px. Tray cap left at 28vh.
 Strip v3.5.322. Cache sw.js lt-allstars-v560. saturday-phone.css?v=3.

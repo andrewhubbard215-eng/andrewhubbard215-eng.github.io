@@ -68,13 +68,21 @@
     display: block !important;
     padding-bottom: 18px;
   }
+  /* Drawer CSS parks the DMM at translateY(110%). On Saturday that hides the sheet. */
   #electrical-root .el-meter,
   #electrical-root .el-dmm,
   #electrical-root aside.el-meter {
     position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
     width: 100% !important;
     max-height: 22vh !important;
+    flex: 0 0 auto !important;
     overflow: auto;
+    z-index: 5;
+    border-top: 2px solid #CE0034;
   }
 }
 @media (max-width: 480px) {
