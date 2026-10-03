@@ -1,28 +1,57 @@
-/* Playtest 2026-09-28: service ticket slim rail */
+/* Playtest 2026-10-03: ticket is a slim side rail so the system stays clickable */
 #screen-service.screen.active {
-  display: flex !important;
-  flex-direction: column;
+  display: grid !important;
+  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
+  height: 100%;
+  min-height: 0;
 }
-#screen-service > .hub-head { flex: 0 0 auto; padding: 8px 16px; }
+#screen-service > .hub-head {
+  grid-column: 1 / -1;
+  padding: 8px 16px;
+}
 #screen-service .svc-card,
 #screen-service .svc-rail {
   margin: 0 !important;
-  max-width: none !important;
-  width: 100%;
-  max-height: 28vh;
+  width: 300px !important;
+  max-width: 300px !important;
+  max-height: none !important;
+  height: 100%;
   overflow: auto;
   border-radius: 0;
-  padding: 8px 16px 10px !important;
-  border-top: 3px solid #CE0034;
-  flex: 0 0 auto;
+  padding: 8px 12px 12px !important;
+  border-top: none;
+  border-right: 3px solid #CE0034;
   z-index: 3;
+  grid-row: 2;
 }
-#screen-service .svc-rail h3 { font-size: 20px; margin: 0; }
+#screen-service .svc-rail h3 { font-size: 18px; margin: 0; }
 #screen-service .svc-rail p { margin: 2px 0; font-size: 13px; line-height: 1.3; }
+#screen-service .svc-choice { display: block; width: 100%; margin: 4px 0; text-align: left; }
 #svc-system-host {
-  flex: 1 1 auto;
+  grid-row: 2;
   min-height: 0;
+  min-width: 0;
+  height: 100%;
   position: relative;
   background: #0b1218;
+  overflow: auto;
+}
+@media (max-width: 720px) {
+  #screen-service.screen.active {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  #screen-service .svc-card,
+  #screen-service .svc-rail {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: 34vh !important;
+    height: auto;
+    border-right: none;
+    border-top: 3px solid #CE0034;
+    grid-row: 2;
+  }
+  #svc-system-host { grid-row: 3; }
 }
