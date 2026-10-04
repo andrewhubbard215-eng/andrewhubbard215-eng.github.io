@@ -98,7 +98,13 @@
     paintSplit(fault);
     var sh = num(shEl);
     var sc = num(scEl);
-    if (isNaN(sh) || isNaN(sc)) return;
+    if (isNaN(sh) || isNaN(sc)) {
+      var kIdle = kind(fault);
+      if (kIdle === "fan" || kIdle === "dirty") return;
+      var idle = "HUB: plant clear. Equalized pressure is not a reading. Start the compressor, then call SH/SC. Do not recover off a standing gauge.";
+      if (fp.textContent !== idle) fp.textContent = idle;
+      return;
+    }
     var tgtSH = 10, tgtSC = 10;
     if (tgt && tgt.textContent) {
       var parts = String(tgt.textContent).split("/");
