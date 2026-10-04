@@ -1,4 +1,12 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Hub cards up. Compressor starts. No crash.
+Dead OD fan still paints head 618 / cond TD 53 and HPC open. Dirty OD paints head 498 and wash, not recover.
+Blocker: the HPC banner stayed latched. Switching to Dirty OD still said HPC CUTOUT · 498 psig ≥ 580. Contactor dropped. 498 is not a trip.
+Fix: latch the pressure that opened the switch. Clear the banner when head is back under 580 (or suction back above 40). Dirty OD is a wash, not a jumped HPC.
+Strip v3.5.342. Cache sw.js lt-allstars-v580. sandbox-cutout.js?v=2.
+Next: hard-refresh, plant OD fan, confirm HPC at 618, then Dirty OD and confirm the cutout banner is gone and the strip says wash.
+
+2026-10-04 shop SAVE
 Played live clock-in and sandbox. Hub cards up. Compressor starts. OD fan plant was live. No crash.
 Blocker was the teach, not the boot: dead OD fan and Dirty OD both sat SH 10 / SC 10 with cond TD still in the 20–30 seat. A tech would wash or recover both the same way.
 Fix: running OD fan paints head 618 / SCT 148 / cond TD 53 — blown, no air across the coil. HUB says prove the fan and the fan cap before wash or recover. Dirty OD paints head 498 / cond TD 38 — fan still moves air, wash, do not recover.
