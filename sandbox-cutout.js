@@ -1,7 +1,8 @@
 /* HPC / LPC actually cut out — textbook trip, compressor stops.
    Latch the pressure that opened the switch. Do not reprint a later fault
    as the trip (Dirty OD at 498 is not an HPC). Clear when head is back under cutout.
-   After HPC, liquid hose is last head. Suction equalized is not an LPC. */
+   After HPC, liquid hose is last head. Suction equalized is not an LPC.
+   Contactor stays out until the fault path is cleared — do not hammer Start. */
 (function () {
   "use strict";
   var HPC = 580;
@@ -46,7 +47,7 @@
       try { btn.click(); } catch (e) {}
     }
     var st = document.getElementById("sb-status");
-    if (st && tripped) st.textContent = tripped + " open — compressor off. Reset by clearing the fault path, then Start.";
+    if (st && tripped) st.textContent = tripped + " open — compressor off. Clear the fault path before you pull the contactor in.";
   }
 
   function retitle(id, next, fallback) {
@@ -85,19 +86,52 @@
     }
   }
 
+  function armHammer() {
+    var btn = document.getElementById("sb-run");
+    if (!btn || btn.getAttribute("data-cutout-arm")) return;
+    btn.setAttribute("data-cutout-arm", "1");
+    btn.addEventListener("click", function (ev) {
+      if (!tripped) return;
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      var ps = num("sb-ps");
+      var ph = num("sb-ph");
+      banner(tripped, isFinite(ps) ? ps.toFixed(0) : "—", latched || (isFinite(ph) ? ph.toFixed(0) : "—"));
+      var st = document.getElementById("sb-status");
+      if (st) st.textContent = tripped + " still open. Contactor stays out. Clear the fault path, then Start.";
+    }, true);
+  }
+
+  function holdContactor() {
+    var btn = document.getElementById("sb-run");
+    if (!btn || !tripped) return;
+    if (!btn.getAttribute("data-cutout-btn")) btn.setAttribute("data-cutout-btn", btn.textContent || "Start compressor");
+    btn.textContent = "Contactor open — clear fault";
+  }
+
+  function releaseContactor() {
+    var btn = document.getElementById("sb-run");
+    if (!btn) return;
+    var was = btn.getAttribute("data-cutout-btn");
+    if (was) btn.textContent = was;
+    btn.removeAttribute("data-cutout-btn");
+  }
+
   function clearTrip() {
     tripped = "";
     latched = "";
     clearLastHead();
+    releaseContactor();
     banner("", "", "");
     var st = document.getElementById("sb-status");
-    if (st && /HPC open|LPC open/i.test(st.textContent || "")) {
+    if (st && /HPC open|LPC open|still open/i.test(st.textContent || "")) {
       st.textContent = "Cutout reset — head and suction back in range. Start compressor. Read SH/SC.";
     }
   }
 
   setInterval(function () {
     if (!document.getElementById("sandbox-root") || !document.getElementById("sb-run")) return;
+    armHammer();
     var ps = num("sb-ps");
     var ph = num("g-phigh");
     if (!isFinite(ph)) ph = num("sb-ph");
@@ -127,7 +161,7 @@
       clearTrip();
       return;
     }
-    if (!running && tripped === "HPC") { banner("HPC", ps.toFixed(0), latched || ph.toFixed(0)); markLastHead(); }
-    if (!running && tripped === "LPC") banner("LPC", latched || ps.toFixed(0), ph.toFixed(0));
+    if (!running && tripped === "HPC") { banner("HPC", ps.toFixed(0), latched || ph.toFixed(0)); markLastHead(); holdContactor(); }
+    if (!running && tripped === "LPC") { banner("LPC", latched || ps.toFixed(0), ph.toFixed(0)); holdContactor(); }
   }, 400);
 })();

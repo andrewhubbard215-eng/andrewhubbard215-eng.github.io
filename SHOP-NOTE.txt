@@ -1,4 +1,11 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Compressor starts. Healthy 162/442, SH/SC 10. No crash.
+OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Liquid title last head at HPC. Suction title equalized — not LPC standing. Prior teach holds.
+Fix: Start still said Start compressor after the switch opened. Hammering the contactor is not a reset. Button now reads Contactor open — clear fault, and the click does not pull in until head is back under 580 (or suction back above 40).
+Strip v3.5.346. Cache sw.js lt-allstars-v585. sandbox-cutout.js?v=6.
+Next: hard-refresh, plant OD fan, confirm the button will not start until Healthy clears the cutout.
+
+2026-10-04 shop SAVE
 Played live clock-in and sandbox. Compressor starts. No crash.
 OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Liquid hose already said last head at HPC (618). Suction equalized 295 but the title still said LPC standing.
 Fix: after HPC, suction hose is suction equalized — compressor off. Do not chase LPC. LPC banner stays for a real low-side trip only.
