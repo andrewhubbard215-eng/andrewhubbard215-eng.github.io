@@ -1,5 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v14 — restore step copy (running-P sweeper was clobbering step 1).
+   v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
@@ -96,18 +96,21 @@
 
   function bay() {
     var run = document.getElementById("sb-run");
-    var on = !!(run && /stop/i.test(run.textContent || ""));
+    var label = (run && run.textContent) || "";
+    var on = /stop/i.test(label);
+    var tripped = /contactor open|not a reset|cutout/i.test(label);
     var strip = ((document.getElementById("sb-left-strip") || {}).textContent) || "";
     var seated = /COMP/i.test(strip) && /COND/i.test(strip) && /TXV/i.test(strip) && /EVAP/i.test(strip) && /seated/i.test(strip);
     var sh = ((document.getElementById("sb-sh") || {}).textContent) || "";
     var sc = ((document.getElementById("sb-sc") || {}).textContent) || "";
     var shOk = on && /\d/.test(sh) && /SH/i.test(sh) && !/no SH/i.test(sh);
     var scOk = on && /\d/.test(sc) && /SC/i.test(sc) && !/no SC/i.test(sc);
-    if (!on) named = false;
-    return { on: on, seated: seated, shOk: shOk, scOk: scOk };
+    if (!on && !tripped) named = false;
+    return { on: on, tripped: tripped, seated: seated, shOk: shOk, scOk: scOk };
   }
 
   function stageOf(b) {
+    if (b.tripped && b.seated) return named ? 6 : 5;
     if (!(b.seated && b.on && b.shOk && b.scOk)) {
       if (b.seated && b.on && b.shOk) return 3;
       if (b.seated) return 2;
@@ -126,12 +129,17 @@
       if (strong && strong.textContent !== step.title) strong.textContent = step.title;
       if (p && p.textContent !== step.body) p.textContent = step.body;
     });
-    var stage = stageOf(bay());
+    var b = bay();
+    var stage = stageOf(b);
     Array.prototype.forEach.call(lis, function (li, i) {
       li.classList.remove("wait", "done");
       if (i + 1 < stage) li.classList.add("done");
       else if (i + 1 === stage) li.classList.add("wait");
     });
+    if (b.tripped && stage === 5) {
+      var waitP = ol.querySelector("li.wait p");
+      if (waitP) waitP.textContent = "Safety opened the contactor. Last head or suction is the call. Name the fingerprint. Equalized hose is not a reset and not a standing diagnosis.";
+    }
     return stage;
   }
 
@@ -144,6 +152,10 @@
     if (!el) return;
     if (stage > 5) {
       el.textContent = "TS · fingerprint named";
+      return;
+    }
+    if (bay().tripped && stage === 5) {
+      el.textContent = "TS 5 · Cutout — name the fingerprint";
       return;
     }
     var wait = ol.querySelector("li.wait");
