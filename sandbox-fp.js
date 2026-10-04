@@ -87,6 +87,29 @@
     else host.parentNode.insertBefore(fp, host);
     return fp;
   }
+  var TIP = {
+    healthy: "Healthy circuit: start compressor, then read live SH/SC. Standing P is not a diagnosis.",
+    leak: "Leak / undercharge: high SH, low SC — find the leak. Never top off.",
+    "dirty-odu": "Dirty condenser: high head, SC about normal — wash the coil. Do not recover.",
+    "dirty-idu": "Dirty ID / low airflow: near-zero SH with ice — airflow first, do not add gas.",
+    drier: "Restriction: high SH and high SC — find the starve. Do not add gas.",
+    overcharge: "Overcharge: low SH, high SC — recover to nameplate.",
+    "od-fan": "Dead OD fan: high head climbing — prove the fan before you jump HPC.",
+    air: "Air/noncondensables: high head AND high SC — recover, evacuate, weigh in.",
+    "txv-bulb": "TXV strap off: hunting / starve — strap the bulb to the suction line."
+  };
+  function syncTip() {
+    var tip = document.getElementById("sb-phone-tip");
+    if (!tip) return;
+    if (/Seat COMP/.test(tip.textContent || "")) return;
+    var chip = document.querySelector("#screen-sandbox [data-fault].primary, #sandbox-root [data-fault].primary, [data-fault].btn.primary");
+    var fid = (chip && chip.getAttribute("data-fault")) || "";
+    var line = TIP[fid] || "Ticket SH uses dew point; SC uses start of boiling. Do not chase standing P.";
+    if (tip.getAttribute("data-lt-teach") !== fid || tip.textContent !== line) {
+      tip.setAttribute("data-lt-teach", fid);
+      tip.textContent = line;
+    }
+  }
   function tick() {
     var fp = mount();
     var shEl = document.getElementById("g-sh");
@@ -96,6 +119,7 @@
     var faultEl = document.getElementById("sb-fault");
     var fault = faultEl ? faultEl.textContent : "";
     paintSplit(fault);
+    syncTip();
     var sh = num(shEl);
     var sc = num(scEl);
     if (isNaN(sh) || isNaN(sc)) {

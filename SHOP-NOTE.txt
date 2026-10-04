@@ -1,4 +1,11 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Compressor starts. OD fan: head 618, cond TD 53, HPC CUTOUT, button says fan dead. Healthy drops the HUB strip and puts Start back. No crash.
+Blocker: step banner stayed on the dead-fan call after Healthy. Primary chip was healthy. Teach attribute still od-fan. Seats paint does not rerun on a fault click.
+Fix: fingerprint tick writes the step banner from the primary chip. Healthy says start and read SH/SC. Dead fan line only while that chip is primary.
+Strip v3.5.350. Cache sw.js lt-allstars-v589. sandbox-fp.js?v=9. shop-floor-copy.js?v=75.
+Next: hard-refresh, plant OD fan, pick Healthy, confirm the step banner drops the dead-fan line. Then start and read SH/SC in band.
+
+2026-10-04 shop SAVE
 Played live clock-in and sandbox. Compressor starts. OD fan: head 618, cond TD 53, HPC CUTOUT, button says fan dead not a reset. Healthy puts Start back. No crash.
 Blocker: HUB strip stayed on the dead-fan call after Healthy. Equalized gauges, coach still said do not recover.
 Fix: if SH/SC are off and the plant is not still fan-dead or dirty, strip says plant clear. Standing pressure is not a reading. Start, then call SH/SC.
