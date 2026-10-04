@@ -1,3 +1,10 @@
+2026-10-04 morning SAVE
+Played live clock-in on phone (390). Hub cards up. Sandbox diamond on screen (COMP/COND/TXV/EVAP inside 390). Parts rail LEFT. No crash. HUB dock not covering the lab.
+Shipped: restriction exam item — suction 78 / SH 28, liquid 340 / SC 18, cold sweating drier. High SH + high SC is a plug, not low charge. Why-wrong: adding gas on a restriction trips HPC.
+Coach strip now mounts if the floor never built #sb-fp, and always writes the call. High SC with SH in band stays heat rejection — wash and prove the fan before recover.
+Strip v3.5.337. Cache sw.js lt-allstars-v575. exam-cutout.js?v=15. sandbox-fp.js?v=3. shop-floor-copy.js?v=68.
+Next: hard-refresh, open All-Star Exam charge bank, confirm restriction item. Plant Dirty OD after the compressor is running and read the HUB strip.
+
 2026-10-03 night SAVE
 Played live clock-in on phone (390). Hub cards up. Sandbox boots. Saturday callback prove path opens. No crash.
 Shipped: sandbox fingerprint coach. High SC with SH in band was "weigh-out" — that is a dirty condenser or a dead OD fan, not overcharge. Wash and prove the fan before you recover. Discharge too hot to hold after that is air. Low SH + high SC stays recover-to-nameplate. Coach script now loads (sandbox-fp.js was on the bench, not in the boot).

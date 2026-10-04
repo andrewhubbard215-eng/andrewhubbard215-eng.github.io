@@ -194,6 +194,18 @@
       why: "A compressor that cannot pump shows high suction, low head, low subcool, and amps under the nameplate. Superheat stays high because mass flow is weak. Overcharge is low SH with high SC. Low charge is high SH with low suction, not 165 psig. Clean coil rules out heat rejection.",
       whyWrong: "High suction is not overcharge. Adding gas on a weak compressor does not build head. Washing a clean coil does not fix valves."
     }
+    {
+      q: "R-410A. Suction 78 psig, SH 28 F. Liquid 340 psig, SC 18 F. Filter-drier outlet is cold and sweating. Coil is clean. Indoor delta-T is weak. What is the call?",
+      choices: [
+        "Restriction — plugged drier or stuck TXV. High SH and high SC together. Temp-drop across the drier. Do not add gas.",
+        "Low charge — high SH means leak-check and weigh in",
+        "Overcharge — high SC means recover until suction climbs",
+        "Dirty condenser — wash the coil until the drier warms up"
+      ],
+      a: 0,
+      why: "A restriction stacks liquid in the condenser (high subcool) and starves the evaporator (high superheat, low suction). The prove is a temperature drop at the drier outlet. Low charge is high SH with low SC. Overcharge floods the evaporator (low SH).",
+      whyWrong: "High SH alone is not a leak. Adding gas on a plug trips HPC and does not clear the drier. Washing a clean coil does not warm a sweating drier."
+    }
   ];
   function inject() {
     var qa = window.QuizArena;
@@ -201,12 +213,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected14) return true;
+    if (bank[key]._cutoutInjected15) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected14 = true;
+    bank[key]._cutoutInjected15 = true;
     return true;
   }
   var n = 0;
