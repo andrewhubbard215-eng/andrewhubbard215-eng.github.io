@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.345";
+  var TIP_VER = "v3.5.347";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -109,6 +109,7 @@
     if (!btn) return;
     var t = btn.textContent || "";
     if (/Stop compressor/i.test(t)) return;
+    if (/Contactor open/i.test(t)) return;
     var left = partsStillOnBench();
     if (left) {
       if (!/Seat parts first/i.test(t) && !/Seat 4 LEFT/i.test(t)) btn.textContent = "Seat 4 LEFT first";
