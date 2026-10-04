@@ -2,7 +2,7 @@
 Played live clock-in and sandbox. Hub cards up. Compressor starts. OD fan plant was live. No crash.
 Blocker was the teach, not the boot: dead OD fan and Dirty OD both sat SH 10 / SC 10 with cond TD still in the 20–30 seat. A tech would wash or recover both the same way.
 Fix: running OD fan paints head 618 / SCT 148 / cond TD 53 — blown, no air across the coil. HUB says prove the fan and the fan cap before wash or recover. Dirty OD paints head 498 / cond TD 38 — fan still moves air, wash, do not recover.
-Strip v3.5.340. Cache sw.js lt-allstars-v578. sandbox-fp.js?v=5.
+Strip v3.5.341. Cache sw.js lt-allstars-v579. sandbox-fp.js?v=6.
 Next: hard-refresh, start the compressor, plant OD fan, confirm cond TD is out of seat and the strip says prove the fan. Then plant Dirty OD and confirm wash, not recover.
 
 2026-10-04 shop SAVE

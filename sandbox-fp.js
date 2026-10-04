@@ -5,7 +5,7 @@
     return "HUB: head is high, SH/SC still in band. Heat rejection — dirty condenser or OD fan dead. Wash the coil and prove the fan spins before you recover. SC in band is not a weigh-out.";
   }
   function fanLine() {
-    return "HUB: OD fan dead. Head climbing, cond TD out of seat, SH/SC still in band. Blade is not moving air — prove the fan and the fan cap before you wash or recover. HPC trip risk.";
+    return "HUB: OD fan dead. Head 618, cond TD 53 — out of seat. Blade is not moving air. Prove the fan and the fan cap before you wash or recover. If the compressor is off, that is the HPC. Do not recover.";
   }
   function dirtyLine() {
     return "HUB: dirty condenser. Fan still moves air, cond TD high, SH/SC in band. Wash the coil. Do not recover a charge that is in band.";
@@ -49,16 +49,22 @@
     var el = document.getElementById(id);
     if (el && el.textContent !== text) el.textContent = text;
   }
-  function paintSplit(fault) {
+  function running() {
     var run = document.getElementById("sb-run");
-    if (!run || !/stop compressor/i.test(run.textContent || "")) return;
+    return !!(run && /stop compressor/i.test(run.textContent || ""));
+  }
+  function paintSplit(fault) {
     var k = kind(fault);
+    if (!k) return;
+    var tripped = !running();
     if (k === "fan") {
       setText("g-phigh", "618 psig");
       setText("sb-ph", "618 psig");
       setText("sb-sct", "SCT 148°F");
       setText("sb-ll", "LL 138°F");
-      setText("sb-ctd", "Cond TD 53° (SCT−OD) · seat 20–30° air-cooled — blown. No air across the coil.");
+      setText("sb-ctd", tripped
+        ? "Cond TD 53° (SCT−OD) · seat 20–30° — blown. HPC open. Last call: no air across the coil."
+        : "Cond TD 53° (SCT−OD) · seat 20–30° air-cooled — blown. No air across the coil.");
     } else if (k === "dirty") {
       setText("g-phigh", "498 psig");
       setText("sb-ph", "498 psig");
