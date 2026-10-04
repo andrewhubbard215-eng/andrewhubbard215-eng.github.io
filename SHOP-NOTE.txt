@@ -1,4 +1,12 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Compressor starts. Healthy 162/10 and 442/10, cond TD 25. No crash.
+OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Liquid hose number was already last head (618), suction equalized 295.
+Blocker: caption still said HPC standing. markLastHead only walked p/span/div — the label is strong#sb-ph-title, so the teach never landed.
+Fix: retitle that hose Last head at HPC — not standing, every tick while the switch is open.
+Strip v3.5.344. Cache sw.js lt-allstars-v583. sandbox-cutout.js?v=4. shop-floor-copy.js?v=72.
+Next: hard-refresh, plant OD fan, confirm the liquid hose title is last head at HPC, not standing.
+
+2026-10-04 shop SAVE
 Played live clock-in and sandbox. Compressor starts. No crash.
 OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Dirty OD: head 498, cond TD 38, wash, banner gone. Prior latch bug holds.
 Fix: after HPC, liquid hose was still labeled HPC standing at 618 while suction equalized at 295. Standing is equalized. Label is now last head at HPC, not standing.

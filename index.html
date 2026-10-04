@@ -11,8 +11,8 @@
     function patch(html) {
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
       html = html.replace(/v3\.5\.\d+/g, "v3.5.344");
-      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=582");
-      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=71");
+      html = html.replace(/sw\.js\?v=5[0-9][0-9]/g, "sw.js?v=583");
+      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=72");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=14");
@@ -22,9 +22,9 @@
         html = html.replace("</body>", '<script src="sandbox-hunt.js?v=3"><\/script>\n</body>');
       }
       html = html.replace(/sandbox-fp\.js\?v=\d+/g, "sandbox-fp.js?v=7");
-      html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=3");
+      html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=4");
       if (html.indexOf("sandbox-cutout.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-cutout.js?v=3"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="sandbox-cutout.js?v=4"><\/script>\n</body>');
       }
       if (html.indexOf("sandbox-fp.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-fp.js?v=7"><\/script>\n</body>');
@@ -158,7 +158,7 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.344 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=582").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=583").catch(function () {});
   })();
   </script>
 </head>

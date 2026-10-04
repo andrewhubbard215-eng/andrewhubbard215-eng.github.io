@@ -49,14 +49,21 @@
   }
 
   function markLastHead() {
+    var title = document.getElementById("sb-ph-title");
+    if (title) {
+      if (!title.getAttribute("data-cutout-was")) title.setAttribute("data-cutout-was", title.textContent || "HPC standing (liquid hose)");
+      title.setAttribute("data-cutout-label", "1");
+      title.textContent = "Last head at HPC — not standing";
+    }
     var root = document.getElementById("sandbox-root") || document.body;
-    var nodes = root.querySelectorAll("p, span, div, label, small, li");
+    var nodes = root.querySelectorAll("p, span, div, label, small, li, strong");
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
+      if (el.id === "sb-ph-title") continue;
       if (el.children.length) continue;
-      var t = el.textContent || "";
-      if (/HPC standing/i.test(t) && !el.getAttribute("data-cutout-label")) {
-        el.setAttribute("data-cutout-was", t);
+      var tx = el.textContent || "";
+      if (/HPC standing/i.test(tx) && !el.getAttribute("data-cutout-label")) {
+        el.setAttribute("data-cutout-was", tx);
         el.setAttribute("data-cutout-label", "1");
         el.textContent = "Last head at HPC — not standing. Standing is equalized.";
       }
