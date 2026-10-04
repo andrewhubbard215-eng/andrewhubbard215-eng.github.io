@@ -99,15 +99,27 @@
       var ph = num("sb-ph");
       banner(tripped, isFinite(ps) ? ps.toFixed(0) : "—", latched || (isFinite(ph) ? ph.toFixed(0) : "—"));
       var st = document.getElementById("sb-status");
-      if (st) st.textContent = tripped + " still open. Contactor stays out. Clear the fault path, then Start.";
+      if (st) st.textContent = tripped + " still open. Contactor stays out. " + holdWhy() + ". Equalized pressure is not a reset.";
     }, true);
+  }
+
+  function holdWhy() {
+    var line = faultLine();
+    if (tripped === "HPC" && /fan dead/i.test(line)) return "fan dead, not a reset";
+    if (tripped === "HPC" && /overcharge/i.test(line)) return "overcharge, not a reset";
+    if (tripped === "HPC" && /noncondens|air in the system/i.test(line)) return "air in system, not a reset";
+    if (tripped === "HPC" && /dirty|packed coil|cottonwood/i.test(line)) return "coil packed, not a reset";
+    if (tripped === "LPC" && /restriction/i.test(line)) return "restriction, not a reset";
+    if (tripped === "LPC" && /leak|low charge/i.test(line)) return "low charge, not a reset";
+    if (tripped === "LPC") return "low side open, not a reset";
+    return "clear fault, not equalized";
   }
 
   function holdContactor() {
     var btn = document.getElementById("sb-run");
     if (!btn || !tripped) return;
     if (!btn.getAttribute("data-cutout-btn")) btn.setAttribute("data-cutout-btn", btn.textContent || "Start compressor");
-    btn.textContent = "Contactor open — clear fault";
+    btn.textContent = "Contactor open — " + holdWhy();
   }
 
   function releaseContactor() {
