@@ -1,5 +1,13 @@
 2026-10-04 shop SAVE
 Played live clock-in and sandbox. Compressor starts. Healthy 162/442, SH/SC 10. No crash.
+OD fan: head 618, cond TD 53, HPC banner, status said compressor off. Button still said Stop compressor. Suction still 162 / 10 SH.
+Blocker: cutout hammer ate its own stop click (capture + stopImmediatePropagation), so the contactor never dropped. Equalized head under 580 would also clear the latch — that is not a reset.
+Fix: programmatic stop is allowed. Trusted hammer still blocked. HPC latch holds while the plant is fan-dead, overcharge, or noncondensables. Healthy or a wash clears it, then Start.
+Strip v3.5.347. Cache sw.js lt-allstars-v586. sandbox-cutout.js?v=7. shop-floor-copy.js?v=74.
+Next: hard-refresh, plant OD fan, confirm button is Contactor open and a second click does not start. Pick Healthy, confirm Start is back.
+
+2026-10-04 shop SAVE
+Played live clock-in and sandbox. Compressor starts. Healthy 162/442, SH/SC 10. No crash.
 OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Liquid title last head at HPC. Suction title equalized — not LPC standing. Prior teach holds.
 Fix: Start still said Start compressor after the switch opened. Hammering the contactor is not a reset. Button now reads Contactor open — clear fault, and the click does not pull in until head is back under 580 (or suction back above 40).
 Strip v3.5.346. Cache sw.js lt-allstars-v585. sandbox-cutout.js?v=6.
