@@ -1,4 +1,4 @@
-/* Route floor overlay v17 — Jess glass is high SH / low SC. Tag does not spoil the weigh-in. */
+/* Route floor overlay v19 — ticket tag stays the dispatch job. Fingerprint lives on the pay line. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -130,18 +130,26 @@
     tagService(id, job);
     return job;
   }
+  function dispatchJob() {
+    var jobEl = document.getElementById("svc-job");
+    return jobEl && jobEl.textContent ? jobEl.textContent.trim() : "";
+  }
   function tagService(id, job) {
     var tag = document.querySelector(".svc-fault-tag");
-    var fp = (job && job.fingerprint) || TITLES[id] || id;
-    if (tag) tag.textContent = "Ticket: " + (id === "lineset" ? "Glass only — high SH · low SC · not a restriction" : fp);
+    var dispatch = dispatchJob();
+    var fp = TITLES[id] || (job && job.fingerprint) || id;
+    if (tag) {
+      if (id === "lineset") tag.textContent = "Ticket: " + (dispatch || "Apartment - no cool after install") + " · glass only — high SH · low SC · not a restriction";
+      else tag.textContent = "Ticket: " + (dispatch || fp);
+    }
     var pay = document.getElementById("svc-pay");
     if (pay) pay.textContent = payCopy(id, job);
   }
   function payCopy(id, job) {
     if (id === "lineset") return "Pay stub $18.40/hr · weigh-in per lineset chart · verify SC · not a stuck TXV";
-    var name = job && job.name ? job.name : id;
+    var name = TITLES[id] || (job && job.name) || id;
     if (/txv/i.test(String(name)) && id === "lineset") name = "Lineset short of factory charge";
-    return "Live fault " + name + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
+    return "Manifold fingerprint " + name + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
   }
   function currentJobId() {
     var name = ((document.getElementById("svc-name") || {}).textContent) || "";
@@ -242,9 +250,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "18") return;
-    hookBtn.dataset.wired = "18";
-    nxt.dataset.wired = "18";
+    if (hookBtn.dataset.wired === "19") return;
+    hookBtn.dataset.wired = "19";
+    nxt.dataset.wired = "19";
     if (!window.__ltJessLand) {
       window.__ltJessLand = 1;
       document.addEventListener("click", function (ev) {
