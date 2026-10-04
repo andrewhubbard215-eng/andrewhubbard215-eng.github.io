@@ -1,4 +1,11 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Compressor starts. No crash.
+OD fan: head 618, cond TD 53, HPC CUTOUT, contactor dropped. Dirty OD: head 498, cond TD 38, wash, banner gone. Prior latch bug holds.
+Fix: after HPC, liquid hose was still labeled HPC standing at 618 while suction equalized at 295. Standing is equalized. Label is now last head at HPC, not standing.
+Strip v3.5.343. Cache sw.js lt-allstars-v581. sandbox-cutout.js?v=3. shop-floor-copy.js?v=71.
+Next: hard-refresh, plant OD fan, confirm the liquid caption says last head at HPC, not standing.
+
+2026-10-04 shop SAVE
 Played live clock-in and sandbox. Hub cards up. Compressor starts. No crash.
 Dead OD fan still paints head 618 / cond TD 53 and HPC open. Dirty OD paints head 498 and wash, not recover.
 Blocker: the HPC banner stayed latched. Switching to Dirty OD still said HPC CUTOUT · 498 psig ≥ 580. Contactor dropped. 498 is not a trip.

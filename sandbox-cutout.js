@@ -48,9 +48,35 @@
     if (st && tripped) st.textContent = tripped + " open — compressor off. Reset by clearing the fault path, then Start.";
   }
 
+  function markLastHead() {
+    var root = document.getElementById("sandbox-root") || document.body;
+    var nodes = root.querySelectorAll("p, span, div, label, small, li");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.children.length) continue;
+      var t = el.textContent || "";
+      if (/HPC standing/i.test(t) && !el.getAttribute("data-cutout-label")) {
+        el.setAttribute("data-cutout-was", t);
+        el.setAttribute("data-cutout-label", "1");
+        el.textContent = "Last head at HPC — not standing. Standing is equalized.";
+      }
+    }
+  }
+
+  function clearLastHead() {
+    var nodes = document.querySelectorAll("[data-cutout-label]");
+    for (var i = 0; i < nodes.length; i++) {
+      var was = nodes[i].getAttribute("data-cutout-was");
+      if (was) nodes[i].textContent = was;
+      nodes[i].removeAttribute("data-cutout-label");
+      nodes[i].removeAttribute("data-cutout-was");
+    }
+  }
+
   function clearTrip() {
     tripped = "";
     latched = "";
+    clearLastHead();
     banner("", "", "");
     var st = document.getElementById("sb-status");
     if (st && /HPC open|LPC open/i.test(st.textContent || "")) {
@@ -89,7 +115,7 @@
       clearTrip();
       return;
     }
-    if (!running && tripped === "HPC") banner("HPC", ps.toFixed(0), latched || ph.toFixed(0));
+    if (!running && tripped === "HPC") { banner("HPC", ps.toFixed(0), latched || ph.toFixed(0)); markLastHead(); }
     if (!running && tripped === "LPC") banner("LPC", latched || ps.toFixed(0), ph.toFixed(0));
   }, 400);
 })();
