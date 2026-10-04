@@ -1,6 +1,7 @@
 /* HPC / LPC actually cut out — textbook trip, compressor stops.
    Latch the pressure that opened the switch. Do not reprint a later fault
-   as the trip (Dirty OD at 498 is not an HPC). Clear when head is back under cutout. */
+   as the trip (Dirty OD at 498 is not an HPC). Clear when head is back under cutout.
+   After HPC, liquid hose is last head. Suction equalized is not an LPC. */
 (function () {
   "use strict";
   var HPC = 580;
@@ -48,18 +49,22 @@
     if (st && tripped) st.textContent = tripped + " open — compressor off. Reset by clearing the fault path, then Start.";
   }
 
+  function retitle(id, next, fallback) {
+    var title = document.getElementById(id);
+    if (!title) return;
+    if (!title.getAttribute("data-cutout-was")) title.setAttribute("data-cutout-was", title.textContent || fallback);
+    title.setAttribute("data-cutout-label", "1");
+    title.textContent = next;
+  }
+
   function markLastHead() {
-    var title = document.getElementById("sb-ph-title");
-    if (title) {
-      if (!title.getAttribute("data-cutout-was")) title.setAttribute("data-cutout-was", title.textContent || "HPC standing (liquid hose)");
-      title.setAttribute("data-cutout-label", "1");
-      title.textContent = "Last head at HPC — not standing";
-    }
+    retitle("sb-ph-title", "Last head at HPC — not standing", "HPC standing (liquid hose)");
+    retitle("sb-ps-title", "Suction equalized — compressor off", "LPC standing (suction hose)");
     var root = document.getElementById("sandbox-root") || document.body;
     var nodes = root.querySelectorAll("p, span, div, label, small, li, strong");
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      if (el.id === "sb-ph-title") continue;
+      if (el.id === "sb-ph-title" || el.id === "sb-ps-title") continue;
       if (el.children.length) continue;
       var tx = el.textContent || "";
       if (/HPC standing/i.test(tx) && !el.getAttribute("data-cutout-label")) {
