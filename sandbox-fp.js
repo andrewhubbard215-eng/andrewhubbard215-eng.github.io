@@ -93,6 +93,9 @@
     var scEl = document.getElementById("g-sc");
     var tgt = document.getElementById("g-tgt");
     if (!fp || !shEl || !scEl) return;
+    var faultEl = document.getElementById("sb-fault");
+    var fault = faultEl ? faultEl.textContent : "";
+    paintSplit(fault);
     var sh = num(shEl);
     var sc = num(scEl);
     if (isNaN(sh) || isNaN(sc)) return;
@@ -104,13 +107,20 @@
         tgtSC = parseFloat(parts[1]) || tgtSC;
       }
     }
-    var faultEl = document.getElementById("sb-fault");
-    var fault = faultEl ? faultEl.textContent : "";
-    paintSplit(fault);
     var head = num(document.getElementById("g-phigh"));
     var line = classify(sh, sc, tgtSH, tgtSC, head, fault);
     if (!line) return;
     if (fp.textContent !== line) fp.textContent = line;
   }
-  setInterval(tick, 700);
+  setInterval(tick, 400);
+  var watch = new MutationObserver(function () { tick(); });
+  function arm() {
+    var n = document.getElementById("g-phigh") || document.getElementById("sb-fault");
+    if (!n || n.getAttribute("data-fp-arm")) return;
+    n.setAttribute("data-fp-arm", "1");
+    watch.observe(n, { childList: true, characterData: true, subtree: true });
+  }
+  setInterval(arm, 1000);
+  arm();
 })();
+
