@@ -1,4 +1,11 @@
 2026-10-04 shop SAVE
+Played live clock-in and sandbox. Hub cards up. Parts LEFT. Compressor starts. No crash.
+Dirty OD planted after run: suction 162 / SH 10, liquid 522 / SC 10, fault says rooftop high head. HUB strip said charged and breathing — SC in band hid the head.
+Fix: coach reads head and the fault line. High head with SH/SC in band is heat rejection. Wash the coil and prove the OD fan before you recover. SC in band is not a weigh-out.
+Strip v3.5.339. Cache sw.js lt-allstars-v577. sandbox-fp.js?v=4. shop-floor-copy.js?v=70.
+Next: hard-refresh, start the compressor, plant Dirty OD, confirm the HUB strip says heat rejection. OD fan plant still open.
+
+2026-10-04 shop SAVE
 Played live clock-in. Hub cards up. All-Star Exam sections load. No crash.
 Blocker: exam-cutout.js missing comma after the weak-valves item. Whole file failed to parse. Restriction item (78 / 28 / 340 / 18, sweating drier) never landed in the bank. Inject flag was unset.
 Fix: comma restored. Cutout items inject again. Restriction stays high SH + high SC, not low charge. Why-wrong: adding gas on a plug trips HPC.
