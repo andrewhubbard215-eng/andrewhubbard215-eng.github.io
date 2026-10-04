@@ -1,11 +1,13 @@
-# HVAC Allstars — shop pass (2026-10-04 lane A playtest)
+# HVAC Allstars — shop pass (2026-10-04 lane C-plus cache)
 
 ## Live
-- floor v3.5.344
-- SW lt-allstars-v582
-- register sw.js?v=582
+- floor v3.5.352
+- SW lt-allstars-v591
+- register sw.js?v=591
+- shop-floor-copy.js?v=76 (shell was 75, SW was 74; tonight's TIP_VER edit was not on a new query)
+- sandbox-ts.js?v=15 — no hook inject
+- sku.js?v=17 branding-only
 - route-floor.js?v=19 — ticket tag stays the dispatch job
-- sku.js?v=17 branding-only. sandbox-ts.js?v=14 (no hook inject).
 
 ## PLAYED
 - Clock-in pass. Shop floor fills 1440×900.
@@ -17,9 +19,9 @@
 
 ## SHIPPED
 - Hook gauges no longer overwrites Ticket: with the sandbox fingerprint. Job name stays. Fingerprint moves to the pay line.
-- Cache register bumped to sw.js?v=582 so v581 does not stick.
+- Cache register bumped to sw.js?v=591 so shop-floor-copy.js?v=75 / SW v74 do not stick. sandbox-ts.js?v=15 already matched.
 
-## STILL OPEN
+## RED
 - Voltmeter school is still choices, not probe-on-lugs
 - Manifold school is not its own bay — gauges live on the service call
 - Direction bar is sticky gray, not a red pin
