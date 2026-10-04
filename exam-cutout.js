@@ -193,7 +193,7 @@
       a: 0,
       why: "A compressor that cannot pump shows high suction, low head, low subcool, and amps under the nameplate. Superheat stays high because mass flow is weak. Overcharge is low SH with high SC. Low charge is high SH with low suction, not 165 psig. Clean coil rules out heat rejection.",
       whyWrong: "High suction is not overcharge. Adding gas on a weak compressor does not build head. Washing a clean coil does not fix valves."
-    }
+    },
     {
       q: "R-410A. Suction 78 psig, SH 28 F. Liquid 340 psig, SC 18 F. Filter-drier outlet is cold and sweating. Coil is clean. Indoor delta-T is weak. What is the call?",
       choices: [
@@ -213,12 +213,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected15) return true;
+    if (bank[key]._cutoutInjected16) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected15 = true;
+    bank[key]._cutoutInjected16 = true;
     return true;
   }
   var n = 0;

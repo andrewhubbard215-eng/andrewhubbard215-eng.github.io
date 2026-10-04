@@ -1,3 +1,10 @@
+2026-10-04 shop SAVE
+Played live clock-in. Hub cards up. All-Star Exam sections load. No crash.
+Blocker: exam-cutout.js missing comma after the weak-valves item. Whole file failed to parse. Restriction item (78 / 28 / 340 / 18, sweating drier) never landed in the bank. Inject flag was unset.
+Fix: comma restored. Cutout items inject again. Restriction stays high SH + high SC, not low charge. Why-wrong: adding gas on a plug trips HPC.
+Strip v3.5.338. Cache sw.js lt-allstars-v576. exam-cutout.js?v=16. shop-floor-copy.js?v=69.
+Next: hard-refresh, open All-Star Exam, confirm restriction item is in the bank. Plant Dirty OD after the compressor is running and read the HUB strip.
+
 2026-10-04 morning SAVE
 Played live clock-in on phone (390). Hub cards up. Sandbox diamond on screen (COMP/COND/TXV/EVAP inside 390). Parts rail LEFT. No crash. HUB dock not covering the lab.
 Shipped: restriction exam item — suction 78 / SH 28, liquid 340 / SC 18, cold sweating drier. High SH + high SC is a plug, not low charge. Why-wrong: adding gas on a restriction trips HPC.

@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.337";
+  var TIP_VER = "v3.5.338";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
