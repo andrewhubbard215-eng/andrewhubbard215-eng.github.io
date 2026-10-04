@@ -2,7 +2,8 @@
    Latch the pressure that opened the switch. Do not reprint a later fault
    as the trip (Dirty OD at 498 is not an HPC). Clear when head is back under cutout.
    After HPC, liquid hose is last head. Suction equalized is not an LPC.
-   Contactor stays out until the fault path is cleared — do not hammer Start. */
+   Contactor stays out until the fault path is cleared — do not hammer Start.
+   Equalized head under 580 is not a reset. Clear the plant (Healthy / wash), then Start. */
 (function () {
   "use strict";
   var HPC = 580;
@@ -91,7 +92,7 @@
     if (!btn || btn.getAttribute("data-cutout-arm")) return;
     btn.setAttribute("data-cutout-arm", "1");
     btn.addEventListener("click", function (ev) {
-      if (!tripped) return;
+      if (!tripped || !ev.isTrusted) return;
       ev.preventDefault();
       ev.stopImmediatePropagation();
       var ps = num("sb-ps");
@@ -115,6 +116,18 @@
     var was = btn.getAttribute("data-cutout-btn");
     if (was) btn.textContent = was;
     btn.removeAttribute("data-cutout-btn");
+  }
+
+
+  function faultLine() {
+    var el = document.getElementById("sb-fault");
+    return el ? String(el.textContent || "") : "";
+  }
+  function faultHoldsHPC() {
+    return /fan dead|overcharge|noncondens|air in the system/i.test(faultLine());
+  }
+  function faultHoldsLPC() {
+    return /restriction|leak|low charge|airflow|iced/i.test(faultLine());
   }
 
   function clearTrip() {
@@ -144,6 +157,8 @@
       latched = ph.toFixed(0);
       banner("HPC", ps.toFixed(0), latched);
       stopComp();
+      markLastHead();
+      holdContactor();
       return;
     }
     if (running && ps <= LPC) {
@@ -151,13 +166,14 @@
       latched = ps.toFixed(0);
       banner("LPC", latched, ph.toFixed(0));
       stopComp();
+      holdContactor();
       return;
     }
-    if (tripped === "HPC" && ph < HPC) {
+    if (tripped === "HPC" && ph < HPC && !faultHoldsHPC()) {
       clearTrip();
       return;
     }
-    if (tripped === "LPC" && ps > LPC) {
+    if (tripped === "LPC" && ps > LPC && !faultHoldsLPC()) {
       clearTrip();
       return;
     }
