@@ -14,7 +14,8 @@
     if (loSH && hiSC) return "HUB: low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.";
     if (loSH && loSC) return "HUB: low SH + low SC = airflow first. Dirty evap, blower, or filter — not a charge dart.";
     if (hiSH) return "HUB: high SH only — evaporator starved. Confirm SC before you call it a leak.";
-    if (hiSC) return "HUB: high SC only — stacked liquid. Weigh-out before you add.";
+    if (hiSC && !loSH && !hiSH) return "HUB: high SC, SH in band = heat rejection. Dirty condenser or OD fan dead. Wash the coil and prove the fan before you recover. Discharge too hot to hold after that is air — recover, vacuum, weigh in.";
+    if (hiSC) return "HUB: high SC with low SH = overcharge. Recover to nameplate. Do not wash a clean coil to hide extra gas.";
     if (loSC) return "HUB: low SC — not enough liquid in the condenser. Charge or condenser airflow.";
     return "HUB: SH and SC together. One number is a coin flip.";
   }

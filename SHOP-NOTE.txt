@@ -1,3 +1,9 @@
+2026-10-03 night SAVE
+Played live clock-in on phone (390). Hub cards up. Sandbox boots. Saturday callback prove path opens. No crash.
+Shipped: sandbox fingerprint coach. High SC with SH in band was "weigh-out" — that is a dirty condenser or a dead OD fan, not overcharge. Wash and prove the fan before you recover. Discharge too hot to hold after that is air. Low SH + high SC stays recover-to-nameplate. Coach script now loads (sandbox-fp.js was on the bench, not in the boot).
+Strip v3.5.336. Cache sw.js lt-allstars-v574. shop-floor-copy.js?v=67. sandbox-fp.js?v=2.
+Next: hard-refresh, start the compressor, plant Dirty OD, confirm HUB says heat rejection not weigh-out.
+
 2026-10-03 evening SAVE
 Played live clock-in on phone (390) and desktop. Hub cards up. Sandbox boots. No crash.
 Shipped: phone fault chips scroll. Restriction, Overcharge, OD fan, Noncondensable, TXV strap were past the right edge — overflow hidden, 32px clip. Fingerprint row now slides. Thumb targets 40px.
