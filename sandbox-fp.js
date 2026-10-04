@@ -4,6 +4,18 @@
   function heatLine() {
     return "HUB: head is high, SH/SC still in band. Heat rejection — dirty condenser or OD fan dead. Wash the coil and prove the fan spins before you recover. SC in band is not a weigh-out.";
   }
+  function fanLine() {
+    return "HUB: OD fan dead. Head climbing, cond TD out of seat, SH/SC still in band. Blade is not moving air — prove the fan and the fan cap before you wash or recover. HPC trip risk.";
+  }
+  function dirtyLine() {
+    return "HUB: dirty condenser. Fan still moves air, cond TD high, SH/SC in band. Wash the coil. Do not recover a charge that is in band.";
+  }
+  function kind(fault) {
+    var f = fault || "";
+    if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
+    if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
+    return "";
+  }
   function classify(sh, sc, tgtSH, tgtSC, head, fault) {
     if (!(sh >= 0) || !(sc >= 0)) return null;
     var hiSH = sh > tgtSH + 6;
@@ -11,7 +23,10 @@
     var hiSC = sc > tgtSC + 6;
     var loSC = sc < Math.max(1, tgtSC - 6);
     var inBand = Math.abs(sh - tgtSH) <= 4 && Math.abs(sc - tgtSC) <= 4;
-    var faultHeat = /dirty condenser|od fan|high head|rooftop/i.test(fault || "");
+    var k = kind(fault);
+    var faultHeat = k === "fan" || k === "dirty" || /high head/i.test(fault || "");
+    if (inBand && k === "fan") return fanLine();
+    if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || head >= 450)) return heatLine();
     if (inBand)
       return "HUB: SH/SC in band. That's a charged, breathing system.";
@@ -29,6 +44,28 @@
     if (!el) return NaN;
     var n = parseFloat(String(el.textContent || "").replace(/[^\d.-]/g, ""));
     return n;
+  }
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el && el.textContent !== text) el.textContent = text;
+  }
+  function paintSplit(fault) {
+    var run = document.getElementById("sb-run");
+    if (!run || !/stop compressor/i.test(run.textContent || "")) return;
+    var k = kind(fault);
+    if (k === "fan") {
+      setText("g-phigh", "618 psig");
+      setText("sb-ph", "618 psig");
+      setText("sb-sct", "SCT 148°F");
+      setText("sb-ll", "LL 138°F");
+      setText("sb-ctd", "Cond TD 53° (SCT−OD) · seat 20–30° air-cooled — blown. No air across the coil.");
+    } else if (k === "dirty") {
+      setText("g-phigh", "498 psig");
+      setText("sb-ph", "498 psig");
+      setText("sb-sct", "SCT 133°F");
+      setText("sb-ll", "LL 123°F");
+      setText("sb-ctd", "Cond TD 38° (SCT−OD) · seat 20–30° — high. Fan still moves air. Wash.");
+    }
   }
   function mount() {
     var fp = document.getElementById("sb-fp");
@@ -61,9 +98,10 @@
         tgtSC = parseFloat(parts[1]) || tgtSC;
       }
     }
-    var head = num(document.getElementById("g-phigh"));
     var faultEl = document.getElementById("sb-fault");
     var fault = faultEl ? faultEl.textContent : "";
+    paintSplit(fault);
+    var head = num(document.getElementById("g-phigh"));
     var line = classify(sh, sc, tgtSH, tgtSC, head, fault);
     if (!line) return;
     if (fp.textContent !== line) fp.textContent = line;
