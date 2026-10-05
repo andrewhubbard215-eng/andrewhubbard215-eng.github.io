@@ -30,7 +30,9 @@
     position: relative !important;
     bottom: auto !important;
   }
-  #svc-system-host { padding-bottom: 16px; }
+  #svc-system-host { padding-bottom: 96px; }
+  #lt-dispatch, #sb-dispatch { position: relative !important; bottom: auto !important; top: auto !important; }
+  .lt-hose, .lt-port, .sb-palette, .parts-tray { position: relative; z-index: 6; }
   .lt-palette, .sb-palette { left: 0 !important; }
   #lt-preview { position: sticky; top: 0; z-index: 5; }
 }

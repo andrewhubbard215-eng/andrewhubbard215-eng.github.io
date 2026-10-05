@@ -1,30 +1,23 @@
-# HVAC Allstars — shop pass (2026-10-04 lane C-plus cache)
+# HVAC Allstars — shop pass (2026-10-05 clock-in / hook gauges)
 
-## Live
-- floor v3.5.352
-- SW lt-allstars-v591
-- register sw.js?v=591
-- shop-floor-copy.js?v=76 (shell was 75, SW was 74; tonight's TIP_VER edit was not on a new query)
-- sandbox-ts.js?v=15 — no hook inject
-- sku.js?v=17 branding-only
-- route-floor.js?v=19 — ticket tag stays the dispatch job
-
-## PLAYED
-- Clock-in pass. Shop floor fills 1440×900.
-- Service calls: ticket is a 300px left rail. System stays on the right.
-- Hook gauges was renaming the ticket (Row home → Slow leak, Dave → Air in the circuit) while the choices stayed on the original call. FAIL before the fix.
-- Voltmeter school: sticky probe line at top (BLACK → COM / RED → VΩ). Still a quiz, not probe-on-lugs. Fills the monitor.
-- Sandbox: parts LEFT, packs, seat steps. Opens. Drag not re-walked after the ticket fix.
-- HUB chip did not cover the COM jack on this pass.
+## PLAYED (live github.io, then cache was still v3.5.353)
+- Clock In lands on the shop floor. Service calls opens a ticket, not a quiz shell.
+- Call 1 Jess & Marcus — fingerprint undercharge-lineset: Blue 102 / Red 268 / SH 22 / SC 2. Needle tips hit those psig angles (wrong-angle sample missed). Preview matched. LTSandbox got the same numbers.
+- Next random ticket → Priya, One zone dead. Fault changed to restriction: Blue 74 / Red 286 / SH 35 / SC 14. Ticket name stayed the job. Glass line changed.
+- Dispatch radio, streak, customer quote, pay stub, Blue/Red/SH/SC all live on the bay.
+- Phone 390: dispatch is in flow, overlap with hose/port drop was 0. Palette left. Preview sticky.
 
 ## SHIPPED
-- Hook gauges no longer overwrites Ticket: with the sandbox fingerprint. Job name stays. Fingerprint moves to the pay line.
-- Cache register bumped to sw.js?v=591 so shop-floor-copy.js?v=75 / SW v74 do not stick. sandbox-ts.js?v=15 already matched.
+- HUB roast slider on the dispatch bar. Moves the customer quote (pro / spicy / extra). Short haptic. Not a new mode.
+- Dispatch stays in document flow on a phone so it cannot cover hose or parts drop. Host padding clears the version strip. Palette left. Preview sticky.
+- Cache: floor v3.5.355, sw.js lt-allstars-v594, route-ticket-gauges.js?v=9, phone-rail padding.
+- Store copy touched here has no Lincoln marks. Campus edition untouched.
 
-## RED
-- Voltmeter school is still choices, not probe-on-lugs
-- Manifold school is not its own bay — gauges live on the service call
-- Direction bar is sticky gray, not a red pin
+## STILL SUCKS
+- Voltmeter school is still choices, not probe-on-lugs.
+- Manifold is the service-call bay, not its own school.
+- Live Pages was one cache behind (353 vs 354) until this bump. Hard-refresh.
+- Sandbox parts tray is not the thing you drag on this ticket — hoses are. Compressor drop still a separate lab.
 
-## TOMORROW
-- Walk meter school leads (COM / VΩ / equip ground) and sandbox compressor drop for a leftover box.
+## A TECH CAN PLAY
+Clock in → Service calls → Hook gauges → read Blue/Red/SH/SC → pick the fix → Next random ticket (fault must change) → HUB roast if the customer is lying.

@@ -158,7 +158,7 @@
   function quoteOf(c) {
     var q = c.quote || {};
     var roast = 0;
-    var slider = document.getElementById("svc-roast");
+    var slider = document.getElementById("lt-roast") || document.getElementById("svc-roast");
     if (slider) roast = Number(slider.value) || 0;
     if (roast >= 3 && q.extra) return q.extra;
     if (roast >= 2 && q.spicy) return q.spicy;
@@ -208,6 +208,7 @@
       '<span id="lt-streak"></span>' +
       '<span id="lt-quote"></span>' +
       '<span id="lt-stub"></span>' +
+      '<label class="lt-roast">HUB roast <input id="lt-roast" type="range" min="0" max="3" value="0" /></label>' +
       "</div>" +
       '<div id="lt-preview" class="lt-preview">Blue \u2014 \u00b7 Red \u2014 \u00b7 SH \u2014 \u00b7 SC \u2014</div>' +
       '<div class="lt-floor">' +
@@ -299,6 +300,14 @@
         seat(call());
       });
     }
+    var roast = document.getElementById("lt-roast");
+    if (roast && roast.dataset.ltRoast !== "1") {
+      roast.dataset.ltRoast = "1";
+      roast.addEventListener("input", function () {
+        try { if (navigator.vibrate) navigator.vibrate(8); } catch (e) {}
+        paint(fingerprint(call()), call());
+      });
+    }
     var next = document.getElementById("svc-next-ticket");
     if (next && next.dataset.ltNext !== "1") {
       next.dataset.ltNext = "1";
@@ -320,7 +329,7 @@
   css.id = "lt-ticket-gauges-css";
   css.textContent =
     "#lt-ticket-bay{display:flex;flex-direction:column;min-height:220px;background:#0b1218;color:#f4e7c8}" +
-    "#lt-dispatch{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:6px 10px;background:#14110c;border-bottom:2px solid #CE0034;font-size:12px}" +
+    "#lt-dispatch{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:6px 10px;background:#14110c;border-bottom:2px solid #CE0034;font-size:12px;pointer-events:auto}" +
     "#lt-preview{position:sticky;top:0;z-index:3;padding:6px 10px;background:#102033;font-size:18px;font-weight:700;letter-spacing:.02em}" +
     ".lt-floor{display:grid;grid-template-columns:108px minmax(0,1fr);gap:8px;padding:8px;align-items:start}" +
     ".lt-palette{display:flex;flex-direction:column;gap:6px}" +
@@ -332,7 +341,7 @@
     ".lt-fault{grid-column:1/-1;margin:4px 0 12px;font-size:13px;line-height:1.35;min-height:2.6em;opacity:.95}" +
     "#lt-g-low,#lt-g-high{width:100%;height:auto;max-height:min(200px,26vh)}" +
     "@media(max-height:820px){#lt-g-low,#lt-g-high{max-height:132px}#lt-ticket-bay{min-height:0}#screen-service{overflow:auto!important;padding-bottom:12px}.lt-floor{align-items:start}}" +
-    "@media(max-width:480px){#lt-dispatch,#sb-dispatch{position:relative!important;bottom:auto!important;max-height:22vh;overflow:auto}#svc-system-host{padding-bottom:72px}.lt-floor{grid-template-columns:92px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:6;pointer-events:auto}#lt-preview{position:sticky;top:0;z-index:5}#screen-service #sb-gauge-run{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;z-index:1!important;pointer-events:none}#lt-port-suction,#lt-port-liquid,#lt-port-cap,.lt-hose{pointer-events:auto;position:relative;z-index:7}}";
+    "@media(max-width:480px){#lt-dispatch,#sb-dispatch{position:relative!important;bottom:auto!important;top:auto!important;max-height:22vh;overflow:auto;width:auto!important}#svc-system-host{padding-bottom:96px}.version-strip{pointer-events:none}.lt-roast{display:flex;align-items:center;gap:6px;font-size:11px}.lt-floor{grid-template-columns:92px minmax(0,1fr)!important}.lt-palette{position:relative!important;left:0!important;z-index:6;pointer-events:auto}#lt-preview{position:sticky;top:0;z-index:5}#screen-service #sb-gauge-run{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;z-index:1!important;pointer-events:none}#lt-port-suction,#lt-port-liquid,#lt-port-cap,.lt-hose{pointer-events:auto;position:relative;z-index:7}}";
   document.head.appendChild(css);
   bind();
   setInterval(function () {
