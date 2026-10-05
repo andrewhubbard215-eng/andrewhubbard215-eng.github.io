@@ -1,11 +1,12 @@
-/* Charge off nameplate must move SH/SC.
-   TXV: charge by SC (seat 8–14). Piston: charge by chart SH from OD dry bulb + indoor WB.
-   Bay repaints every frame — rewrite in the same turn so the glass keeps the print.
-   Call line is a separate node so the SH/SC observer does not loop. */
+/* Charge off nameplate must move SH/SC once.
+   Latch engine base so a bay repaint cannot stack the offset and lock the glass.
+   TXV: charge by SC (seat 8–14). Piston: charge by chart SH from OD dry bulb + indoor WB. */
 (function () {
   "use strict";
   var lastKey = "";
   var writing = false;
+  var baseSh = null;
+  var baseSc = null;
 
   function charge() {
     var s = document.getElementById("sb-charge");
@@ -41,7 +42,6 @@
     return false;
   }
 
-  /* Fixed-orifice required-SH chart, school table. OD rows 75/85/95/105, WB cols 55/60/65/70/75. */
   function chartSH(od, wb) {
     var ods = [75, 85, 95, 105];
     var wbs = [55, 60, 65, 70, 75];
@@ -66,10 +66,8 @@
     return Math.round(lerp(r0, r1, ot));
   }
 
-  function seat(shv, scv, piston, target) {
-    if (piston) {
-      return shv.toFixed(1) + " °F SH  (piston chart " + target + "°F — charge by SH)";
-    }
+  function seat(shv, piston, target) {
+    if (piston) return shv.toFixed(1) + " °F SH  (piston chart " + target + "°F — charge by SH)";
     return shv.toFixed(1) + " °F SH  (TXV seat 8–14)";
   }
 
@@ -110,6 +108,20 @@
     return line;
   }
 
+  function latch(sh, sc, off) {
+    var rawSh = readNum(sh);
+    var rawSc = readNum(sc);
+    if (rawSh == null || rawSc == null) return null;
+    if (!off) {
+      baseSh = rawSh;
+      baseSc = rawSc;
+      return { sh: rawSh, sc: rawSc };
+    }
+    if (baseSh == null) baseSh = rawSh;
+    if (baseSc == null) baseSc = rawSc;
+    return { sh: baseSh, sc: baseSc };
+  }
+
   function paint() {
     if (writing) return;
     var sh = document.getElementById("sb-sh");
@@ -117,47 +129,42 @@
     var line = ensureCall();
     if (!sh || !sc) return;
     if (!running()) {
+      baseSh = null;
+      baseSc = null;
       if (line && line.textContent.indexOf("Standing") !== 0) line.textContent = callText(null, null, false, 0);
       lastKey = "stand";
       return;
     }
-    var rawSh = readNum(sh);
-    var rawSc = readNum(sc);
-    if (rawSh == null || rawSc == null) return;
     var d = (100 - charge()) / 100;
     var off = Math.abs(d) >= 0.04;
-    var shv = off ? Math.round((rawSh + d * 40) * 10) / 10 : rawSh;
-    var scv = off ? Math.round((rawSc - d * 32) * 10) / 10 : rawSc;
+    var latched = latch(sh, sc, off);
+    if (!latched) return;
+    var shv = off ? Math.round((latched.sh + d * 40) * 10) / 10 : latched.sh;
+    var scv = off ? Math.round((latched.sc - d * 32) * 10) / 10 : latched.sc;
     if (shv < 0) shv = 0;
     if (scv < 0) scv = 0;
     var piston = pistonOn();
-    var od = readNum(document.getElementById("sb-out-v")) || 95;
-    var wb = readNum(document.getElementById("sb-wb-v")) || 63;
+    var od = readNum(document.getElementById("sb-out-v")) || parseFloat((document.getElementById("sb-out") || {}).value) || 95;
+    var wb = readNum(document.getElementById("sb-wb-v")) || parseFloat((document.getElementById("sb-wb") || {}).value) || 63;
     var target = chartSH(od, wb);
     var key = charge().toFixed(0) + "|" + shv.toFixed(1) + "|" + scv.toFixed(1) + "|" + (piston ? "P" + target : "T");
     if (key === lastKey) return;
     lastKey = key;
     writing = true;
-    sh.textContent = seat(shv, scv, piston, target);
+    sh.textContent = seat(shv, piston, target);
     sc.textContent = piston
       ? scv.toFixed(1) + " °F SC  (piston — do not charge by SC)"
       : scv.toFixed(1) + " °F SC  (TXV seat 8–14 — charge by SC)";
     if (line) line.textContent = callText(shv, scv, piston, target);
     var gsh = document.getElementById("g-sh");
     var gsc = document.getElementById("g-sc");
-    if (gsh) gsh.textContent = shv.toFixed(1);
-    if (gsc) gsc.textContent = scv.toFixed(1);
+    if (gsh && gsh.textContent !== shv.toFixed(1)) gsh.textContent = shv.toFixed(1);
+    if (gsc && gsc.textContent !== scv.toFixed(1)) gsc.textContent = scv.toFixed(1);
     writing = false;
   }
 
-  var obs = new MutationObserver(paint);
-  function arm() {
-    var sh = document.getElementById("sb-sh");
-    var sc = document.getElementById("sb-sc");
-    if (!sh) return;
-    obs.observe(sh, { childList: true, characterData: true, subtree: true });
-    if (sc) obs.observe(sc, { childList: true, characterData: true, subtree: true });
-  }
-  setInterval(function () { arm(); paint(); }, 400);
-  arm();
+  setInterval(paint, 500);
+  document.addEventListener("input", function (ev) {
+    if (ev.target && ev.target.id === "sb-charge") paint();
+  }, true);
 })();

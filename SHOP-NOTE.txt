@@ -1,4 +1,4 @@
-2026-10-05 fingerprint call
-Played live: clock-in, sandbox. Tap COMP/COND/TXV/EVAP — pads go photo-only (class on, LEFT label gone). Start stays "Seat 4 LEFT first" until four, then "Start compressor". Healthy run: suction 162 / SH 10.0, head 442 / SC 10.0. No crash.
-Shipped: running bay prints a one-line call (in seat / high SH low SC undercharge / low SH high SC overcharge / high-high restriction / piston chart). Standing clears the call so equalized P is not a diagnosis. Strip v3.5.358. Cache sw.js lt-allstars-v599.
-Next: hard-refresh sandbox, seat four, start, slide charge off 100 and confirm the call flips before the tech adds gas. Phone gauge panel still covers EVAP corner (left alone).
+2026-10-05 charge latch
+Played live v3.5.357: clock-in, sandbox, seat four, start. Healthy 162 / SH 10.0, head 442 / SC 10.0, call In seat. Sliding charge off 100 locked the bay (offset stacked on every repaint).
+Shipped: latch nameplate SH/SC, apply charge delta once, call flips before gas is added. Strip v3.5.359. Cache sw.js lt-allstars-v600.
+Next: hard-refresh, seat four, start, pull charge to ~70 and confirm one undercharge call, then back to 100 and In seat. Phone gauge panel still covers EVAP corner (left alone).
