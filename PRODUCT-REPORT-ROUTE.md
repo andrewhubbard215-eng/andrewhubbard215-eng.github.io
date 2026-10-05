@@ -3,6 +3,11 @@
 ## DATE
 2026-10-05
 
+## LIVE
+- Strip v3.5.370
+- SW lt-allstars-v611
+- phone-rail.css?v=2 (content landed 11:37Z still on ?v=1)
+
 ## PLAYED
 - Clock in: pass. Shop floor fills the monitor. v3.5.359 strip until hard-refresh; script now v13.
 - Service calls: pass after fix. Uncle Ray junipers (R-22 nameplate) then next ticket. Hook gauges seats blue/red/yellow. Needles paint. Center psig sits under the hub so the needle does not cover it.
@@ -18,7 +23,7 @@
 - hold() computes sat before it writes LTSandbox.
 - New hose chips get wireHose. Blue click seats and the chip leaves.
 - Digital psig drawn under the hub with a dark backing.
-- Cache: route-ticket-gauges.js?v=13, floor stamp v3.5.360, sw.js lt-allstars-v601.
+- Cache: route-ticket-gauges.js?v=13, floor stamp v3.5.370, sw.js lt-allstars-v611. phone-rail.css?v=2.
 
 ## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs.
