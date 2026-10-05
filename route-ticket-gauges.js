@@ -32,8 +32,8 @@
 
   function sheetText() {
     var tag = document.querySelector(".svc-fault-tag");
-    var pay = document.getElementById("svc-pay");
-    return (((tag && tag.textContent) || "") + " " + ((pay && pay.textContent) || "")).toLowerCase();
+    var sheet = document.getElementById("svc-sheet") || document.querySelector(".svc-sheet");
+    return (((tag && tag.textContent) || "") + " " + ((sheet && sheet.textContent) || "")).toLowerCase();
   }
 
   function is22(c) {
@@ -74,7 +74,9 @@
       lineset: ["undercharge-lineset", 102, 268, 22, 2],
       "od-fan": ["dirty-cond", 118, 430, 10, 16]
     };
-    if (/air in the circuit|noncondensables|high head - high sc/.test(sheet)) {
+    if (/open to atmosphere|lines cut|system opened|oil smell|valve apart/.test(blob)) {
+      id = "open"; blue = 0; red = 0; sh = 0; sc = 0;
+    } else if (/air in the circuit|noncondensables|high head - high sc/.test(sheet) && !/pay stub|streak/.test(sheet)) {
       id = "air"; blue = 132; red = 478; sh = 8; sc = 22;
     } else if (routeGlass[routeId]) {
       id = routeGlass[routeId][0]; blue = routeGlass[routeId][1]; red = routeGlass[routeId][2]; sh = routeGlass[routeId][3]; sc = routeGlass[routeId][4];
@@ -231,6 +233,12 @@
     bay.querySelectorAll(".lt-hose").forEach(function (btn) {
       btn.addEventListener("dragstart", function (ev) {
         ev.dataTransfer.setData("text/plain", btn.getAttribute("data-hose"));
+      });
+      btn.addEventListener("click", function () {
+        var hose = btn.getAttribute("data-hose");
+        var portId = hose === "blue" ? "lt-port-suction" : hose === "red" ? "lt-port-liquid" : "lt-port-cap";
+        var port = document.getElementById(portId);
+        if (port) land(bay, port, hose);
       });
     });
     bay.querySelectorAll(".lt-port").forEach(function (port) {

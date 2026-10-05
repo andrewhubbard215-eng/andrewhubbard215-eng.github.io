@@ -1,4 +1,4 @@
-2026-10-05 seat-hold pass
-Played live: Hook gauges painted, then the pay stub line (Air in the circuit) flipped the fingerprint and the glass went back to dashes.
-Shipped: chart reads the ticket, not the pay stub. Hose chip tap seats the port. Seated glass stays. Strip v3.5.355. Cache sw.js lt-allstars-v596.
-Next: hard-refresh, open a system-opened ticket, tap blue+red, confirm 0/0 not a stale air fingerprint.
+2026-10-05 open-system glass
+Played live: DIY Dave system-opened ticket. Pay stub said Air in the circuit. Blue/red hose taps left glass at dashes.
+Shipped: ticket wins over pay-stub fingerprint (open = 0/0). Hose chip tap seats the matching port. Strip v3.5.356. Cache sw.js lt-allstars-v597.
+Next: hard-refresh, open system-opened ticket, tap blue then red, confirm 0/0 and seated ports. Do not start Gauges of God.
