@@ -50,17 +50,19 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.367";
+  var TIP_VER = "v3.5.369";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
     var bay = "shop floor";
     var tabSat = document.querySelector(".el-tab.active, .sat-tab.active, [data-el-tab].active");
     var tabTxt = ((tabSat && tabSat.textContent) || "").toLowerCase();
+    var lite = document.querySelector(".el-lite-head, .el-lite-panel h2");
+    var liteTxt = ((lite && lite.textContent) || "").toLowerCase();
     if (screenOn("screen-electrical")) {
-      if (/saturday|callback/.test(tabTxt) || document.querySelector(".sat-sheet, #sat-root, [data-mode='defusal'].active"))
+      if (/saturday|callback/.test(tabTxt) || /saturday|callback|no-cool/.test(liteTxt) || document.querySelector(".sat-sheet, #sat-root, [data-mode='defusal'].active"))
         bay = "saturday callback";
-      else if (/lug|land/.test(tabTxt)) bay = "land lugs";
+      else if (/lug|land/.test(tabTxt) || /land lugs|l1 line/.test(liteTxt)) bay = "land lugs";
       else bay = "ladder";
     } else if (screenOn("screen-sandbox")) bay = "sandbox";
     else if (screenOn("screen-quiz")) bay = "exam";

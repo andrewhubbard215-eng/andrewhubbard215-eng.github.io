@@ -1,5 +1,5 @@
-2026-10-05 Dirty OD standing sheet was calling Wash with the compressor off.
-Played live v3.5.367. Clock-in and sandbox load. Seat LEFT, start, running sheet splits Blue SH / Red SC and says wash, do not recover.
-Bug: paintSplit stamped 498 / Cond TD 38 / Wash on equalized standing gauges before start.
-Shipped: standing dirty OD does not call wash. Cond TD off until compressor runs. Strip v3.5.368. Cache sw.js lt-allstars-v609. sandbox-fp.js?v=11.
-Next: hard-refresh, confirm Pages serves 368, seat LEFT, dirty OD standing says not a wash call, then start and wash only with SH/SC in band.
+2026-10-05 Evening. Saturday callback lite loaded on the electrical screen but the strip said ladder.
+Played phone 390 and desktop. Clock-in, sandbox seat LEFT, start, healthy SH 10 / SC 10 / 162 / 442, dirty OD running 498 head / cond TD 38 / wash not recover. No crash.
+Bug: bayStrip only watched .sat-tab. No-cool sheet is .el-lite-head. Strip lied.
+Shipped: lite head names saturday callback (land lugs if L1 LINE). Strip v3.5.369. Cache sw.js lt-allstars-v610. shop-floor-copy.js?v=85.
+Next: hard-refresh, open Saturday callback, strip must say saturday callback not ladder.
