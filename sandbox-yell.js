@@ -1,4 +1,4 @@
-/* HVAC Allstars — Start compressor blocked until parts seated LEFT */
+/* HVAC Allstars — Start compressor blocked until parts seated LEFT (v6: no auto-seat on Start) */
 (function () {
   "use strict";
   function seated(id) {
@@ -66,10 +66,7 @@
     if (!miss.length) { clearYell(); return; }
     e.preventDefault();
     e.stopImmediatePropagation();
-    if (typeof window.LtSeatAllFour === "function") {
-      window.LtSeatAllFour();
-      return;
-    }
+    /* Start never seats parts for the tech: the loop stays open until all four are seated LEFT. */
     yell(miss);
     var st = document.getElementById("sb-status");
     if (st) st.textContent = "Standing pressures - Tech - seat the four LEFT";
