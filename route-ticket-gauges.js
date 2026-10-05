@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 7;
+  window.__ltTicketGauges = 8;
 
   var lastKey = "";
   var seated = false;
@@ -149,12 +149,14 @@
     ctx.arc(cx, cy, 5, 0, Math.PI * 2);
     ctx.fillStyle = "#f4e7c8";
     ctx.fill();
+    ctx.fillStyle = "#0e0c09";
+    ctx.fillRect(cx - 52, cy + 16, 104, 40);
     ctx.fillStyle = "#f4e7c8";
     ctx.textAlign = "center";
-    ctx.font = "bold 32px sans-serif";
-    ctx.fillText(String(psig), cx, cy + 10);
+    ctx.font = "bold 28px sans-serif";
+    ctx.fillText(String(psig), cx, cy + 40);
     ctx.font = "12px sans-serif";
-    ctx.fillText("psig", cx, cy + 26);
+    ctx.fillText("psig", cx, cy + 52);
   }
 
   function quoteOf(c) {
@@ -196,6 +198,21 @@
     if (bay.querySelector("#lt-port-suction.seated") && bay.querySelector("#lt-port-liquid.seated")) seat(call());
   }
 
+
+  function wireHose(bay, btn) {
+    if (btn.dataset.ltWired === "1") return;
+    btn.dataset.ltWired = "1";
+    btn.addEventListener("dragstart", function (ev) {
+      ev.dataTransfer.setData("text/plain", btn.getAttribute("data-hose"));
+    });
+    btn.addEventListener("click", function () {
+      var hose = btn.getAttribute("data-hose");
+      var portId = hose === "blue" ? "lt-port-suction" : hose === "red" ? "lt-port-liquid" : "lt-port-cap";
+      var port = document.getElementById(portId);
+      if (port) land(bay, port, hose);
+    });
+  }
+
   function ensureBay() {
     var host = document.getElementById("svc-system-host");
     if (!host) return null;
@@ -230,17 +247,7 @@
       '<p id="lt-fault" class="lt-fault"></p>' +
       "</div></div>";
     host.insertBefore(bay, host.firstChild);
-    bay.querySelectorAll(".lt-hose").forEach(function (btn) {
-      btn.addEventListener("dragstart", function (ev) {
-        ev.dataTransfer.setData("text/plain", btn.getAttribute("data-hose"));
-      });
-      btn.addEventListener("click", function () {
-        var hose = btn.getAttribute("data-hose");
-        var portId = hose === "blue" ? "lt-port-suction" : hose === "red" ? "lt-port-liquid" : "lt-port-cap";
-        var port = document.getElementById(portId);
-        if (port) land(bay, port, hose);
-      });
-    });
+    bay.querySelectorAll(".lt-hose").forEach(function (btn) { wireHose(bay, btn); });
     bay.querySelectorAll(".lt-port").forEach(function (port) {
       port.addEventListener("dragover", function (ev) { ev.preventDefault(); });
       port.addEventListener("drop", function (ev) {
@@ -276,6 +283,7 @@
       btn.setAttribute("data-hose", hose);
       btn.textContent = hose.charAt(0).toUpperCase() + hose.slice(1) + " hose";
       pal.appendChild(btn);
+      wireHose(bay, btn);
     });
   }
 
@@ -322,6 +330,9 @@
     var phigh = document.getElementById("g-phigh");
     if (plow) plow.textContent = "\u2014";
     if (phigh) phigh.textContent = "\u2014";
+    var table = fp.gas === "R-22" ? PT22 : PT410;
+    var satL = Math.round(satOf(fp.blue, table));
+    var satH = Math.round(satOf(fp.red, table));
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
