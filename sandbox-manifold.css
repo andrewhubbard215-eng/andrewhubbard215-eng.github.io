@@ -1,0 +1,29 @@
+/* Phone manifold sheet stays under the four LEFT seats. */
+@media (max-width: 1100px) {
+  #sb-phone-vitals {
+    display: flex;
+  }
+  #sb-manifold-toggle {
+    margin-left: auto;
+    background: #ce0034;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font: 800 13px/1 system-ui, sans-serif;
+    min-height: 36px;
+  }
+  #sandbox-root .sb-gauges.drawer-open {
+    max-height: 28dvh !important;
+  }
+  #sandbox-root.manifold-open .sb-stage-wrap,
+  #sandbox-root.manifold-open #sb-canvas-wrap {
+    margin-bottom: 30dvh;
+  }
+  #sb-seats {
+    z-index: 70;
+  }
+  #sb-seats .sb-seat {
+    z-index: 71;
+  }
+}

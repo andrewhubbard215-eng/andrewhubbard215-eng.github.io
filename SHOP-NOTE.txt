@@ -1,5 +1,5 @@
-2026-10-05 HUB follows cond TD
-Played live: clock-in, seat four, start. Healthy 162 / 10.0 SH, 442 / 10.0 SC. Charge knob to 70. Glass 12.4 SH / 11.8 SC. Call stayed "in seat — do not call undercharge off the knob." That last fix holds.
-HUB still said dirty condenser / heat rejection because head was 466. Cond TD was 25, in the 20-30 seat. Head alone is not a wash-the-coil call.
-Shipped: HUB heat-rejection line only if cond TD is out of seat (>=32) or a dirty/fan/high-head fault is planted. Strip v3.5.362. Cache sw.js lt-allstars-v603. sandbox-fp v=10.
-Next: hard-refresh, seat four, start, charge 70. HUB should say in band while cond TD stays 20-30. Phone gauge panel still covers EVAP corner.
+2026-10-05 manifold sheet clears EVAP
+Played live: clock-in, sandbox open. Strip on the cached page still said v3.5.359 (SW v603). Locker and sandbox loaded. Four LEFT seats present. No crash.
+Phone sheet was translateY(110%) with no opener, and the open rule was 46dvh over the EVAP corner.
+Shipped: Manifold button on the phone vitals bar. Sheet caps at 28dvh. Stage gets 30dvh bottom margin so COMP COND TXV EVAP stay above the glass. Seats z-index 70. Strip v3.5.363. Cache sw.js lt-allstars-v604.
+Next: hard-refresh on a phone-width bay. Tap Manifold. Read Blue/Red. EVAP LEFT still seats.
