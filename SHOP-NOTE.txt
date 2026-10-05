@@ -1,4 +1,4 @@
-2026-10-05 hook-hold pass
-Played live: Uncle Ray dirty-cond. Chart dumped Blue 76 / Red 368 / SH 9 / SC 16 before hoses seated.
-Shipped: blank glass until blue+red seat or Hook gauges. Next ticket clears hoses. Strip v3.5.354. Cache sw.js lt-allstars-v595.
-Next: hard-refresh service call, confirm chart stays blank, hook, then read SH/SC.
+2026-10-05 seat-hold pass
+Played live: Hook gauges painted, then the pay stub line (Air in the circuit) flipped the fingerprint and the glass went back to dashes.
+Shipped: chart reads the ticket, not the pay stub. Hose chip tap seats the port. Seated glass stays. Strip v3.5.355. Cache sw.js lt-allstars-v596.
+Next: hard-refresh, open a system-opened ticket, tap blue+red, confirm 0/0 not a stale air fingerprint.
