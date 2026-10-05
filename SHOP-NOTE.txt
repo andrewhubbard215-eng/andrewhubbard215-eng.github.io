@@ -1,4 +1,5 @@
-2026-10-05 Dirty OD call on the running sheet. Pages build was errored.
-Played live. Clock-in and sandbox load. Pages still serves v3.5.363 (last good build 19:04 UTC). Later builds cancelled or failed, so Blue SH / Red SC never reached the phone. Service worker in this browser still painted 359.
-Shipped: TXV running sheet says wash, do not recover when blue SH is 8-14 and red SC is 16 or higher. Strip v3.5.367. Cache sw.js lt-allstars-v608. shop-floor-copy.js?v=84. shop-pages workflow so a failed legacy build is not the only door.
-Next: confirm Pages serves 367, seat LEFT, start, dirty OD must split Blue SH vs Red SC and say wash.
+2026-10-05 Dirty OD standing sheet was calling Wash with the compressor off.
+Played live v3.5.367. Clock-in and sandbox load. Seat LEFT, start, running sheet splits Blue SH / Red SC and says wash, do not recover.
+Bug: paintSplit stamped 498 / Cond TD 38 / Wash on equalized standing gauges before start.
+Shipped: standing dirty OD does not call wash. Cond TD off until compressor runs. Strip v3.5.368. Cache sw.js lt-allstars-v609. sandbox-fp.js?v=11.
+Next: hard-refresh, confirm Pages serves 368, seat LEFT, dirty OD standing says not a wash call, then start and wash only with SH/SC in band.

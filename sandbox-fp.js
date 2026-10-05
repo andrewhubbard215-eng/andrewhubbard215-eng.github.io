@@ -74,6 +74,10 @@
         ? "Cond TD 53° (SCT−OD) · seat 20–30° — blown. HPC open. Last call: no air across the coil."
         : "Cond TD 53° (SCT−OD) · seat 20–30° air-cooled — blown. No air across the coil.");
     } else if (k === "dirty") {
+      if (tripped) {
+        setText("sb-ctd", "Cond TD off — compressor is not running. Equalized P is not a wash call. Start, then read SH/SC.");
+        return;
+      }
       setText("g-phigh", "498 psig");
       setText("sb-ph", "498 psig");
       setText("sb-sct", "SCT 133°F");
@@ -161,4 +165,3 @@
   setInterval(arm, 1000);
   arm();
 })();
-
