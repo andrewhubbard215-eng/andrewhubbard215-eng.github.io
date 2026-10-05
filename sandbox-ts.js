@@ -1,4 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
+   v16 — cutout step names the plant on the fault line. Generic fingerprint is not a call.
    v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
@@ -119,6 +120,14 @@
     return named ? 6 : 5;
   }
 
+  function plantCall() {
+    var fault = ((document.getElementById("sb-fault") || {}).textContent) || "";
+    fault = fault.replace(/^FAULT\s*-\s*/i, "").replace(/\s+/g, " ").trim();
+    var plant = fault.split("\u2014")[0].split("-")[0].trim();
+    if (!plant || /none|healthy|clear/i.test(plant)) plant = "Safety opened the contactor";
+    return plant + ". Last head is the call. Name that fingerprint. Equalized hose is not a reset and not a standing diagnosis.";
+  }
+
   function sync(ol) {
     var lis = ol.querySelectorAll("li");
     STEPS.forEach(function (step, i) {
@@ -138,7 +147,8 @@
     });
     if (b.tripped && stage === 5) {
       var waitP = ol.querySelector("li.wait p");
-      if (waitP) waitP.textContent = "Safety opened the contactor. Last head or suction is the call. Name the fingerprint. Equalized hose is not a reset and not a standing diagnosis.";
+      var call = plantCall();
+      if (waitP && waitP.textContent !== call) waitP.textContent = call;
     }
     return stage;
   }
@@ -155,7 +165,7 @@
       return;
     }
     if (bay().tripped && stage === 5) {
-      el.textContent = "TS 5 · Cutout — name the fingerprint";
+      el.textContent = "TS 5 · Cutout — name the plant";
       return;
     }
     var wait = ol.querySelector("li.wait");
