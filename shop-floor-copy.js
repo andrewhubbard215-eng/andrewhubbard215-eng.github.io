@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.354";
+  var TIP_VER = "v3.5.357";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -86,7 +86,11 @@
         return !sl || !(sl.classList.contains("filled") || sl.querySelector("img, strong, .rm"));
       });
     }
-    return false;
+    /* No #sb-slots (diamond pads): the rail part buttons carry the seated state. */
+    return need.some(function (id) {
+      var part = document.querySelector('#sandbox-root [data-part="' + id + '"]');
+      return !!part && !(part.classList.contains("primary") || part.getAttribute("aria-pressed") === "true");
+    });
   }
   function lockChargeUntilSeated() {
     var chg = document.getElementById("sb-charge");

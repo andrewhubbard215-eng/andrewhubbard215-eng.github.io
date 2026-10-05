@@ -1,4 +1,4 @@
-2026-10-05 open-system glass
-Played live: DIY Dave system-opened ticket. Pay stub said Air in the circuit. Blue/red hose taps left glass at dashes.
-Shipped: ticket wins over pay-stub fingerprint (open = 0/0). Hose chip tap seats the matching port. Strip v3.5.356. Cache sw.js lt-allstars-v597.
-Next: hard-refresh, open system-opened ticket, tap blue then red, confirm 0/0 and seated ports. Do not start Gauges of God.
+2026-10-05 seat-pad pass
+Played live: System sandbox. COND/TXV/EVAP pads kept dashed box + LEFT label until Start; drag part to pad did nothing on PC mouse / phone; phone Start read "Start compressor" with nothing seated; footer v3.5.354 in-game vs v3.5.356 loader.
+Shipped: seats observer ignores the 50 ms flow-line redraw (was starving the pad repaint) + repaint on every rail tap; mouse drag no longer killed by the phone vertical-scroll gate, drop snaps to a pad within 36 px; Start label gated on the four rail parts. Strip v3.5.357 everywhere. Cache sw.js lt-allstars-v598.
+Next: hard-refresh, sandbox, drag + tap each of the four, confirm pad goes photo-only on seat, Start only after four. Phone: gauge panel still covers EVAP corner (left alone, layout frozen).
