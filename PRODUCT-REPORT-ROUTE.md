@@ -1,23 +1,29 @@
-# HVAC Allstars — shop pass (2026-10-05 clock-in / hook gauges)
+# HVAC Allstars — shop pass (2026-10-05 playtest lane)
 
-## PLAYED (live github.io, then cache was still v3.5.353)
-- Clock In lands on the shop floor. Service calls opens a ticket, not a quiz shell.
-- Call 1 Jess & Marcus — fingerprint undercharge-lineset: Blue 102 / Red 268 / SH 22 / SC 2. Needle tips hit those psig angles (wrong-angle sample missed). Preview matched. LTSandbox got the same numbers.
-- Next random ticket → Priya, One zone dead. Fault changed to restriction: Blue 74 / Red 286 / SH 35 / SC 14. Ticket name stayed the job. Glass line changed.
-- Dispatch radio, streak, customer quote, pay stub, Blue/Red/SH/SC all live on the bay.
-- Phone 390: dispatch is in flow, overlap with hose/port drop was 0. Palette left. Preview sticky.
+## DATE
+2026-10-05
 
-## SHIPPED
-- HUB roast slider on the dispatch bar. Moves the customer quote (pro / spicy / extra). Short haptic. Not a new mode.
-- Dispatch stays in document flow on a phone so it cannot cover hose or parts drop. Host padding clears the version strip. Palette left. Preview sticky.
-- Cache: floor v3.5.355, sw.js lt-allstars-v594, route-ticket-gauges.js?v=9, phone-rail padding.
-- Store copy touched here has no Lincoln marks. Campus edition untouched.
+## PLAYED
+- Clock in: pass. Shop floor fills the monitor. v3.5.359 strip until hard-refresh; script now v13.
+- Service calls: pass after fix. Uncle Ray junipers (R-22 nameplate) then next ticket. Hook gauges seats blue/red/yellow. Needles paint. Center psig sits under the hub so the needle does not cover it.
+- Next ticket: was a crash. Now blank glass, hoses come back wired, click seats blue and the chip goes away.
+- Voltmeter school: pass as a choice bay. Direction line is on the sheet. Not probe-on-lugs.
+- Sandbox / HUB: not the broken path this shift. HUB strip did not cover the hose palette.
 
-## STILL SUCKS
+## BROKE
+- Next random ticket threw `satL is not defined` in hold(). LTSandbox never got the sats.
+- Hose chips rebuilt after next ticket had no click/drag. Blocked drop.
+
+## FIXED
+- hold() computes sat before it writes LTSandbox.
+- New hose chips get wireHose. Blue click seats and the chip leaves.
+- Digital psig drawn under the hub with a dark backing.
+- Cache: route-ticket-gauges.js?v=13, floor stamp v3.5.360, sw.js lt-allstars-v601.
+
+## STILL OPEN
 - Voltmeter school is still choices, not probe-on-lugs.
-- Manifold is the service-call bay, not its own school.
-- Live Pages was one cache behind (353 vs 354) until this bump. Hard-refresh.
-- Sandbox parts tray is not the thing you drag on this ticket — hoses are. Compressor drop still a separate lab.
+- Manifold school is the service-call bay, not its own guided walk.
+- Version strip can stay on 359 until a hard refresh (service worker).
 
-## A TECH CAN PLAY
-Clock in → Service calls → Hook gauges → read Blue/Red/SH/SC → pick the fix → Next random ticket (fault must change) → HUB roast if the customer is lying.
+## TOMORROW
+Hard-refresh, then meter school: land black on COM, red on VΩ, equip ground on GND, probe R to C for 24 VAC.
