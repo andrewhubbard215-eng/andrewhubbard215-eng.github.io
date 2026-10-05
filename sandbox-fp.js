@@ -16,6 +16,12 @@
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
     return "";
   }
+  function condTd() {
+    var el = document.getElementById("sb-ctd");
+    if (!el) return NaN;
+    var m = String(el.textContent || "").match(/Cond TD\s*(-?[\d.]+)/i);
+    return m ? parseFloat(m[1]) : NaN;
+  }
   function classify(sh, sc, tgtSH, tgtSC, head, fault) {
     if (!(sh >= 0) || !(sc >= 0)) return null;
     var hiSH = sh > tgtSH + 6;
@@ -25,9 +31,11 @@
     var inBand = Math.abs(sh - tgtSH) <= 4 && Math.abs(sc - tgtSC) <= 4;
     var k = kind(fault);
     var faultHeat = k === "fan" || k === "dirty" || /high head/i.test(fault || "");
+    var ctd = condTd();
+    var tdOut = ctd >= 32;
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
-    if (inBand && (faultHeat || head >= 450)) return heatLine();
+    if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
     if (inBand)
       return "HUB: SH/SC in band. That's a charged, breathing system.";
     if (hiSH && loSC) return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";

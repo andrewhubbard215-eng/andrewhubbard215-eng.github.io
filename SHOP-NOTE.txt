@@ -1,5 +1,5 @@
-2026-10-05 charge call matches glass
-Played live v3.5.359: clock-in, sandbox, seat four, start. Healthy 162 / 10.0 SH, 442 / 10.0 SC, call In seat.
-Pulled charge to 70. Glass stayed 12.4 SH / 11.8 SC (in band) while the call said High SH / low SC undercharge. Engine repaint had overwritten the latch; the call kept the private offset.
-Shipped: name the call from the numbers on the glass. Knob off nameplate with SH/SC still 8-14 does not call undercharge. Strip v3.5.361. Cache sw.js lt-allstars-v602. charge-print v=8.
-Next: hard-refresh, seat four, start, pull charge to 70. Call must match the SH/SC on the glass. Phone gauge panel still covers EVAP corner (left alone).
+2026-10-05 HUB follows cond TD
+Played live: clock-in, seat four, start. Healthy 162 / 10.0 SH, 442 / 10.0 SC. Charge knob to 70. Glass 12.4 SH / 11.8 SC. Call stayed "in seat — do not call undercharge off the knob." That last fix holds.
+HUB still said dirty condenser / heat rejection because head was 466. Cond TD was 25, in the 20-30 seat. Head alone is not a wash-the-coil call.
+Shipped: HUB heat-rejection line only if cond TD is out of seat (>=32) or a dirty/fan/high-head fault is planted. Strip v3.5.362. Cache sw.js lt-allstars-v603. sandbox-fp v=10.
+Next: hard-refresh, seat four, start, charge 70. HUB should say in band while cond TD stays 20-30. Phone gauge panel still covers EVAP corner.
