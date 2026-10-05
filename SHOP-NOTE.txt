@@ -1,5 +1,4 @@
-2026-10-05 manifold sheet clears EVAP
-Played live: clock-in, sandbox open. Strip on the cached page still said v3.5.359 (SW v603). Locker and sandbox loaded. Four LEFT seats present. No crash.
-Phone sheet was translateY(110%) with no opener, and the open rule was 46dvh over the EVAP corner.
-Shipped: Manifold button on the phone vitals bar. Sheet caps at 28dvh. Stage gets 30dvh bottom margin so COMP COND TXV EVAP stay above the glass. Seats z-index 70. Strip v3.5.363. Cache sw.js lt-allstars-v604.
-Next: hard-refresh on a phone-width bay. Tap Manifold. Read Blue/Red. EVAP LEFT still seats.
+2026-10-05 blue/red hose names on the manifold
+Played live phone bay (390 wide): clock-in, sandbox, Manifold. Sheet opened. Standing 295/295 equalized. EVAP LEFT still seated. Strip lied at v3.5.359 because shop-floor-copy TIP_VER overwrote the shell.
+Shipped: Blue hose = suction/LPC, Red hose = liquid/HPC, standing and running. Strip v3.5.364. Cache sw.js lt-allstars-v605. sandbox-eq.js?v=5, shop-floor-copy.js?v=82.
+Next: start the compressor on the phone bay and read Blue SH vs Red SC with a dirty-OD fault. Do not cover EVAP.

@@ -10,18 +10,18 @@
     var sct = document.getElementById("sb-sct");
     var method = document.getElementById("sb-method");
     var chip = document.getElementById("sb-eq-chip");
+    if (ps) ps.textContent = on ? "Blue hose \u2014 suction / LPC" : "Blue hose \u2014 suction / LPC standing";
+    if (ph) ph.textContent = on ? "Red hose \u2014 liquid / HPC" : "Red hose \u2014 liquid / HPC standing";
     if (on) {
       if (method && /standing/i.test(method.textContent || "")) method.textContent = "\u2014 charge method after readings settle";
       return;
     }
-    if (ps) ps.textContent = "LPC standing (suction hose)";
-    if (ph) ph.textContent = "HPC standing (liquid hose)";
     if (sst) {
       var n = String(sst.textContent || "").match(/(-?\d+)/);
       if (n) sst.textContent = "equalized to ODT " + n[1] + "\u00b0F";
     }
-    if (sct) sct.textContent = "same P as LPC \u2014 equalized to ODT";
-    if (method) method.textContent = "standing \u00b7 LPC = HPC = OD sat \u00b7 no SH/SC until it runs";
+    if (sct) sct.textContent = "same P as blue hose \u2014 equalized to ODT";
+    if (method) method.textContent = "standing \u00b7 blue = red = OD sat \u00b7 no SH/SC until it runs";
     if (chip && !/both sides/.test(chip.textContent || "")) {
       chip.textContent = "EQUALIZED \u2014 unit off. LPC and HPC same sat P. Do not read SH/SC until it runs.";
     }
