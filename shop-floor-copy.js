@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.366";
+  var TIP_VER = "v3.5.367";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -223,6 +223,11 @@
       line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC (TXV seats 8\u201314). Charge by red SC. Blue SH is the check.";
       paintSeat("sb-sh", "seat 8\u201314");
       paintSeat("sb-sc", "seat 8\u201314");
+      var shn = Number(sh), scn = Number(sc);
+      if (shn >= 8 && shn <= 14 && scn >= 16) {
+        line += " High red SC, blue SH in seat \u2014 dirty outdoor coil. Wash. Do not recover.";
+        paintSeat("sb-sc", "high \u2014 wash OD");
+      }
     }
     if (st.textContent !== line) st.textContent = line;
   }
