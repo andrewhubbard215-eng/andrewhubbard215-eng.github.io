@@ -1,4 +1,5 @@
-2026-10-05 charge latch
-Played live v3.5.357: clock-in, sandbox, seat four, start. Healthy 162 / SH 10.0, head 442 / SC 10.0, call In seat. Sliding charge off 100 locked the bay (offset stacked on every repaint).
-Shipped: latch nameplate SH/SC, apply charge delta once, call flips before gas is added. Strip v3.5.359. Cache sw.js lt-allstars-v600.
-Next: hard-refresh, seat four, start, pull charge to ~70 and confirm one undercharge call, then back to 100 and In seat. Phone gauge panel still covers EVAP corner (left alone).
+2026-10-05 charge call matches glass
+Played live v3.5.359: clock-in, sandbox, seat four, start. Healthy 162 / 10.0 SH, 442 / 10.0 SC, call In seat.
+Pulled charge to 70. Glass stayed 12.4 SH / 11.8 SC (in band) while the call said High SH / low SC undercharge. Engine repaint had overwritten the latch; the call kept the private offset.
+Shipped: name the call from the numbers on the glass. Knob off nameplate with SH/SC still 8-14 does not call undercharge. Strip v3.5.361. Cache sw.js lt-allstars-v602. charge-print v=8.
+Next: hard-refresh, seat four, start, pull charge to 70. Call must match the SH/SC on the glass. Phone gauge panel still covers EVAP corner (left alone).
