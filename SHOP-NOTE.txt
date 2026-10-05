@@ -1,4 +1,4 @@
-2026-10-05 seat-pad pass
-Played live: System sandbox. COND/TXV/EVAP pads kept dashed box + LEFT label until Start; drag part to pad did nothing on PC mouse / phone; phone Start read "Start compressor" with nothing seated; footer v3.5.354 in-game vs v3.5.356 loader.
-Shipped: seats observer ignores the 50 ms flow-line redraw (was starving the pad repaint) + repaint on every rail tap; mouse drag no longer killed by the phone vertical-scroll gate, drop snaps to a pad within 36 px; Start label gated on the four rail parts. Strip v3.5.357 everywhere. Cache sw.js lt-allstars-v598.
-Next: hard-refresh, sandbox, drag + tap each of the four, confirm pad goes photo-only on seat, Start only after four. Phone: gauge panel still covers EVAP corner (left alone, layout frozen).
+2026-10-05 fingerprint call
+Played live: clock-in, sandbox. Tap COMP/COND/TXV/EVAP — pads go photo-only (class on, LEFT label gone). Start stays "Seat 4 LEFT first" until four, then "Start compressor". Healthy run: suction 162 / SH 10.0, head 442 / SC 10.0. No crash.
+Shipped: running bay prints a one-line call (in seat / high SH low SC undercharge / low SH high SC overcharge / high-high restriction / piston chart). Standing clears the call so equalized P is not a diagnosis. Strip v3.5.358. Cache sw.js lt-allstars-v599.
+Next: hard-refresh sandbox, seat four, start, slide charge off 100 and confirm the call flips before the tech adds gas. Phone gauge panel still covers EVAP corner (left alone).

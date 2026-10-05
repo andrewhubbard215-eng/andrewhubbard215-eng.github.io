@@ -1,6 +1,7 @@
 /* Charge off nameplate must move SH/SC.
    TXV: charge by SC (seat 8–14). Piston: charge by chart SH from OD dry bulb + indoor WB.
-   Bay repaints every frame — rewrite in the same turn so the glass keeps the print. */
+   Bay repaints every frame — rewrite in the same turn so the glass keeps the print.
+   Call line is a separate node so the SH/SC observer does not loop. */
 (function () {
   "use strict";
   var lastKey = "";
@@ -72,11 +73,54 @@
     return shv.toFixed(1) + " °F SH  (TXV seat 8–14)";
   }
 
+  function callText(shv, scv, piston, target) {
+    if (!running() || shv == null || scv == null) {
+      return "Standing. Equalized P is not a call. Seat four, start, then name SH/SC.";
+    }
+    if (piston) {
+      var dlt = shv - target;
+      if (Math.abs(dlt) <= 5) return "Piston chart " + target + "°F. SH in chart. Do not charge by SC.";
+      if (dlt > 5) return "SH above piston chart (" + target + "°F). Low charge or low airflow. Do not charge by SC.";
+      return "SH under piston chart (" + target + "°F). Flood risk. Pull charge. Do not charge by SC.";
+    }
+    var shHi = shv > 14, shLo = shv < 8, scHi = scv > 14, scLo = scv < 8;
+    if (!shHi && !shLo && !scHi && !scLo) return "In seat. TXV — charge by SC (8–14). Airflow first if it drifts.";
+    if (shHi && scLo) return "High SH / low SC — undercharge. Leak and airflow check before adding gas.";
+    if (shLo && scHi) return "Low SH / high SC — overcharge. Pull gas. Do not add.";
+    if (shHi && scHi) return "High SH / high SC — restriction or dirty coil. Do not add gas.";
+    if (shLo && scLo) return "Low SH / low SC — low load or overfeed. Check indoor WB and blower.";
+    if (scLo) return "SC under 8 — light on liquid. Charge by SC after airflow.";
+    if (scHi) return "SC over 14 — stacked liquid. Pull charge. Charge by SC.";
+    if (shHi) return "SH over 14 — starved evap. Confirm airflow, then charge by SC.";
+    return "SH under 8 — flood risk. Confirm load before pulling charge.";
+  }
+
+  function ensureCall() {
+    var line = document.getElementById("sb-call");
+    if (line) return line;
+    var sh = document.getElementById("sb-sh");
+    if (!sh) return null;
+    line = document.createElement("p");
+    line.id = "sb-call";
+    line.setAttribute("data-shop", "fingerprint-call");
+    line.style.cssText = "margin:8px 0 0;padding:6px 8px;font:600 13px/1.35 sans-serif;color:#f4e7c8;background:#1a140c;border-left:3px solid #e0a040";
+    var anchor = sh.parentElement || sh;
+    if (anchor.parentElement) anchor.parentElement.insertBefore(line, anchor.nextSibling);
+    else anchor.appendChild(line);
+    return line;
+  }
+
   function paint() {
     if (writing) return;
     var sh = document.getElementById("sb-sh");
     var sc = document.getElementById("sb-sc");
-    if (!sh || !sc || !running()) return;
+    var line = ensureCall();
+    if (!sh || !sc) return;
+    if (!running()) {
+      if (line && line.textContent.indexOf("Standing") !== 0) line.textContent = callText(null, null, false, 0);
+      lastKey = "stand";
+      return;
+    }
     var rawSh = readNum(sh);
     var rawSc = readNum(sc);
     if (rawSh == null || rawSc == null) return;
@@ -98,6 +142,7 @@
     sc.textContent = piston
       ? scv.toFixed(1) + " °F SC  (piston — do not charge by SC)"
       : scv.toFixed(1) + " °F SC  (TXV seat 8–14 — charge by SC)";
+    if (line) line.textContent = callText(shv, scv, piston, target);
     var gsh = document.getElementById("g-sh");
     var gsc = document.getElementById("g-sc");
     if (gsh) gsh.textContent = shv.toFixed(1);
