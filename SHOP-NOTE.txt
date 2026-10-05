@@ -1,4 +1,4 @@
-2026-10-05 clock-in pass
-Played live: Hook gauges needles matched ticket fingerprint. Next ticket changed fault (lineset undercharge → restriction).
-Shipped: HUB roast on the dispatch bar. Phone dispatch cannot cover hose drop. Strip v3.5.355. Cache sw.js lt-allstars-v594.
-Next: hard-refresh, hook gauges, slide HUB roast, confirm quote changes and ports stay clear.
+2026-10-05 hook-hold pass
+Played live: Uncle Ray dirty-cond. Chart dumped Blue 76 / Red 368 / SH 9 / SC 16 before hoses seated.
+Shipped: blank glass until blue+red seat or Hook gauges. Next ticket clears hoses. Strip v3.5.354. Cache sw.js lt-allstars-v595.
+Next: hard-refresh service call, confirm chart stays blank, hook, then read SH/SC.

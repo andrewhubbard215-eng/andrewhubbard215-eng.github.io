@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 6;
+  window.__ltTicketGauges = 7;
 
   var lastKey = "";
   var seated = false;
@@ -247,6 +247,30 @@
     return bay;
   }
 
+  function resetHoses() {
+    var bay = document.getElementById("lt-ticket-bay");
+    if (!bay) return;
+    var labels = { suction: "Suction port", liquid: "Liquid port", cap: "Yellow cap" };
+    ["suction", "liquid", "cap"].forEach(function (id) {
+      var port = bay.querySelector("#lt-port-" + id);
+      if (!port) return;
+      port.classList.remove("seated");
+      port.textContent = labels[id];
+    });
+    var pal = bay.querySelector(".lt-palette");
+    if (!pal) return;
+    ["blue", "red", "yellow"].forEach(function (hose) {
+      if (pal.querySelector('.lt-hose[data-hose="' + hose + '"]')) return;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lt-hose";
+      btn.draggable = true;
+      btn.setAttribute("data-hose", hose);
+      btn.textContent = hose.charAt(0).toUpperCase() + hose.slice(1) + " hose";
+      pal.appendChild(btn);
+    });
+  }
+
   function paint(fp, c) {
     drawFace(document.getElementById("lt-g-low"), fp.blue, fp.gas === "R-22" ? 200 : 250, "#1d4e89", "#7eb6ff");
     drawFace(document.getElementById("lt-g-high"), fp.red, 500, "#8a1d2b", "#ff8b8b");
@@ -268,6 +292,28 @@
     if (fault) fault.textContent = fp.id === "undercharge-lineset"
       ? "Glass: SH " + fp.sh + " high · SC " + fp.sc + " low · not a restriction (that one is high SH and high SC)."
       : "Numbers on the glass. Name the fault on the sheet — not here.";
+  }
+
+  function hold(fp, c) {
+    drawFace(document.getElementById("lt-g-low"), 0, fp.gas === "R-22" ? 200 : 250, "#1d4e89", "#7eb6ff");
+    drawFace(document.getElementById("lt-g-high"), 0, 500, "#8a1d2b", "#ff8b8b");
+    var preview = document.getElementById("lt-preview");
+    if (preview) preview.textContent = fp.gas + " chart \u00b7 hook blue and red \u00b7 SH \u2014 \u00b7 SC \u2014";
+    var radio = document.getElementById("lt-radio");
+    var score = (document.getElementById("svc-score") || {}).textContent || "";
+    if (radio) radio.textContent = "Dispatch \u00b7 " + (score || "on site") + " \u00b7 " + (c.name || "tech");
+    var st = document.getElementById("lt-streak");
+    if (st) st.textContent = streak();
+    var q = document.getElementById("lt-quote");
+    if (q) q.textContent = "\u201c" + quoteOf(c) + "\u201d";
+    var stub = document.getElementById("lt-stub");
+    if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 hook before you read";
+    var fault = document.getElementById("lt-fault");
+    if (fault) fault.textContent = "Hoses off. Blank glass. Do not name the fault yet.";
+    var plow = document.getElementById("g-plow");
+    var phigh = document.getElementById("g-phigh");
+    if (plow) plow.textContent = "\u2014";
+    if (phigh) phigh.textContent = "\u2014";
     window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH };
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
@@ -305,7 +351,10 @@
       roast.dataset.ltRoast = "1";
       roast.addEventListener("input", function () {
         try { if (navigator.vibrate) navigator.vibrate(8); } catch (e) {}
-        paint(fingerprint(call()), call());
+        var c = call();
+        var fp = fingerprint(c);
+        if (seated) paint(fp, c);
+        else hold(fp, c);
       });
     }
     var next = document.getElementById("svc-next-ticket");
@@ -315,11 +364,15 @@
         var prevName = ((document.getElementById("svc-name") || {}).textContent) || "";
         setTimeout(function () {
           var c = call();
-          var fp = seat(c);
+          var fp = fingerprint(c);
+          lastKey = fp.key;
+          seated = false;
+          resetHoses();
+          hold(fp, c);
           var tag = document.getElementById("lt-fault");
           var name = ((document.getElementById("svc-name") || {}).textContent) || "";
           var did = name !== prevName;
-          if (tag) tag.textContent = did ? "Next ticket. Fault changed \u2014 read the glass." : "Same fault. Hit next again.";
+          if (tag) tag.textContent = did ? "Next ticket. Fault changed. Hook gauges again." : "Same fault. Hit next again.";
         }, 60);
       });
     }
@@ -353,10 +406,13 @@
     var fp = fingerprint(c);
     var preview = document.getElementById("lt-preview");
     var blank = preview && /SH\s*[\u2014-]/.test(preview.textContent || "");
-    if (fp.key !== lastKey || blank) {
+    if (fp.key !== lastKey) {
       lastKey = fp.key;
-      seated = true;
-      paint(fp, c);
+      seated = false;
+      resetHoses();
+      hold(fp, c);
+    } else if (!seated && preview && !/SH\s*[\u2014-]/.test(preview.textContent || "")) {
+      hold(fp, c);
     }
   }, 500);
   window.ltTicketFingerprint = function () {
