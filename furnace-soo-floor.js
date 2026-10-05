@@ -30,6 +30,35 @@
       };
     });
     mountPs(wrap);
+    mountUa(wrap);
+  }
+
+  var UA_ASK = "Valve opened. Burners light, then drop in about 4 seconds. Flame looks fine. Next meter?";
+  var UA_GOOD = "Series microamps on the flame-sense lead. A good rod is about 1–5 µA. 0.2 µA is a weak prove: clean the rod, check porcelain and ground, re-meter. Board last.";
+  var UA_BAD = "Replace the ignition board. Your eyes already proved the flame.";
+  var UA_WRONG = "The board only believes rectified microamps. A dirty rod can show flame and still drop the valve. Meter the sense lead before you buy a board.";
+
+  function mountUa(wrap) {
+    if (!wrap || wrap.getAttribute("data-uadrill") === "1") return;
+    wrap.setAttribute("data-uadrill", "1");
+    var box = document.createElement("div");
+    box.className = "el-locker-opts";
+    box.style.marginTop = "12px";
+    box.innerHTML =
+      "<p class='eyebrow'>10 · Flame µA prove</p><p>" + UA_ASK + "</p>" +
+      "<button type='button' class='btn' data-ua='1'>" + UA_GOOD + "</button>" +
+      "<button type='button' class='btn' data-ua='0'>" + UA_BAD + "</button>" +
+      "<p class='hub-chip' id='soo-ua-why'>Eyes are not a prove. 1–5 µA holds the valve. Under 1 µA, clean and re-meter. Board last.</p>";
+    wrap.appendChild(box);
+    box.querySelectorAll("[data-ua]").forEach(function (b) {
+      b.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var ok = b.getAttribute("data-ua") === "1";
+        var why = box.querySelector("#soo-ua-why");
+        if (why) why.textContent = ok ? ("RIGHT — " + UA_GOOD) : ("WRONG — " + UA_WRONG + " Right path: " + UA_GOOD);
+      };
+    });
   }
 
   var PS_ASK = "Inducer ran. Board will not light. Pressure switch still open. Next move?";
@@ -62,8 +91,8 @@
 
   function deepen() {
     var bc = window.BoardCodes;
-    if (!bc || typeof bc.openSoo !== "function" || bc._sooFlameUa2) return false;
-    bc._sooFlameUa2 = true;
+    if (!bc || typeof bc.openSoo !== "function" || bc._sooFlameUa3) return false;
+    bc._sooFlameUa3 = true;
     var raw = bc.openSoo;
     bc.openSoo = function () {
       raw();

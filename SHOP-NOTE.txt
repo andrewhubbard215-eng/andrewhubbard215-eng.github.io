@@ -1,13 +1,7 @@
-2026-10-04 night SAVE
-Played live clock-in and sandbox. Compressor starts. OD fan: head 618, cond TD 53, HPC, button fan dead not a reset. TS steps 1-4 done, step 5 wait. No crash.
-Blocker: step 5 body still said name the fingerprint. Fault line already had condenser fan dead. A new tech can miss the plant.
-Fix: cutout step names the plant off the fault line. Last head is the call. Equalized hose is not a reset.
-Strip v3.5.353. Cache sw.js lt-allstars-v592. sandbox-ts.js?v=16. shop-floor-copy.js?v=77.
-Next: hard-refresh, plant OD fan, confirm step 5 says Condenser fan dead, not a blank fingerprint.
-
-2026-10-04 evening SAVE
-Played phone 390 and desktop clock-in. Sandbox starts. Healthy 162/442 SH/SC 10. OD fan: head 618, cond TD 53, HPC, button says fan dead. Healthy drops the dead-fan tip and puts Start back. No crash.
-Blocker: after the cutout the run button no longer says Stop, so the TS sheet treated the bay as standing and put step 1 back up. A trip is not a standing diagnosis.
-Fix: contactor-open counts as a cutout. Sheet stays on step 5 — name the fingerprint. Equalized hose is not a reset.
-Strip v3.5.351. Cache sw.js lt-allstars-v590. sandbox-ts.js?v=15.
-Next: hard-refresh, plant OD fan, confirm TS says cutout / name the fingerprint, not standing first.
+2026-10-05 morning SAVE
+Played live clock-in and sandbox on a 390 phone. Compressor starts. OD fan: head 618, HPC, button says fan dead. Step 5 names Condenser fan dead. Last head is the call. No crash.
+Blocker: fault chips sat in a 48px nowrap rail. OD fan, noncondensable, and TXV strap painted past 390. A new tech cannot plant them.
+Fix: phone fault rail wraps. Every plant is on the screen.
+Shipped: furnace SOO step 10 — flame µA prove. Eyes are not a prove. 0.2 µA drops the valve. Clean rod, porcelain, ground, re-meter. Board last. Why-wrong is on the chip.
+Strip v3.5.354. Cache sw.js lt-allstars-v593. phone-floor.css?v=47. furnace-soo-floor.js?v=4.
+Next: hard-refresh, confirm OD fan is on the phone rail, open Furnace SOO step 10.

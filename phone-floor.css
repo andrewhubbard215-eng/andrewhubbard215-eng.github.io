@@ -16,8 +16,8 @@ body.lab-open .ask-hub{transform: scale(0.82);transform-origin: bottom right;opa
 #hub-options, .hub-nav{padding-bottom: 64px;}
 .hub-nav .mode-card{min-height: 48px;}
 .hub-nav .mode-card:last-child{margin-bottom: 12px;}}
-@media (max-width: 480px){#sandbox-root #sb-faults{position: relative !important;z-index: 6 !important;order: 1 !important;flex: 0 0 auto !important;max-height: 48px !important;min-height: 44px !important;overflow-x: auto !important;overflow-y: hidden !important;-webkit-overflow-scrolling: touch;white-space: nowrap !important;flex-wrap: nowrap !important;display: flex !important;pointer-events: auto;background: rgba(11, 18, 32, 0.98);margin: 0 !important;width: 100% !important;max-width: 100% !important;}
-#sandbox-root #sb-faults .btn{display: inline-flex;align-items: center;flex: 0 0 auto !important;margin: 2px 3px;font-size: 12px;padding: 8px 10px;min-height: 40px;white-space: nowrap;}
+@media (max-width: 480px){#sandbox-root #sb-faults{position: relative !important;z-index: 6 !important;order: 1 !important;flex: 0 0 auto !important;max-height: none !important;min-height: 44px !important;overflow-x: hidden !important;overflow-y: visible !important;white-space: normal !important;flex-wrap: wrap !important;display: flex !important;pointer-events: auto;background: rgba(11, 18, 32, 0.98);margin: 0 !important;width: 100% !important;max-width: 100% !important;}
+#sandbox-root #sb-faults .btn{display: inline-flex;align-items: center;flex: 0 1 auto !important;margin: 2px 3px;font-size: 12px;padding: 8px 10px;min-height: 40px;white-space: nowrap;}
 #sandbox-root #sb-canvas,
 #sandbox-root #sb-canvas-wrap{position: relative !important;z-index: 1 !important;order: 3 !important;min-height: 0 !important;max-height: 22vh !important;height: 22vh !important;flex: 0 0 auto !important;}
 #sandbox-root .sb-gauges{position: relative !important;z-index: 3 !important;max-height: 32vh !important;min-height: 0 !important;overflow-x: auto;}

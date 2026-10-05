@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v592";
+const VER = "lt-allstars-v593";
 const CORE = [
   "./" ,
   "./index.html",
@@ -10,7 +10,7 @@ const CORE = [
   "./sandbox-layout.css?v=43",
   "./sandbox-faults-wrap.css?v=3",
   "./sandbox-pc.css?v=11",
-  "./phone-floor.css?v=46",
+  "./phone-floor.css?v=47",
   "./phone-gauges-233.css?v=7",
   "./phone-gauges-clip-233.css?v=5",
   "./phone-p0.css?v=14",
@@ -80,7 +80,7 @@ const CORE = [
   "./board-codes.js?v=19",
   "./prove-deepen.js?v=2",
   "./soo-limit.js?v=1",
-  "./furnace-soo-floor.js?v=3",
+  "./furnace-soo-floor.js?v=4",
   "./inducer-prove.js?v=1",
   "./voltmeter-school.js?v=8",
   "./ohm-school.js?v=3",
