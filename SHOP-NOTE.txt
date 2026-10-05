@@ -1,4 +1,4 @@
-2026-10-05 blue/red hose names on the manifold
-Played live phone bay (390 wide): clock-in, sandbox, Manifold. Sheet opened. Standing 295/295 equalized. EVAP LEFT still seated. Strip lied at v3.5.359 because shop-floor-copy TIP_VER overwrote the shell.
-Shipped: Blue hose = suction/LPC, Red hose = liquid/HPC, standing and running. Strip v3.5.364. Cache sw.js lt-allstars-v605. sandbox-eq.js?v=5, shop-floor-copy.js?v=82.
-Next: start the compressor on the phone bay and read Blue SH vs Red SC with a dirty-OD fault. Do not cover EVAP.
+2026-10-05 Blue SH / Red SC on the running sheet. Jump-start blocked.
+Played live phone bay. Pages was still on v3.5.359 (deploy stuck after 20:04). Tapping Seat 4 LEFT first seated the loop and started the compressor. Dirty OD then read true: SH 10, SC 10, head 498, cond TD 38. Wash, do not recover.
+Shipped: running status names Blue hose SH and Red hose SC. Capture-phase pointerdown/click refuses Start while parts are LEFT. Strip v3.5.366. Cache sw.js lt-allstars-v607. shop-floor-copy.js?v=83.
+Next: confirm Pages actually serves 366, then seat LEFT by hand and start — Blue SH vs Red SC on dirty OD must stay split.

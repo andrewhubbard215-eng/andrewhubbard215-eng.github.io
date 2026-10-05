@@ -50,7 +50,7 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.364";
+  var TIP_VER = "v3.5.366";
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -212,15 +212,15 @@
     var line;
     if (kind === "piston") {
       var tgt = pistonTarget();
-      line = "Running \u2014 " + sh + " / " + sc + " (piston target SH " + tgt + "\u00b0). Charge by SH. SC is the check.";
+      line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC (piston target SH " + tgt + "\u00b0). Charge by blue SH. Red SC is the check.";
       paintSeat("sb-sh", "target " + tgt + "\u00b0 SH");
       paintSeat("sb-sc", "check only");
     } else if (kind === "eev") {
-      line = "Running \u2014 " + sh + " / " + sc + ". EEV: weigh-in. SH/SC are checks.";
+      line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC. EEV: weigh-in. Hoses are checks.";
       paintSeat("sb-sh", "check only");
       paintSeat("sb-sc", "check only");
     } else {
-      line = "Running \u2014 " + sh + " / " + sc + " (TXV seats 8\u201314 both). Charge by SC, SH is the check.";
+      line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC (TXV seats 8\u201314). Charge by red SC. Blue SH is the check.";
       paintSeat("sb-sh", "seat 8\u201314");
       paintSeat("sb-sc", "seat 8\u201314");
     }
@@ -253,6 +253,21 @@
       if (h && /Gauges of God/i.test(h.textContent || "")) h.textContent = "NO-COOL CLOSED";
     }
   }
+
+  function blockJumpStart(ev) {
+    var btn = document.getElementById("sb-run");
+    if (!btn) return;
+    var hit = ev.target;
+    if (hit !== btn && !(btn.contains && btn.contains(hit))) return;
+    if (/Stop compressor/i.test(btn.textContent || "")) return;
+    if (!partsStillOnBench()) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    var st = document.getElementById("sb-status");
+    if (st) st.textContent = "Don't jump the compressor. Seat COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP on the LEFT rail. Standing P only.";
+  }
+  document.addEventListener("pointerdown", blockJumpStart, true);
+  document.addEventListener("click", blockJumpStart, true);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", scrub);
   else scrub();
   setInterval(scrub, 800);
