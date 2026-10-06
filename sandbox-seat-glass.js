@@ -21,7 +21,18 @@
   }
   function tick() {
     if (!document.getElementById("sandbox-root")) return;
-    if (!seated() || running()) return;
+    if (!seated()) return;
+    if (running()) {
+      var runLine = "Compressor running. Read SH and SC off the glass. Do not chase standing pressure.";
+      ["sb-formula", "sb-method"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (/start the compressor|seat LEFT|LOOP OPEN|Four seated/i.test(el.textContent || "")) setText(id, runLine);
+      });
+      var tsRun = document.getElementById("pv-ts");
+      if (tsRun && /start|seat/i.test(tsRun.textContent || "")) setText("pv-ts", "TS 4 · Read SH/SC");
+      return;
+    }
     var line = "Four seated — COMP · COND · TXV · EVAP. Start the compressor. Then read SH/SC off the glass.";
     ["sb-status", "sb-formula", "sb-method", "sb-call"].forEach(function (id) {
       var el = document.getElementById(id);

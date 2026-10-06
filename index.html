@@ -14,8 +14,8 @@
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=87");
 
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.\d+/g, "v3.5.373");
-      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=615");
+      html = html.replace(/v3\.5\.\d+/g, "v3.5.374");
+      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=616");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=87");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=30");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
@@ -145,8 +145,9 @@
       if (html.indexOf("sandbox-call-glass.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-call-glass.js?v=1"><\/script>\n</body>');
       }
+      html = html.replace(/sandbox-seat-glass\.js\?v=\d+/g, "sandbox-seat-glass.js?v=2");
       if (html.indexOf("sandbox-seat-glass.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-seat-glass.js?v=1"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="sandbox-seat-glass.js?v=2"><\/script>\n</body>');
       }
       if (html.indexOf("sandbox-charge-print.js") === -1) {
         html = html.replace(
@@ -178,14 +179,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.373 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.374 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=615").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=616").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.373 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.374 - shop floor</p>
 </body>
 </html>
