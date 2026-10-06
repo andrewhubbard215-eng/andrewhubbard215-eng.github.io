@@ -1,4 +1,4 @@
-2026-10-06 Shop shift. Played live floor: clock in, Jess & Marcus no-cool. No crash. Cached strip still said v3.5.382; raw was v3.5.383.
-Shipped: wrong-call (and right-call) sheet cites seated glass — gas, blue/red, SH/SC — and says call the glass, not the nameplate. Hoses off still says nameplate only, hook first.
-Strip v3.5.384. Cache sw.js lt-allstars-v626. service.js v112.
-Next: Saturday callback no-cool sheet should use the same glass cite once the meter is on the open.
+2026-10-06 Shop shift. Played live floor v3.5.385: clock in, Saturday callback ladder. No crash.
+Shipped: once the meter is on the open, the no-cool sheet cites seated glass (gas, blue/red, SH/SC) and says call the meter and the glass, not the nameplate. Hoses off still says nameplate only, hook first.
+Strip v3.5.386. Cache sw.js lt-allstars-v628. electrical-sheet.js v8.
+Next: prove the cite on a live Saturday ticket with gauges hooked in the sandbox, then back to the ladder.

@@ -15,6 +15,14 @@
     return (m && m[0]) || "pending";
   }
 
+  function glassCite() {
+    var s = window.LTSandbox;
+    if (s && s.hoses === "on" && s.sh != null) {
+      return " Glass: " + (s.gas || "gas") + " blue " + s.low + " / red " + s.high + " \u00b7 SH " + s.sh + "\u00b0 \u00b7 SC " + s.sc + "\u00b0. Call the meter and the glass, not the nameplate.";
+    }
+    return " Hoses off. Sheet is nameplate only \u2014 hook blue and red before you call a charge fault. The open is on the meter.";
+  }
+
   function isReplaceBtn(b) {
     if (!b || b.tagName !== "BUTTON") return false;
     if (b.id === "el-replace") return true;
@@ -53,7 +61,8 @@
         box.dataset.openMasked = "0";
       }
       lockReplace();
-      yell("Open proven. Now you can cut that part.");
+      yell("Open proven. Cut that part." + glassCite());
+      paint();
       return;
     }
     var btn = box && box.closest ? box.closest("button") || box : box;
@@ -71,7 +80,7 @@
     if (!n) {
       n = document.createElement("p");
       n.id = "el-sheet-yell";
-      n.style.cssText = "margin:8px 12px;color:#f5c542;font:600 13px/1.3 sans-serif";
+      n.style.cssText = "margin:8px 12px;color:#f5c542;font:600 13px/1.35 sans-serif";
       var host = document.querySelector("#el-replace") && document.querySelector("#el-replace").parentNode;
       if (host) host.appendChild(n);
       else {
@@ -107,10 +116,13 @@
 
   function paint() {
     maskOpenGiveaway();
+    var key = ticketKey();
+    var openProved = key !== "pending" && !!proved[key];
     var k = document.querySelector(".el-ladder-kicker");
     if (k && k.id !== "el-ts-note") {
-      var key = ticketKey();
-      if (/3A|Hum, no start|Heat pump/i.test(key)) {
+      if (openProved) {
+        k.textContent = "Open is metered." + glassCite();
+      } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
         k.textContent =
           "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
       } else {
@@ -123,9 +135,13 @@
       var note = document.createElement("p");
       note.id = "el-ts-note";
       note.className = "el-ladder-kicker";
-      note.textContent =
-        "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
       ol.parentNode.insertBefore(note, ol);
+    }
+    var noteEl = document.getElementById("el-ts-note");
+    if (noteEl) {
+      noteEl.textContent = openProved
+        ? "No-cool sheet: open proven." + glassCite()
+        : "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
     }
     lockReplace();
   }
