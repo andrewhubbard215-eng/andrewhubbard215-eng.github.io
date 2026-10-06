@@ -35,3 +35,59 @@
     pointer-events: auto !important;
   }
 }
+
+/* v6 2026-10-06 phone 390: diamond clears the pinned gauge strip.
+   Step sheet / TS bar compact, chips + fine print wrap in flow,
+   gauge strip: LPC | HPC side by side, call line full width under them
+   (Stop no longer sits on HPC); main column scrolls with bottom room = strip. */
+@media (max-width: 480px) {
+  #screen-sandbox #sandbox-root .sb-layout > .sb-main {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain;
+    padding-bottom: 224px !important;
+  }
+  #screen-sandbox #sandbox-root .sb-main > #sb-canvas-wrap { flex: 0 0 auto !important; }
+  /* sandbox-ts.js pins the sheet inline (grid, min-height 96px): show the step you are on */
+  #sandbox-root .sb-main > #sb-ts:has(li.wait) li:not(.wait) { display: none !important; }
+  #sandbox-root .sb-main > #sb-ts li { min-height: 0 !important; padding: 3px 6px !important; }
+  #sandbox-root .sb-main > #sb-phone-vitals { padding: 3px 6px !important; gap: 2px 6px !important; }
+  #sandbox-root .sb-main > #sb-phone-vitals .pv-ts { flex: 1 1 0 !important; order: -1; min-width: 0; }
+  #sandbox-root .sb-main > #sb-phone-vitals::after { display: none !important; }
+  #sandbox-root .sb-main > #sb-faults {
+    position: relative !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 2px 0 !important;
+    padding: 2px 0 !important;
+  }
+  #sandbox-root .sb-main > #sb-faults .btn { margin: 0 !important; top: auto !important; }
+  #sandbox-root .sb-main > #sb-phone-tip { padding: 1px 8px !important; }
+  #sandbox-root .sb-main > #sb-fp { margin: 2px 6px !important; padding: 4px 8px !important; }
+  #sandbox-root .sb-main > #sb-phone-tip,
+  #sandbox-root .sb-main > #sb-left-strip,
+  #sandbox-root .sb-main > #sb-status {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #screen-sandbox #sandbox-root #sb-gauge-run { max-height: none !important; }
+  #sandbox-root #sb-gauge-run .sb-gauges > .panel { max-height: 4.8em !important; }
+  #sandbox-root #sb-gauge-run .sb-gauges > #sb-call {
+    grid-column: 1 / -1 !important;
+    order: 3;
+    margin: 2px 0 0 !important;
+    padding: 3px 6px !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    max-width: 100% !important;
+  }
+}
