@@ -1,45 +1,59 @@
-/* v3.5.233 — restore #sandbox-root after Service Hook gauges park; clear gauge-run latch. */
+/* v3.5.378 — rebuild #sandbox-root if a service call wiped it. */
 (function () {
   "use strict";
+  function ensureRoot(home) {
+    var root = document.getElementById("sandbox-root");
+    if (!root) {
+      root = document.createElement("div");
+      root.id = "sandbox-root";
+      root.dataset.ltRebuilt = "1";
+      home.appendChild(root);
+    } else if (root.parentNode !== home) {
+      home.appendChild(root);
+    }
+    return root;
+  }
+  function kick(root) {
+    if (!root || root.dataset.ltStarted === "1") return;
+    if (root.dataset.ltRebuilt !== "1" && root.childElementCount) return;
+    if (!window.HVACSandbox || typeof window.HVACSandbox.start !== "function") return;
+    root.dataset.ltStarted = "1";
+    try { window.HVACSandbox.start(root); } catch (e) {}
+  }
   function restoreBayHome() {
     var home = document.getElementById("screen-sandbox");
-    var root = document.getElementById("sandbox-root");
+    if (!home) return;
+    var root = ensureRoot(home);
     var host = document.getElementById("svc-system-host");
-    if (!home || !root) return;
-    if (root.parentNode !== home) home.appendChild(root);
     if (host && !host.contains(root)) {
       host.innerHTML =
         '<p class="lede" style="padding:12px 16px">System bay — ticket rides the slim rail. Hook gauges, read SH/SC on the manifold, system stays clickable.</p>';
     }
     try { document.documentElement.removeAttribute("data-lt-gauge-run"); } catch (e) {}
+    kick(root);
   }
   window.ltRestoreSandboxBay = restoreBayHome;
   function wireHub() {
     var hubBtn = document.getElementById("btn-svc-hub");
-    if (!hubBtn || hubBtn.dataset.bayRestore === "233") return;
-    hubBtn.dataset.bayRestore = "233";
+    if (!hubBtn || hubBtn.dataset.bayRestore === "378") return;
+    hubBtn.dataset.bayRestore = "378";
     hubBtn.addEventListener("click", function () { restoreBayHome(); }, true);
   }
-  var _start = window.ltStartSandbox;
-  if (typeof _start === "function" && !_start._ltBayRestore) {
+  function wrapStart() {
+    if (typeof window.ltStartSandbox !== "function" || window.ltStartSandbox._ltBayRestore) return;
+    var s = window.ltStartSandbox;
     window.ltStartSandbox = function () {
       restoreBayHome();
-      return _start.apply(this, arguments);
+      return s.apply(this, arguments);
     };
     window.ltStartSandbox._ltBayRestore = true;
   }
   function boot() {
     wireHub();
+    wrapStart();
     setInterval(function () {
       wireHub();
-      if (typeof window.ltStartSandbox === "function" && !window.ltStartSandbox._ltBayRestore) {
-        var s = window.ltStartSandbox;
-        window.ltStartSandbox = function () {
-          restoreBayHome();
-          return s.apply(this, arguments);
-        };
-        window.ltStartSandbox._ltBayRestore = true;
-      }
+      wrapStart();
     }, 400);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
