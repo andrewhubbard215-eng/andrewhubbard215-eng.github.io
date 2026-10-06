@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v619";
+const VER = "lt-allstars-v620";
 const CORE = [
   "./" ,
   "./index.html",
@@ -68,7 +68,7 @@ const CORE = [
   "./sandbox-call-glass.js?v=1",
   "./route-floor.js?v=19",
   "./route-park.js?v=3",
-  "./bay-restore.js?v=1",
+  "./bay-restore.js?v=2",
   "./route-boot-form.js?v=1",
   "./charge-floor.js?v=3",
   "./quiz-arena.js?v=4",
