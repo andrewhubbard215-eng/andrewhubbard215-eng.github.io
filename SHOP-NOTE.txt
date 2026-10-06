@@ -1,3 +1,4 @@
-2026-10-06 Short shift. Played live floor. Clock-in ok. Sandbox: seated four, glass said start. Started compressor. Healthy TXV: 162 psig / 10°F SH, 442 psig / 10°F SC, in seat. Formula line stayed stuck on "Start the compressor" after run.
-Shipped: sandbox-seat-glass.js clears that line once the compressor is running (read SH/SC, do not chase standing P). Strip v3.5.374. Cache sw.js lt-allstars-v616.
-Next: hard-refresh, seat four, start, confirm formula says read SH/SC — then name a leak fingerprint off the glass.
+2026-10-06 Short shift. Played live floor. Clock-in ok. Sandbox seated four, compressor started. Healthy TXV: 162/10 SH, 442/10 SC, formula cleared to read SH/SC.
+Leak chip lied: banner said high SH / low SC while glass stayed 12.2 / 11.7 in band at 72% charge.
+Shipped: sandbox-fp.js paints leak fingerprint while running — 108 psig, 28 SH, 286 psig, 2 SC. Name it off the glass. Do not top off. Strip v3.5.375. Cache sw.js lt-allstars-v617.
+Next: hard-refresh, seat four, start, tap Leak, confirm 28 SH / 2 SC — then restriction chip (high SH and high SC) the same way.

@@ -10,10 +10,14 @@
   function dirtyLine() {
     return "HUB: dirty condenser. Fan still moves air, cond TD high, SH/SC in band. Wash the coil. Do not recover a charge that is in band.";
   }
+  function leakLine() {
+    return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
+  }
   function kind(fault) {
     var f = fault || "";
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
+    if (/slow leak|undercharge|leak/i.test(f)) return "leak";
     return "";
   }
   function condTd() {
@@ -33,12 +37,13 @@
     var faultHeat = k === "fan" || k === "dirty" || /high head/i.test(fault || "");
     var ctd = condTd();
     var tdOut = ctd >= 32;
+    if (k === "leak" && hiSH && loSC) return leakLine();
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
     if (inBand)
       return "HUB: SH/SC in band. That's a charged, breathing system.";
-    if (hiSH && loSC) return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
+    if (hiSH && loSC) return leakLine();
     if (hiSH && hiSC) return "HUB: high SH + high SC = restriction / plugged drier. Cold at the drier outlet. Do not add gas.";
     if (loSH && hiSC) return "HUB: low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.";
     if (loSH && loSC) return "HUB: low SH + low SC = airflow first. Dirty evap, blower, or filter — not a charge dart.";
@@ -83,6 +88,24 @@
       setText("sb-sct", "SCT 133°F");
       setText("sb-ll", "LL 123°F");
       setText("sb-ctd", "Cond TD 38° (SCT−OD) · seat 20–30° — high. Fan still moves air. Wash.");
+    } else if (k === "leak") {
+      if (tripped) return;
+      setText("g-plow", "108 psig");
+      setText("sb-ps", "108 psig");
+      setText("sb-sst", "SST 36°F");
+      setText("sb-sl", "SL 64°F");
+      setText("g-sh", "28.0");
+      setText("sb-sh", "28.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 39° (ID−SST) · seat 15–20° — high. Coil starved.");
+      setText("g-phigh", "286 psig");
+      setText("sb-ph", "286 psig");
+      setText("sb-sct", "SCT 94°F");
+      setText("sb-ll", "LL 92°F");
+      setText("g-sc", "2.0");
+      setText("sb-sc", "2.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD low — not a dirty-coil call. Head followed the charge down.");
+      setText("sb-call", "Name it off the glass: 28 SH / 2 SC. High SH + low SC = leak / undercharge. Do not top off. Do not trust the charge knob.");
+      setText("sb-shsc-formula", "RUNNING — leak fingerprint. SH 28 (high) · SC 2 (low). Find the leak, recover, weigh-in.");
     }
   }
   function mount() {
