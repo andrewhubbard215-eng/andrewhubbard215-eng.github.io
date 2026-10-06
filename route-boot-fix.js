@@ -8,8 +8,7 @@
         var chip = document.querySelector('#sb-faults [data-fault="' + id + '"]');
         if (chip) chip.click();
       }
-      var run = document.getElementById("sb-run");
-      if (run && String(run.textContent).indexOf("Stop") < 0) run.click();
+      /* do not Start for the tech — parts stay LEFT */
     } catch (e) {}
   }
   setInterval(function () {

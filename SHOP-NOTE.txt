@@ -1,5 +1,5 @@
-2026-10-06 Save shift. Walk 10:16 AM ET: on phone, drag COMP onto its pad, then one tap showed all four seated.
-Found it: tapping a system pack (Trane XR, Goodman GSX, ...) under Packs called LtSeatAllFour and seated COND, TXV, EVAP for the tech.
-Shipped: sandbox-packs.js -- a pack now only picks the system (brand, refrigerant, metering). Status names what is still LEFT: "Seat COND · PISTON · EVAP LEFT, then Start compressor." Each part seats only when the tech drags or taps it.
-Strip v3.5.377 (index + in-game TIP_VER). Cache sw.js lt-allstars-v619.
-Next: route ticket / fault load still pre-seats four in sandbox.js (Easy scaffold, m()) and sandbox-hook.js has a "Seat all four (Easy)" button -- decide if those stay as instructor scaffolds.
+2026-10-06 Shop shift. Walk: clock in, sandbox parts LEFT, service call Mrs. Delgado, back to sandbox — four seats already ON, status "Four seated", ticket id leak. Compressor was not running.
+Found it: route-floor seatAndRun clicked COMP/COND/TXV/EVAP and Start on ticket load. Hook Start also closed the loop when a ticket was set. Boot kick clicked Start.
+Shipped: ticket load no longer seats or starts. Status: "Ticket on the bench. Parts LEFT — seat COMP · COND · TXV · EVAP, then Start." Easy button still seats if the instructor taps it.
+Strip v3.5.379. Cache sw.js lt-allstars-v621. route-floor v20, sandbox-hook v19.
+Next: confirm Hook gauges still paints live SH/SC on the service manifold without seating the sandbox loop.

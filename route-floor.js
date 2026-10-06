@@ -103,12 +103,8 @@
     "od-fan": "Condenser fan dead"
   };
   function seatAndRun() {
-    ["compressor", "condenser", "metering", "evaporator"].forEach(function (p) {
-      var b = document.querySelector('#sandbox-root [data-part="' + p + '"]');
-      if (b) try { b.click(); } catch (e) {}
-    });
-    var run = document.getElementById("sb-run");
-    if (run && /start/i.test(run.textContent || "")) try { run.click(); } catch (e) {}
+    var st = document.getElementById("sb-status");
+    if (st) st.textContent = "Ticket on the bench. Parts LEFT — seat COMP · COND · TXV · EVAP, then Start. Standing P/T until the compressor runs.";
   }
   function loadTicket(id) {
     window._ltTicketId = id;
