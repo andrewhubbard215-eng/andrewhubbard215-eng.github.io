@@ -54,4 +54,38 @@
   body.lab-open #hub-ai-fab {
     display: none !important;
   }
+
+  /* Follow the call — ladder type a tech can read without squinting */
+  #screen-electrical .el-ladder,
+  #screen-electrical .el-ladder-wrap,
+  #electrical-root .el-ladder {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+  #screen-electrical .el-node b,
+  #screen-electrical .el-ladder b {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+  #screen-electrical .el-node small,
+  #screen-electrical .el-ladder small,
+  #screen-electrical .el-ladder-kicker {
+    font-size: 13px !important;
+  }
+  #screen-electrical .el-slot strong,
+  #screen-electrical .el-slot .empty,
+  #screen-electrical .el-zoom-screw small,
+  #screen-electrical .el-zoom-screw b {
+    font-size: 14px !important;
+  }
+  #screen-electrical .el-stat-key,
+  #screen-electrical .el-ts-step strong {
+    font-size: 14px !important;
+  }
 }
+
+/* Bay monitor — same ladder type, not phone-only */
+#screen-electrical .el-node b { font-size: 16px; line-height: 1.15; }
+#screen-electrical .el-slot strong,
+#screen-electrical .el-slot .empty { font-size: 13px; }
+#screen-electrical .el-ladder-kicker { font-size: 14px; }
