@@ -1,5 +1,4 @@
-2026-10-06 Shop shift. Played live floor v3.5.382: clock in, Mrs. Delgado no-cool. No crash.
-Pointer click on Hook gauges left the manifold on dashes — service re-render wiped the bay after the click listener. Programmatic click seated 92/248 SH 28 SC 4, but LTSandbox stayed hoses off.
-Shipped: Hook arms on pointerdown and re-seats if the glass goes blank. Seated glass stamps LTSandbox hoses on with live psig/SH/SC. Hoses-off still dashes.
-Strip v3.5.383. Cache sw.js lt-allstars-v625. route-ticket-gauges v15.
-Next: wrong-call sheet must cite the seated glass, not the nameplate, once hoses are on.
+2026-10-06 Shop shift. Played live floor: clock in, Jess & Marcus no-cool. No crash. Cached strip still said v3.5.382; raw was v3.5.383.
+Shipped: wrong-call (and right-call) sheet cites seated glass — gas, blue/red, SH/SC — and says call the glass, not the nameplate. Hoses off still says nameplate only, hook first.
+Strip v3.5.384. Cache sw.js lt-allstars-v626. service.js v112.
+Next: Saturday callback no-cool sheet should use the same glass cite once the meter is on the open.
