@@ -1,4 +1,4 @@
-/* Route floor overlay v21 — ticket tag stays the dispatch job. Pay line does not name the fault. */
+/* Route floor overlay v22 — wrong sheet cites the same glass the right call uses. Pay line does not name the fault. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -68,14 +68,22 @@
     var nxt = document.getElementById("sb-next-ticket");
     if (nxt) nxt.onclick = function () { advanceTicket(); };
   }
+  function readGauge(id) {
+    var n = document.getElementById(id);
+    return (n && n.textContent && n.textContent.trim()) || "";
+  }
+  function glassCite() {
+    var blue = readGauge("g-plow");
+    var red = readGauge("g-phigh");
+    var sh = readGauge("g-sh");
+    var sc = readGauge("g-sc");
+    if (!sh && !sc && !blue && !red) return "Glass: hoses not seated — SH — · SC —";
+    return "Glass: Blue " + (blue || "—") + " · Red " + (red || "—") + " · SH " + (sh || "—") + " · SC " + (sc || "—");
+  }
   function hookLive() {
     var el = document.getElementById("sb-live-radio");
     if (!el) return;
-    function t(id) {
-      var n = document.getElementById(id);
-      return (n && n.textContent) || "—";
-    }
-    el.textContent = "Blue " + t("g-plow") + " · Red " + t("g-phigh") + " · SH " + t("g-sh") + " · SC " + t("g-sc");
+    el.textContent = glassCite();
   }
   function clickField(name) {
     var tab = document.querySelector('.sb-tab[data-tab="field"]');
@@ -222,6 +230,22 @@
       }
     }, 80);
   }
+  function gradeSheet(btn) {
+    var label = (btn && btn.textContent) || "";
+    var right = /weigh in|lineset chart|verify SC|Hunt undercharge|Power down, thaw|Liquid-line restriction|Shut down, clean condenser|Explain EPA 608/i.test(label);
+    var glass = glassCite();
+    var line = document.getElementById("svc-pay");
+    var fb = document.getElementById("svc-feedback");
+    var missed = fb && /^WRONG/.test(fb.textContent || "");
+    if (!fb || !fb.textContent) missed = !right;
+    if (line) {
+      if (missed) line.textContent = "Callback · " + glass + " · pay stub held · same glass the right call uses";
+      else line.textContent = "LANDED · " + glass + " · pay stub $18.40/hr";
+    }
+    if (fb && missed && fb.textContent.indexOf("Glass:") < 0) {
+      fb.textContent = fb.textContent + " · " + glass;
+    }
+  }
   function wireService() {
     var host = document.getElementById("screen-service");
     if (!host) return;
@@ -244,24 +268,16 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "21") return;
-    hookBtn.dataset.wired = "21";
-    nxt.dataset.wired = "21";
-    if (!window.__ltJessLand) {
-      window.__ltJessLand = 1;
+    if (hookBtn.dataset.wired === "22") return;
+    hookBtn.dataset.wired = "22";
+    nxt.dataset.wired = "22";
+    if (!window.__ltGlassSheet) {
+      window.__ltGlassSheet = 1;
       document.addEventListener("click", function (ev) {
         var btn = ev.target && ev.target.closest && ev.target.closest(".svc-choice");
         if (!btn) return;
-        var who = ((document.getElementById("svc-name") || {}).textContent) || "";
-        if (!/Jess|Marcus/i.test(who)) return;
-        var line = document.getElementById("svc-pay");
-        if (!line) return;
-        if (/weigh in|lineset chart|verify SC/i.test(btn.textContent || "")) {
-          line.textContent = "LANDED · weigh-in additional charge · verify SC · pay stub $18.40/hr · not a TXV call";
-        } else {
-          line.textContent = "Callback · guessed the charge · pay stub held · not a TXV call";
-        }
-      }, true);
+        setTimeout(function () { gradeSheet(btn); }, 0);
+      }, false);
     }
     hookBtn.onclick = function (ev) {
       if (ev) { ev.preventDefault(); ev.stopPropagation(); }
