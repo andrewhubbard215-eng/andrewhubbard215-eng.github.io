@@ -1,4 +1,4 @@
-/* Route floor overlay v19 — ticket tag stays the dispatch job. Fingerprint lives on the pay line. */
+/* Route floor overlay v21 — ticket tag stays the dispatch job. Pay line does not name the fault. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -143,9 +143,7 @@
   }
   function payCopy(id, job) {
     if (id === "lineset") return "Pay stub $18.40/hr · weigh-in per lineset chart · verify SC · not a stuck TXV";
-    var name = TITLES[id] || (job && job.name) || id;
-    if (/txv/i.test(String(name)) && id === "lineset") name = "Lineset short of factory charge";
-    return "Manifold fingerprint " + name + " · streak " + (window._ltStreak || 0) + " · pay stub $18.40/hr";
+    return "Pay stub $18.40/hr · streak " + (window._ltStreak || 0) + " · hoses on the glass — read SH/SC, name it on the sheet";
   }
   function currentJobId() {
     var name = ((document.getElementById("svc-name") || {}).textContent) || "";
@@ -246,9 +244,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "19") return;
-    hookBtn.dataset.wired = "19";
-    nxt.dataset.wired = "19";
+    if (hookBtn.dataset.wired === "21") return;
+    hookBtn.dataset.wired = "21";
+    nxt.dataset.wired = "21";
     if (!window.__ltJessLand) {
       window.__ltJessLand = 1;
       document.addEventListener("click", function (ev) {
@@ -268,10 +266,7 @@
     hookBtn.onclick = function (ev) {
       if (ev) { ev.preventDefault(); ev.stopPropagation(); }
       try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
-      window._ltStreak = (window._ltStreak || 0) + 1;
       window._ltTicketId = currentJobId();
-      var pay = document.getElementById("svc-pay");
-      if (pay) pay.textContent = "Pay stub $18.40/hr · streak " + window._ltStreak + " · HUB: hook the ports.";
       tagService(window._ltTicketId, { name: TITLES[window._ltTicketId], fingerprint: TITLES[window._ltTicketId] });
       if (window.ltHookTicketGauges) {
         window.ltHookTicketGauges();

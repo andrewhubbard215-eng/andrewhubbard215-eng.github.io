@@ -1,5 +1,5 @@
-2026-10-06 Shop shift. Walk: clock in, sandbox parts LEFT, service call Mrs. Delgado, back to sandbox — four seats already ON, status "Four seated", ticket id leak. Compressor was not running.
-Found it: route-floor seatAndRun clicked COMP/COND/TXV/EVAP and Start on ticket load. Hook Start also closed the loop when a ticket was set. Boot kick clicked Start.
-Shipped: ticket load no longer seats or starts. Status: "Ticket on the bench. Parts LEFT — seat COMP · COND · TXV · EVAP, then Start." Easy button still seats if the instructor taps it.
-Strip v3.5.379. Cache sw.js lt-allstars-v621. route-floor v20, sandbox-hook v19.
-Next: confirm Hook gauges still paints live SH/SC on the service manifold without seating the sandbox loop.
+2026-10-06 Shop shift. Played live floor v3.5.379: clock in, service call Priya one-zone dead. Hook gauges paints live glass (R-410A Blue 74 / Red 286 / sat 26/93 / SH 35 / SC 14) and does not seat the sandbox loop. Right call grades: high SH, liquid still there.
+Found it: pay line named the fault ("Restriction after drier") as soon as gauges hooked. Streak also ticked for hooking hoses, before the sheet.
+Shipped: pay stub no longer names the fault. Hook does not buy a streak. Lineset ticket still coaches weigh-in / not a TXV.
+Strip v3.5.380. Cache sw.js lt-allstars-v622. route-floor v21, sandbox-hook v19.
+Next: wrong-answer sheet should cite the glass (SH/SC) the same way the right call does.
