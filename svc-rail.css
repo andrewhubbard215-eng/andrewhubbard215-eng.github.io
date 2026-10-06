@@ -47,8 +47,11 @@
   #screen-service .svc-rail {
     width: 100% !important;
     max-width: none !important;
-    max-height: 34vh !important;
+    max-height: 32vh !important;
     height: auto;
+    overflow: auto !important;
+    position: relative;
+    z-index: 8;
     border-right: none;
     border-top: 3px solid #CE0034;
     grid-row: 2;
