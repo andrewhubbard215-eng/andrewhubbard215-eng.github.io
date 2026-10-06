@@ -13,10 +13,14 @@
   function leakLine() {
     return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
   }
+  function restrictLine() {
+    return "HUB: high SH + high SC = restriction / plugged drier. Cold at the drier outlet. Do not add gas.";
+  }
   function kind(fault) {
     var f = fault || "";
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
+    if (/restrict|drier|plugged/i.test(f)) return "restrict";
     if (/slow leak|undercharge|leak/i.test(f)) return "leak";
     return "";
   }
@@ -38,6 +42,7 @@
     var ctd = condTd();
     var tdOut = ctd >= 32;
     if (k === "leak" && hiSH && loSC) return leakLine();
+    if (k === "restrict" && hiSH && hiSC) return restrictLine();
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
@@ -106,6 +111,24 @@
       setText("sb-ctd", "Cond TD low — not a dirty-coil call. Head followed the charge down.");
       setText("sb-call", "Name it off the glass: 28 SH / 2 SC. High SH + low SC = leak / undercharge. Do not top off. Do not trust the charge knob.");
       setText("sb-shsc-formula", "RUNNING — leak fingerprint. SH 28 (high) · SC 2 (low). Find the leak, recover, weigh-in.");
+    } else if (k === "restrict") {
+      if (tripped) return;
+      setText("g-plow", "108 psig");
+      setText("sb-ps", "108 psig");
+      setText("sb-sst", "SST 36°F");
+      setText("sb-sl", "SL 64°F");
+      setText("g-sh", "28.0");
+      setText("sb-sh", "28.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 39° (ID−SST) · seat 15–20° — high. Coil starved.");
+      setText("g-phigh", "366 psig");
+      setText("sb-ph", "366 psig");
+      setText("sb-sct", "SCT 110°F");
+      setText("sb-ll", "LL 88°F");
+      setText("g-sc", "22.0");
+      setText("sb-sc", "22.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Liquid is stacked ahead of the plug.");
+      setText("sb-call", "Name it off the glass: 28 SH / 22 SC. High SH + high SC = restriction. Feel the drier outlet. Do not add gas.");
+      setText("sb-shsc-formula", "RUNNING — restriction fingerprint. SH 28 (high) · SC 22 (high). Do not add gas.");
     }
   }
   function mount() {
