@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v612";
+const VER = "lt-allstars-v613";
 const CORE = [
   "./" ,
   "./index.html",
@@ -7,10 +7,11 @@ const CORE = [
   "./sku.js?v=17",
   "./style.css?v=147",
   "./svc-rail.css?v=2",
-  "./sandbox-layout.css?v=43",
+  "./sandbox-layout.css?v=44",
   "./sandbox-faults-wrap.css?v=3",
   "./sandbox-pc.css?v=11",
-  "./phone-floor.css?v=47",
+  "./phone-floor.css?v=48",
+  "./phone-morning.css?v=1",
   "./phone-gauges-233.css?v=7",
   "./phone-gauges-clip-233.css?v=5",
   "./phone-p0.css?v=14",
@@ -20,7 +21,7 @@ const CORE = [
   "./lab-glass.css?v=1",
   "./game.js?v=206",
   "./teach-locks.js?v=2",
-  "./shop-floor-copy.js?v=86",
+  "./shop-floor-copy.js?v=87",
   "./sandbox.js?v=166",
   "./sandbox-hunt.js?v=3",
   "./sandbox-fp.js?v=11",
@@ -93,7 +94,7 @@ const CORE = [
   "./ohms-law-arcade-play.js?v=6",
   "./truck-pouch.js?v=6",
   "./exam-untimed.js?v=3",
-  "./exam-cutout.js?v=16",
+  "./exam-cutout.js?v=17",
   "./board-codes.css?v=4",
   "./dragdrop.js?v=50",
   "./webgl-cycle.js?v=57",

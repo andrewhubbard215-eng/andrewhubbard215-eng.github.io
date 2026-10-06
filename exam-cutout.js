@@ -205,6 +205,18 @@
       a: 0,
       why: "A restriction stacks liquid in the condenser (high subcool) and starves the evaporator (high superheat, low suction). The prove is a temperature drop at the drier outlet. Low charge is high SH with low SC. Overcharge floods the evaporator (low SH).",
       whyWrong: "High SH alone is not a leak. Adding gas on a plug trips HPC and does not clear the drier. Washing a clean coil does not warm a sweating drier."
+    },
+    {
+      q: "Furnace no heat. Inducer is running. Pressure switch is open. You read 24V across the switch terminals. Manometer on the hose is under the switch rating. What do you replace first?",
+      choices: [
+        "Nothing yet. Hose, trap, and vent are the prove. Switch is last — 24V across an open switch only means the board is calling.",
+        "The pressure switch — 24V across it means the switch is bad",
+        "The control board — the switch never closed so the board is not sending the call",
+        "The gas valve — inducer is running so draft is proven"
+      ],
+      a: 0,
+      why: "24V across an open pressure switch means the board is trying to prove. It does not mean the switch failed. Prove the hose, the trap, and the vent, then compare vacuum to the rating on the switch. Replace the switch only after the draft path is clean and the vacuum still misses the rating. Door sticker is law.",
+      whyWrong: "Swapping the switch or the board on an open prove skips the draft path. A running inducer is not a closed switch. Gas valve is downstream of the prove — it must stay closed."
     }
   ];
   function inject() {
@@ -213,12 +225,12 @@
     var bank = qa.BANK;
     var key = bank.charge ? "charge" : bank.epa608 ? "epa608" : Object.keys(bank)[0];
     if (!key || !Array.isArray(bank[key])) return false;
-    if (bank[key]._cutoutInjected16) return true;
+    if (bank[key]._cutoutInjected17) return true;
     ITEMS.forEach(function (it) {
       var have = bank[key].some(function (q) { return q && q.q === it.q; });
       if (!have) bank[key].push(it);
     });
-    bank[key]._cutoutInjected16 = true;
+    bank[key]._cutoutInjected17 = true;
     return true;
   }
   var n = 0;

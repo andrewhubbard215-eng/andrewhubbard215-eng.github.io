@@ -1,4 +1,4 @@
-2026-10-05 Evening shift. Played live v3.5.369. Clock-in ok. Saturday callback loaded. Strip still said ladder.
-Bug: bayStrip only read .el-lite-head / .sat-tab. Live sheet title is plain text in #electrical-root (SATURDAY CALLBACK · METER THE OPEN). Selector missed it.
-Shipped: first electrical title line names the bay. Strip v3.5.370. Cache sw.js lt-allstars-v612. shop-floor-copy.js?v=86.
-Next: hard-refresh, open Saturday callback, strip must say saturday callback. Then land lugs must say land lugs.
+2026-10-06 Morning shift. Played live v3.5.370. Clock-in ok. Sandbox seated path loaded. No crash.
+Bug: phone glass clipped #sb-canvas to 22vh — diamond not fully on the glass. Fault chips could sit past the rail.
+Shipped: phone-morning.css unclips the diamond (min 300px), left rail stays 96px, HUB dock hidden on sandbox/electrical/service/mini-split. Exam item: pressure-switch prove — 24V across an open switch is not a bad switch. Switch last. exam-cutout v17. Strip v3.5.371. Cache sw.js lt-allstars-v613.
+Next: hard-refresh phone, seat four from the left rail, confirm all four boxes on glass. Then ladder type size on Follow the call.

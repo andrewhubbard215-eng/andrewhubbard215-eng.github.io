@@ -1,0 +1,57 @@
+/* Morning 2026-10-06 — phone glass: whole DX diamond, left rail, ladder type, HUB off the lab */
+@media (max-width: 900px) {
+  #sandbox-root .sb-layout {
+    grid-template-columns: 96px minmax(0, 1fr) !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  #sandbox-root .sb-palette,
+  #sandbox-root aside.sb-palette {
+    width: 96px !important;
+    max-width: 96px !important;
+    position: relative !important;
+    left: 0 !important;
+    z-index: 6 !important;
+  }
+  #sandbox-root #sb-canvas,
+  #sb-canvas-wrap {
+    max-height: none !important;
+    height: auto !important;
+    min-height: 300px !important;
+    flex: 1 1 auto !important;
+    overflow: visible !important;
+  }
+  #sandbox-root #sb-faults {
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+  }
+  #screen-electrical,
+  #screen-electrical .el-lite,
+  #electrical-root {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+  #screen-electrical svg text {
+    font-size: 13px !important;
+  }
+  #app:has(#screen-sandbox.active) .hub-ai-dock,
+  #app:has(#screen-sandbox.active) #hub-ai,
+  #app:has(#screen-sandbox.active) .hub-chat,
+  #app:has(#screen-sandbox.active) .hub-ai-panel,
+  #app:has(#screen-sandbox.active) #hub-ai-fab,
+  #app:has(#screen-electrical.active) .hub-ai-dock,
+  #app:has(#screen-electrical.active) #hub-ai,
+  #app:has(#screen-electrical.active) .hub-chat,
+  #app:has(#screen-electrical.active) .hub-ai-panel,
+  #app:has(#screen-service.active) .hub-ai-dock,
+  #app:has(#screen-service.active) #hub-ai,
+  #app:has(#screen-minisplit.active) .hub-ai-dock,
+  #app:has(#screen-quiz.active) .hub-ai-dock,
+  body.lab-open .hub-ai-dock,
+  body.lab-open #hub-ai,
+  body.lab-open .hub-chat,
+  body.lab-open #hub-ai-fab {
+    display: none !important;
+  }
+}
