@@ -1,3 +1,5 @@
-2026-10-06 12:05 ET. Played live floor. Clock-in ok. No crash. Footer lied: strip said v3.5.371 while index was v3.5.375 (TIP_VER in shop-floor-copy.js).
-Shipped: restriction chip paints the glass while running — 108 psig, 28 SH, 366 psig, 22 SC. High SH + high SC. Feel the drier outlet. Do not add gas. Strip v3.5.376. Cache sw.js lt-allstars-v618.
-Next: hard-refresh, seat four, start, tap Restriction, confirm 28 SH / 22 SC. Then overcharge chip (low SH / high SC) the same way.
+2026-10-06 Save shift. Walk 10:16 AM ET: on phone, drag COMP onto its pad, then one tap showed all four seated.
+Found it: tapping a system pack (Trane XR, Goodman GSX, ...) under Packs called LtSeatAllFour and seated COND, TXV, EVAP for the tech.
+Shipped: sandbox-packs.js -- a pack now only picks the system (brand, refrigerant, metering). Status names what is still LEFT: "Seat COND · PISTON · EVAP LEFT, then Start compressor." Each part seats only when the tech drags or taps it.
+Strip v3.5.377 (index + in-game TIP_VER). Cache sw.js lt-allstars-v619.
+Next: route ticket / fault load still pre-seats four in sandbox.js (Easy scaffold, m()) and sandbox-hook.js has a "Seat all four (Easy)" button -- decide if those stay as instructor scaffolds.

@@ -87,30 +87,21 @@
       banner.textContent =
         pack.brand + " · " + pack.label + " · " + pack.ref + " · " + pack.metering.toUpperCase();
     }
+    /* A pack picks the system. It never seats parts: the tech seats each of the four LEFT. */
+    var LAB = { compressor: "COMP", condenser: "COND", metering: pack.metering.toUpperCase(), evaporator: "EVAP" };
+    var left = ["compressor", "condenser", "metering", "evaporator"].filter(function (id) {
+      var slot = $('#sb-slots .sb-slot[data-slot="' + id + '"]');
+      if (slot && (slot.classList.contains("filled") || slot.querySelector("img, strong, .rm"))) return false;
+      var part = $('#sandbox-root [data-part="' + id + '"]');
+      return !(part && (part.classList.contains("primary") || part.getAttribute("aria-pressed") === "true"));
+    }).map(function (id) { return LAB[id]; });
     setText(
       "sb-status",
-      pack.label +
-        " pack — " +
-        pack.ref +
-        " / " +
-        pack.metering.toUpperCase() +
-        ". Loop seated. Start compressor · healthy ~162/442 · 10/10 at 95°F OD."
+      pack.label + " pack — " + pack.ref + " / " + pack.metering.toUpperCase() + ". " +
+        (left.length ? "Seat " + left.join(" · ") + " LEFT, then Start compressor" : "Loop seated. Start compressor") +
+        " · healthy ~162/442 · 10/10 at 95°F OD."
     );
     setText("sb-fault", "");
-    if (typeof window.LtSeatAllFour === "function") {
-      window.LtSeatAllFour();
-    } else {
-      ["compressor", "condenser", "metering", "evaporator"].forEach(function (id) {
-        var part = $('#sandbox-root [data-part="' + id + '"]');
-        if (part) {
-          try {
-            part.click();
-          } catch (e) {}
-        }
-        var plate = document.querySelector('#sb-seats .sb-seat[data-seat="' + id + '"]');
-        if (plate) plate.classList.add("on");
-      });
-    }
     document.querySelectorAll("#sb-zone-b .sb-pack").forEach(function (b) {
       b.classList.toggle("primary", b.getAttribute("data-pack") === pack.id);
     });
