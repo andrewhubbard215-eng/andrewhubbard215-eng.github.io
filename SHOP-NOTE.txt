@@ -1,5 +1,5 @@
-2026-10-06 Shop shift. Played live floor v3.5.380: clock in, Priya office service call. No crash.
-Hook left the manifold on dashes. Wrong sheet was about to cite blank SH/SC because hold() still stamped Blue/Red.
-Shipped: hoses-off glass stays dashes. Wrong call cites "hoses not seated — hook blue and red" instead of a blank charge. Right call still stamps the seated glass.
-Strip v3.5.382. Cache sw.js lt-allstars-v624. route-floor v23. route-ticket-gauges v14.
-Next: Hook button must seat blue/red on the faces every time — click still left preview on dashes in this pass.
+2026-10-06 Shop shift. Played live floor v3.5.382: clock in, Mrs. Delgado no-cool. No crash.
+Pointer click on Hook gauges left the manifold on dashes — service re-render wiped the bay after the click listener. Programmatic click seated 92/248 SH 28 SC 4, but LTSandbox stayed hoses off.
+Shipped: Hook arms on pointerdown and re-seats if the glass goes blank. Seated glass stamps LTSandbox hoses on with live psig/SH/SC. Hoses-off still dashes.
+Strip v3.5.383. Cache sw.js lt-allstars-v625. route-ticket-gauges v15.
+Next: wrong-call sheet must cite the seated glass, not the nameplate, once hoses are on.

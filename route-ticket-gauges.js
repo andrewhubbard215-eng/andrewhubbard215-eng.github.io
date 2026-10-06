@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 8;
+  window.__ltTicketGauges = 9;
 
   var lastKey = "";
   var seated = false;
@@ -308,6 +308,7 @@
     if (fault) fault.textContent = fp.id === "undercharge-lineset"
       ? "Glass: SH " + fp.sh + " high · SC " + fp.sc + " low · not a restriction (that one is high SH and high SC)."
       : "Numbers on the glass. Name the fault on the sheet — not here.";
+    window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH, hoses: "on" };
   }
 
   function hold(fp, c) {
@@ -354,16 +355,20 @@
   function bind() {
     var hook = document.getElementById("svc-hook");
     if (hook) hook.textContent = "Hook gauges";
-    if (hook && hook.dataset.ltHook !== "3") {
-      hook.dataset.ltHook = "3";
-      hook.addEventListener("click", function () {
+    if (hook && hook.dataset.ltHook !== "4") {
+      hook.dataset.ltHook = "4";
+      var arm = function (ev) {
+        if (ev && ev.type === "pointerdown") ev.preventDefault();
         var bay = ensureBay();
         if (!bay) return;
         land(bay, bay.querySelector("#lt-port-suction"), "blue");
         land(bay, bay.querySelector("#lt-port-liquid"), "red");
         land(bay, bay.querySelector("#lt-port-cap"), "yellow");
         seat(call());
-      });
+        setTimeout(function () { seat(call()); }, 80);
+      };
+      hook.addEventListener("pointerdown", arm);
+      hook.addEventListener("click", arm);
     }
     var roast = document.getElementById("lt-roast");
     if (roast && roast.dataset.ltRoast !== "1") {
@@ -430,6 +435,8 @@
       seated = false;
       resetHoses();
       hold(fp, c);
+    } else if (seated && blank) {
+      seat(c);
     } else if (!seated && preview && !/SH\s*[\u2014-]/.test(preview.textContent || "")) {
       hold(fp, c);
     }
