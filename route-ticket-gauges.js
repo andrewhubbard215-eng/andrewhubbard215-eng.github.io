@@ -325,19 +325,19 @@
     var stub = document.getElementById("lt-stub");
     if (stub) stub.textContent = "Stub $" + pay(fp.id) + " \u00b7 hook before you read";
     var fault = document.getElementById("lt-fault");
-    if (fault) fault.textContent = "Hoses off. Blank glass. Do not name the fault yet.";
+    if (fault) fault.textContent = "Hoses not seated. Blank glass. Hook blue and red before you name the fault.";
     var plow = document.getElementById("g-plow");
     var phigh = document.getElementById("g-phigh");
+    var gsh = document.getElementById("g-sh");
+    var gsc = document.getElementById("g-sc");
     if (plow) plow.textContent = "\u2014";
     if (phigh) phigh.textContent = "\u2014";
+    if (gsh) gsh.textContent = "\u2014";
+    if (gsc) gsc.textContent = "\u2014";
     var table = fp.gas === "R-22" ? PT22 : PT410;
     var satL = Math.round(satOf(fp.blue, table));
     var satH = Math.round(satOf(fp.red, table));
-    window.LTSandbox = { lpc: fp.blue, hpc: fp.red, low: fp.blue, high: fp.red, sh: fp.sh, sc: fp.sc, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH };
-    var plow = document.getElementById("g-plow");
-    var phigh = document.getElementById("g-phigh");
-    if (plow) plow.textContent = String(fp.blue);
-    if (phigh) phigh.textContent = String(fp.red);
+    window.LTSandbox = { lpc: null, hpc: null, low: null, high: null, sh: null, sc: null, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH, hoses: "off" };
   }
 
   function seat(c) {

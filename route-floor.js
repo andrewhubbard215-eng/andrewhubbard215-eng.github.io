@@ -72,12 +72,22 @@
     var n = document.getElementById(id);
     return (n && n.textContent && n.textContent.trim()) || "";
   }
+  function blankish(v) {
+    return !v || v === "—" || v === "-" || v === "–" || v === "\u2014";
+  }
+  function hosesOff() {
+    var preview = (document.getElementById("lt-preview") || {}).textContent || "";
+    if (/SH\s*[\u2014\-]/.test(preview)) return true;
+    var sh = readGauge("g-sh");
+    var sc = readGauge("g-sc");
+    return blankish(sh) && blankish(sc);
+  }
   function glassCite() {
+    if (hosesOff()) return "Glass: hoses not seated — hook blue and red before you name it. SH — · SC —";
     var blue = readGauge("g-plow");
     var red = readGauge("g-phigh");
     var sh = readGauge("g-sh");
     var sc = readGauge("g-sc");
-    if (!sh && !sc && !blue && !red) return "Glass: hoses not seated — SH — · SC —";
     return "Glass: Blue " + (blue || "—") + " · Red " + (red || "—") + " · SH " + (sh || "—") + " · SC " + (sc || "—");
   }
   function hookLive() {
