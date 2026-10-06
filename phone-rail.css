@@ -37,16 +37,17 @@
   #lt-preview { position: sticky; top: 0; z-index: 5; }
 }
 
-/* 2026-10-06 phone: dispatch must not cover the sheet or the hose drop. */
+/* 2026-10-06 evening: phone sheet stays full height so the four fixes are tappable. Gauges follow, they do not cover the sheet. */
 @media (max-width: 720px) {
   #screen-service .svc-rail,
   #screen-service .svc-card {
     position: relative !important;
     z-index: 8 !important;
-    max-height: 32vh !important;
-    overflow: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
-  #screen-service .svc-choice { position: relative; z-index: 9; }
+  #screen-service .svc-choice { position: relative; z-index: 9; pointer-events: auto; }
+  #lt-g-low, #lt-g-high { pointer-events: none; max-height: 96px; }
   #lt-ticket-bay { position: relative; z-index: 1; }
   #lt-dispatch, #sb-dispatch {
     position: relative !important;
