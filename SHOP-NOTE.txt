@@ -1,5 +1,4 @@
-2026-10-05 Evening. Saturday callback lite loaded on the electrical screen but the strip said ladder.
-Played phone 390 and desktop. Clock-in, sandbox seat LEFT, start, healthy SH 10 / SC 10 / 162 / 442, dirty OD running 498 head / cond TD 38 / wash not recover. No crash.
-Bug: bayStrip only watched .sat-tab. No-cool sheet is .el-lite-head. Strip lied.
-Shipped: lite head names saturday callback (land lugs if L1 LINE). Strip v3.5.369. Cache sw.js lt-allstars-v610. shop-floor-copy.js?v=85.
-Next: hard-refresh, open Saturday callback, strip must say saturday callback not ladder.
+2026-10-05 Evening shift. Played live v3.5.369. Clock-in ok. Saturday callback loaded. Strip still said ladder.
+Bug: bayStrip only read .el-lite-head / .sat-tab. Live sheet title is plain text in #electrical-root (SATURDAY CALLBACK · METER THE OPEN). Selector missed it.
+Shipped: first electrical title line names the bay. Strip v3.5.370. Cache sw.js lt-allstars-v612. shop-floor-copy.js?v=86.
+Next: hard-refresh, open Saturday callback, strip must say saturday callback. Then land lugs must say land lugs.
