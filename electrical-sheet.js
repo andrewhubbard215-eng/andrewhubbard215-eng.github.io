@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v13 */
 (function () {
   var proved = {};
   var painting = false;
@@ -125,6 +125,32 @@
     }
   }
 
+  function sinkDownstream() {
+    var rails = document.querySelectorAll("#el-ladder [data-rail='ctl']");
+    for (var r = 0; r < rails.length; r++) {
+      var nodes = rails[r].querySelectorAll("button.el-node");
+      var pastOpen = false;
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var part = (n.dataset && n.dataset.part) || "";
+        if (part === "c24" || part === "c") continue;
+        if (!pastOpen) {
+          if (n.dataset && n.dataset.openLand === "1") pastOpen = true;
+          continue;
+        }
+        var small = n.querySelector("small");
+        if (small && small.textContent !== "0.0 V") small.textContent = "0.0 V";
+        if (/\blive\b/.test(n.className || "")) {
+          n.className = n.className.replace(/\blive\b/g, "").replace(/\s+/g, " ").trim();
+        }
+        if (!/\bdead\b/.test(n.className || "")) n.className = (n.className + " dead").trim();
+        if (n.title && /open/i.test(n.title) && n.dataset.openLand !== "1") {
+          n.title = "Downstream of the open. 0.0 V to common. Not the part.";
+        }
+      }
+    }
+  }
+
   function onLadderClick(ev) {
     var box = ev.target && ev.target.closest ? ev.target.closest("button, [data-node], .el-box, .el-node") : ev.target;
     var txt = ((box && (box.dataset && box.dataset.openPlain || box.textContent)) || "").replace(/\s+/g, " ");
@@ -205,6 +231,7 @@
     try {
       maskOpenGiveaway();
       landOpen();
+      sinkDownstream();
       var key = ticketKey();
       var openProved = key !== "pending" && !!proved[key];
       var k = document.querySelector(".el-ladder-kicker");
@@ -215,7 +242,7 @@
         } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
           next = "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
         } else if (/No-cool at 4:58/i.test(key)) {
-          next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open." + glassCite();
+          next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. Downstream stays 0.0 V.";
         } else {
           next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
         }
