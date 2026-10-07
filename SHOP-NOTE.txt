@@ -1,4 +1,3 @@
-2026-10-07 short shift. Played Clock In, sandbox, No-cool at 4:58. No crash.
-Proved: STAT 26.8 V gold, HPC 0.0 V to common, sheet NOW on step 6. Meter RED on HPC switch to COM C reads 0.0 — that is outlet to common, not across the switch.
-Shipped: open-switch meter law. Across an open HPC is ~27 V. 0 V across means contacts are closed. Do not stab T1. Banner v3.5.400. Sheet v18. sw lt-allstars-v644.
-Next: hard-refresh, open 4:58, confirm the sheet note says ~27 V across the open HPC.
+2026-10-07 short shift. Played Clock In. Floor loaded. Browser still painted banner v3.5.396 from the old worker (register was sw.js?v=643, cache VER 644). Live stub is 400. No crash.
+Shipped: LPC open-switch meter law, same as HPC. Across an open LPC is ~27 V. 0 V across means contacts are closed. Do not add gas on a frozen coil. Banner v3.5.401. Sheet v19. SW register and cache lt-allstars-v645.
+Next: hard-refresh, open 4:58, confirm banner 3.5.401 and the sheet says ~27 V across the open LPC.
