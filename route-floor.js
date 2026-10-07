@@ -1,4 +1,4 @@
-/* Route floor overlay v22 — wrong sheet cites the same glass the right call uses. Pay line does not name the fault. */
+/* Route floor overlay v24 — wrong sheet cites the same glass the right call uses. Pay line does not name the fault. */
 (function () {
   "use strict";
   var NAME_MAP = [
@@ -75,7 +75,21 @@
   function blankish(v) {
     return !v || v === "—" || v === "-" || v === "–" || v === "\u2014";
   }
+  function previewNums() {
+    var preview = (document.getElementById("lt-preview") || {}).textContent || "";
+    var m = preview.match(/Blue\s+(\d+).+Red\s+(\d+).+SH\s+(-?\d+).+SC\s+(-?\d+)/);
+    if (!m) return null;
+    return { blue: m[1], red: m[2], sh: m[3] + "\u00b0", sc: m[4] + "\u00b0" };
+  }
+  function liveGlass() {
+    var box = window.LTSandbox;
+    if (box && box.hoses === "on" && box.sh != null && box.sc != null) {
+      return { blue: String(box.low), red: String(box.high), sh: String(box.sh) + "\u00b0", sc: String(box.sc) + "\u00b0" };
+    }
+    return previewNums();
+  }
   function hosesOff() {
+    if (liveGlass()) return false;
     var preview = (document.getElementById("lt-preview") || {}).textContent || "";
     if (/SH\s*[\u2014\-]/.test(preview)) return true;
     var sh = readGauge("g-sh");
@@ -84,11 +98,16 @@
   }
   function glassCite() {
     if (hosesOff()) return "Glass: hoses not seated — hook blue and red before you name it. SH — · SC —";
+    var live = liveGlass() || {};
     var blue = readGauge("g-plow");
     var red = readGauge("g-phigh");
     var sh = readGauge("g-sh");
     var sc = readGauge("g-sc");
-    return "Glass: Blue " + (blue || "—") + " · Red " + (red || "—") + " · SH " + (sh || "—") + " · SC " + (sc || "—");
+    if (blankish(blue)) blue = live.blue || "—";
+    if (blankish(red)) red = live.red || "—";
+    if (blankish(sh)) sh = live.sh || "—";
+    if (blankish(sc)) sc = live.sc || "—";
+    return "Glass: Blue " + blue + " · Red " + red + " · SH " + sh + " · SC " + sc;
   }
   function hookLive() {
     var el = document.getElementById("sb-live-radio");
