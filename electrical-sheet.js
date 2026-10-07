@@ -15,12 +15,44 @@
     return (m && m[0]) || "pending";
   }
 
+  function numFrom(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    var raw = (el.dataset && el.dataset.psig) || el.textContent || "";
+    var m = String(raw).match(/-?\d+(\.\d+)?/);
+    return m ? m[0] : null;
+  }
+
+  function diamondSeated() {
+    var ids = ["compressor", "condenser", "metering", "evaporator"];
+    for (var i = 0; i < ids.length; i++) {
+      var seat = document.querySelector('#sb-seats .sb-seat[data-part="' + ids[i] + '"], #sb-seats .sb-seat[data-seat="' + ids[i] + '"]');
+      if (!seat || !/\bon\b/.test(seat.className || "")) return false;
+    }
+    return true;
+  }
+
+  function dxRunning() {
+    var b = document.getElementById("sb-run");
+    return !!(b && /stop/i.test(b.textContent || ""));
+  }
+
   function glassCite() {
     var s = window.LTSandbox;
     if (s && s.hoses === "on" && s.sh != null) {
       return " Glass: " + (s.gas || "gas") + " blue " + s.low + " / red " + s.high + " \u00b7 SH " + s.sh + "\u00b0 \u00b7 SC " + s.sc + "\u00b0. Call the meter and the glass, not the nameplate.";
     }
-    return " Hoses off. Sheet is nameplate only \u2014 hook blue and red before you call a charge fault. The open is on the meter.";
+    if (diamondSeated()) {
+      var blue = numFrom("sb-g-low") || numFrom("g-plow") || "\u2014";
+      var red = numFrom("sb-g-high") || numFrom("g-phigh") || "\u2014";
+      if (!dxRunning()) {
+        return " Seated glass, standing: blue " + blue + " / red " + red + " psig, equalized. No SH/SC until the compressor runs. Do not call a charge fault off standing P. The open is the dark 0.0 V box.";
+      }
+      var sh = numFrom("g-sh") || numFrom("sb-sh") || "\u2014";
+      var sc = numFrom("g-sc") || numFrom("sb-sc") || "\u2014";
+      return " Seated glass, running: blue " + blue + " / red " + red + " psig \u00b7 SH " + sh + "\u00b0 \u00b7 SC " + sc + "\u00b0. Cite the glass. The open is still the 0.0 V box \u2014 do not shotgun the compressor.";
+    }
+    return " Hoses off. Sheet is nameplate only \u2014 seat the diamond and hook blue and red before you call a charge fault. The open is on the meter.";
   }
 
   function isReplaceBtn(b) {
@@ -125,6 +157,9 @@
       } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
         k.textContent =
           "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
+      } else if (/No-cool at 4:58/i.test(key)) {
+        k.textContent =
+          "No-cool at 4:58. Prove path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Dark after gold is the open." + glassCite();
       } else {
         k.textContent =
           "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";

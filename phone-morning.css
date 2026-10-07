@@ -89,3 +89,20 @@
 #screen-electrical .el-slot strong,
 #screen-electrical .el-slot .empty { font-size: 13px; }
 #screen-electrical .el-ladder-kicker { font-size: 14px; }
+
+/* 2026-10-07 morning: fault chips stay on the glass, do not run off the right edge */
+@media (max-width: 520px) {
+  #sandbox-root #sb-faults {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+  }
+  #sandbox-root #sb-faults .btn {
+    max-width: 100% !important;
+  }
+  #sandbox-root .sb-palette .btn {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
