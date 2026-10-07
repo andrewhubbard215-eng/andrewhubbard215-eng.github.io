@@ -1,4 +1,5 @@
 2026-10-07 short shift. Played Clock In and No-cool at 4:58. No crash.
-Bug: sheet stamped openLand on LPC (first dead small with 0.0). HPC is class open but voltage is not in small, so the open walked downstream. C has no data-part, so sink zeroed common to 0.0 V.
-Shipped: land the open on the class-open box (HPC). Clear the false land on LPC. C stays at R transformer voltage. Sheet v14. Boot pin v14 / v3.5.395. sw lt-allstars-v638.
-Next: hard-refresh, open 4:58, confirm HPC is the only open land, FLOAT/LPC/COIL are 0.0 V, C matches R.
+Proved: HPC is the only open land. LPC/FLOAT/COIL 0.0 V. C matches R at 27.2 V.
+Bug: sheet NOW stayed on step 1 (Confirm the call) after STAT was already gold.
+Shipped: walk NOW to the open box (HPC on 4:58). Banner v3.5.396. Sheet v15. sw lt-allstars-v640.
+Next: hard-refresh, open 4:58, confirm step 6 High-pressure switch is NOW and the gold box is HPC.

@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v14 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v15 */
 (function () {
   var proved = {};
   var painting = false;
@@ -262,6 +262,52 @@
     }
   }
 
+
+  function stepKeyFor(node) {
+    var label = nodeLabel(node).toUpperCase();
+    if (/HPC|HIGH/.test(label)) return "hpc";
+    if (/LPC|LOW/.test(label)) return "lpc";
+    if (/FLOAT/.test(label)) return "float";
+    if (/COIL/.test(label)) return "coil";
+    if (/LIMIT/.test(label)) return "limit";
+    if (/DISC/.test(label)) return "disc";
+    if (/STAT|^Y$/.test(label)) return "y";
+    return "";
+  }
+
+  function walkToOpen() {
+    var openNode = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    if (!openNode) return;
+    var stat = document.querySelector("#el-ladder button.el-node[data-node='stat']");
+    if (stat && !/\blive\b/.test(stat.className || "")) return;
+    var key = stepKeyFor(openNode);
+    var ol = document.getElementById("el-ts");
+    if (ol && key) {
+      var steps = ol.querySelectorAll("li.el-ts-step");
+      for (var i = 0; i < steps.length; i++) {
+        var li = steps[i];
+        var on = li.getAttribute("data-ts") === key;
+        var badge = li.querySelector(".el-ts-n");
+        if (on) {
+          if (!/\bnow\b/.test(li.className || "")) li.className = ((li.className || "") + " now").trim();
+          if (badge && badge.textContent !== "NOW") badge.textContent = "NOW";
+          var note = li.querySelector("p");
+          if (note && !note.textContent) note.textContent = "Dark after gold. Meter this box. That is the open. Do not cut downstream.";
+        } else if (/\bnow\b/.test(li.className || "")) {
+          li.className = li.className.replace(/\bnow\b/g, "").replace(/\s+/g, " ").trim();
+          var strong = li.querySelector("strong");
+          var num = strong && (strong.textContent || "").match(/^(\d+)/);
+          if (badge && badge.textContent === "NOW" && num) badge.textContent = num[1];
+        }
+      }
+    }
+    var prev = document.querySelectorAll("#el-ladder button.el-node.ts-now");
+    for (var j = 0; j < prev.length; j++) {
+      if (prev[j] !== openNode) prev[j].className = prev[j].className.replace(/\bts-now\b/g, "").replace(/\s+/g, " ").trim();
+    }
+    if (!/\bts-now\b/.test(openNode.className || "")) openNode.className = (openNode.className + " ts-now").trim();
+  }
+
   function paint() {
     if (painting) return;
     painting = true;
@@ -269,6 +315,7 @@
       maskOpenGiveaway();
       landOpen();
       sinkDownstream();
+      walkToOpen();
       var key = ticketKey();
       var openProved = key !== "pending" && !!proved[key];
       var k = document.querySelector(".el-ladder-kicker");

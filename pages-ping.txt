@@ -1,1 +1,1 @@
-lt-allstars-v638 electrical-sheet v14 no-cool HPC land, C at transformer voltage
+v640 sheet-walk-now 2026-10-07
