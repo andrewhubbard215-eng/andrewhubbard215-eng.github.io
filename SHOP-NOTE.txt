@@ -1,3 +1,3 @@
-2026-10-07 short shift. Clock-in played. No-cool at 4:58 hung the page: sheet paint rewrote the same 0.0 V label and the observer looped.
-Shipped: paint reentry guard, write only when text changes, interval 900ms. After the tap, yell names the box (HPC stays 0.0 V until metered). Replace stays dark until that tap. Strip v3.5.392. sw lt-allstars-v635. electrical-sheet v11.
-Next: phone walk 4:58 — first dead box is HPC at 0.0 V, Replace stays Meter the 0.0 V open until that tap, then name shows.
+2026-10-07 short shift. Clock-in and Saturday callback played. 4:58 no longer hangs. Tap on HPC names the open and Replace stays dark until that tap.
+Shipped: no-cool box label was HPC0.0 V (OPEN stripped with no space). Mask now reads HPC · 0.0 V; after the tap, HPC OPEN · 0.0 V. Strip v3.5.393. sw lt-allstars-v636. electrical-sheet v12.
+Next: phone walk 4:58 — confirm the dark box reads HPC · 0.0 V, then Replace after the tap.

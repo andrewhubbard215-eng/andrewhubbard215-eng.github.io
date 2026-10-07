@@ -87,11 +87,12 @@
     );
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      if (el.dataset && el.dataset.openMasked === "1") continue;
-      var raw = el.textContent || "";
+      if (el.dataset && (el.dataset.openMasked === "1" || el.dataset.provedOpen === "1")) continue;
+      var raw = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!/OPEN/i.test(raw) || !/0\.0/.test(raw)) continue;
-      el.dataset.openPlain = raw;
-      el.innerHTML = raw.replace(/OPEN\s*[·•:\-]\s*/i, "");
+      var spaced = raw.replace(/([A-Za-z0-9])OPEN/gi, "$1 OPEN");
+      el.dataset.openPlain = spaced;
+      el.textContent = spaced.replace(/OPEN\s*[·•:\-]\s*/i, " · ");
       el.dataset.openMasked = "1";
       el.title = "Meter this box. Dark after gold is the open.";
     }
@@ -133,7 +134,8 @@
       if (k !== "pending") proved[k] = true;
       if (box && box.dataset && box.dataset.openPlain) {
         box.textContent = box.dataset.openPlain;
-        box.dataset.openMasked = "0";
+        box.dataset.provedOpen = "1";
+        box.dataset.openMasked = "1";
       }
       var who = partName(box);
       lockReplace();
