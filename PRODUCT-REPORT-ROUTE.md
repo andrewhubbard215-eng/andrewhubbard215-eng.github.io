@@ -1,31 +1,27 @@
 # HVAC Allstars — shop pass (2026-10-07)
 
 ## DATE
-2026-10-07 morning
+2026-10-07 Lane A playtest (afternoon)
 
-## LIVE PLAY
-- Clock in on campus floor (v3.5.390 before ship). Service calls. Hook gauges.
-- Ken / barbershop / suction iced. Needles painted (blue face, red face). Glass: Blue 62 / Red 300 / sat 25°/96° / SH 0 / SC 10. Airflow ticket.
-- Next random ticket: Jess & Marcus lineset, then DIY Dave opened system, then Mrs. Delgado warm. Fault changed each time. Hoses reset. Preview blank until hook.
-- Delgado hooked: Blue 92 / Red 248 / sat 32°/83° / SH 28° / SC 4°. Undercharge fingerprint. Not the iced ticket.
-- Dave open system before fix: Blue 0 / Red 0 but sat clamped to 25°/25° (chart floor). Needles at zero. Lie.
-- Phone 390: dispatch ends above preview. Palette left (x=18). Hoses and ports below the bar. No overlap. Preview sticky.
+## PLAYED
+- Shop floor clock-in: pass. Stamp was v3.5.391. PC fills 1440x900. No black strip.
+- Service calls: Ken barbershop iced. Hook gauges. Needles up. Digital Blue 62 / Red 300 / SH 0 / SC 10. FAIL on glass: sat off/96. Next ticket changed to Jess & Marcus. Hoses blanked. Pass on ticket change.
+- Voltmeter school: direction bar pinned at top. Still multiple choice, not probe-on-lugs. HUB drip bottom-right, did not cover COM. Dismissed.
+- Sandbox: loop already seated, start available, standing 295 equalized. No leftover drag box on screen.
+- HUB: drip did not cover gauges.
 
 ## BROKE
-- Open / empty ticket used the P/T floor (70 psig = 25°F on 410A) for 0 psig. A tech could read a charged sat on an empty system.
+- Iced / low-airflow glass printed suction sat as off at 62 psig. Morning empty-system guard treated every pressure under the chart floor (70 psig) as off. SH 0 on a popsicle with sat off is a lie.
 
 ## FIXED
-- Below the chart, sat is "off", not 25°. Open ticket preview adds "empty — do not charge".
-- Store listing not touched. No Lincoln marks added.
-- Dispatch, streak, quote, pay stub, roast, haptic seat left as they were.
+- sat off only at 0–1 psig (empty — do not charge). 62 psig extrapolates the 410A slope (70 psig = 25°F, 92 = 32°F) to about 22°F. Empty stays off.
+- route-ticket-gauges.js guard 11, boot query v18, index stamp v3.5.396, sw.js lt-allstars-v639.
+- sku.js not touched.
 
-## STILL SUCKS
-- Voltmeter school is still choices, not probe-on-lugs.
-- Manifold school is still this service-call bay.
-- Gauges of God stays off the main floor.
-- Hard refresh once for the service worker.
+## STILL OPEN
+- Voltmeter school is still choices, not Black-COM / Red-VΩ / equip-ground chip.
+- Manifold school is still the service-call bay, not a separate guided walk.
+- Hard refresh once so the service worker drops v638.
 
-## SHIPPED
-- route-ticket-gauges.js v17
-- index.html stamp v3.5.391
-- sw.js lt-allstars-v633
+## TOMORROW
+- Probe-on-lugs in meter school. Direction bar stays pinned.
