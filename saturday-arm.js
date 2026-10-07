@@ -61,13 +61,14 @@
     if (ev.target.closest && ev.target.closest("#el-hub, .shop-floor, [data-mode='home']")) return;
     var id = card.dataset.job || jobIdFromText(card.textContent || "");
     if (!id) return;
-    ev.preventDefault();
-    ev.stopPropagation();
     var L = lab();
+    // Real bay cards already call the ladder with their own onclick.
+    // startJob is not on ElectricalLab — swallowing the click left the slip dead.
     if (L && typeof L.startJob === "function") {
-      try {
-        L.startJob(id);
-      } catch (e) {}
+      ev.preventDefault();
+      ev.stopPropagation();
+      try { L.startJob(id); } catch (e) {}
+      return;
     }
   }
 

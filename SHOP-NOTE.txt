@@ -1,4 +1,4 @@
-2026-10-06 Shop shift. Played live floor v3.5.385: clock in, Saturday callback ladder. No crash.
-Shipped: once the meter is on the open, the no-cool sheet cites seated glass (gas, blue/red, SH/SC) and says call the meter and the glass, not the nameplate. Hoses off still says nameplate only, hook first.
-Strip v3.5.386. Cache sw.js lt-allstars-v628. electrical-sheet.js v8.
-Next: prove the cite on a live Saturday ticket with gauges hooked in the sandbox, then back to the ladder.
+2026-10-06 Shop shift. Played live floor: clock in, Saturday callback list. No crash.
+Bug: ticket tap did nothing. saturday-arm.js captured the click, called ElectricalLab.startJob (not on the lab), and stopped the card's own handler.
+Shipped: arm only swallows the click if startJob exists. Otherwise the slip's onclick opens the bay. Strip v3.5.389. Cache sw.js lt-allstars-v631. saturday-arm v2. shop-floor-copy v92.
+Next: meter the open on No-cool at 4:58 and confirm the sheet cites seated glass.
