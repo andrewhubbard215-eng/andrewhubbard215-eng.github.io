@@ -1,5 +1,4 @@
 2026-10-07 short shift. Played Clock In and No-cool at 4:58. No crash.
-Proved: HPC is the only open land. LPC/FLOAT/COIL 0.0 V. C matches R at 27.2 V.
-Bug: sheet NOW stayed on step 1 (Confirm the call) after STAT was already gold.
-Shipped: walk NOW to the open box (HPC on 4:58). Banner v3.5.396. Sheet v15. sw lt-allstars-v640.
-Next: hard-refresh, open 4:58, confirm step 6 High-pressure switch is NOW and the gold box is HPC.
+Proved: STAT gold 26.8 V, HPC 0.0 V open, C still 27.2 V. Sheet NOW was stuck on step 1 because T1 (load rail, contactor out) was the first openLand.
+Shipped: prefer the 24V-string open (HPC) over downstream T1. Banner v3.5.397. Sheet v16. sw lt-allstars-v641.
+Next: hard-refresh, open 4:58, confirm step 6 High-pressure switch is NOW and T1 is not the open.

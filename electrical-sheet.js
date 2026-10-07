@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v15 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v16 */
 (function () {
   var proved = {};
   var painting = false;
@@ -264,6 +264,10 @@
 
 
   function stepKeyFor(node) {
+    var dn = (node.dataset && node.dataset.node) || "";
+    if (dn === "stat" || dn === "y") return "y";
+    if (dn === "xfmr" || dn === "r") return "r";
+    if (dn) return dn;
     var label = nodeLabel(node).toUpperCase();
     if (/HPC|HIGH/.test(label)) return "hpc";
     if (/LPC|LOW/.test(label)) return "lpc";
@@ -275,8 +279,23 @@
     return "";
   }
 
+  function preferControlOpen() {
+    var ctl = document.querySelector("#el-ladder [data-rail='ctl'] button.el-node[data-open-land='1']");
+    if (!ctl) return document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    var others = document.querySelectorAll("#el-ladder button.el-node[data-open-land='1']");
+    for (var i = 0; i < others.length; i++) {
+      if (others[i] === ctl) continue;
+      delete others[i].dataset.openLand;
+      others[i].className = (others[i].className || "").replace(/\bts-now\b/g, "").replace(/\s+/g, " ").trim();
+      if (others[i].title && /Dark after gold/.test(others[i].title)) {
+        others[i].title = "Downstream of the open. 0.0 V because the contactor is out. Not the part.";
+      }
+    }
+    return ctl;
+  }
+
   function walkToOpen() {
-    var openNode = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    var openNode = preferControlOpen();
     if (!openNode) return;
     var stat = document.querySelector("#el-ladder button.el-node[data-node='stat']");
     if (stat && !/\blive\b/.test(stat.className || "")) return;
