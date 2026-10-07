@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v16 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v18 */
 (function () {
   var proved = {};
   var painting = false;
@@ -120,7 +120,7 @@
     var n = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
     if (!n) return "Tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
     var who = partName(n);
-    if (/high-pressure|\bHPC\b/i.test(who)) return "NOW is the high-pressure switch. RED on the Y side, COM on the outlet. 0 V across it. Do not stab T1.";
+    if (/high-pressure|\bHPC\b/i.test(who)) return "NOW is the high-pressure switch. RED on the Y side, COM on the outlet. Open switch reads ~27 V across — not 0. Outlet to C is 0. 0 V across means the contacts are closed. Do not stab T1.";
     if (/low-pressure|\bLPC\b/i.test(who)) return "NOW is the low-pressure switch. RED on the inlet, COM on the outlet. Do not add gas on a frozen coil.";
     if (/float/i.test(who)) return "NOW is the float. RED on the inlet, COM on the outlet. Do not jump R to Y.";
     if (/coil/i.test(who)) return "NOW is the contactor coil. RED on the coil, COM on C. 0 V here is a bad coil — not T1.";
@@ -376,9 +376,31 @@
           : "No-cool sheet: " + openLeadLine());
       }
       lockReplace();
+      coachAcross();
     } finally {
       painting = false;
     }
+  }
+
+
+  function coachAcross() {
+    var host = document.getElementById("el-redn");
+    if (!host || !host.parentNode) return;
+    var note = document.getElementById("el-across-note");
+    if (!note) {
+      note = document.createElement("p");
+      note.id = "el-across-note";
+      note.className = "el-ladder-kicker";
+      host.parentNode.appendChild(note);
+    }
+    var n = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    var who = partName(n);
+    var line = "";
+    if (/high-pressure|\bHPC\b/i.test(who)) {
+      line = "Meter law: open HPC is ~27 V across (Y-side to outlet). Outlet to C is 0.0 V. 0 V across the switch means it is closed. Do not stab T1.";
+    }
+    setText(note, line);
+    note.style.display = line ? "" : "none";
   }
 
   function boot() {

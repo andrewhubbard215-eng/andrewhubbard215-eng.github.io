@@ -1,4 +1,4 @@
-2026-10-07 short shift. Played Clock In and No-cool at 4:58. No crash.
-Proved: STAT 26.8 V gold, HPC 0.0 V, sheet NOW on step 6 High-pressure switch. T1 is not the open.
-Shipped: lead callout on the sheet — RED on Y side of the HPC, COM on the outlet, do not stab T1. Banner v3.5.398. Sheet v17. sw lt-allstars-v642.
-Next: hard-refresh, open 4:58, confirm the sheet note names the high-pressure switch leads.
+2026-10-07 short shift. Played Clock In, sandbox, No-cool at 4:58. No crash.
+Proved: STAT 26.8 V gold, HPC 0.0 V to common, sheet NOW on step 6. Meter RED on HPC switch to COM C reads 0.0 — that is outlet to common, not across the switch.
+Shipped: open-switch meter law. Across an open HPC is ~27 V. 0 V across means contacts are closed. Do not stab T1. Banner v3.5.400. Sheet v18. sw lt-allstars-v644.
+Next: hard-refresh, open 4:58, confirm the sheet note says ~27 V across the open HPC.
