@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 10;
+  window.__ltTicketGauges = 11;
 
   var lastKey = "";
   var seated = false;
@@ -42,7 +42,12 @@
   }
 
   function satOf(psig, table) {
-    if (psig < table[0]) return null;
+    if (psig <= 1) return null;
+    if (psig < table[0]) {
+      var span = table[2] - table[0] || 1;
+      var slope = (table[3] - table[1]) / span;
+      return table[1] + (psig - table[0]) * slope;
+    }
     var i;
     for (i = 0; i < table.length - 2; i += 2) {
       if (psig <= table[i + 2]) {
