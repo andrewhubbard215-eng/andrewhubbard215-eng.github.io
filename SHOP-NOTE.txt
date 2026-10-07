@@ -1,3 +1,5 @@
-2026-10-07 short shift. Played Clock In. Floor loaded. Browser still painted banner v3.5.396 from the old worker (register was sw.js?v=643, cache VER 644). Live stub is 400. No crash.
-Shipped: LPC open-switch meter law, same as HPC. Across an open LPC is ~27 V. 0 V across means contacts are closed. Do not add gas on a frozen coil. Banner v3.5.401. Sheet v19. SW register and cache lt-allstars-v645.
-Next: hard-refresh, open 4:58, confirm banner 3.5.401 and the sheet says ~27 V across the open LPC.
+2026-10-07 short shift. Live Pages is v3.5.401 / sw 645. Browser tool still painted 396 from the old worker. Curl of index and sw.js confirmed 401/645. No crash. Clock In opens the locker.
+
+Shipped: float open-switch meter law, and the across-note now states LPC and float the same way HPC already did. Open float is ~27 V across. Outlet to C is 0. 0 V across means the pan is dry. Do not jump the float. Banner v3.5.402. Sheet v20. SW register and cache lt-allstars-v646.
+
+Next: hard-refresh, open Saturday callback, land an open float, confirm the across note says ~27 V and do not jump.

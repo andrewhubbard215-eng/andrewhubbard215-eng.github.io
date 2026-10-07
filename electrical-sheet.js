@@ -122,7 +122,7 @@
     var who = partName(n);
     if (/high-pressure|\bHPC\b/i.test(who)) return "NOW is the high-pressure switch. RED on the Y side, COM on the outlet. Open switch reads ~27 V across — not 0. Outlet to C is 0. 0 V across means the contacts are closed. Do not stab T1.";
     if (/low-pressure|\bLPC\b/i.test(who)) return "NOW is the low-pressure switch. RED on the inlet, COM on the outlet. Open switch reads ~27 V across — not 0. Outlet to C is 0. 0 V across means the contacts are closed. Do not add gas on a frozen coil.";
-    if (/float/i.test(who)) return "NOW is the float. RED on the inlet, COM on the outlet. Do not jump R to Y.";
+    if (/float/i.test(who)) return "NOW is the float switch. RED on the inlet, COM on the outlet. Open float reads ~27 V across — not 0. Outlet to C is 0. 0 V across means the pan is dry and contacts are closed. Do not jump the float.";
     if (/coil/i.test(who)) return "NOW is the contactor coil. RED on the coil, COM on C. 0 V here is a bad coil — not T1.";
     return "NOW is " + (who || "the open") + ". Meter across that part. Dark after gold. Do not cut downstream.";
   }
@@ -398,6 +398,10 @@
     var line = "";
     if (/high-pressure|\bHPC\b/i.test(who)) {
       line = "Meter law: open HPC is ~27 V across (Y-side to outlet). Outlet to C is 0.0 V. 0 V across the switch means it is closed. Do not stab T1.";
+    } else if (/low-pressure|\bLPC\b/i.test(who)) {
+      line = "Meter law: open LPC is ~27 V across (inlet to outlet). Outlet to C is 0.0 V. 0 V across means the contacts are closed. Do not add gas on a frozen coil.";
+    } else if (/float/i.test(who)) {
+      line = "Meter law: open float is ~27 V across (inlet to outlet). Outlet to C is 0.0 V. 0 V across means the pan is dry. Do not jump the float.";
     }
     setText(note, line);
     note.style.display = line ? "" : "none";
