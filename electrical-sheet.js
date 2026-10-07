@@ -82,10 +82,32 @@
     }
   }
 
+  function landOpen() {
+    var rails = document.querySelectorAll("#el-ladder [data-rail]");
+    for (var r = 0; r < rails.length; r++) {
+      var nodes = rails[r].querySelectorAll("button.el-node");
+      var seenLive = false;
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var small = n.querySelector("small");
+        var volts = small ? small.textContent : "";
+        var live = /\blive\b/.test(n.className || "") && !/0\.0/.test(volts);
+        if (live) { seenLive = true; continue; }
+        if (!seenLive || !/0\.0/.test(volts) || !/\bdead\b/.test(n.className || "")) continue;
+        n.dataset.openLand = "1";
+        n.dataset.openMasked = "1";
+        if (small) small.textContent = "0.0 V";
+        n.title = "Dark after gold. Meter this box. That is the open.";
+        break;
+      }
+    }
+  }
+
   function onLadderClick(ev) {
     var box = ev.target && ev.target.closest ? ev.target.closest("button, [data-node], .el-box, .el-node") : ev.target;
     var txt = ((box && (box.dataset && box.dataset.openPlain || box.textContent)) || "").replace(/\s+/g, " ");
-    if ((/OPEN/i.test(txt) && /0\.0/.test(txt)) || (box && box.dataset && box.dataset.openMasked === "1")) {
+    var landed = box && box.dataset && (box.dataset.openLand === "1" || box.dataset.openMasked === "1");
+    if ((/OPEN/i.test(txt) && /0\.0/.test(txt)) || landed) {
       var k = ticketKey();
       if (k !== "pending") proved[k] = true;
       if (box && box.dataset && box.dataset.openPlain) {
@@ -135,19 +157,25 @@
         b.removeAttribute("title");
         b.style.opacity = "";
         b.style.pointerEvents = "";
+        b.style.filter = "";
         b.style.display = "";
+        if (b.dataset.plainLabel && /Meter the 0/.test(b.textContent || "")) b.textContent = b.dataset.plainLabel;
       } else {
         b.disabled = true;
         b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
-        b.style.setProperty("opacity", "0.35", "important");
+        b.style.setProperty("opacity", "0.4", "important");
         b.style.setProperty("pointer-events", "none", "important");
-        b.style.setProperty("display", "none", "important");
+        b.style.setProperty("filter", "grayscale(0.6)", "important");
+        b.style.removeProperty("display");
+        if (!b.dataset.plainLabel) b.dataset.plainLabel = (b.textContent || "").trim();
+        b.textContent = "Meter the 0.0 V open";
       }
     }
   }
 
   function paint() {
     maskOpenGiveaway();
+    landOpen();
     var key = ticketKey();
     var openProved = key !== "pending" && !!proved[key];
     var k = document.querySelector(".el-ladder-kicker");
@@ -191,6 +219,7 @@
     paint();
     setInterval(paint, 400);
   }
+  window.LtNoCoolSheet = true;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

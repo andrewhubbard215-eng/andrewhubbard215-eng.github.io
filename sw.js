@@ -1,9 +1,9 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v633";
+const VER = "lt-allstars-v634";
 const CORE = [
   "./" ,
   "./index.html",
-  "./nocool-lock.js?v=2",
+  "./nocool-lock.js?v=3",
   "./sku.js?v=17",
   "./style.css?v=147",
   "./svc-rail.css?v=2",
@@ -21,7 +21,7 @@ const CORE = [
   "./lab-glass.css?v=1",
   "./game.js?v=206",
   "./teach-locks.js?v=2",
-  "./shop-floor-copy.js?v=93",
+  "./shop-floor-copy.js?v=94",
   "./sandbox.js?v=166",
   "./sandbox-hunt.js?v=3",
   "./sandbox-fp.js?v=13",
@@ -80,7 +80,7 @@ const CORE = [
   "./electrical-lite.js?v=10",
   "./land-lugs-route.js?v=2",
   "./electrical-phone.js?v=5",
-  "./electrical-sheet.js?v=9",
+  "./electrical-sheet.js?v=10",
   "./saturday-arm.js?v=2",
   "./board-codes.js?v=19",
   "./prove-deepen.js?v=2",

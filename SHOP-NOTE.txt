@@ -1,4 +1,4 @@
-2026-10-07 Morning shift. Played clock-in and DX sandbox on a 390 phone. Diamond four seats on glass. No crash.
-Bug: No-cool sheet only cited route hoses (LTSandbox). Standing seated glass was nameplate-only, so a tech could call a charge fault off equalized P.
-Shipped: sheet cites seated diamond glass. Standing = equalized, no SH/SC. Running = blue/red SH/SC. No-cool at 4:58 kicker is the prove path (call to compressor). Fault chips wrap on phone. Strip v3.5.390. Cache sw.js lt-allstars-v632. electrical-sheet v9. phone-morning v3. shop-floor-copy v93.
-Next: land the open on the live ladder and confirm Replace stays dark until 0.0 V is metered.
+2026-10-07 short shift. Clock-in and sandbox played. No crash. Diamond still LEFT until seated.
+Bug: Saturday ladder redrew the 24V rail, so the open never stayed a meter target. Replace was display:none — a tech could not see the part or prove 0.0 V.
+Shipped: first dead 0.0 V box after gold is the open (label stays 0.0 V, no OPEN giveaway). Tap it, then Replace lights. Until then Replace is dark: Meter the 0.0 V open. Strip v3.5.391. sw lt-allstars-v634. electrical-sheet v10. nocool-lock defers to the sheet.
+Next: walk No-cool at 4:58 on a phone and confirm HPC is the 0.0 V box and Replace stays dark until that tap.

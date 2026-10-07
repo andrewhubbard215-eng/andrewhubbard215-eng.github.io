@@ -49,6 +49,7 @@
   }
 
   function onClick(ev) {
+    if (window.LtNoCoolSheet) return;
     var box = ev.target && ev.target.closest ? ev.target.closest("button, [data-node], .el-box") : ev.target;
     if (!box || box.id === "el-replace") return;
     var txt = ((box.dataset && box.dataset.openPlain) || box.textContent || "").replace(/\s+/g, " ");
@@ -60,6 +61,7 @@
   }
 
   function paint() {
+    if (window.LtNoCoolSheet) return;
     if (!armed()) {
       proved = false;
       return;
