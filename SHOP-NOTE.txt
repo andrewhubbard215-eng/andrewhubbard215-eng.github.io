@@ -1,4 +1,4 @@
 2026-10-07 short shift. Played Clock In and No-cool at 4:58. No crash.
-Proved: STAT gold 26.8 V, HPC 0.0 V open, C still 27.2 V. Sheet NOW was stuck on step 1 because T1 (load rail, contactor out) was the first openLand.
-Shipped: prefer the 24V-string open (HPC) over downstream T1. Banner v3.5.397. Sheet v16. sw lt-allstars-v641.
-Next: hard-refresh, open 4:58, confirm step 6 High-pressure switch is NOW and T1 is not the open.
+Proved: STAT 26.8 V gold, HPC 0.0 V, sheet NOW on step 6 High-pressure switch. T1 is not the open.
+Shipped: lead callout on the sheet — RED on Y side of the HPC, COM on the outlet, do not stab T1. Banner v3.5.398. Sheet v17. sw lt-allstars-v642.
+Next: hard-refresh, open 4:58, confirm the sheet note names the high-pressure switch leads.

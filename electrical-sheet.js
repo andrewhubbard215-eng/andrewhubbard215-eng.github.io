@@ -116,6 +116,17 @@
     }
   }
 
+  function openLeadLine() {
+    var n = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    if (!n) return "Tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
+    var who = partName(n);
+    if (/high-pressure|\bHPC\b/i.test(who)) return "NOW is the high-pressure switch. RED on the Y side, COM on the outlet. 0 V across it. Do not stab T1.";
+    if (/low-pressure|\bLPC\b/i.test(who)) return "NOW is the low-pressure switch. RED on the inlet, COM on the outlet. Do not add gas on a frozen coil.";
+    if (/float/i.test(who)) return "NOW is the float. RED on the inlet, COM on the outlet. Do not jump R to Y.";
+    if (/coil/i.test(who)) return "NOW is the contactor coil. RED on the coil, COM on C. 0 V here is a bad coil — not T1.";
+    return "NOW is " + (who || "the open") + ". Meter across that part. Dark after gold. Do not cut downstream.";
+  }
+
   function landOpen() {
     var rails = document.querySelectorAll("#el-ladder [data-rail]");
     for (var r = 0; r < rails.length; r++) {
@@ -362,7 +373,7 @@
       if (noteEl) {
         setText(noteEl, openProved
           ? "No-cool sheet: open proven." + glassCite()
-          : "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.");
+          : "No-cool sheet: " + openLeadLine());
       }
       lockReplace();
     } finally {
