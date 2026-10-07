@@ -1,32 +1,31 @@
-# HVAC Allstars — shop pass (2026-10-06 evening)
+# HVAC Allstars — shop pass (2026-10-07)
 
 ## DATE
-2026-10-06 evening
+2026-10-07 morning
 
 ## LIVE PLAY
-- Strip before ship: v3.5.387 / SW lt-allstars-v629. After ship: v3.5.388, sandbox-hook ?v=19, sandbox-layout ?v=44, SW lt-allstars-v630.
-- Boot shell was still writing hook ?v=18 and layout ?v=43 while CORE already had 19 and 44. Cache bust now matches the files on main.
-- Desktop clock-in: check after ship.
-- Phone 390: prior pass. Service call Ken / barbershop / suction iced. Hook gauges, blue+red seated. Glass: Blue 62 / Red 300 / sat 25/96 / SH 0 / SC 10. Airflow-before-charge ticket.
-- Both canvases painted. No crash.
+- Clock in on campus floor (v3.5.390 before ship). Service calls. Hook gauges.
+- Ken / barbershop / suction iced. Needles painted (blue face, red face). Glass: Blue 62 / Red 300 / sat 25°/96° / SH 0 / SC 10. Airflow ticket.
+- Next random ticket: Jess & Marcus lineset, then DIY Dave opened system, then Mrs. Delgado warm. Fault changed each time. Hoses reset. Preview blank until hook.
+- Delgado hooked: Blue 92 / Red 248 / sat 32°/83° / SH 28° / SC 4°. Undercharge fingerprint. Not the iced ticket.
+- Dave open system before fix: Blue 0 / Red 0 but sat clamped to 25°/25° (chart floor). Needles at zero. Lie.
+- Phone 390: dispatch ends above preview. Palette left (x=18). Hoses and ports below the bar. No overlap. Preview sticky.
 
 ## BROKE
-- Phone: four fixes lived under a 32vh rail. Choice rects started at y=466 while the card ended at y=393. Tap on the thaw fix hit #lt-g-low, not the button.
-- Boot document requested older hook and layout query strings than CORE, so Pages could keep the previous bytes.
+- Open / empty ticket used the P/T floor (70 psig = 25°F on 410A) for 0 psig. A tech could read a charged sat on an empty system.
 
 ## FIXED
-- Phone sheet max-height none, overflow visible. Choices stay in flow above the manifold.
-- Gauge canvases pointer-events none, max-height 96px, so glass does not eat the sheet.
-- Store listing still has no Lincoln marks.
-- index.html patch writes sandbox-hook.js?v=19 and sandbox-layout.css?v=44. SW lt-allstars-v630. Strip v3.5.388.
+- Below the chart, sat is "off", not 25°. Open ticket preview adds "empty — do not charge".
+- Store listing not touched. No Lincoln marks added.
+- Dispatch, streak, quote, pay stub, roast, haptic seat left as they were.
 
 ## STILL SUCKS
 - Voltmeter school is still choices, not probe-on-lugs.
-- Manifold school is still the service-call bay.
+- Manifold school is still this service-call bay.
 - Gauges of God stays off the main floor.
-- Hard refresh still required once for the service worker.
+- Hard refresh once for the service worker.
 
 ## SHIPPED
-- index.html stamp v3.5.388
-- sw.js lt-allstars-v630
-- sandbox-hook.js?v=19 and sandbox-layout.css?v=44 aligned to CORE
+- route-ticket-gauges.js v17
+- index.html stamp v3.5.391
+- sw.js lt-allstars-v633

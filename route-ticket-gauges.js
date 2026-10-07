@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 9;
+  window.__ltTicketGauges = 10;
 
   var lastKey = "";
   var seated = false;
@@ -42,7 +42,7 @@
   }
 
   function satOf(psig, table) {
-    if (psig <= table[0]) return table[1];
+    if (psig < table[0]) return null;
     var i;
     for (i = 0; i < table.length - 2; i += 2) {
       if (psig <= table[i + 2]) {
@@ -292,9 +292,12 @@
     drawFace(document.getElementById("lt-g-high"), fp.red, 500, "#8a1d2b", "#ff8b8b");
     var preview = document.getElementById("lt-preview");
     var table = fp.gas === "R-22" ? PT22 : PT410;
-    var satL = Math.round(satOf(fp.blue, table));
-    var satH = Math.round(satOf(fp.red, table));
-    if (preview) preview.textContent = fp.gas + " chart \u00b7 Blue " + fp.blue + " \u00b7 Red " + fp.red + " \u00b7 sat " + satL + "\u00b0/" + satH + "\u00b0 \u00b7 SH " + fp.sh + "\u00b0 \u00b7 SC " + fp.sc + "\u00b0";
+    var rawL = satOf(fp.blue, table);
+    var rawH = satOf(fp.red, table);
+    var satL = rawL == null ? "off" : Math.round(rawL) + "\u00b0";
+    var satH = rawH == null ? "off" : Math.round(rawH) + "\u00b0";
+    var empty = fp.id === "open" ? " \u00b7 empty — do not charge" : "";
+    if (preview) preview.textContent = fp.gas + " chart \u00b7 Blue " + fp.blue + " \u00b7 Red " + fp.red + " \u00b7 sat " + satL + "/" + satH + " \u00b7 SH " + fp.sh + "\u00b0 \u00b7 SC " + fp.sc + "\u00b0" + empty;
     var radio = document.getElementById("lt-radio");
     var score = (document.getElementById("svc-score") || {}).textContent || "";
     if (radio) radio.textContent = "Dispatch \u00b7 " + (score || "on site") + " \u00b7 " + (c.name || "tech");
@@ -336,9 +339,9 @@
     if (gsh) gsh.textContent = "\u2014";
     if (gsc) gsc.textContent = "\u2014";
     var table = fp.gas === "R-22" ? PT22 : PT410;
-    var satL = Math.round(satOf(fp.blue, table));
-    var satH = Math.round(satOf(fp.red, table));
-    window.LTSandbox = { lpc: null, hpc: null, low: null, high: null, sh: null, sc: null, fault: fp.id, gas: fp.gas, satSuction: satL, satLiquid: satH, hoses: "off" };
+    var rawL = satOf(fp.blue, table);
+    var rawH = satOf(fp.red, table);
+    window.LTSandbox = { lpc: null, hpc: null, low: null, high: null, sh: null, sc: null, fault: fp.id, gas: fp.gas, satSuction: rawL == null ? null : Math.round(rawL), satLiquid: rawH == null ? null : Math.round(rawH), hoses: "off" };
   }
 
   function seat(c) {
