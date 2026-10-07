@@ -1,3 +1,4 @@
-2026-10-07 short shift. Clock-in and 4:58 played. HPC · 0.0 V, tap, Replace High-pressure switch lights. No crash.
-Shipped: float sat at 26.8 V downstream of the open HPC (dead class, live number). Sheet now zeros the 24V rail after the open. C stays at transformer voltage. Boot shell was pinning sheet v9 and strip v3.5.391 — pin is v13 / v3.5.394. sw lt-allstars-v637.
-Next: hard-refresh, open 4:58, confirm FLOAT reads 0.0 V and only HPC is the open.
+2026-10-07 short shift. Played Clock In and No-cool at 4:58. No crash.
+Bug: sheet stamped openLand on LPC (first dead small with 0.0). HPC is class open but voltage is not in small, so the open walked downstream. C has no data-part, so sink zeroed common to 0.0 V.
+Shipped: land the open on the class-open box (HPC). Clear the false land on LPC. C stays at R transformer voltage. Sheet v14. Boot pin v14 / v3.5.395. sw lt-allstars-v638.
+Next: hard-refresh, open 4:58, confirm HPC is the only open land, FLOAT/LPC/COIL are 0.0 V, C matches R.

@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v13 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v14 */
 (function () {
   var proved = {};
   var painting = false;
@@ -68,15 +68,29 @@
     el.textContent = text;
   }
 
+  function nodeLabel(n) {
+    if (!n) return "";
+    var clone = n.cloneNode(true);
+    var small = clone.querySelector("small");
+    if (small) small.remove();
+    return (clone.textContent || "").replace(/0\.0\s*V/gi, "").replace(/OPEN/gi, "").replace(/[·•]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function isCommon(n) {
+    var part = (n.dataset && n.dataset.part) || "";
+    if (part === "c24" || part === "c") return true;
+    return /^C$/i.test(nodeLabel(n));
+  }
+
+  function voltsOf(n) {
+    var small = n.querySelector("small");
+    return (small && small.textContent) || n.textContent || "";
+  }
+
   function partName(box) {
     if (!box) return "";
     var raw = (box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || "");
-    if (!raw) {
-      var clone = box.cloneNode(true);
-      var small = clone.querySelector("small");
-      if (small) small.remove();
-      raw = clone.textContent || "";
-    }
+    if (!raw) raw = nodeLabel(box);
     raw = raw.replace(/0\.0\s*V/gi, "").replace(/OPEN/gi, "").replace(/\s+/g, " ").trim();
     return raw.slice(0, 42);
   }
@@ -106,21 +120,32 @@
     var rails = document.querySelectorAll("#el-ladder [data-rail]");
     for (var r = 0; r < rails.length; r++) {
       var nodes = rails[r].querySelectorAll("button.el-node");
+      var openNode = null;
       var seenLive = false;
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
-        var small = n.querySelector("small");
-        var volts = small ? small.textContent : "";
+        if (isCommon(n)) continue;
+        if (/\bopen\b/.test(n.className || "")) { openNode = n; break; }
+        var volts = voltsOf(n);
         var live = /\blive\b/.test(n.className || "") && !/0\.0/.test(volts);
         if (live) { seenLive = true; continue; }
-        if (!seenLive || !/0\.0/.test(volts) || !/\bdead\b/.test(n.className || "")) continue;
-        n.dataset.openLand = "1";
-        n.dataset.openMasked = "1";
-        if (small && small.textContent !== "0.0 V") small.textContent = "0.0 V";
-        if (n.title !== "Dark after gold. Meter this box. That is the open.") {
-          n.title = "Dark after gold. Meter this box. That is the open.";
+        if (seenLive && /0\.0/.test(volts) && /\bdead\b/.test(n.className || "")) {
+          openNode = n;
+          break;
         }
-        break;
+      }
+      for (var j = 0; j < nodes.length; j++) {
+        if (nodes[j] !== openNode && nodes[j].dataset && nodes[j].dataset.openLand === "1") {
+          delete nodes[j].dataset.openLand;
+        }
+      }
+      if (!openNode) continue;
+      var small = openNode.querySelector("small");
+      openNode.dataset.openLand = "1";
+      openNode.dataset.openMasked = "1";
+      if (small && small.textContent !== "0.0 V") small.textContent = "0.0 V";
+      if (openNode.title !== "Dark after gold. Meter this box. That is the open.") {
+        openNode.title = "Dark after gold. Meter this box. That is the open.";
       }
     }
   }
@@ -129,11 +154,23 @@
     var rails = document.querySelectorAll("#el-ladder [data-rail='ctl']");
     for (var r = 0; r < rails.length; r++) {
       var nodes = rails[r].querySelectorAll("button.el-node");
-      var pastOpen = false;
+      var xfmr = "27.2 V";
       for (var i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
-        var part = (n.dataset && n.dataset.part) || "";
-        if (part === "c24" || part === "c") continue;
+        if (!/^R$/i.test(nodeLabel(nodes[i]))) continue;
+        var rs = nodes[i].querySelector("small");
+        if (rs && /\d/.test(rs.textContent || "")) xfmr = rs.textContent.trim();
+      }
+      var pastOpen = false;
+      for (var k = 0; k < nodes.length; k++) {
+        var n = nodes[k];
+        if (isCommon(n)) {
+          var cs = n.querySelector("small");
+          if (cs && cs.textContent !== xfmr) cs.textContent = xfmr;
+          n.className = (n.className || "").replace(/\bdead\b/g, "").replace(/\s+/g, " ").trim();
+          if (!/\blive\b/.test(n.className)) n.className = (n.className + " live").trim();
+          n.title = "Transformer common. Still there. Open safety does not kill C. Meter R to C.";
+          continue;
+        }
         if (!pastOpen) {
           if (n.dataset && n.dataset.openLand === "1") pastOpen = true;
           continue;
@@ -242,7 +279,7 @@
         } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
           next = "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
         } else if (/No-cool at 4:58/i.test(key)) {
-          next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. Downstream stays 0.0 V.";
+          next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. C stays at transformer voltage.";
         } else {
           next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
         }
