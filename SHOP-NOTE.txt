@@ -1,4 +1,3 @@
-2026-10-07 short shift. Clock-in and sandbox played. No crash. Diamond still LEFT until seated.
-Bug: Saturday ladder redrew the 24V rail, so the open never stayed a meter target. Replace was display:none — a tech could not see the part or prove 0.0 V.
-Shipped: first dead 0.0 V box after gold is the open (label stays 0.0 V, no OPEN giveaway). Tap it, then Replace lights. Until then Replace is dark: Meter the 0.0 V open. Strip v3.5.391. sw lt-allstars-v634. electrical-sheet v10. nocool-lock defers to the sheet.
-Next: walk No-cool at 4:58 on a phone and confirm HPC is the 0.0 V box and Replace stays dark until that tap.
+2026-10-07 short shift. Clock-in played. No-cool at 4:58 hung the page: sheet paint rewrote the same 0.0 V label and the observer looped.
+Shipped: paint reentry guard, write only when text changes, interval 900ms. After the tap, yell names the box (HPC stays 0.0 V until metered). Replace stays dark until that tap. Strip v3.5.392. sw lt-allstars-v635. electrical-sheet v11.
+Next: phone walk 4:58 — first dead box is HPC at 0.0 V, Replace stays Meter the 0.0 V open until that tap, then name shows.

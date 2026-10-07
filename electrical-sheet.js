@@ -1,6 +1,7 @@
 /* Shop-floor no-cool law on the ladder. Loads after electrical.js */
 (function () {
   var proved = {};
+  var painting = false;
 
   var NAMES = /No-cool at 4:58|Hum, no start|3A keeps popping|Stat wired drunk|Contactor never pulls|Pan is a lake|Iced solid|Dead set|Furnace limit|Heat pump, 3A/i;
 
@@ -40,19 +41,19 @@
   function glassCite() {
     var s = window.LTSandbox;
     if (s && s.hoses === "on" && s.sh != null) {
-      return " Glass: " + (s.gas || "gas") + " blue " + s.low + " / red " + s.high + " \u00b7 SH " + s.sh + "\u00b0 \u00b7 SC " + s.sc + "\u00b0. Call the meter and the glass, not the nameplate.";
+      return " Glass: " + (s.gas || "gas") + " blue " + s.low + " / red " + s.high + " · SH " + s.sh + "° · SC " + s.sc + "°. Call the meter and the glass, not the nameplate.";
     }
     if (diamondSeated()) {
-      var blue = numFrom("sb-g-low") || numFrom("g-plow") || "\u2014";
-      var red = numFrom("sb-g-high") || numFrom("g-phigh") || "\u2014";
+      var blue = numFrom("sb-g-low") || numFrom("g-plow") || "—";
+      var red = numFrom("sb-g-high") || numFrom("g-phigh") || "—";
       if (!dxRunning()) {
         return " Seated glass, standing: blue " + blue + " / red " + red + " psig, equalized. No SH/SC until the compressor runs. Do not call a charge fault off standing P. The open is the dark 0.0 V box.";
       }
-      var sh = numFrom("g-sh") || numFrom("sb-sh") || "\u2014";
-      var sc = numFrom("g-sc") || numFrom("sb-sc") || "\u2014";
-      return " Seated glass, running: blue " + blue + " / red " + red + " psig \u00b7 SH " + sh + "\u00b0 \u00b7 SC " + sc + "\u00b0. Cite the glass. The open is still the 0.0 V box \u2014 do not shotgun the compressor.";
+      var sh = numFrom("g-sh") || numFrom("sb-sh") || "—";
+      var sc = numFrom("g-sc") || numFrom("sb-sc") || "—";
+      return " Seated glass, running: blue " + blue + " / red " + red + " psig · SH " + sh + "° · SC " + sc + "°. Cite the glass. The open is still the 0.0 V box — do not shotgun the compressor.";
     }
-    return " Hoses off. Sheet is nameplate only \u2014 seat the diamond and hook blue and red before you call a charge fault. The open is on the meter.";
+    return " Hoses off. Sheet is nameplate only — seat the diamond and hook blue and red before you call a charge fault. The open is on the meter.";
   }
 
   function isReplaceBtn(b) {
@@ -60,6 +61,24 @@
     if (b.id === "el-replace") return true;
     var label = (b.textContent || "").replace(/\s+/g, " ").trim();
     return /^Replace /i.test(label);
+  }
+
+  function setText(el, text) {
+    if (!el || el.textContent === text) return;
+    el.textContent = text;
+  }
+
+  function partName(box) {
+    if (!box) return "";
+    var raw = (box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || "");
+    if (!raw) {
+      var clone = box.cloneNode(true);
+      var small = clone.querySelector("small");
+      if (small) small.remove();
+      raw = clone.textContent || "";
+    }
+    raw = raw.replace(/0\.0\s*V/gi, "").replace(/OPEN/gi, "").replace(/\s+/g, " ").trim();
+    return raw.slice(0, 42);
   }
 
   function maskOpenGiveaway() {
@@ -78,7 +97,7 @@
     }
     var brow = document.querySelector("#electrical-root .eyebrow, .el-rail .eyebrow, p.eyebrow");
     if (brow && /tray on the ladder/i.test(brow.textContent || "")) {
-      brow.textContent = "Walk Y with the meter. Dark after gold is the open.";
+      setText(brow, "Walk Y with the meter. Dark after gold is the open.");
     }
   }
 
@@ -96,8 +115,10 @@
         if (!seenLive || !/0\.0/.test(volts) || !/\bdead\b/.test(n.className || "")) continue;
         n.dataset.openLand = "1";
         n.dataset.openMasked = "1";
-        if (small) small.textContent = "0.0 V";
-        n.title = "Dark after gold. Meter this box. That is the open.";
+        if (small && small.textContent !== "0.0 V") small.textContent = "0.0 V";
+        if (n.title !== "Dark after gold. Meter this box. That is the open.") {
+          n.title = "Dark after gold. Meter this box. That is the open.";
+        }
         break;
       }
     }
@@ -114,8 +135,9 @@
         box.textContent = box.dataset.openPlain;
         box.dataset.openMasked = "0";
       }
+      var who = partName(box);
       lockReplace();
-      yell("Open proven. Cut that part." + glassCite());
+      yell("Open proven" + (who ? " — " + who : "") + ". Cut that part." + glassCite());
       paint();
       return;
     }
@@ -142,7 +164,7 @@
         if (root) root.appendChild(n);
       }
     }
-    n.textContent = msg;
+    setText(n, msg);
   }
 
   function lockReplace() {
@@ -153,71 +175,83 @@
       var b = btns[i];
       if (!isReplaceBtn(b)) continue;
       if (ok) {
-        b.disabled = false;
+        if (b.disabled) b.disabled = false;
         b.removeAttribute("title");
         b.style.opacity = "";
         b.style.pointerEvents = "";
         b.style.filter = "";
         b.style.display = "";
-        if (b.dataset.plainLabel && /Meter the 0/.test(b.textContent || "")) b.textContent = b.dataset.plainLabel;
+        if (b.dataset.plainLabel && /Meter the 0/.test(b.textContent || "")) setText(b, b.dataset.plainLabel);
       } else {
-        b.disabled = true;
-        b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
+        if (!b.disabled) b.disabled = true;
+        if (b.title !== "Meter the 0.0 V box first. Shotgun is a callback.") {
+          b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
+        }
         b.style.setProperty("opacity", "0.4", "important");
         b.style.setProperty("pointer-events", "none", "important");
         b.style.setProperty("filter", "grayscale(0.6)", "important");
         b.style.removeProperty("display");
         if (!b.dataset.plainLabel) b.dataset.plainLabel = (b.textContent || "").trim();
-        b.textContent = "Meter the 0.0 V open";
+        setText(b, "Meter the 0.0 V open");
       }
     }
   }
 
   function paint() {
-    maskOpenGiveaway();
-    landOpen();
-    var key = ticketKey();
-    var openProved = key !== "pending" && !!proved[key];
-    var k = document.querySelector(".el-ladder-kicker");
-    if (k && k.id !== "el-ts-note") {
-      if (openProved) {
-        k.textContent = "Open is metered." + glassCite();
-      } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
-        k.textContent =
-          "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
-      } else if (/No-cool at 4:58/i.test(key)) {
-        k.textContent =
-          "No-cool at 4:58. Prove path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Dark after gold is the open." + glassCite();
-      } else {
-        k.textContent =
-          "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
+    if (painting) return;
+    painting = true;
+    try {
+      maskOpenGiveaway();
+      landOpen();
+      var key = ticketKey();
+      var openProved = key !== "pending" && !!proved[key];
+      var k = document.querySelector(".el-ladder-kicker");
+      if (k && k.id !== "el-ts-note") {
+        var next;
+        if (openProved) {
+          next = "Open is metered." + glassCite();
+        } else if (/3A|Hum, no start|Heat pump/i.test(key)) {
+          next = "LOCK OUT first. Isolate the short or the open cap before you slap a 3A or a winding. Meter 0.0 V, then replace.";
+        } else if (/No-cool at 4:58/i.test(key)) {
+          next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open." + glassCite();
+        } else {
+          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
+        }
+        setText(k, next);
       }
+      var ol = document.getElementById("el-ts");
+      if (ol && !document.getElementById("el-ts-note")) {
+        var note = document.createElement("p");
+        note.id = "el-ts-note";
+        note.className = "el-ladder-kicker";
+        ol.parentNode.insertBefore(note, ol);
+      }
+      var noteEl = document.getElementById("el-ts-note");
+      if (noteEl) {
+        setText(noteEl, openProved
+          ? "No-cool sheet: open proven." + glassCite()
+          : "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.");
+      }
+      lockReplace();
+    } finally {
+      painting = false;
     }
-    var ol = document.getElementById("el-ts");
-    if (ol && !document.getElementById("el-ts-note")) {
-      var note = document.createElement("p");
-      note.id = "el-ts-note";
-      note.className = "el-ladder-kicker";
-      ol.parentNode.insertBefore(note, ol);
-    }
-    var noteEl = document.getElementById("el-ts-note");
-    if (noteEl) {
-      noteEl.textContent = openProved
-        ? "No-cool sheet: open proven." + glassCite()
-        : "No-cool sheet: tap the dark 0.0 V box before Replace lights up. Shotgun is a callback.";
-    }
-    lockReplace();
   }
 
   function boot() {
     var root = document.getElementById("electrical-root") || document.body;
     if (root && !root.dataset.sheetObs) {
       root.dataset.sheetObs = "1";
-      new MutationObserver(paint).observe(root, { childList: true, subtree: true });
+      new MutationObserver(function () {
+        if (painting) return;
+        paint();
+      }).observe(root, { childList: true, subtree: true });
       root.addEventListener("click", onLadderClick, true);
     }
     paint();
-    setInterval(paint, 400);
+    setInterval(function () {
+      if (!painting) paint();
+    }, 900);
   }
   window.LtNoCoolSheet = true;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
