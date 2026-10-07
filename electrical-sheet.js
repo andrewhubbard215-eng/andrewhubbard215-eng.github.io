@@ -378,7 +378,8 @@
       lockReplace();
       coachAcross();
     } finally {
-      painting = false;
+      /* Observer is a microtask. Clear the guard after it, or paint loops and freezes the bay. */
+      setTimeout(function () { painting = false; }, 0);
     }
   }
 
