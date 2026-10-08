@@ -24,6 +24,7 @@
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
     if (/txv|bulb|strap/i.test(f)) return "txv";
+    if (/overcharge/i.test(f)) return "over";
     if (/restrict|drier|plugged/i.test(f)) return "restrict";
     if (/slow leak|undercharge|leak/i.test(f)) return "leak";
     return "";
@@ -152,6 +153,24 @@
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. SC in band — not a restriction.");
       setText("sb-call", "Name it off the glass: 28 SH / 10 SC. High SH + SC in band = TXV strap, not a plugged drier. Strap the bulb. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — TXV strap. SH 28 (high) · SC 10 (in band). Restriction would stack SC. Strap the bulb.");
+    } else if (k === "over") {
+      if (tripped) return;
+      setText("g-plow", "148 psig");
+      setText("sb-ps", "148 psig");
+      setText("sb-sst", "SST 48°F");
+      setText("sb-sl", "SL 52°F");
+      setText("g-sh", "4.0");
+      setText("sb-sh", "4.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 27° (ID−SST) · seat 15–20° — low. Coil is flooded. SC is high, so this is extra gas, not a dirty filter.");
+      setText("g-phigh", "455 psig");
+      setText("sb-ph", "455 psig");
+      setText("sb-sct", "SCT 124°F");
+      setText("sb-ll", "LL 104°F");
+      setText("g-sc", "20.0");
+      setText("sb-sc", "20.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Extra liquid is sitting in the condenser.");
+      setText("sb-call", "Name it off the glass: 4 SH / 20 SC. Low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.");
+      setText("sb-shsc-formula", "RUNNING — overcharge fingerprint. SH 4 (low) · SC 20 (high). Recover to nameplate. Do not add gas.");
     }
   }
   function mount() {

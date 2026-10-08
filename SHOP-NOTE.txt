@@ -1,9 +1,7 @@
-2026-10-08 shop SAVE (2 PM). Banner v3.5.416 / sw 660.
+2026-10-08 shop SAVE (3 PM). Banner v3.5.417 / sw 661.
 
-Played: Clock In, shop floor, sandbox. Footer still flipped after 415: morning-stamp.js stamped "v3.5.412 - shop floor" every 0.9 s while shop-floor-copy.js wrote "v3.5.415 - <bay>". Two writers, two hardcoded versions, and the bay name kept getting knocked back to "shop floor". App did not crash.
+Played: Clock In, sandbox. No crash. Footer held v3.5.416 - sandbox. TXV strap 28 SH / 10 SC vs Restriction 28 SH / 22 SC still split. Leak 28/2. Overcharge painted 8 SH / 8.5 SC and the glass said full column, charge by SC — a healthy plant. A tech would miss the flood.
 
-Shipped: ONE version source. index.html boot shell has APP_VER = "v3.5.416" and injects <meta name="lt-app-ver">. shop-floor-copy.js and morning-stamp.js read that meta (no more TIP_VER / LABEL). morning-stamp now only swaps the version and keeps the bay name. Cache bust shop-floor-copy.js?v=99, morning-stamp.js?v=7. SW lt-allstars-v660.
+Shipped: overcharge fingerprint in sandbox-fp.js. Running: 4 SH / 20 SC, head 455, call line says recover to nameplate, do not turn the TXV. Glass already names high SC + low SH as overcharge once the numbers land. Cache bust sandbox-fp.js?v=15. APP_VER v3.5.417. SW lt-allstars-v661.
 
-Version bump from now on: change APP_VER in index.html (plus the static body strip) and the SW VER. Nothing else hardcodes the footer.
-
-Next: hard-refresh on a real phone, open sandbox and Land Lugs; footer should hold "v3.5.416 - sandbox" / "- land lugs" without flicking back to "shop floor". Then TXV strap (28 SH / 10 SC) beside Restriction (28 SH / 22 SC).
+Next: Noncondensable chip — confirm high head + high SC and a clear glass, not bubbles, beside this overcharge (4/20).
