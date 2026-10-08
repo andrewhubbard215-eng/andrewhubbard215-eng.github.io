@@ -19,8 +19,12 @@
   function txvLine() {
     return "HUB: high SH, SC in band. Not a restriction — that stacks liquid and SC. Bulb is off the suction line. Strap it. Do not add gas.";
   }
+  function airLine() {
+    return "HUB: air / noncondensables. 12 SH / 22 SC, head 530. SH in band — not the overcharge 3/20. Glass stays clear, not bubbles. Discharge line too hot to hold. Recover, evacuate, weigh in. Do not wash the coil. Do not add gas.";
+  }
   function kind(fault) {
     var f = fault || "";
+    if (/noncondensable|air in the circuit/i.test(f)) return "air";
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
     if (/txv|bulb|strap/i.test(f)) return "txv";
@@ -49,6 +53,7 @@
     if (k === "leak" && hiSH && loSC) return leakLine();
     if (k === "restrict" && hiSH && hiSC) return restrictLine();
     if (k === "txv" && hiSH && !hiSC) return txvLine();
+    if (k === "air") return airLine();
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
@@ -153,6 +158,24 @@
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. SC in band — not a restriction.");
       setText("sb-call", "Name it off the glass: 28 SH / 10 SC. High SH + SC in band = TXV strap, not a plugged drier. Strap the bulb. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — TXV strap. SH 28 (high) · SC 10 (in band). Restriction would stack SC. Strap the bulb.");
+    } else if (k === "air") {
+      if (tripped) return;
+      setText("g-plow", "118 psig");
+      setText("sb-ps", "118 psig");
+      setText("sb-sst", "SST 40°F");
+      setText("sb-sl", "SL 52°F");
+      setText("g-sh", "12.0");
+      setText("sb-sh", "12.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD in seat. Coil is fed. This is not a starve and not a flood.");
+      setText("g-phigh", "530 psig");
+      setText("sb-ph", "530 psig");
+      setText("sb-sct", "SCT 140°F");
+      setText("sb-ll", "LL 118°F");
+      setText("g-sc", "22.0");
+      setText("sb-sc", "22.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Head 530. Cond TD looks high because air is sitting in the condenser — not a dirty-coil call. Discharge line too hot to hold.");
+      setText("sb-call", "Name it off the glass: 12 SH / 22 SC. SH in band + high SC + clear glass = noncondensables. Overcharge is 3 SH / 20 SC. Recover, evacuate, weigh in. Do not add gas.");
+      setText("sb-shsc-formula", "RUNNING — noncondensable fingerprint. SH 12 (in band) · SC 22 (high) · head 530. Clear glass. Not the overcharge 3/20.");
     } else if (k === "over") {
       if (tripped) return;
       setText("g-plow", "148 psig");

@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE (3 PM). Banner v3.5.419 / sw 663.
+2026-10-08 shop SAVE (4 PM). Banner v3.5.420 / sw 664.
 
-Played: Clock In, sandbox. No crash. Footer held the bay name. TXV strap 28/10 vs Restriction 28/22 still split. Overcharge was a healthy plant: 8 SH / 8.5 SC, glass said charge by SC. Charge-print then rewrote the fingerprint off the 125% knob, so the 3/20 paint flickered.
+Played: Clock In, sandbox, Noncondensable. No crash. Seated four LEFT, compressor ran. Glass already said clear / not bubbles. HUB called it heat rejection (dirty coil / OD fan) off 10 SH / 22 SC / head 495.
 
-Shipped: overcharge fingerprint 3 SH / 20 SC, head 455, HUB says recover to nameplate, do not turn the TXV. Charge-print stands down while that fault is on so the glass holds. Glass names full column / high SC as overcharge, not bubbles. sandbox-fp.js?v=16, sandbox-charge-print.js?v=9. APP_VER v3.5.419. SW lt-allstars-v663.
+Shipped: noncondensable fingerprint 12 SH / 22 SC, head 530, clear glass, discharge too hot to hold. Split from overcharge 3/20. Charge-print stands down on air so the knob cannot rewrite it. sandbox-fp.js?v=17, sandbox-charge-print.js?v=10. APP_VER v3.5.420. SW lt-allstars-v664.
 
-Next: Noncondensable — high head + high SC, clear glass, not bubbles, beside this overcharge 3/20.
+Next: Dirty ID — near-zero SH, SC in band, ice call, do not add gas. Do not start Gauges of God.

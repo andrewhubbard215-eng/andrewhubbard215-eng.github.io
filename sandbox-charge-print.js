@@ -122,13 +122,13 @@
     return { sh: baseSh, sc: baseSc };
   }
 
-  function overFault() {
+  function holdFault() {
     var st = ((document.getElementById("sb-fault") || {}).textContent || "");
-    return /overcharge/i.test(st);
+    return /overcharge|noncondensable|air in the circuit/i.test(st);
   }
   function paint() {
     if (writing) return;
-    if (overFault()) return;
+    if (holdFault()) return;
     var sh = document.getElementById("sb-sh");
     var sc = document.getElementById("sb-sc");
     var line = ensureCall();
