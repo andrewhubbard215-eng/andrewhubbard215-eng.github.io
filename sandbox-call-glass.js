@@ -30,6 +30,11 @@
       ((document.getElementById("sb-fault") || {}).textContent || "");
     return /noncondensable|air in the circuit/i.test(st);
   }
+  function weakOn() {
+    var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-fault") || {}).textContent || "");
+    return /weak compressor|weak valves|worn compressor/i.test(st);
+  }
   function icedOn() {
     var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
       ((document.getElementById("sb-fault") || {}).textContent || "");
@@ -47,6 +52,8 @@
     var text = line.textContent || "";
     if (noncondensableOn()) {
       text = "Air / noncondensables. Glass stays clear — not a leak. High head + high SC. Recover, evacuate, weigh in. Do not add gas.";
+    } else if (weakOn()) {
+      text = "Weak compressor. 26 SH / 10 SC, head low, amps low. SC in band — not a leak. Do not add gas.";
     } else if (shv >= 8 && shv <= 14 && scv >= 8 && scv <= 14) {
       if (Math.abs(100 - ch) >= 4) {
         text = "Gauges still in seat (" + shv.toFixed(1) + " SH / " + scv.toFixed(1) + " SC). Charge knob is " + ch.toFixed(0) + "% — do not call undercharge off the knob. Name it from SH/SC.";
@@ -84,6 +91,8 @@
       text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
     } else if (icedOn()) {
       text = "Sight glass: clear. Not bubbles. Coil is iced — near-zero SH, SC in band. Filter, blower, coil. Do not add gas.";
+    } else if (weakOn()) {
+      text = "Sight glass: clear. Not bubbles. Charge is still in the column. High SH + low head + low amps = weak compressor, not a leak. Do not add gas.";
     } else if (scv < 4) {
       text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " — low. Find the leak. Do not top off.";
     } else if (scv < 8) {

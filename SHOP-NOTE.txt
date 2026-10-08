@@ -1,3 +1,11 @@
+2026-10-08 shop SAVE (6 PM). Banner v3.5.422 / sw 666.
+
+Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Leak chip still sets the fault line.
+
+Shipped: weak compressor fingerprint. 26 SH / 10 SC, suction 155, head 248, amps 4.2. SC in band — not the leak 28/2. Charge knob stands down. Glass stays clear. Weak comp chip on the fault rail. Do not add gas. sandbox-fp.js?v=19, sandbox-charge-print.js?v=12, sandbox-call-glass.js?v=8. APP_VER v3.5.422. SW lt-allstars-v666.
+
+Next: Low load / mild day — SH and SC in band, head soft, not a weak compressor. Do not start Gauges of God.
+
 2026-10-08 shop SAVE (5 PM). Banner v3.5.421 / sw 665.
 
 Played: Clock In, sandbox. No crash. Parts LEFT still on the rail.
