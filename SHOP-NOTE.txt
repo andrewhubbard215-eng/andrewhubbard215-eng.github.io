@@ -1,7 +1,7 @@
-2026-10-08 morning SAVE. Banner v3.5.405 / sw 649.
+2026-10-08 shop SAVE. Banner v3.5.407 / sw 651.
 
-Played: Clock In opens the shop floor. Sandbox loads on a 390 phone. Diamond was under the gauges — evaporator box covered. Ladder (Follow the call) loads, 24V string readable. No crash on clock-in, sandbox, or ladder.
+Played: Clock In opens the floor on a 390 phone. Sandbox loads. Seat 4 LEFT closed the loop. No crash. COMP seat was under the LEFT parts rail (canvas wrap started at x=10, palette ends ~86). EVAP was clear of the gauges.
 
-Shipped: phone-morning.css v4 puts the whole DX diamond above the gauges, left rail stays tappable, HUB callout off the glass. Inducer prove adds the manometer step: switch rated -0.50 in. w.c., tap reads -0.20, switch stays last. Why-wrong is on the sheet.
+Shipped: phone-morning.css v5 plus morning-stamp parks the diamond into the glass column when it overlaps the rail, then fires resize so seats follow.
 
-Next: hard-refresh, seat four LEFT on a phone, confirm evap box is clear of the gauges. Run inducer prove step 5 — do not replace the switch on a short draft.
+Next: hard-refresh, Seat 4 LEFT, confirm COMP box is right of the parts rail and EVAP is still above the gauges. Then start compressor and read SH/SC on a leak.

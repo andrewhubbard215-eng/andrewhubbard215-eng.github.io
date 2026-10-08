@@ -1,7 +1,7 @@
-/* Morning stamp — visible banner after the pinned boot HTML. Injects diamond CSS if the boot missed it. */
+/* Morning stamp — banner, and park the phone diamond off the LEFT rail. */
 (function () {
   "use strict";
-  var LABEL = "HVAC Allstars - v3.5.405 - shop floor";
+  var LABEL = "HVAC Allstars - v3.5.407 - shop floor";
   function stamp() {
     var nodes = document.querySelectorAll(".version-strip");
     for (var i = 0; i < nodes.length; i++) nodes[i].textContent = LABEL;
@@ -13,6 +13,24 @@
       document.head.appendChild(link);
     }
   }
+  function parkDiamond() {
+    var pal = document.querySelector("#sandbox-root .sb-palette");
+    var wrap = document.getElementById("sb-canvas-wrap");
+    if (!pal || !wrap || window.innerWidth > 900) return;
+    var pr = pal.getBoundingClientRect();
+    var wr = wrap.getBoundingClientRect();
+    if (wr.width < 40 || pr.width < 20) return;
+    if (wr.left < pr.right - 2) {
+      var shift = Math.ceil(pr.right - wr.left + 6);
+      if (wrap.getAttribute("data-park") !== String(shift)) {
+        wrap.setAttribute("data-park", String(shift));
+        wrap.style.marginLeft = shift + "px";
+        wrap.style.width = "calc(100% - " + shift + "px)";
+        try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+      }
+    }
+  }
   stamp();
-  setInterval(stamp, 1200);
+  parkDiamond();
+  setInterval(function () { stamp(); parkDiamond(); }, 900);
 })();
