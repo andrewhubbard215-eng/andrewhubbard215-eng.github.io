@@ -3,13 +3,15 @@
    as the trip (Dirty OD at 498 is not an HPC). Clear when head is back under cutout.
    After HPC, liquid hose is last head. Suction equalized is not an LPC.
    Contactor stays out until the fault path is cleared — do not hammer Start.
-   Equalized head under 580 is not a reset. Clear the plant (Healthy / wash), then Start. */
+   Equalized head under 580 is not a reset. Clear the plant (Healthy / wash), then Start.
+   A new fault chip is a new plant. Drop the old latch so the tech can start it. */
 (function () {
   "use strict";
   var HPC = 580;
   var LPC = 40;
   var tripped = "";
   var latched = "";
+  var faultSeen = "";
 
   function num(id) {
     var el = document.getElementById(id);
@@ -130,7 +132,6 @@
     btn.removeAttribute("data-cutout-btn");
   }
 
-
   function faultLine() {
     var el = document.getElementById("sb-fault");
     return el ? String(el.textContent || "") : "";
@@ -154,9 +155,16 @@
     }
   }
 
+  function faultId() {
+    return faultLine().replace(/\s+/g, " ").trim().slice(0, 96);
+  }
+
   setInterval(function () {
     if (!document.getElementById("sandbox-root") || !document.getElementById("sb-run")) return;
     armHammer();
+    var fid = faultId();
+    if (faultSeen && fid && fid !== faultSeen && tripped) clearTrip();
+    if (fid) faultSeen = fid;
     var ps = num("sb-ps");
     var ph = num("g-phigh");
     if (!isFinite(ph)) ph = num("sb-ph");

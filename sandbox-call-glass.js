@@ -68,7 +68,13 @@
     }
     var text;
     if (!running() || scv == null) {
-      text = "Sight glass: no flow. Compressor off — bubbles mean nothing.";
+      var cut = document.getElementById("sb-cutout");
+      var cutOn = cut && /HPC CUTOUT/i.test(cut.textContent || "") && cut.style.display !== "none";
+      if (noncondensableOn() && cutOn) {
+        text = "Sight glass: no flow — compressor off on HPC. Column was clear, not bubbles. Air in the circuit, not a leak. Recover, evacuate, weigh in. Do not add gas.";
+      } else {
+        text = "Sight glass: no flow. Compressor off — bubbles mean nothing.";
+      }
     } else if (noncondensableOn()) {
       text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
     } else if (scv < 4) {

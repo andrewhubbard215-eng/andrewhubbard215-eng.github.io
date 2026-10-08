@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.411 / sw 655.
+2026-10-08 shop SAVE. Banner v3.5.412 / sw 656.
 
-Played: Clock In, sandbox, four seated, compressor running, Noncondensable selected. Status already said air in the circuit. Glass still said clear / charge by SC. Head climbed; SC stayed in seat.
+Played: Clock In, sandbox seated, compressor running (162 / 10 SH, 442 / 10 SC). OD fan tripped HPC at 618 and held the contactor. Switching to Noncondensable left that 618 latch on an equalized 295 head and the glass only said bubbles mean nothing.
 
-Shipped: noncondensable glass call. Clear column, not bubbles, not a leak. Recover, evacuate, weigh in. Do not add gas. Restriction stacked-liquid line left alone.
+Shipped: new fault chip clears the old HPC/LPC latch so the tech can start the new plant. Noncondensable + HPC glass now says column was clear, not a leak, recover/evacuate/weigh in, do not add gas.
 
-Next: hard-refresh, run Noncondensable, confirm glass line says not a leak / do not add gas. Then OD fan — high head, SC about normal, glass clear.
+Next: hard-refresh, OD fan then Noncondensable, confirm Start is back and the air glass names the clear column. Then TXV strap glass vs restriction.

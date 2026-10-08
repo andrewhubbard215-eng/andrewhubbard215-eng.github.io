@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v655";
+const VER = "lt-allstars-v656";
 const CORE = [
   "./" ,
   "./index.html",
@@ -61,13 +61,13 @@ const CORE = [
   "./sandbox-ts.js?v=16",
   "./sandbox-sliders.js?v=10",
   "./sandbox-stand.js?v=1",
-  "./sandbox-cutout.js?v=8",
+  "./sandbox-cutout.js?v=9",
   "./sandbox-td.js?v=8",
   "./analog-gauges.js?v=8",
   "./sat-lines.js?v=1",
   "./route-ticket-gauges.js?v=18",
   "./sandbox-charge-print.js?v=8",
-  "./sandbox-call-glass.js?v=4",
+  "./sandbox-call-glass.js?v=5",
   "./route-floor.js?v=24",
   "./route-park.js?v=3",
   "./bay-restore.js?v=2",
@@ -123,7 +123,7 @@ const CORE = [
   "./exam-epa.css?v=2",
   "./clock-in-form.js?v=32",
   "./across-chip.js?v=1",
-  "./morning-stamp.js?v=5"
+  "./morning-stamp.js?v=6"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE).catch(function () { return null; }); }).then(function () { return self.skipWaiting(); }));
