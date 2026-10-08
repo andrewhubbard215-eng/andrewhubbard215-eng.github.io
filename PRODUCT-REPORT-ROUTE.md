@@ -1,25 +1,26 @@
 # HVAC Allstars — shop pass (2026-10-08)
 
 ## DATE
-2026-10-08 Clock-in → service → hook gauges
+2026-10-08 Lane A playtest
 
 ## PLAYED
-- Clock-in opened the bay. Service calls. Hook gauges label is live. Ticket bay mounted. v3.5.406 / gauges guard 12.
-- Uncle Ray, ranch, junipers, R-22. Hook seated the fingerprint: Blue 76 / Red 368 / SH 9 / SC 16. Dispatch, streak, quote, stub $95 on the rail. LTSandbox.fault dirty-cond. Match.
-- Next random ticket → Mrs. Delgado, warm air. Glass moved to R-410A Blue 92 / Red 248 / SH 28 / SC 4. Fault line said undercharge. Match.
-- Phone 390px: dispatch relative, no overlap on suction port. Palette left. Preview sticky.
+- Clock-in: pass. Shop floor fills 1440x900. v3.5.410 then v3.5.412 on the glass.
+- Service calls: pass. Ken barbershop, suction iced, R-410A TXV. Hook gauges painted Blue 62 / Red 300 / SH 0 / SC 10. Needles on two canvases. Ticket stayed on the rail.
+- On the job: pass. Center digital 118 / 400. Sat suction 40°F.
+- Sandbox: pass layout. Glass full monitor. Four seats already on. Standing 295 equalized at 95°F ODT. Start copy says loop closed.
+- Voltmeter school: fail. Direction line was gray, not pinned. No equip-ground chip. Still a quiz, not probes on lugs.
+- HUB roast sat under the meter sheet. Did not cover COM.
 
 ## BROKE
-- Published boot never injected route-ticket-gauges.js. Hook stayed "Hook meter leads". Sandbox root never mounted. Meter host had the glass.
+- Meter school directions not pinned. Equip ground chip missing, so the land-and-swallow step could not happen.
 
 ## FIXED
-- Boot injects route-ticket-gauges.js?v=19. Stamp v3.5.406. SW lt-allstars-v650.
-- Hook seats blue/red/yellow and paints the ticket. Next ticket reseats the new fingerprint.
-- Dispatch and LAND LEADS stay in flow. HUB roast, stub, streak, haptic kept. sku.js not touched.
+- Red direction bar pinned at the top. Board scrolls under it. Equip ground is a tray chip; land on GND and the chip is gone. Banner v3.5.413. SW lt-allstars-v657. voltmeter-school.js?v=9. sku.js not touched.
 
 ## STILL OPEN
-- Saturday meter still sits under the manifold. Voltmeter school is still choices, not probe-on-lugs.
-- Hard refresh once so the worker drops v649. Pages can serve the old wrapper for about a minute.
+- Voltmeter school is still choices, not probe-on-lugs (R to C for 24 VAC).
+- Saturday meter still sits under the manifold.
+- Hard refresh once so the worker drops v656.
 
 ## TOMORROW
-- One glass only. Meter school probes on lugs.
+- Probe R to C on the meter board. One glass only.
