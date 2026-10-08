@@ -1,4 +1,4 @@
-/* Shop-floor copy override v62 — piston charges by target SH, TXV by SC */
+/* Shop-floor copy override v63 — piston charges by target SH, TXV by SC */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -198,11 +198,27 @@
     var method = document.getElementById("sb-method");
     var m = method && (method.textContent || "").match(/SH\s+(\d+)/);
     if (m) return m[1];
-    var od = Number((document.getElementById("sb-out") || {}).value || 95);
+    var od = Number((document.getElementById("sb-out") || {}).value || 75);
     var wb = Number((document.getElementById("sb-wb") || {}).value || 63);
-    if (!isFinite(od)) od = 95;
+    if (!isFinite(od)) od = 75;
     if (!isFinite(wb)) wb = 63;
-    return String(Math.max(6, Math.min(18, Math.round(20 - 0.08 * (od - 82) - 0.55 * (wb - 63)))));
+    // Same chart as charge-print: 75°F OD / 63°F WB = 18. Not TXV 10.
+    var ods = [75, 85, 95, 105];
+    var wbs = [55, 60, 65, 70, 75];
+    var table = [[22, 20, 16, 12, 8], [16, 13, 10, 8, 6], [10, 8, 6, 5, 4], [6, 5, 4, 3, 3]];
+    function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+    function lerp(a, b, tt) { return a + (b - a) * tt; }
+    od = clamp(od, 75, 105);
+    wb = clamp(wb, 55, 75);
+    var oi = 0;
+    while (oi < ods.length - 2 && od > ods[oi + 1]) oi++;
+    var wi = 0;
+    while (wi < wbs.length - 2 && wb > wbs[wi + 1]) wi++;
+    var ot = (od - ods[oi]) / (ods[oi + 1] - ods[oi]);
+    var wt = (wb - wbs[wi]) / (wbs[wi + 1] - wbs[wi]);
+    var r0 = lerp(table[oi][wi], table[oi][wi + 1], wt);
+    var r1 = lerp(table[oi + 1][wi], table[oi + 1][wi + 1], wt);
+    return String(Math.round(lerp(r0, r1, ot)));
   }
   function paintSeat(id, note) {
     var el = document.getElementById(id);

@@ -7,7 +7,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <script>
   (function () {
-    var APP_VER = "v3.5.423"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.424"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
@@ -17,14 +17,14 @@
       html = html.replace(/sandbox-pc\.css\?v=\d+/g, "sandbox-pc.css?v=12");
       html = html.replace(/bay-restore\.js\?v=\d+/g, "bay-restore.js?v=2");
       html = html.replace(/sandbox-yell\.js\?v=\d+/g, "sandbox-yell.js?v=6");
-      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=99");
+      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=100");
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
       html = html.replace(/v3\.5\.\d+/g, APP_VER);
       html = html.replace("<head>", '<head>\n  <meta name="lt-app-ver" content="' + APP_VER + '" />');
       html = html.replace(/electrical-sheet\.js\?v=\d+/g, "electrical-sheet.js?v=21");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=2");
-      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=667");
+      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=668");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=30");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
@@ -34,14 +34,14 @@
       if (html.indexOf("sandbox-hunt.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-hunt.js?v=3"><\/script>\n</body>');
       }
-      html = html.replace(/sandbox-fp\.js\?v=\d+/g, "sandbox-fp.js?v=20");
-      html = html.replace(/sandbox-charge-print\.js\?v=\d+/g, "sandbox-charge-print.js?v=13");
+      html = html.replace(/sandbox-fp\.js\?v=\d+/g, "sandbox-fp.js?v=21");
+      html = html.replace(/sandbox-charge-print\.js\?v=\d+/g, "sandbox-charge-print.js?v=14");
       html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=9");
       if (html.indexOf("sandbox-cutout.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-cutout.js?v=9"><\/script>\n</body>');
       }
       if (html.indexOf("sandbox-fp.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-fp.js?v=20"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="sandbox-fp.js?v=21"><\/script>\n</body>');
       }
       html = html.replace(/service\.js\?v=\d+/g, "service.js?v=112");
       html = html.replace(/electrical-lite\.js\?v=\d+/g, "electrical-lite.js?v=10");
@@ -100,9 +100,9 @@
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-diamond.css?v=2" />\n</head>');
       }
       html = html.replace(/morning-stamp\.js\?v=\d+/g, "morning-stamp.js?v=7");
-      html = html.replace(/sandbox-call-glass\.js\?v=\d+/g, "sandbox-call-glass.js?v=9");
+      html = html.replace(/sandbox-call-glass\.js\?v=\d+/g, "sandbox-call-glass.js?v=10");
       if (html.indexOf("sandbox-call-glass.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-call-glass.js?v=9"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="sandbox-call-glass.js?v=10"><\/script>\n</body>');
       }
       if (html.indexOf("morning-stamp.js") === -1) {
         html = html.replace("</body>", '<script src="morning-stamp.js?v=7"><\/script>\n</body>');
@@ -126,12 +126,12 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=667").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=668").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.423 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.424 - shop floor</p>
 </body>
 </html>

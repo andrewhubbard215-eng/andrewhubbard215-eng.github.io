@@ -19,6 +19,9 @@
   function mildLine() {
     return "HUB: mild day / low load. 11 SH / 10 SC, head 278, suction 138, amps 8.1. OD 70. Cond TD in seat. Soft head is the weather, not weak valves. Weak comp is 26 SH / 248 head / 4.2 A. Do not add gas. Do not condemn the compressor.";
   }
+  function pistonLine() {
+    return "HUB: piston / fixed orifice on a 75° day. Chart target is 18 SH, not TXV 10. Glass reads 18 SH / 10 SC, suction 143, head 295, amps 8.0. SC is the check. Do not add gas to hit 10.";
+  }
   function leakLine() {
     return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
   }
@@ -40,6 +43,7 @@
     if (/txv|bulb|strap/i.test(f)) return "txv";
     if (/overcharge/i.test(f)) return "over";
     if (/restrict|drier|plugged/i.test(f)) return "restrict";
+    if (/piston chart|fixed orifice|piston 75/i.test(f)) return "piston";
     if (/mild day|low load|light load/i.test(f)) return "mild";
     if (/weak compressor|weak valves|worn compressor/i.test(f)) return "weak";
     if (/slow leak|undercharge|leak/i.test(f)) return "leak";
@@ -62,6 +66,7 @@
     var faultHeat = k === "fan" || k === "dirty" || /high head/i.test(fault || "");
     var ctd = condTd();
     var tdOut = ctd >= 32;
+    if (k === "piston") return pistonLine();
     if (k === "mild") return mildLine();
     if (k === "weak") return weakLine();
     if (k === "leak" && hiSH && loSC) return leakLine();
@@ -137,6 +142,26 @@
       setText("sb-ctd", "Cond TD in seat — not a dirty outdoor coil. Head is not the story.");
       setText("sb-call", "Name it off the glass: 1 SH / 10 SC. Near-zero SH + SC in band + ice = dirty ID / low airflow. Overcharge is 3 SH / 20 SC. Filter, blower, coil. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — dirty ID fingerprint. SH 1 (near zero) · SC 10 (in band). Ice call. Do not add gas.");
+    } else if (k === "piston") {
+      if (tripped) return;
+      setText("g-plow", "143 psig");
+      setText("sb-ps", "143 psig");
+      setText("sb-sst", "SST 50°F");
+      setText("sb-sl", "SL 68°F");
+      setText("g-sh", "18.0");
+      setText("sb-sh", "18.0 °F SH (piston chart 18 — not TXV 10)");
+      setText("sb-etd", "Evap TD 25° (ID−SST). Piston runs a hotter suction line than a TXV. Not a leak.");
+      setText("g-phigh", "295 psig");
+      setText("sb-ph", "295 psig");
+      setText("sb-sct", "SCT 95°F");
+      setText("sb-ll", "LL 85°F");
+      setText("g-sc", "10.0");
+      setText("sb-sc", "10.0 °F SC (check only — do not charge by SC)");
+      setText("sb-ctd", "Cond TD 20° (SCT−OD) · seat 15–25 on a 75° day. Head is the weather.");
+      setText("g-amps", "8.0 A");
+      setText("sb-amps", "8.0 A — nameplate neighborhood. Not the weak-comp 4.2 A.");
+      setText("sb-call", "Name it off the chart: 18 SH / 10 SC on a 75° day, WB 63. Piston target is 18, not TXV 10. SC in band is the check. Do not add gas to hit 10.");
+      setText("sb-shsc-formula", "RUNNING — piston chart 75°F. SH 18 (chart) · SC 10 (check) · head 295 · OD 75. Not a TXV. Do not add gas.");
     } else if (k === "mild") {
       if (tripped) return;
       setText("g-plow", "138 psig");
@@ -294,7 +319,8 @@
     air: "Air/noncondensables: high head AND high SC — recover, evacuate, weigh in.",
     "txv-bulb": "TXV strap off: hunting / starve — strap the bulb to the suction line.",
     "weak-comp": "Weak compressor: high SH, low head, amps low — SC stays in band. Do not add gas.",
-    mild: "Mild day / low load: SH and SC in band, head soft because OD is 70. Amps normal. Do not condemn the compressor."
+    mild: "Mild day / low load: SH and SC in band, head soft because OD is 70. Amps normal. Do not condemn the compressor.",
+    piston: "Piston on a 75° day: chart SH is 18, not TXV 10. SC is the check. Do not add gas to hit 10."
   };
   function syncTip() {
     var tip = document.getElementById("sb-phone-tip");
@@ -338,9 +364,30 @@
     });
     host.appendChild(b);
   }
+  function mountPiston() {
+    var host = document.getElementById("sb-faults");
+    if (!host || host.querySelector('[data-fault="piston"]')) return;
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn";
+    b.setAttribute("data-fault", "piston");
+    b.textContent = "Piston 75";
+    b.addEventListener("click", function () {
+      host.querySelectorAll("[data-fault]").forEach(function (n) { n.classList.remove("primary"); });
+      b.classList.add("primary");
+      setText("sb-fault", "FAULT  -  Piston chart 75°F — target SH 18, not TXV 10  -  do not add gas");
+      var od = document.getElementById("sb-out");
+      if (od) { od.value = "75"; od.dispatchEvent(new Event("input", { bubbles: true })); od.dispatchEvent(new Event("change", { bubbles: true })); }
+      window.LtMeteringKind = "piston";
+      var seat = document.querySelector("[data-part='piston'], [data-field='piston']");
+      if (seat) { seat.classList.add("on"); seat.setAttribute("aria-pressed", "true"); }
+    });
+    host.appendChild(b);
+  }
   function tick() {
     mountMild();
     mountWeak();
+    mountPiston();
     var fp = mount();
     var shEl = document.getElementById("g-sh");
     var scEl = document.getElementById("g-sc");

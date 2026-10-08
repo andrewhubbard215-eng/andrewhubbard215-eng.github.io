@@ -1,3 +1,11 @@
+2026-10-08 shop SAVE (evening). Banner v3.5.424 / sw 668.
+
+Played: phone 390 and desktop. Clock In, sandbox. No crash. Parts LEFT still on the rail. Standing P equalized, no SH/SC until compressor runs.
+
+Shipped: piston chart on a 75°F day. Target SH is 18 at OD 75 / WB 63 — not TXV 10. Chart was inverted (higher WB raised SH). Charge knob stands down. Glass stays clear. Piston 75 chip on the fault rail. 18 SH / 10 SC, suction 143, head 295, amps 8.0. Do not add gas to hit 10. sandbox-fp.js?v=21, sandbox-charge-print.js?v=14, sandbox-call-glass.js?v=10, shop-floor-copy.js?v=100. APP_VER v3.5.424. SW lt-allstars-v668.
+
+Next: Saturday callback sheet on phone — confirm open HPC still stamps ~27 V, not 0. Do not start Gauges of God.
+
 2026-10-08 shop SAVE (7 PM). Banner v3.5.423 / sw 667.
 
 Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Standing P equalized, no SH/SC until compressor runs.

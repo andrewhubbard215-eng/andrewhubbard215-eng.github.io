@@ -45,11 +45,13 @@
   function chartSH(od, wb) {
     var ods = [75, 85, 95, 105];
     var wbs = [55, 60, 65, 70, 75];
+    // Required SH falls as outdoor DB rises and as indoor WB rises.
+    // 75°F OD / 63°F WB lands on 18. TXV seat is 10. Do not add gas to hit 10.
     var table = [
-      [18, 23, 28, 33, 38],
-      [10, 15, 20, 25, 30],
-      [5, 10, 15, 20, 25],
-      [0, 5, 10, 15, 20]
+      [22, 20, 16, 12, 8],
+      [16, 13, 10, 8, 6],
+      [10, 8, 6, 5, 4],
+      [6, 5, 4, 3, 3]
     ];
     function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
     function lerp(a, b, t) { return a + (b - a) * t; }
@@ -124,7 +126,7 @@
 
   function holdFault() {
     var st = ((document.getElementById("sb-fault") || {}).textContent || "");
-    return /overcharge|noncondensable|air in the circuit|iced evaporator|dirty id|dirty indoor|weak compressor|weak valves|mild day|low load|light load/i.test(st);
+    return /overcharge|noncondensable|air in the circuit|iced evaporator|dirty id|dirty indoor|weak compressor|weak valves|mild day|low load|light load|piston chart|fixed orifice|piston 75/i.test(st);
   }
   function paint() {
     if (writing) return;

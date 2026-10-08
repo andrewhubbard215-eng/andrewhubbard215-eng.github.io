@@ -30,6 +30,10 @@
       ((document.getElementById("sb-fault") || {}).textContent || "");
     return /noncondensable|air in the circuit/i.test(st);
   }
+  function pistonOn() {
+    var st = state();
+    return /piston chart|fixed orifice|piston 75/i.test(st);
+  }
   function mildOn() {
     var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
       ((document.getElementById("sb-fault") || {}).textContent || "");
@@ -57,6 +61,8 @@
     var text = line.textContent || "";
     if (noncondensableOn()) {
       text = "Air / noncondensables. Glass stays clear — not a leak. High head + high SC. Recover, evacuate, weigh in. Do not add gas.";
+    } else if (pistonOn()) {
+      text = "Piston chart on a 75° day. 18 SH is the target, not TXV 10. SC 10 is the check. Do not add gas to hit 10.";
     } else if (mildOn()) {
       text = "Mild day / low load. 11 SH / 10 SC, head soft, amps normal. Weather, not weak valves. Do not add gas. Do not condemn the compressor.";
     } else if (weakOn()) {
@@ -98,6 +104,8 @@
       text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
     } else if (icedOn()) {
       text = "Sight glass: clear. Not bubbles. Coil is iced — near-zero SH, SC in band. Filter, blower, coil. Do not add gas.";
+    } else if (pistonOn()) {
+      text = "Sight glass: clear. Not bubbles. Piston at chart — 18 SH on a 75° day is not a low charge. Do not add gas to hit TXV 10.";
     } else if (mildOn()) {
       text = "Sight glass: clear. Not bubbles. SH and SC in band. Soft head is a 70° day, not a leak and not a weak compressor.";
     } else if (weakOn()) {
