@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.414 / sw 658.
+2026-10-08 shop SAVE. Banner v3.5.415 / sw 659.
 
-Played: Clock In, sandbox seated, OD fan HPC at 618, Noncondensable cleared the latch (Start back, equalized 295). Running air glass: clear column, not a leak, recover/evacuate/weigh in. Restriction already 28 SH / 22 SC. TXV strap still sat at healthy 10/10.
+Played: Clock In, sandbox. Footer flipped to v3.5.410 on the diamond because shop-floor-copy.js TIP_VER overrode the page strip (index was 414). App did not crash.
 
-Shipped: TXV strap paints 28 SH / 10 SC (118 / 418). Glass says SC in band, not a restriction — strap the bulb, do not add gas.
+Shipped: TIP_VER aligned to v3.5.415. Cache bust shop-floor-copy.js?v=98. SW lt-allstars-v659.
 
-Next: hard-refresh, run TXV strap vs Restriction side by side. Confirm strap stays 28/10 and restriction stays 28/22.
+Next: hard-refresh, confirm footer stays v3.5.415 on shop floor and sandbox. Then run TXV strap (expect 28 SH / 10 SC) beside Restriction (28 SH / 22 SC).
