@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.412 / sw 656.
+2026-10-08 shop SAVE. Banner v3.5.414 / sw 658.
 
-Played: Clock In, sandbox seated, compressor running (162 / 10 SH, 442 / 10 SC). OD fan tripped HPC at 618 and held the contactor. Switching to Noncondensable left that 618 latch on an equalized 295 head and the glass only said bubbles mean nothing.
+Played: Clock In, sandbox seated, OD fan HPC at 618, Noncondensable cleared the latch (Start back, equalized 295). Running air glass: clear column, not a leak, recover/evacuate/weigh in. Restriction already 28 SH / 22 SC. TXV strap still sat at healthy 10/10.
 
-Shipped: new fault chip clears the old HPC/LPC latch so the tech can start the new plant. Noncondensable + HPC glass now says column was clear, not a leak, recover/evacuate/weigh in, do not add gas.
+Shipped: TXV strap paints 28 SH / 10 SC (118 / 418). Glass says SC in band, not a restriction — strap the bulb, do not add gas.
 
-Next: hard-refresh, OD fan then Noncondensable, confirm Start is back and the air glass names the clear column. Then TXV strap glass vs restriction.
+Next: hard-refresh, run TXV strap vs Restriction side by side. Confirm strap stays 28/10 and restriction stays 28/22.

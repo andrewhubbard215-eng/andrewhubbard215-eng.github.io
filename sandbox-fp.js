@@ -16,10 +16,14 @@
   function restrictLine() {
     return "HUB: high SH + high SC = restriction / plugged drier. Cold at the drier outlet. Do not add gas.";
   }
+  function txvLine() {
+    return "HUB: high SH, SC in band. Not a restriction — that stacks liquid and SC. Bulb is off the suction line. Strap it. Do not add gas.";
+  }
   function kind(fault) {
     var f = fault || "";
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
+    if (/txv|bulb|strap/i.test(f)) return "txv";
     if (/restrict|drier|plugged/i.test(f)) return "restrict";
     if (/slow leak|undercharge|leak/i.test(f)) return "leak";
     return "";
@@ -43,6 +47,7 @@
     var tdOut = ctd >= 32;
     if (k === "leak" && hiSH && loSC) return leakLine();
     if (k === "restrict" && hiSH && hiSC) return restrictLine();
+    if (k === "txv" && hiSH && !hiSC) return txvLine();
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
@@ -129,6 +134,24 @@
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Liquid is stacked ahead of the plug.");
       setText("sb-call", "Name it off the glass: 28 SH / 22 SC. High SH + high SC = restriction. Feel the drier outlet. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — restriction fingerprint. SH 28 (high) · SC 22 (high). Do not add gas.");
+    } else if (k === "txv") {
+      if (tripped) return;
+      setText("g-plow", "118 psig");
+      setText("sb-ps", "118 psig");
+      setText("sb-sst", "SST 40°F");
+      setText("sb-sl", "SL 68°F");
+      setText("g-sh", "28.0");
+      setText("sb-sh", "28.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 35° (ID−SST) · seat 15–20° — high. Coil starved. Bulb is not on the suction line.");
+      setText("g-phigh", "418 psig");
+      setText("sb-ph", "418 psig");
+      setText("sb-sct", "SCT 116°F");
+      setText("sb-ll", "LL 106°F");
+      setText("g-sc", "10.0");
+      setText("sb-sc", "10.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. SC in band — not a restriction.");
+      setText("sb-call", "Name it off the glass: 28 SH / 10 SC. High SH + SC in band = TXV strap, not a plugged drier. Strap the bulb. Do not add gas.");
+      setText("sb-shsc-formula", "RUNNING — TXV strap. SH 28 (high) · SC 10 (in band). Restriction would stack SC. Strap the bulb.");
     }
   }
   function mount() {

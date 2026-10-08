@@ -83,6 +83,8 @@
       text = "Sight glass: occasional bubble. SC " + scv.toFixed(1) + " short of seat 8–14.";
     } else if (shv != null && shv > 16 && scv > 16) {
       text = "Sight glass: clear. SC " + scv.toFixed(1) + " high with high SH — liquid stacked ahead of the restriction. Do not add gas.";
+    } else if (shv != null && shv > 16 && scv >= 8 && scv <= 16) {
+      text = "Sight glass: clear. SC " + scv.toFixed(1) + " in band, SH high — not a restriction. Restriction stacks liquid and SC. Bulb is off the suction line. Strap it. Do not add gas.";
     } else if (shv != null && shv < 6 && scv > 16) {
       text = "Sight glass: clear / full. High SC is overcharge, not a bubble call.";
     } else {
