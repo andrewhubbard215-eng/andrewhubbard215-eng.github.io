@@ -297,8 +297,9 @@
       nxt.textContent = "Next random ticket";
       hookBtn.after(nxt);
     }
-    if (hookBtn.dataset.wired === "22") return;
-    hookBtn.dataset.wired = "22";
+    hookBtn.textContent = "Hook gauges";
+    if (hookBtn.dataset.wired === "23") return;
+    hookBtn.dataset.wired = "23";
     nxt.dataset.wired = "22";
     if (!window.__ltGlassSheet) {
       window.__ltGlassSheet = 1;

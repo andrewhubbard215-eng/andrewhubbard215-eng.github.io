@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   if (window.__ltTicketGauges) return;
-  window.__ltTicketGauges = 11;
+  window.__ltTicketGauges = 12;
 
   var lastKey = "";
   var seated = false;
@@ -397,14 +397,18 @@
         setTimeout(function () {
           var c = call();
           var fp = fingerprint(c);
-          lastKey = fp.key;
-          seated = false;
-          resetHoses();
-          hold(fp, c);
-          var tag = document.getElementById("lt-fault");
           var name = ((document.getElementById("svc-name") || {}).textContent) || "";
-          var did = name !== prevName;
-          if (tag) tag.textContent = did ? "Next ticket. Fault changed. Hook gauges again." : "Same fault. Hit next again.";
+          var did = name !== prevName || fp.key !== lastKey;
+          lastKey = fp.key;
+          seated = true;
+          ensureBay();
+          land(document.getElementById("lt-ticket-bay"), document.getElementById("lt-port-suction"), "blue");
+          land(document.getElementById("lt-ticket-bay"), document.getElementById("lt-port-liquid"), "red");
+          seat(c);
+          var tag = document.getElementById("lt-fault");
+          if (tag) tag.textContent = did
+            ? "Next ticket. Fault changed to " + fp.id + ". Blue " + fp.blue + " / Red " + fp.red + " / SH " + fp.sh + " / SC " + fp.sc + "."
+            : "Same fault. Hit next again.";
         }, 60);
       });
     }
@@ -414,7 +418,9 @@
   css.id = "lt-ticket-gauges-css";
   css.textContent =
     "#lt-ticket-bay{display:flex;flex-direction:column;min-height:220px;background:#0b1218;color:#f4e7c8}" +
-    "#lt-dispatch{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:6px 10px;background:#14110c;border-bottom:2px solid #CE0034;font-size:12px;pointer-events:auto}" +
+    "#lt-ticket-bay{position:relative;z-index:4}" +
+    "#lt-dispatch,#sb-dispatch{position:relative!important;top:auto!important;bottom:auto!important;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:6px 10px;background:#14110c;border-bottom:2px solid #CE0034;font-size:12px;pointer-events:auto;max-height:18vh;overflow:auto}" +
+    "#screen-service .sm-next{position:static!important}" +
     "#lt-preview{position:sticky;top:0;z-index:3;padding:6px 10px;background:#102033;font-size:18px;font-weight:700;letter-spacing:.02em}" +
     ".lt-floor{display:grid;grid-template-columns:108px minmax(0,1fr);gap:8px;padding:8px;align-items:start}" +
     ".lt-palette{display:flex;flex-direction:column;gap:6px}" +
