@@ -1,4 +1,4 @@
-/* Voltmeter school — 24V control + 240V power. Guided then unguided. Live string strip on the bay. Does not replace Follow the call / land-lugs. */
+/* Voltmeter school — 24V control + 240V power. Guided then unguided. Red direction bar pinned. Equip ground is a tray chip. */
 (function () {
   "use strict";
   var STEPS = [
@@ -117,16 +117,21 @@
     var s = document.createElement("style");
     s.id = "vm-school-css";
     s.textContent =
-      "#voltmeter-root{padding:16px 28px 28px;max-width:none;width:100%;box-sizing:border-box;min-height:100vh;margin:0}" +
-      "#screen-voltmeter.screen.active,#screen-voltmeter.screen-on{display:block;width:100%;min-height:100vh}" +
+      "#voltmeter-root{padding:52px 28px 28px;max-width:none;width:100%;box-sizing:border-box;min-height:0;margin:0}" +
+      "#screen-voltmeter.screen.active,#screen-voltmeter.screen-on{display:block;width:100%;min-height:100vh;overflow:auto}" +
       "#voltmeter-root .el-locker-opts{display:flex;flex-direction:column;gap:10px;margin:12px 0}" +
       "#voltmeter-root .vm-opt,#voltmeter-root .btn.vm-opt{" +
       "text-align:left;white-space:normal;min-height:56px;padding:14px 16px;" +
       "font-size:16px;line-height:1.35;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
       "#voltmeter-root #vm-close{min-height:44px;min-width:44px;touch-action:manipulation}" +
-      "#voltmeter-root .vm-probe-bar{position:sticky;top:0;z-index:6;margin:0 0 10px;padding:8px 12px;border-radius:8px;" +
-      "background:#1a2430;color:#c9d4de;font-size:12px;letter-spacing:.03em;font-weight:600}" +
-      "#voltmeter-root .vm-probe-bar b{color:#7ad0ff}" +
+      "#voltmeter-root .vm-probe-bar{position:fixed;top:0;left:0;right:0;z-index:50;margin:0;padding:10px 16px;" +
+      "background:#CE0034;color:#fff;font-size:14px;letter-spacing:.02em;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.35)}" +
+      "#voltmeter-root .vm-probe-bar b{color:#fff}" +
+      "#voltmeter-root .vm-gnd-tray{display:flex;gap:8px;align-items:center;margin:0 0 10px}" +
+      "#voltmeter-root .vm-gnd-chip{font:700 12px/1 system-ui,sans-serif;padding:6px 10px;border-radius:999px;background:#efe6d6;color:#1a1612;border:2px solid #CE0034;cursor:pointer}" +
+      "#voltmeter-root .vm-gnd-chip.armed{outline:2px solid #fff}" +
+      "#voltmeter-root .vm-gnd-pad{font:700 12px/1 system-ui,sans-serif;padding:6px 10px;border-radius:6px;background:#1a2430;color:#fff;border:1px dashed #f4e7c8;cursor:pointer}" +
+      "#voltmeter-root .vm-gnd-pad.landed{border-style:solid;color:#8fef9a}" +
       "#voltmeter-root .vm-bay{display:flex;gap:10px;align-items:stretch;margin:8px 0 12px;flex-wrap:wrap}" +
       "#voltmeter-root .vm-face{min-width:88px;padding:10px 12px;border-radius:10px;background:#0b1220;" +
       "border:1px solid #2a3a4a;text-align:center}" +
@@ -158,9 +163,15 @@
     fatCss();
     var pi = 0, score = 0, tried = 0, why = "", guided = true;
     var sheet = [];
+    var gndLanded = false;
+    var gndArmed = false;
     function sheetHtml() {
       if (!sheet.length) return '<p class="vm-sheet">Sheet: nothing proven yet. Meter first.</p>';
       return '<p class="vm-sheet"><b>Sheet</b> — ' + sheet.join(" · ") + "</p>";
+    }
+    function trayHtml() {
+      if (gndLanded) return '<div class="vm-gnd-tray"><span class="vm-gnd-pad landed">GND — landed</span></div>';
+      return '<div class="vm-gnd-tray"><button type="button" class="vm-gnd-chip' + (gndArmed ? " armed" : "") + '" id="vm-gnd-chip">Equip ground</button><button type="button" class="vm-gnd-pad" id="vm-gnd-pad">GND</button></div>';
     }
     function stamp(step) {
       var marks = {
@@ -189,7 +200,8 @@
         '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
         '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
         '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="vm-probe-bar"><b>BLACK → COM</b>  ·  <b>RED → VΩ</b>  ·  equip ground last</p>' +
+        '<p class="vm-probe-bar"><b>BLACK → COM</b>  ·  <b>RED → VΩ</b>  ·  equip ground last · do this: land the chip on GND</p>' +
+        trayHtml() +
         stringHtml(step) +
         sheetHtml() +
         '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " - " + step.label + " of " + STEPS.length + "</p>" +
@@ -203,11 +215,17 @@
         "</div>" +
         "<p class='hub-chip' style='margin-top:12px'>" +
         (why || "Prove the meter, then the string. Don't shotgun parts.") +
-        "</p><p class='muted'>Score " + score + "/" + tried + "</p>" +
-        (window.ProfessorHUB
-          ? '<p class="muted" style="margin-top:8px">HUB: meter on a known live first. Then walk R–C / Y–C / L1–L2 like a string, not a guess.</p>'
-          : "");
+        "</p><p class='muted'>Score " + score + "/" + tried + "</p>";
       host.querySelector("#vm-close").onclick = close;
+      var chip = host.querySelector("#vm-gnd-chip");
+      var pad = host.querySelector("#vm-gnd-pad");
+      if (chip) chip.onclick = function () { gndArmed = true; draw(); };
+      if (pad && !gndLanded) pad.onclick = function () {
+        if (!gndArmed) { gndArmed = true; draw(); return; }
+        gndLanded = true;
+        gndArmed = false;
+        draw();
+      };
       host.querySelectorAll(".vm-opt").forEach(function (b) {
         b.onclick = function () {
           tried += 1;
