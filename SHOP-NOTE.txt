@@ -1,7 +1,7 @@
-2026-10-07 night SAVE. Banner v3.5.404 / sw 648. Sheet v22.
+2026-10-07 night SAVE. Banner v3.5.404 / sw 648.
 
 Played: Clock In opens the locker. Saturday callback loads. Pan-is-a-lake float ticket arms. Sheet did not freeze. Across note is on the page. Float box still only said 0.0 V (outlet to C), which reads like a closed switch.
 
-Shipped: open HPC/LPC/float box gets a ~27 V across chip. 0.0 V stays so the meter path still matches outlet-to-C. Do not jump the float.
+Shipped: across-chip.js stamps open float/HPC/LPC with ~27 V across. Sheet law file restored — do not replace electrical-sheet.js with a stub. 0.0 V stays outlet-to-C. Do not jump the float.
 
 Next: hard-refresh, Pan is a lake, confirm FLOAT chip says ~27 V across, meter the open, replace the float only.

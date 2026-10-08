@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v647";
+const VER = "lt-allstars-v648";
 const CORE = [
   "./" ,
   "./index.html",
@@ -119,7 +119,8 @@ const CORE = [
   "./epa-exam-bank.js?v=7",
   "./exam-epa.js?v=2",
   "./exam-epa.css?v=2",
-  "./clock-in-form.js?v=32"
+  "./clock-in-form.js?v=32",
+  "./across-chip.js?v=1"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE).catch(function () { return null; }); }).then(function () { return self.skipWaiting(); }));
