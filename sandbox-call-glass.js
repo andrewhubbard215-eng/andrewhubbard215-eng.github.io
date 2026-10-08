@@ -57,6 +57,8 @@
       text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " \u2014 low. Find the leak. Do not top off.";
     } else if (scv < 8) {
       text = "Sight glass: occasional bubble. SC " + scv.toFixed(1) + " short of seat 8\u201314.";
+    } else if (shv != null && shv > 16 && scv > 16) {
+      text = "Sight glass: clear. SC " + scv.toFixed(1) + " high with high SH \u2014 liquid stacked ahead of the restriction. Do not add gas.";
     } else if (shv != null && shv < 6 && scv > 16) {
       text = "Sight glass: clear / full. High SC is overcharge, not a bubble call.";
     } else {

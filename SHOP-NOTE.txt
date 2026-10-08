@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.409 / sw 653.
+2026-10-08 shop SAVE. Banner v3.5.410 / sw 654.
 
-Played: Clock In, sandbox on a 390 phone. Seat 4 LEFT. COMP seat starts ~x122, parts rail ends ~x89. EVAP seat ends ~y340, gauges start ~y528. No crash. Healthy 162 / 10 SH / 442 / 10 SC. Leak 108 / 28 SH / 286 / 2 SC. Fingerprint holds.
+Played: Clock In, sandbox. Seated 4 LEFT, compressor running. Healthy 10 SH / 10 SC, glass clear. Leak 28 SH / 2 SC, glass bubbles / do not top off. Restriction 28 SH / 22 SC, glass stayed clear but the line still said charge by SC.
 
-Shipped: sight glass under the high-side panel. Off = no flow. SC under 4 = bubbles / flash, do not top off. SC 4–8 = occasional bubble. SC in seat = clear, charge by SC. Overcharge (low SH, SC over 16) stays clear.
+Shipped: restriction glass call. Clear column, high SH + high SC = liquid stacked ahead of the restriction. Do not add gas. Bay strip no longer rolls the banner back to v3.5.396.
 
-Next: hard-refresh, run the leak, confirm the glass line says bubbles. Then restriction — glass should stay clear while SC is high.
+Next: hard-refresh, run Restriction, confirm the glass line says liquid stacked / do not add gas. Then noncondensable — glass should stay clear, call is not a leak.
