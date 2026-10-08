@@ -50,7 +50,11 @@
     if (el.offsetParent) return true;
     return false;
   }
-  var TIP_VER = "v3.5.415";
+  /* Footer version comes from the boot shell meta (index.html APP_VER) so it never goes stale. */
+  function appVer() {
+    var m = document.querySelector('meta[name="lt-app-ver"]');
+    return (m && m.content) || window.LT_APP_VER || "v3.5.416";
+  }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
     if (!strip) return;
@@ -81,7 +85,7 @@
     else if (screenOn("screen-commandments")) bay = "commandments";
     else if (screenOn("screen-rapture")) bay = "hvac jesus";
     else if (document.getElementById("sb-run") && screenOn("screen-sandbox")) bay = "sandbox";
-    strip.textContent = "HVAC Allstars - " + TIP_VER + " - " + bay;
+    strip.textContent = "HVAC Allstars - " + appVer() + " - " + bay;
   }
   function partsStillOnBench() {
     var yell = document.getElementById("sb-parts-yell");
