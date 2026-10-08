@@ -21,6 +21,8 @@
   #sandbox-root .sb-gauges, #sandbox-root #sb-gauge-run, #sandbox-root [data-sb-gauges] {
     order: 4 !important; position: relative !important; top: auto !important; bottom: auto !important;
     margin-top: 8px !important; max-height: 30vh !important; z-index: 2 !important; flex: 0 0 auto !important;
+    /* v2: drop the old fixed-dock offset (left:112px) so HPC + Start stay inside the glass column */
+    left: auto !important; right: auto !important; width: auto !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important;
   }
   #sandbox-root #sb-ts, #sandbox-root #sb-fp, #sandbox-root .sb-status, #sandbox-root #sb-phone-tip, #sandbox-root #sb-hub, #sandbox-root .lt-drip-body {
     order: 8 !important; max-height: 64px !important; overflow: auto !important;
