@@ -58,7 +58,7 @@
         return (
           "<li>" +
           esc(remap(s)) +
-          (hold ? '<p class="lab-hold">Hold — instructor. ' + esc(remap(hold.lookFor)) + "</p>" : "") +
+          (instructor && hold ? '<p class="lab-hold">Hold — instructor. ' + esc(remap(hold.lookFor)) + "</p>" : "") +
           "</li>"
         );
       })
