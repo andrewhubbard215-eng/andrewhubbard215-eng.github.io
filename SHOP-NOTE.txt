@@ -1,7 +1,7 @@
-2026-10-07 night SAVE. Banner v3.5.404 / sw 648.
+2026-10-08 morning SAVE. Banner v3.5.405 / sw 649.
 
-Played: Clock In opens the locker. Saturday callback loads. Pan-is-a-lake float ticket arms. Sheet did not freeze. Across note is on the page. Float box still only said 0.0 V (outlet to C), which reads like a closed switch.
+Played: Clock In opens the shop floor. Sandbox loads on a 390 phone. Diamond was under the gauges — evaporator box covered. Ladder (Follow the call) loads, 24V string readable. No crash on clock-in, sandbox, or ladder.
 
-Shipped: across-chip.js stamps open float/HPC/LPC with ~27 V across. Sheet law file restored — do not replace electrical-sheet.js with a stub. 0.0 V stays outlet-to-C. Do not jump the float.
+Shipped: phone-morning.css v4 puts the whole DX diamond above the gauges, left rail stays tappable, HUB callout off the glass. Inducer prove adds the manometer step: switch rated -0.50 in. w.c., tap reads -0.20, switch stays last. Why-wrong is on the sheet.
 
-Next: hard-refresh, Pan is a lake, confirm FLOAT chip says ~27 V across, meter the open, replace the float only.
+Next: hard-refresh, seat four LEFT on a phone, confirm evap box is clear of the gauges. Run inducer prove step 5 — do not replace the switch on a short draft.
