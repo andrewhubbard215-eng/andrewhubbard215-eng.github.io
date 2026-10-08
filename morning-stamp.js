@@ -1,7 +1,7 @@
 /* Morning stamp — banner, and park the phone diamond off the LEFT rail. */
 (function () {
   "use strict";
-  var LABEL = "HVAC Allstars - v3.5.407 - shop floor";
+  var LABEL = "HVAC Allstars - v3.5.409 - shop floor";
   function stamp() {
     var nodes = document.querySelectorAll(".version-strip");
     for (var i = 0; i < nodes.length; i++) nodes[i].textContent = LABEL;

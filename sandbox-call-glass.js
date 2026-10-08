@@ -37,8 +37,41 @@
     }
     if (line.textContent !== text) line.textContent = text;
   }
-  setInterval(nameFromGlass, 400);
+  function paintGlass(shv, scv) {
+    var sc = document.getElementById("sb-sc");
+    if (!sc || !sc.parentNode) return;
+    var line = document.getElementById("sb-glass");
+    if (!line) {
+      line = document.createElement("div");
+      line.id = "sb-glass";
+      line.setAttribute("data-shop", "sight-glass");
+      line.style.marginTop = "6px";
+      line.style.fontWeight = "700";
+      line.style.color = "#f4e7c8";
+      sc.parentNode.insertBefore(line, sc.nextSibling);
+    }
+    var text;
+    if (!running() || scv == null) {
+      text = "Sight glass: no flow. Compressor off \u2014 bubbles mean nothing.";
+    } else if (scv < 4) {
+      text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " \u2014 low. Find the leak. Do not top off.";
+    } else if (scv < 8) {
+      text = "Sight glass: occasional bubble. SC " + scv.toFixed(1) + " short of seat 8\u201314.";
+    } else if (shv != null && shv < 6 && scv > 16) {
+      text = "Sight glass: clear / full. High SC is overcharge, not a bubble call.";
+    } else {
+      text = "Sight glass: clear. Full column. Charge by SC (8\u201314), not by bubbles.";
+    }
+    if (line.textContent !== text) line.textContent = text;
+  }
+  function tick() {
+    nameFromGlass();
+    var sh = document.getElementById("sb-sh");
+    var sc = document.getElementById("sb-sc");
+    paintGlass(readNum(sh), readNum(sc));
+  }
+  setInterval(tick, 400);
   document.addEventListener("input", function (ev) {
-    if (ev.target && ev.target.id === "sb-charge") setTimeout(nameFromGlass, 60);
+    if (ev.target && ev.target.id === "sb-charge") setTimeout(tick, 60);
   }, true);
 })();

@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.407 / sw 651.
+2026-10-08 shop SAVE. Banner v3.5.409 / sw 653.
 
-Played: Clock In opens the floor on a 390 phone. Sandbox loads. Seat 4 LEFT closed the loop. No crash. COMP seat was under the LEFT parts rail (canvas wrap started at x=10, palette ends ~86). EVAP was clear of the gauges.
+Played: Clock In, sandbox on a 390 phone. Seat 4 LEFT. COMP seat starts ~x122, parts rail ends ~x89. EVAP seat ends ~y340, gauges start ~y528. No crash. Healthy 162 / 10 SH / 442 / 10 SC. Leak 108 / 28 SH / 286 / 2 SC. Fingerprint holds.
 
-Shipped: phone-morning.css v5 plus morning-stamp parks the diamond into the glass column when it overlaps the rail, then fires resize so seats follow.
+Shipped: sight glass under the high-side panel. Off = no flow. SC under 4 = bubbles / flash, do not top off. SC 4–8 = occasional bubble. SC in seat = clear, charge by SC. Overcharge (low SH, SC over 16) stays clear.
 
-Next: hard-refresh, Seat 4 LEFT, confirm COMP box is right of the parts rail and EVAP is still above the gauges. Then start compressor and read SH/SC on a leak.
+Next: hard-refresh, run the leak, confirm the glass line says bubbles. Then restriction — glass should stay clear while SC is high.
