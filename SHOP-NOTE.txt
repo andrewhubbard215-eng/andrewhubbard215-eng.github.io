@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE (3 PM). Banner v3.5.418 / sw 662.
+2026-10-08 shop SAVE (3 PM). Banner v3.5.419 / sw 663.
 
-Played: Clock In, sandbox. No crash. Footer held v3.5.416 - sandbox. TXV strap 28 SH / 10 SC vs Restriction 28 SH / 22 SC still split. Leak 28/2. Overcharge painted 8 SH / 8.5 SC and the glass said full column, charge by SC — a healthy plant. A tech would miss the flood.
+Played: Clock In, sandbox. No crash. Footer held the bay name. TXV strap 28/10 vs Restriction 28/22 still split. Overcharge was a healthy plant: 8 SH / 8.5 SC, glass said charge by SC. Charge-print then rewrote the fingerprint off the 125% knob, so the 3/20 paint flickered.
 
-Shipped: overcharge fingerprint in sandbox-fp.js. Running: 3 SH / 20 SC, head 455, call line says recover to nameplate, do not turn the TXV. Glass already names high SC + low SH as overcharge once the numbers land. Cache bust sandbox-fp.js?v=16. APP_VER v3.5.418. SW lt-allstars-v662.
+Shipped: overcharge fingerprint 3 SH / 20 SC, head 455, HUB says recover to nameplate, do not turn the TXV. Charge-print stands down while that fault is on so the glass holds. Glass names full column / high SC as overcharge, not bubbles. sandbox-fp.js?v=16, sandbox-charge-print.js?v=9. APP_VER v3.5.419. SW lt-allstars-v663.
 
-Next: Noncondensable chip — confirm high head + high SC and a clear glass, not bubbles, beside this overcharge (4/20).
+Next: Noncondensable — high head + high SC, clear glass, not bubbles, beside this overcharge 3/20.

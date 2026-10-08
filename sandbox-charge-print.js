@@ -122,8 +122,13 @@
     return { sh: baseSh, sc: baseSc };
   }
 
+  function overFault() {
+    var st = ((document.getElementById("sb-fault") || {}).textContent || "");
+    return /overcharge/i.test(st);
+  }
   function paint() {
     if (writing) return;
+    if (overFault()) return;
     var sh = document.getElementById("sb-sh");
     var sc = document.getElementById("sb-sc");
     var line = ensureCall();
