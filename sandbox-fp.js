@@ -158,9 +158,9 @@
       setText("g-plow", "148 psig");
       setText("sb-ps", "148 psig");
       setText("sb-sst", "SST 48°F");
-      setText("sb-sl", "SL 52°F");
-      setText("g-sh", "4.0");
-      setText("sb-sh", "4.0 °F SH (seat 8–14)");
+      setText("sb-sl", "SL 51°F");
+      setText("g-sh", "3.0");
+      setText("sb-sh", "3.0 °F SH (seat 8–14)");
       setText("sb-etd", "Evap TD 27° (ID−SST) · seat 15–20° — low. Coil is flooded. SC is high, so this is extra gas, not a dirty filter.");
       setText("g-phigh", "455 psig");
       setText("sb-ph", "455 psig");
@@ -169,8 +169,8 @@
       setText("g-sc", "20.0");
       setText("sb-sc", "20.0 °F SC (seat 8–14)");
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Extra liquid is sitting in the condenser.");
-      setText("sb-call", "Name it off the glass: 4 SH / 20 SC. Low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.");
-      setText("sb-shsc-formula", "RUNNING — overcharge fingerprint. SH 4 (low) · SC 20 (high). Recover to nameplate. Do not add gas.");
+      setText("sb-call", "Name it off the glass: 3 SH / 20 SC. Low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.");
+      setText("sb-shsc-formula", "RUNNING — overcharge fingerprint. SH 3 (low) · SC 20 (high). Recover to nameplate. Do not add gas.");
     }
   }
   function mount() {
