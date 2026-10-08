@@ -1,5 +1,6 @@
 /* Name the charge call from the SH/SC the tech can read.
-   Engine repaint can overwrite the latch. Do not call undercharge off the knob. */
+   Engine repaint can overwrite the latch. Do not call undercharge off the knob.
+   Noncondensable: glass stays clear. Call is air, not a leak, not a top-off. */
 (function () {
   "use strict";
   function charge() {
@@ -16,6 +17,19 @@
     var m = (el.textContent || "").match(/-?\d+(\.\d+)?/);
     return m ? parseFloat(m[0]) : null;
   }
+  function noncondensableOn() {
+    var nodes = document.querySelectorAll("button, [data-fault]");
+    for (var i = 0; i < nodes.length; i++) {
+      var label = (nodes[i].textContent || "") + " " + (nodes[i].getAttribute("data-fault") || "");
+      if (!/noncondensable/i.test(label)) continue;
+      var cls = nodes[i].className || "";
+      if (/\bprimary\b|\bon\b|\bactive\b|\bsel\b/.test(cls)) return true;
+      if (nodes[i].getAttribute("aria-pressed") === "true") return true;
+    }
+    var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-fault") || {}).textContent || "");
+    return /noncondensable|air in the circuit/i.test(st);
+  }
   function nameFromGlass() {
     var line = document.getElementById("sb-call");
     var sh = document.getElementById("sb-sh");
@@ -26,14 +40,16 @@
     if (shv == null || scv == null) return;
     var ch = charge();
     var text = line.textContent || "";
-    if (shv >= 8 && shv <= 14 && scv >= 8 && scv <= 14) {
+    if (noncondensableOn()) {
+      text = "Air / noncondensables. Glass stays clear — not a leak. High head + high SC. Recover, evacuate, weigh in. Do not add gas.";
+    } else if (shv >= 8 && shv <= 14 && scv >= 8 && scv <= 14) {
       if (Math.abs(100 - ch) >= 4) {
-        text = "Gauges still in seat (" + shv.toFixed(1) + " SH / " + scv.toFixed(1) + " SC). Charge knob is " + ch.toFixed(0) + "% \u2014 do not call undercharge off the knob. Name it from SH/SC.";
+        text = "Gauges still in seat (" + shv.toFixed(1) + " SH / " + scv.toFixed(1) + " SC). Charge knob is " + ch.toFixed(0) + "% — do not call undercharge off the knob. Name it from SH/SC.";
       } else if (/undercharge|overcharge|High SH|low SC/i.test(text)) {
-        text = "In seat. TXV \u2014 charge by SC (8\u201314). Airflow first if it drifts.";
+        text = "In seat. TXV — charge by SC (8–14). Airflow first if it drifts.";
       }
     } else if (/do not call undercharge off the knob/.test(text)) {
-      text = "SH " + shv.toFixed(1) + " / SC " + scv.toFixed(1) + " \u2014 name the fault from the glass, not the charge knob.";
+      text = "SH " + shv.toFixed(1) + " / SC " + scv.toFixed(1) + " — name the fault from the glass, not the charge knob.";
     }
     if (line.textContent !== text) line.textContent = text;
   }
@@ -52,17 +68,19 @@
     }
     var text;
     if (!running() || scv == null) {
-      text = "Sight glass: no flow. Compressor off \u2014 bubbles mean nothing.";
+      text = "Sight glass: no flow. Compressor off — bubbles mean nothing.";
+    } else if (noncondensableOn()) {
+      text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
     } else if (scv < 4) {
-      text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " \u2014 low. Find the leak. Do not top off.";
+      text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " — low. Find the leak. Do not top off.";
     } else if (scv < 8) {
-      text = "Sight glass: occasional bubble. SC " + scv.toFixed(1) + " short of seat 8\u201314.";
+      text = "Sight glass: occasional bubble. SC " + scv.toFixed(1) + " short of seat 8–14.";
     } else if (shv != null && shv > 16 && scv > 16) {
-      text = "Sight glass: clear. SC " + scv.toFixed(1) + " high with high SH \u2014 liquid stacked ahead of the restriction. Do not add gas.";
+      text = "Sight glass: clear. SC " + scv.toFixed(1) + " high with high SH — liquid stacked ahead of the restriction. Do not add gas.";
     } else if (shv != null && shv < 6 && scv > 16) {
       text = "Sight glass: clear / full. High SC is overcharge, not a bubble call.";
     } else {
-      text = "Sight glass: clear. Full column. Charge by SC (8\u201314), not by bubbles.";
+      text = "Sight glass: clear. Full column. Charge by SC (8–14), not by bubbles.";
     }
     if (line.textContent !== text) line.textContent = text;
   }

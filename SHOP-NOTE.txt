@@ -1,7 +1,7 @@
-2026-10-08 shop SAVE. Banner v3.5.410 / sw 654.
+2026-10-08 shop SAVE. Banner v3.5.411 / sw 655.
 
-Played: Clock In, sandbox. Seated 4 LEFT, compressor running. Healthy 10 SH / 10 SC, glass clear. Leak 28 SH / 2 SC, glass bubbles / do not top off. Restriction 28 SH / 22 SC, glass stayed clear but the line still said charge by SC.
+Played: Clock In, sandbox, four seated, compressor running, Noncondensable selected. Status already said air in the circuit. Glass still said clear / charge by SC. Head climbed; SC stayed in seat.
 
-Shipped: restriction glass call. Clear column, high SH + high SC = liquid stacked ahead of the restriction. Do not add gas. Bay strip no longer rolls the banner back to v3.5.396.
+Shipped: noncondensable glass call. Clear column, not bubbles, not a leak. Recover, evacuate, weigh in. Do not add gas. Restriction stacked-liquid line left alone.
 
-Next: hard-refresh, run Restriction, confirm the glass line says liquid stacked / do not add gas. Then noncondensable — glass should stay clear, call is not a leak.
+Next: hard-refresh, run Noncondensable, confirm glass line says not a leak / do not add gas. Then OD fan — high head, SC about normal, glass clear.
