@@ -16,6 +16,9 @@
   function weakLine() {
     return "HUB: weak compressor. 26 SH / 10 SC, head 248, suction 155, amps 4.2. SC in band — not the leak 28/2. Compressor cannot pull suction down or build head. Valves or compressor. Do not add gas.";
   }
+  function mildLine() {
+    return "HUB: mild day / low load. 11 SH / 10 SC, head 278, suction 138, amps 8.1. OD 70. Cond TD in seat. Soft head is the weather, not weak valves. Weak comp is 26 SH / 248 head / 4.2 A. Do not add gas. Do not condemn the compressor.";
+  }
   function leakLine() {
     return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
   }
@@ -37,6 +40,7 @@
     if (/txv|bulb|strap/i.test(f)) return "txv";
     if (/overcharge/i.test(f)) return "over";
     if (/restrict|drier|plugged/i.test(f)) return "restrict";
+    if (/mild day|low load|light load/i.test(f)) return "mild";
     if (/weak compressor|weak valves|worn compressor/i.test(f)) return "weak";
     if (/slow leak|undercharge|leak/i.test(f)) return "leak";
     return "";
@@ -58,6 +62,7 @@
     var faultHeat = k === "fan" || k === "dirty" || /high head/i.test(fault || "");
     var ctd = condTd();
     var tdOut = ctd >= 32;
+    if (k === "mild") return mildLine();
     if (k === "weak") return weakLine();
     if (k === "leak" && hiSH && loSC) return leakLine();
     if (k === "restrict" && hiSH && hiSC) return restrictLine();
@@ -132,6 +137,26 @@
       setText("sb-ctd", "Cond TD in seat — not a dirty outdoor coil. Head is not the story.");
       setText("sb-call", "Name it off the glass: 1 SH / 10 SC. Near-zero SH + SC in band + ice = dirty ID / low airflow. Overcharge is 3 SH / 20 SC. Filter, blower, coil. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — dirty ID fingerprint. SH 1 (near zero) · SC 10 (in band). Ice call. Do not add gas.");
+    } else if (k === "mild") {
+      if (tripped) return;
+      setText("g-plow", "138 psig");
+      setText("sb-ps", "138 psig");
+      setText("sb-sst", "SST 48°F");
+      setText("sb-sl", "SL 59°F");
+      setText("g-sh", "11.0");
+      setText("sb-sh", "11.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 17° (ID−SST) · seat 15–20° — in seat. Coil is fed. Load is light, not flooded.");
+      setText("g-phigh", "278 psig");
+      setText("sb-ph", "278 psig");
+      setText("sb-sct", "SCT 90°F");
+      setText("sb-ll", "LL 80°F");
+      setText("g-sc", "10.0");
+      setText("sb-sc", "10.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD 20° (SCT−OD) · seat 20–30° — in seat. OD is 70, not 95. Soft head is the day.");
+      setText("g-amps", "8.1 A");
+      setText("sb-amps", "8.1 A — in the nameplate neighborhood. Not the weak-comp 4.2 A.");
+      setText("sb-call", "Name it off the glass: 11 SH / 10 SC. Head 278 on a 70° day, suction 138, amps 8.1. SH and SC in band, cond TD in seat. Soft head is low load / mild day — not a weak compressor. Do not add gas. Do not condemn the compressor.");
+      setText("sb-shsc-formula", "RUNNING — mild day / low load. SH 11 (in band) · SC 10 (in band) · head 278 · OD 70 · amps 8.1. Not weak comp.");
     } else if (k === "weak") {
       if (tripped) return;
       setText("g-plow", "155 psig");
@@ -268,7 +293,8 @@
     "od-fan": "Dead OD fan: high head climbing — prove the fan before you jump HPC.",
     air: "Air/noncondensables: high head AND high SC — recover, evacuate, weigh in.",
     "txv-bulb": "TXV strap off: hunting / starve — strap the bulb to the suction line.",
-    "weak-comp": "Weak compressor: high SH, low head, amps low — SC stays in band. Do not add gas."
+    "weak-comp": "Weak compressor: high SH, low head, amps low — SC stays in band. Do not add gas.",
+    mild: "Mild day / low load: SH and SC in band, head soft because OD is 70. Amps normal. Do not condemn the compressor."
   };
   function syncTip() {
     var tip = document.getElementById("sb-phone-tip");
@@ -281,6 +307,21 @@
       tip.setAttribute("data-lt-teach", fid);
       tip.textContent = line;
     }
+  }
+  function mountMild() {
+    var host = document.getElementById("sb-faults");
+    if (!host || host.querySelector('[data-fault="mild"]')) return;
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn";
+    b.setAttribute("data-fault", "mild");
+    b.textContent = "Mild day";
+    b.addEventListener("click", function () {
+      host.querySelectorAll("[data-fault]").forEach(function (n) { n.classList.remove("primary"); });
+      b.classList.add("primary");
+      setText("sb-fault", "FAULT  -  Mild day / low load — SH/SC in band  -  head soft  -  amps normal");
+    });
+    host.appendChild(b);
   }
   function mountWeak() {
     var host = document.getElementById("sb-faults");
@@ -298,6 +339,7 @@
     host.appendChild(b);
   }
   function tick() {
+    mountMild();
     mountWeak();
     var fp = mount();
     var shEl = document.getElementById("g-sh");

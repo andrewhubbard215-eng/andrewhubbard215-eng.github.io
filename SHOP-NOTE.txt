@@ -1,3 +1,11 @@
+2026-10-08 shop SAVE (7 PM). Banner v3.5.423 / sw 667.
+
+Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Standing P equalized, no SH/SC until compressor runs.
+
+Shipped: mild day / low load fingerprint. 11 SH / 10 SC, suction 138, head 278, OD 70, cond TD 20 in seat, amps 8.1. Soft head is the weather — not the weak-comp 26/248/4.2. Charge knob stands down. Glass stays clear. Mild day chip on the fault rail. Do not add gas. Do not condemn the compressor. sandbox-fp.js?v=20, sandbox-charge-print.js?v=13, sandbox-call-glass.js?v=9. APP_VER v3.5.423. SW lt-allstars-v667.
+
+Next: Piston chart on a 75°F day — target SH is higher than TXV 10. Do not add gas to hit 10. Do not start Gauges of God.
+
 2026-10-08 shop SAVE (6 PM). Banner v3.5.422 / sw 666.
 
 Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Leak chip still sets the fault line.

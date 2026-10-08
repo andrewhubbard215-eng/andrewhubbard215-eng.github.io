@@ -30,6 +30,11 @@
       ((document.getElementById("sb-fault") || {}).textContent || "");
     return /noncondensable|air in the circuit/i.test(st);
   }
+  function mildOn() {
+    var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-fault") || {}).textContent || "");
+    return /mild day|low load|light load/i.test(st);
+  }
   function weakOn() {
     var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
       ((document.getElementById("sb-fault") || {}).textContent || "");
@@ -52,6 +57,8 @@
     var text = line.textContent || "";
     if (noncondensableOn()) {
       text = "Air / noncondensables. Glass stays clear — not a leak. High head + high SC. Recover, evacuate, weigh in. Do not add gas.";
+    } else if (mildOn()) {
+      text = "Mild day / low load. 11 SH / 10 SC, head soft, amps normal. Weather, not weak valves. Do not add gas. Do not condemn the compressor.";
     } else if (weakOn()) {
       text = "Weak compressor. 26 SH / 10 SC, head low, amps low. SC in band — not a leak. Do not add gas.";
     } else if (shv >= 8 && shv <= 14 && scv >= 8 && scv <= 14) {
@@ -91,6 +98,8 @@
       text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
     } else if (icedOn()) {
       text = "Sight glass: clear. Not bubbles. Coil is iced — near-zero SH, SC in band. Filter, blower, coil. Do not add gas.";
+    } else if (mildOn()) {
+      text = "Sight glass: clear. Not bubbles. SH and SC in band. Soft head is a 70° day, not a leak and not a weak compressor.";
     } else if (weakOn()) {
       text = "Sight glass: clear. Not bubbles. Charge is still in the column. High SH + low head + low amps = weak compressor, not a leak. Do not add gas.";
     } else if (scv < 4) {
