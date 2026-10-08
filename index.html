@@ -14,6 +14,7 @@
       html = html.replace(/sandbox-eq\.js\?v=\d+/g, "sandbox-eq.js?v=5");
       html = html.replace(/sandbox-hook\.js\?v=\d+/g, "sandbox-hook.js?v=19");
       html = html.replace(/sandbox-layout\.css\?v=\d+/g, "sandbox-layout.css?v=44");
+      html = html.replace(/sandbox-pc\.css\?v=\d+/g, "sandbox-pc.css?v=12");
       html = html.replace(/bay-restore\.js\?v=\d+/g, "bay-restore.js?v=2");
       html = html.replace(/sandbox-yell\.js\?v=\d+/g, "sandbox-yell.js?v=6");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=99");
@@ -23,7 +24,7 @@
       html = html.replace(/electrical-sheet\.js\?v=\d+/g, "electrical-sheet.js?v=21");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=2");
-      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=660");
+      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=661");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=30");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
@@ -33,13 +34,13 @@
       if (html.indexOf("sandbox-hunt.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-hunt.js?v=3"><\/script>\n</body>');
       }
-      html = html.replace(/sandbox-fp\.js\?v=\d+/g, "sandbox-fp.js?v=15");
+      html = html.replace(/sandbox-fp\.js\?v=\d+/g, "sandbox-fp.js?v=14");
       html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=9");
       if (html.indexOf("sandbox-cutout.js") === -1) {
         html = html.replace("</body>", '<script src="sandbox-cutout.js?v=9"><\/script>\n</body>');
       }
       if (html.indexOf("sandbox-fp.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-fp.js?v=15"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="sandbox-fp.js?v=14"><\/script>\n</body>');
       }
       html = html.replace(/service\.js\?v=\d+/g, "service.js?v=112");
       html = html.replace(/electrical-lite\.js\?v=\d+/g, "electrical-lite.js?v=10");
@@ -124,7 +125,7 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=660").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=661").catch(function () {});
   })();
   </script>
 </head>

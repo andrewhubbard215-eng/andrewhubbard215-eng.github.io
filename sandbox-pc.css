@@ -239,3 +239,11 @@
     max-width: none !important;
   }
 }
+
+/* v3.5.417 PC short window (1280x~710 after toolbars): diamond gives up height so gauges + Start land in view; main scrolls as a net */
+@media (min-width: 901px) {
+  #sandbox-root .sb-layout > .sb-main { overflow-y: auto !important; overflow-x: hidden !important; }
+}
+@media (min-width: 901px) and (max-height: 820px) {
+  #sandbox-root .sb-main > #sb-canvas-wrap { flex: 1 1 0 !important; min-height: 200px !important; }
+}
