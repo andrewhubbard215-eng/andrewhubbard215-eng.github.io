@@ -1,7 +1,7 @@
-2026-10-07 evening SAVE. Live boot still pins old HTML; strip target v3.5.403 / sw 647.
+2026-10-07 night SAVE. Banner v3.5.404 / sw 648. Sheet v22.
 
-Played: Clock In opens the locker on desktop. Saturday callback click froze the page — no-cool sheet MutationObserver re-entered paint on its own writes (microtask) and locked the bay.
+Played: Clock In opens the locker. Saturday callback loads. Pan-is-a-lake float ticket arms. Sheet did not freeze. Across note is on the page. Float box still only said 0.0 V (outlet to C), which reads like a closed switch.
 
-Shipped: paint guard clears after the observer microtask so the sheet can land an open without freezing. Across-note still says open float ~27 V, outlet to C 0, do not jump. Banner v3.5.403. Sheet v21. SW lt-allstars-v647.
+Shipped: open HPC/LPC/float box gets a ~27 V across chip. 0.0 V stays so the meter path still matches outlet-to-C. Do not jump the float.
 
-Next: hard-refresh, Saturday callback, land the open float, confirm across note and that the sheet does not freeze.
+Next: hard-refresh, Pan is a lake, confirm FLOAT chip says ~27 V across, meter the open, replace the float only.
