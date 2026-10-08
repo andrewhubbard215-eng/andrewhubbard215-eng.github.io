@@ -1,3 +1,11 @@
+2026-10-08 shop SAVE (5 PM). Banner v3.5.421 / sw 665.
+
+Played: Clock In, sandbox. No crash. Parts LEFT still on the rail.
+
+Shipped: dirty ID fingerprint. Iced evaporator / low airflow locks 1 SH / 10 SC, suction 68, SST 20, head 320. SC in band — not the overcharge 3/20. Charge knob stands down. Glass stays clear, ice call. Filter, blower, coil. Do not add gas. sandbox-fp.js?v=18, sandbox-charge-print.js?v=11, sandbox-call-glass.js?v=7. APP_VER v3.5.421. SW lt-allstars-v665.
+
+Next: Weak compressor — high SH, low head, amps low, do not add gas. Do not start Gauges of God.
+
 2026-10-08 shop SAVE (4 PM). Banner v3.5.420 / sw 664.
 
 Played: Clock In, sandbox, Noncondensable. No crash. Seated four LEFT, compressor ran. Glass already said clear / not bubbles. HUB called it heat rejection (dirty coil / OD fan) off 10 SH / 22 SC / head 495.

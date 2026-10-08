@@ -30,6 +30,11 @@
       ((document.getElementById("sb-fault") || {}).textContent || "");
     return /noncondensable|air in the circuit/i.test(st);
   }
+  function icedOn() {
+    var st = ((document.getElementById("sb-status") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-fault") || {}).textContent || "");
+    return /iced evaporator|dirty id|low airflow|dirty indoor/i.test(st);
+  }
   function nameFromGlass() {
     var line = document.getElementById("sb-call");
     var sh = document.getElementById("sb-sh");
@@ -77,6 +82,8 @@
       }
     } else if (noncondensableOn()) {
       text = "Sight glass: clear. Not bubbles. Not a leak. Air in the circuit — high head + high SC. Recover, evacuate, weigh in. Do not add gas.";
+    } else if (icedOn()) {
+      text = "Sight glass: clear. Not bubbles. Coil is iced — near-zero SH, SC in band. Filter, blower, coil. Do not add gas.";
     } else if (scv < 4) {
       text = "Sight glass: bubbles / flash gas. SC " + scv.toFixed(1) + " — low. Find the leak. Do not top off.";
     } else if (scv < 8) {

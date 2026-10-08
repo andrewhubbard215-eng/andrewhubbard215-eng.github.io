@@ -124,7 +124,7 @@
 
   function holdFault() {
     var st = ((document.getElementById("sb-fault") || {}).textContent || "");
-    return /overcharge|noncondensable|air in the circuit/i.test(st);
+    return /overcharge|noncondensable|air in the circuit|iced evaporator|dirty id|low airflow|dirty indoor/i.test(st);
   }
   function paint() {
     if (writing) return;

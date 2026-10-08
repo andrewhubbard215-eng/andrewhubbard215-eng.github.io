@@ -10,6 +10,9 @@
   function dirtyLine() {
     return "HUB: dirty condenser. Fan still moves air, cond TD high, SH/SC in band. Wash the coil. Do not recover a charge that is in band.";
   }
+  function iduLine() {
+    return "HUB: dirty indoor / low airflow. 1 SH / 10 SC, suction 68, coil is a popsicle. SC in band — not the overcharge 3/20. Filter, blower, coil. Do not add gas.";
+  }
   function leakLine() {
     return "HUB: high SH + low SC = starved. Leak or undercharge — recover, find it, weigh-in. Don't top off.";
   }
@@ -25,6 +28,7 @@
   function kind(fault) {
     var f = fault || "";
     if (/noncondensable|air in the circuit/i.test(f)) return "air";
+    if (/iced evaporator|dirty id|dirty filter|low airflow|dirty indoor/i.test(f)) return "idu";
     if (/fan dead|od fan|condenser fan/i.test(f)) return "fan";
     if (/dirty condenser|dirty od|rooftop/i.test(f)) return "dirty";
     if (/txv|bulb|strap/i.test(f)) return "txv";
@@ -54,6 +58,7 @@
     if (k === "restrict" && hiSH && hiSC) return restrictLine();
     if (k === "txv" && hiSH && !hiSC) return txvLine();
     if (k === "air") return airLine();
+    if (k === "idu") return iduLine();
     if (inBand && k === "fan") return fanLine();
     if (inBand && k === "dirty") return dirtyLine();
     if (inBand && (faultHeat || tdOut) && (tdOut || head >= 450)) return heatLine();
@@ -104,6 +109,24 @@
       setText("sb-sct", "SCT 133°F");
       setText("sb-ll", "LL 123°F");
       setText("sb-ctd", "Cond TD 38° (SCT−OD) · seat 20–30° — high. Fan still moves air. Wash.");
+    } else if (k === "idu") {
+      if (tripped) return;
+      setText("g-plow", "68 psig");
+      setText("sb-ps", "68 psig");
+      setText("sb-sst", "SST 20°F");
+      setText("sb-sl", "SL 21°F");
+      setText("g-sh", "1.0");
+      setText("sb-sh", "1.0 °F SH (seat 8–14)");
+      setText("sb-etd", "Evap TD 55° (ID−SST) · seat 15–20° — blown. Return is warm, coil is a popsicle. Airflow, not charge.");
+      setText("g-phigh", "320 psig");
+      setText("sb-ph", "320 psig");
+      setText("sb-sct", "SCT 102°F");
+      setText("sb-ll", "LL 92°F");
+      setText("g-sc", "10.0");
+      setText("sb-sc", "10.0 °F SC (seat 8–14)");
+      setText("sb-ctd", "Cond TD in seat — not a dirty outdoor coil. Head is not the story.");
+      setText("sb-call", "Name it off the glass: 1 SH / 10 SC. Near-zero SH + SC in band + ice = dirty ID / low airflow. Overcharge is 3 SH / 20 SC. Filter, blower, coil. Do not add gas.");
+      setText("sb-shsc-formula", "RUNNING — dirty ID fingerprint. SH 1 (near zero) · SC 10 (in band). Ice call. Do not add gas.");
     } else if (k === "leak") {
       if (tripped) return;
       setText("g-plow", "108 psig");
