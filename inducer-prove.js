@@ -25,6 +25,12 @@
       good: "Hose and trap, then vent termination, then 24V across the switch, then manometer vs the rating on the switch. Switch last.",
       bad: "Replace the switch first. Spinning means the vent is fine.",
       why: "Water in the trap, a kinked hose, or a blocked vent fake an open switch every winter. Path before parts."
+    },
+    {
+      ask: "Switch rating on the door is -0.50 in. w.c. Manometer on the inducer tap reads -0.20 in. w.c. with the wheel spinning. Switch is open. Next move?",
+      good: "Draft is short of the rating. Recheck the hose, trap, and vent termination. Do not replace the switch while vacuum is below the close point.",
+      bad: "Replace the pressure switch. The manometer already proved the board is lying.",
+      why: "A switch that is open at -0.20 when it is rated to close at -0.50 is doing its job. Weak draft is hose, trap, vent, or a weak wheel — switch last."
     }
   ];
 
