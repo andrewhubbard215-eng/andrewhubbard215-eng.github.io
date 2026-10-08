@@ -16,12 +16,11 @@
       html = html.replace(/sandbox-yell\.js\?v=\d+/g, "sandbox-yell.js?v=6");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=95");
       html = html.replace(/phone-p0\.css\?v=13/g, "phone-p0.css?v=14");
-      html = html.replace(/v3\.5\.\d+/g, "v3.5.404");
+      html = html.replace(/v3\.5\.\d+/g, "v3.5.405");
       html = html.replace(/electrical-sheet\.js\?v=\d+/g, "electrical-sheet.js?v=21");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=2");
-      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=648");
-      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=95");
+      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=649");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=30");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
@@ -51,15 +50,10 @@
       html = html.replace(/Meter leads \u00b7 airflow before charge \u00b7 no jump safety/g, "Hook gauges - read SH/SC - pick the fault");
       if (html.indexOf("theme-amber-bench.css") === -1) {
         html = html.replace('</head>', '  <link rel="stylesheet" href="theme-amber-bench.css?v=2" />\n  <link rel="stylesheet" href="exam-epa.css?v=2" />\n</head>');
-      } else {
-        html = html.replace(/theme-amber-bench\.css\?v=\d+/g, "theme-amber-bench.css?v=2");
-        if (html.indexOf("exam-epa.css") === -1) {
-          html = html.replace('</head>', '  <link rel="stylesheet" href="exam-epa.css?v=2" />\n</head>');
-        }
       }
       html = html.replace(/\s*<link rel="stylesheet" href="phone-gauges-233\.css\?v=\d+" \/>/g, "");
       html = html.replace(/\s*<link rel="stylesheet" href="phone-gauges-clip-233\.css\?v=\d+" \/>/g, "");
-      html = html.replace('</head>', '  <link rel="stylesheet" href="phone-gauges-233.css?v=7" />\n  <link rel="stylesheet" href="phone-gauges-clip-233.css?v=6" />\n</head>');
+      html = html.replace('</head>', '  <link rel="stylesheet" href="phone-gauges-233.css?v=7" />\n  <link rel="stylesheet" href="phone-gauges-clip-233.css?v=6" />\n  <link rel="stylesheet" href="phone-diamond.css?v=1" />\n</head>');
       html = html.replace(/recovery-room\.js\?v=\d+/g, "recovery-room.js?v=7");
       html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=4");
       html = html.replace(/recovery-room\.g(\d)\.js\?v=\d+/g, "recovery-room.g$1.js?v=4");
@@ -68,12 +62,6 @@
       html = html.replace(/route-floor\.js\?v=\d+/g, "route-floor.js?v=24");
       if (html.indexOf("service-meter.js") === -1) {
         html = html.replace('<script src="recovery-room.js?v=7"><\/script>', '<script src="recovery-room.js?v=7"><\/script>\n  <script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=8"><\/script>');
-      }
-      if (html.indexOf("svc-ticket-match.js") === -1) {
-        html = html.replace('<script src="service-meter.js?v=1"><\/script>', '<script src="service-meter.js?v=1"><\/script>\n  <script src="svc-ticket-match.js?v=8"><\/script>');
-      }
-      if (html.indexOf("refrigerant-flow.js") === -1) {
-        html = html.replace('<script src="analog-gauges.js?v=8"><\/script>', '<script src="analog-gauges.js?v=8"><\/script>\n  <script src="refrigerant-flow.js?v=2"><\/script>');
       }
       if (html.indexOf("land-lugs-route.js") === -1) {
         html = html.replace('<script src="clock-in-form.js', '<script src="land-lugs-route.js?v=2"><\/script>\n  <script src="clock-in-form.js');
@@ -89,52 +77,28 @@
       } else {
         html = html.replace(/exam-cutout\.js\?v=\d+/g, "exam-cutout.js?v=17");
       }
-      html = html.replace(/phone-gauges-233\.css\?v=\d+/g, "phone-gauges-233.css?v=7");
-      html = html.replace(/phone-gauges-clip-233\.css\?v=\d+/g, "phone-gauges-clip-233.css?v=6");
-      html = html.replace(/route-ticket-gauges\.js\?v=\d+/g, "route-ticket-gauges.js?v=18");
-      if (html.indexOf("route-ticket-gauges.js") === -1) {
-        html = html.replace("</body>", '<script src="route-ticket-gauges.js?v=18"><\/script>\n</body>');
-      }
-      if (html.indexOf("sat-lines.js") === -1) {
-        html = html.replace("</body>", '<script src="sat-lines.js?v=1"><\/script>\n</body>');
-      }
       html = html.replace(/phone-floor\.css\?v=\d+/g, "phone-floor.css?v=48");
-      html = html.replace(/phone-rail\.css\?v=\d+/g, "phone-rail.css?v=3");
       html = html.replace(/furnace-soo-floor\.js\?v=\d+/g, "furnace-soo-floor.js?v=4");
       html = html.replace(/saturday-phone\.css\?v=\d+/g, "saturday-phone.css?v=4");
-      if (html.indexOf("saturday-phone.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="saturday-phone.css?v=4" />\n</head>');
-      }
+      html = html.replace(/inducer-prove\.js\?v=\d+/g, "inducer-prove.js?v=2");
       if (html.indexOf("inducer-prove.js") === -1) {
-        html = html.replace("</body>", '<script src="inducer-prove.js?v=1"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="inducer-prove.js?v=2"><\/script>\n</body>');
       }
-      html = html.replace(/sandbox-charge-print\.js\?v=\d+/g, "sandbox-charge-print.js?v=8");
-      if (html.indexOf("sandbox-call-glass.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-call-glass.js?v=1"><\/script>\n</body>');
-      }
-      html = html.replace(/sandbox-seat-glass\.js\?v=\d+/g, "sandbox-seat-glass.js?v=2");
-      if (html.indexOf("sandbox-seat-glass.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-seat-glass.js?v=2"><\/script>\n</body>');
-      }
-      if (html.indexOf("sandbox-charge-print.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-charge-print.js?v=8"><\/script>\n</body>');
-      }
-      html = html.replace(/svc-rail\.css\?v=\d+/g, "svc-rail.css?v=2");
-      if (html.indexOf("svc-rail.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="svc-rail.css?v=2" />\n</head>');
-      }
-      if (html.indexOf("sandbox-manifold.js") === -1) {
-        html = html.replace("</body>", '<script src="sandbox-manifold.js?v=1"><\/script>\n</body>');
-      }
+      html = html.replace(/phone-morning\.css\?v=\d+/g, "phone-morning.css?v=4");
       if (html.indexOf("phone-morning.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-morning.css?v=3" />\n</head>');
+        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-morning.css?v=4" />\n</head>');
       }
-      html = html.replace(/phone-morning\.css\?v=\d+/g, "phone-morning.css?v=3");
-      if (html.indexOf("sandbox-manifold.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="sandbox-manifold.css?v=1" />\n</head>');
+      if (html.indexOf("phone-diamond.css") === -1) {
+        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-diamond.css?v=1" />\n</head>');
+      }
+      if (html.indexOf("morning-stamp.js") === -1) {
+        html = html.replace("</body>", '<script src="morning-stamp.js?v=1"><\/script>\n</body>');
       }
       if (html.indexOf("across-chip.js") === -1) {
         html = html.replace("</body>", '<script src="across-chip.js?v=1"><\/script>\n</body>');
+      }
+      if (html.indexOf("sandbox-manifold.js") === -1) {
+        html = html.replace("</body>", '<script src="sandbox-manifold.js?v=1"><\/script>\n</body>');
       }
       return html;
     }
@@ -146,14 +110,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.404 - shop floor</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - v3.5.405 - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=648").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=649").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.404 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.405 - shop floor</p>
 </body>
 </html>

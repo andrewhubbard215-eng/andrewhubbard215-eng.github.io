@@ -1,0 +1,32 @@
+/* 2026-10-08 morning — whole DX diamond above the gauges, left rail stays tappable, HUB off the glass */
+@media (max-width: 520px) {
+  #sandbox-root .sb-layout { grid-template-columns: 96px minmax(0, 1fr) !important; }
+  #sandbox-root .sb-palette {
+    width: 96px !important; min-width: 96px !important; max-width: 96px !important;
+    z-index: 40 !important; pointer-events: auto !important;
+  }
+  #sandbox-root .sb-palette .btn {
+    font-size: 12px !important; min-height: 44px !important; white-space: normal !important; pointer-events: auto !important;
+  }
+  #sandbox-root .sb-main { display: flex !important; flex-direction: column !important; overflow-y: auto !important; }
+  #sandbox-root #sb-faults {
+    order: -10 !important; max-height: 58px !important; overflow-x: auto !important; overflow-y: hidden !important; flex: 0 0 auto !important;
+  }
+  #sandbox-root #sb-canvas-wrap {
+    order: -8 !important; flex: 0 0 48vh !important; height: 48vh !important; min-height: 300px !important;
+    max-height: 48vh !important; position: relative !important; z-index: 3 !important;
+  }
+  #sandbox-root #sb-canvas { width: 100% !important; height: 100% !important; min-height: 280px !important; max-height: none !important; }
+  #sandbox-root #sb-seats { height: 100% !important; max-height: 48vh !important; overflow: hidden !important; }
+  #sandbox-root .sb-gauges, #sandbox-root #sb-gauge-run, #sandbox-root [data-sb-gauges] {
+    order: 4 !important; position: relative !important; top: auto !important; bottom: auto !important;
+    margin-top: 8px !important; max-height: 30vh !important; z-index: 2 !important; flex: 0 0 auto !important;
+  }
+  #sandbox-root #sb-ts, #sandbox-root #sb-fp, #sandbox-root .sb-status, #sandbox-root #sb-phone-tip, #sandbox-root #sb-hub, #sandbox-root .lt-drip-body {
+    order: 8 !important; max-height: 64px !important; overflow: auto !important;
+  }
+  body.lab-open #hub-ai, body.lab-open .hub-ai-dock, body.lab-open .hub-chat, #hub-ai {
+    max-height: 18vh !important; max-width: 46vw !important; z-index: 20 !important;
+  }
+  #screen-electrical, #electrical-root { font-size: 14px !important; line-height: 1.35 !important; }
+}
