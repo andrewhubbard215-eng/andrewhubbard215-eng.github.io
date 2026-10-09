@@ -1,26 +1,24 @@
-# HVAC Allstars — shop pass (2026-10-08)
-
-## DATE
-2026-10-08 Lane A playtest
+# HVAC Allstars — shop pass (2026-10-09)
 
 ## PLAYED
-- Clock-in: pass. Shop floor fills 1440x900. v3.5.410 then v3.5.412 on the glass.
-- Service calls: pass. Ken barbershop, suction iced, R-410A TXV. Hook gauges painted Blue 62 / Red 300 / SH 0 / SC 10. Needles on two canvases. Ticket stayed on the rail.
-- On the job: pass. Center digital 118 / 400. Sat suction 40°F.
-- Sandbox: pass layout. Glass full monitor. Four seats already on. Standing 295 equalized at 95°F ODT. Start copy says loop closed.
-- Voltmeter school: fail. Direction line was gray, not pinned. No equip-ground chip. Still a quiz, not probes on lugs.
-- HUB roast sat under the meter sheet. Did not cover COM.
+- Clock-in: pass. Floor loads. Banner was v3.5.427.
+- Service calls: Uncle Ray, ranch, condenser in junipers, R-22 TXV. Hook gauges seated dirty-cond fingerprint: Blue 76 / Red 368 / SH 9 / SC 16. Low canvas blue face, high canvas red face, number ink on both dials. LTSandbox matched the glass.
+- Next random ticket: fault changed. Jess & Marcus, long lineset. Blue 102 / Red 268 / SH 22 / SC 2, undercharge-lineset, R-410A. Not the juniper print.
+- Dispatch radio, streak stars, customer quote, stub, HUB roast, live Blue/Red/SH/SC stayed on the bay.
+- Phone 390x844: palette left, hoses did not overlap dispatch, but the sheet was uncapped so preview and hose drop sat below the fold.
 
 ## BROKE
-- Meter school directions not pinned. Equip ground chip missing, so the land-and-swallow step could not happen.
+- phone-rail.css @720px set the service sheet to max-height none, which overrode the phone cap. Dispatch landed at the bottom of the first screen. Gauges and ports were off the glass.
 
 ## FIXED
-- Red direction bar pinned at the top. Board scrolls under it. Equip ground is a tray chip; land on GND and the chip is gone. Banner v3.5.413. SW lt-allstars-v657. voltmeter-school.js?v=9. sku.js not touched.
+- Phone sheet capped at 26vh and scrolls, so the four fixes stay tappable and the manifold stays up. Dispatch collapsed to one line (52px) so it cannot cover the hose drop. Palette stays left. Preview stays sticky.
+- Voltmeter school (still a quiz) got a shop strip: dispatch line, streak, stub, HUB roast, haptic on the pick. Not a new mode.
+- Banner v3.5.428. SW lt-allstars-v672. route-ticket-gauges.js?v=20. voltmeter-school.js?v=10. sku.js and store/ not touched.
 
 ## STILL OPEN
-- Voltmeter school is still choices, not probe-on-lugs (R to C for 24 VAC).
+- Voltmeter school is still two buttons, not probes on R and C.
 - Saturday meter still sits under the manifold.
-- Hard refresh once so the worker drops v656.
+- Hard refresh once so the worker drops v671.
 
 ## TOMORROW
 - Probe R to C on the meter board. One glass only.

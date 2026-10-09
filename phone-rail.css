@@ -37,14 +37,14 @@
   #lt-preview { position: sticky; top: 0; z-index: 5; }
 }
 
-/* 2026-10-06 evening: phone sheet stays full height so the four fixes are tappable. Gauges follow, they do not cover the sheet. */
+/* Phone: sheet scrolls inside 26vh so Hook gauges, preview, and hose drop stay on the glass. Choices stay tappable inside the sheet. */
 @media (max-width: 720px) {
   #screen-service .svc-rail,
   #screen-service .svc-card {
     position: relative !important;
     z-index: 8 !important;
-    max-height: none !important;
-    overflow: visible !important;
+    max-height: 26vh !important;
+    overflow: auto !important;
   }
   #screen-service .svc-choice { position: relative; z-index: 9; pointer-events: auto; }
   #lt-g-low, #lt-g-high { pointer-events: none; max-height: 96px; }
@@ -53,10 +53,12 @@
     position: relative !important;
     bottom: auto !important;
     top: auto !important;
-    max-height: 16vh;
+    max-height: 52px;
+    overflow: hidden;
     width: auto !important;
     pointer-events: auto;
   }
+  #lt-quote { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70vw; }
   #lt-preview { position: sticky; top: 0; z-index: 5; }
   .lt-floor { grid-template-columns: 92px minmax(0, 1fr) !important; }
   .lt-palette {
