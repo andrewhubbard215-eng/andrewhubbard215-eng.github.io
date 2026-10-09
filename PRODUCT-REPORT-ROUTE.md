@@ -1,7 +1,7 @@
 # HVAC Allstars — shop pass (2026-10-09)
 
 ## PLAYED
-- Clock-in: pass. Floor loads. Banner was v3.5.433.
+- Clock-in: pass. Floor loads. Banner v3.5.444.
 - Service calls: Priya office, one zone dead, R-410A TXV. Hook gauges seated restriction glass: Blue 74 / Red 286 / SH 35 / SC 14. Needles moved.
 - PC 1440x900: ticket rail 300px, system host 832px tall, bay only 456px. 368px dead black under the manifold.
 - Sandbox: parts LEFT, four seats on the glass, loop-open copy visible. Ghost hidden until drag.
@@ -13,12 +13,12 @@
 ## FIXED
 - PC (960px and up) bay fills the host. Verified: empty under the bay 368px down to 28px. Faces about 414px. Center psig redraws to the face.
 - Phone cap left alone.
-- Banner v3.5.434. SW lt-allstars-v678. pc-bay-fill.js?v=1. sku.js not touched.
+- Banner v3.5.444. SW lt-allstars-v688. Tonight: analog-gauges 10, sandbox-eq 7, shop-floor-copy 102, call-glass 12. sku.js branding-only.
 
 ## STILL OPEN
 - Voltmeter school is still two buttons, not probes on R and C.
 - Saturday meter still sits under the manifold.
-- Hard refresh once so the worker drops v677.
+- Hard refresh once so the worker drops v687.
 
 ## TOMORROW
 - Probe R to C on the meter board. One glass only.
