@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (afternoon, third pass). Banner v3.5.437 / sw 681.
+
+Played: Clock In, Saturday callback. No crash. Pressure-switch-open ticket still meters. Next job was a made heat call.
+
+Shipped: Valve never opens on Saturday callback. Pressure switch is closed (0.0 across inlet to outlet). GV hot to GV coil is 27.2. GV hot to C is 27.2. GV coil to C is 0.0. Kicker: coil is open, do not jump the valve. across-chip.js?v=9. APP_VER v3.5.437. SW lt-allstars-v681.
+
+Next: prove the inducer hose/trap before you call the switch on a made heat call. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (afternoon, second pass). Banner v3.5.436 / sw 680.
 
 Played: Clock In, service call (Uncle Ray, junipers). No crash. Gauges live: R-22 blue 76 / red 368, SH 9, SC 16. Saturday callback PS ticket still the next meter job.

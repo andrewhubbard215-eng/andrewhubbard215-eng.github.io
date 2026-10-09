@@ -1,11 +1,8 @@
-/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. */
 (function () {
   function partName(box) {
     if (!box) return "";
     return String(box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || box.textContent || "").replace(/\s+/g, " ").trim();
-  }
-  function isSafety(who) {
-    return /float|hpc|lpc|high-pressure|low-pressure|rollout|high-limit|\blimit\b|pressure switch|presssw|pressure sw/i.test(who);
   }
   function kindOf(who) {
     if (/lpc|low-pressure/i.test(who)) return "LPC";
@@ -19,7 +16,32 @@
   function leadOf(el) {
     return el ? String(el.textContent || "") : "";
   }
+  function valveOn() {
+    return window.__gvCoil === 1;
+  }
+  function valveVac(red, com) {
+    var a = red.toLowerCase();
+    var b = com.toLowerCase();
+    var inlet = function (s) { return s.indexOf("ps inlet") !== -1; };
+    var outlet = function (s) { return s.indexOf("ps outlet") !== -1; };
+    var common = function (s) { return s.indexOf("c (24v") !== -1 || s === "c"; };
+    var call = function (s) { return s.indexOf("w (heat") !== -1; };
+    var gvHot = function (s) { return s.indexOf("gv hot") !== -1; };
+    var gvCoil = function (s) { return s.indexOf("gv coil") !== -1; };
+    if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "0.0";
+    if ((inlet(a) && common(b)) || (common(a) && inlet(b))) return "27.2";
+    if ((outlet(a) && common(b)) || (common(a) && outlet(b))) return "27.2";
+    if ((gvHot(a) && gvCoil(b)) || (gvCoil(a) && gvHot(b))) return "27.2";
+    if ((gvHot(a) && common(b)) || (common(a) && gvHot(b))) return "27.2";
+    if ((gvCoil(a) && common(b)) || (common(a) && gvCoil(b))) return "0.0";
+    if ((gvHot(a) && outlet(b)) || (outlet(a) && gvHot(b))) return "0.0";
+    if ((gvHot(a) && inlet(b)) || (inlet(a) && gvHot(b))) return "0.0";
+    if ((inlet(a) && call(b)) || (call(a) && inlet(b))) return "0.0";
+    if ((outlet(a) && call(b)) || (call(a) && outlet(b))) return "0.0";
+    return null;
+  }
   function vacAcross(red, com) {
+    if (valveOn()) return valveVac(red, com);
     var a = red.toLowerCase();
     var b = com.toLowerCase();
     var tag = null;
@@ -71,6 +93,7 @@
     paintMeter();
   }
   function openBox() {
+    if (valveOn()) return null;
     var stamped = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
     if (stamped && kindOf(partName(stamped))) return stamped;
     var marked = document.querySelectorAll("#el-ladder button.el-node.open");
@@ -79,14 +102,24 @@
     }
     return stamped;
   }
+  function addLead(split, name, title) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "el-probe el-lpc-lead";
+    b.textContent = name;
+    b.setAttribute("data-split-lead", name);
+    b.title = title;
+    b.addEventListener("click", onLead, true);
+    split.appendChild(b);
+  }
   function splitOpen() {
     var host = document.getElementById("el-probes");
     if (!host) return;
     var open = openBox();
-    var kind = open ? kindOf(partName(open)) : null;
+    var kind = valveOn() ? "GV" : (open ? kindOf(partName(open)) : null);
     var buttons = host.querySelectorAll("button");
     var lump = null;
-    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : kind === "Limit" ? "High-limit" : kind === "Rollout" ? "Rollout" : kind === "PS" ? "Pressure switch" : "";
+    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : kind === "Limit" ? "High-limit" : kind === "Rollout" ? "Rollout" : (kind === "PS" || kind === "GV") ? "Pressure switch" : "";
     for (var i = 0; i < buttons.length; i++) {
       var label = (buttons[i].textContent || "").replace(/\s+/g, " ").trim();
       if (label === lumpName || (kind === "Float" && label === "Float")) lump = buttons[i];
@@ -102,35 +135,62 @@
     if (split && split.parentNode) split.parentNode.removeChild(split);
     split = document.createElement("span");
     split.setAttribute("data-safety-split", kind);
-    [kind + " inlet", kind + " outlet"].forEach(function (name) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "el-probe el-lpc-lead";
-      b.textContent = name;
-      b.setAttribute("data-split-lead", name);
-      b.title = name.indexOf("inlet") !== -1
-        ? "Line side of the open " + kind + ". Click sets RED. Shift-click sets COM."
-        : "Load side of the open " + kind + ". To C is 0.0. Across to inlet is 27.2.";
-      b.addEventListener("click", onLead, true);
-      split.appendChild(b);
-    });
-    if (kind === "PS") {
-      [["GV hot", "Line side of the gas valve coil. Call died at the pressure switch, so this is 0.0 to C. Do not jump the switch."],
-       ["GV coil", "Other side of the gas valve coil, landed on C. 24 V across the coil only after the switch closes."]].forEach(function (pair) {
-        var g = document.createElement("button");
-        g.type = "button";
-        g.className = "el-probe el-lpc-lead";
-        g.textContent = pair[0];
-        g.setAttribute("data-split-lead", pair[0]);
-        g.title = pair[1];
-        g.addEventListener("click", onLead, true);
-        split.appendChild(g);
+    if (kind === "GV") {
+      addLead(split, "PS inlet", "Line side of a closed pressure switch. Across to outlet is 0.0. Call is made.");
+      addLead(split, "PS outlet", "Load side of a closed pressure switch. Same voltage as inlet. Do not cut the switch.");
+      addLead(split, "GV hot", "Line side of the gas valve coil. 27.2 to C. Switch already closed.");
+      addLead(split, "GV coil", "Other side of the gas valve coil, landed on C. 27.2 across the coil means the coil is open. Do not jump the valve.");
+    } else {
+      [kind + " inlet", kind + " outlet"].forEach(function (name) {
+        addLead(split, name, name.indexOf("inlet") !== -1
+          ? "Line side of the open " + kind + ". Click sets RED. Shift-click sets COM."
+          : "Load side of the open " + kind + ". To C is 0.0. Across to inlet is 27.2.");
       });
+      if (kind === "PS") {
+        addLead(split, "GV hot", "Line side of the gas valve coil. Call died at the pressure switch, so this is 0.0 to C. Do not jump the switch.");
+        addLead(split, "GV coil", "Other side of the gas valve coil, landed on C. 24 V across the coil only after the switch closes.");
+      }
     }
     if (lump && lump.nextSibling) host.insertBefore(split, lump.nextSibling);
     else host.appendChild(split);
   }
+  function armValve(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    window.__gvCoil = 1;
+    var cards = document.querySelectorAll(".el-job-card");
+    for (var i = 0; i < cards.length; i++) cards[i].classList.remove("on");
+    ev.currentTarget.classList.add("on");
+    var red = document.getElementById("el-redn");
+    var blk = document.getElementById("el-blkn");
+    if (red) red.textContent = "GV hot";
+    if (blk) blk.textContent = "GV coil";
+    paintMeter();
+  }
+  function plantTicket() {
+    var jobs = document.querySelector(".el-jobs");
+    if (!jobs || jobs.querySelector("[data-job='gvcoil']")) return;
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "el-job-card";
+    card.setAttribute("data-job", "gvcoil");
+    card.innerHTML = "<span class=\"el-job-time\">80s</span><strong>Valve never opens</strong><small>Gas furnace + A/C</small><p>W is calling. Inducer ran. Pressure switch closed. 24 V is across the gas valve coil and the valve stays shut. Coil is open. Do not jump the valve.</p>";
+    card.addEventListener("click", armValve, true);
+    var ps = jobs.querySelector("[data-job='ps']");
+    if (ps && ps.nextSibling) jobs.insertBefore(card, ps.nextSibling);
+    else jobs.appendChild(card);
+  }
+  function watchJobs() {
+    var cards = document.querySelectorAll(".el-job-card");
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].getAttribute("data-job") === "gvcoil" || cards[i].getAttribute("data-gv-clear")) continue;
+      cards[i].setAttribute("data-gv-clear", "1");
+      cards[i].addEventListener("click", function () { window.__gvCoil = 0; }, true);
+    }
+    plantTicket();
+  }
   function stamp() {
+    watchJobs();
     var n = openBox();
     var chips = document.querySelectorAll(".el-across-chip");
     for (var i = 0; i < chips.length; i++) {
@@ -161,14 +221,19 @@
     }
     if (note) {
       var onValve = /gv hot|gv coil/i.test(redName);
-      note.textContent = onValve
-        ? "0.0 VAC at the gas valve. Call died at the pressure switch. 24 V across the coil only after the switch closes. Do not jump it to prove the valve."
-        : (across
-        ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
-        : (show
-          ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
-          : ""));
-      note.style.display = (show || across || onValve) ? "" : "none";
+      var made = valveOn() && /ps inlet|ps outlet/i.test(redName) && reading === 0;
+      note.textContent = valveOn() && onValve
+        ? "27.2 VAC across the gas valve coil. Pressure switch is closed. Coil is open. Do not jump the valve."
+        : (made
+          ? "0.0 VAC across the pressure switch. Contacts are closed. Call is made. Meter GV hot to GV coil."
+          : (onValve
+            ? "0.0 VAC at the gas valve. Call died at the pressure switch. 24 V across the coil only after the switch closes. Do not jump it to prove the valve."
+            : (across
+              ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
+              : (show
+                ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
+                : ""))));
+      note.style.display = (show || across || onValve || made) ? "" : "none";
     }
   }
   setInterval(stamp, 800);
