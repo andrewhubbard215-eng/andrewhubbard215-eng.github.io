@@ -1,4 +1,4 @@
-/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. Wet trap: inducer running, switch open — hose and trap before the switch. After the trap is dumped, manometer the inducer tap against the switch rating. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. Wet trap: inducer running, switch open — hose and trap before the switch. After the trap is dumped, manometer the inducer tap against the switch rating. When the tap beats the rating, PS inlet to outlet is 0.0 — contacts closed. */
 (function () {
   function partName(box) {
     if (!box) return "";
@@ -79,6 +79,20 @@
     var call = function (s) {
       return tag === "limit" || tag === "rollout" || tag === "ps" ? s.indexOf("w (heat") !== -1 : s.indexOf("y (cool") !== -1;
     };
+    if (tag === "ps" && hoseOn() && dumped()) {
+      var gvHotD = function (s) { return s.indexOf("gv hot") !== -1; };
+      var gvCoilD = function (s) { return s.indexOf("gv coil") !== -1; };
+      if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "0.0";
+      if ((inlet(a) && common(b)) || (common(a) && inlet(b))) return "27.2";
+      if ((outlet(a) && common(b)) || (common(a) && outlet(b))) return "27.2";
+      if ((inlet(a) && call(b)) || (call(a) && inlet(b))) return "0.0";
+      if ((outlet(a) && call(b)) || (call(a) && outlet(b))) return "0.0";
+      if ((gvHotD(a) && gvCoilD(b)) || (gvCoilD(a) && gvHotD(b))) return "27.2";
+      if ((gvHotD(a) && common(b)) || (common(a) && gvHotD(b))) return "27.2";
+      if ((gvCoilD(a) && common(b)) || (common(a) && gvCoilD(b))) return "0.0";
+      if ((gvHotD(a) && outlet(b)) || (outlet(a) && gvHotD(b))) return "0.0";
+      if ((gvHotD(a) && inlet(b)) || (inlet(a) && gvHotD(b))) return "0.0";
+    }
     if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "27.2";
     if ((inlet(a) && common(b)) || (common(a) && inlet(b))) return "27.2";
     if ((outlet(a) && common(b)) || (common(a) && outlet(b))) return "0.0";
@@ -182,7 +196,7 @@
           dump.type = "button";
           dump.className = "el-probe el-lpc-lead";
           dump.textContent = dumped() ? "Trap dumped" : "Dump trap";
-          dump.title = "Dump the trap and blow the hose. Then read the inducer tap against the -0.50 rating.";
+          dump.title = "Dump the trap and blow the hose. Tap must beat -0.50, then PS inlet to outlet is 0.0.";
           dump.addEventListener("click", function (ev) {
             ev.preventDefault();
             ev.stopPropagation();
@@ -302,7 +316,10 @@
       var hosePair = hoseOn() && /inducer hose|\btrap\b/i.test(redName) && !/inducer tap|switch rating/i.test(redName);
       var mano = hoseOn() && /inducer tap|switch rating/i.test(redName);
       var hoseFirst = hoseOn() && across && kind === "PS" && !dumped();
-      note.textContent = mano
+      var closedDump = hoseOn() && dumped() && kind === "PS" && /ps inlet|ps outlet/i.test(redName) && reading === 0;
+      note.textContent = closedDump
+        ? "0.0 VAC across the pressure switch. Draft beat the -0.50 rating. Contacts closed. Do not replace the switch."
+        : (mano
         ? (dumped()
           ? "-0.68 in. w.c. on the inducer tap. Trap is dumped. Draft beats the -0.50 close rating. Switch should close. Do not replace it."
           : "-0.12 in. w.c. on the inducer tap. Switch is rated to close at -0.50. Draft is short. Dump the trap. Do not replace the switch.")
@@ -322,8 +339,8 @@
                   ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
                   : (show
                     ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
-                    : "")))))));
-      note.style.display = (show || across || onValve || made || hosePair || hoseFirst || mano) ? "" : "none";
+                    : ""))))))));
+      note.style.display = (show || across || onValve || made || hosePair || hoseFirst || mano || closedDump) ? "" : "none";
     }
   }
   setInterval(stamp, 800);

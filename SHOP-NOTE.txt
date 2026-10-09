@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (evening, third pass). Banner v3.5.440 / sw 684.
+
+Played: Clock In, service call (Uncle Ray, junipers). No crash. Banner v3.5.438. Gauges still complaint-only until Hook gauges. Next job was PS inlet to outlet after the tap beats the rating.
+
+Shipped: trap dumped, inducer tap beats -0.50. PS inlet to outlet reads 0.0 VAC. Outlet to C is 27.2. Kicker: contacts closed, do not replace the switch. across-chip.js?v=11. APP_VER v3.5.440. SW lt-allstars-v684.
+
+Next: after the switch closes, meter GV hot to GV coil and expect 27.2 on a good coil. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (evening, second pass). Banner v3.5.439 / sw 683.
 
 Played: Clock In, Inducer prove, Saturday callback. No crash. Banner v3.5.438. Hose/trap ticket still meters 0.0 in. w.c.
