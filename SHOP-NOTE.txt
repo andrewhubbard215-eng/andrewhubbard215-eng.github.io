@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (evening). Banner v3.5.438 / sw 682.
+
+Played: Clock In, Inducer prove. No crash. Banner v3.5.437. Valve-never-opens ticket still meters. Next job was hose/trap on a made heat call.
+
+Shipped: Inducer ran, switch open on Saturday callback. Inducer is spinning. Pressure switch stays open (27.2 inlet to outlet). Click sets RED on Inducer hose, shift-click sets COM on Trap. Hose to trap reads 0.0 in. w.c. Kicker: dump the trap and blow the hose before you call the switch. across-chip.js?v=10. APP_VER v3.5.438. SW lt-allstars-v682.
+
+Next: manometer vs the rating on the switch after the trap is dumped. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (afternoon, third pass). Banner v3.5.437 / sw 681.
 
 Played: Clock In, Saturday callback. No crash. Pressure-switch-open ticket still meters. Next job was a made heat call.

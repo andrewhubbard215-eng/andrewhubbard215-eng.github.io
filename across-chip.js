@@ -1,4 +1,4 @@
-/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. Wet trap: inducer running, switch open — hose and trap before the switch. */
 (function () {
   function partName(box) {
     if (!box) return "";
@@ -18,6 +18,17 @@
   }
   function valveOn() {
     return window.__gvCoil === 1;
+  }
+  function hoseOn() {
+    return window.__hoseTrap === 1;
+  }
+  function hoseVac(red, com) {
+    var a = red.toLowerCase();
+    var b = com.toLowerCase();
+    var hose = function (s) { return s.indexOf("inducer hose") !== -1; };
+    var trap = function (s) { return s.indexOf("trap") !== -1 && s.indexOf("ps ") === -1; };
+    if ((hose(a) && trap(b)) || (trap(a) && hose(b))) return "0.0";
+    return null;
   }
   function valveVac(red, com) {
     var a = red.toLowerCase();
@@ -41,6 +52,10 @@
     return null;
   }
   function vacAcross(red, com) {
+    if (hoseOn()) {
+      var hv = hoseVac(red, com);
+      if (hv != null) return hv;
+    }
     if (valveOn()) return valveVac(red, com);
     var a = red.toLowerCase();
     var b = com.toLowerCase();
@@ -81,7 +96,8 @@
     if (v == null) return;
     lcd.textContent = v;
     var unit = document.getElementById("el-unit");
-    if (unit) unit.textContent = "VAC";
+    var hosePair = hoseOn() && hoseVac(leadOf(document.getElementById("el-redn")), leadOf(document.getElementById("el-blkn"))) != null;
+    if (unit) unit.textContent = hosePair ? "in.wc" : "VAC";
   }
   function onLead(ev) {
     ev.preventDefault();
@@ -131,10 +147,11 @@
       return;
     }
     if (lump) lump.style.display = "none";
-    if (split && split.getAttribute("data-safety-split") === kind) return;
+    var splitKey = (kind === "PS" && hoseOn()) ? "PSH" : kind;
+    if (split && split.getAttribute("data-safety-split") === splitKey) return;
     if (split && split.parentNode) split.parentNode.removeChild(split);
     split = document.createElement("span");
-    split.setAttribute("data-safety-split", kind);
+    split.setAttribute("data-safety-split", splitKey);
     if (kind === "GV") {
       addLead(split, "PS inlet", "Line side of a closed pressure switch. Across to outlet is 0.0. Call is made.");
       addLead(split, "PS outlet", "Load side of a closed pressure switch. Same voltage as inlet. Do not cut the switch.");
@@ -149,6 +166,10 @@
       if (kind === "PS") {
         addLead(split, "GV hot", "Line side of the gas valve coil. Call died at the pressure switch, so this is 0.0 to C. Do not jump the switch.");
         addLead(split, "GV coil", "Other side of the gas valve coil, landed on C. 24 V across the coil only after the switch closes.");
+        if (hoseOn()) {
+          addLead(split, "Inducer hose", "Draft hose off the inducer barb. Click sets RED. Shift-click the trap. Wet hose kills vacuum.");
+          addLead(split, "Trap", "Condensate trap on the inducer hose. Full of water. 0.0 in. w.c. to the hose. Dump it before you call the switch.");
+        }
       }
     }
     if (lump && lump.nextSibling) host.insertBefore(split, lump.nextSibling);
@@ -158,6 +179,7 @@
     ev.preventDefault();
     ev.stopPropagation();
     window.__gvCoil = 1;
+    window.__hoseTrap = 0;
     var cards = document.querySelectorAll(".el-job-card");
     for (var i = 0; i < cards.length; i++) cards[i].classList.remove("on");
     ev.currentTarget.classList.add("on");
@@ -179,13 +201,41 @@
     var ps = jobs.querySelector("[data-job='ps']");
     if (ps && ps.nextSibling) jobs.insertBefore(card, ps.nextSibling);
     else jobs.appendChild(card);
+    plantHose(jobs);
+  }
+  function armHose(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    window.__hoseTrap = 1;
+    window.__gvCoil = 0;
+    var cards = document.querySelectorAll(".el-job-card");
+    for (var i = 0; i < cards.length; i++) cards[i].classList.remove("on");
+    ev.currentTarget.classList.add("on");
+    var red = document.getElementById("el-redn");
+    var blk = document.getElementById("el-blkn");
+    if (red) red.textContent = "Inducer hose";
+    if (blk) blk.textContent = "Trap";
+    paintMeter();
+  }
+  function plantHose(jobs) {
+    if (!jobs || jobs.querySelector("[data-job='hosetrap']")) return;
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "el-job-card";
+    card.setAttribute("data-job", "hosetrap");
+    card.innerHTML = "<span class=\"el-job-time\">80s</span><strong>Inducer ran, switch open</strong><small>Gas furnace + A/C</small><p>W is calling. Inducer is spinning. Pressure switch stays open. Pull the hose and dump the trap before you call the switch.</p>";
+    card.addEventListener("click", armHose, true);
+    var ps = jobs.querySelector("[data-job='ps']");
+    if (ps && ps.nextSibling) jobs.insertBefore(card, ps.nextSibling);
+    else jobs.appendChild(card);
   }
   function watchJobs() {
     var cards = document.querySelectorAll(".el-job-card");
     for (var i = 0; i < cards.length; i++) {
-      if (cards[i].getAttribute("data-job") === "gvcoil" || cards[i].getAttribute("data-gv-clear")) continue;
+      var job = cards[i].getAttribute("data-job");
+      if (job === "gvcoil" || job === "hosetrap" || cards[i].getAttribute("data-gv-clear")) continue;
       cards[i].setAttribute("data-gv-clear", "1");
-      cards[i].addEventListener("click", function () { window.__gvCoil = 0; }, true);
+      cards[i].addEventListener("click", function () { window.__gvCoil = 0; window.__hoseTrap = 0; }, true);
     }
     plantTicket();
   }
@@ -222,18 +272,24 @@
     if (note) {
       var onValve = /gv hot|gv coil/i.test(redName);
       var made = valveOn() && /ps inlet|ps outlet/i.test(redName) && reading === 0;
-      note.textContent = valveOn() && onValve
-        ? "27.2 VAC across the gas valve coil. Pressure switch is closed. Coil is open. Do not jump the valve."
-        : (made
-          ? "0.0 VAC across the pressure switch. Contacts are closed. Call is made. Meter GV hot to GV coil."
-          : (onValve
-            ? "0.0 VAC at the gas valve. Call died at the pressure switch. 24 V across the coil only after the switch closes. Do not jump it to prove the valve."
-            : (across
-              ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
-              : (show
-                ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
-                : ""))));
-      note.style.display = (show || across || onValve || made) ? "" : "none";
+      var hosePair = hoseOn() && /inducer hose|trap/i.test(redName);
+      var hoseFirst = hoseOn() && across && kind === "PS";
+      note.textContent = hosePair
+        ? "0.0 in. w.c. Hose is wet. Trap is full. Vacuum never reaches the switch. Dump the trap and blow the hose before you call the switch."
+        : (hoseFirst
+          ? "27.2 VAC across an open switch. Inducer is running. Do not call the switch. Pull the hose and dump the trap first."
+          : (valveOn() && onValve
+            ? "27.2 VAC across the gas valve coil. Pressure switch is closed. Coil is open. Do not jump the valve."
+            : (made
+              ? "0.0 VAC across the pressure switch. Contacts are closed. Call is made. Meter GV hot to GV coil."
+              : (onValve
+                ? "0.0 VAC at the gas valve. Call died at the pressure switch. 24 V across the coil only after the switch closes. Do not jump it to prove the valve."
+                : (across
+                  ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
+                  : (show
+                    ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
+                    : ""))))));
+      note.style.display = (show || across || onValve || made || hosePair || hoseFirst) ? "" : "none";
     }
   }
   setInterval(stamp, 800);
