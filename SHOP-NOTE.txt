@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (evening, second pass). Banner v3.5.439 / sw 683.
+
+Played: Clock In, Inducer prove, Saturday callback. No crash. Banner v3.5.438. Hose/trap ticket still meters 0.0 in. w.c.
+
+Shipped: manometer vs the switch rating after the trap is dumped. Inducer ran, switch open. Inducer tap to Switch rating is -0.12 wet (close point -0.50). Dump trap, then the tap reads -0.68. Kicker: draft beats the rating, do not replace the switch. across-chip.js?v=11. APP_VER v3.5.439. SW lt-allstars-v683.
+
+Next: after the tap beats the rating, meter PS inlet to outlet and expect 0.0. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (evening). Banner v3.5.438 / sw 682.
 
 Played: Clock In, Inducer prove. No crash. Banner v3.5.437. Valve-never-opens ticket still meters. Next job was hose/trap on a made heat call.

@@ -1,4 +1,4 @@
-/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. Wet trap: inducer running, switch open — hose and trap before the switch. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. Made heat call: switch closed, coil open. Wet trap: inducer running, switch open — hose and trap before the switch. After the trap is dumped, manometer the inducer tap against the switch rating. */
 (function () {
   function partName(box) {
     if (!box) return "";
@@ -22,12 +22,18 @@
   function hoseOn() {
     return window.__hoseTrap === 1;
   }
+  function dumped() {
+    return window.__trapDump === 1;
+  }
   function hoseVac(red, com) {
     var a = red.toLowerCase();
     var b = com.toLowerCase();
     var hose = function (s) { return s.indexOf("inducer hose") !== -1; };
-    var trap = function (s) { return s.indexOf("trap") !== -1 && s.indexOf("ps ") === -1; };
-    if ((hose(a) && trap(b)) || (trap(a) && hose(b))) return "0.0";
+    var trap = function (s) { return s.indexOf("trap") !== -1 && s.indexOf("ps ") === -1 && s.indexOf("dump") === -1 && s.indexOf("rating") === -1; };
+    var tap = function (s) { return s.indexOf("inducer tap") !== -1; };
+    var rate = function (s) { return s.indexOf("switch rating") !== -1; };
+    if ((tap(a) && rate(b)) || (rate(a) && tap(b))) return dumped() ? "-0.68" : "-0.12";
+    if ((hose(a) && trap(b)) || (trap(a) && hose(b))) return dumped() ? "-0.68" : "0.0";
     return null;
   }
   function valveVac(red, com) {
@@ -96,7 +102,8 @@
     if (v == null) return;
     lcd.textContent = v;
     var unit = document.getElementById("el-unit");
-    var hosePair = hoseOn() && hoseVac(leadOf(document.getElementById("el-redn")), leadOf(document.getElementById("el-blkn"))) != null;
+    var pair = hoseVac(leadOf(document.getElementById("el-redn")), leadOf(document.getElementById("el-blkn")));
+    var hosePair = hoseOn() && pair != null;
     if (unit) unit.textContent = hosePair ? "in.wc" : "VAC";
   }
   function onLead(ev) {
@@ -147,7 +154,7 @@
       return;
     }
     if (lump) lump.style.display = "none";
-    var splitKey = (kind === "PS" && hoseOn()) ? "PSH" : kind;
+    var splitKey = (kind === "PS" && hoseOn()) ? (dumped() ? "PSHD" : "PSH") : kind;
     if (split && split.getAttribute("data-safety-split") === splitKey) return;
     if (split && split.parentNode) split.parentNode.removeChild(split);
     split = document.createElement("span");
@@ -169,6 +176,25 @@
         if (hoseOn()) {
           addLead(split, "Inducer hose", "Draft hose off the inducer barb. Click sets RED. Shift-click the trap. Wet hose kills vacuum.");
           addLead(split, "Trap", "Condensate trap on the inducer hose. Full of water. 0.0 in. w.c. to the hose. Dump it before you call the switch.");
+          addLead(split, "Inducer tap", "Manometer on the inducer barb. Click sets RED. Shift-click Switch rating. Compare to the close point on the switch.");
+          addLead(split, "Switch rating", "Door rating. This switch closes at -0.50 in. w.c. COM lead. Short of that is not a bad switch.");
+          var dump = document.createElement("button");
+          dump.type = "button";
+          dump.className = "el-probe el-lpc-lead";
+          dump.textContent = dumped() ? "Trap dumped" : "Dump trap";
+          dump.title = "Dump the trap and blow the hose. Then read the inducer tap against the -0.50 rating.";
+          dump.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+            window.__trapDump = 1;
+            var red = document.getElementById("el-redn");
+            var blk = document.getElementById("el-blkn");
+            if (red) red.textContent = "Inducer tap";
+            if (blk) blk.textContent = "Switch rating";
+            paintMeter();
+          }, true);
+          split.appendChild(dump);
         }
       }
     }
@@ -207,6 +233,7 @@
     ev.preventDefault();
     ev.stopPropagation();
     window.__hoseTrap = 1;
+    window.__trapDump = 0;
     window.__gvCoil = 0;
     var cards = document.querySelectorAll(".el-job-card");
     for (var i = 0; i < cards.length; i++) cards[i].classList.remove("on");
@@ -235,7 +262,7 @@
       var job = cards[i].getAttribute("data-job");
       if (job === "gvcoil" || job === "hosetrap" || cards[i].getAttribute("data-gv-clear")) continue;
       cards[i].setAttribute("data-gv-clear", "1");
-      cards[i].addEventListener("click", function () { window.__gvCoil = 0; window.__hoseTrap = 0; }, true);
+      cards[i].addEventListener("click", function () { window.__gvCoil = 0; window.__hoseTrap = 0; window.__trapDump = 0; }, true);
     }
     plantTicket();
   }
@@ -272,10 +299,17 @@
     if (note) {
       var onValve = /gv hot|gv coil/i.test(redName);
       var made = valveOn() && /ps inlet|ps outlet/i.test(redName) && reading === 0;
-      var hosePair = hoseOn() && /inducer hose|trap/i.test(redName);
-      var hoseFirst = hoseOn() && across && kind === "PS";
-      note.textContent = hosePair
-        ? "0.0 in. w.c. Hose is wet. Trap is full. Vacuum never reaches the switch. Dump the trap and blow the hose before you call the switch."
+      var hosePair = hoseOn() && /inducer hose|\btrap\b/i.test(redName) && !/inducer tap|switch rating/i.test(redName);
+      var mano = hoseOn() && /inducer tap|switch rating/i.test(redName);
+      var hoseFirst = hoseOn() && across && kind === "PS" && !dumped();
+      note.textContent = mano
+        ? (dumped()
+          ? "-0.68 in. w.c. on the inducer tap. Trap is dumped. Draft beats the -0.50 close rating. Switch should close. Do not replace it."
+          : "-0.12 in. w.c. on the inducer tap. Switch is rated to close at -0.50. Draft is short. Dump the trap. Do not replace the switch.")
+        : (hosePair
+        ? (dumped()
+          ? "-0.68 in. w.c. Trap is empty. Draft is on the hose. Read Inducer tap to Switch rating before you call the switch."
+          : "0.0 in. w.c. Hose is wet. Trap is full. Vacuum never reaches the switch. Dump the trap and blow the hose before you call the switch.")
         : (hoseFirst
           ? "27.2 VAC across an open switch. Inducer is running. Do not call the switch. Pull the hose and dump the trap first."
           : (valveOn() && onValve
@@ -288,8 +322,8 @@
                   ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
                   : (show
                     ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
-                    : ""))))));
-      note.style.display = (show || across || onValve || made || hosePair || hoseFirst) ? "" : "none";
+                    : "")))))));
+      note.style.display = (show || across || onValve || made || hosePair || hoseFirst || mano) ? "" : "none";
     }
   }
   setInterval(stamp, 800);
