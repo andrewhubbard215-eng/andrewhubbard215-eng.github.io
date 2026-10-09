@@ -1,24 +1,24 @@
 # HVAC Allstars — shop pass (2026-10-09)
 
 ## PLAYED
-- Clock-in: pass. Floor loads. Banner was v3.5.427.
-- Service calls: Uncle Ray, ranch, condenser in junipers, R-22 TXV. Hook gauges seated dirty-cond fingerprint: Blue 76 / Red 368 / SH 9 / SC 16. Low canvas blue face, high canvas red face, number ink on both dials. LTSandbox matched the glass.
-- Next random ticket: fault changed. Jess & Marcus, long lineset. Blue 102 / Red 268 / SH 22 / SC 2, undercharge-lineset, R-410A. Not the juniper print.
-- Dispatch radio, streak stars, customer quote, stub, HUB roast, live Blue/Red/SH/SC stayed on the bay.
-- Phone 390x844: palette left, hoses did not overlap dispatch, but the sheet was uncapped so preview and hose drop sat below the fold.
+- Clock-in: pass. Floor loads. Banner was v3.5.433.
+- Service calls: Priya office, one zone dead, R-410A TXV. Hook gauges seated restriction glass: Blue 74 / Red 286 / SH 35 / SC 14. Needles moved. Center digital was a stretched 220 bitmap.
+- PC 1440x900: ticket rail 300px, system host 832px tall, bay only 456px. 368px dead black under the manifold.
+- Sandbox: parts LEFT, four seats on the glass, loop-open copy visible. Ghost hidden until drag.
+- Voltmeter school still a quiz strip, not probes on R and C.
 
 ## BROKE
-- phone-rail.css @720px set the service sheet to max-height none, which overrode the phone cap. Dispatch landed at the bottom of the first screen. Gauges and ports were off the glass.
+- PC service bay did not fill the monitor. Gauges capped at 200px, dead strip under the glass.
 
 ## FIXED
-- Phone sheet capped at 26vh and scrolls, so the four fixes stay tappable and the manifold stays up. Dispatch collapsed to one line (52px) so it cannot cover the hose drop. Palette stays left. Preview stays sticky.
-- Voltmeter school (still a quiz) got a shop strip: dispatch line, streak, stub, HUB roast, haptic on the pick. Not a new mode.
-- Banner v3.5.428. SW lt-allstars-v672. route-ticket-gauges.js?v=20. voltmeter-school.js?v=10. sku.js and store/ not touched.
+- PC (960px and up) bay fills the host. Gauge faces grow to about 46vh. Center psig redraws to the face so the number stays large.
+- Phone cap left alone.
+- Banner v3.5.434. SW lt-allstars-v678. route-ticket-gauges.js?v=21. sku.js not touched.
 
 ## STILL OPEN
 - Voltmeter school is still two buttons, not probes on R and C.
 - Saturday meter still sits under the manifold.
-- Hard refresh once so the worker drops v671.
+- Hard refresh once so the worker drops v677.
 
 ## TOMORROW
 - Probe R to C on the meter board. One glass only.
