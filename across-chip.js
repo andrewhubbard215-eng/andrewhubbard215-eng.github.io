@@ -1,8 +1,8 @@
-/* Open safety chip. LPC, HPC, and float inlet/outlet are separate probe points. */
+/* Open safety chip. LPC, HPC, float, and high-limit inlet/outlet are separate probe points. */
 (function () {
   function partName(box) {
     if (!box) return "";
-    return String(box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || "").replace(/\s+/g, " ").trim();
+    return String(box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || box.textContent || "").replace(/\s+/g, " ").trim();
   }
   function isSafety(who) {
     return /float|hpc|lpc|high-pressure|low-pressure|high-limit|\blimit\b/i.test(who);
@@ -11,6 +11,7 @@
     if (/lpc|low-pressure/i.test(who)) return "LPC";
     if (/hpc|high-pressure/i.test(who)) return "HPC";
     if (/float/i.test(who)) return "Float";
+    if (/high-limit|\blimit\b/i.test(who)) return "Limit";
     return null;
   }
   function leadOf(el) {
@@ -23,16 +24,19 @@
     if (a.indexOf("lpc ") !== -1 || b.indexOf("lpc ") !== -1) tag = "lpc";
     else if (a.indexOf("hpc ") !== -1 || b.indexOf("hpc ") !== -1) tag = "hpc";
     else if (a.indexOf("float ") !== -1 || b.indexOf("float ") !== -1) tag = "float";
+    else if (a.indexOf("limit ") !== -1 || b.indexOf("limit ") !== -1) tag = "limit";
     if (!tag) return null;
     var inlet = function (s) { return s.indexOf(tag + " inlet") !== -1; };
     var outlet = function (s) { return s.indexOf(tag + " outlet") !== -1; };
     var common = function (s) { return s.indexOf("c (24v") !== -1 || s === "c"; };
-    var y = function (s) { return s.indexOf("y (cool") !== -1; };
+    var call = function (s) {
+      return tag === "limit" ? s.indexOf("w (heat") !== -1 : s.indexOf("y (cool") !== -1;
+    };
     if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "27.2";
     if ((inlet(a) && common(b)) || (common(a) && inlet(b))) return "27.2";
     if ((outlet(a) && common(b)) || (common(a) && outlet(b))) return "0.0";
-    if ((inlet(a) && y(b)) || (y(a) && inlet(b))) return "0.0";
-    if ((outlet(a) && y(b)) || (y(a) && outlet(b))) return "27.2";
+    if ((inlet(a) && call(b)) || (call(a) && inlet(b))) return "0.0";
+    if ((outlet(a) && call(b)) || (call(a) && outlet(b))) return "27.2";
     return null;
   }
   function paintMeter() {
@@ -53,14 +57,23 @@
     if (slot) slot.textContent = name;
     paintMeter();
   }
+  function openBox() {
+    var stamped = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    if (stamped && kindOf(partName(stamped))) return stamped;
+    var marked = document.querySelectorAll("#el-ladder button.el-node.open");
+    for (var i = 0; i < marked.length; i++) {
+      if (kindOf(partName(marked[i]))) return marked[i];
+    }
+    return stamped;
+  }
   function splitOpen() {
     var host = document.getElementById("el-probes");
     if (!host) return;
-    var open = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    var open = openBox();
     var kind = open ? kindOf(partName(open)) : null;
     var buttons = host.querySelectorAll("button");
     var lump = null;
-    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : "";
+    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : kind === "Limit" ? "High-limit" : "";
     for (var i = 0; i < buttons.length; i++) {
       var label = (buttons[i].textContent || "").replace(/\s+/g, " ").trim();
       if (label === lumpName || (kind === "Float" && label === "Float")) lump = buttons[i];
@@ -83,8 +96,8 @@
       b.textContent = name;
       b.setAttribute("data-split-lead", name);
       b.title = name.indexOf("inlet") !== -1
-        ? "Y side of the open " + kind + ". Click sets RED. Shift-click sets COM."
-        : "Outlet of the open " + kind + ". To C is 0.0. Across to inlet is 27.2.";
+        ? "Line side of the open " + kind + ". Click sets RED. Shift-click sets COM."
+        : "Load side of the open " + kind + ". To C is 0.0. Across to inlet is 27.2.";
       b.addEventListener("click", onLead, true);
       split.appendChild(b);
     });
@@ -92,21 +105,18 @@
     else host.appendChild(split);
   }
   function stamp() {
-    var n = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
+    var n = openBox();
     var chips = document.querySelectorAll(".el-across-chip");
     for (var i = 0; i < chips.length; i++) {
       if (!n || chips[i].parentNode !== n) chips[i].parentNode.removeChild(chips[i]);
     }
     var kind = n ? kindOf(partName(n)) : null;
-    if (n) {
-      var who = partName(n);
-      if (isSafety(who) && !n.querySelector(".el-across-chip")) {
-        var chip = document.createElement("small");
-        chip.className = "el-across-chip";
-        chip.textContent = "~27 V across";
-        chip.title = "RED on the inlet, COM on the outlet. Outlet to C is 0.0 V. 0 V across means the contacts are closed.";
-        n.appendChild(chip);
-      }
+    if (n && kind && !n.querySelector(".el-across-chip")) {
+      var chip = document.createElement("small");
+      chip.className = "el-across-chip";
+      chip.textContent = "~27 V across";
+      chip.title = "RED on the inlet, COM on the outlet. Outlet to C is 0.0 V. 0 V across means the contacts are closed.";
+      n.appendChild(chip);
     }
     splitOpen();
     var lcd = document.getElementById("el-lcd");

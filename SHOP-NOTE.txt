@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (late morning, second pass). Banner v3.5.432 / sw 676.
+
+Played: Clock In, Saturday callback, Furnace limit trip. No crash. Limit box is class open. Lump probe was High-limit. Parts LEFT still on the rail.
+
+Shipped: open high-limit gets the same split as LPC/HPC/float. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Inlet to W is 0.0. Lump High-limit button hidden on that ticket. across-chip.js?v=5. APP_VER v3.5.432. SW lt-allstars-v676.
+
+Next: same split on an open rollout if that ticket lands. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (late morning). Banner v3.5.431 / sw 675.
 
 Played: Clock In, Saturday callback, Pan is a lake. No crash. Float box stamped ~27 V across. Probe rail had HPC switch and LPC switch. No float leads. Parts LEFT still on the rail.
@@ -5,11 +13,3 @@ Played: Clock In, Saturday callback, Pan is a lake. No crash. Float box stamped 
 Shipped: open HPC and open float get the same split as LPC. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Lump switch button hidden on that ticket. across-chip.js?v=4. APP_VER v3.5.431. SW lt-allstars-v675.
 
 Next: same split on open high-limit. Do not start Gauges of God.
-
-2026-10-09 shop SAVE (mid-morning). Banner v3.5.430 / sw 674.
-
-Played: Clock In, Saturday callback, Iced solid 2 SH. No crash. Parts LEFT still on the rail. LPC switch probe to C still 0.0 — that lump is the outlet.
-
-Shipped: LPC inlet and LPC outlet probe points on the open LPC ticket. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Inlet to Y is 0.0. Single LPC switch button hidden on that ticket so the tech cannot call the contacts closed. across-chip.js?v=3. APP_VER v3.5.430. SW lt-allstars-v674.
-
-Next: same split on open HPC and float. Do not start Gauges of God.
