@@ -64,10 +64,10 @@
       html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=4");
       html = html.replace(/recovery-room\.g(\d)\.js\?v=\d+/g, "recovery-room.g$1.js?v=4");
       html = html.replace(/svc-ticket-match\.js\?v=\d+/g, "svc-ticket-match.js?v=8");
-      html = html.replace(/route-ticket-gauges\.js\?v=\d+/g, "route-ticket-gauges.js?v=21");
+      html = html.replace(/route-ticket-gauges\.js\?v=\d+/g, "route-ticket-gauges.js?v=20");
       html = html.replace(/phone-rail\.css\?v=\d+/g, "phone-rail.css?v=4");
       if (html.indexOf("route-ticket-gauges.js") === -1) {
-        html = html.replace("</body>", '<script src="route-ticket-gauges.js?v=21"><\/script>\n</body>');
+        html = html.replace("</body>", '<script src="route-ticket-gauges.js?v=20"><\/script>\n</body>');
       }
       html = html.replace(/route-floor\.js\?v=\d+/g, "route-floor.js?v=24");
       if (html.indexOf("service-meter.js") === -1) {
@@ -122,6 +122,9 @@
       }
       if (html.indexOf("cap-prove.js") === -1) {
         html = html.replace("</body>", '<script src="cap-prove.js?v=1"><\/script>\n</body>');
+      }
+      if (html.indexOf("pc-bay-fill.js") === -1) {
+        html = html.replace("</body>", '<script src="pc-bay-fill.js?v=1"><\/script>\n</body>');
       }
       return html;
     }
