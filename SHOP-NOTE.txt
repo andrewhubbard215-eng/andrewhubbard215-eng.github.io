@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (mid-morning). Banner v3.5.430 / sw 674.
+
+Played: Clock In, Saturday callback, Iced solid 2 SH. No crash. Parts LEFT still on the rail. LPC switch probe to C still 0.0 — that lump is the outlet.
+
+Shipped: LPC inlet and LPC outlet probe points on the open LPC ticket. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Inlet to Y is 0.0. Single LPC switch button hidden on that ticket so the tech cannot call the contacts closed. across-chip.js?v=3. APP_VER v3.5.430. SW lt-allstars-v674.
+
+Next: same split on open HPC and float. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (morning). Banner v3.5.429 / sw 673.
 
 Played: Clock In, Saturday callback, Iced solid 2 SH. No crash. Parts LEFT still on the rail. LPC box stamped 27.2. Meter RED on LPC switch, COM on C read 0.0 — that is outlet to C, not a closed contact.
