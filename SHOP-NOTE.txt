@@ -1,8 +1,8 @@
-2026-10-08 shop SAVE (8 PM). Banner v3.5.425 / sw 669.
+2026-10-08 shop SAVE (8 PM). Banner v3.5.426 / sw 670.
 
 Played: phone 390, Clock In, Saturday callback, No-cool at 4:58. No crash. Parts LEFT still on the rail.
 
-Shipped: open HPC stamp. Sheet was painting the open switch 0.0 V. Open series safety is ~27.2 V across (Y-side to outlet). Outlet to C stays 0. 0 V across means the contacts are closed. LPC, float, and limit get the same stamp. Downstream of the open stays 0.0 V. electrical-sheet.js?v=22. APP_VER v3.5.425. SW lt-allstars-v669.
+Shipped: open HPC stamp. Sheet was painting the open switch 0.0 V. Open series safety is ~27.2 V across (Y-side to outlet). Outlet to C stays 0. 0 V across means the contacts are closed. LPC, float, and limit get the same stamp. Downstream of the open stays 0.0 V. Box label was still saying 0.0 V next to the 27.2 stamp. Label zero stripped. electrical-sheet.js?v=23. APP_VER v3.5.426. SW lt-allstars-v670.
 
 Next: confirm open LPC on the iced ticket stamps ~27 V across, not 0. Do not start Gauges of God.
 

@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v22 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v23 */
 (function () {
   var proved = {};
   var painting = false;
@@ -162,8 +162,28 @@
       var title = series
         ? "Open series safety. ~27 V across the switch. Outlet to C is 0. 0 V across means closed."
         : "Dark after gold. Meter this box. That is the open.";
+      if (series) stripFalseZero(openNode);
       if (small && small.textContent !== stamp) small.textContent = stamp;
       if (openNode.title !== title) openNode.title = title;
+    }
+  }
+
+
+  function stripFalseZero(node) {
+    var kids = node.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var c = kids[i];
+      if (c.nodeType === 3 && /0\.0/.test(c.textContent || "")) {
+        c.textContent = c.textContent.replace(/0\.0\s*V/gi, "").replace(/\s{2,}/g, " ");
+      }
+    }
+    var bits = node.querySelectorAll("span, b, em, i");
+    for (var j = 0; j < bits.length; j++) {
+      if (bits[j].querySelector("small")) continue;
+      if (bits[j].tagName === "SMALL") continue;
+      if (/0\.0/.test(bits[j].textContent || "") && !bits[j].querySelector("small")) {
+        bits[j].textContent = bits[j].textContent.replace(/0\.0\s*V/gi, "").replace(/\s{2,}/g, " ").trim();
+      }
     }
   }
 
