@@ -1,4 +1,4 @@
-/* Open safety chip. LPC inlet and outlet are separate probe points. */
+/* Open safety chip. LPC, HPC, and float inlet/outlet are separate probe points. */
 (function () {
   function partName(box) {
     if (!box) return "";
@@ -7,8 +7,11 @@
   function isSafety(who) {
     return /float|hpc|lpc|high-pressure|low-pressure|high-limit|\blimit\b/i.test(who);
   }
-  function isLpc(who) {
-    return /lpc|low-pressure/i.test(who);
+  function kindOf(who) {
+    if (/lpc|low-pressure/i.test(who)) return "LPC";
+    if (/hpc|high-pressure/i.test(who)) return "HPC";
+    if (/float/i.test(who)) return "Float";
+    return null;
   }
   function leadOf(el) {
     return el ? String(el.textContent || "") : "";
@@ -16,8 +19,13 @@
   function vacAcross(red, com) {
     var a = red.toLowerCase();
     var b = com.toLowerCase();
-    var inlet = function (s) { return s.indexOf("lpc inlet") !== -1; };
-    var outlet = function (s) { return s.indexOf("lpc outlet") !== -1; };
+    var tag = null;
+    if (a.indexOf("lpc ") !== -1 || b.indexOf("lpc ") !== -1) tag = "lpc";
+    else if (a.indexOf("hpc ") !== -1 || b.indexOf("hpc ") !== -1) tag = "hpc";
+    else if (a.indexOf("float ") !== -1 || b.indexOf("float ") !== -1) tag = "float";
+    if (!tag) return null;
+    var inlet = function (s) { return s.indexOf(tag + " inlet") !== -1; };
+    var outlet = function (s) { return s.indexOf(tag + " outlet") !== -1; };
     var common = function (s) { return s.indexOf("c (24v") !== -1 || s === "c"; };
     var y = function (s) { return s.indexOf("y (cool") !== -1; };
     if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "27.2";
@@ -40,40 +48,43 @@
     ev.preventDefault();
     ev.stopPropagation();
     if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-    var name = ev.currentTarget.getAttribute("data-lpc-lead");
+    var name = ev.currentTarget.getAttribute("data-split-lead");
     var slot = ev.shiftKey ? document.getElementById("el-blkn") : document.getElementById("el-redn");
     if (slot) slot.textContent = name;
     paintMeter();
   }
-  function splitLpc() {
+  function splitOpen() {
     var host = document.getElementById("el-probes");
     if (!host) return;
     var open = document.querySelector("#el-ladder button.el-node[data-open-land='1']");
-    var lpcOpen = !!(open && isLpc(partName(open)));
+    var kind = open ? kindOf(partName(open)) : null;
     var buttons = host.querySelectorAll("button");
     var lump = null;
+    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : "";
     for (var i = 0; i < buttons.length; i++) {
-      if ((buttons[i].textContent || "").replace(/\s+/g, " ").trim() === "LPC switch") lump = buttons[i];
+      var label = (buttons[i].textContent || "").replace(/\s+/g, " ").trim();
+      if (label === lumpName || (kind === "Float" && label === "Float")) lump = buttons[i];
+      if (!buttons[i].getAttribute("data-split-lead")) buttons[i].style.display = "";
     }
-    var split = host.querySelector("[data-lpc-split]");
-    if (!lpcOpen) {
+    var split = host.querySelector("[data-safety-split]");
+    if (!kind) {
       if (split && split.parentNode) split.parentNode.removeChild(split);
-      if (lump) lump.style.display = "";
       return;
     }
     if (lump) lump.style.display = "none";
-    if (split) return;
+    if (split && split.getAttribute("data-safety-split") === kind) return;
+    if (split && split.parentNode) split.parentNode.removeChild(split);
     split = document.createElement("span");
-    split.setAttribute("data-lpc-split", "1");
-    ["LPC inlet", "LPC outlet"].forEach(function (name) {
+    split.setAttribute("data-safety-split", kind);
+    [kind + " inlet", kind + " outlet"].forEach(function (name) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "el-probe el-lpc-lead";
       b.textContent = name;
-      b.setAttribute("data-lpc-lead", name);
-      b.title = name === "LPC inlet"
-        ? "Y side of the open LPC. Click sets RED. Shift-click sets COM."
-        : "Outlet of the open LPC. To C is 0.0. Across to inlet is 27.2.";
+      b.setAttribute("data-split-lead", name);
+      b.title = name.indexOf("inlet") !== -1
+        ? "Y side of the open " + kind + ". Click sets RED. Shift-click sets COM."
+        : "Outlet of the open " + kind + ". To C is 0.0. Across to inlet is 27.2.";
       b.addEventListener("click", onLead, true);
       split.appendChild(b);
     });
@@ -86,6 +97,7 @@
     for (var i = 0; i < chips.length; i++) {
       if (!n || chips[i].parentNode !== n) chips[i].parentNode.removeChild(chips[i]);
     }
+    var kind = n ? kindOf(partName(n)) : null;
     if (n) {
       var who = partName(n);
       if (isSafety(who) && !n.querySelector(".el-across-chip")) {
@@ -96,15 +108,15 @@
         n.appendChild(chip);
       }
     }
-    splitLpc();
+    splitOpen();
     var lcd = document.getElementById("el-lcd");
     var red = document.getElementById("el-redn");
     var note = document.getElementById("el-across-meter");
     var redName = red ? red.textContent : "";
     var reading = lcd ? parseFloat(lcd.textContent) : NaN;
     var onSwitch = /lpc|hpc|float|limit|pressure/i.test(redName);
-    var across = /lpc inlet/i.test(redName) && reading === 27.2;
-    var show = !!(n && onSwitch && reading === 0 && !/lpc inlet/i.test(redName));
+    var across = kind && new RegExp(kind + " inlet", "i").test(redName) && reading === 27.2;
+    var show = !!(kind && onSwitch && reading === 0 && !new RegExp(kind + " inlet", "i").test(redName));
     if (!note && lcd && lcd.parentNode) {
       note = document.createElement("p");
       note.id = "el-across-meter";
@@ -113,9 +125,9 @@
     }
     if (note) {
       note.textContent = across
-        ? "27.2 VAC is inlet to outlet. LPC contacts are open. Do not add gas on a frozen coil."
+        ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
         : (show
-          ? "0.0 VAC is outlet to C. Probe LPC inlet to LPC outlet for 27.2. Do not call the contacts closed."
+          ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
           : "");
       note.style.display = (show || across) ? "" : "none";
     }
