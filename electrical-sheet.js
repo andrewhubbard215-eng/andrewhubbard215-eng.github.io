@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v18 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v22 */
 (function () {
   var proved = {};
   var painting = false;
@@ -136,6 +136,7 @@
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         if (isCommon(n)) continue;
+        if (n.dataset && n.dataset.seriesOpen === "1") { openNode = n; break; }
         if (/\bopen\b/.test(n.className || "")) { openNode = n; break; }
         var volts = voltsOf(n);
         var live = /\blive\b/.test(n.className || "") && !/0\.0/.test(volts);
@@ -154,11 +155,22 @@
       var small = openNode.querySelector("small");
       openNode.dataset.openLand = "1";
       openNode.dataset.openMasked = "1";
-      if (small && small.textContent !== "0.0 V") small.textContent = "0.0 V";
-      if (openNode.title !== "Dark after gold. Meter this box. That is the open.") {
-        openNode.title = "Dark after gold. Meter this box. That is the open.";
-      }
+      var series = seriesSafety(openNode);
+      if (series) openNode.dataset.seriesOpen = "1";
+      else if (openNode.dataset) delete openNode.dataset.seriesOpen;
+      var stamp = series ? "27.2 V" : "0.0 V";
+      var title = series
+        ? "Open series safety. ~27 V across the switch. Outlet to C is 0. 0 V across means closed."
+        : "Dark after gold. Meter this box. That is the open.";
+      if (small && small.textContent !== stamp) small.textContent = stamp;
+      if (openNode.title !== title) openNode.title = title;
     }
+  }
+
+  function seriesSafety(n) {
+    if (!n) return false;
+    var who = partName(n) + " " + nodeLabel(n) + " " + ((n.dataset && (n.dataset.node || n.dataset.part)) || "");
+    return /high-pressure|\bHPC\b|low-pressure|\bLPC\b|float|high-limit|\blimit\b/i.test(who);
   }
 
   function sinkDownstream() {
@@ -268,7 +280,7 @@
         b.style.setProperty("filter", "grayscale(0.6)", "important");
         b.style.removeProperty("display");
         if (!b.dataset.plainLabel) b.dataset.plainLabel = (b.textContent || "").trim();
-        setText(b, "Meter the 0.0 V open");
+        setText(b, document.querySelector("#el-ladder button.el-node[data-series-open='1']") ? "Meter the ~27 V across" : "Meter the 0.0 V open");
       }
     }
   }
