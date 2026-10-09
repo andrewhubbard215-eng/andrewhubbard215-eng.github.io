@@ -1,1 +1,1 @@
-2026-10-08 shop v3.5.412 sw 656 fault-chip clears stale HPC latch
+v3.5.429 sw 673 across-chip outlet-to-C stamp

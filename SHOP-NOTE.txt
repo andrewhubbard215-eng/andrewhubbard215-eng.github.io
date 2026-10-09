@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (morning). Banner v3.5.429 / sw 673.
+
+Played: Clock In, Saturday callback, Iced solid 2 SH. No crash. Parts LEFT still on the rail. LPC box stamped 27.2. Meter RED on LPC switch, COM on C read 0.0 — that is outlet to C, not a closed contact.
+
+Shipped: meter note under the LCD. 0.0 VAC is outlet to C. Across the open is 27.2 VAC. Do not call the contacts closed. Limit gets the same ~27 V across chip as HPC / LPC / float. across-chip.js?v=2. APP_VER v3.5.429. SW lt-allstars-v673.
+
+Next: split LPC inlet and outlet probe points so the meter itself can read 27.2 across, not only the note. Do not start Gauges of God.
+
 2026-10-08 shop SAVE (8 PM). Banner v3.5.426 / sw 670.
 
 Played: phone 390, Clock In, Saturday callback, No-cool at 4:58. No crash. Parts LEFT still on the rail.
@@ -5,43 +13,3 @@ Played: phone 390, Clock In, Saturday callback, No-cool at 4:58. No crash. Parts
 Shipped: open HPC stamp. Sheet was painting the open switch 0.0 V. Open series safety is ~27.2 V across (Y-side to outlet). Outlet to C stays 0. 0 V across means the contacts are closed. LPC, float, and limit get the same stamp. Downstream of the open stays 0.0 V. Box label was still saying 0.0 V next to the 27.2 stamp. Label zero stripped. electrical-sheet.js?v=23. APP_VER v3.5.426. SW lt-allstars-v670.
 
 Next: confirm open LPC on the iced ticket stamps ~27 V across, not 0. Do not start Gauges of God.
-
-2026-10-08 shop SAVE (evening). Banner v3.5.424 / sw 668.
-
-Played: phone 390 and desktop. Clock In, sandbox. No crash. Parts LEFT still on the rail. Standing P equalized, no SH/SC until compressor runs.
-
-Shipped: piston chart on a 75°F day. Target SH is 18 at OD 75 / WB 63 — not TXV 10. Chart was inverted (higher WB raised SH). Charge knob stands down. Glass stays clear. Piston 75 chip on the fault rail. 18 SH / 10 SC, suction 143, head 295, amps 8.0. Do not add gas to hit 10. sandbox-fp.js?v=21, sandbox-charge-print.js?v=14, sandbox-call-glass.js?v=10, shop-floor-copy.js?v=100. APP_VER v3.5.424. SW lt-allstars-v668.
-
-Next: Saturday callback sheet on phone — confirm open HPC still stamps ~27 V, not 0. Do not start Gauges of God.
-
-2026-10-08 shop SAVE (7 PM). Banner v3.5.423 / sw 667.
-
-Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Standing P equalized, no SH/SC until compressor runs.
-
-Shipped: mild day / low load fingerprint. 11 SH / 10 SC, suction 138, head 278, OD 70, cond TD 20 in seat, amps 8.1. Soft head is the weather — not the weak-comp 26/248/4.2. Charge knob stands down. Glass stays clear. Mild day chip on the fault rail. Do not add gas. Do not condemn the compressor. sandbox-fp.js?v=20, sandbox-charge-print.js?v=13, sandbox-call-glass.js?v=9. APP_VER v3.5.423. SW lt-allstars-v667.
-
-Next: Piston chart on a 75°F day — target SH is higher than TXV 10. Do not add gas to hit 10. Do not start Gauges of God.
-
-2026-10-08 shop SAVE (6 PM). Banner v3.5.422 / sw 666.
-
-Played: Clock In, sandbox. No crash. Parts LEFT still on the rail. Leak chip still sets the fault line.
-
-Shipped: weak compressor fingerprint. 26 SH / 10 SC, suction 155, head 248, amps 4.2. SC in band — not the leak 28/2. Charge knob stands down. Glass stays clear. Weak comp chip on the fault rail. Do not add gas. sandbox-fp.js?v=19, sandbox-charge-print.js?v=12, sandbox-call-glass.js?v=8. APP_VER v3.5.422. SW lt-allstars-v666.
-
-Next: Low load / mild day — SH and SC in band, head soft, not a weak compressor. Do not start Gauges of God.
-
-2026-10-08 shop SAVE (5 PM). Banner v3.5.421 / sw 665.
-
-Played: Clock In, sandbox. No crash. Parts LEFT still on the rail.
-
-Shipped: dirty ID fingerprint. Iced evaporator / low airflow locks 1 SH / 10 SC, suction 68, SST 20, head 320. SC in band — not the overcharge 3/20. Charge knob stands down. Glass stays clear, ice call. Filter, blower, coil. Do not add gas. sandbox-fp.js?v=18, sandbox-charge-print.js?v=11, sandbox-call-glass.js?v=7. APP_VER v3.5.421. SW lt-allstars-v665.
-
-Next: Weak compressor — high SH, low head, amps low, do not add gas. Do not start Gauges of God.
-
-2026-10-08 shop SAVE (4 PM). Banner v3.5.420 / sw 664.
-
-Played: Clock In, sandbox, Noncondensable. No crash. Seated four LEFT, compressor ran. Glass already said clear / not bubbles. HUB called it heat rejection (dirty coil / OD fan) off 10 SH / 22 SC / head 495.
-
-Shipped: noncondensable fingerprint 12 SH / 22 SC, head 530, clear glass, discharge too hot to hold. Split from overcharge 3/20. Charge-print stands down on air so the knob cannot rewrite it. sandbox-fp.js?v=17, sandbox-charge-print.js?v=10. APP_VER v3.5.420. SW lt-allstars-v664.
-
-Next: Dirty ID — near-zero SH, SC in band, ice call, do not add gas. Do not start Gauges of God.
