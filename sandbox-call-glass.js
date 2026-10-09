@@ -30,6 +30,10 @@
       ((document.getElementById("sb-fault") || {}).textContent || "");
     return /noncondensable|air in the circuit/i.test(st);
   }
+  function state() {
+    return ((document.getElementById("sb-status") || {}).textContent || "") + " " +
+      ((document.getElementById("sb-fault") || {}).textContent || "");
+  }
   function pistonOn() {
     var st = state();
     return /piston chart|fixed orifice|piston 75/i.test(st);
