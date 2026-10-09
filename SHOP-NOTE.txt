@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (afternoon). Banner v3.5.435 / sw 679.
+
+Played: Clock In, Saturday callback. No crash. Pressure switch was a lump, not a ticket. Inlet/outlet was not on the rail.
+
+Shipped: Pressure switch open on Saturday callback (gas furnace + A/C). Open PS gets the same split as rollout. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Inlet to W is 0.0. Lump Pressure switch button hidden on that ticket. Cut the switch only after hose, trap, and vent. across-chip.js?v=7. electrical.js?v=139. APP_VER v3.5.435. SW lt-allstars-v679.
+
+Next: meter an open gas valve coil (24V at the valve, 0 if PS is open) without jumping the switch. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (noon). Banner v3.5.433 / sw 677.
 
 Played: Clock In, Saturday callback. No crash. Rollout was not a ticket. High-limit lump still on the rail until a limit ticket is open.

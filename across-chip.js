@@ -1,17 +1,18 @@
-/* Open safety chip. LPC, HPC, float, high-limit, and rollout inlet/outlet are separate probe points. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. */
 (function () {
   function partName(box) {
     if (!box) return "";
     return String(box.getAttribute("aria-label") || box.dataset.part || box.dataset.node || box.textContent || "").replace(/\s+/g, " ").trim();
   }
   function isSafety(who) {
-    return /float|hpc|lpc|high-pressure|low-pressure|rollout|high-limit|\blimit\b/i.test(who);
+    return /float|hpc|lpc|high-pressure|low-pressure|rollout|high-limit|\blimit\b|pressure switch|presssw|pressure sw/i.test(who);
   }
   function kindOf(who) {
     if (/lpc|low-pressure/i.test(who)) return "LPC";
     if (/hpc|high-pressure/i.test(who)) return "HPC";
     if (/float/i.test(who)) return "Float";
     if (/rollout/i.test(who)) return "Rollout";
+    if (/pressure switch|presssw|pressure sw/i.test(who)) return "PS";
     if (/high-limit|\blimit\b/i.test(who)) return "Limit";
     return null;
   }
@@ -26,13 +27,14 @@
     else if (a.indexOf("hpc ") !== -1 || b.indexOf("hpc ") !== -1) tag = "hpc";
     else if (a.indexOf("float ") !== -1 || b.indexOf("float ") !== -1) tag = "float";
     else if (a.indexOf("rollout ") !== -1 || b.indexOf("rollout ") !== -1) tag = "rollout";
+    else if (a.indexOf("ps ") !== -1 || b.indexOf("ps ") !== -1) tag = "ps";
     else if (a.indexOf("limit ") !== -1 || b.indexOf("limit ") !== -1) tag = "limit";
     if (!tag) return null;
     var inlet = function (s) { return s.indexOf(tag + " inlet") !== -1; };
     var outlet = function (s) { return s.indexOf(tag + " outlet") !== -1; };
     var common = function (s) { return s.indexOf("c (24v") !== -1 || s === "c"; };
     var call = function (s) {
-      return tag === "limit" || tag === "rollout" ? s.indexOf("w (heat") !== -1 : s.indexOf("y (cool") !== -1;
+      return tag === "limit" || tag === "rollout" || tag === "ps" ? s.indexOf("w (heat") !== -1 : s.indexOf("y (cool") !== -1;
     };
     if ((inlet(a) && outlet(b)) || (outlet(a) && inlet(b))) return "27.2";
     if ((inlet(a) && common(b)) || (common(a) && inlet(b))) return "27.2";
@@ -75,7 +77,7 @@
     var kind = open ? kindOf(partName(open)) : null;
     var buttons = host.querySelectorAll("button");
     var lump = null;
-    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : kind === "Limit" ? "High-limit" : kind === "Rollout" ? "Rollout" : "";
+    var lumpName = kind === "LPC" ? "LPC switch" : kind === "HPC" ? "HPC switch" : kind === "Float" ? "Float switch" : kind === "Limit" ? "High-limit" : kind === "Rollout" ? "Rollout" : kind === "PS" ? "Pressure switch" : "";
     for (var i = 0; i < buttons.length; i++) {
       var label = (buttons[i].textContent || "").replace(/\s+/g, " ").trim();
       if (label === lumpName || (kind === "Float" && label === "Float")) lump = buttons[i];
@@ -126,7 +128,7 @@
     var note = document.getElementById("el-across-meter");
     var redName = red ? red.textContent : "";
     var reading = lcd ? parseFloat(lcd.textContent) : NaN;
-    var onSwitch = /lpc|hpc|float|rollout|limit|pressure/i.test(redName);
+    var onSwitch = /lpc|hpc|float|rollout|limit|\bps\b|pressure/i.test(redName);
     var across = kind && new RegExp(kind + " inlet", "i").test(redName) && reading === 27.2;
     var show = !!(kind && onSwitch && reading === 0 && !new RegExp(kind + " inlet", "i").test(redName));
     if (!note && lcd && lcd.parentNode) {

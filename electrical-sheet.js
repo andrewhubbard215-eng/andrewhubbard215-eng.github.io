@@ -3,7 +3,7 @@
   var proved = {};
   var painting = false;
 
-  var NAMES = /No-cool at 4:58|Hum, no start|3A keeps popping|Stat wired drunk|Contactor never pulls|Pan is a lake|Iced solid|Dead set|Furnace limit|Heat pump, 3A/i;
+  var NAMES = /No-cool at 4:58|Hum, no start|3A keeps popping|Stat wired drunk|Contactor never pulls|Pan is a lake|Iced solid|Dead set|Furnace limit|Rollout tripped|Pressure switch open|Heat pump, 3A/i;
 
   function ticketKey() {
     var slip = document.getElementById("el-callback-slip");
@@ -138,12 +138,18 @@
         if (isCommon(n)) continue;
         if (n.dataset && n.dataset.seriesOpen === "1") { openNode = n; break; }
         if (/\bopen\b/.test(n.className || "")) { openNode = n; break; }
-        var volts = voltsOf(n);
-        var live = /\blive\b/.test(n.className || "") && !/0\.0/.test(volts);
-        if (live) { seenLive = true; continue; }
-        if (seenLive && /0\.0/.test(volts) && /\bdead\b/.test(n.className || "")) {
-          openNode = n;
-          break;
+      }
+      if (!openNode) {
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          if (isCommon(n)) continue;
+          var volts = voltsOf(n);
+          var live = /\blive\b/.test(n.className || "") && !/0\.0/.test(volts);
+          if (live) { seenLive = true; continue; }
+          if (seenLive && /0\.0/.test(volts) && /\bdead\b/.test(n.className || "")) {
+            openNode = n;
+            break;
+          }
         }
       }
       for (var j = 0; j < nodes.length; j++) {
@@ -190,7 +196,7 @@
   function seriesSafety(n) {
     if (!n) return false;
     var who = partName(n) + " " + nodeLabel(n) + " " + ((n.dataset && (n.dataset.node || n.dataset.part)) || "");
-    return /high-pressure|\bHPC\b|low-pressure|\bLPC\b|float|high-limit|\blimit\b/i.test(who);
+    return /high-pressure|\bHPC\b|low-pressure|\bLPC\b|float|high-limit|\blimit\b|rollout|pressure switch|presssw|pressure sw/i.test(who);
   }
 
   function sinkDownstream() {
@@ -435,6 +441,10 @@
       line = "Meter law: open LPC is ~27 V across (inlet to outlet). Outlet to C is 0.0 V. 0 V across means the contacts are closed. Do not add gas on a frozen coil.";
     } else if (/float/i.test(who)) {
       line = "Meter law: open float is ~27 V across (inlet to outlet). Outlet to C is 0.0 V. 0 V across means the pan is dry. Do not jump the float.";
+    } else if (/pressure switch|presssw|pressure sw/i.test(who)) {
+      line = "Meter law: open pressure switch is ~27 V across (PS inlet to PS outlet). Outlet to C is 0.0 V. Prove hose, trap, and vent before you condemn the switch. Do not jump it.";
+    } else if (/rollout/i.test(who)) {
+      line = "Meter law: open rollout is ~27 V across (inlet to outlet). Outlet to C is 0.0 V. Do not jump the rollout. Prove flame path before you close it.";
     }
     setText(note, line);
     note.style.display = line ? "" : "none";

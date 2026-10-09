@@ -10,6 +10,8 @@
     { id: "ice", re: /Iced solid/i },
     { id: "dead", re: /Dead set/i },
     { id: "limit", re: /Furnace limit/i },
+    { id: "rollout", re: /Rollout tripped/i },
+    { id: "ps", re: /Pressure switch open/i },
     { id: "hp3", re: /Heat pump, 3A/i }
   ];
 
