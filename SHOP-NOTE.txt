@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (noon). Banner v3.5.433 / sw 677.
+
+Played: Clock In, Saturday callback. No crash. Rollout was not a ticket. High-limit lump still on the rail until a limit ticket is open.
+
+Shipped: Rollout tripped on Saturday callback (gas furnace + A/C). Open rollout gets the same split as high-limit. Click sets RED, shift-click sets COM. Inlet to outlet reads 27.2 VAC. Outlet to C stays 0.0. Inlet to W is 0.0. Lump Rollout button hidden on that ticket. Cut the rollout, not the gas valve. across-chip.js?v=6. electrical chunks ?v=157roll. APP_VER v3.5.433. SW lt-allstars-v677.
+
+Next: meter an open pressure switch on the furnace (PS inlet/outlet) the same way. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (late morning, second pass). Banner v3.5.432 / sw 676.
 
 Played: Clock In, Saturday callback, Furnace limit trip. No crash. Limit box is class open. Lump probe was High-limit. Parts LEFT still on the rail.
