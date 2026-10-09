@@ -138,7 +138,7 @@
     return !!(btn && /Stop compressor/i.test(btn.textContent || ""));
   }
   function standingNotDiagnosis() {
-    var line = "Standing P is equalized \u2014 not a diagnosis. Seat LEFT, start compressor, then read live SH/SC.";
+    var line = "Standing P migrated to the colder coil \u2014 not a diagnosis, not outdoor sat. Seat LEFT, start compressor, then read live SH/SC.";
     if (compressorRunning()) return;
     document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status, #screen-sandbox p").forEach(function (el) {
       if (el.children && el.children.length) return;

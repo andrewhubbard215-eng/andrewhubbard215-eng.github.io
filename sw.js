@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v686";
+const VER = "lt-allstars-v687";
 const CORE = [
   "./" ,
   "./index.html",
@@ -24,14 +24,14 @@ const CORE = [
   "./lab-glass.css?v=1",
   "./game.js?v=206",
   "./teach-locks.js?v=2",
-  "./shop-floor-copy.js?v=100",
+  "./shop-floor-copy.js?v=101",
   "./sandbox.js?v=166",
   "./sandbox-hunt.js?v=3",
   "./sandbox-fp.js?v=21",
   "./sandbox-manifold.js?v=1",
   "./sandbox-seat-glass.js?v=2",
   "./sandbox-manifold.css?v=1",
-  "./sandbox-eq.js?v=5",
+  "./sandbox-eq.js?v=6",
   "./sandbox-hook.js?v=19",
   "./sandbox-seats.js?v=30",
   "./sandbox-packs.js?v=3",
@@ -64,7 +64,7 @@ const CORE = [
   "./sandbox-stand.js?v=1",
   "./sandbox-cutout.js?v=9",
   "./sandbox-td.js?v=8",
-  "./analog-gauges.js?v=8",
+  "./analog-gauges.js?v=9",
   "./sat-lines.js?v=1",
   "./route-ticket-gauges.js?v=20",
   "./sandbox-charge-print.js?v=14",
