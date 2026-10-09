@@ -5,7 +5,7 @@ const CORE = [
   "./index.html",
   "./nocool-lock.js?v=3",
   "./sku.js?v=17",
-  "./route-ticket-gauges.js?v=21",
+  "./route-ticket-gauges.js?v=20",
   "./route-floor.js?v=24",
   "./style.css?v=147",
   "./svc-rail.css?v=2",
@@ -66,7 +66,7 @@ const CORE = [
   "./sandbox-td.js?v=8",
   "./analog-gauges.js?v=8",
   "./sat-lines.js?v=1",
-  "./route-ticket-gauges.js?v=21",
+  "./route-ticket-gauges.js?v=20",
   "./sandbox-charge-print.js?v=14",
   "./sandbox-call-glass.js?v=10",
   "./route-floor.js?v=24",
@@ -124,7 +124,8 @@ const CORE = [
   "./exam-epa.css?v=2",
   "./clock-in-form.js?v=32",
   "./across-chip.js?v=6",
-  "./morning-stamp.js?v=7"
+  "./morning-stamp.js?v=7",
+  "./pc-bay-fill.js?v=1"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE).catch(function () { return null; }); }).then(function () { return self.skipWaiting(); }));
