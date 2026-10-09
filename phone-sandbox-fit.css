@@ -1,0 +1,17 @@
+/* v1 2026-10-09 v3.5.441 phone 390x844 only: diamond + Start + gauges on one screen,
+   no dead black tail under the step card, SH/SC line not clipped. Desktop untouched. */
+@media (max-width: 480px) {
+  #screen-sandbox #sandbox-root .sb-layout > .sb-main { padding-bottom: 12px !important; }
+  /* canvases carry inline !important widths; zoom shrinks the pair without JS */
+  #sandbox-root #sb-gauge-run #sb-analog { zoom: 0.72; }
+  #sandbox-root #sb-gauge-run .sb-gauges > .panel,
+  #sandbox-root .sb-gauges .panel { max-height: none !important; }
+  #sandbox-root .sb-gauges #sb-sh,
+  #sandbox-root .sb-gauges #sb-sc {
+    white-space: nowrap !important;
+    font-size: 10.5px !important;
+    letter-spacing: -0.2px;
+    overflow: visible !important;
+  }
+  #sandbox-root .sb-gauges #sb-glass { display: none !important; } /* was already clipped out of view */
+}
