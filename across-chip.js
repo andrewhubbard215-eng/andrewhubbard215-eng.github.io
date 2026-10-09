@@ -1,4 +1,4 @@
-/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. */
+/* Open safety chip. LPC, HPC, float, high-limit, rollout, and pressure-switch inlet/outlet are separate probe points. Gas valve coil is metered, never jumped. */
 (function () {
   function partName(box) {
     if (!box) return "";
@@ -41,6 +41,15 @@
     if ((outlet(a) && common(b)) || (common(a) && outlet(b))) return "0.0";
     if ((inlet(a) && call(b)) || (call(a) && inlet(b))) return "0.0";
     if ((outlet(a) && call(b)) || (call(a) && outlet(b))) return "27.2";
+    if (tag === "ps") {
+      var gvHot = function (s) { return s.indexOf("gv hot") !== -1; };
+      var gvCoil = function (s) { return s.indexOf("gv coil") !== -1; };
+      if ((gvHot(a) && gvCoil(b)) || (gvCoil(a) && gvHot(b))) return "0.0";
+      if ((gvHot(a) && common(b)) || (common(a) && gvHot(b))) return "0.0";
+      if ((gvCoil(a) && common(b)) || (common(a) && gvCoil(b))) return "0.0";
+      if ((gvHot(a) && outlet(b)) || (outlet(a) && gvHot(b))) return "0.0";
+      if ((gvHot(a) && inlet(b)) || (inlet(a) && gvHot(b))) return "27.2";
+    }
     return null;
   }
   function paintMeter() {
@@ -105,6 +114,19 @@
       b.addEventListener("click", onLead, true);
       split.appendChild(b);
     });
+    if (kind === "PS") {
+      [["GV hot", "Line side of the gas valve coil. Call died at the pressure switch, so this is 0.0 to C. Do not jump the switch."],
+       ["GV coil", "Other side of the gas valve coil, landed on C. 24 V across the coil only after the switch closes."]].forEach(function (pair) {
+        var g = document.createElement("button");
+        g.type = "button";
+        g.className = "el-probe el-lpc-lead";
+        g.textContent = pair[0];
+        g.setAttribute("data-split-lead", pair[0]);
+        g.title = pair[1];
+        g.addEventListener("click", onLead, true);
+        split.appendChild(g);
+      });
+    }
     if (lump && lump.nextSibling) host.insertBefore(split, lump.nextSibling);
     else host.appendChild(split);
   }
@@ -138,12 +160,15 @@
       lcd.parentNode.appendChild(note);
     }
     if (note) {
-      note.textContent = across
+      var onValve = /gv hot|gv coil/i.test(redName);
+      note.textContent = onValve
+        ? "0.0 VAC at the gas valve. Call died at the pressure switch. 24 V across the coil only after the switch closes. Do not jump it to prove the valve."
+        : (across
         ? "27.2 VAC is inlet to outlet. " + kind + " contacts are open. Do not jump it."
         : (show
           ? "0.0 VAC is outlet to C. Probe " + kind + " inlet to " + kind + " outlet for 27.2. Do not call the contacts closed."
-          : "");
-      note.style.display = (show || across) ? "" : "none";
+          : ""));
+      note.style.display = (show || across || onValve) ? "" : "none";
     }
   }
   setInterval(stamp, 800);

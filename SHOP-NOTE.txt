@@ -1,3 +1,11 @@
+2026-10-09 shop SAVE (afternoon, second pass). Banner v3.5.436 / sw 680.
+
+Played: Clock In, service call (Uncle Ray, junipers). No crash. Gauges live: R-22 blue 76 / red 368, SH 9, SC 16. Saturday callback PS ticket still the next meter job.
+
+Shipped: open pressure switch also arms GV hot and GV coil. Click sets RED, shift-click sets COM. GV hot to GV coil is 0.0. GV hot to C is 0.0. GV hot to PS inlet is 27.2. Kicker: 24 V across the coil only after the switch closes. Do not jump the switch to prove the valve. across-chip.js?v=8. APP_VER v3.5.436. SW lt-allstars-v680.
+
+Next: same 24 V stamp on a made heat call (switch closed, open coil) without jumping. Do not start Gauges of God.
+
 2026-10-09 shop SAVE (afternoon). Banner v3.5.435 / sw 679.
 
 Played: Clock In, Saturday callback. No crash. Pressure switch was a lump, not a ticket. Inlet/outlet was not on the rail.
