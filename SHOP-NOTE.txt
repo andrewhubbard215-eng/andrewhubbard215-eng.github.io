@@ -1,21 +1,8 @@
-2026-10-10 shop SAVE. Banner v3.5.451 / sw 695.
+2026-10-10 shop SAVE. Banner v3.5.453 / sw 697.
 
-Played live: Clock In → shop floor. All modes listed. Entered System sandbox. Standing pressures shown, parts LEFT seats ready, no crash/blocker. Service calls, exam, electrical, mini-split, HUB AI, HVAC Jesus all present.
+Played live: site was broken — index.html and sw.js were shell placeholders "$(cat /tmp/...)". No shop floor. Fixed by restoring the bootloader index.html and bumping SW.
 
-Shipped: version/SW bump for cache. Confirmed vocational core intact (sandbox live SH/SC, parts LEFT, no combat).
+Shipped: boot restore + version/SW bump. Vocational core (sandbox, electrical, exam, service calls, mini-split, HUB, HVAC Jesus) kept. No combat.
 
-Next: hard-refresh on phone, seat four LEFT, Start compressor, confirm live SH/SC and LOOP CLOSED. Then phone hose-card clip. Do not start Gauges of God.
+Next: hard-refresh after Pages deploy, Clock In, confirm sandbox live pressures/faults, parts LEFT. Do not start Gauges of God.
 
-2026-10-10 shop SAVE. Banner v3.5.449 / sw 693.
-
-Shipped: why-wrong on the other 13 cutout exam items (float, inducer, flame sense, run cap hum, weak 45/5 cap, restriction x2, overcharge, low charge, iced coil/dirty filter, dirty condenser, non-condensables, weak valves). Every wrong pick now says why it's wrong from the gauges or the meter, not one shared line. exam-whywrong.js v=2. No sandbox or layout touched.
-
-Next: real phone hard refresh, Quiz Arena, miss the restriction item (SH 28 / SC 22) on purpose and confirm the specific reason. Then phone hose-card SH/SC second line clip.
-
-2026-10-10 shop SAVE (morning). Banner v3.5.448 / sw 692.
-
-Played: Clock In, System sandbox. Seated four by tapping LEFT plates and part rail. Started compressor. Healthy 162/442, SH/SC in band. No crash. LOOP CLOSED status stuck on "drop or tap the rest" after last seat.
-
-Shipped: last seat (drag or tap) now stamps LOOP CLOSED immediately. Start compressor is the next move. sandbox-seats.js. APP_VER v3.5.448. SW lt-allstars-v692.
-
-Next: hard-refresh phone, confirm diamond + Start + gauges one screen, then seat and Start. Do not start Gauges of God.
