@@ -1,4 +1,4 @@
-/* Shop-floor copy override v66 — standing P is not a charge ticket */
+/* Shop-floor copy override v67 — standing P is not a charge ticket. Good seat callout. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.450";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.455";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -249,7 +249,11 @@
       paintSeat("sb-sh", "seat 8\u201314");
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
-      if (shn >= 8 && shn <= 14 && scn >= 16) {
+      if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
+        line += " Good seat. Check filter and coils. Do not chase the numbers.";
+        paintSeat("sb-sh", "good seat");
+        paintSeat("sb-sc", "good seat");
+      } else if (shn >= 8 && shn <= 14 && scn >= 16) {
         line += " High red SC, blue SH in seat \u2014 dirty outdoor coil. Wash. Do not recover.";
         paintSeat("sb-sc", "high \u2014 wash OD");
       }
