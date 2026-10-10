@@ -1,4 +1,4 @@
-/* Shop-floor copy override v64 — standing P is not a charge ticket */
+/* Shop-floor copy override v65 — standing P is not a charge ticket */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.445";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.447";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
