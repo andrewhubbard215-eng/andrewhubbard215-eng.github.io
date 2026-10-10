@@ -1,4 +1,4 @@
-/* Shop-floor copy override v68 — standing P is not a charge ticket. Good seat + airflow check. */
+/* Shop-floor copy override v69 — standing P is not a charge ticket. Good seat + airflow check. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -250,7 +250,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Check filter, coils, and airflow. Do not chase the numbers.";
+        line += " Good seat. Confirm filter, indoor coil, outdoor coil, and airflow. Do not chase the numbers.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn >= 8 && shn <= 14 && scn >= 16) {
