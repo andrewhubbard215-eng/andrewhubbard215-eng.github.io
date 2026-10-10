@@ -1,4 +1,4 @@
-/* Shop-floor copy override v69 — standing P is not a charge ticket. Good seat + airflow check. */
+/* Shop-floor copy override v70 — standing P is not a charge ticket. Good seat + airflow check. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -253,6 +253,10 @@
         line += " Good seat. Confirm filter, indoor coil, outdoor coil, and airflow. Do not chase the numbers.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
+      } else if (shn > 14 && scn < 8) {
+        line += " High blue SH, low red SC — undercharge. Weigh in. Do not add until airflow is confirmed.";
+        paintSeat("sb-sh", "high — undercharge");
+        paintSeat("sb-sc", "low");
       } else if (shn >= 8 && shn <= 14 && scn >= 16) {
         line += " High red SC, blue SH in seat \u2014 dirty outdoor coil. Wash. Do not recover.";
         paintSeat("sb-sc", "high \u2014 wash OD");

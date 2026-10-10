@@ -1,7 +1,7 @@
-2026-10-10 shop SAVE. Banner v3.5.457 / sw 701.
+2026-10-10 shop SAVE. Banner v3.5.458 / sw 702.
 
-Played live: Clock In → shop floor OK. Sandbox seats four LEFT, starts compressor, live SH/SC, no crash. Saturday callback meters. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected.
+Played live: Clock In → shop floor OK. Sandbox seats, live SH/SC, no crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected.
 
-Shipped: sandbox good-seat note now says confirm filter, indoor coil, outdoor coil, and airflow. Do not chase the numbers. Version/SW bump.
+Shipped: SH/SC rail now calls high blue SH + low red SC as undercharge (weigh in after airflow confirm). Good-seat note unchanged. Version/SW bump.
 
-Next: hard-refresh, confirm good-seat wording on healthy TXV run. Keep parts LEFT. Do not start Gauges of God DLC.
+Next: hard-refresh, run a low-charge TXV case, confirm the undercharge wording. Keep parts LEFT. Do not start Gauges of God DLC.
