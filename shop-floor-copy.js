@@ -1,4 +1,4 @@
-/* Shop-floor copy override v63 — piston charges by target SH, TXV by SC */
+/* Shop-floor copy override v64 — standing P is not a charge ticket */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -50,10 +50,9 @@
     if (el.offsetParent) return true;
     return false;
   }
-  /* Footer version comes from the boot shell meta (index.html APP_VER) so it never goes stale. */
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.416";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.445";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -98,7 +97,6 @@
         return !sl || !(sl.classList.contains("filled") || sl.querySelector("img, strong, .rm"));
       });
     }
-    /* No #sb-slots (diamond pads): the rail part buttons carry the seated state. */
     return need.some(function (id) {
       var part = document.querySelector('#sandbox-root [data-part="' + id + '"]');
       return !!part && !(part.classList.contains("primary") || part.getAttribute("aria-pressed") === "true");
@@ -138,12 +136,12 @@
     return !!(btn && /Stop compressor/i.test(btn.textContent || ""));
   }
   function standingNotDiagnosis() {
-    var line = "Standing P migrated to the colder coil \u2014 not a diagnosis, not outdoor sat. Seat LEFT, start compressor, then read live SH/SC.";
+    var line = "Standing P is not a charge ticket. Migrated to colder coil. Seat LEFT, start compressor, wait for stable SH/SC before any gas.";
     if (compressorRunning()) return;
     document.querySelectorAll("#sb-status, #sb-ph-title, #sb-stand, .sb-live, .sb-status, #screen-sandbox p").forEach(function (el) {
       if (el.children && el.children.length) return;
       var t = el.textContent || "";
-      if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t))) {
+      if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t)) {
         if (t !== line) el.textContent = line;
       }
     });
@@ -166,11 +164,11 @@
     });
   }
   function scrapeDeg(kind) {
-    var re = new RegExp("(-?\\d+(?:\\.\\d+)?)\\s*°?\\s*F?\\s*" + kind + "\\b", "i");
+    var re = new RegExp("(-?\\d+(?:\\.\\d+)?)\\s*\u00b0?\\s*F?\\s*" + kind + "\\b", "i");
     var nodes = document.querySelectorAll("#sb-sh, #sb-sc");
     for (var i = 0; i < nodes.length; i++) {
       var m = (nodes[i].textContent || "").match(re);
-      if (m && new RegExp(kind, "i").test(nodes[i].textContent || "")) return m[1] + "° " + kind;
+      if (m && new RegExp(kind, "i").test(nodes[i].textContent || "")) return m[1] + "\u00b0 " + kind;
     }
     return "";
   }
@@ -202,7 +200,6 @@
     var wb = Number((document.getElementById("sb-wb") || {}).value || 63);
     if (!isFinite(od)) od = 75;
     if (!isFinite(wb)) wb = 63;
-    // Same chart as charge-print: 75°F OD / 63°F WB = 18. Not TXV 10.
     var ods = [75, 85, 95, 105];
     var wbs = [55, 60, 65, 70, 75];
     var table = [[22, 20, 16, 12, 8], [16, 13, 10, 8, 6], [10, 8, 6, 5, 4], [6, 5, 4, 3, 3]];
