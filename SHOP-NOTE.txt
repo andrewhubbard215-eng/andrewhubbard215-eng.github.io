@@ -1,1 +1,8 @@
-PLACEHOLDER_NOTE
+2026-10-10 shop SAVE (morning). Banner v3.5.448 / sw 692.
+
+Played: Clock In, System sandbox. Seated four by tapping LEFT plates and part rail. Started compressor. Healthy 162/442, SH/SC in band. No crash. LOOP CLOSED status stuck on "drop or tap the rest" after last seat.
+
+Shipped: last seat (drag or tap) now stamps LOOP CLOSED immediately. Start compressor is the next move. sandbox-seats.js. APP_VER v3.5.448. SW lt-allstars-v692.
+
+Next: hard-refresh phone, confirm diamond + Start + gauges one screen, then seat and Start. Do not start Gauges of God.
+
