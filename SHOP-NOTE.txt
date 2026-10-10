@@ -1,8 +1,7 @@
-2026-10-10 shop SAVE. Banner v3.5.453 / sw 697.
+2026-10-10 shop SAVE. Banner v3.5.454 / sw 698.
 
-Played live: site was broken — index.html and sw.js were shell placeholders "$(cat /tmp/...)". No shop floor. Fixed by restoring the bootloader index.html and bumping SW.
+Played live: Clock In → shop floor OK. Sandbox loads components (compressor, condenser, TXV, etc.), no crash/blocker. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected (Lincoln marks campus-only).
 
-Shipped: boot restore + version/SW bump. Vocational core (sandbox, electrical, exam, service calls, mini-split, HUB, HVAC Jesus) kept. No combat.
+Shipped: version/SW bump + status. No new mode. Preview running on Pages.
 
-Next: hard-refresh after Pages deploy, Clock In, confirm sandbox live pressures/faults, parts LEFT. Do not start Gauges of God.
-
+Next: hard-refresh, confirm sandbox SH/SC live readings and fault isolation. Keep parts LEFT. Do not start Gauges of God DLC.
