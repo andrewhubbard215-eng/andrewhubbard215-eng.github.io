@@ -1,3 +1,9 @@
+2026-10-10 shop SAVE. Banner v3.5.449 / sw 693.
+
+Shipped: why-wrong on the other 13 cutout exam items (float, inducer, flame sense, run cap hum, weak 45/5 cap, restriction x2, overcharge, low charge, iced coil/dirty filter, dirty condenser, non-condensables, weak valves). Every wrong pick now says why it's wrong from the gauges or the meter, not one shared line. exam-whywrong.js v=2. No sandbox or layout touched.
+
+Next: real phone hard refresh, Quiz Arena, miss the restriction item (SH 28 / SC 22) on purpose and confirm the specific reason. Then phone hose-card SH/SC second line clip.
+
 2026-10-10 shop SAVE (morning). Banner v3.5.448 / sw 692.
 
 Played: Clock In, System sandbox. Seated four by tapping LEFT plates and part rail. Started compressor. Healthy 162/442, SH/SC in band. No crash. LOOP CLOSED status stuck on "drop or tap the rest" after last seat.
