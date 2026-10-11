@@ -353,7 +353,7 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Matt Lucas. Bald, stocky, Air Force. The plate is on the asphalt. He's got one end.",
+    blurb: "Matt Lucas. Welder. Bald, stocky, Air Force. The plate is on the asphalt. He's got one end.",
     call: "LIFT",
     move: "up",
     success: "He doesn't do panic. You take the other end.",
@@ -368,13 +368,43 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "The windows are still glass. Lucas has the rod and the ground clamp.",
+    blurb: "The windows are still glass. Lucas is the welder. He's got the rod and the ground clamp.",
     call: "WELD",
     move: "action",
     success: "The bead holds. One nod is the whole compliment.",
     death: "You watch the arc. The arc watches back.",
     windup: 1.45,
     window: 1.16,
+  },
+  {
+    id: "james-brace",
+    room: "bus",
+    roomNo: 13,
+    roomName: "The Bus",
+    image: "art/r17.jpg",
+    deathImage: "art/death-zap.jpg",
+    blurb: "James. Tall, skinny, black-and-gold pirate cap. He talks like the job is already finished. He's got the top of the next plate.",
+    call: "BRACE",
+    move: "down",
+    success: "He doesn't raise his voice. The plate doesn't either.",
+    death: "You let go to hear the rest of the sentence.",
+    windup: 1.7,
+    window: 1.2,
+  },
+  {
+    id: "pebo-bead",
+    room: "bus",
+    roomNo: 13,
+    roomName: "The Bus",
+    image: "art/r17.jpg",
+    deathImage: "art/death-zap.jpg",
+    blurb: "Pebo. Welding instructor. Younger, in shape. Hood's up. He wants the stinger. Somebody has to be the other hand.",
+    call: "CLAMP",
+    move: "action",
+    success: "Pebo runs the bead. Lucas watches it like a grade. James says it'll hold, and it does.",
+    death: "You grab the stinger. Pebo already had a plan.",
+    windup: 1.5,
+    window: 1.14,
   },
   {
     id: "ruso-line",
@@ -687,7 +717,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, LoBuono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, LoBuono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
