@@ -407,9 +407,39 @@ const BEATS = [
     window: 1.14,
   },
   {
+    id: "chewy-leg",
+    room: "electric",
+    roomNo: 14,
+    roomName: "Electric",
+    image: "art/r18.jpg",
+    deathImage: "art/death-zap.jpg",
+    blurb: "Chewy. Electrical instructor. Jewish. He's already arguing with the inverter. One leg is hot. The far side of the bay is dead.",
+    call: "DROP",
+    move: "left",
+    success: "He kills the hot leg without a speech. That's the whole sermon.",
+    death: "You grab the hot leg to help. Chewy was not asking for help.",
+    windup: 1.85,
+    window: 1.22,
+  },
+  {
+    id: "miller-meter",
+    room: "electric",
+    roomNo: 14,
+    roomName: "Electric",
+    image: "art/r18.jpg",
+    deathImage: "art/death-zap.jpg",
+    blurb: "Andrew Miller. Electrical. Skinny, blond, looks like the semester won. He's gay, and he's got the meter, which is the part that matters. The door lead is in his hand.",
+    call: "HOLD",
+    move: "action",
+    success: "Miller calls the solenoid good. Chewy doesn't argue. That means it's good.",
+    death: "You take the meter to see for yourself. The door doesn't wait.",
+    windup: 1.6,
+    window: 1.16,
+  },
+  {
     id: "ruso-line",
     room: "ruso",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -424,7 +454,7 @@ const BEATS = [
   {
     id: "ruso-rear",
     room: "ruso",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -439,7 +469,7 @@ const BEATS = [
   {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -454,7 +484,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -469,7 +499,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -484,7 +514,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -499,7 +529,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 16;
+const ROOM_COUNT = 17;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
@@ -717,7 +747,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, LoBuono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
