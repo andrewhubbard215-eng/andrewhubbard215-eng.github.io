@@ -134,6 +134,12 @@
       if (html.indexOf("phone-sandbox-fit.css") === -1) {
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=2" />\n</head>');
       }
+      if (html.indexOf("/condenser-lair/") === -1) {
+        html = html.replace(
+          '<div class="hub-grid hub-nav" id="hub-options">',
+          '<div class="hub-grid hub-nav" id="hub-options">\\n        <a class="mode-card mode-card-hero" href="/condenser-lair/"><h3>Condenser Lair</h3><p>Move or die. Side job, then the bus to the wire.</p></a>'
+        );
+      }
       return html;
     }
     fetch(SRC, { cache: "no-store" })
