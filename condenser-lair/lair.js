@@ -353,7 +353,7 @@ const BEATS = [
     roomName: "Ramono",
     image: "art/r24.jpg?v=frank",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Frank Ramono. Gray crew cut, glasses, mustache. He drinks with the sidekick. You start the sentence. He is already nodding.",
+    blurb: "Frank Ramono. Navy. Gray crew cut, glasses, mustache. He drinks with the sidekick. You start the sentence. He is already nodding.",
     call: "WITH",
     move: "action",
     success: "\"I know,\" he says, and he is already moving. He knew before the van stopped.",
@@ -413,7 +413,7 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Matt Lucas. Welder. Bald, stocky, Air Force. The plate is on the asphalt. He's got one end.",
+    blurb: "Matt Lucas. Welder. Bald, stocky, Air Force veteran. The plate is on the asphalt. He's got one end.",
     call: "LIFT",
     move: "up",
     success: "He doesn't do panic. You take the other end.",
@@ -531,12 +531,12 @@ const BEATS = [
     room: "falcon",
     roomNo: 18,
     roomName: "Falcon",
-    image: "art/r19.jpg",
+    image: "art/r19.jpg?v=me",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Your car. 1964 Falcon convertible. Top down, blue gauges, headlights. Your sidekick is in the other seat, already talking. The house is the other way. Lucas keeps the bus.",
+    blurb: "Your 1964 Falcon. Red, top down. The sidekick is already talking. The house is the other way.",
     call: "HOME",
     move: "up",
-    success: "He holds the cap with one hand. You hold the lane.",
+    success: "You hold the lane. The family doesn't know you're coming yet.",
     death: "You stay with the bus. The house doesn't know.",
     windup: 2.05,
     window: 1.28,
@@ -561,12 +561,12 @@ const BEATS = [
     room: "falcon",
     roomNo: 18,
     roomName: "Falcon",
-    image: "art/r20.jpg",
+    image: "art/r19.jpg?v=me",
     deathImage: "art/death-crowd.jpg",
-    blurb: "The driveway. Stefany has Hope's carrier. Johnny is at the back seat. The passenger door is open.",
+    blurb: "Door's open on the red Falcon. Stefany has Hope. Johnny is at the back seat. Lincoln Tech is the other way.",
     call: "IN",
     move: "right",
-    success: "Hope stays in the carrier. Johnny gets low. LoBuono calls the turn. You take it back to the school.",
+    success: "Family's in. You drive the Falcon to the school.",
     death: "You explain the condenser in the driveway. The driveway fills up.",
     windup: 1.7,
     window: 1.2,
@@ -578,7 +578,7 @@ const BEATS = [
     roomName: "The Bench",
     image: "art/r22.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Back in the lab. Three of them never left the giant block tower. Bucket hat still has a block. She is still on the other side. The hoodie is waiting his turn.",
+    blurb: "You drove the Falcon into the bay. Three of them never left the giant block tower. Bucket hat still has a block. She is still on the other side. The hoodie is waiting his turn.",
     call: "OUT",
     move: "up",
     success: "Hub said out. The block stays. They don't. That's why they show up.",
@@ -608,7 +608,7 @@ const BEATS = [
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. Frank is already seated. He knew. Alisha has the roster. Your sidekick finished the count. The dog is under a seat. The Falcon stays.",
+    blurb: "The Falcon is in the staff lot. You drove it. Stefany has Hope. Johnny's in back. The students are on the step. Frank is seated. He knew. Alisha has the roster. The sidekick finished the count.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -623,10 +623,10 @@ const BEATS = [
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "A few miles out. A wreck takes the lane. The driver-side shoulder is open.",
+    blurb: "Last of the lot. A wreck takes the lane. The Falcon can still make the gate. Family stays down.",
     call: "JUKES",
     move: "left",
-    success: "The bumper does the grading. Johnny and Hope stay down.",
+    success: "The Falcon clears it. The bus of them follows. Johnny and Hope stay down.",
     death: "You give the street the lane. The street takes the bus.",
     windup: 1.85,
     window: 1.18,
@@ -638,10 +638,10 @@ const BEATS = [
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Floodlights ahead. The driver side is a wall of them. The passenger shoulder is open.",
+    blurb: "Floodlights on the school gate. The bus of instructors and students is behind the Falcon.",
     call: "JUKES",
     move: "right",
-    success: "Lucas calls the gate like he still has a radio net. Maybe he does.",
+    success: "Lucas calls the bus in behind you. Air Force, still on the net.",
     death: "You drift wide. A few miles was the whole plan.",
     windup: 1.4,
     window: 1.1,
@@ -653,10 +653,10 @@ const BEATS = [
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "The gate is opening. Do not stop to explain the condenser.",
+    blurb: "The school gate is open. The Falcon is first. Do not stop to explain the condenser.",
     call: "GO",
     move: "up",
-    success: "The sentry takes the roster and not the bus. You turn for the school.",
+    success: "You drive the Falcon through. The bus follows. Family, instructors, students.",
 
     death: "You brake for the sentry. The street doesn't.",
     windup: 1.45,
@@ -669,7 +669,7 @@ const BEATS = [
     roomName: "The Fort",
     image: "art/r26.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "The base took the names and not the bus. Lincoln Tech is the fort. Lucas has the arc on the service gate.",
+    blurb: "Lincoln Tech is the fort. Lucas has the arc on the service gate. The Falcon is inside.",
     call: "WELD",
     move: "action",
     success: "The bead closes the street. Pebo does not look up until it holds.",
@@ -711,13 +711,14 @@ const BEATS = [
 
 const LIVES = 6;
 const ROOM_COUNT = 22;
-const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
+const CARD = 2.4, HIT = 2.8, DEATH_HOLD = 3.1, BUFFER = 0.16, ESCAPE_BONUS = 5000, READ = 2.75;
+function windupOf(beat) { return beat.windup + READ; }
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
 const KEY = "condenser-lair-" + SKIN;
 const WHO = SKIN === "legends"
-  ? "You are Professor Hubbard. The students love him. LoBuono, backwards cap, is the sidekick. Then you go back for the school."
-  : "You are Professor Hubbard. The students love him. LoBuono, backwards cap, is the sidekick. Then you go back for the school.";
+  ? "You are Professor Hub. Lincoln Tech instructor. Army. On a side job when the outbreak hits. Rescue your family. Drive the 1964 Falcon to the school. Pull the instructors and the students in."
+  : "You are Professor Hub. Lincoln Tech instructor. Army. On a side job when the outbreak hits. Rescue your family. Drive the 1964 Falcon to the school. Pull the instructors and the students in.";
 
 const motionOk = () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pad = (n) => String(n).padStart(6, "0");
@@ -864,7 +865,7 @@ function applyInput(move) {
   const beat = BEATS[sim.beat];
   if (!beat) return;
   if (sim.phase === "windup") {
-    const remain = beat.windup - sim.t;
+    const remain = windupOf(beat) - sim.t;
     if (remain <= BUFFER && move === beat.move) { succeed(beat); return; }
     if (beat.tutorial) { sim.nudge = "Not yet. Even I wait for the flash."; sim.nudgeT = 0.9; sim.announce = sim.nudge; sfx.nope(); return; }
     fail("Too soon. I was still talking."); return;
@@ -887,7 +888,7 @@ function advance(dt) {
     sim.metronome += dt;
     if (sim.metronome >= interval) { sim.metronome -= interval; sfx.tick(sim.phase === "window"); }
   }
-  if (sim.phase === "windup" && sim.t >= beat.windup) {
+  if (sim.phase === "windup" && sim.t >= windupOf(beat)) {
     sim.phase = "window"; sim.t = 0; sim.metronome = 0;
     sim.announce = arrowsOn() ? beat.call + ". " + moveWord(beat.move) + "." : "Move now.";
     sfx.prompt();
@@ -934,7 +935,7 @@ function captionText() {
 function meterOf() {
   const beat = BEATS[sim.beat];
   if (!beat || (sim.phase !== "windup" && sim.phase !== "window")) return null;
-  if (sim.phase === "windup") return { kind: "hold", value: Math.min(1, sim.t / beat.windup) };
+  if (sim.phase === "windup") return { kind: "hold", value: Math.min(1, sim.t / windupOf(beat)) };
   const left = 1 - Math.min(1, sim.t / beat.window);
   return { kind: left > 0.34 ? "now" : "hot", value: left };
 }
@@ -994,7 +995,7 @@ function paint() {
   if (sim.phase === "title") {
     if (caption.dataset.mode !== "title") {
       caption.className = "brief";
-      caption.innerHTML = '<div class="who"><img class="medal" src="art/hank.jpg" alt=""><p>' + WHO + '</p></div><ol><li><span>01</span>Watch. The bar fills. Do not move yet.</li><li><span>02</span>When it flashes, hit that direction or SLAM.</li><li><span>03</span>Too soon, wrong way, too late — Hub dies.</li></ol>';
+      caption.innerHTML = '<div class="who"><img class="medal" src="art/hank.jpg?v=me" alt=""><p>' + WHO + '</p></div><ol><li><span>01</span>Watch. The bar fills. Do not move yet.</li><li><span>02</span>When it flashes, hit that direction or SLAM.</li><li><span>03</span>Too soon, wrong way, too late — Hub dies.</li></ol>';
       caption.dataset.mode = "title";
       lastCaption = "title";
     }

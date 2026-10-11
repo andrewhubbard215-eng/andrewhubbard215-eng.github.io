@@ -427,7 +427,7 @@ button:not(:disabled),
 .caption,
 .brief {
   margin: 0;
-  max-height: 6rem;
+  max-height: 7.5rem;
   overflow: hidden;
   padding: 0.45rem 0.7rem;
   border-radius: var(--radius);
@@ -439,7 +439,7 @@ button:not(:disabled),
 }
 
 .brief {
-  max-height: min(11.5rem, 34dvh);
+  max-height: min(16rem, 46dvh);
 }
 
 .brief ol {
