@@ -902,6 +902,12 @@ const GLYPH = {
   right: '<svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M56 32 L28 52 V40 H8 V24 H28 V12 Z" fill="currentColor"/></svg>'
 };
 const pic = document.getElementById("pic");
+const vid = document.getElementById("clip");
+const CLIPS = new Set(["title","base","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r21","r22","r23","r24","r25","r26"]);
+function clipFor(src) {
+  const m = String(src).match(/([a-z0-9]+)\.jpg/i);
+  return m && CLIPS.has(m[1]) ? "art/" + m[1] + ".mp4" : "";
+}
 const overlay = document.getElementById("overlay");
 const wash = document.getElementById("wash");
 const meter = document.getElementById("meter");
@@ -974,10 +980,25 @@ function hudHtml() {
 }
 function paint() {
   const src = frame();
-  if (src !== lastSrc) { pic.src = src; lastSrc = src; }
+  const clip = clipFor(src);
   const beat = BEATS[sim.beat] || BEATS[0];
-  const alive = sim.phase !== "death" && sim.phase !== "gameover";
-  pic.className = "pic" + (alive ? " is-alive move-" + (beat.roomNo % 4) : "");
+  if (clip) {
+    pic.style.visibility = "hidden";
+    vid.hidden = false;
+    if (vid.getAttribute("src") !== clip) {
+      vid.poster = src;
+      vid.src = clip;
+      const play = vid.play();
+      if (play && play.catch) play.catch(function () {});
+    }
+  } else {
+    vid.hidden = true;
+    if (vid.getAttribute("src")) { vid.removeAttribute("src"); vid.load(); }
+    pic.style.visibility = "";
+    if (src !== lastSrc) { pic.src = src; lastSrc = src; }
+    const alive = sim.phase !== "death" && sim.phase !== "gameover";
+    pic.className = "pic" + (alive ? " is-alive move-" + (beat.roomNo % 4) : "");
+  }
   const ov = overlayHtml();
   if (ov !== lastOverlay) { overlay.innerHTML = ov; lastOverlay = ov; }
   if (sim.flash !== lastFlash) {
