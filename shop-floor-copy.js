@@ -1,4 +1,4 @@
-/* Shop-floor copy override v73 — standing P is not a charge ticket. Good seat + overcharge callout. */
+/* Shop-floor copy override v74 — standing + loop closed confirm P is not a charge ticket. Good seat + overcharge callout. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -173,7 +173,28 @@
     }
     if (st.textContent !== line) st.textContent = line;
   }
+  function loopClosedConfirm() {
+    var need = ["compressor", "condenser", "metering", "evaporator"];
+    var seated = need.filter(function (id) {
+      var part = document.querySelector('#sandbox-root [data-part="' + id + '"]');
+      var slot = document.querySelector('#sb-slots .sb-slot[data-slot="' + id + '"]');
+      return (part && (part.classList.contains("primary") || part.getAttribute("aria-pressed") === "true")) ||
+             (slot && (slot.classList.contains("filled") || slot.classList.contains("has") || slot.querySelector("img, strong")));
+    });
+    if (seated.length !== 4) return;
+    var run = document.getElementById("sb-run");
+    if (run && /Stop compressor/i.test(run.textContent || "")) return; // running
+    var st = document.getElementById("sb-status");
+    if (!st) return;
+    var t = st.textContent || "";
+    if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
+      st.textContent = "Loop closed. Four LEFT seated. Start the compressor. Wait for stable SH/SC before you charge or recover.";
+    }
+  }
+
   function scrub() {
+    loopClosedConfirm();
+
     vocationalTiles();
     faultChipFit();
     lockerCard();
