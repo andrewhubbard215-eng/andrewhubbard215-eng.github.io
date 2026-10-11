@@ -1,4 +1,4 @@
-/* Shop-floor copy override v77 — dirty outdoor: wash coil, do not recover. */
+/* Shop-floor copy override v78 — good seat: next checks filter/coils/airflow, do not chase. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -167,7 +167,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Confirm filter, indoor coil, outdoor coil, and airflow. Do not chase the numbers. Do not add or recover gas.";
+        line += " Good seat. Next checks: filter, indoor coil, outdoor coil, airflow. Do not chase the numbers. Do not add or recover gas.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
