@@ -281,7 +281,7 @@ const BEATS = [
     blurb: "David Engal. Glasses. Still ranking seats. Something already has him from behind. The driver-side latch still moves.",
     call: "SHUT",
     move: "left",
-    success: "You had his wrist. The thing behind him had the rest. The door had to shut.",
+    success: "You had his wrist. He was still assigning seats. The door took the rest of the lecture.",
     death: "You hold the lecture. It holds you.",
     windup: 2.0,
     window: 1.28,
@@ -317,9 +317,39 @@ const BEATS = [
     window: 1.18,
   },
   {
+    id: "joe-wall",
+    room: "joe",
+    roomNo: 12,
+    roomName: "Joe",
+    image: "art/r16.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Instructor Joe. HVAC. Big man, long beard, a rubber band every few inches. He will not jog. The bay door is full of him. The shop wall is the gap.",
+    call: "SLIDE",
+    move: "left",
+    success: "You take the wall. Joe says he'll catch up, and sits on the recovery tank to mean it.",
+    death: "You wait in the doorway with him. The doorway does not have that kind of time.",
+    windup: 2.1,
+    window: 1.3,
+  },
+  {
+    id: "joe-slow",
+    room: "joe",
+    roomNo: 12,
+    roomName: "Joe",
+    image: "art/r16.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "He gets up off the tank to retie one band, then goes back in for the gauges. Company tools, he says.",
+    call: "LEAVE",
+    move: "action",
+    success: "Joe explains the subcool on the way back in. The lot takes the lecture. The rubber bands hold.",
+    death: "You wait for the decimal. He never gets there, and neither do you.",
+    windup: 1.55,
+    window: 1.16,
+  },
+  {
     id: "bus-plate",
     room: "bus",
-    roomNo: 12,
+    roomNo: 13,
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
@@ -334,7 +364,7 @@ const BEATS = [
   {
     id: "bus-weld",
     room: "bus",
-    roomNo: 12,
+    roomNo: 13,
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
@@ -349,7 +379,7 @@ const BEATS = [
   {
     id: "ruso-line",
     room: "ruso",
-    roomNo: 13,
+    roomNo: 14,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -364,7 +394,7 @@ const BEATS = [
   {
     id: "ruso-rear",
     room: "ruso",
-    roomNo: 13,
+    roomNo: 14,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -379,7 +409,7 @@ const BEATS = [
   {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -394,7 +424,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -409,7 +439,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -424,7 +454,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -439,7 +469,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 15;
+const ROOM_COUNT = 16;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
@@ -657,7 +687,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, LoBuono, the Malinois. Starr and Engal are not on the manifest.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, LoBuono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
