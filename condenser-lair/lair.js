@@ -260,14 +260,14 @@ const BEATS = [
     id: "cap-brake",
     room: "cap",
     roomNo: 9,
-    roomName: "LoBuono",
+    roomName: "Sidekick",
     image: "art/r9.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Dave LoBuono. Skinny, backwards cap, hands already talking. He is in the road.",
+    blurb: "Dave LoBuono. Your sidekick. Skinny, backwards cap, already talking. He is in the road.",
     call: "BRAKE",
     move: "action",
-    success: "He's in the seat before the sentence ends, meter in hand and no plan.",
-    death: "You wave back. The van doesn't stop. Neither do they.",
+    success: "Sidekick's in before the sentence ends. Meter in one hand. No plan in the other.",
+    death: "You wave at your sidekick. The van doesn't stop. Neither do they.",
     windup: 2.1,
     window: 1.35,
   },
@@ -533,7 +533,7 @@ const BEATS = [
     roomName: "Falcon",
     image: "art/r19.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Your car. 1964 Falcon convertible. Top down, blue gauges, headlights. LoBuono is in the other seat, already talking. The house is the other way. Lucas keeps the bus.",
+    blurb: "Your car. 1964 Falcon convertible. Top down, blue gauges, headlights. Your sidekick is in the other seat, already talking. The house is the other way. Lucas keeps the bus.",
     call: "HOME",
     move: "up",
     success: "He holds the cap with one hand. You hold the lane.",
@@ -566,7 +566,7 @@ const BEATS = [
     blurb: "The driveway. Stefany has Hope's carrier. Johnny is at the back seat. The passenger door is open.",
     call: "IN",
     move: "right",
-    success: "Hope stays in the carrier. Johnny gets low. LoBuono finally shuts up. You turn it back toward the school.",
+    success: "Hope stays in the carrier. Johnny gets low. LoBuono calls the turn. You take it back to the school.",
     death: "You explain the condenser in the driveway. The driveway fills up.",
     windup: 1.7,
     window: 1.2,
@@ -608,7 +608,7 @@ const BEATS = [
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. Frank is already seated. He knew. Alisha has the roster. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
+    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. Frank is already seated. He knew. Alisha has the roster. Your sidekick finished the count. The dog is under a seat. The Falcon stays.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -716,8 +716,8 @@ const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "l
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
 const KEY = "condenser-lair-" + SKIN;
 const WHO = SKIN === "legends"
-  ? "You are Professor Hubbard. The students love him, and he will not stop talking. Then you go back for the school."
-  : "You are Professor Hubbard. The students love him, and he will not stop talking. Saturday on the condenser. Then you go back for the school.";
+  ? "You are Professor Hubbard. The students love him. LoBuono, backwards cap, is the sidekick. Then you go back for the school."
+  : "You are Professor Hubbard. The students love him. LoBuono, backwards cap, is the sidekick. Then you go back for the school.";
 
 const motionOk = () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pad = (n) => String(n).padStart(6, "0");
@@ -928,7 +928,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "Class dismissed. The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Lincoln Tech is the fort. Starr, Engal, and Joe are not on the wall. Joe was still on the subcool.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, sidekick LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Lincoln Tech is the fort. Starr, Engal, and Joe are not on the wall. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
