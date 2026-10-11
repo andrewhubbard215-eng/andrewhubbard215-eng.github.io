@@ -467,13 +467,43 @@ const BEATS = [
     window: 1.18,
   },
   {
+    id: "falcon-home",
+    room: "falcon",
+    roomNo: 16,
+    roomName: "Falcon",
+    image: "art/r19.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Your car. 1964 Falcon convertible. Top down, blue gauges, headlights. LoBuono is in the other seat, already talking. The house is the other way. Lucas keeps the bus.",
+    call: "HOME",
+    move: "up",
+    success: "He holds the cap with one hand. You hold the lane.",
+    death: "You stay with the bus. The house doesn't know.",
+    windup: 2.05,
+    window: 1.28,
+  },
+  {
+    id: "falcon-door",
+    room: "falcon",
+    roomNo: 16,
+    roomName: "Falcon",
+    image: "art/r20.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "The driveway. Stefany has Hope's carrier. Johnny is at the back seat. The passenger door is open.",
+    call: "IN",
+    move: "right",
+    success: "Hope stays in the carrier. Johnny gets low. LoBuono finally shuts up. You turn it back toward the school.",
+    death: "You explain the condenser in the driveway. The driveway fills up.",
+    windup: 1.7,
+    window: 1.2,
+  },
+  {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Stefany has Hope's carrier. Johnny's in. Mike has the students on the step. LoBuono finished the count. The dog is under a seat.",
+    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. Mike has the students on the step. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -484,7 +514,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -499,7 +529,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -514,7 +544,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -529,7 +559,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 17;
+const ROOM_COUNT = 18;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
