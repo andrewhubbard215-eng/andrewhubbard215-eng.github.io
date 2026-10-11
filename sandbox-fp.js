@@ -47,7 +47,11 @@
   var IDU_SH = "1.0 °F SH (low — coil flooding, no load)";
   var IDU_SC = "10.0 °F SC (in seat — charge is not the story)";
   var IDU_STATUS = "Iced evaporator / dirty indoor: blue 1 SH near zero + red 10 SC in seat, suction 68, coil iced. Charge is fine — the coil is not getting air. Check the filter, blower and wheel, and the indoor coil face. Thaw the coil before you read again. Not overcharge (3/20). Do not add gas. Do not recover.";
+  var TXV_SH = "28.0 °F SH (high — coil starved)";
+  var TXV_SC = "10.0 °F SC (in seat — not a restriction)";
+  var TXV_STATUS = "TXV bulb strap off: blue 28 SH high + red 10 SC in seat, suction 118, head 418. Charge is on — the valve is starving the coil. Restriction would stack SC (28/22); undercharge would drop it. Find the bulb: strap it tight at 10 or 2 o'clock on a clean suction line, insulate it, let it settle 10–15 min, read SH again. Do not add gas.";
   window.LtFaultLabels = {
+    txv: { sh: TXV_SH, sc: TXV_SC, status: TXV_STATUS },
     idu: { sh: IDU_SH, sc: IDU_SC, status: IDU_STATUS },
     restrict: { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS },
     over: { sh: OVER_SH, sc: OVER_SC, status: OVER_STATUS },
@@ -267,14 +271,15 @@
       setText("sb-sst", "SST 40°F");
       setText("sb-sl", "SL 68°F");
       setText("g-sh", "28.0");
-      setText("sb-sh", "28.0 °F SH (seat 8–14)");
+      setText("sb-sh", TXV_SH);
       setText("sb-etd", "Evap TD 35° (ID−SST) · seat 15–20° — high. Coil starved. Bulb is not on the suction line.");
       setText("g-phigh", "418 psig");
       setText("sb-ph", "418 psig");
       setText("sb-sct", "SCT 116°F");
       setText("sb-ll", "LL 106°F");
       setText("g-sc", "10.0");
-      setText("sb-sc", "10.0 °F SC (seat 8–14)");
+      setText("sb-sc", TXV_SC);
+      setText("sb-status", TXV_STATUS);
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. SC in band — not a restriction.");
       setText("sb-call", "Name it off the glass: 28 SH / 10 SC. High SH + SC in band = TXV strap, not a plugged drier. Strap the bulb. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — TXV strap. SH 28 (high) · SC 10 (in band). Restriction would stack SC. Strap the bulb.");

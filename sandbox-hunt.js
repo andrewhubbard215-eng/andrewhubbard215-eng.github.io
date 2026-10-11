@@ -39,11 +39,11 @@
       setText("sb-ps", "158 psig");
       setText("sb-sst", "SST " + sst + "\u00b0F");
       setText("sb-sl", "SL " + slv.toFixed(0) + "\u00b0F");
-      setText("sb-sh", hunt.toFixed(1) + " \u00b0F SH  (seat 8\u201314)");
+      setText("sb-sh", hunt.toFixed(1) + " \u00b0F SH (hunting \u2014 bulb loose)");
       setText("sb-ph", "430 psig");
       setText("sb-sct", "SCT 118\u00b0F");
       setText("sb-ll", "LL 108\u00b0F");
-      setText("sb-sc", "10.0 \u00b0F SC  (seat 8\u201314)");
+      setText("sb-sc", "10.0 \u00b0F SC (in seat \u2014 not a restriction)");
       setText("g-sh", hunt.toFixed(1) + "\u00b0");
       setText("g-sc", "10.0\u00b0");
       setText("g-plow", "158 psig");
