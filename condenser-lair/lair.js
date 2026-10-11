@@ -377,9 +377,39 @@ const BEATS = [
     window: 1.16,
   },
   {
+    id: "alisha-roll",
+    room: "alisha",
+    roomNo: 14,
+    roomName: "Alisha",
+    image: "art/r25.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Alisha Baker Jones. Dean of admissions. The roster is already in her hand. She is not impressed that you are late.",
+    call: "ROLL",
+    move: "action",
+    success: "She reads the names like they owe her money. You are not on it. The bus is.",
+    death: "You talk back. She was not taking questions, and neither was the lobby.",
+    windup: 2.05,
+    window: 1.3,
+  },
+  {
+    id: "alisha-door",
+    room: "alisha",
+    roomNo: 14,
+    roomName: "Alisha",
+    image: "art/r25.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "She already unlocked the way out. She will not jog, and she will not say it twice.",
+    call: "WITH",
+    move: "left",
+    success: "Clipboard, keys, and one look that ends it. She is on the step before you are.",
+    death: "You go back for the files. She told you the files are not people.",
+    windup: 1.55,
+    window: 1.16,
+  },
+  {
     id: "bus-plate",
     room: "bus",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
@@ -394,7 +424,7 @@ const BEATS = [
   {
     id: "bus-weld",
     room: "bus",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
@@ -409,7 +439,7 @@ const BEATS = [
   {
     id: "james-brace",
     room: "bus",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Bus",
     image: "art/r17.jpg",
     deathImage: "art/death-zap.jpg",
@@ -424,7 +454,7 @@ const BEATS = [
   {
     id: "pebo-bead",
     room: "bus",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Bus",
     image: "art/r17.jpg",
     deathImage: "art/death-zap.jpg",
@@ -439,7 +469,7 @@ const BEATS = [
   {
     id: "chewy-leg",
     room: "electric",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "Electric",
     image: "art/r18.jpg",
     deathImage: "art/death-zap.jpg",
@@ -454,7 +484,7 @@ const BEATS = [
   {
     id: "miller-meter",
     room: "electric",
-    roomNo: 15,
+    roomNo: 16,
     roomName: "Electric",
     image: "art/r18.jpg",
     deathImage: "art/death-zap.jpg",
@@ -469,7 +499,7 @@ const BEATS = [
   {
     id: "ruso-line",
     room: "ruso",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -484,7 +514,7 @@ const BEATS = [
   {
     id: "ruso-rear",
     room: "ruso",
-    roomNo: 16,
+    roomNo: 17,
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -499,7 +529,7 @@ const BEATS = [
   {
     id: "falcon-home",
     room: "falcon",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "Falcon",
     image: "art/r19.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -514,7 +544,7 @@ const BEATS = [
   {
     id: "falcon-wife",
     room: "falcon",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "Falcon",
     image: "art/r21.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -529,7 +559,7 @@ const BEATS = [
   {
     id: "falcon-door",
     room: "falcon",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "Falcon",
     image: "art/r20.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -544,7 +574,7 @@ const BEATS = [
   {
     id: "bench-tower",
     room: "bench",
-    roomNo: 18,
+    roomNo: 19,
     roomName: "The Bench",
     image: "art/r22.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -559,7 +589,7 @@ const BEATS = [
   {
     id: "bench-run",
     room: "bench",
-    roomNo: 18,
+    roomNo: 19,
     roomName: "The Bench",
     image: "art/r23.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -574,11 +604,11 @@ const BEATS = [
   {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 19,
+    roomNo: 20,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. Frank is already seated. He knew. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
+    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. Frank is already seated. He knew. Alisha has the roster. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -589,7 +619,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 20,
+    roomNo: 21,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -604,7 +634,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 20,
+    roomNo: 21,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -619,7 +649,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 20,
+    roomNo: 21,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -634,7 +664,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 20;
+const ROOM_COUNT = 21;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
@@ -852,7 +882,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
