@@ -1,4 +1,4 @@
-/* Shop-floor copy override v79 — good seat: next checks filter/coils/airflow, do not chase. */
+/* Shop-floor copy override v80 — good seat: nameplate is the stop. Leave the scale alone. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.469";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.472";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -167,7 +167,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Next: check filter, indoor coil, outdoor coil, and airflow. Do not chase the gauges. Leave the scale alone.";
+        line += " Good seat. Nameplate charge is on. Next: filter, indoor coil, outdoor coil, airflow. Do not chase the gauges. Leave the scale alone.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
@@ -182,7 +182,7 @@
         paintSeat("sb-sh", "high \u2014 restriction");
         paintSeat("sb-sc", "high \u2014 liquid stacked");
       } else if (shn < 8 && scn > 14) {
-        line += " Low blue SH, high red SC \u2014 overcharge. Recover to seat. Do not vent.";
+        line += " Low blue SH, high red SC \u2014 overcharge. Recover to nameplate SC. Do not vent.";
         paintSeat("sb-sh", "low \u2014 overcharge");
         paintSeat("sb-sc", "high");
       }

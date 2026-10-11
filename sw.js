@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v715";
+const VER = "lt-allstars-v716";
 const CORE = [
   "./",
   "./index.html"
