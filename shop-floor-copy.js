@@ -1,4 +1,4 @@
-/* Shop-floor copy override v80 — good seat: nameplate is the stop. Leave the scale alone. */
+/* Shop-floor copy override v81 — good seat: nameplate is the stop. Leave the scale alone. Phone gauges readable. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.472";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.475";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
