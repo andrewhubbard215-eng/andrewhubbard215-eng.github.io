@@ -1,4 +1,4 @@
-/* Shop-floor copy override v78 — good seat: next checks filter/coils/airflow, do not chase. */
+/* Shop-floor copy override v79 — good seat: next checks filter/coils/airflow, do not chase. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -167,7 +167,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Next checks: filter, indoor coil, outdoor coil, airflow. Do not chase the numbers. Do not add or recover gas.";
+        line += " Good seat. Next: check filter, indoor coil, outdoor coil, and airflow. Do not chase the gauges. Leave the scale alone.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
@@ -204,7 +204,7 @@
     if (!st) return;
     var t = st.textContent || "";
     if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
-      st.textContent = "Loop closed. Four LEFT seated. Start the compressor. Wait for stable SH/SC before you charge or recover.";
+      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet.";
     }
   }
 
