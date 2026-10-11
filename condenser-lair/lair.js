@@ -10,8 +10,8 @@ const BEATS = [
     blurb: "The neighbor comes through the hedge wrong. The gauges can wait.",
     call: "DIVE",
     move: "left",
-    success: "The condenser takes the hit. The fan guard folds like a ticket.",
-    death: "You stayed for the subcool. It stayed for you.",
+    success: "Fan guard folds like a ticket. Tell the class that was extra credit.",
+    death: "You stayed for the subcool. They loved the bit. It loved it more.",
     windup: 2.5,
     window: 1.65,
     tutorial: true,
@@ -26,7 +26,7 @@ const BEATS = [
     blurb: "It climbs the cabinet. The manifold is the only thing in your hand.",
     call: "SLAM",
     move: "action",
-    success: "Brass meets teeth. That was not in the quote.",
+    success: "Brass meets teeth. Not in the quote. I'd teach it again.",
     death: "The manifold was not rated for teeth.",
     windup: 2.05,
     window: 1.4,
@@ -56,7 +56,7 @@ const BEATS = [
     blurb: "Latch gives. Two more through. Driveway past the fence is clear.",
     call: "SPRINT",
     move: "right",
-    success: "Gravel in your boots. The dog buys you four seconds.",
+    success: "Four seconds. That's a whole bit if you talk fast.",
     death: "The gate was painted shut. So were you.",
     windup: 1.95,
     window: 1.32,
@@ -101,7 +101,7 @@ const BEATS = [
     blurb: "His arm comes across the island at hat height.",
     call: "DUCK",
     move: "down",
-    success: "The pendant light pops where your hat was.",
+    success: "The light pops where the hat was. The hat stays. They'll quote it.",
     death: "You duck into the drawer pulls.",
     windup: 1.75,
     window: 1.24,
@@ -386,7 +386,7 @@ const BEATS = [
     blurb: "Alisha Baker Jones. Dean of admissions. The roster is already in her hand. She is not impressed that you are late.",
     call: "ROLL",
     move: "action",
-    success: "She reads the names like they owe her money. You are not on it. The bus is.",
+    success: "She reads the names like they owe her money. The students would have laughed.",
     death: "You talk back. She was not taking questions, and neither was the lobby.",
     windup: 2.05,
     window: 1.3,
@@ -581,7 +581,7 @@ const BEATS = [
     blurb: "Back in the lab. Three of them never left the giant block tower. Bucket hat still has a block. She is still on the other side. The hoodie is waiting his turn.",
     call: "OUT",
     move: "up",
-    success: "The block goes back on the tower. They don't. All three off the bench.",
+    success: "Hub said out. The block stays. They don't. That's why they show up.",
     death: "You take a turn. The tower takes the room.",
     windup: 1.9,
     window: 1.22,
@@ -702,7 +702,7 @@ const BEATS = [
     blurb: "Alisha has the watch. Stefany and Hope are in the lab light. Mike has the line. The new plate wants a hand.",
     call: "BRACE",
     move: "down",
-    success: "You take the low end. The gate stays a gate. The school is home.",
+    success: "Low end. The gate stays a gate. Home. Tell them I meant it.",
     death: "You let the plate walk. The fort walks with it.",
     windup: 1.5,
     window: 1.14,
@@ -716,8 +716,8 @@ const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "l
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
 const KEY = "condenser-lair-" + SKIN;
 const WHO = SKIN === "legends"
-  ? "You are Andrew Hubbard. HVAC instructor, side work on your day off. Then you go back for the school."
-  : "You are Andrew Hubbard. Lincoln Tech instructor, side work on your day off. Then you go back for the school.";
+  ? "You are Professor Hubbard. The students love him, and he will not stop talking. Then you go back for the school."
+  : "You are Professor Hubbard. The students love him, and he will not stop talking. Saturday on the condenser. Then you go back for the school.";
 
 const motionOk = () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pad = (n) => String(n).padStart(6, "0");
@@ -799,7 +799,7 @@ const sfx = {
 };
 
 function fresh() {
-  return { phase: "title", mode: "guide", beat: 0, lives: LIVES, score: 0, best: loadBest(), bestFlag: false, streak: 0, deaths: 0, t: 0, elapsed: 0, metronome: 0, hitStop: 0, shake: 0, flash: 0, flashKind: "good", reason: "", nudge: "", nudgeT: 0, popup: "", announce: "Condenser Lair." };
+  return { phase: "title", mode: "guide", beat: 0, lives: LIVES, score: 0, best: loadBest(), bestFlag: false, streak: 0, deaths: 0, t: 0, elapsed: 0, metronome: 0, hitStop: 0, shake: 0, flash: 0, flashKind: "good", reason: "", nudge: "", nudgeT: 0, popup: "", announce: "Professor Hubbard. Move or die." };
 }
 const sim = fresh();
 function arrowsOn() { const b = BEATS[sim.beat]; if (!b) return sim.mode === "guide"; return sim.mode === "guide" || !!b.tutorial; }
@@ -866,10 +866,10 @@ function applyInput(move) {
   if (sim.phase === "windup") {
     const remain = beat.windup - sim.t;
     if (remain <= BUFFER && move === beat.move) { succeed(beat); return; }
-    if (beat.tutorial) { sim.nudge = "Not yet. Wait for the flash."; sim.nudgeT = 0.9; sim.announce = sim.nudge; sfx.nope(); return; }
-    fail("Too soon."); return;
+    if (beat.tutorial) { sim.nudge = "Not yet. Even I wait for the flash."; sim.nudgeT = 0.9; sim.announce = sim.nudge; sfx.nope(); return; }
+    fail("Too soon. I was still talking."); return;
   }
-  if (move === beat.move) succeed(beat); else fail("Wrong way.");
+  if (move === beat.move) succeed(beat); else fail("Wrong way. They saw that.");
 }
 function advance(dt) {
   if (sim.shake > 0) sim.shake = Math.max(0, sim.shake - dt * 2.3);
@@ -891,7 +891,7 @@ function advance(dt) {
     sim.phase = "window"; sim.t = 0; sim.metronome = 0;
     sim.announce = arrowsOn() ? beat.call + ". " + moveWord(beat.move) + "." : "Move now.";
     sfx.prompt();
-  } else if (sim.phase === "window" && sim.t >= beat.window) fail("Too late.");
+  } else if (sim.phase === "window" && sim.t >= beat.window) fail("Too late. Quote me anyway.");
 }
 
 const GLYPH = {
@@ -927,7 +927,7 @@ function captionText() {
   if (!beat) return "";
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
-  if (sim.phase === "gameover") return "The ticket never got written.";
+  if (sim.phase === "gameover") return "Class dismissed. The ticket never got written.";
   if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Lincoln Tech is the fort. Starr, Engal, and Joe are not on the wall. Joe was still on the subcool.";
   return beat.blurb;
 }
