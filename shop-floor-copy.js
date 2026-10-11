@@ -1,4 +1,4 @@
-/* Shop-floor copy override v76 — good seat: confirm filter/airflow. Do not chase numbers or move gas. */
+/* Shop-floor copy override v77 — dirty outdoor: wash coil, do not recover. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.468";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.469";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -154,7 +154,7 @@
     var line;
     if (kind === "piston") {
       var tgt = pistonTarget();
-      line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC (piston target SH " + tgt + "\u00b0). Charge by blue SH. Red SC is the check.";
+      line = "Blue hose " + sh + " SH \u00b7 Red hose " + sc + " SC (piston target SH " + tgt + "\u00b0). Charge by blue SH. Red SC is the check. Do not charge by SC.";
       paintSeat("sb-sh", "target " + tgt + "\u00b0 SH");
       paintSeat("sb-sc", "check only");
     } else if (kind === "eev") {
@@ -175,7 +175,7 @@
         paintSeat("sb-sh", "high \u2014 undercharge");
         paintSeat("sb-sc", "low");
       } else if (shn >= 8 && shn <= 14 && scn >= 16) {
-        line += " High red SC, blue SH in seat \u2014 dirty outdoor coil. Wash. Do not recover.";
+        line += " High red SC, blue SH in seat \u2014 dirty outdoor coil or restricted outdoor airflow. Wash the coil. Do not recover.";
         paintSeat("sb-sc", "high \u2014 wash OD");
       } else if (shn > 14 && scn > 14) {
         line += " High blue SH, high red SC \u2014 restriction. Check filter-drier, TXV, or line set. Do not add gas.";
