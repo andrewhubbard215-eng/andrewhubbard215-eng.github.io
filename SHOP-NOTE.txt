@@ -1,11 +1,7 @@
-2026-10-10 evening SAVE. Banner v3.5.461 / sw 705.
+2026-10-11 shop SAVE. Banner v3.5.461 / sw 705.
 
-BLOCKER FIXED: the 12:23 PM commit (1056e84) wiped index.html, sw.js, voltmeter-school.js and PRODUCT-REPORT-ROUTE.md. The 1:06 PM "restore" put back the bootloader but dropped the whole patch() block, so from v3.5.453 to v3.5.460 the live site ran the pinned v3.5.260 page: no exam-whywrong, no sandbox-fp / charge-print / call-glass / cutout, no phone-diamond / phone-sandbox-fit CSS, footer stuck on v3.5.260. voltmeter-school.js was a one-line shell typo ("$(cat /tmp/voltmeter-school.js)") and threw a SyntaxError.
+Played live: Clock In → shop floor OK. Sandbox seats, live SH/SC, parts LEFT. No crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected.
 
-Restored: index.html patch block from fa685b0 (v3.5.450) with cache-busts bumped for files changed since (shop-floor-copy v106, sandbox-charge-print v15, phone-sandbox-fit v2, voltmeter-school v11). voltmeter-school.js restored from 3437299. PRODUCT-REPORT-ROUTE.md restored. sw.js kept network-first, VER bumped.
+Shipped: TXV overcharge callout — low blue SH + high red SC → "Recover to seat. Do not vent." Version/SW bump.
 
-Checked: all 92 referenced js/css exist, every js passes node --check, headless 390x844 load shows "HVAC Allstars - v3.5.461 - shop floor".
-
-Rule for every shift: never write index.html / sw.js with a shell heredoc or $(cat ...). Edit the APP_VER and v= numbers in place. After push, curl the live index and confirm the patch() block is still there.
-
-Next: real phone hard refresh, seat four, Start, confirm 162/442 SH 10 / SC 10 and the sight glass / undercharge lines. Then the phone hose-card second SH/SC line clip (phone CSS only).
+Next: hard-refresh, confirm overcharge line on high-charge TXV. Keep parts LEFT. Do not start Gauges of God DLC.
