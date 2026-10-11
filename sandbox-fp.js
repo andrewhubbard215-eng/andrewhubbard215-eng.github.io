@@ -44,7 +44,11 @@
   var AIR_SH = "12.0 °F SH (in seat — coil fed)";
   var AIR_SC = "22.0 °F SC (high — air in the condenser)";
   var AIR_STATUS = "Noncondensables: blue 12 SH in seat + red 22 SC high, head 530, glass clear. Air is taking condenser space. Not overcharge (3/20), not a dirty coil. Recover, pull a 500-micron vacuum, weigh in. Do not add gas.";
+  var IDU_SH = "1.0 °F SH (low — coil flooding, no load)";
+  var IDU_SC = "10.0 °F SC (in seat — charge is not the story)";
+  var IDU_STATUS = "Iced evaporator / dirty indoor: blue 1 SH near zero + red 10 SC in seat, suction 68, coil iced. Charge is fine — the coil is not getting air. Check the filter, blower and wheel, and the indoor coil face. Thaw the coil before you read again. Not overcharge (3/20). Do not add gas. Do not recover.";
   window.LtFaultLabels = {
+    idu: { sh: IDU_SH, sc: IDU_SC, status: IDU_STATUS },
     restrict: { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS },
     over: { sh: OVER_SH, sc: OVER_SC, status: OVER_STATUS },
     air: { sh: AIR_SH, sc: AIR_SC, status: AIR_STATUS }
@@ -147,14 +151,15 @@
       setText("sb-sst", "SST 20°F");
       setText("sb-sl", "SL 21°F");
       setText("g-sh", "1.0");
-      setText("sb-sh", "1.0 °F SH (seat 8–14)");
+      setText("sb-sh", IDU_SH);
       setText("sb-etd", "Evap TD 55° (ID−SST) · seat 15–20° — blown. Return is warm, coil is a popsicle. Airflow, not charge.");
       setText("g-phigh", "320 psig");
       setText("sb-ph", "320 psig");
       setText("sb-sct", "SCT 102°F");
       setText("sb-ll", "LL 92°F");
       setText("g-sc", "10.0");
-      setText("sb-sc", "10.0 °F SC (seat 8–14)");
+      setText("sb-sc", IDU_SC);
+      setText("sb-status", IDU_STATUS);
       setText("sb-ctd", "Cond TD in seat — not a dirty outdoor coil. Head is not the story.");
       setText("sb-call", "Name it off the glass: 1 SH / 10 SC. Near-zero SH + SC in band + ice = dirty ID / low airflow. Overcharge is 3 SH / 20 SC. Filter, blower, coil. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — dirty ID fingerprint. SH 1 (near zero) · SC 10 (in band). Ice call. Do not add gas.");
