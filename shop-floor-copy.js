@@ -1,4 +1,4 @@
-/* Shop-floor copy override v71 — standing P is not a charge ticket. Good seat + overcharge callout. */
+/* Shop-floor copy override v72 — standing P is not a charge ticket. Good seat + overcharge callout. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -161,6 +161,10 @@
       } else if (shn >= 8 && shn <= 14 && scn >= 16) {
         line += " High red SC, blue SH in seat \u2014 dirty outdoor coil. Wash. Do not recover.";
         paintSeat("sb-sc", "high \u2014 wash OD");
+      } else if (shn > 14 } else if (shn < 8 && scn > 14) {} else if (shn < 8 && scn > 14) { scn > 14) {
+        line += " High blue SH, high red SC — restriction. Check filter-drier, TXV, or line set. Do not add gas.";
+        paintSeat("sb-sh", "high — restriction");
+        paintSeat("sb-sc", "high");
       } else if (shn < 8 && scn > 14) {
         line += " Low blue SH, high red SC — overcharge. Recover to seat. Do not vent.";
         paintSeat("sb-sh", "low — overcharge");
