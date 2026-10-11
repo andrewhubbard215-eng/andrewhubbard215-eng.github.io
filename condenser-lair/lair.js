@@ -512,13 +512,43 @@ const BEATS = [
     window: 1.2,
   },
   {
+    id: "bench-tower",
+    room: "bench",
+    roomNo: 17,
+    roomName: "The Bench",
+    image: "art/r22.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Back in the lab. Three of them never left the giant block tower. Bucket hat still has a block. She is still on the other side. The hoodie is waiting his turn.",
+    call: "OUT",
+    move: "up",
+    success: "The block goes back on the tower. They don't. All three off the bench.",
+    death: "You take a turn. The tower takes the room.",
+    windup: 1.9,
+    window: 1.22,
+  },
+  {
+    id: "bench-run",
+    room: "bench",
+    roomNo: 17,
+    roomName: "The Bench",
+    image: "art/r23.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "The tower is done waiting. The bay door is the way to the bus.",
+    call: "RUN",
+    move: "right",
+    success: "It comes down behind them. Mike already has the step.",
+    death: "You stay to watch it fall. It doesn't fall alone.",
+    windup: 1.45,
+    window: 1.12,
+  },
+  {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 17,
+    roomNo: 18,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. Mike has the students on the step. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
+    blurb: "Back in the lot. Stefany has Hope's carrier. Johnny's in. The three from the bench are on the step. LoBuono finished the count. The dog is under a seat. The Falcon stays.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -529,7 +559,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 18,
+    roomNo: 19,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -544,7 +574,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 18,
+    roomNo: 19,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -559,7 +589,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 18,
+    roomNo: 19,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -574,7 +604,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 18;
+const ROOM_COUNT = 19;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
