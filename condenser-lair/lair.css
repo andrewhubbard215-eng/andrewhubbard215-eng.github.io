@@ -220,8 +220,38 @@ button:not(:disabled),
   object-position: center 28%;
 }
 
-.is-drifting {
-  animation: drift 9s ease-in-out infinite alternate;
+.is-drifting,
+.is-alive {
+  animation: alive-0 8s ease-in-out infinite alternate;
+  transform-origin: center 40%;
+}
+
+.move-1 { animation-name: alive-1; }
+.move-2 { animation-name: alive-2; }
+.move-3 { animation-name: alive-3; }
+
+.motes,
+.sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.motes {
+  background-image:
+    radial-gradient(circle, color-mix(in srgb, var(--color-amber) 80%, white) 0 1px, transparent 1.6px),
+    radial-gradient(circle, color-mix(in srgb, white 70%, transparent) 0 1px, transparent 1.6px);
+  background-size: 90px 130px, 140px 90px;
+  opacity: 0.28;
+  animation: mote 16s linear infinite;
+}
+
+.sweep {
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, white 16%, transparent) 50%, transparent 65%);
+  background-size: 220% 100%;
+  mix-blend-mode: screen;
+  animation: sweep 7.5s ease-in-out infinite;
 }
 
 .scan {
@@ -654,6 +684,9 @@ button:not(:disabled),
 
 @media (prefers-reduced-motion: reduce) {
   .is-drifting,
+  .is-alive,
+  .motes,
+  .sweep,
   .moveplate,
   .bulbs span,
   .popup,
@@ -665,6 +698,36 @@ button:not(:disabled),
 @keyframes drift {
   from { transform: scale(1.04) translate3d(0, 0, 0); }
   to { transform: scale(1.12) translate3d(0, -2%, 0); }
+}
+
+@keyframes alive-0 {
+  from { transform: scale(1.06) translate3d(-2%, 0, 0); }
+  to { transform: scale(1.14) translate3d(2.5%, -2%, 0); }
+}
+
+@keyframes alive-1 {
+  from { transform: scale(1.08) translate3d(2%, 1%, 0); }
+  to { transform: scale(1.16) translate3d(-2.5%, -1.5%, 0); }
+}
+
+@keyframes alive-2 {
+  from { transform: scale(1.05) translate3d(0, 2%, 0); }
+  to { transform: scale(1.13) translate3d(-1.5%, -2.5%, 0); }
+}
+
+@keyframes alive-3 {
+  from { transform: scale(1.1) translate3d(-1%, -1%, 0); }
+  to { transform: scale(1.18) translate3d(2%, 1.5%, 0); }
+}
+
+@keyframes mote {
+  from { background-position: 0 0; }
+  to { background-position: 50px -160px; }
+}
+
+@keyframes sweep {
+  from { background-position: 120% 0; }
+  to { background-position: -40% 0; }
 }
 
 @keyframes throb {

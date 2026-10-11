@@ -263,7 +263,7 @@ const BEATS = [
     roomName: "Sidekick",
     image: "art/r9.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Dave LoBuono. Your sidekick. Skinny, backwards cap, already talking. He is in the road.",
+    blurb: "Dave's in the road, both hands already talking. He is not waiting on a plan.",
     call: "BRAKE",
     move: "action",
     success: "Sidekick's in before the sentence ends. Meter in one hand. No plan in the other.",
@@ -278,7 +278,7 @@ const BEATS = [
     roomName: "Engal",
     image: "art/r10.jpg",
     deathImage: "art/death-bite.jpg",
-    blurb: "David Engal. Glasses. Still ranking seats. Something already has him from behind. The driver-side latch still moves.",
+    blurb: "Engal's still ranking seats. Something has him from behind. The driver latch still moves.",
     call: "SHUT",
     move: "left",
     success: "You had his wrist. He was still assigning seats. The door took the rest of the lecture.",
@@ -293,7 +293,7 @@ const BEATS = [
     roomName: "Starr",
     image: "art/r11.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Matt Starr. You grew up with him. Dry. He points past the passenger mirror like you're late for lab.",
+    blurb: "Starr points past the mirror like you're late. He isn't joking.",
     call: "GO",
     move: "right",
     success: "He doesn't believe in anything he can't test. This one tests fine.",
@@ -353,7 +353,7 @@ const BEATS = [
     roomName: "Ramono",
     image: "art/r24.jpg?v=frank",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Frank Ramono. Navy. Gray crew cut, glasses, mustache. He drinks with the sidekick. You start the sentence. He is already nodding.",
+    blurb: "You start the sentence. Frank's already nodding, bag in his hand.",
     call: "WITH",
     move: "action",
     success: "\"I know,\" he says, and he is already moving. He knew before the van stopped.",
@@ -383,7 +383,7 @@ const BEATS = [
     roomName: "Alisha",
     image: "art/r25.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Alisha Baker Jones. Dean of admissions. The roster is already in her hand. She is not impressed that you are late.",
+    blurb: "Alisha has the roster. She is not impressed that you are late.",
     call: "ROLL",
     move: "action",
     success: "She reads the names like they owe her money. The students would have laughed.",
@@ -413,7 +413,7 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r12.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Matt Lucas. Welder. Bald, stocky, Air Force veteran. The plate is on the asphalt. He's got one end.",
+    blurb: "The plate is on the asphalt. Lucas has one end. He is not dropping it.",
     call: "LIFT",
     move: "up",
     success: "He doesn't do panic. You take the other end.",
@@ -443,7 +443,7 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r17.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "James. Tall, skinny, black-and-gold pirate cap. He talks like the job is already finished. He's got the top of the next plate.",
+    blurb: "James has the top of the next plate. He talks like the bead is already cold.",
     call: "BRACE",
     move: "down",
     success: "He doesn't raise his voice. The plate doesn't either.",
@@ -458,7 +458,7 @@ const BEATS = [
     roomName: "The Bus",
     image: "art/r17.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Pebo. Welding instructor. Younger, in shape. Hood's up. He wants the stinger. Somebody has to be the other hand.",
+    blurb: "Pebo's hood is up. He wants the stinger. You be the other hand.",
     call: "CLAMP",
     move: "action",
     success: "Pebo runs the bead. Lucas watches it like a grade. James says it'll hold, and it does.",
@@ -473,7 +473,7 @@ const BEATS = [
     roomName: "Electric",
     image: "art/r18.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Chewy. Electrical instructor. Jewish. He's already arguing with the inverter. One leg is hot. The far side of the bay is dead.",
+    blurb: "Chewy's arguing with the inverter. One leg is hot. The far side of the bay is dead.",
     call: "DROP",
     move: "left",
     success: "He kills the hot leg without a speech. That's the whole sermon.",
@@ -488,7 +488,7 @@ const BEATS = [
     roomName: "Electric",
     image: "art/r18.jpg",
     deathImage: "art/death-zap.jpg",
-    blurb: "Andrew Miller. Electrical. Skinny, blond, looks like the semester won. He's gay, and he's got the meter, which is the part that matters. The door lead is in his hand.",
+    blurb: "Miller's got the meter. The door lead is in his hand. The bay can wait.",
     call: "HOLD",
     move: "action",
     success: "Miller calls the solenoid good. Chewy doesn't argue. That means it's good.",
@@ -503,7 +503,7 @@ const BEATS = [
     roomName: "Ruso",
     image: "art/r15.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Mike Ruso. Campus president. Shorter, salt-and-pepper, still in shape. He already walked the students out of a worse lot. They are on his shoulder.",
+    blurb: "Mike already walked them out of a worse lot. The students stay on his shoulder.",
     call: "FALL IN",
     move: "right",
     success: "He doesn't retell it. The line moves because he already did this.",
@@ -641,7 +641,7 @@ const BEATS = [
     blurb: "Floodlights on the school gate. The bus of instructors and students is behind the Falcon.",
     call: "JUKES",
     move: "right",
-    success: "Lucas calls the bus in behind you. Air Force, still on the net.",
+    success: "Lucas calls the bus in behind you, like he's still on a net.",
     death: "You drift wide. A few miles was the whole plan.",
     windup: 1.4,
     window: 1.1,
@@ -717,8 +717,8 @@ const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "l
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
 const KEY = "condenser-lair-" + SKIN;
 const WHO = SKIN === "legends"
-  ? "You are Professor Hub. Lincoln Tech instructor. Army. On a side job when the outbreak hits. Rescue your family. Drive the 1964 Falcon to the school. Pull the instructors and the students in."
-  : "You are Professor Hub. Lincoln Tech instructor. Army. On a side job when the outbreak hits. Rescue your family. Drive the 1964 Falcon to the school. Pull the instructors and the students in.";
+  ? "You are Professor Hub. The side job was the condenser. Then the lot went wrong. Get Stefany, Johnny, and Hope. Drive the Falcon back. Hold the school."
+  : "You are Professor Hub. The side job was the condenser. Then the lot went wrong. Get Stefany, Johnny, and Hope. Drive the Falcon back. Hold the school.";
 
 const motionOk = () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pad = (n) => String(n).padStart(6, "0");
@@ -975,7 +975,9 @@ function hudHtml() {
 function paint() {
   const src = frame();
   if (src !== lastSrc) { pic.src = src; lastSrc = src; }
-  pic.classList.toggle("is-drifting", sim.phase !== "death" && sim.phase !== "gameover");
+  const beat = BEATS[sim.beat] || BEATS[0];
+  const alive = sim.phase !== "death" && sim.phase !== "gameover";
+  pic.className = "pic" + (alive ? " is-alive move-" + (beat.roomNo % 4) : "");
   const ov = overlayHtml();
   if (ov !== lastOverlay) { overlay.innerHTML = ov; lastOverlay = ov; }
   if (sim.flash !== lastFlash) {
