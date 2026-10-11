@@ -295,7 +295,8 @@ button:not(:disabled),
   position: absolute;
   z-index: 4;
   left: 50%;
-  bottom: 6%;
+  bottom: 20%;
+  max-width: 92%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -426,6 +427,8 @@ button:not(:disabled),
 .caption,
 .brief {
   margin: 0;
+  max-height: 6rem;
+  overflow: hidden;
   padding: 0.45rem 0.7rem;
   border-radius: var(--radius);
   background: var(--color-plaque);
@@ -433,6 +436,10 @@ button:not(:disabled),
   font-family: var(--font-story);
   font-size: 0.98rem;
   line-height: 1.35;
+}
+
+.brief {
+  max-height: min(11.5rem, 34dvh);
 }
 
 .brief ol {
@@ -529,12 +536,12 @@ button:not(:disabled),
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 0.75rem;
-  min-height: 11.2rem;
+  min-height: 10rem;
 }
 
 .pad {
-  width: 11.2rem;
-  height: 11.2rem;
+  width: 10rem;
+  height: 10rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -575,8 +582,8 @@ button:not(:disabled),
 }
 
 .slam {
-  width: 6.6rem;
-  height: 6.6rem;
+  width: 5.8rem;
+  height: 5.8rem;
   border-radius: 999px;
   background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--color-danger) 70%, white), var(--color-danger) 46%, var(--color-danger-deep));
   box-shadow:
