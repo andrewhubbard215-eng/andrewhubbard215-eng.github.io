@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.467";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.468";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -143,6 +143,13 @@
     var sh = scrapeDeg("SH");
     var sc = scrapeDeg("SC");
     if (!sh || !sc) return;
+    var fEl = document.getElementById("sb-fault");
+    var fk = fEl && window.LtFaultKind ? window.LtFaultKind(fEl.textContent || "") : "";
+    var FL = fk && window.LtFaultLabels ? window.LtFaultLabels[fk] : null;
+    if (FL) {
+      if (st.textContent !== FL.status) st.textContent = FL.status;
+      return;
+    }
     var kind = meteringKind();
     var line;
     if (kind === "piston") {

@@ -74,8 +74,9 @@
         ph.textContent = elevated + " psig";
         setText("g-phigh", elevated + " psig");
       }
-      setText("sb-sc", "22.0 \u00b0F SC  (seat 8\u201314)");
-      setText("g-sc", "22.0\u00b0");
+      var AL = (window.LtFaultLabels || {}).air || {};
+      setText("sb-sc", AL.sc || "22.0 \u00b0F SC (high \u2014 air in the condenser)");
+      setText("g-sc", "22.0");
     } else if (ph && ph.dataset.airBase) {
       delete ph.dataset.airBase;
     }

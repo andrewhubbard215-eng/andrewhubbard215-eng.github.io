@@ -38,6 +38,18 @@
   var RESTRICT_SC = "22.0 °F SC (high — liquid stacked)";
   var RESTRICT_STATUS = "Restriction: blue 28 SH high + red 22 SC high. Liquid stacked ahead of a plug. Check the filter-drier (temp drop across it), the TXV inlet screen, and the line set for a kink. Do not add gas.";
   window.LtRestrictLabels = { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS };
+  var OVER_SH = "3.0 °F SH (low — flooding)";
+  var OVER_SC = "20.0 °F SC (high — extra liquid)";
+  var OVER_STATUS = "Overcharge: blue 3 SH low + red 20 SC high. Extra liquid backed up in the condenser and flooding the coil. Recover to nameplate SC with the scale under the tank. Do not vent. Do not turn the TXV to hide it.";
+  var AIR_SH = "12.0 °F SH (in seat — coil fed)";
+  var AIR_SC = "22.0 °F SC (high — air in the condenser)";
+  var AIR_STATUS = "Noncondensables: blue 12 SH in seat + red 22 SC high, head 530, glass clear. Air is taking condenser space. Not overcharge (3/20), not a dirty coil. Recover, pull a 500-micron vacuum, weigh in. Do not add gas.";
+  window.LtFaultLabels = {
+    restrict: { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS },
+    over: { sh: OVER_SH, sc: OVER_SC, status: OVER_STATUS },
+    air: { sh: AIR_SH, sc: AIR_SC, status: AIR_STATUS }
+  };
+  window.LtFaultKind = function (f) { return kind(f); };
   function kind(fault) {
     var f = fault || "";
     if (/noncondensable|air in the circuit/i.test(f)) return "air";
@@ -268,14 +280,15 @@
       setText("sb-sst", "SST 40°F");
       setText("sb-sl", "SL 52°F");
       setText("g-sh", "12.0");
-      setText("sb-sh", "12.0 °F SH (seat 8–14)");
+      setText("sb-sh", AIR_SH);
       setText("sb-etd", "Evap TD in seat. Coil is fed. This is not a starve and not a flood.");
       setText("g-phigh", "530 psig");
       setText("sb-ph", "530 psig");
       setText("sb-sct", "SCT 140°F");
       setText("sb-ll", "LL 118°F");
       setText("g-sc", "22.0");
-      setText("sb-sc", "22.0 °F SC (seat 8–14)");
+      setText("sb-sc", AIR_SC);
+      setText("sb-status", AIR_STATUS);
       setText("sb-ctd", "Head 530. Cond TD looks high because air is sitting in the condenser — not a dirty-coil call. Discharge line too hot to hold.");
       setText("sb-call", "Name it off the glass: 12 SH / 22 SC. SH in band + high SC + clear glass = noncondensables. Overcharge is 3 SH / 20 SC. Recover, evacuate, weigh in. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — noncondensable fingerprint. SH 12 (in band) · SC 22 (high) · head 530. Clear glass. Not the overcharge 3/20.");
@@ -286,14 +299,15 @@
       setText("sb-sst", "SST 48°F");
       setText("sb-sl", "SL 51°F");
       setText("g-sh", "3.0");
-      setText("sb-sh", "3.0 °F SH (seat 8–14)");
+      setText("sb-sh", OVER_SH);
       setText("sb-etd", "Evap TD 27° (ID−SST) · seat 15–20° — low. Coil is flooded. SC is high, so this is extra gas, not a dirty filter.");
       setText("g-phigh", "455 psig");
       setText("sb-ph", "455 psig");
       setText("sb-sct", "SCT 124°F");
       setText("sb-ll", "LL 104°F");
       setText("g-sc", "20.0");
-      setText("sb-sc", "20.0 °F SC (seat 8–14)");
+      setText("sb-sc", OVER_SC);
+      setText("sb-status", OVER_STATUS);
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Extra liquid is sitting in the condenser.");
       setText("sb-call", "Name it off the glass: 3 SH / 20 SC. Low SH + high SC = overcharge. Recover to nameplate. Do not turn the TXV to hide it.");
       setText("sb-shsc-formula", "RUNNING — overcharge fingerprint. SH 3 (low) · SC 20 (high). Recover to nameplate. Do not add gas.");
@@ -434,7 +448,8 @@
   }
   var stWatch = new MutationObserver(function () {
     var f = document.getElementById("sb-fault");
-    if (f && kind(f.textContent) === "restrict" && running()) setText("sb-status", RESTRICT_STATUS);
+    var L = f && window.LtFaultLabels[kind(f.textContent)];
+    if (L && running()) setText("sb-status", L.status);
   });
   function armStatus() {
     var st = document.getElementById("sb-status");
