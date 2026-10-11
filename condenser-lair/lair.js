@@ -531,9 +531,9 @@ const BEATS = [
     room: "falcon",
     roomNo: 18,
     roomName: "Falcon",
-    image: "art/r19.jpg?v=me",
+    image: "art/r19.jpg?v=fam",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Your 1964 Falcon. Red, top down. The sidekick is already talking. The house is the other way.",
+    blurb: "Your '64 Falcon. Red, black stripe, blue gauges. Sidekick's already talking. Home is the other way.",
     call: "HOME",
     move: "up",
     success: "You hold the lane. The family doesn't know you're coming yet.",
@@ -546,12 +546,12 @@ const BEATS = [
     room: "falcon",
     roomNo: 18,
     roomName: "Falcon",
-    image: "art/r21.jpg",
+    image: "art/r21.jpg?v=fam",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Stefany is in the driveway with Hope's carrier. You get to her before you get to the car.",
+    blurb: "Stefany has Hope on the hood, both in the red dots. Johnny's at the fender. You get to them before the keys.",
     call: "WITH",
     move: "action",
-    success: "She's with you. Hope stays in the carrier. Johnny's already at the back seat.",
+    success: "She's with you. Hope comes off the hood. Johnny's already at the back seat.",
     death: "You go for the keys first. She was the stop.",
     windup: 1.85,
     window: 1.24,
@@ -561,9 +561,9 @@ const BEATS = [
     room: "falcon",
     roomNo: 18,
     roomName: "Falcon",
-    image: "art/r19.jpg?v=me",
+    image: "art/r19.jpg?v=fam",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Door's open on the red Falcon. Stefany has Hope. Johnny is at the back seat. Lincoln Tech is the other way.",
+    blurb: "Door's open. Stefany has Hope. Johnny's in the red shirt at the back seat. The school is the other way.",
     call: "IN",
     move: "right",
     success: "Family's in. You drive the Falcon to the school.",
@@ -995,7 +995,7 @@ function paint() {
   if (sim.phase === "title") {
     if (caption.dataset.mode !== "title") {
       caption.className = "brief";
-      caption.innerHTML = '<div class="who"><img class="medal" src="art/hank.jpg?v=me" alt=""><p>' + WHO + '</p></div><ol><li><span>01</span>Watch. The bar fills. Do not move yet.</li><li><span>02</span>When it flashes, hit that direction or SLAM.</li><li><span>03</span>Too soon, wrong way, too late — Hub dies.</li></ol>';
+      caption.innerHTML = '<div class="who"><img class="medal" src="art/hank.jpg?v=fam" alt=""><p>' + WHO + '</p></div><ol><li><span>01</span>Watch. The bar fills. Do not move yet.</li><li><span>02</span>When it flashes, hit that direction or SLAM.</li><li><span>03</span>Too soon, wrong way, too late — Hub dies.</li></ol>';
       caption.dataset.mode = "title";
       lastCaption = "title";
     }
