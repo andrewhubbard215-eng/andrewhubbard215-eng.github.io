@@ -656,15 +656,61 @@ const BEATS = [
     blurb: "The gate is opening. Do not stop to explain the condenser.",
     call: "GO",
     move: "up",
-    success: "Inside the wire. The school is on the bus.",
+    success: "The sentry takes the roster and not the bus. You turn for the school.",
+
     death: "You brake for the sentry. The street doesn't.",
     windup: 1.45,
     window: 1.12,
   },
+  {
+    id: "fort-weld",
+    room: "fort",
+    roomNo: 22,
+    roomName: "The Fort",
+    image: "art/r26.jpg",
+    deathImage: "art/death-zap.jpg",
+    blurb: "The base took the names and not the bus. Lincoln Tech is the fort. Lucas has the arc on the service gate.",
+    call: "WELD",
+    move: "action",
+    success: "The bead closes the street. Pebo does not look up until it holds.",
+    death: "You watch the arc. The street comes through the gap.",
+    windup: 2.05,
+    window: 1.28,
+  },
+  {
+    id: "fort-tower",
+    room: "fort",
+    roomNo: 22,
+    roomName: "The Fort",
+    image: "art/r26.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "The school condenser is the tower. Frank is already on it. He knew.",
+    call: "CLIMB",
+    move: "up",
+    success: "\"I know,\" he says, from the fan guard. The lot is his.",
+    death: "You stay on the gravel. The tower was the only high ground.",
+    windup: 1.6,
+    window: 1.16,
+  },
+  {
+    id: "fort-brace",
+    room: "fort",
+    roomNo: 22,
+    roomName: "The Fort",
+    image: "art/r26.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Alisha has the watch. Stefany and Hope are in the lab light. Mike has the line. The new plate wants a hand.",
+    call: "BRACE",
+    move: "down",
+    success: "You take the low end. The gate stays a gate. The school is home.",
+    death: "You let the plate walk. The fort walks with it.",
+    windup: 1.5,
+    window: 1.14,
+  },
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 21;
+const ROOM_COUNT = 22;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
@@ -787,7 +833,7 @@ function goNext() {
   const nextIndex = sim.beat + 1;
   if (nextIndex >= BEATS.length) {
     sim.score += ESCAPE_BONUS; sim.phase = "victory"; sim.popup = ""; bankBest();
-    sim.announce = "Inside the wire. The bus is in."; sfx.victory(); sfx.bed("win"); buzz([12, 28, 12, 28, 40]); return;
+    sim.announce = "The school holds. This is the fort."; sfx.victory(); sfx.bed("win"); buzz([12, 28, 12, 28, 40]); return;
   }
   const next = BEATS[nextIndex];
   sim.beat = nextIndex; sim.t = 0; sim.popup = "";
@@ -882,7 +928,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Starr, Engal, and Joe are not on the manifest. Joe was still on the subcool.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, James, Pebo, Chewy, Andrew Miller, LoBuono, Frank Ramono, Alisha Baker Jones, the Malinois. Lincoln Tech is the fort. Starr, Engal, and Joe are not on the wall. Joe was still on the subcool.";
   return beat.blurb;
 }
 function meterOf() {
@@ -902,7 +948,7 @@ function overlayHtml() {
   if (showMove) html += '<div class="moveplate">' + (beat.move === "action" ? "" : GLYPH[beat.move]) + "<span>" + beat.call + "</span></div>";
   if (sim.phase === "death") html += '<div class="endcard"><h2 class="stamp">HUB DIES</h2><p class="why">' + sim.reason + '</p></div>';
   if (sim.phase === "gameover") html += '<div class="endcard"><span class="kicker">NO CALLBACK</span><h2 class="danger-title">GAME OVER</h2><p class="stat">' + pad(sim.score) + '</p><p class="stat-sub">' + clearedRooms() + " / " + ROOM_COUNT + " scenes · " + sim.deaths + " deaths · " + clock(sim.elapsed) + "</p>" + (sim.bestFlag ? '<p class="hi">NEW HIGH</p>' : "") + '<p class="stat-sub">BEST ' + pad(sim.best) + "</p></div>";
-  if (sim.phase === "victory") html += '<div class="endcard"><span class="kicker">INSIDE THE WIRE</span><h2>BUS IS IN</h2><p class="stat">' + pad(sim.score) + '</p><p class="stat-sub">' + sim.deaths + " deaths · " + clock(sim.elapsed) + " · wire +" + ESCAPE_BONUS + "</p>" + (sim.bestFlag ? '<p class="hi">NEW HIGH</p>' : "") + "</div>";
+  if (sim.phase === "victory") html += '<div class="endcard"><span class="kicker">THE FORT</span><h2>SCHOOL HOLDS</h2><p class="stat">' + pad(sim.score) + '</p><p class="stat-sub">' + sim.deaths + " deaths · " + clock(sim.elapsed) + " · fort +" + ESCAPE_BONUS + "</p>" + (sim.bestFlag ? '<p class="hi">NEW HIGH</p>' : "") + "</div>";
   return html;
 }
 function deckHtml() {
