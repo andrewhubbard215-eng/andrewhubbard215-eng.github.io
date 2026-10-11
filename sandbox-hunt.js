@@ -51,18 +51,19 @@
       var note = document.getElementById("sb-split");
       if (note) note.textContent = "Strap/bulb hunt \u2014 SH swings, SC stays in band. Not a liquid-line restriction.";
     } else if (id === "drier") {
-      setText("sb-ps", "98 psig");
-      setText("sb-sst", "SST 30\u00b0F");
-      setText("sb-sl", "SL 58\u00b0F");
-      setText("sb-sh", "28.0 \u00b0F SH  (seat 8\u201314)");
-      setText("sb-ph", "360 psig");
-      setText("sb-sct", "SCT 108\u00b0F");
-      setText("sb-ll", "LL 86\u00b0F");
-      setText("sb-sc", "22.0 \u00b0F SC  (seat 8\u201314)");
-      setText("g-sh", "28.0\u00b0");
-      setText("g-sc", "22.0\u00b0");
-      setText("g-plow", "98 psig");
-      setText("g-phigh", "360 psig");
+      var RL = window.LtRestrictLabels || {};
+      setText("sb-ps", "108 psig");
+      setText("sb-sst", "SST 36\u00b0F");
+      setText("sb-sl", "SL 64\u00b0F");
+      setText("sb-sh", RL.sh || "28.0 \u00b0F SH (high \u2014 restriction)");
+      setText("sb-ph", "366 psig");
+      setText("sb-sct", "SCT 110\u00b0F");
+      setText("sb-ll", "LL 88\u00b0F");
+      setText("sb-sc", RL.sc || "22.0 \u00b0F SC (high \u2014 liquid stacked)");
+      setText("g-sh", "28.0");
+      setText("g-sc", "22.0");
+      setText("g-plow", "108 psig");
+      setText("g-phigh", "366 psig");
       var dnote = document.getElementById("sb-split");
       if (dnote) dnote.textContent = "Restriction after drier \u2014 high SH + high SC. Outlet cold. Do not add gas. Not a bulb strap.";
     } else if (id === "air" && ph) {

@@ -34,6 +34,10 @@
   function airLine() {
     return "HUB: air / noncondensables. 12 SH / 22 SC, head 530. SH in band — not the overcharge 3/20. Glass stays clear, not bubbles. Discharge line too hot to hold. Recover, evacuate, weigh in. Do not wash the coil. Do not add gas.";
   }
+  var RESTRICT_SH = "28.0 °F SH (high — restriction)";
+  var RESTRICT_SC = "22.0 °F SC (high — liquid stacked)";
+  var RESTRICT_STATUS = "Restriction: blue 28 SH high + red 22 SC high. Liquid stacked ahead of a plug. Check the filter-drier (temp drop across it), the TXV inlet screen, and the line set for a kink. Do not add gas.";
+  window.LtRestrictLabels = { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS };
   function kind(fault) {
     var f = fault || "";
     if (/noncondensable|air in the circuit/i.test(f)) return "air";
@@ -227,14 +231,15 @@
       setText("sb-sst", "SST 36°F");
       setText("sb-sl", "SL 64°F");
       setText("g-sh", "28.0");
-      setText("sb-sh", "28.0 °F SH (seat 8–14)");
+      setText("sb-sh", RESTRICT_SH);
       setText("sb-etd", "Evap TD 39° (ID−SST) · seat 15–20° — high. Coil starved.");
       setText("g-phigh", "366 psig");
       setText("sb-ph", "366 psig");
       setText("sb-sct", "SCT 110°F");
       setText("sb-ll", "LL 88°F");
       setText("g-sc", "22.0");
-      setText("sb-sc", "22.0 °F SC (seat 8–14)");
+      setText("sb-sc", RESTRICT_SC);
+      setText("sb-status", RESTRICT_STATUS);
       setText("sb-ctd", "Cond TD in seat — not a dirty-coil call. Liquid is stacked ahead of the plug.");
       setText("sb-call", "Name it off the glass: 28 SH / 22 SC. High SH + high SC = restriction. Feel the drier outlet. Do not add gas.");
       setText("sb-shsc-formula", "RUNNING — restriction fingerprint. SH 28 (high) · SC 22 (high). Do not add gas.");
@@ -427,6 +432,17 @@
     n.setAttribute("data-fp-arm", "1");
     watch.observe(n, { childList: true, characterData: true, subtree: true });
   }
+  var stWatch = new MutationObserver(function () {
+    var f = document.getElementById("sb-fault");
+    if (f && kind(f.textContent) === "restrict" && running()) setText("sb-status", RESTRICT_STATUS);
+  });
+  function armStatus() {
+    var st = document.getElementById("sb-status");
+    if (!st || st.getAttribute("data-fp-st")) return;
+    st.setAttribute("data-fp-st", "1");
+    stWatch.observe(st, { childList: true, characterData: true, subtree: true });
+  }
+  setInterval(armStatus, 1000);
   setInterval(arm, 1000);
   arm();
 })();

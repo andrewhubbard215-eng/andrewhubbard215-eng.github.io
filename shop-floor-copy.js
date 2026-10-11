@@ -52,7 +52,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.466";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.467";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -111,6 +111,15 @@
     return m ? m[1] : null;
   }
   function meteringKind() {
+    var mk = String(window.LtMeteringKind || "").toLowerCase();
+    if (mk === "piston" || mk === "eev" || mk === "txv") return mk;
+    var seat = document.querySelector('#sandbox-root [data-part="metering"]');
+    if (seat && seat.textContent) {
+      var st = seat.textContent.toLowerCase();
+      if (/piston|orifice/.test(st)) return "piston";
+      if (/eev|electronic/.test(st)) return "eev";
+      if (/txv/.test(st)) return "txv";
+    }
     var t = (document.body.innerText || "").toLowerCase();
     if (/piston|orifice|fixed/.test(t)) return "piston";
     if (/eev|electronic/.test(t)) return "eev";
@@ -164,7 +173,7 @@
       } else if (shn > 14 && scn > 14) {
         line += " High blue SH, high red SC \u2014 restriction. Check filter-drier, TXV, or line set. Do not add gas.";
         paintSeat("sb-sh", "high \u2014 restriction");
-        paintSeat("sb-sc", "high");
+        paintSeat("sb-sc", "high \u2014 liquid stacked");
       } else if (shn < 8 && scn > 14) {
         line += " Low blue SH, high red SC \u2014 overcharge. Recover to seat. Do not vent.";
         paintSeat("sb-sh", "low \u2014 overcharge");
