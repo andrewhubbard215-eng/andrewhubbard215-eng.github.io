@@ -347,13 +347,43 @@ const BEATS = [
     window: 1.16,
   },
   {
+    id: "ruso-line",
+    room: "ruso",
+    roomNo: 13,
+    roomName: "Ruso",
+    image: "art/r15.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Mike Ruso. Campus president. Shorter, salt-and-pepper, still in shape. He already walked the students out of a worse lot. They are on his shoulder.",
+    call: "FALL IN",
+    move: "right",
+    success: "He doesn't retell it. The line moves because he already did this.",
+    death: "You step out of his line. The line was the whole plan.",
+    windup: 2.15,
+    window: 1.32,
+  },
+  {
+    id: "ruso-rear",
+    room: "ruso",
+    roomNo: 13,
+    roomName: "Ruso",
+    image: "art/r15.jpg",
+    deathImage: "art/death-crowd.jpg",
+    blurb: "Mike stays at the front. The last students are still off the wall.",
+    call: "COVER",
+    move: "action",
+    success: "You take the back. He takes the front. Everybody he brought is still walking.",
+    death: "You go up front with him. The back of the line is empty.",
+    windup: 1.6,
+    window: 1.18,
+  },
+  {
     id: "manifest-door",
     room: "manifest",
-    roomNo: 13,
+    roomNo: 14,
     roomName: "Manifest",
     image: "art/r13.jpg",
     deathImage: "art/death-crowd.jpg",
-    blurb: "Stefany has Hope's carrier. Johnny's in. LoBuono finished the count. The dog is under a seat. The lot isn't.",
+    blurb: "Stefany has Hope's carrier. Johnny's in. Mike has the students on the step. LoBuono finished the count. The dog is under a seat.",
     call: "SHUT",
     move: "action",
     success: "Lucas takes the wheel. The door takes the rest.",
@@ -364,7 +394,7 @@ const BEATS = [
   {
     id: "wire-left",
     room: "wire",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -379,7 +409,7 @@ const BEATS = [
   {
     id: "wire-right",
     room: "wire",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -394,7 +424,7 @@ const BEATS = [
   {
     id: "wire-gate",
     room: "wire",
-    roomNo: 14,
+    roomNo: 15,
     roomName: "The Wire",
     image: "art/r14.jpg",
     deathImage: "art/death-crowd.jpg",
@@ -409,7 +439,7 @@ const BEATS = [
 ];
 
 const LIVES = 6;
-const ROOM_COUNT = 14;
+const ROOM_COUNT = 15;
 const CARD = 1.05, HIT = 0.82, DEATH_HOLD = 1.35, BUFFER = 0.16, ESCAPE_BONUS = 5000;
 const SKIN = new URLSearchParams(location.search).get("skin") === "legends" ? "legends" : "allstars";
 const SHOP = SKIN === "legends" ? "../legends/" : "../";
@@ -627,7 +657,7 @@ function captionText() {
   if (sim.phase === "hit") return beat.success;
   if (sim.phase === "death") return beat.death;
   if (sim.phase === "gameover") return "The ticket never got written.";
-  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Lucas, LoBuono, the Malinois, and every seat the school could fill. Starr and Engal are not on the manifest.";
+  if (sim.phase === "victory") return "Stefany, Johnny, Hope, Mike Ruso and the students, Lucas, LoBuono, the Malinois. Starr and Engal are not on the manifest.";
   return beat.blurb;
 }
 function meterOf() {
