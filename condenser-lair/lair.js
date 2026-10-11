@@ -778,24 +778,62 @@ function tone(freq, dur, type, peak, when, slideTo) {
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
   osc.connect(g); g.connect(sfxBus); osc.start(t); osc.stop(t + dur + 0.02);
 }
-function burst(dur, peak, band) {
+function burst(dur, peak, band, when) {
   if (!ac || !sfxBus || !noiseBuf) return;
   const src = ac.createBufferSource(); src.buffer = noiseBuf;
-  const filter = ac.createBiquadFilter(); filter.type = "bandpass"; filter.frequency.value = band; filter.Q.value = 0.6;
-  const g = ac.createGain(), t = ac.currentTime;
-  g.gain.setValueAtTime(Math.max(0.0002, peak), t);
+  const filter = ac.createBiquadFilter(); filter.type = "bandpass"; filter.frequency.value = band; filter.Q.value = 0.7;
+  const g = ac.createGain(), t = ac.currentTime + (when || 0);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + 0.012);
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  src.connect(filter); filter.connect(g); g.connect(sfxBus); src.start(); src.stop(t + dur);
+  src.connect(filter); filter.connect(g); g.connect(sfxBus); src.start(t); src.stop(t + dur + 0.02);
+}
+function air(dur, peak, from, to) {
+  if (!ac || !sfxBus || !noiseBuf) return;
+  const src = ac.createBufferSource(); src.buffer = noiseBuf;
+  const filter = ac.createBiquadFilter(); filter.type = "bandpass"; filter.Q.value = 0.85;
+  const g = ac.createGain(), t = ac.currentTime;
+  filter.frequency.setValueAtTime(from, t);
+  filter.frequency.exponentialRampToValueAtTime(Math.max(40, to), t + dur);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + dur * 0.3);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  src.connect(filter); filter.connect(g); g.connect(sfxBus); src.start(t); src.stop(t + dur + 0.02);
+}
+function clang() { tone(210, 0.09, "square", 0.09, 0, 70); tone(880, 0.14, "triangle", 0.07, 0.01, 220); burst(0.08, 0.2, 1800); }
+function whoosh() { air(0.18, 0.16, 400, 1800); }
+function weld() { for (let i = 0; i < 6; i++) { tone(1600 + (i % 3) * 380, 0.025, "square", 0.04, i * 0.045, 320); burst(0.03, 0.08, 2400 + i * 200, i * 0.045); } }
+function engine() { tone(62, 0.34, "sawtooth", 0.07, 0, 130); burst(0.22, 0.1, 180); tone(196, 0.08, "square", 0.03, 0.05); }
+function bark() { tone(210, 0.07, "square", 0.09, 0, 80); burst(0.05, 0.12, 700); tone(240, 0.06, "square", 0.08, 0.11, 90); burst(0.04, 0.1, 900, 0.11); }
+function zap() { tone(2200, 0.06, "square", 0.06, 0, 180); burst(0.09, 0.14, 3200); tone(90, 0.1, "sawtooth", 0.04, 0.02); }
+function latch() { burst(0.05, 0.16, 350); tone(140, 0.07, "square", 0.06); tone(420, 0.05, "triangle", 0.04, 0.04); }
+function clink() { tone(1560, 0.08, "sine", 0.06, 0, 900); tone(2100, 0.1, "sine", 0.04, 0.03); }
+function skid() { air(0.22, 0.14, 900, 220); tone(90, 0.16, "sawtooth", 0.05, 0, 50); }
+function torch() { air(0.2, 0.1, 600, 2200); tone(180, 0.16, "sawtooth", 0.03); }
+function fanSpin() { air(0.24, 0.1, 200, 700); tone(95, 0.2, "sawtooth", 0.035, 0, 70); }
+function playKind(id) {
+  if (/weld|bead/.test(id)) weld();
+  else if (id.indexOf("falcon") === 0) engine();
+  else if (id.indexOf("dog") >= 0) bark();
+  else if (/chewy|miller/.test(id)) zap();
+  else if (/bottle/.test(id)) clink();
+  else if (/slam|nitro|plate|brace/.test(id)) clang();
+  else if (/brake/.test(id)) skid();
+  else if (/island|torch/.test(id)) torch();
+  else if (/pad|rotor/.test(id)) fanSpin();
+  else if (/door|gate|slider/.test(id)) latch();
+  else whoosh();
 }
 const sfx = {
   stingerStart() { tone(220, 0.12, "square", 0.06); tone(330, 0.16, "square", 0.05, 0.08); tone(440, 0.22, "square", 0.05, 0.16); },
   tick(hot) { if (hot) tone(1480, 0.02, "square", 0.05); else tone(240, 0.055, "square", 0.022); },
-  prompt() { tone(880, 0.08, "square", 0.08); tone(1320, 0.11, "square", 0.05, 0.04); },
+  prompt() { whoosh(); tone(880, 0.08, "square", 0.09); tone(1320, 0.11, "square", 0.06, 0.04); },
   nope() { tone(140, 0.09, "square", 0.05, 0, 90); },
-  success(action) { tone(523, 0.06, "square", 0.065); tone(659, 0.06, "square", 0.055, 0.045); tone(784, 0.08, "square", 0.05, 0.09); burst(action ? 0.09 : 0.05, action ? 0.16 : 0.06, action ? 680 : 1600); },
-  death() { tone(311, 0.32, "sawtooth", 0.08, 0, 42); burst(0.16, 0.2, 120); },
-  victory() { [523, 659, 784, 1046].forEach((f, i) => tone(f, 0.22, "square", 0.06, i * 0.09)); },
+  success(id) { playKind(id); tone(784, 0.07, "square", 0.045, 0.02); },
+  death() { tone(150, 0.42, "sawtooth", 0.08, 0, 48); burst(0.18, 0.22, 140); tone(90, 0.28, "triangle", 0.06, 0.08); burst(0.06, 0.16, 500, 0.12); },
+  victory() { [523, 659, 784, 1046].forEach((f, i) => tone(f, 0.22, "square", 0.06, i * 0.09)); clang(); },
   room() { tone(494, 0.08, "triangle", 0.04); tone(740, 0.12, "triangle", 0.035, 0.07); },
+  scene(id) { sfx.room(); playKind(id); },
   bed
 };
 
@@ -820,7 +858,7 @@ function succeed(beat) {
   sim.score += gained; sim.streak += 1; sim.popup = "+" + gained;
   sim.phase = "hit"; sim.t = 0; sim.hitStop = motionOk() ? 0.06 : 0; sim.shake = motionOk() ? 0.55 : 0;
   sim.flash += 1; sim.flashKind = "good"; sim.reason = beat.success; sim.nudge = ""; sim.announce = beat.success;
-  sfx.success(beat.move === "action"); buzz(14);
+  sfx.success(beat.id); buzz(14);
 }
 function fail(why) {
   const beat = BEATS[sim.beat];
@@ -838,7 +876,7 @@ function goNext() {
   }
   const next = BEATS[nextIndex];
   sim.beat = nextIndex; sim.t = 0; sim.popup = "";
-  if (next.room !== current.room) { sim.phase = "card"; sim.announce = next.roomName + ". " + next.blurb; sfx.room(); }
+  if (next.room !== current.room) { sim.phase = "card"; sim.announce = next.roomName + ". " + next.blurb; sfx.scene(next.id); }
   else enterWindup();
 }
 function acknowledge() {
