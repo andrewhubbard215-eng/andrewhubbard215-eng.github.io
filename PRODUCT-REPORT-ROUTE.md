@@ -1,6 +1,6 @@
 DATE: 2026-10-12
-LIVE: v3.5.482
-SW: lt-allstars-v725
+LIVE: v3.5.491
+SW: lt-allstars-v737
 PLAYED: Manifold/sandbox guided PASS (needles/digital readable, loop start ok, SH/SC live), Meter school PASS (direction bar top, equip ground present, chip tray), Sandbox PASS (seat 4, start when loop complete, readings), Service calls PASS (ticket rail, system visible, next changes fault), HUB PASS (not covering gauges or COM)
 BROKE: none
 FIXED: none (no crash/leftover-box/hidden-directions/PC-layout/blocked-drop hit this shift)
