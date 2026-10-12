@@ -99,3 +99,15 @@
     align-self: center !important;
   }
 }
+
+/* v3.5.491 — OD/ID/charge strip fits on one row at 1280x800; long readouts wrap instead of cutting off. PC only. */
+@media (min-width: 901px) {
+  html body #sandbox-root .sb-toolbar { display:flex !important; flex-wrap:nowrap !important; align-items:center !important; gap:8px !important; max-height:44px !important; overflow:hidden !important; margin:0 !important; padding:2px 6px !important; }
+  html body #sandbox-root .sb-toolbar label.sb-cond { flex:1 1 0 !important; min-width:0 !important; max-width:none !important; flex-direction:row !important; flex-wrap:nowrap !important; align-items:center !important; gap:4px !important; font-size:11px !important; }
+  html body #sandbox-root .sb-toolbar label.sb-cond .sb-cond-cap { font-size:10px !important; white-space:nowrap !important; }
+  html body #sandbox-root .sb-toolbar label.sb-cond .sb-cond-val, html body #sandbox-root .sb-toolbar label.sb-cond span[id$="-v"] { font-size:14px !important; min-width:2.8em !important; margin:0 !important; line-height:1 !important; }
+  html body #sandbox-root .sb-toolbar label.sb-cond input[type="range"] { flex:1 1 40px !important; width:auto !important; min-width:40px !important; }
+  html body #sandbox-root .sb-toolbar > :not(label) { flex:0 0 auto !important; }
+  html body #sb-gauge-run .sb-gauges > .panel { overflow-y:auto !important; }
+  html body #sb-gauge-run .sb-gauges > .panel > * { white-space:normal !important; text-overflow:clip !important; overflow:visible !important; }
+}
