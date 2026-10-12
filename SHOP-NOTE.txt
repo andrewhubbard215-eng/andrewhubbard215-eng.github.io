@@ -1,7 +1,7 @@
-2026-10-11 shop SAVE. Banner v3.5.461 / sw 705.
+2026-10-11 shop SAVE. Banner v3.5.477 / sw 721.
 
-Played live: Clock In → shop floor OK. Sandbox seats, live SH/SC, parts LEFT. No crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected.
+Played live: Clock In → shop floor OK. Sandbox seats, live SH/SC, parts LEFT. Electrical ladder/lugs OK. No crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected.
 
-Shipped: TXV overcharge callout — low blue SH + high red SC → "Recover to seat. Do not vent." Version/SW bump.
+Shipped: Standing pressures status now ends with "Meter first — do not shotgun." Shop-floor-copy v82. Version/SW bump.
 
-Next: hard-refresh, confirm overcharge line on high-charge TXV. Keep parts LEFT. Do not start Gauges of God DLC.
+Next: hard-refresh, confirm meter-first line on standing P. Keep parts LEFT. Do not start Gauges of God DLC.

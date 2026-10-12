@@ -1,4 +1,4 @@
-/* Shop-floor copy override v81 — good seat: nameplate is the stop. Leave the scale alone. Phone gauges readable. */
+/* Shop-floor copy override v82 — good seat: nameplate is the stop. Leave the scale alone. Phone gauges readable. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -86,7 +86,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas.";
+        el.textContent = "Standing P is not a charge ticket. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Meter first — do not shotgun.";
       }
     });
   }
