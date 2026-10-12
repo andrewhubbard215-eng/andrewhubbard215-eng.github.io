@@ -58,14 +58,15 @@
     } else if (!ol.parentNode && root) {
       root.appendChild(ol);
     }
-    ol.style.setProperty("display", "grid", "important");
+    var pcRow = window.matchMedia && window.matchMedia("(min-width: 901px)").matches; /* v3.5.489 PC 1280x800: steps one row so gauges + SH/SC fit */
+    ol.style.setProperty("display", pcRow ? "flex" : "grid", "important");
     ol.style.setProperty("flex", "0 0 auto", "important");
     ol.style.setProperty("height", "auto", "important");
-    ol.style.setProperty("min-height", "96px", "important");
-    ol.style.setProperty("max-height", "22vh", "important");
-    ol.style.setProperty("overflow-y", "auto", "important");
+    ol.style.setProperty("min-height", pcRow ? "0" : "96px", "important");
+    ol.style.setProperty("max-height", pcRow ? "30px" : "22vh", "important");
+    ol.style.setProperty("overflow-y", pcRow ? "hidden" : "auto", "important");
     ol.style.setProperty("visibility", "visible", "important");
-    ol.style.setProperty("margin", "6px 0 0", "important");
+    ol.style.setProperty("margin", pcRow ? "0" : "6px 0 0", "important");
     return ol;
   }
 

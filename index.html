@@ -7,7 +7,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <script>
   (function () {
-    var APP_VER = "v3.5.488"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.489"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
@@ -25,11 +25,11 @@
       html = html.replace(/electrical\.js\?v=\d+/g, "electrical.js?v=139");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=3");
-      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=732");
+      html = html.replace(/sw\.js\?v=6[0-9][0-9]/g, "sw.js?v=733");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=30");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
-      html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=16");
+      html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=17");
       html = html.replace(/sandbox-packs\.js\?v=\d+/g, "sandbox-packs.js?v=3");
       html = html.replace(/sandbox-hunt\.js\?v=\d+/g, "sandbox-hunt.js?v=6");
       if (html.indexOf("sandbox-hunt.js") === -1) {
@@ -134,6 +134,9 @@
       if (html.indexOf("phone-hose-shsc.css") === -1) {
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-hose-shsc.css?v=1" />\n</head>');
       }
+      if (html.indexOf("pc-fit-1280.css") === -1) {
+        html = html.replace("</head>", '  <link rel="stylesheet" href="pc-fit-1280.css?v=1" />\n</head>');
+      }
       if (html.indexOf("phone-sandbox-fit.css") === -1) {
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=2" />\n</head>');
       }
@@ -152,7 +155,7 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=732").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=733").catch(function () {});
   })();
   </script>
 </head>

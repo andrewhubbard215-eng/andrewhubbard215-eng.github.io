@@ -1,9 +1,10 @@
 /* HVAC Allstars — offline cache for Android / Windows PWA */
-const VER = "lt-allstars-v732";
+const VER = "lt-allstars-v733";
 const CORE = [
   "./",
   "./index.html",
-  "./phone-hose-shsc.css"
+  "./phone-hose-shsc.css",
+  "./pc-fit-1280.css"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return c.addAll(CORE).catch(function () { return null; }); }).then(function () { return self.skipWaiting(); }));
