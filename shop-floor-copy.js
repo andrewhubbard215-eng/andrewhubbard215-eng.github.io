@@ -1,4 +1,4 @@
-/* Shop-floor copy override v88 — standing P names do not jump the contactor. Filter first still. */
+/* Shop-floor copy override v89 — good seat names filter first, dirty filter fakes low charge. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.484";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.486";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -166,7 +166,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Nameplate charge is on. Next: filter first, then indoor coil, outdoor coil, airflow. Prove the path. Do not chase the gauges. Leave the scale alone. Airflow before charge.";
+        line += " Good seat. Nameplate is on. Filter first — dirty filter fakes low charge. Then indoor coil, outdoor coil, ducts. Leave the scale alone. Airflow before charge.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
