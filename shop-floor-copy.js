@@ -1,4 +1,4 @@
-/* Shop-floor copy override v82 — good seat: nameplate is the stop. Leave the scale alone. Phone gauges readable. */
+/* Shop-floor copy override v83 — good seat: nameplate stop + airflow prove. Leave the scale alone. Phone gauges readable. Super Heat stripped. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -8,6 +8,9 @@
       }
       if (/Plywood/i.test(t) && /catalog/i.test(t) && /filer/i.test(t)) {
         el.textContent = "Plywood wall \u00b7 shop catalog \u00b7 90-min filler";
+      }
+      if (/Hose\/trap/i.test(t)) {
+        el.textContent = "Hose/trap \u2192 vent \u2192 inducer \u2192 switch LAST";
       }
     });
   }
@@ -52,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.475";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.478";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -167,7 +170,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Nameplate charge is on. Next: filter, indoor coil, outdoor coil, airflow. Do not chase the gauges. Leave the scale alone.";
+        line += " Good seat. Nameplate charge is on. Next: filter, indoor coil, outdoor coil, airflow. Prove the path. Do not chase the gauges. Leave the scale alone.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
