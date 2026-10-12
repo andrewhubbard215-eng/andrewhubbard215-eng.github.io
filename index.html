@@ -134,6 +134,12 @@
       if (html.indexOf("phone-sandbox-fit.css") === -1) {
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=2" />\n</head>');
       }
+      if (html.indexOf("super-heat-card") === -1) {
+        html = html.replace(
+          '<div class="hub-grid hub-nav" id="hub-options">',
+          '<div class="hub-grid hub-nav" id="hub-options"><a class="mode-card" id="super-heat-card" href="https://andrewhubbard215-eng.github.io/condenser-lair/?skin=allstars"><h3>Super Heat</h3><p>Saturday side job. Watch the flash. Move or lose a life.</p></a>'
+        );
+      }
       return html;
     }
     fetch(SRC, { cache: "no-store" })
