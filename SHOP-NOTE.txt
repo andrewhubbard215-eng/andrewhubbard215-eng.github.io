@@ -1,9 +1,1 @@
-2026-10-12 shop SAVE. Banner v3.5.479 / sw 723.
-
-Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected — store clean.
-
-Shipped: Standing + loop-closed + good-seat notes now end with "Airflow before charge." Shop-floor-copy v84. Version/SW bump.
-
-Next: hard-refresh, confirm airflow line on standing and good seat. Keep parts LEFT. Do not start Gauges of God DLC.
-
-2026-10-12 v3.5.483 sw727: phone-hose-shsc.css unclips hose-card SH/SC second line (phone only, wraps instead of clip).
+PLACEHOLDER
