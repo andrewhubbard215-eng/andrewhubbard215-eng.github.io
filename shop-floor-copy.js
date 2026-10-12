@@ -1,4 +1,4 @@
-/* Shop-floor copy override v87 — ladder legal-start: probe RLA, do not shotgun contactor. Filter first still. */
+/* Shop-floor copy override v88 — standing P names do not jump the contactor. Filter first still. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.482";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.484";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -89,7 +89,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Meter first \u2014 do not shotgun. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
+        el.textContent = "Standing P is not a charge ticket. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
       }
     });
   }
@@ -203,7 +203,7 @@
     if (!st) return;
     var t = st.textContent || "";
     if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
-      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Airflow before charge. Prove filter first, then coils and ducts before the scale.";
+      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale.";
     }
   }
 
