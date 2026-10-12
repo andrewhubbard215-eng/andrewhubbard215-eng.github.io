@@ -5,3 +5,5 @@ Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocation
 Shipped: Standing + loop-closed + good-seat notes now end with "Airflow before charge." Shop-floor-copy v84. Version/SW bump.
 
 Next: hard-refresh, confirm airflow line on standing and good seat. Keep parts LEFT. Do not start Gauges of God DLC.
+
+2026-10-12 v3.5.483 sw727: phone-hose-shsc.css unclips hose-card SH/SC second line (phone only, wraps instead of clip).
