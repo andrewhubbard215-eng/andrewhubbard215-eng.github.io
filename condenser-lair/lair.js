@@ -895,7 +895,7 @@ function startRun(mode) {
   sim.announce = BEATS[0].roomName + ". " + BEATS[0].blurb;
   sfx.bed("play"); sfx.stingerStart();
 }
-function toTitle() { sim.phase = "title"; sim.t = 0; sim.popup = ""; sim.nudge = ""; sim.announce = "Condenser Lair."; sfx.bed("title"); }
+function toTitle() { sim.phase = "title"; sim.t = 0; sim.popup = ""; sim.nudge = ""; sim.announce = "Super Heat."; sfx.bed("title"); }
 function applyInput(move) {
   if (sim.phase === "death") { acknowledge(); return; }
   if (sim.phase === "hit") { if (sim.t > 0.28) goNext(); return; }
