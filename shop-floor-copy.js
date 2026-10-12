@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.486";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.487";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -166,7 +166,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Nameplate is on. Filter first — dirty filter fakes low charge. Then indoor coil, outdoor coil, ducts. Leave the scale alone. Airflow before charge.";
+        line += " Good seat. Nameplate is on. Filter first — dirty filter fakes low charge. Then indoor coil, outdoor coil, ducts. Leave the scale alone. Airflow before charge. Before you condemn a compressor, probe RLA with a clamp meter. Do not shotgun the contactor.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
@@ -186,7 +186,25 @@
         paintSeat("sb-sc", "high");
       }
     }
+    line = "Compressor on. " + line;
+    window.__ltSeatLine = line;
     if (st.textContent !== line) st.textContent = line;
+    holdSeatLine(st);
+  }
+  /* One writer wins: the core sandbox ticks "Compressor on - Tech - charge 100%" over the seat call.
+     While running with no fault, put the seat call straight back so the line stays steady. */
+  function holdSeatLine(st) {
+    if (st.__ltHold) return;
+    st.__ltHold = true;
+    new MutationObserver(function () {
+      var want = window.__ltSeatLine;
+      if (!want || st.textContent === want) return;
+      var run = document.getElementById("sb-run");
+      if (!run || !/Stop compressor/i.test(run.textContent || "")) { window.__ltSeatLine = ""; return; }
+      var fEl = document.getElementById("sb-fault");
+      if (fEl && window.LtFaultKind && window.LtFaultKind(fEl.textContent || "")) return;
+      if (/^Compressor on\s*[\u2013\u2014-]/i.test(st.textContent || "")) st.textContent = want;
+    }).observe(st, { childList: true, characterData: true, subtree: true });
   }
   function loopClosedConfirm() {
     var need = ["compressor", "condenser", "metering", "evaporator"];
