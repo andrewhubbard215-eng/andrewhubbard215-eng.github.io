@@ -1,4 +1,4 @@
-/* Shop-floor copy override v86 — good seat: filter first, then coils/airflow before scale. Meter first. Super Heat stripped. */
+/* Shop-floor copy override v87 — ladder legal-start: probe RLA, do not shotgun contactor. Filter first still. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.481";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.482";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -227,6 +227,7 @@
       var t = st.textContent || "";
       if (/Defused/i.test(t)) t = t.replace(/Defused\.?/i, "No-cool closed.");
       if (/Gauges of God/i.test(t)) t = "No-cool closed. Safety string proved. HVAC Jesus on the roof in work clothes.";
+      if (/Legal start/i.test(t)) t = "Legal start \u2014 compressor and OD fan running. Probe RLA and 24V to prove it. Meter first. Do not shotgun the contactor.";
       if (t !== st.textContent) st.textContent = t;
     }
   }
