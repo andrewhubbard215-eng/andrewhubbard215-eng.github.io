@@ -1,4 +1,4 @@
-/* Shop-floor copy override v139 — seat tip: COMP · COND · TXV · EVAP LEFT */
+/* Shop-floor copy override v140 — seat tip: COMP · COND · TXV · EVAP LEFT */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -18,7 +18,7 @@
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t)) {
-        el.textContent = "Seat the four LEFT: COMP · COND · TXV · EVAP. Then start.";
+        el.textContent = "Seat the four parts LEFT: COMP · COND · TXV · EVAP. Then start.";
       }
     });
   }
