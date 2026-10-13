@@ -1,4 +1,4 @@
-/* Shop-floor copy override v133 — standing equalized = unit off. Do not recover. */
+/* Shop-floor copy override v134 — standing equalized = unit off. Do not recover. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.495";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.496";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -170,7 +170,7 @@
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
-        line += " High blue SH, low red SC \u2014 undercharge. Confirm airflow, find the leak, then weigh in. Do not top off.";
+        line += " High blue SH, low red SC \u2014 undercharge. Confirm airflow first. Locate and repair the leak. Then weigh to nameplate. Do not top off.";
         paintSeat("sb-sh", "high \u2014 undercharge");
         paintSeat("sb-sc", "low");
       } else if (shn >= 8 && shn <= 14 && scn >= 16) {
