@@ -223,8 +223,20 @@
     }
   }
 
+  function loopClosedOnce() {
+    var strip = document.getElementById("sb-left-strip");
+    if (!strip) return;
+    var st = document.getElementById("sb-status");
+    var run = document.getElementById("sb-run");
+    var on = run && /Stop compressor/i.test(run.textContent || "");
+    var dup = !on && st && /^loop closed/i.test((st.textContent || "").trim()) && /^LOOP CLOSED/.test((strip.textContent || "").trim());
+    var want = dup ? "none" : "";
+    if (strip.style.display !== want) strip.style.display = want;
+  }
+
   function scrub() {
     loopClosedConfirm();
+    loopClosedOnce();
     vocationalTiles();
     faultChipFit();
     lockerCard();
