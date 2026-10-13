@@ -1,4 +1,4 @@
-/* Shop-floor copy override v136 — overcharge: confirm nameplate, recover excess to target SC. Do not vent. */
+/* Shop-floor copy override v139 — seat tip: COMP · COND · TXV · EVAP LEFT */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -11,6 +11,14 @@
       }
       if (/Hose\/trap/i.test(t)) {
         el.textContent = "Hose/trap \u2192 vent \u2192 inducer \u2192 switch LAST";
+      }
+    });
+  }
+  function seatTipClear() {
+    document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t)) {
+        el.textContent = "Seat the four LEFT: COMP · COND · TXV · EVAP. Then start.";
       }
     });
   }
@@ -55,7 +63,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.497";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.504";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -238,6 +246,7 @@
     loopClosedConfirm();
     loopClosedOnce();
     vocationalTiles();
+    seatTipClear();
     faultChipFit();
     lockerCard();
     bayStrip();
