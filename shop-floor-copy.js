@@ -1,4 +1,4 @@
-/* Shop-floor copy override v141 — seat tip: all four LEFT before Start */
+/* Shop-floor copy override v142 — LOOP OPEN: standing equalized is normal (unit off). Seat four LEFT then Start. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -17,8 +17,8 @@
   function seatTipClear() {
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t)) {
-        el.textContent = "Seat all four parts LEFT before you start: COMP · COND · TXV · EVAP. Then hit Start.";
+      if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t) || /Seat all four/i.test(t)) {
+        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off).";
       }
     });
   }
@@ -63,7 +63,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.505";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.506";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
