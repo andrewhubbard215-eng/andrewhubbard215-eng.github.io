@@ -89,7 +89,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the coil first. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
+        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
       }
     });
   }
@@ -219,7 +219,7 @@
     if (!st) return;
     var t = st.textContent || "";
     if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
-      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the coil first. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale.";
+      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale.";
     }
   }
 
