@@ -1,4 +1,4 @@
-/* Shop-floor copy override v135 — restriction: filter-drier first. Liquid stacked. Do not add gas. */
+/* Shop-floor copy override v136 — overcharge: confirm nameplate, recover excess to target SC. Do not vent. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -181,7 +181,7 @@
         paintSeat("sb-sh", "high \u2014 restriction");
         paintSeat("sb-sc", "high \u2014 liquid stacked");
       } else if (shn < 8 && scn > 14) {
-        line += " Low blue SH, high red SC \u2014 overcharge. Recover to nameplate SC. Do not vent.";
+        line += " Low blue SH, high red SC \u2014 overcharge. Confirm airflow and nameplate charge. Recover excess to target SC. Do not vent. Do not add gas.";
         paintSeat("sb-sh", "low \u2014 overcharge");
         paintSeat("sb-sc", "high");
       }

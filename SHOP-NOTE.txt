@@ -1,3 +1,11 @@
+2026-10-13 shop SAVE. Banner v3.5.498 / sw 744 / shop-floor-copy v136.
+
+Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected — store clean.
+
+Shipped: Overcharge note (low SH + high SC) now says confirm airflow and nameplate charge, recover excess to target SC. Do not vent. Do not add gas. Shop-floor-copy v136. Version/SW bump.
+
+Next: hard-refresh, confirm overcharge line on running TXV with low SH/high SC. Keep parts LEFT. Do not start Gauges of God DLC.
+
 2026-10-13 shop SAVE. Banner v3.5.497 / sw 743 / shop-floor-copy v135.
 
 Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected — store clean.
@@ -5,11 +13,3 @@ Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocation
 Shipped: Restriction note (high SH + high SC) now says filter-drier first, then TXV or line set. Liquid stacked. Do not add gas. Shop-floor-copy v135. Version/SW bump.
 
 Next: hard-refresh, confirm restriction line on running TXV with high SH/SC. Keep parts LEFT. Do not start Gauges of God DLC.
-
-2026-10-13 shop SAVE. Banner v3.5.496 / sw 742 / shop-floor-copy v134.
-
-Played live: Clock In → sandbox OK. Parts LEFT, standing P, no crash. Vocational core intact: sandbox (real pressures/faults, parts LEFT), electrical ladder/lugs/callback/no-cool, exam, service calls, mini-split, HUB AI, HVAC Jesus in work clothes. No combat/Bros/driving/shooter. Gauges of God not started. Dual SKU respected — store clean.
-
-Shipped: Undercharge note (high SH, low SC) now says confirm airflow, locate and repair the leak, then weigh to nameplate. Do not top off. Shop-floor-copy v134. Version/SW bump.
-
-Next: hard-refresh, confirm undercharge line on running TXV. Keep parts LEFT. Do not start Gauges of God DLC.
