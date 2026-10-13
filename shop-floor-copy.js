@@ -1,4 +1,4 @@
-/* Shop-floor copy override v132 — LOTO before any 240 probe. */
+/* Shop-floor copy override v133 — standing equalized = unit off. Do not recover. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.494";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.495";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -89,7 +89,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Lock out tag out before any 240 probe. Prove 24V at the coil first. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
+        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the coil first. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
       }
     });
   }
