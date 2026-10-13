@@ -1,4 +1,4 @@
-/* Shop-floor copy override v134 — standing equalized = unit off. Do not recover. */
+/* Shop-floor copy override v135 — restriction: filter-drier first. Liquid stacked. Do not add gas. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -55,7 +55,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.496";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.497";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -177,7 +177,7 @@
         line += " High red SC, blue SH in seat \u2014 dirty outdoor coil or restricted outdoor airflow. Wash the coil. Do not recover.";
         paintSeat("sb-sc", "high \u2014 wash OD");
       } else if (shn > 14 && scn > 14) {
-        line += " High blue SH, high red SC \u2014 restriction. Check filter-drier, TXV, or line set. Do not add gas.";
+        line += " High blue SH, high red SC \u2014 restriction. Filter-drier first, then TXV or line set. Liquid stacked. Do not add gas.";
         paintSeat("sb-sh", "high \u2014 restriction");
         paintSeat("sb-sc", "high \u2014 liquid stacked");
       } else if (shn < 8 && scn > 14) {
