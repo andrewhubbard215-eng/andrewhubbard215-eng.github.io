@@ -28,3 +28,20 @@
     margin: 2px 0 !important;
   }
 }
+
+/* v3 v3.5.500 phone LEFT rail: full part names (receiver, solenoid, filter drier) wrap to 2 lines, no clip/ellipsis. Desktop untouched. */
+@media (max-width: 480px) {
+  #sandbox-root [data-part], #sandbox-root .sb-field, #sandbox-root .sb-pack,
+  #sandbox-root .sb-zone-a button, #sandbox-root .sb-zone-b button {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-width: 100% !important;
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.2px;
+  }
+}
