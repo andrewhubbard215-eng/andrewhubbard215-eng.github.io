@@ -1,4 +1,4 @@
-/* Shop-floor copy override v146 — seat tip adds Airflow before charge — prove the filter first. Standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
+/* Shop-floor copy override v147 — seat tip adds Nameplate is the target. Do not guess the charge. Standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. Airflow before charge — prove the filter first. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -25,10 +25,10 @@
   }
 
   function seatTipClear() {
-    document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
+    document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip, #sb-ts, #sb-ts li, #sb-ts p, #sb-ts strong").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t) || /Seat all four/i.test(t)) {
-        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas. Airflow before charge — prove the filter first.";
+        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas. Airflow before charge — prove the filter first. Nameplate is the target. Do not guess the charge.";
       }
     });
   }
@@ -73,7 +73,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.510";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.512";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
@@ -107,7 +107,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale.";
+        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale. Nameplate is the target. Do not guess the charge.";
       }
     });
   }
@@ -237,7 +237,7 @@
     if (!st) return;
     var t = st.textContent || "";
     if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
-      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale.";
+      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale. Nameplate is the target. Do not guess the charge.";
     }
   }
 
