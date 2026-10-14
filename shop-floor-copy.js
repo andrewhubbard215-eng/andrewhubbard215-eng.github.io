@@ -1,4 +1,4 @@
-/* Shop-floor copy override v145 — seat tip adds Airflow before charge — prove the filter first. Standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
+/* Shop-floor copy override v146 — seat tip adds Airflow before charge — prove the filter first. Standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -184,7 +184,7 @@
       paintSeat("sb-sc", "seat 8\u201314");
       var shn = Number(sh), scn = Number(sc);
       if (shn >= 8 && shn <= 14 && scn >= 8 && scn <= 14) {
-        line += " Good seat. Nameplate is on. Confirm outdoor ambient and indoor return. Filter first \u2014 dirty filter fakes low charge. Then indoor coil, outdoor coil, ducts. Leave the scale alone. Airflow before charge. Before you condemn a compressor, probe RLA with a clamp meter. Do not shotgun the contactor.";
+        line += " Good seat. Nameplate is the target charge. Do not guess. Confirm outdoor ambient and indoor return. Filter first \u2014 dirty filter fakes low charge. Then indoor coil, outdoor coil, ducts. Leave the scale alone. Airflow before charge. Before you condemn a compressor, probe RLA with a clamp meter. Do not shotgun the contactor.";
         paintSeat("sb-sh", "good seat");
         paintSeat("sb-sc", "good seat");
       } else if (shn > 14 && scn < 8) {
