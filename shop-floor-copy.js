@@ -1,4 +1,4 @@
-/* Shop-floor copy override v144 — LOOP OPEN: standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
+/* Shop-floor copy override v145 — seat tip adds Airflow before charge — prove the filter first. Standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -28,7 +28,7 @@
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t) || /Seat all four/i.test(t)) {
-        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas.";
+        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas. Airflow before charge — prove the filter first.";
       }
     });
   }
@@ -73,7 +73,7 @@
   }
   function appVer() {
     var m = document.querySelector('meta[name="lt-app-ver"]');
-    return (m && m.content) || window.LT_APP_VER || "v3.5.509";
+    return (m && m.content) || window.LT_APP_VER || "v3.5.510";
   }
   function bayStrip() {
     var strip = document.querySelector(".version-strip");
