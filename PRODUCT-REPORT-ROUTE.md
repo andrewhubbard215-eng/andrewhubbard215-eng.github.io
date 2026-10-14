@@ -1,5 +1,8 @@
-DATE: 2026-10-13
-LIVE: v3.5.509
-SW: lt-allstars-v755
-PLAYED: Shop walk found live index.html + shop-floor-copy.js wiped to PLACEHOLDER (11f1d0c). Restored bootloader from v3.5.507; seat tip adds Do not recover standing gas.
-BROKE: none after restore
+DATE: 2026-10-14
+LIVE: v3.5.515
+SW: lt-allstars-v761
+PLAYED: Manifold/On-job, Meter (voltmeter school), Sandbox, Service calls, HUB. All loaded. Guided steps visible. Layout fills viewport (no black below). No leftover chips. Drag targets present. Ticket rail visible. Pass.
+BROKE: none
+FIXED: none (no owned bug this shift)
+STILL OPEN: none
+TOMORROW: re-check guided drag-drop land (chip vanish) and direction bar pin on meter school
