@@ -1,6 +1,6 @@
 DATE: 2026-10-14
-LIVE: v3.5.515
-SW: lt-allstars-v761
+LIVE: v3.5.522
+SW: lt-allstars-v767
 PLAYED: Manifold/On-job, Meter (voltmeter school), Sandbox, Service calls, HUB. All loaded. Guided steps visible. Layout fills viewport (no black below). No leftover chips. Drag targets present. Ticket rail visible. Pass.
 BROKE: none
 FIXED: none (no owned bug this shift)
