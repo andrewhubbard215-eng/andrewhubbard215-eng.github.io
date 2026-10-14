@@ -1,4 +1,4 @@
-/* Shop-floor copy override v143 — LOOP OPEN: standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
+/* Shop-floor copy override v144 — LOOP OPEN: standing equalized is normal (unit off). Seat four LEFT then Start. Do not recover standing gas. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -14,6 +14,16 @@
       }
     });
   }
+  
+  function psProveTip() {
+    document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/Hose\/trap/i.test(t) && /switch LAST/i.test(t)) {
+        el.textContent = "Hose/trap → vent → inducer spin → 24V across PS → switch LAST";
+      }
+    });
+  }
+
   function seatTipClear() {
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
@@ -247,6 +257,7 @@
     loopClosedOnce();
     vocationalTiles();
     seatTipClear();
+    psProveTip();
     faultChipFit();
     lockerCard();
     bayStrip();
