@@ -1,9 +1,9 @@
 DATE: 2026-10-15
-LIVE: v3.5.524
-SW: lt-allstars-v769
-PLAYED: Clock-in, System sandbox (DX diamond + LEFT rail), Board-code locker, shop floor. No crash. Phone zoom shows diamond/parts visible.
+LIVE: v3.5.532
+SW: lt-allstars-v777
+PLAYED: Clock-in, Service calls (hook gauges blue/red/yellow seated, ticket rail, system visible), Voltmeter school (BLACK COM RED VΩ, equip ground, direction bar top), System sandbox (compressor drag, start available). No crash. PC fills.
 BROKE: none
-FIXED: none
-SHIPPED: seat tip adds High suction + low SH = overcharge or low load (prove airflow and load first). Vocational fingerprint.
+FIXED: none (no leftover box / hidden dir / layout / blocked drop)
+SHIPPED: larger center digital psig on PC analog gauges.
 STILL OPEN: none
-TOMORROW: re-check phone diamond full view + HUB AI coverage on labs
+TOMORROW: re-check manifold guided full path needles + digital readable

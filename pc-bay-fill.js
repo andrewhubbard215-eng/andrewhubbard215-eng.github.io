@@ -1,4 +1,4 @@
-/* PC only: service bay was a 456px strip in an 832px host. Fill it. Keep phone caps. */
+/* PC only: service bay was a 456px strip in an 832px host. Fill it. Keep phone caps. Larger center digital. */
 (function () {
   "use strict";
   if (window.__pcBayFill) return;
@@ -59,7 +59,7 @@
     ctx.arc(cx, cy, 5, 0, Math.PI * 2);
     ctx.fillStyle = "#f4e7c8";
     ctx.fill();
-    var dig = Math.max(28, Math.round(Math.min(w, h) * 0.16));
+    var dig = Math.max(36, Math.round(Math.min(w, h) * 0.22));
     var plateW = Math.round(dig * 3.6);
     var plateH = Math.round(dig * 1.7);
     var plateY = cy + Math.round(h * 0.06);
