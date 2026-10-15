@@ -1,4 +1,4 @@
-/* Shop-floor copy override v163 — seat tip adds Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Vocational fingerprint. */
+/* Shop-floor copy override v164 — status bump. Vocational tips solid. Seat tip keeps Low head + high SC = restriction. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
