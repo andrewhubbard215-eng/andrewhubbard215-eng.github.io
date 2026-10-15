@@ -1,8 +1,9 @@
-DATE: 2026-10-14
-LIVE: v3.5.522
-SW: lt-allstars-v767
-PLAYED: Manifold/On-job, Meter (voltmeter school), Sandbox, Service calls, HUB. All loaded. Guided steps visible. Layout fills viewport (no black below). No leftover chips. Drag targets present. Ticket rail visible. Pass.
+DATE: 2026-10-15
+LIVE: v3.5.524
+SW: lt-allstars-v769
+PLAYED: Clock-in, System sandbox (DX diamond + LEFT rail), Board-code locker, shop floor. No crash. Phone zoom shows diamond/parts visible.
 BROKE: none
-FIXED: none (no owned bug this shift)
+FIXED: none
+SHIPPED: seat tip adds High suction + low SH = overcharge or low load (prove airflow and load first). Vocational fingerprint.
 STILL OPEN: none
-TOMORROW: re-check guided drag-drop land (chip vanish) and direction bar pin on meter school
+TOMORROW: re-check phone diamond full view + HUB AI coverage on labs
