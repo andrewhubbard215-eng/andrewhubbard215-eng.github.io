@@ -1,10 +1,10 @@
 /* HVAC Allstars — offline cache (v779: sandbox boot path precached, per-entry tolerant) for Android / Windows PWA */
-const VER = "lt-allstars-v779";
+const VER = "lt-allstars-v780";
 const CORE = [
 "./",
 "./index.html",
+"./icon-192.png",
 "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html",
-"./19929303c1ba1e1a0a9063add9063123282320a2/index.html",
 "./sku.js?v=17",
 "./style.css?v=147",
 "./svc-rail.css?v=1",
