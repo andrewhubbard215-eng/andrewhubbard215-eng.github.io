@@ -36,7 +36,7 @@
   }
   var RESTRICT_SH = "28.0 °F SH (high — restriction)";
   var RESTRICT_SC = "22.0 °F SC (high — liquid stacked)";
-  var RESTRICT_STATUS = "Restriction: blue 28 SH high + red 22 SC high. Liquid stacked ahead of a plug. Check the filter-drier (temp drop across it), the TXV inlet screen, and the line set for a kink. Do not add gas.";
+  var RESTRICT_STATUS = "Restriction: suction 108 low, blue 28 SH high, red 22 SC high, head 366 not high. Feel the filter-drier: a temp drop across it = plugged drier. No drop = look at the TXV (bulb, strap, inlet screen). Do not add gas — SC is already high.";
   window.LtRestrictLabels = { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS };
   var OVER_SH = "3.0 °F SH (low — flooding)";
   var OVER_SC = "20.0 °F SC (high — extra liquid)";
