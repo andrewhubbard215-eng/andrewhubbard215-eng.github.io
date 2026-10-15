@@ -1,4 +1,4 @@
-/* Shop-floor copy override v165 — status bump. Vocational tips solid. Seat tip keeps Low head + high SC = restriction. */
+/* Shop-floor copy override v166 — LOOP OPEN tap clarity. Vocational tips solid. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -27,8 +27,8 @@
   function loopOpenClarify() {
     document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (/^LOOP OPEN/i.test(t) && /seat LEFT/i.test(t) && t.length < 180) {
-        el.textContent = "LOOP OPEN — tap the four LEFT plates (COMP · COND · TXV · EVAP), then Start. Standing equalized P is normal. No SH/SC until the circuit is closed.";
+      if (/^LOOP OPEN/i.test(t) && (/seat LEFT/i.test(t) || /tap the four/i.test(t)) && t.length < 220) {
+        el.textContent = "LOOP OPEN — tap each LEFT plate (COMP · COND · TXV · EVAP), then Start. Standing equalized P is normal. No SH/SC until closed.";
       }
     });
   }
