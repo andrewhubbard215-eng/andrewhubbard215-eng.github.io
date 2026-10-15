@@ -1,1 +1,2 @@
+2026-10-15 v3.5.528 / SW v773: live stuck on 'Loading' stub (Pages deploys for 97c6825/a7cc43a failed). Redeploy; sandbox-fp ?v=26 for restriction teach (fe946b9).
 PLACEHOLDER
