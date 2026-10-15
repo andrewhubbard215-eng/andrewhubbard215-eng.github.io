@@ -1,4 +1,4 @@
-/* Shop-floor copy override v166 — LOOP OPEN tap clarity. Vocational tips solid. */
+/* Shop-floor copy override v169 — standing tip tightened: equalized is not a ticket. Vocational tips solid. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
