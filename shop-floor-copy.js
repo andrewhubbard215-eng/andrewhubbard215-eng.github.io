@@ -1,4 +1,4 @@
-/* Shop-floor copy override v162 — seat tip adds Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Vocational fingerprint. */
+/* Shop-floor copy override v163 — seat tip adds Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Vocational fingerprint. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -20,6 +20,15 @@
       var t = el.textContent || "";
       if (/Hose\/trap/i.test(t) && /switch LAST/i.test(t)) {
         el.textContent = "Hose/trap \u2192 vent \u2192 inducer spin \u2192 24V across PS \u2192 switch LAST";
+      }
+    });
+  }
+
+  function loopOpenClarify() {
+    document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/^LOOP OPEN/i.test(t) && /seat LEFT/i.test(t) && t.length < 180) {
+        el.textContent = "LOOP OPEN — tap the four LEFT plates (COMP · COND · TXV · EVAP), then Start. Standing equalized P is normal. No SH/SC until the circuit is closed.";
       }
     });
   }
@@ -257,6 +266,7 @@
     loopClosedOnce();
     vocationalTiles();
     seatTipClear();
+    loopOpenClarify();
     psProveTip();
     faultChipFit();
     lockerCard();
