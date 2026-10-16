@@ -1,4 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
+   v17 — phone max-height bump so current step body isn't clipped on 390px.
    v16 — cutout step names the plant on the fault line. Generic fingerprint is not a call.
    v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
@@ -31,7 +32,7 @@
       "#sb-ts li p{display:none;margin:0;flex:1 1 100%;font-size:12px;color:#9aa3ad}" +
       "#sb-ts li.wait p{display:block}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}" +
-      "@media (max-width:480px){#sandbox-root #sb-ts,#sandbox-root #sb-ts:hover,#sandbox-root #sb-ts:focus-within{max-height:28vh!important;overflow-y:auto!important;display:grid!important;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
+      "@media (max-width:480px){#sandbox-root #sb-ts,#sandbox-root #sb-ts:hover,#sandbox-root #sb-ts:focus-within{max-height:32vh!important;overflow-y:auto!important;display:grid!important;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
   }
 
   function mountList() {
