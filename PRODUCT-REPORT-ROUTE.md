@@ -12,3 +12,5 @@ TOMORROW: full manifold guided hang-to-call; phone dials confirm
 - 2026-10-16 12:19 PM Lane A: live bays clock-in / meter / sandbox / service pass. No leftover-box or PC-layout break.
 
 - 2026-10-16 3 PM: v3.5.552 / SW lt-allstars-v796 / phone-rail.css v6 - LEFT rail no longer shifts when a part seats (fixed 2px border, border-box, min-height, scrollbar gutter reserved). CSS only; card map, sandbox layout, healthy 162/442 SH10/SC10 untouched.
+
+- 2026-10-16 5 PM: v3.5.554 / SW lt-allstars-v798 / sandbox-fp.js v28 - noncondensables status adds the standing-pressure vs ambient proof and under-500-micron vacuum, weigh in nameplate. Teach values (530, SH 12, SC 22) and healthy 162/442 SH10/SC10 untouched.

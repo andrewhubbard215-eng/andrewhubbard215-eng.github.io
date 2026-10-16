@@ -43,7 +43,7 @@
   var OVER_STATUS = "Overcharge: high SC 20, low SH 3, head up. Recover to the nameplate weight, then charge TXV by subcooling. Never add gas to fix low SH. Do not vent.";
   var AIR_SH = "12.0 °F SH (in seat — coil fed)";
   var AIR_SC = "22.0 °F SC (high — air in the condenser)";
-  var AIR_STATUS = "Noncondensables: blue 12 SH in seat + red 22 SC high, head 530, glass clear. Air is taking condenser space. Not overcharge (3/20), not a dirty coil. Recover, pull a 500-micron vacuum, weigh in. Do not add gas.";
+  var AIR_STATUS = "Noncondensables: blue 12 SH in seat + red 22 SC high, head 530, glass clear. Air is taking condenser space. Not overcharge (3/20), not a dirty coil. Prove it off: unit shut down, compare standing pressure to ambient temp — above saturation for ambient = air in the system. Recover, pull a vacuum under 500 microns, weigh in nameplate charge. Do not add gas.";
   var IDU_SH = "1.0 °F SH (low — coil flooding, no load)";
   var IDU_SC = "10.0 °F SC (in seat — charge is not the story)";
   var IDU_STATUS = "Iced evaporator / dirty indoor: blue 1 SH near zero + red 10 SC in seat, suction 68, coil iced. Charge is fine — the coil is not getting air. Check the filter, blower and wheel, and the indoor coil face. Thaw the coil before you read again. Not overcharge (3/20). Do not add gas. Do not recover.";
