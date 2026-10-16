@@ -1,4 +1,4 @@
-/* Shop-floor copy override v171 — board-code door sticker is law. Standing tip holds. */
+/* Shop-floor copy override v172 — clearer LOOP OPEN seat tip. Airflow before charge holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -37,7 +37,7 @@
     document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/^LOOP OPEN/i.test(t) && (/seat LEFT/i.test(t) || /tap the four/i.test(t)) && t.length < 220) {
-        el.textContent = "LOOP OPEN — tap each LEFT plate (COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP), then Start. Standing equalized P is normal. No SH/SC until closed.";
+        el.textContent = "LOOP OPEN — seat the four LEFT plates first (COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP), then Start. Standing equalized P is normal with unit off. No SH/SC until the loop is closed. Airflow before charge — prove the filter.";
       }
     });
   }
