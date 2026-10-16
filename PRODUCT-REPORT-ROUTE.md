@@ -1,0 +1,20 @@
+DATE: 2026-10-16
+LIVE: v3.5.559
+SW: lt-allstars-v802
+PLAYED: Clock-in, Voltmeter school (direction bar top, BLACK→ COM / RED→ VΩ, Equip ground), System sandbox (parts LEFT), Service calls (ticket rail, system visible). No crash. PC layout fills. Guided directions visible.
+BROKE: none
+FIXED: none this shift
+SHIPPED: clean playtest.
+STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided walk not fully sequenced this pass.
+TOMORROW: full manifold guided hang-to-call; phone dials confirm
+
+- 2026-10-16 12 PM: v3.5.549 / SW lt-allstars-v793 / phone-rail.css v5 - phone LEFT seat plates show one compact name each, no doubled/overlapping labels before seating. CSS only; card map, sandbox layout, healthy 162/442 SH10/SC10 untouched.
+- 2026-10-16 12:19 PM Lane A: live bays clock-in / meter / sandbox / service pass. No leftover-box or PC-layout break.
+
+- 2026-10-16 3 PM: v3.5.552 / SW lt-allstars-v796 / phone-rail.css v6 - LEFT rail no longer shifts when a part seats (fixed 2px border, border-box, min-height, scrollbar gutter reserved). CSS only; card map, sandbox layout, healthy 162/442 SH10/SC10 untouched.
+
+- 2026-10-16 5 PM: v3.5.554 / SW lt-allstars-v798 / sandbox-fp.js v28 - noncondensables status adds the standing-pressure vs ambient proof and under-500-micron vacuum, weigh in nameplate. Teach values (530, SH 12, SC 22) and healthy 162/442 SH10/SC10 untouched.
+
+- 2026-10-16 7 PM: v3.5.557 / SW lt-allstars-v801 / sandbox-seats.js v33 - phone fast diagonal touch-drag of a LEFT part now seats (scroll gate only kills near-vertical swipes). Reproduced headless: quick COMP drag failed before, seats after. Clock In proven headless. Healthy 162/442 SH10/SC10, card map/layout untouched.
+
+- 2026-10-16 7:46 PM Lane C: cache/SW sync. Bumped APP_VER 3.5.558→3.5.559, SW v801→v802, seats ?v=32→33, ts ?v=18→17 to match content. sku branding-only. No new modules.
