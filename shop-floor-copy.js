@@ -1,4 +1,4 @@
-/* Shop-floor copy override v173 — clearer LOOP OPEN: tap LEFT plates to seat. Airflow before charge holds. */
+/* Shop-floor copy override v174 — service-call: hook gauges, read live SH/SC before pick. LOOP OPEN tip holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -270,12 +270,25 @@
     if (strip.style.display !== want) strip.style.display = want;
   }
 
+  function serviceCallTip() {
+    document.querySelectorAll("#svc-sheet, .svc-sheet, .no-cool-sheet, #screen-service p, .svc-prompt").forEach(function (el) {
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (/Hook gauges/i.test(t) && /pick the fix/i.test(t) && t.length < 180) {
+        el.textContent = "Hook gauges first. Read live SH/SC on the manifold — do not charge from the sheet. Then pick the fix path.";
+      }
+      if (/NO-COOL SHEET/i.test(t) && /Hook gauges/i.test(t)) {
+        el.textContent = "NO-COOL SHEET — Complaint + nameplate weather. Hook gauges — numbers live on the manifold. Read SH/SC before you pick. Do not charge from the sheet.";
+      }
+    });
+  }
+
   function scrub() {
     loopClosedConfirm();
     loopClosedOnce();
     vocationalTiles();
     seatTipClear();
     loopOpenClarify();
+    serviceCallTip();
     psProveTip();
     boardCodeLaw();
     faultChipFit();
