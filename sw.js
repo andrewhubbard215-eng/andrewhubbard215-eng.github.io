@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v787: shop-floor-copy 171) for Android / Windows PWA */
-const VER = "lt-allstars-v788";
+/* HVAC Allstars — offline cache (v789: phone dials 96px) for Android / Windows PWA */
+const VER = "lt-allstars-v789";
 const CORE = [
 "./",
 "./index.html",
@@ -12,7 +12,7 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=48",
+"./phone-floor.css?v=49",
 "./phone-p0.css?v=14",
 "./phone-rail.css?v=4",
 "./saturday-phone.css?v=4",
