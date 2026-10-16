@@ -40,7 +40,7 @@
   window.LtRestrictLabels = { sh: RESTRICT_SH, sc: RESTRICT_SC, status: RESTRICT_STATUS };
   var OVER_SH = "3.0 °F SH (low — flooding)";
   var OVER_SC = "20.0 °F SC (high — extra liquid)";
-  var OVER_STATUS = "Overcharge: blue 3 SH low + red 20 SC high. Extra liquid backed up in the condenser and flooding the coil. Recover to nameplate SC with the scale under the tank. Do not vent. Do not turn the TXV to hide it.";
+  var OVER_STATUS = "Overcharge: high SC 20, low SH 3, head up. Recover to the nameplate weight, then charge TXV by subcooling. Never add gas to fix low SH. Do not vent.";
   var AIR_SH = "12.0 °F SH (in seat — coil fed)";
   var AIR_SC = "22.0 °F SC (high — air in the condenser)";
   var AIR_STATUS = "Noncondensables: blue 12 SH in seat + red 22 SC high, head 530, glass clear. Air is taking condenser space. Not overcharge (3/20), not a dirty coil. Recover, pull a 500-micron vacuum, weigh in. Do not add gas.";
