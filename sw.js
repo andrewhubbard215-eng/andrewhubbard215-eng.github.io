@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v789: phone dials 96px) for Android / Windows PWA */
-const VER = "lt-allstars-v789";
+/* HVAC Allstars — offline cache (v790: clearer LOOP OPEN seat tip) for Android / Windows PWA */
+const VER = "lt-allstars-v790";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=10",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=171",
+"./shop-floor-copy.js?v=172",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=27",
