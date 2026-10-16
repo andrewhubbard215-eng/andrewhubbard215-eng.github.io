@@ -75,7 +75,7 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 #sandbox-root .sb-gauges{max-height: 32vh !important;min-height: 0 !important;order: unset !important;overflow: hidden !important;}
 #sandbox-root .sb-toolbar{order: 5 !important;max-height: 40px !important;position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;z-index: 3 !important;}
-#sb-analog canvas { width: 72px !important; height: 72px !important; }}
+#sb-analog canvas { width: 96px !important; height: 96px !important; }}
 @media (max-width: 900px){#sandbox-root #sb-eq-chip,
 #sandbox-root #sb-formula,
 #sandbox-root #sb-shsc-formula { display: none !important; }}
