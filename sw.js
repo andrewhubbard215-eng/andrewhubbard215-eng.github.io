@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v790: clearer LOOP OPEN seat tip) for Android / Windows PWA */
-const VER = "lt-allstars-v790";
+/* HVAC Allstars — offline cache (v791: clearer LOOP OPEN tap-to-seat tip) for Android / Windows PWA */
+const VER = "lt-allstars-v791";
 const CORE = [
 "./",
 "./index.html",

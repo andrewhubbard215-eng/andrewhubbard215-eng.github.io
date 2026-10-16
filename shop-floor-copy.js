@@ -1,4 +1,4 @@
-/* Shop-floor copy override v172 — clearer LOOP OPEN seat tip. Airflow before charge holds. */
+/* Shop-floor copy override v173 — clearer LOOP OPEN: tap LEFT plates to seat. Airflow before charge holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -37,7 +37,7 @@
     document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/^LOOP OPEN/i.test(t) && (/seat LEFT/i.test(t) || /tap the four/i.test(t)) && t.length < 220) {
-        el.textContent = "LOOP OPEN — seat the four LEFT plates first (COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP), then Start. Standing equalized P is normal with unit off. No SH/SC until the loop is closed. Airflow before charge — prove the filter.";
+        el.textContent = "LOOP OPEN — tap the four LEFT plates (COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP) to seat them, then Start. Standing equalized pressures normal (unit off). No SH/SC until loop closes. Prove filter (airflow) before charge.";
       }
     });
   }
