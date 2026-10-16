@@ -1,4 +1,4 @@
-/* Shop-floor copy override v174 — service-call: hook gauges, read live SH/SC before pick. LOOP OPEN tip holds. */
+/* Shop-floor copy override v175 — service-call: hook gauges + read live SH/SC before pick (robust). LOOP OPEN holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -271,9 +271,9 @@
   }
 
   function serviceCallTip() {
-    document.querySelectorAll("#svc-sheet, .svc-sheet, .no-cool-sheet, #screen-service p, .svc-prompt").forEach(function (el) {
+    document.querySelectorAll("#svc-sheet, .svc-sheet, .no-cool-sheet, #screen-service p, .svc-prompt, .svc-rail p").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (/Hook gauges/i.test(t) && /pick the fix/i.test(t) && t.length < 180) {
+      if (/Hook gauges/i.test(t) && (/pick the fix|pick the|call the/i.test(t)) && t.length < 220) {
         el.textContent = "Hook gauges first. Read live SH/SC on the manifold — do not charge from the sheet. Then pick the fix path.";
       }
       if (/NO-COOL SHEET/i.test(t) && /Hook gauges/i.test(t)) {
