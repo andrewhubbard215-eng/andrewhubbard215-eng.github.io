@@ -82,3 +82,14 @@
   #sb-seats .sb-seat.on span { display: none; }
   #sb-seats .sb-seat:focus, #sb-seats .sb-seat:hover { z-index: 3; }
 }
+
+/* v3.5.552 LEFT rail stays put when a part seats: same box before/after, scrollbar space reserved. */
+#sandbox-root .sb-palette, #sandbox-root .parts-tray, #sandbox-root [data-parts-tray] { scrollbar-gutter: stable; overflow-anchor: none; }
+#sandbox-root .sb-palette [data-part], #sandbox-root .parts-tray [data-part], #sandbox-root [data-parts-tray] [data-part] {
+  box-sizing: border-box !important; border-width: 2px !important; border-style: solid !important;
+  min-height: 44px; margin-top: 0; margin-bottom: 4px; transform: none !important;
+}
+#sandbox-root .sb-palette [data-part].primary, #sandbox-root .sb-palette [data-part][aria-pressed="true"],
+#sandbox-root .parts-tray [data-part].primary, #sandbox-root [data-parts-tray] [data-part].primary {
+  border-width: 2px !important; margin-bottom: 4px;
+}

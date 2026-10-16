@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v795: float prove drain first) for Android / Windows PWA */
-const VER = "lt-allstars-v795";
+const VER = "lt-allstars-v796";
 const CORE = [
 "./",
 "./index.html",
@@ -14,7 +14,7 @@ const CORE = [
 "./board-codes.css?v=4",
 "./phone-floor.css?v=49",
 "./phone-p0.css?v=14",
-"./phone-rail.css?v=5",
+"./phone-rail.css?v=6",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",

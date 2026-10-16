@@ -10,3 +10,5 @@ TOMORROW: full manifold guided hang-to-call; phone dials confirm
 
 - 2026-10-16 12 PM: v3.5.549 / SW lt-allstars-v793 / phone-rail.css v5 - phone LEFT seat plates show one compact name each, no doubled/overlapping labels before seating. CSS only; card map, sandbox layout, healthy 162/442 SH10/SC10 untouched.
 - 2026-10-16 12:19 PM Lane A: live bays clock-in / meter / sandbox / service pass. No leftover-box or PC-layout break.
+
+- 2026-10-16 3 PM: v3.5.552 / SW lt-allstars-v796 / phone-rail.css v6 - LEFT rail no longer shifts when a part seats (fixed 2px border, border-box, min-height, scrollbar gutter reserved). CSS only; card map, sandbox layout, healthy 162/442 SH10/SC10 untouched.
