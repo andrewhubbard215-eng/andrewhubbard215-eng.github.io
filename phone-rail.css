@@ -70,3 +70,15 @@
   }
   .lt-hose, .lt-port { min-height: 44px; pointer-events: auto; position: relative; z-index: 7; }
 }
+
+/* v3.5.549 phone: LEFT seat plates — one compact name per plate, no overlap before seating. Positions untouched. */
+@media (max-width: 480px) {
+  #sb-seats .sb-seat:not(.on) span {
+    display: block; max-width: 64px; margin: 0 auto;
+    font: 700 9px/1.1 sans-serif !important; letter-spacing: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    background: rgba(15,23,42,.85); border-radius: 4px; padding: 1px 3px;
+  }
+  #sb-seats .sb-seat.on span { display: none; }
+  #sb-seats .sb-seat:focus, #sb-seats .sb-seat:hover { z-index: 3; }
+}

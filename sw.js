@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v792: service-call hook gauges tip) for Android / Windows PWA */
-const VER = "lt-allstars-v792";
+const VER = "lt-allstars-v793";
 const CORE = [
 "./",
 "./index.html",
@@ -14,7 +14,7 @@ const CORE = [
 "./board-codes.css?v=4",
 "./phone-floor.css?v=49",
 "./phone-p0.css?v=14",
-"./phone-rail.css?v=4",
+"./phone-rail.css?v=5",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
