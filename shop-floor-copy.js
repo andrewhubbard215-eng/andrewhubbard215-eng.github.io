@@ -1,4 +1,4 @@
-/* Shop-floor copy override v170 — airflow proof before scale (delta T). Standing tip holds. */
+/* Shop-floor copy override v171 — board-code door sticker is law. Standing tip holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -24,11 +24,20 @@
     });
   }
 
+  function boardCodeLaw() {
+    document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/Board-code|door sticker|Carrier.*Trane/i.test(t)) {
+        el.textContent = "Door sticker is law — Carrier 2-digit, Trane flashes, mini-split letters. Never invent OEM codes.";
+      }
+    });
+  }
+
   function loopOpenClarify() {
     document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/^LOOP OPEN/i.test(t) && (/seat LEFT/i.test(t) || /tap the four/i.test(t)) && t.length < 220) {
-        el.textContent = "LOOP OPEN — tap each LEFT plate (COMP · COND · TXV · EVAP), then Start. Standing equalized P is normal. No SH/SC until closed.";
+        el.textContent = "LOOP OPEN — tap each LEFT plate (COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP), then Start. Standing equalized P is normal. No SH/SC until closed.";
       }
     });
   }
@@ -37,7 +46,7 @@
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip, #sb-ts, #sb-ts li, #sb-ts p, #sb-ts strong").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t) || /Seat all four/i.test(t)) {
-        el.textContent = "Seat all four parts on the LEFT tray: COMP · COND · TXV · EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas. Airflow before charge — prove the filter first, then measure supply/return delta T. Nameplate is the target. Do not guess the charge. SH = suction line T − dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Piston: charge by SH ~10°. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Float open = full pan. Drain first — do not jump the switch. TS sheet: Standing first — unit off, equalized P only.";
+        el.textContent = "Seat all four parts on the LEFT tray: COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP. Then hit Start. Standing equalized P is normal (unit off). Do not recover standing gas. Airflow before charge — prove the filter first, then measure supply/return delta T. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV \u2014 prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first \u2014 clamp amp the blower. Do not add gas. Float open = full pan. Drain first \u2014 do not jump the switch. TS sheet: Standing first \u2014 unit off, equalized P only.";
       }
     });
   }
@@ -116,7 +125,7 @@
     document.querySelectorAll("#sb-status, .sb-status, [id*=status]").forEach(function (el) {
       var t = el.textContent || "";
       if (/Standing pressures/i.test(t) || (/Standing P/i.test(t) && /seat/i.test(t)) || /not a diagnosis/i.test(t) || /not a charge ticket/i.test(t)) {
-        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Float open = full pan. Drain first — do not jump the switch. TS sheet: Standing first \u2014 unit off, equalized P only.";
+        el.textContent = "Standing P is not a charge ticket. Both gauges equal = unit off. Refrigerant migrates to the colder coil. Seat the four LEFT, start the compressor, wait for stable SH/SC before you weigh or recover any gas. Do not recover standing gas. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. Meter first \u2014 do not shotgun. Do not jump the contactor. Airflow before charge. Prove filter first, then indoor coil, outdoor coil, and ducts before the scale. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV \u2014 prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first \u2014 clamp amp the blower. Do not add gas. Float open = full pan. Drain first \u2014 do not jump the switch. TS sheet: Standing first \u2014 unit off, equalized P only.";
       }
     });
   }
@@ -246,7 +255,7 @@
     if (!st) return;
     var t = st.textContent || "";
     if (/LOOP OPEN|seat LEFT|Don't jump|Standing P/i.test(t) || t.length < 40) {
-      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV — prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first — clamp amp the blower. Do not add gas. Float open = full pan. Drain first — do not jump the switch. TS sheet: Standing first \u2014 unit off, equalized P only.";
+      st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV \u2014 prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first \u2014 clamp amp the blower. Do not add gas. Float open = full pan. Drain first \u2014 do not jump the switch. TS sheet: Standing first \u2014 unit off, equalized P only.";
     }
   }
 
@@ -268,6 +277,7 @@
     seatTipClear();
     loopOpenClarify();
     psProveTip();
+    boardCodeLaw();
     faultChipFit();
     lockerCard();
     bayStrip();
