@@ -1,4 +1,4 @@
-/* Shop-floor copy override v181 — airflow before charge on service/sandbox. Lock out first. LOOP OPEN holds. */
+/* Shop-floor copy override v182 — Saturday callback tip + airflow. Lock out first. LOOP OPEN holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -8,6 +8,9 @@
       }
       if (/L1 LINE/i.test(t) && /chips LEFT/i.test(t)) {
         el.textContent = "L1 LINE / L2 LINE / HERM / C R S - lock out first - chips LEFT";
+      }
+      if (/Saturday callback/i.test(t) || /no-cool sheet/i.test(t)) {
+        if (t.length < 140) el.textContent = "No-cool sheet - meter first - isolate the open - don't jump the float";
       }
       if (/service calls/i.test(t) || /hook gauges/i.test(t) || /SH\/SC/i.test(t)) {
         if (t.length < 120) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first";
