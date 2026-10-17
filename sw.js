@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v810: recovery weigh-in cue) for Android / Windows PWA */
-const VER = "lt-allstars-v810";
+const VER = "lt-allstars-v811";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=11",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=183",
+"./shop-floor-copy.js?v=184",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",

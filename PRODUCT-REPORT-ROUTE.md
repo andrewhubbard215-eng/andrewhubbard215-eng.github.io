@@ -24,3 +24,5 @@ TOMORROW: full manifold guided hang-to-call; phone dials confirm
 - 2026-10-17 9 AM: v3.5.563 / SW lt-allstars-v806 - RESTORE. aba1a66 (claimed v3.5.562/SW v805 dial contrast) pushed literal $(cat ...) over index.html, sw.js, analog-gauges.js, phone-gauges-233.css; live would not boot. Restored all four from 93f244e (v3.5.561); dial-contrast content was never in the repo, so not recoverable. Healthy 162/442 SH10/SC10 untouched.
 
 - 2026-10-17 10 AM: v3.5.564 / SW lt-allstars-v807 / phone-rail.css v7 - phone PACKS list: soft bottom fade + snap, no hard-cut button sliver at the edge. CSS only. SHOP-NOTE v562 stub replaced with real note. Healthy 162/442 SH10/SC10, layout untouched.
+
+- 2026-10-17 2 PM: v3.5.568 / SW lt-allstars-v811 / shop-floor-copy.js v184 - RESTORE. 90ce6cb (10/16 7:05 PM) wiped shop-floor-copy.js to 11 bytes; 934b802 rebuilt only tile copy (729 B), silently dropping ~19 KB of v179 seat/standing/SH-SC/no-cool teach logic. Restored v179 body from 2feee59, kept v180-v183 tile wording. Healthy 162/442 SH10/SC10 untouched.
