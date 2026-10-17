@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v810: recovery weigh-in cue) for Android / Windows PWA */
-const VER = "lt-allstars-v811";
+/* HVAC Allstars — offline cache (v811: cap prove lockout tip) for Android / Windows PWA */
+const VER = "lt-allstars-v812";
 const CORE = [
 "./",
 "./index.html",

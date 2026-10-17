@@ -1,4 +1,4 @@
-/* Shop-floor copy override v184 — RESTORE: 90ce6cb wiped this file (11 bytes) and 934b802 rebuilt only the tile copy, dropping the v179 seat/standing/SH-SC teach logic. v179 body restored; v180-v183 tile wording (land lugs lock out, airflow, Saturday callback, recovery weigh-in) kept. LOOP OPEN holds. */
+/* Shop-floor copy override v185 — Cap prove: lock out then discharge before µF. LOOP OPEN holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -11,6 +11,9 @@
       }
       if (/L1 LINE/i.test(t) && /chips LEFT/i.test(t)) {
         el.textContent = "L1 LINE / L2 LINE / HERM / C R S - lock out first - chips LEFT";
+      }
+      if (/Cap prove|µF vs can/i.test(t)) {
+        if (t.length < 140) el.textContent = "Lock out → discharge → µF vs can ±6% → no hard-start";
       }
       if (/Saturday callback/i.test(t) || /no-cool sheet/i.test(t)) {
         if (t.length < 140) el.textContent = "No-cool sheet - meter first - isolate the open - don't jump the float";
