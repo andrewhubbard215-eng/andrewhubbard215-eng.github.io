@@ -61,6 +61,7 @@
     ctx.restore();
   }
   function label(ctx, n, color) {
+    return; /* v3.5.570: base canvas already names each seat (Condenser, Compressor...). Second poster label doubled them on phone + PC. */
     ctx.fillStyle = color || "#f8fafc";
     ctx.font = "bold 12px ui-sans-serif, system-ui, sans-serif";
     ctx.textAlign = "center";
