@@ -20,3 +20,5 @@ TOMORROW: full manifold guided hang-to-call; phone dials confirm
 - 2026-10-16 7:46 PM Lane C: cache/SW sync. Bumped APP_VER 3.5.558→3.5.559, SW v801→v802, seats ?v=32→33, ts ?v=18→17 to match content. sku branding-only. No new modules.
 
 - 2026-10-17 9 AM: v3.5.563 / SW lt-allstars-v806 - RESTORE. aba1a66 (claimed v3.5.562/SW v805 dial contrast) pushed literal $(cat ...) over index.html, sw.js, analog-gauges.js, phone-gauges-233.css; live would not boot. Restored all four from 93f244e (v3.5.561); dial-contrast content was never in the repo, so not recoverable. Healthy 162/442 SH10/SC10 untouched.
+
+- 2026-10-17 10 AM: v3.5.564 / SW lt-allstars-v807 / phone-rail.css v7 - phone PACKS list: soft bottom fade + snap, no hard-cut button sliver at the edge. CSS only. SHOP-NOTE v562 stub replaced with real note. Healthy 162/442 SH10/SC10, layout untouched.

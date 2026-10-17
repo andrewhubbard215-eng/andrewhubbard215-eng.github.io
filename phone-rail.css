@@ -93,3 +93,15 @@
 #sandbox-root .parts-tray [data-part].primary, #sandbox-root [data-parts-tray] [data-part].primary {
   border-width: 2px !important; margin-bottom: 4px;
 }
+
+/* v3.5.564 phone PACKS list: no hard-cut button sliver at the bottom edge. Soft fade says more below; buttons snap whole; last one clears the fade. */
+@media (max-width: 720px) {
+  #sandbox-root .sb-zone-b {
+    padding-bottom: 32px !important;
+    scroll-snap-type: y proximity;
+    scroll-padding: 4px 0 32px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+  }
+  #sandbox-root .sb-zone-b > * { scroll-snap-align: start; flex-shrink: 0; }
+}

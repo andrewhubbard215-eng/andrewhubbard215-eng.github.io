@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v804: land lugs lock-out tip) for Android / Windows PWA */
-const VER = "lt-allstars-v806";
+const VER = "lt-allstars-v807";
 const CORE = [
 "./",
 "./index.html",
@@ -14,7 +14,7 @@ const CORE = [
 "./board-codes.css?v=4",
 "./phone-floor.css?v=49",
 "./phone-p0.css?v=14",
-"./phone-rail.css?v=6",
+"./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
