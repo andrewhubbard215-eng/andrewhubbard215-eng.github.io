@@ -1,4 +1,4 @@
-/* Shop-floor copy override v182 — Saturday callback tip + airflow. Lock out first. LOOP OPEN holds. */
+/* Shop-floor copy override v183 — recovery weigh-in cue. Lock out first. LOOP OPEN holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -14,6 +14,9 @@
       }
       if (/service calls/i.test(t) || /hook gauges/i.test(t) || /SH\/SC/i.test(t)) {
         if (t.length < 120) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first";
+      }
+      if (/recovery/i.test(t) && /scale/i.test(t)) {
+        if (t.length < 140) el.textContent = "Drag hoses · scale is proof · 80% stop · vacuum separate · weigh every drop";
       }
     });
   }
