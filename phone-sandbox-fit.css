@@ -19,13 +19,14 @@
 /* evening save: tighter parts tray on phone so LEFT seats don't crowd the gauges */
 @media (max-width: 480px) {
   #sandbox-root .sb-parts, #sandbox-root #sb-bin, #sandbox-root .parts-left {
-    max-height: 28vh !important;
+    max-height: 26vh !important;
     overflow-y: auto !important;
     font-size: 11px !important;
   }
-  #sandbox-root .sb-part, #sandbox-root [data-part] {
-    min-height: 36px !important;
-    margin: 2px 0 !important;
+  #sandbox-root .sb-part, #sandbox-root [data-part], #sandbox-root button[data-part] {
+    min-height: 40px !important;
+    margin: 1px 0 !important;
+    padding: 4px 2px !important;
   }
 }
 
