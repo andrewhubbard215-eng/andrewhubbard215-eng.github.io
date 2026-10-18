@@ -1,12 +1,14 @@
-DATE: 2026-10-17
-LIVE: v3.5.575
-SW: lt-allstars-v818
-PLAYED: Clock-in, Voltmeter school (direction bar pinned top, BLACK→COM / RED→VΩ, Equip ground), System sandbox (parts LEFT, manifold toggle), Service calls (ticket rail, system visible, next ticket). No crash. PC layout fills. Guided directions visible. Drag not fully tested this pass.
+DATE: 2026-10-18
+LIVE: v3.5.582
+SW: lt-allstars-v825
+PLAYED: Clock-in, Voltmeter school (direction bar top, BLACK→COM / RED→VΩ, Equip ground chip), System sandbox (parts LEFT seats), Service calls (ticket rail slim, system clickable, next ticket changes). No crash. PC fills. Guided visible. Drag chip vanishes on land.
 BROKE: none
-FIXED: none this shift
+FIXED: none this shift (clean)
 SHIPPED: clean playtest. No leftover-box / hidden-directions / blocked-drop / PC-layout break.
-STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided walk not fully sequenced.
-TOMORROW: full manifold guided hang-to-call; phone dials confirm
+STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided hang-to-call not fully sequenced.
+TOMORROW: full manifold guided sequence; phone hard-refresh confirm tip.
+
+- 2026-10-18 12 PM Lane A: live bays clock-in / meter / sandbox / service pass. No leftover-box or PC-layout break.
 
 - 2026-10-17 7:45 PM Lane C: cache/SW sync. Bumped APP_VER 3.5.574→3.5.575, SW v817→v818, shop-floor-copy ?v=185→186, poster CORE ?v=1→2. sku branding-only. Clock In confirmed live. No new modules.
 
