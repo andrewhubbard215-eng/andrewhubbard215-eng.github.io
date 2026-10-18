@@ -1,4 +1,22 @@
 /* Allstars — refrigeration-poster pipes on the diamond. No third-party logo. */
+/* v3.5.583: side seat names (Compressor / TXV / PISTON / EEV) clear the seat plates when the diamond is scaled down on phone. Only #sb-canvas, only those labels. */
+(function () {
+  if (window.__ltSideLabShim) return; window.__ltSideLabShim = 1;
+  var P = CanvasRenderingContext2D.prototype, RX = /^(Compressor|TXV|PISTON|EEV|Piston)\b/;
+  function shift(ctx, t, x) {
+    var c = ctx.canvas;
+    if (!c || c.id !== "sb-canvas" || !RX.test(String(t))) return x;
+    var cw = c.clientWidth || 0; if (!cw || !c.width) return x;
+    var k = c.width / cw; if (k < 1.3) return x;
+    var need = 30 * k, have = 32;
+    if (need <= have) return x;
+    return ctx.textAlign === "right" ? x - (need - have) : ctx.textAlign === "left" ? x + (need - have) : x;
+  }
+  ["fillText", "strokeText"].forEach(function (m) {
+    var f = P[m];
+    P[m] = function (t, x, y) { var a = Array.prototype.slice.call(arguments); a[1] = shift(this, t, x); return f.apply(this, a); };
+  });
+})();
 (function () {
   "use strict";
   var NODES = {

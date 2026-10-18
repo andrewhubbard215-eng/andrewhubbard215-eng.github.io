@@ -1,4 +1,4 @@
-/* Shop-floor copy override v192 — tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
+/* Shop-floor copy override v193 — scrub() calls loopClosedConfirm/loopClosedOnce/serviceCallTip again (v192 dropped the calls, so its own service tip never ran). v192: tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -307,6 +307,9 @@
     boardCodeLaw();
     loopOpenClarify();
     seatTipClear();
+    loopClosedConfirm();
+    loopClosedOnce();
+    serviceCallTip();
     faultChipFit();
     lockerCard();
     bayStrip();
