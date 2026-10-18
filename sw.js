@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v818: cache sync shop-floor-copy + poster) for Android / Windows PWA */
-const VER = "lt-allstars-v818";
+const VER = "lt-allstars-v819";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=11",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=186",
+"./shop-floor-copy.js?v=187",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
