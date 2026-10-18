@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v824: restore full shop-floor-copy v190 shorter seat tip (parts LEFT, airflow first)) for Android / Windows PWA */
-const VER = "lt-allstars-v824";
+/* HVAC Allstars — offline cache (v825: shop-floor-copy v192 tighter service tip) for Android / Windows PWA */
+const VER = "lt-allstars-v825";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=11",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=190",
+"./shop-floor-copy.js?v=192",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
