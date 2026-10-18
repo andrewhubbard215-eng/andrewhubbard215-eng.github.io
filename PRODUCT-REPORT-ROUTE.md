@@ -1,6 +1,6 @@
 DATE: 2026-10-18
-LIVE: v3.5.582
-SW: lt-allstars-v825
+LIVE: v3.5.588
+SW: lt-allstars-v831
 PLAYED: Clock-in, Voltmeter school (direction bar top, BLACK→COM / RED→VΩ, Equip ground chip), System sandbox (parts LEFT seats), Service calls (ticket rail slim, system clickable, next ticket changes). No crash. PC fills. Guided visible. Drag chip vanishes on land.
 BROKE: none
 FIXED: none this shift (clean)
