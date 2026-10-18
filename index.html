@@ -142,9 +142,9 @@
       }
       html = html.replace(/pc-fit-1280\.css\?v=\d+/g, "pc-fit-1280.css?v=2");
       if (html.indexOf("phone-sandbox-fit.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=4" />\n</head>');
+        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=5" />\n</head>');
       }
-      html = html.replace(/phone-sandbox-fit\.css\?v=\d+/g, "phone-sandbox-fit.css?v=4");
+      html = html.replace(/phone-sandbox-fit\.css\?v=\d+/g, "phone-sandbox-fit.css?v=5");
       // Strip Super Heat combat card forever
       html = html.replace(/<a class="mode-card"[^>]*super-heat-card[\s\S]*?<\/a>/g, "");
       html = html.replace(/id="super-heat-card"[\s\S]*?<\/a>/g, "");

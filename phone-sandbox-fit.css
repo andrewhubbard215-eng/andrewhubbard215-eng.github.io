@@ -46,3 +46,16 @@
     letter-spacing: -0.2px;
   }
 }
+
+/* evening 2026-10-18: tighter LEFT parts tray on phone so seats stay hittable, less crowding under gauges */
+@media (max-width: 480px) {
+  #sandbox-root .sb-parts, #sandbox-root #sb-bin {
+    max-height: 22vh !important;
+    overflow-y: auto !important;
+  }
+  #sandbox-root [data-part] {
+    min-height: 36px !important;
+    font-size: 10px !important;
+    line-height: 1.05 !important;
+  }
+}
