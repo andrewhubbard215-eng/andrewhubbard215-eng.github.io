@@ -24,7 +24,7 @@ const CORE = [
 "./phone-morning.css?v=5",
 "./phone-hose-shsc.css?v=2",
 "./pc-fit-1280.css?v=2",
-"./phone-sandbox-fit.css?v=5",
+"./phone-sandbox-fit.css?v=4",
 "./hub-portrait.jpg",
 "./jesus.png",
 "./commandments.js?v=120",

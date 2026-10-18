@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="icon-192.png" />
   <script>
   (function () {
-    var APP_VER = "v3.5.587"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.588"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
@@ -27,7 +27,7 @@
       html = html.replace(/electrical\.js\?v=\d+/g, "electrical.js?v=139");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=3");
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=830");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=831");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=34");
       html = html.replace(/route-park\.js\?v=\d+/g, "route-park.js?v=3");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
@@ -62,7 +62,7 @@
       html = html.replace(/\s*<link rel="stylesheet" href="phone-gauges-clip-233\.css\?v=\d+" \/>/g, "");
       html = html.replace('</head>', '  <link rel="stylesheet" href="phone-gauges-233.css?v=8" />\n  <link rel="stylesheet" href="phone-gauges-clip-233.css?v=6" />\n  <link rel="stylesheet" href="phone-diamond.css?v=3" />\n</head>');
       html = html.replace(/recovery-room\.js\?v=\d+/g, "recovery-room.js?v=7");
-      html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=4");
+      html = html.replace(/recovery-room\.css\?v=\d+/g, "recovery-room.css?v=5");
       html = html.replace(/recovery-room\.g(\d)\.js\?v=\d+/g, "recovery-room.g$1.js?v=4");
       html = html.replace(/svc-ticket-match\.js\?v=\d+/g, "svc-ticket-match.js?v=8");
       html = html.replace(/route-ticket-gauges\.js\?v=\d+/g, "route-ticket-gauges.js?v=20");
@@ -142,9 +142,9 @@
       }
       html = html.replace(/pc-fit-1280\.css\?v=\d+/g, "pc-fit-1280.css?v=2");
       if (html.indexOf("phone-sandbox-fit.css") === -1) {
-        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=5" />\n</head>');
+        html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=4" />\n</head>');
       }
-      html = html.replace(/phone-sandbox-fit\.css\?v=\d+/g, "phone-sandbox-fit.css?v=5");
+      html = html.replace(/phone-sandbox-fit\.css\?v=\d+/g, "phone-sandbox-fit.css?v=4");
       // Strip Super Heat combat card forever
       html = html.replace(/<a class="mode-card"[^>]*super-heat-card[\s\S]*?<\/a>/g, "");
       html = html.replace(/id="super-heat-card"[\s\S]*?<\/a>/g, "");
@@ -160,12 +160,12 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=830").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=831").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.587 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.588 - shop floor</p>
 </body>
 </html>

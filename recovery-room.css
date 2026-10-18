@@ -68,3 +68,12 @@ html.rc-dragging,html.rc-dragging body{overflow:hidden;touch-action:none}
 .rc-manifold-lo canvas,.rc-manifold-hi canvas{display:block;width:min(28vw,110px);max-width:100%;height:auto;margin:2px auto 0}
 .rc-micron{border-color:#eab308}
 .rc-micron[hidden]{display:none!important}
+
+/* v3.5.588: LO/HI ports stay on top of the gauge readout so a tech can land the blue hose on phone (HI gauge panel was covering LO port). */
+.rc-ports{z-index:7}
+.rc-port{z-index:7}
+.rc-readout canvas{pointer-events:none}
+/* Seated bay parts (machine, tank, scale) stay tappable over the unit photo so the machine can go back to the tray after the 80% stop. */
+.rc-unit{pointer-events:none}
+.rc-bay-hooks{z-index:6}
+.rc-hook{z-index:6;pointer-events:auto}
