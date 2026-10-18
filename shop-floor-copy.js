@@ -1,4 +1,4 @@
-/* Shop-floor copy override v195 — recovery tip WC clear after 80485cc blanked index.html, sw.js and this file (0 bytes); its recovery tip intent (stop at 80%, never vent) kept on the Recovery card. v193: scrub() calls loopClosedConfirm/loopClosedOnce/serviceCallTip again (v192 dropped the calls, so its own service tip never ran). v192: tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
+/* Shop-floor copy override v196 — Recovery room: after 80% stop + machine back in tray, status shows next steps (yellow to pump, hold under 500 microns, weigh in nameplate, never vent). Prev: v195 — recovery tip WC clear after 80485cc blanked index.html, sw.js and this file (0 bytes); its recovery tip intent (stop at 80%, never vent) kept on the Recovery card. v193: scrub() calls loopClosedConfirm/loopClosedOnce/serviceCallTip again (v192 dropped the calls, so its own service tip never ran). v192: tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
@@ -300,7 +300,19 @@
     });
   }
 
+  var RC_NEXT = "Recovery done: yellow to vacuum pump. 0 psi is not a vacuum \u2014 pull down and hold under 500 microns (isolate, watch it hold). Then weigh in the nameplate charge on the scale. Never vent.";
+  function recoveryNext() {
+    var st = document.getElementById("rc-status");
+    if (!st) return;
+    var t = (st.textContent || "").trim();
+    if (/^Machine back in the tray\. Vacuum pump is the next tool/.test(t) || /^System empty enough\. Vacuum is the separate tool now/.test(t)) st.textContent = RC_NEXT;
+    if (!st.__ltRcObs && window.MutationObserver) {
+      st.__ltRcObs = new MutationObserver(function () { var x = (st.textContent || "").trim(); if (x !== RC_NEXT && (/^Machine back in the tray\. Vacuum pump/.test(x) || /^System empty enough\. Vacuum is the separate/.test(x))) st.textContent = RC_NEXT; });
+      st.__ltRcObs.observe(st, { childList: true, characterData: true, subtree: true });
+    }
+  }
   function scrub() {
+    recoveryNext();
     vocationalTiles();
     psProveTip();
     floatProveTip();
