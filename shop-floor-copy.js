@@ -1,10 +1,10 @@
-/* Shop-floor copy override v191 — restored full body from v187 + tighter LOOP OPEN tip (seat order + airflow first). Cap prove holds. */
+/* Shop-floor copy override v192 — tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
 (function () {
   function vocationalTiles() {
     document.querySelectorAll(".mode-card p, .tile p, .card p").forEach(function (el) {
       var t = el.textContent || "";
       if (/inducer/i.test(t) && /blower/i.test(t) && /ignitor/i.test(t)) {
-        el.textContent = "W · inducer · PS · ignitor · valve · flame · blower";
+        el.textContent = "W \u00b7 inducer \u00b7 PS \u00b7 ignitor \u00b7 valve \u00b7 flame \u00b7 blower";
       }
       if (/Plywood/i.test(t) && /catalog/i.test(t) && /filer/i.test(t)) {
         el.textContent = "Plywood wall \u00b7 shop catalog \u00b7 90-min filler";
@@ -12,8 +12,8 @@
       if (/L1 LINE/i.test(t) && /chips LEFT/i.test(t)) {
         el.textContent = "L1 LINE / L2 LINE / HERM / C R S - lock out first - chips LEFT";
       }
-      if (/Cap prove|µF vs can/i.test(t)) {
-        if (t.length < 140) el.textContent = "Lock out → discharge → µF vs can ±6% → no hard-start";
+      if (/Cap prove|\u00b5F vs can/i.test(t)) {
+        if (t.length < 140) el.textContent = "Lock out \u2192 discharge \u2192 \u00b5F vs can \u00b16% \u2192 no hard-start";
       }
       if (/Saturday callback/i.test(t) || /no-cool sheet/i.test(t)) {
         if (t.length < 140) el.textContent = "No-cool sheet - meter first - isolate the open - don't jump the float";
@@ -22,7 +22,7 @@
         if (t.length < 120) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first";
       }
       if (/recovery/i.test(t) && /scale/i.test(t)) {
-        if (t.length < 140) el.textContent = "Drag hoses · scale is proof · 80% stop · vacuum separate · weigh every drop";
+        if (t.length < 140) el.textContent = "Drag hoses \u00b7 scale is proof \u00b7 80% stop \u00b7 vacuum separate \u00b7 weigh every drop";
       }
     });
   }
@@ -39,8 +39,8 @@
   function floatProveTip() {
     document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
       var t = el.textContent || "";
-      if (/Float prove|float → coil/i.test(t) && t.length < 150) {
-        el.textContent = "Call → 240 → R–C → Y → HPC → LPC → float → coil. Drain first — do not jump.";
+      if (/Float prove|float \u2192 coil/i.test(t) && t.length < 150) {
+        el.textContent = "Call \u2192 240 \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil. Drain first \u2014 do not jump.";
       }
     });
   }
@@ -49,7 +49,7 @@
     document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
       var t = el.textContent || "";
       if (/Board-code|door sticker|Carrier.*Trane/i.test(t)) {
-        el.textContent = "Door sticker is law — Carrier 2-digit, Trane flashes, mini-split letters. Never invent OEM codes.";
+        el.textContent = "Door sticker is law \u2014 Carrier 2-digit, Trane flashes, mini-split letters. Never invent OEM codes.";
       }
     });
   }
@@ -58,7 +58,7 @@
     document.querySelectorAll("#sb-left-strip, #sb-status, .sb-live, #sandbox-root .sb-status").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/^LOOP OPEN/i.test(t) && (/seat LEFT/i.test(t) || /tap the four/i.test(t)) && t.length < 220) {
-        el.textContent = "LOOP OPEN — seat COMP · COND · TXV · EVAP on the LEFT tray (tap each plate). Hit Start. Equal standing P = unit off. No SH/SC until the loop is closed. Prove airflow/filter first.";
+        el.textContent = "LOOP OPEN \u2014 seat COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP on the LEFT tray (tap each plate). Hit Start. Equal standing P = unit off. No SH/SC until the loop is closed. Prove airflow/filter first.";
       }
     });
   }
@@ -67,7 +67,7 @@
     document.querySelectorAll("#sb-phone-tip, .sb-seat-tip, #sandbox-root .sb-seat-tip, #sb-ts, #sb-ts li, #sb-ts p, #sb-ts strong").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Seat COMP COND TXV EVAP/i.test(t) || /^Seat the four/i.test(t) || /Seat the four parts LEFT/i.test(t) || /Seat all four/i.test(t) || /^Seat COMP/i.test(t)) {
-        el.textContent = "Seat COMP · COND · TXV · EVAP LEFT. Tap Start. Standing P = off — leave the scale. Filter first. No SH/SC till closed.";
+        el.textContent = "Seat COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP LEFT. Tap Start. Standing P = off \u2014 leave the scale. Filter first. No SH/SC till closed.";
       }
     });
   }
@@ -295,7 +295,7 @@
     document.querySelectorAll("#svc-sheet, .svc-sheet, .no-cool-sheet, #screen-service p, .svc-prompt, .svc-rail p").forEach(function (el) {
       var t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (/Hook gauges/i.test(t) && (/pick the fault/i.test(t) || /SH\/SC/i.test(t))) {
-        if (t.length < 160) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first. Prove filter. Don't jump float.";
+        if (t.length < 180) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first. Prove filter. Don't jump the float.";
       }
     });
   }
