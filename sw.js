@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v837: mini-split phone feedback above button bar; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v837";
+/* HVAC Allstars — offline cache (v838: land lugs tip prove dead; mini-split phone feedback above button bar; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v838";
 const CORE = [
 "./",
 "./index.html",
