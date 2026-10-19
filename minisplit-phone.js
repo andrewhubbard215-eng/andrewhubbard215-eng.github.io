@@ -58,7 +58,7 @@
       "#minisplit-root .ms-actions #ms-do{flex:1 1 100%;font-weight:800;min-height:52px}" +
       "#minisplit-root .ms-feedback{" +
       "min-height:1.35em;font-size:14px;font-weight:700;padding:8px 4px;" +
-      "position:sticky;bottom:76px;z-index:28;background:rgba(8,12,18,.92);" +
+      "position:sticky;bottom:calc(var(--ms-act-h,184px) + 6px);z-index:31;background:rgba(8,12,18,.92);" +
       "border-radius:8px}" +
       "#minisplit-root .ms-feedback.good{color:#5eead4}" +
       "#minisplit-root .ms-feedback.bad{color:#f87171}" +
@@ -244,6 +244,11 @@
     ensureCss();
     scrubLincoln(host);
     if (!isPhone()) return;
+    /* v5: feedback rides just above the sticky button bar, not behind it */
+    try {
+      var msAct = host.querySelector(".ms-actions");
+      if (msAct && msAct.offsetHeight) host.style.setProperty("--ms-act-h", msAct.offsetHeight + "px");
+    } catch (_) {}
     softDefaults(host);
     tagPreview(host);
     forceChipPreview(host);
