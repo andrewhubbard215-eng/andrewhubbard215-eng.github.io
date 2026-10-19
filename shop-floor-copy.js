@@ -1,4 +1,4 @@
-/* Shop-floor copy override v203 - service call tip: airflow before charge, meter first, never jump the float. */
+/* Shop-floor copy override v204 - service call tip: airflow before charge, meter first, never jump the float. */
 /* Shop-floor copy override v202 - restore full v200 (210680c) after e856013 stubbed it; keep only e856013 land-lugs line (chips LEFT, green when seated). */
 /* Shop-floor copy override v200 (merged) - land lugs tip: lock out first, prove dead. Bay strip from 7911635: voltmeter school + ohm school no longer mislabel as saturday callback. Rest of v198 (recovery/service/seat tips) kept; 7911635 had dropped it. Strip keys off the active screen only (root nodes linger after you leave). */
 /* Shop-floor copy override v198 — Recovery room: after 80% stop + machine back in tray, status shows next steps (yellow to pump, hold under 500 microns, weigh in nameplate, never vent). Prev: v196 — recovery tip WC clear after 80485cc blanked index.html, sw.js and this file (0 bytes); its recovery tip intent (stop at 80%, never vent) kept on the Recovery card. v193: scrub() calls loopClosedConfirm/loopClosedOnce/serviceCallTip again (v192 dropped the calls, so its own service tip never ran). v192: tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
@@ -13,7 +13,7 @@
         el.textContent = "Plywood wall \u00b7 shop catalog \u00b7 90-min filler";
       }
       if (/L1 LINE/i.test(t) && /chips LEFT/i.test(t)) {
-        el.textContent = "L1 LINE / L2 LINE / HERM / C R S — LOTO first — prove dead — chips LEFT (green when seated)";
+        el.textContent = "L1 LINE / L2 LINE / HERM / C R S — LOTO first — prove dead — chips LEFT (green = seated) — do not shotgun";
       }
       if (/Cap prove|\u00b5F vs can/i.test(t)) {
         if (t.length < 140) el.textContent = "Lock out \u2192 discharge \u2192 \u00b5F vs can \u00b16% \u2192 no hard-start";
