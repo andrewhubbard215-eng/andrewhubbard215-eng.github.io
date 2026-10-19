@@ -59,3 +59,21 @@
     line-height: 1.05 !important;
   }
 }
+
+/* evening 2026-10-19: phone Start always above fold, standing SH/SC clearly marked off so tech does not chase standing P */
+@media (max-width: 480px) {
+  #sandbox-root #sb-run, #sandbox-root button[name*="Start"], #sandbox-root .sb-start {
+    position: sticky !important;
+    bottom: 8px !important;
+    z-index: 20 !important;
+    min-height: 52px !important;
+    font-size: 16px !important;
+  }
+  #sandbox-root .sb-gauges [id*="sh"], #sandbox-root .sb-gauges [id*="sc"],
+  #sandbox-root #sb-sh, #sandbox-root #sb-sc {
+    font-weight: 700 !important;
+  }
+  #sandbox-root .sb-gauges .off, #sandbox-root .standing {
+    color: #fbbf24 !important; /* amber standing */
+  }
+}
