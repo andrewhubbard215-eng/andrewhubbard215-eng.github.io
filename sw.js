@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v838: land lugs tip prove dead; mini-split phone feedback above button bar; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v838";
+/* HVAC Allstars — offline cache (v840: restore shop-floor-copy v202 after e856013 stub; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v840";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=11",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=199",
+"./shop-floor-copy.js?v=202",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
