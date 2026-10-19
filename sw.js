@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v835: RESTORE blanked index.html + shop-floor-copy.js from 63561de) for Android / Windows PWA */
-const VER = "lt-allstars-v835";
+/* HVAC Allstars — offline cache (v836: mini-split commission closes 11/11; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v836";
 const CORE = [
 "./",
 "./index.html",
@@ -38,7 +38,7 @@ const CORE = [
 "./route-boot-fix.js?v=1",
 "./bay-restore.js?v=2",
 "./route-park.js?v=3",
-"./minisplit.js?v=10",
+"./minisplit.js?v=11",
 "./minisplit-phone.js?v=4",
 "./minisplit-chip-preview.js?v=1",
 "./service.js?v=112",

@@ -359,7 +359,16 @@
     if (step >= STEPS.length - 1) {
       if (finished) return;
       finished = true;
-      fb.textContent = "Install complete - mini-split commissioned. Awaiting payroll…";
+      /* v11: close the job on screen - 11/11, full bar, Do button locked. Floor start has no onDone. */
+      var msBar = root.querySelector(".ms-bar i");
+      if (msBar) msBar.style.width = "100%";
+      var msCnt = root.querySelector(".ms-progress span");
+      if (msCnt) msCnt.textContent = STEPS.length + " / " + STEPS.length + " steps";
+      var msDo = root.querySelector("#ms-do");
+      if (msDo) { msDo.textContent = "Commissioned ✓"; msDo.disabled = true; }
+      fb.textContent = typeof onDone === "function"
+        ? "Install complete - mini-split commissioned. Awaiting payroll…"
+        : "Install complete - " + STEPS.length + "/" + STEPS.length + " commissioned. Log ΔT, microns and added charge on the sheet, then Shop floor.";
       if (onXp) onXp(40);
       setTimeout(() => {
         if (onDone) onDone(true);
