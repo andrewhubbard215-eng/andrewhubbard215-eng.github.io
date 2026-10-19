@@ -1,3 +1,4 @@
+/* Shop-floor copy override v203 - service call tip: airflow before charge, meter first, never jump the float. */
 /* Shop-floor copy override v202 - restore full v200 (210680c) after e856013 stubbed it; keep only e856013 land-lugs line (chips LEFT, green when seated). */
 /* Shop-floor copy override v200 (merged) - land lugs tip: lock out first, prove dead. Bay strip from 7911635: voltmeter school + ohm school no longer mislabel as saturday callback. Rest of v198 (recovery/service/seat tips) kept; 7911635 had dropped it. Strip keys off the active screen only (root nodes linger after you leave). */
 /* Shop-floor copy override v198 — Recovery room: after 80% stop + machine back in tray, status shows next steps (yellow to pump, hold under 500 microns, weigh in nameplate, never vent). Prev: v196 — recovery tip WC clear after 80485cc blanked index.html, sw.js and this file (0 bytes); its recovery tip intent (stop at 80%, never vent) kept on the Recovery card. v193: scrub() calls loopClosedConfirm/loopClosedOnce/serviceCallTip again (v192 dropped the calls, so its own service tip never ran). v192: tighter service call tip (airflow before charge, meter first, no jump float). Seat tip holds. Cap prove holds. */
@@ -21,7 +22,7 @@
         if (t.length < 140) el.textContent = "No-cool sheet - meter first - isolate the open - don't jump the float";
       }
       if (/service calls/i.test(t) || /hook gauges/i.test(t) || /SH\/SC/i.test(t)) {
-        if (t.length < 120) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first";
+        if (t.length < 120) el.textContent = "Hook gauges - read SH/SC - airflow before charge - meter first - never jump the float";
       }
       if (/recovery/i.test(t) && /scale/i.test(t)) {
         if (t.length < 140) el.textContent = "Drag hoses \u00b7 scale is proof \u00b7 stop at 80% WC \u00b7 never vent \u00b7 0 psi \u2260 vacuum. Yellow to pump, hold <500 \u00b5.";
