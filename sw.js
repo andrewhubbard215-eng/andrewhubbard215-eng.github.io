@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v841: restore shop-floor-copy v202 after e856013 stub; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v841";
+/* HVAC Allstars — offline cache (v843: restore electrical-sheet.js from a480376 after 4c266da stub; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v843";
 const CORE = [
 "./",
 "./index.html",
@@ -104,7 +104,7 @@ const CORE = [
 "./electrical.js?v=139",
 "./electrical-fat.js?v=4",
 "./electrical-phone.js?v=5",
-"./electrical-sheet.js?v=25",
+"./electrical-sheet.js?v=27",
 "./electrical.b64.0.txt?v=157roll",
 "./hub-part-0.txt",
 "./hub-part-1.txt",
