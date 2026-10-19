@@ -1,1 +1,1 @@
-$(cat /workspace/artifacts/shop-floor-copy.js)
+PLACEHOLDER
