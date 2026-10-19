@@ -12,7 +12,7 @@
         el.textContent = "Plywood wall \u00b7 shop catalog \u00b7 90-min filler";
       }
       if (/L1 LINE/i.test(t) && /chips LEFT/i.test(t)) {
-        el.textContent = "L1 LINE / L2 LINE / HERM / C R S \u2014 lock out first \u2014 prove dead \u2014 chips LEFT (green when seated)";
+        el.textContent = "L1 LINE / L2 LINE / HERM / C R S — LOTO first — prove dead — chips LEFT (green when seated)";
       }
       if (/Cap prove|\u00b5F vs can/i.test(t)) {
         if (t.length < 140) el.textContent = "Lock out \u2192 discharge \u2192 \u00b5F vs can \u00b16% \u2192 no hard-start";
