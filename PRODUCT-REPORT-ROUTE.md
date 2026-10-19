@@ -1,12 +1,14 @@
 DATE: 2026-10-19
-LIVE: v3.5.593
-SW: lt-allstars-v836
+LIVE: v3.5.601
+SW: lt-allstars-v847
 PLAYED: Clock-in, Voltmeter school (direction bar top, BLACK→COM / RED→VΩ, Equip ground chip), System sandbox (parts LEFT seats), Service calls (ticket rail slim, system clickable, next ticket changes). HUB toggle ok. No crash. PC fills. Guided visible. Drag chip vanishes on land.
 BROKE: none
 FIXED: none this shift (clean)
 SHIPPED: clean playtest. No leftover-box / hidden-directions / blocked-drop / PC-layout break.
 STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided hang-to-call not fully sequenced.
 TOMORROW: full manifold guided sequence; phone hard-refresh confirm tip.
+
+- 2026-10-19 7:45 PM Lane C: cache/SW sync. Versions already matched live (index APP_VER v3.5.601, sw.js?v=847, VER lt-allstars-v847). sku branding-only. sandbox-ts no older hook inject. Clock In confirmed live. No bump. No new modules.
 
 - 2026-10-19 12 PM Lane A: live bays clock-in / meter / sandbox / service / HUB pass. No leftover-box or PC-layout break.
 
