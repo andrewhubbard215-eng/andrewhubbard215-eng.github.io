@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v856: live shop-floor play confirmed stable; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v856";
+/* HVAC Allstars — offline cache (v857: evening play phone+desktop stable; gauge visibility tighten) for Android / Windows PWA */
+const VER = "lt-allstars-v857";
 const CORE = [
 "./",
 "./index.html",
@@ -84,7 +84,7 @@ const CORE = [
 "./sandbox-stand.js?v=1",
 "./sandbox-td.js?v=8",
 "./sandbox-ts.js?v=17",
-"./analog-gauges.js?v=11",
+"./analog-gauges.js?v=12",
 "./teach-locks.js?v=2",
 "./shop-floor-copy.js?v=209",
 "./nocool-lock.js?v=3",
