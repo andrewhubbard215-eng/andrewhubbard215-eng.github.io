@@ -1,3 +1,4 @@
+/* Shop-floor copy override v209 - float prove tip: drain first, do not jump the float. */
 /* Shop-floor copy override v208 - mini-split tip: flare clean, N2 test, deep vac, weigh-in per chart — never top off. */
 /* Shop-floor copy override v202 - restore full v200 (210680c) after e856013 stubbed it; keep only e856013 land-lugs line (chips LEFT, green when seated). */
 /* Shop-floor copy override v200 (merged) - land lugs tip: lock out first, prove dead. Bay strip from 7911635: voltmeter school + ohm school no longer mislabel as saturday callback. Rest of v198 (recovery/service/seat tips) kept; 7911635 had dropped it. Strip keys off the active screen only (root nodes linger after you leave). */
@@ -46,7 +47,7 @@
     document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
       var t = el.textContent || "";
       if (/Float prove|float \u2192 coil/i.test(t) && t.length < 150) {
-        el.textContent = "Call \u2192 240 \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil. Drain first \u2014 do not jump.";
+        el.textContent = "Call \u2192 240 \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil. Drain first \u2014 do not jump the float.";
       }
     });
   }
