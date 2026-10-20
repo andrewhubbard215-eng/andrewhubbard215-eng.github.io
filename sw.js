@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v847: land-lugs landed msg stays; shop-floor-copy v204; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v847";
+/* HVAC Allstars — offline cache (v848: HUB AI answers without joke tails; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v848";
 const CORE = [
 "./",
 "./index.html",

@@ -90,8 +90,6 @@
     "If you're gonna tighten something till it squeals, make it a flare nut to torque spec.",
     "Keep it in the recovery cylinder. 80% fill. Not a metaphor.",
     "Venting is illegal. Oversharing with the customer is just tacky.",
-    "Maximum effort. Minimum pants-optional humor on the customer's lawn.",
-    "I'm Deadpool with a manifold. Save the filthy jokes for the van — after LOTO.",
   ];
 
   function randomPackTip() {
@@ -116,6 +114,7 @@
   ];
 
   function dress(answer) {
+    return answer; /* school build: no joke prefixes/tails on HUB answers */
     let out = answer;
     const roll = Math.random();
     if (roll < 0.16) {
