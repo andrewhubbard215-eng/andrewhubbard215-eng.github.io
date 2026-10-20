@@ -84,7 +84,7 @@
       return "SH under piston chart (" + target + "°F). Flood risk. Pull charge. Do not charge by SC.";
     }
     var shHi = shv > 14, shLo = shv < 8, scHi = scv > 14, scLo = scv < 8;
-    if (!shHi && !shLo && !scHi && !scLo) return "In seat. TXV — charge by SC (8–14). Airflow first if it drifts.";
+    if (!shHi && !shLo && !scHi && !scLo) return "In seat. TXV — charge by SC (8–14). Airflow first if it drifts. SH 8-14 / SC 8-14 is the seat.";
     if (shHi && scLo) return "High SH / low SC — undercharge. Airflow confirm first, find the leak, then weigh in. Do not top off.";
     if (shLo && scHi) return "Low SH / high SC — overcharge. Pull gas. Do not add.";
     if (shHi && scHi) return "High SH / high SC — restriction or dirty coil. Do not add gas.";
