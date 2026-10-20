@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v853: mini-split tip — flare clean, N2 test, deep vac, weigh-in chart, never top off; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v853";
+/* HVAC Allstars — offline cache (v854: service-call SH/SC hook-gauges floor note tightened; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v854";
 const CORE = [
 "./",
 "./index.html",
@@ -41,7 +41,7 @@ const CORE = [
 "./minisplit.js?v=11",
 "./minisplit-phone.js?v=5",
 "./minisplit-chip-preview.js?v=1",
-"./service.js?v=112",
+"./service.js?v=113",
 "./hub-ai.js?v=84",
 "./drip.js?v=6",
 "./quiz-arena.js?v=4",
