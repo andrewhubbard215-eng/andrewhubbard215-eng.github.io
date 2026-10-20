@@ -169,8 +169,10 @@
       }).join("") +
       "</div><p class='hub-chip'>" +
       (why || "Read THIS sticker. Match it to the open. Not a brand catalog.") +
-      "</p><p class='muted'>Score " + score + "/" + tried + "</p>";
+      "</p><p class='muted'>Score " + score + "/" + tried + " <button type='button' class='btn' id='el-locker-reset' style='margin-left:8px;font-size:0.85em'>Reset score</button></p>";
     wrap.querySelector("#el-locker-close").onclick = function () { closeLocker(wrap); };
+    var rst = wrap.querySelector("#el-locker-reset");
+    if (rst) rst.onclick = function () { score = 0; tried = 0; qi = 0; why = ""; draw(wrap); };
     wireDrillNav(wrap);
     wrap.querySelectorAll("[data-brand]").forEach(function (b) {
       b.onclick = function () { brand = b.getAttribute("data-brand"); qi = 0; why = ""; draw(wrap); };

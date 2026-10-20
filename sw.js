@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v848: HUB AI answers without joke tails; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v848";
+/* HVAC Allstars — offline cache (v849: HUB AI answers without joke tails; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v849";
 const CORE = [
 "./",
 "./index.html",
@@ -45,7 +45,7 @@ const CORE = [
 "./hub-ai.js?v=84",
 "./drip.js?v=6",
 "./quiz-arena.js?v=4",
-"./board-codes.js?v=19",
+"./board-codes.js?v=20",
 "./float-prove.js?v=1",
 "./prove-deepen.js?v=2",
 "./soo-limit.js?v=1",
