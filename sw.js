@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v854: service-call SH/SC hook-gauges floor note tightened; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v854";
+/* HVAC Allstars — offline cache (v855: live shop-floor play confirmed stable; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v855";
 const CORE = [
 "./",
 "./index.html",
