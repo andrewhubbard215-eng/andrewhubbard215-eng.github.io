@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v850: tighter service call tip — hook, read SH/SC standing then running, airflow first; network-first) for Android / Windows PWA */
-const VER = "lt-allstars-v850";
+/* HVAC Allstars — offline cache (v851: service tip clarifies equal standing P = unit off not undercharge; network-first) for Android / Windows PWA */
+const VER = "lt-allstars-v851";
 const CORE = [
 "./",
 "./index.html",
@@ -86,7 +86,7 @@ const CORE = [
 "./sandbox-ts.js?v=17",
 "./analog-gauges.js?v=11",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=206",
+"./shop-floor-copy.js?v=207",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
