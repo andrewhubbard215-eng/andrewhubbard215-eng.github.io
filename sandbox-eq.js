@@ -40,7 +40,7 @@
     if (ps) ps.textContent = on ? "Blue hose \u2014 suction / LPC" : "Blue hose \u2014 suction / LPC standing";
     if (ph) ph.textContent = on ? "Red hose \u2014 liquid / HPC" : "Red hose \u2014 liquid / HPC standing";
     if (on) {
-      if (method && /standing|migrat/i.test(method.textContent || "")) method.textContent = "\u2014 charge method after readings settle";
+      if (method && /standing|migrat/i.test(method.textContent || "")) method.textContent = "Wait 5–10 min for stable SH/SC. Do not call charge on first glass.";
       return;
     }
     var od = numF("sb-out-v");
