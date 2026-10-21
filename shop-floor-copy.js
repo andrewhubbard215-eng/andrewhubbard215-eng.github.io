@@ -1,4 +1,4 @@
-/* Shop-floor copy override v209 - float prove tip: drain first, do not jump the float. */
+/* Shop-floor copy override v210 - furnace SOO tip: W call first, inducer prove, never jump the PS. */
 /* Shop-floor copy override v208 - mini-split tip: flare clean, N2 test, deep vac, weigh-in per chart — never top off. */
 /* Shop-floor copy override v202 - restore full v200 (210680c) after e856013 stubbed it; keep only e856013 land-lugs line (chips LEFT, green when seated). */
 /* Shop-floor copy override v200 (merged) - land lugs tip: lock out first, prove dead. Bay strip from 7911635: voltmeter school + ohm school no longer mislabel as saturday callback. Rest of v198 (recovery/service/seat tips) kept; 7911635 had dropped it. Strip keys off the active screen only (root nodes linger after you leave). */
@@ -26,7 +26,7 @@
         if (t.length < 140) el.textContent = "Hook gauges — equal standing P means unit off (not undercharge) — read SH/SC running — airflow/filter first — never jump the float";
       }
       if (/mini-split|Flare - vacuum|weigh-in/i.test(t)) {
-        if (t.length < 140) el.textContent = "Flare clean · N2 pressure test · deep vac <500µ · weigh-in by nameplate chart · never top off";
+        if (t.length < 140) el.textContent = "Flare clean \u00b7 N2 pressure test \u00b7 deep vac <500\u00b5 \u00b7 weigh-in by nameplate chart \u00b7 never top off";
       }
       if (/recovery/i.test(t) && /scale/i.test(t)) {
         if (t.length < 140) el.textContent = "Drag hoses \u00b7 scale is proof \u00b7 stop at 80% WC \u00b7 never vent \u00b7 0 psi \u2260 vacuum. Yellow to pump, hold <500 \u00b5.";
@@ -48,6 +48,15 @@
       var t = el.textContent || "";
       if (/Float prove|float \u2192 coil/i.test(t) && t.length < 150) {
         el.textContent = "Call \u2192 240 \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil. Drain first \u2014 do not jump the float.";
+      }
+    });
+  }
+
+  function furnaceSooTip() {
+    document.querySelectorAll(".mode-card p, .tile p").forEach(function (el) {
+      var t = el.textContent || "";
+      if (/Furnace SOO|W \u00b7 inducer|W · inducer/i.test(t) && t.length < 140) {
+        el.textContent = "W call \u2192 inducer spin \u2192 PS prove \u2192 ignitor \u2192 valve \u2192 flame \u2192 blower. Never jump the pressure switch.";
       }
     });
   }
@@ -299,6 +308,19 @@
       st.textContent = "Loop closed. Four LEFT down. Hit Start. Wait the gauges settle. Then call SH/SC. Do not touch the scale yet. Lock out tag out before any 240 probe. Prove 24V at the contactor coil first (Y to C). No 24V = control side; 24V and no pull-in = bad coil. No-cool path: call \u2192 240 \u2192 disconnect \u2192 R\u2013C \u2192 Y \u2192 HPC \u2192 LPC \u2192 float \u2192 coil \u2192 T1 \u2192 compressor. Do not jump the contactor. Airflow before charge. Prove filter first, then coils and ducts before the scale. Nameplate is the target. Do not guess the charge. SH = suction line T \u2212 dew point at suction P. Read the P/T chart: suction P gives the dew point. SC = start of boiling \u2212 liquid line T. TXV: charge by SC 8\u201314\u00b0. Piston: charge by SH ~10\u00b0. High head + high SC = air/noncondensables. Low head + low SC = undercharge. Low suction + high SH = undercharge or airflow (prove filter first). High suction + low SH = overcharge or low load (prove airflow and load first). High head + low SC = overcharge (recover to target). Low head + high SC = restriction (filter-drier or TXV \u2014 prove airflow first). Dirty ID coil or low airflow: low suction, low SH can flood back, coil may ice. Check filter and blower first \u2014 clamp amp the blower. Do not add gas. Float open = full pan. Drain first \u2014 do not jump the switch. T";
     }
   }
-  // ... rest of original file functions omitted for brevity in this call; full content is the patched file from /tmp
-  // Note: the tool expects exact full content. Since truncation risk, this is a placeholder - actual update will use full.
+
+  function tick() {
+    vocationalTiles();
+    psProveTip();
+    floatProveTip();
+    furnaceSooTip();
+    boardCodeLaw();
+    loopOpenClarify();
+    seatTipClear();
+    faultChipFit();
+    lockerCard();
+    bayStrip();
+  }
+  tick();
+  setInterval(tick, 500);
 })();
