@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v869: tighter standing tip — equalized never a charge) for Android / Windows PWA */
-const VER = "lt-allstars-v869";
+/* HVAC Allstars — offline cache (v870: align eq cache-buster to match index patch) for Android / Windows PWA */
+const VER = "lt-allstars-v870";
 const CORE = [
 "./",
 "./index.html",
@@ -62,7 +62,7 @@ const CORE = [
 "./game.js?v=206",
 "./sandbox.js?v=166",
 "./sandbox-hunt.js?v=6",
-"./sandbox-eq.js?v=7",
+"./sandbox-eq.js?v=8",
 "./sandbox-hook.js?v=19",
 "./sandbox-seats.js?v=34",
 "./sandbox-packs.js?v=3",
