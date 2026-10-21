@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v867: sandbox step 2 clearer — four LEFT green before Start) for Android / Windows PWA */
-const VER = "lt-allstars-v867";
+/* HVAC Allstars — offline cache (v868: clearer equalized tip) for Android / Windows PWA */
+const VER = "lt-allstars-v868";
 const CORE = [
 "./",
 "./index.html",
