@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v861: standing step — equalized is not a charge or diagnosis) for Android / Windows PWA */
-const VER = "lt-allstars-v861";
+/* HVAC Allstars — offline cache (v862: standing tip clearer — blue=red not diagnosis — equalized is not a charge or diagnosis) for Android / Windows PWA */
+const VER = "lt-allstars-v862";
 const CORE = [
 "./",
 "./index.html",
