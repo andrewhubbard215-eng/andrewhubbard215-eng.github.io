@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v864: stabilize tip after Start — Wait 5–10 min for stable SH/SC — blue=red not diagnosis — equalized is not a charge or diagnosis) for Android / Windows PWA */
-const VER = "lt-allstars-v864";
+/* HVAC Allstars — offline cache (v865: sandbox tip Blue=red equalized not a charge — Wait 5–10 min for stable SH/SC) for Android / Windows PWA */
+const VER = "lt-allstars-v865";
 const CORE = [
 "./",
 "./index.html",
