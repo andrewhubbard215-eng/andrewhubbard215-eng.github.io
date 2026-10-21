@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v858: furnace SOO tip + tick restore) for Android / Windows PWA */
-const VER = "lt-allstars-v858";
+/* HVAC Allstars — offline cache (v859: furnace SOO tip + tick restore) for Android / Windows PWA */
+const VER = "lt-allstars-v859";
 const CORE = [
 "./",
 "./index.html",
@@ -25,6 +25,7 @@ const CORE = [
 "./phone-hose-shsc.css?v=2",
 "./pc-fit-1280.css?v=2",
 "./phone-sandbox-fit.css?v=5",
+"./prove-path-card.js?v=1",
 "./hub-portrait.jpg",
 "./jesus.png",
 "./commandments.js?v=120",

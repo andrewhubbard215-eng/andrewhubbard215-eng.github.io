@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="icon-192.png" />
   <script>
   (function () {
-    var APP_VER = "v3.5.613"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.614"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
@@ -27,7 +27,7 @@
       html = html.replace(/electrical\.js\?v=\d+/g, "electrical.js?v=139");
       html = html.replace(/nocool-lock\.js\?v=\d+/g, "nocool-lock.js?v=3");
       html = html.replace(/saturday-arm\.js\?v=\d+/g, "saturday-arm.js?v=3");
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=858");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=859");
       html = html.replace(/minisplit\.js\?v=\d+/g, "minisplit.js?v=11");
       html = html.replace(/minisplit-phone\.js\?v=\d+/g, "minisplit-phone.js?v=5");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=34");
@@ -147,6 +147,11 @@
         html = html.replace("</head>", '  <link rel="stylesheet" href="phone-sandbox-fit.css?v=5" />\n</head>');
       }
       html = html.replace(/phone-sandbox-fit\.css\?v=\d+/g, "phone-sandbox-fit.css?v=5");
+      if (html.indexOf("prove-path-card.js") === -1) {
+        html = html.replace("</body>", '<script src="prove-path-card.js?v=1"><\/script>\n</body>');
+      } else {
+        html = html.replace(/prove-path-card\.js\?v=\d+/g, "prove-path-card.js?v=1");
+      }
       // Strip Super Heat combat card forever
       html = html.replace(/<a class="mode-card"[^>]*super-heat-card[\s\S]*?<\/a>/g, "");
       html = html.replace(/id="super-heat-card"[\s\S]*?<\/a>/g, "");
@@ -162,12 +167,12 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=858").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=859").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.613 - shop floor</p>
+  <p class="version-strip">HVAC Allstars - v3.5.614 - shop floor</p>
 </body>
 </html>
