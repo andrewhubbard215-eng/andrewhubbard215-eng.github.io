@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v862: standing tip clearer — blue=red not diagnosis — equalized is not a charge or diagnosis) for Android / Windows PWA */
-const VER = "lt-allstars-v862";
+/* HVAC Allstars — offline cache (v863: standing wait 5-10 min clearer — blue=red not diagnosis — equalized is not a charge or diagnosis) for Android / Windows PWA */
+const VER = "lt-allstars-v863";
 const CORE = [
 "./",
 "./index.html",
@@ -84,7 +84,7 @@ const CORE = [
 "./sandbox-sliders.js?v=10",
 "./sandbox-stand.js?v=1",
 "./sandbox-td.js?v=8",
-"./sandbox-ts.js?v=18",
+"./sandbox-ts.js?v=20",
 "./analog-gauges.js?v=12",
 "./teach-locks.js?v=2",
 "./shop-floor-copy.js?v=210",

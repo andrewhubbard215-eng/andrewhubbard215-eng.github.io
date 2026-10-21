@@ -1,1 +1,1 @@
-v3.5.616: Played live. No crash. Sandbox standing tip clearer for first-year (blue=red equalized is not diagnosis). SW v862. No combat. Preview left running.
+v3.5.617: Played live. No crash. Sandbox standing tip adds 5–10 min wait for stable after start (vocational for first-years). SW v863. No combat. Preview left running.
