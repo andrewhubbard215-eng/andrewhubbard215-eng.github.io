@@ -1,12 +1,12 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v17 — phone max-height bump so current step body isn't clipped on 390px.
+   v18 — standing step: equalized is not a charge or diagnosis. Phone max-height still holds.
    v16 — cutout step names the plant on the fault line. Generic fingerprint is not a call.
    v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Standing first", body: "Unit off. Equalized P/T only. No SH/SC until the compressor is running." },
+    { n: "1", title: "Standing first", body: "Unit off. Equalized P/T only — not a charge or diagnosis. No SH/SC until the compressor is running and stable." },
     { n: "2", title: "Seat the four LEFT", body: "Compressor, condenser, TXV, evaporator on the LEFT tray. Then start." },
     { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
