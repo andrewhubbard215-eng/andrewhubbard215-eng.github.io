@@ -1,11 +1,12 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
+   v25 — standing tip: lockout before recovery. Equalized is ambient, never a charge.
    v24 — SH/SC tips name equalized is never a charge. Wait stable before reading.
    v23 — standing tip tighter: equalized is never a charge, never recover. Phone max-height holds.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Standing first", body: "Unit off. Blue = red = equalized. Equalized is never a charge, never a diagnosis, never a reason to recover. Start the compressor, wait 5–10 min for stable SH/SC, then read." },
+    { n: "1", title: "Standing first", body: "Unit off. Blue = red = equalized ambient. Lockout before recovery. Equalized is never a charge, never a diagnosis, never a reason to recover. Start the compressor, wait 5–10 min for stable SH/SC, then read." },
     { n: "2", title: "Seat the four LEFT", body: "Four parts LEFT green before Start: compressor, condenser, TXV, evaporator. Then start the compressor." },
     { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH. Equalized is never a charge — wait for stable running numbers." },
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC. Equalized is never a charge — wait for stable." },
