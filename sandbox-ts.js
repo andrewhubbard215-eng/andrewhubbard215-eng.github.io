@@ -1,17 +1,14 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
+   v24 — SH/SC tips name equalized is never a charge. Wait stable before reading.
    v23 — standing tip tighter: equalized is never a charge, never recover. Phone max-height holds.
-   v22 — standing tip tighter: equalized is never a charge. Phone max-height holds.
-   v20 — standing wait clearer: 5–10 min for stable after start: blue=red is not a diagnosis: equalized is not a charge or diagnosis. Phone max-height still holds.
-   v16 — cutout step names the plant on the fault line. Generic fingerprint is not a call.
-   v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
   var STEPS = [
     { n: "1", title: "Standing first", body: "Unit off. Blue = red = equalized. Equalized is never a charge, never a diagnosis, never a reason to recover. Start the compressor, wait 5–10 min for stable SH/SC, then read." },
     { n: "2", title: "Seat the four LEFT", body: "Four parts LEFT green before Start: compressor, condenser, TXV, evaporator. Then start the compressor." },
-    { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
-    { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
+    { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH. Equalized is never a charge — wait for stable running numbers." },
+    { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC. Equalized is never a charge — wait for stable." },
     { n: "5", title: "Name the fingerprint", body: "High SH + low SC = leak. High SH + high SC = restriction. Low SH + high SC = overcharge. High head + SC about normal = dirty condenser. High head + high SC = air/noncondensables." }
   ];
   var named = false;
@@ -61,7 +58,7 @@
     } else if (!ol.parentNode && root) {
       root.appendChild(ol);
     }
-    var pcRow = window.matchMedia && window.matchMedia("(min-width: 901px)").matches; /* v3.5.489 PC 1280x800: steps one row so gauges + SH/SC fit */
+    var pcRow = window.matchMedia && window.matchMedia("(min-width: 901px)").matches;
     ol.style.setProperty("display", pcRow ? "flex" : "grid", "important");
     ol.style.setProperty("flex", "0 0 auto", "important");
     ol.style.setProperty("height", "auto", "important");
