@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v881: equalized tip clearer PARTS LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v881";
+/* HVAC Allstars — offline cache (v882: equalized tip + parts LEFT clearer) for Android / Windows PWA */
+const VER = "lt-allstars-v882";
 const CORE = [
 "./",
 "./index.html",
@@ -87,7 +87,7 @@ const CORE = [
 "./sandbox-ts.js?v=25",
 "./analog-gauges.js?v=13",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=213",
+"./shop-floor-copy.js?v=214",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
