@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v873: sandbox equalized never-recover tip + ver bump) for Android / Windows PWA */
-const VER = "lt-allstars-v873";
+/* HVAC Allstars — offline cache (v874: exam-cutout syntax fix) for Android / Windows PWA */
+const VER = "lt-allstars-v874";
 const CORE = [
 "./",
 "./index.html",
@@ -56,7 +56,7 @@ const CORE = [
 "./ohms-law-school.js?v=4",
 "./truck-pouch.js?v=6",
 "./exam-untimed.js?v=3",
-"./exam-cutout.js?v=17",
+"./exam-cutout.js?v=18",
 "./daily.js?v=3",
 "./tutorial.js?v=98",
 "./game.js?v=206",

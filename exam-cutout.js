@@ -217,7 +217,7 @@
       a: 0,
       why: "24V across an open pressure switch means the board is trying to prove. It does not mean the switch failed. Prove the hose, the trap, and the vent, then compare vacuum to the rating on the switch. Replace the switch only after the draft path is clean and the vacuum still misses the rating. Door sticker is law.",
       whyWrong: "Swapping the switch or the board on an open prove skips the draft path. A running inducer is not a closed switch. Gas valve is downstream of the prove — it must stay closed."
-
+    },
     {
       q: "No-cool. Call is on. 240 at disconnect. R–C is 24V. Y is open. You meter 0V across HPC and 24V across LPC. What is the open?",
       choices: [
@@ -229,7 +229,6 @@
       a: 0,
       why: "0V across a closed switch, 24V across an open switch. LPC is open. Gauge the low side. Do not add gas until you prove why suction is low. Door sticker and the string are the law.",
       whyWrong: "0V across HPC means it is closed. Y open is upstream. Float is further down the string. The 24V is the open — LPC."
-    }
     }
   ];
   function inject() {
