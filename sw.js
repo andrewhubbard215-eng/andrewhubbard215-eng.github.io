@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v872: sandbox equalized tip + ver bump) for Android / Windows PWA */
-const VER = "lt-allstars-v872";
+/* HVAC Allstars — offline cache (v873: sandbox equalized never-recover tip + ver bump) for Android / Windows PWA */
+const VER = "lt-allstars-v873";
 const CORE = [
 "./",
 "./index.html",
@@ -84,7 +84,7 @@ const CORE = [
 "./sandbox-sliders.js?v=10",
 "./sandbox-stand.js?v=1",
 "./sandbox-td.js?v=8",
-"./sandbox-ts.js?v=22",
+"./sandbox-ts.js?v=23",
 "./analog-gauges.js?v=12",
 "./teach-locks.js?v=2",
 "./shop-floor-copy.js?v=210",
