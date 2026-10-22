@@ -14,7 +14,7 @@
     function patch(html) {
       html = html.replace(/sandbox-eq\.js\?v=\d+/g, "sandbox-eq.js?v=8");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=22");
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=871");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=872");
       html = html.replace(/v3\.5\.\d+/g, APP_VER);
       html = html.replace("Live SH/SC - HPC/LPC cut out - parts LEFT", "Live SH/SC targets · HPC/LPC cutout · parts LEFT · equalized = do not recover");
       // ... rest of patch unchanged from prior, SW and eq bumped
@@ -30,7 +30,7 @@
       .catch(function (e) {
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=871").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=872").catch(function () {});
   })();
   </script>
 </head>
