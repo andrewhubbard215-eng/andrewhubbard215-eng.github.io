@@ -1,0 +1,1 @@
+v3.5.635: Played live. No crash. Clarified equalized standing tip: PARTS LEFT, do not recover or add. Tech can run sandbox, electrical ladder/lugs, exam, service calls, mini-split, HUB AI, HVAC Jesus. SW v881. No combat. Preview left running.

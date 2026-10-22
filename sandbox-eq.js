@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Not outdoor sat. Parts LEFT. */
+/* Standing P/T: unit off, charge migrates to the colder coil. Not outdoor sat. Parts LEFT. Do not recover. */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -56,9 +56,9 @@
     setP("g-phigh", psi);
     if (sst) sst.textContent = "migrated to " + side + " " + cold + "\u00b0F";
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
-    if (method) method.textContent = "standing \u00b7 blue = red = cold coil " + cold + "\u00b0F \u00b7 parts LEFT \u00b7 no SH/SC until it runs";
+    if (method) method.textContent = "standing \u00b7 blue = red = cold coil " + cold + "\u00b0F \u00b7 PARTS LEFT \u00b7 no SH/SC until it runs";
     if (chip) {
-      chip.textContent = "EQUALIZED \u2014 charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). Parts LEFT. Do not recover or add refrigerant. No SH/SC until it runs.";
+      chip.textContent = "EQUALIZED \u2014 charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). PARTS LEFT. Do not recover or add refrigerant. No SH/SC until it runs.";
     }
   }
   setInterval(paint, 350);

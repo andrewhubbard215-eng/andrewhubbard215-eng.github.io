@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v880: equalized tip — seat parts LEFT, do not recover standing) for Android / Windows PWA */
-const VER = "lt-allstars-v880";
+/* HVAC Allstars — offline cache (v881: equalized tip clearer PARTS LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v881";
 const CORE = [
 "./",
 "./index.html",
@@ -62,7 +62,7 @@ const CORE = [
 "./game.js?v=206",
 "./sandbox.js?v=166",
 "./sandbox-hunt.js?v=6",
-"./sandbox-eq.js?v=8",
+"./sandbox-eq.js?v=9",
 "./sandbox-hook.js?v=19",
 "./sandbox-seats.js?v=34",
 "./sandbox-packs.js?v=3",
