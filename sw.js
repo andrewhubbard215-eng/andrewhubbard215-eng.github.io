@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v874: exam-cutout syntax fix) for Android / Windows PWA */
-const VER = "lt-allstars-v874";
+/* HVAC Allstars — offline cache (v875: shop-floor tips restored) for Android / Windows PWA */
+const VER = "lt-allstars-v875";
 const CORE = [
 "./",
 "./index.html",
@@ -87,7 +87,7 @@ const CORE = [
 "./sandbox-ts.js?v=23",
 "./analog-gauges.js?v=12",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=210",
+"./shop-floor-copy.js?v=211",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
@@ -177,7 +177,6 @@ const CORE = [
 "./recovery-room.s4.js?v=7",
 "./epa-exam-bank.b64.6.txt?v=7",
 "./recovery-room.s5.js?v=7",
-"./epa-exam-bank.b64.7.txt?v=7",
 "./recovery-room.s6.js?v=7",
 "./recovery-room.s7.js?v=7",
 "./recovery-room.s8.js?v=7",
