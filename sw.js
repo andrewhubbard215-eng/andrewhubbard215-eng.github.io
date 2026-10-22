@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v870: align eq cache-buster to match index patch) for Android / Windows PWA */
-const VER = "lt-allstars-v870";
+/* HVAC Allstars — offline cache (v871: sandbox equalized tip + ver bump) for Android / Windows PWA */
+const VER = "lt-allstars-v871";
 const CORE = [
 "./",
 "./index.html",
