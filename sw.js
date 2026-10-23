@@ -4,7 +4,7 @@ const CORE = [
 "./",
 "./index.html",
 "./icon-192.png",
-"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html",
+"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/d692237427c4a0b4a443a94141eb568d40364d02/index.html",
 "./sku.js?v=17",
 "./style.css?v=147",
 "./svc-rail.css?v=1",
