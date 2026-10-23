@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v883: equalized tip + parts LEFT clearer) for Android / Windows PWA */
-const VER = "lt-allstars-v883";
+/* HVAC Allstars — offline cache (v884: prove-path why-wrong on PS and float) for Android / Windows PWA */
+const VER = "lt-allstars-v884";
 const CORE = [
 "./",
 "./index.html",
@@ -25,7 +25,7 @@ const CORE = [
 "./phone-hose-shsc.css?v=2",
 "./pc-fit-1280.css?v=2",
 "./phone-sandbox-fit.css?v=5",
-"./prove-path-card.js?v=1",
+"./prove-path-card.js?v=2",
 "./hub-portrait.jpg",
 "./jesus.png",
 "./commandments.js?v=120",

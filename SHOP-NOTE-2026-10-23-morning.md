@@ -1,0 +1,1 @@
+v3.5.638 morning: Played live shop floor and phone sandbox. No crash. Whole DX diamond visible on 390px, parts LEFT drag-ready, ladder and HUB not covering labs. Shipped prove-path why-wrong (jumping PS or float = Saturday callback). SW v884. Store-ready (no Lincoln marks on public) vs Lincoln campus. Still on Andrew: Play Console / Apple DUNS / price. No combat.

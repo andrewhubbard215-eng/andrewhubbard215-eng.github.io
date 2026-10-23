@@ -22,8 +22,10 @@
       "Dark after gold is the open. Meter across the part, not to ground.",
       "HPC/LPC open reads ~24V across. Do not jump the float. Prove airflow before charge."
     ];
+    var why = kind === "ps" ? "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the switch:</b> Lights into a dead vent or wet trap. Customer gets heat tonight, you get the CO callback Saturday. Path before parts.</p>" : "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the float:</b> Hides a full pan. Wet ceiling and a Saturday callback. Drain first, switch last.</p>";
     card.innerHTML = "<h3 style='margin:0 0 8px;color:#d4a017'>" + title + "</h3>" +
       steps.map(function (s) { return "<p style='margin:6px 0'>" + s + "</p>"; }).join("") +
+      why +
       "<button id='lt-prove-close' style='margin-top:12px;padding:8px 16px;background:#d4a017;color:#1a140c;border:0;border-radius:4px;font-weight:700'>Close</button>";
     document.body.appendChild(card);
     document.getElementById("lt-prove-close").onclick = function () { card.remove(); };
