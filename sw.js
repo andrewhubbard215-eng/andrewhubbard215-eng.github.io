@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v891: equalized tip meter first) for Android / Windows PWA */
-const VER = "lt-allstars-v891";
+/* HVAC Allstars — offline cache (v892: equalized tip meter first) for Android / Windows PWA */
+const VER = "lt-allstars-v892";
 const CORE = [
 "./",
 "./index.html",
