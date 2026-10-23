@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.636 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.639 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -6,8 +6,9 @@
     electrical: "Meter first. LOTO before you touch. Ladder and lugs: land the wires, chips stay LEFT until the path is proven.",
     callback: "No-cool sheet: meter the open. Isolate before you guess. Saturday callback is character, not combat.",
     exam: "EPA 608 / electrical / charge. Pass the bay. Cutouts load. Wrong answers teach.",
-    service: "Hook gauges. Read SH/SC. Pick the fault. Real pressures.",
+    service: "Hook gauges. Read SH/SC. Pick the fault. Real pressures. Equalized is not a charge.",
     minisplit: "Flare clean. Vacuum to microns. Weigh-in. Line-set path matters.",
-    jesus: "HVAC Jesus in work clothes. Recovery tank on the roof. Still recover."
+    jesus: "HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
+    recovery: "Scale is proof. 80% stop. Vacuum is a separate job. Never recover a system that is already equalized."
   };
 })(typeof window !== "undefined" ? window : global);
