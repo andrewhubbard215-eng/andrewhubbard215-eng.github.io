@@ -1,0 +1,1 @@
+v3.5.645: Played live. Clocked in, opened sandbox. No crash. Equalized standing blue=red tip reinforced: never charge, never diagnose, never recover. Parts LEFT. Tech can run sandbox (SH/SC), electrical ladder, exam, service calls, mini-split, HUB. SW v891. No combat. Preview left running.
