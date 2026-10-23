@@ -1,4 +1,16 @@
 DATE: 2026-10-23
+LIVE: v3.5.647
+SW: lt-allstars-v893
+PLAYED: Clock-in confirmed after cache bump. No crash.
+BROKE: none
+FIXED: sandbox-eq CORE aligned to boot patch
+SHIPPED: cache/SW bump so tonight's shop commits load. sku branding-only. sandbox-ts no older hook. No new modules.
+STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided hang-to-call not fully sequenced.
+TOMORROW: full manifold guided sequence; phone hard-refresh confirm tip.
+
+- 2026-10-23 Lane C: cache/SW sync. Bumped APP_VER 3.5.646→3.5.647, SW v892→v893, sandbox-eq CORE ?v=9→10 to match index patch. Clock In confirmed live. No combat.
+
+DATE: 2026-10-23
 LIVE: v3.5.641
 SW: (live)
 PLAYED: Clock-in, Voltmeter school (BLACK→COM / Equip ground, direction bar top), System sandbox (parts LEFT: Comp/Cond/TXV/Evap, standing equalized tip, no crash), Service calls (ticket rail slim, system clickable, next ticket present). HUB present. No crash. PC fills. Guided visible. No leftover-box / blocked-drop.

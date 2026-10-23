@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v892: equalized tip meter first) for Android / Windows PWA */
-const VER = "lt-allstars-v892";
+/* HVAC Allstars — offline cache (v893: align eq CORE) for Android / Windows PWA */
+const VER = "lt-allstars-v893";
 const CORE = [
 "./",
 "./index.html",
@@ -62,7 +62,7 @@ const CORE = [
 "./game.js?v=206",
 "./sandbox.js?v=166",
 "./sandbox-hunt.js?v=6",
-"./sandbox-eq.js?v=9",
+"./sandbox-eq.js?v=10",
 "./sandbox-hook.js?v=19",
 "./sandbox-seats.js?v=34",
 "./sandbox-packs.js?v=3",
