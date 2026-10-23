@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v888: recovery tip clear) for Android / Windows PWA */
-const VER = "lt-allstars-v888";
+/* HVAC Allstars — offline cache (v889: recovery tip LOTO first) for Android / Windows PWA */
+const VER = "lt-allstars-v889";
 const CORE = [
 "./",
 "./index.html",
@@ -87,7 +87,7 @@ const CORE = [
 "./sandbox-ts.js?v=25",
 "./analog-gauges.js?v=13",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=217",
+"./shop-floor-copy.js?v=218",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
