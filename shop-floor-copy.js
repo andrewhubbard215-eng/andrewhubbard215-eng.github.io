@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.643 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.644 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -9,6 +9,6 @@
     service: "Hook gauges. Read SH/SC. Pick the fault. Real pressures. Equalized is not a charge.",
     minisplit: "Flare clean. Vacuum to microns. Weigh-in. Line-set path matters.",
     jesus: "HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
-    recovery: "Scale is the proof. Stop at 80% WC. Vacuum is a separate tool. Equalized standing (blue = red = ambient) is NEVER a charge — do not recover. LOTO first."
+    recovery: "Scale is the proof. Stop at 80% WC. Vacuum is a separate tool after recovery. Equalized standing (blue = red = ambient) is NEVER a charge — do not recover. LOTO first."
   };
 })(typeof window !== "undefined" ? window : global);
