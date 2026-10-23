@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v886: vocational tip recovery scale proof, equalized never recover) for Android / Windows PWA */
-const VER = "lt-allstars-v886";
+/* HVAC Allstars — offline cache (v887: SW pair sync with index) for Android / Windows PWA */
+const VER = "lt-allstars-v887";
 const CORE = [
 "./",
 "./index.html",
