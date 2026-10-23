@@ -1,3 +1,15 @@
+DATE: 2026-10-23
+LIVE: v3.5.641
+SW: (live)
+PLAYED: Clock-in, Voltmeter school (BLACK→COM / Equip ground, direction bar top), System sandbox (parts LEFT: Comp/Cond/TXV/Evap, standing equalized tip, no crash), Service calls (ticket rail slim, system clickable, next ticket present). HUB present. No crash. PC fills. Guided visible. No leftover-box / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean)
+SHIPPED: clean playtest. No leftover-box / hidden-directions / blocked-drop / PC-layout break. sku branding-only.
+STILL OPEN: offline list rebuild on pinned file change; real phone test; manifold school full guided hang-to-call not fully sequenced.
+TOMORROW: full manifold guided sequence; phone hard-refresh confirm tip.
+
+- 2026-10-23 Lane A: live bays clock-in / meter / sandbox / service / HUB pass. No leftover-box or PC-layout break.
+
 DATE: 2026-10-22
 LIVE: v3.5.637
 SW: lt-allstars-v883
