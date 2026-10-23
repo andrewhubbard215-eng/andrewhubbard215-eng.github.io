@@ -1,6 +1,1 @@
-Short shift 2026-10-23.
-Played live: clock in, sandbox, service calls. No crash.
-Fix: clearer standing-pressure method text in sandbox-eq.js — equalized = do not recover.
-Pushed v3.5.640, SW 886, sandbox-eq v=10.
-Tech can play: system sandbox with real equalized pressures, service calls, electrical ladder.
-Next: test callback sheet or mini-split vacuum step.
+v3.5.641 short: Played live. No crash. Clock-in, sandbox (parts LEFT, real SH/SC), electrical ladder/lugs, exam, service calls, mini-split, Saturday callback, HVAC Jesus all load. Shipped vocational tip clear in shop-floor-copy: recovery — scale is proof, stop at 80%, never recover equalized system. SW bumped to v886 (cache), app ver v3.5.641. Dual SKU intact (Lincoln campus only). No combat. Next: wire tips into recovery-room UI if silent.
