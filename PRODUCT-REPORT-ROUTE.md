@@ -1,3 +1,14 @@
+DATE: 2026-10-24
+LIVE: v3.5.651
+SW: lt-allstars-v897
+PLAYED: Clock-in + System sandbox (parts LEFT, equalized tip). No crash.
+BROKE: none
+FIXED: standing tip "equalized = meter first, do not recover"
+SHIPPED: vocational clarity. sku branding-only.
+STILL OPEN: manifold full sequence; phone hard-refresh.
+TOMORROW: phone confirm tip; service next-ticket.
+
+
 DATE: 2026-10-23
 LIVE: v3.5.647
 SW: lt-allstars-v893
