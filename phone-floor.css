@@ -10,7 +10,7 @@ body.lab-open .ask-hub{transform: scale(0.82);transform-origin: bottom right;opa
 .sb-palette, .parts-tray, .sb-tray, [data-parts-tray]{grid-column: 1 !important;grid-row: 1 !important;width: 84px;max-width: 84px;overflow-y: auto;-webkit-overflow-scrolling: touch;order: 0 !important;position: relative !important;transform: none !important;border-right: 1px solid rgba(42, 54, 68, 0.9);border-top: none !important;}
 .sb-main{grid-column: 2 !important;grid-row: 1 !important;order: 0 !important;min-height: 0;min-width: 0;}
 .sb-gauges{order: unset !important;max-height: 32vh;border-left: none !important;border-top: none !important;}
-.dx-diamond, .sb-diamond, [data-dx-diamond], .sb-stage-wrap{min-height: 0;max-height: 22vh;width: 100%;}
+.dx-diamond, .sb-diamond, [data-dx-diamond], .sb-stage-wrap{min-height: 0;max-height: none;width: 100%;}
 .el-ladder, .ladder, #ladder{font-size: 13px;line-height: 1.25;overflow: auto;max-height: 70vh;}
 #screen-hub.screen.active{overflow-y: auto;-webkit-overflow-scrolling: touch;}
 #hub-options, .hub-nav{padding-bottom: 64px;}
@@ -19,8 +19,8 @@ body.lab-open .ask-hub{transform: scale(0.82);transform-origin: bottom right;opa
 @media (max-width: 480px){#sandbox-root #sb-faults{position: relative !important;z-index: 6 !important;order: 1 !important;flex: 0 0 auto !important;max-height: none !important;min-height: 44px !important;overflow-x: hidden !important;overflow-y: visible !important;white-space: normal !important;flex-wrap: wrap !important;display: flex !important;pointer-events: auto;background: rgba(11, 18, 32, 0.98);margin: 0 !important;width: 100% !important;max-width: 100% !important;}
 #sandbox-root #sb-faults .btn{display: inline-flex;align-items: center;flex: 0 1 auto !important;margin: 2px 3px;font-size: 12px;padding: 8px 10px;min-height: 40px;white-space: nowrap;}
 #sandbox-root #sb-canvas,
-#sandbox-root #sb-canvas-wrap{position: relative !important;z-index: 1 !important;order: 3 !important;min-height: 0 !important;max-height: 22vh !important;height: 22vh !important;flex: 0 0 auto !important;}
-#sandbox-root .sb-gauges{position: relative !important;z-index: 3 !important;max-height: 32vh !important;min-height: 0 !important;overflow-x: auto;}
+#sandbox-root #sb-canvas-wrap{position: relative !important;z-index: 1 !important;order: 3 !important;min-height: 58vh !important;max-height: none !important;height: auto !important;flex: 1 1 auto !important;}
+#sandbox-root .sb-gauges{position: relative !important;z-index: 3 !important;max-height: 28vh !important;min-height: 0 !important;overflow-x: auto;}
 body.lab-open .hub-ai-fab,
 body.lab-open #hub-ai-fab,
 body.lab-open .ask-hub,
@@ -45,8 +45,8 @@ body.lab-open [data-hub-dock],
 .sb-layout{display: grid !important;grid-template-columns: 84px minmax(0, 1fr) !important;grid-template-rows: minmax(0, 1fr) !important;height: 100%;max-height: 100dvh;min-height: 0;}
 .sb-palette, .parts-tray, .sb-tray, [data-parts-tray]{grid-column: 1 !important;grid-row: 1 !important;width: 84px !important;max-width: 84px !important;overflow-y: auto;-webkit-overflow-scrolling: touch;order: 0 !important;position: relative !important;transform: none !important;}
 .sb-main{grid-column: 2 !important;grid-row: 1 !important;min-height: 0;}
-.sb-gauges{max-height: 32vh;}
-.el-ladder, .ladder, #ladder, .el-ladder-wrap{font-size: 12px;line-height: 1.3;overflow: auto;max-height: 68vh;}}
+.sb-gauges{max-height: 28vh;}
+.el-ladder, .ladder, #ladder, .el-ladder-wrap{font-size: 14px;line-height: 1.35;overflow: auto;max-height: 70vh;}}
 .version-strip{pointer-events: none;z-index: 1;}
 @media (max-width: 900px){.version-strip{position: fixed;left: 0;right: 0;bottom: 0;padding: 4px 10px 10px;background: linear-gradient(transparent, rgba(8,10,12,.92) 40%);font-size: 10px;letter-spacing: .04em;color: rgba(220,228,234,.55);}
 #minisplit-root,
@@ -71,8 +71,8 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 #sandbox-root #sb-phone-tip{max-height: 18px !important;overflow: hidden !important;white-space: nowrap !important;font-size: 11px !important;}}
 @media (max-width: 900px){#sandbox-root .sb-main{overflow-y: auto !important;max-height: 100dvh !important;}
 #sandbox-root #sb-canvas-wrap,
-#sandbox-root #sb-canvas{min-height: 0 !important;max-height: 22vh !important;height: 22vh !important;flex: 0 0 auto !important;}
-#sandbox-root .sb-gauges{max-height: 32vh !important;min-height: 0 !important;order: unset !important;overflow: hidden !important;}
+#sandbox-root #sb-canvas{min-height: 58vh !important;max-height: none !important;height: auto !important;flex: 1 1 auto !important;}
+#sandbox-root .sb-gauges{max-height: 28vh !important;min-height: 0 !important;order: unset !important;overflow: hidden !important;}
 #sandbox-root .sb-toolbar{order: 5 !important;max-height: 40px !important;position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sb-analog canvas { width: 96px !important; height: 96px !important; }}
@@ -80,26 +80,26 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 #sandbox-root #sb-formula,
 #sandbox-root #sb-shsc-formula { display: none !important; }}
 @media (max-width: 900px){#sandbox-root .sb-main { overflow: hidden !important; }
-#sandbox-root .sb-gauges{max-height: 32vh !important;min-height: 0 !important;}}
-@media (max-width: 900px){#sandbox-root .sb-gauges{order: unset !important;max-height: 34vh !important;min-height: 0 !important;position: relative !important;transform: none !important;}
+#sandbox-root .sb-gauges{max-height: 28vh !important;min-height: 0 !important;}}
+@media (max-width: 900px){#sandbox-root .sb-gauges{order: unset !important;max-height: 30vh !important;min-height: 0 !important;position: relative !important;transform: none !important;}
 #sandbox-root .sb-toolbar{order: 5 !important;position: relative !important;bottom: auto !important;max-height: 48px !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;}
 #sandbox-root .sb-gauges .panel{margin: 0 !important;padding: 4px 6px !important;max-width: none !important;}}
 
-/* morning 2026-10-02 — whole diamond on the phone, HUB off the lab */
+/* morning 2026-10-24 — whole diamond on the phone, HUB off the lab */
 @media (max-width: 900px) {
   #sandbox-root #sb-canvas-wrap,
   #sandbox-root #sb-canvas {
     max-height: none !important;
     height: auto !important;
-    min-height: 52vh !important;
+    min-height: 58vh !important;
     flex: 1 1 auto !important;
   }
-  #sandbox-root #sb-seats { min-height: 52vh !important; }
+  #sandbox-root #sb-seats { min-height: 58vh !important; }
   .el-ladder, .ladder, #ladder, .el-ladder-wrap {
     font-size: 15px !important;
-    line-height: 1.35 !important;
-    max-height: 72vh !important;
+    line-height: 1.4 !important;
+    max-height: 74vh !important;
   }
   body.lab-open .hub-ai-dock,
   body.lab-open #hub-ai,
