@@ -1,4 +1,15 @@
 DATE: 2026-10-24
+LIVE: v3.5.652
+SW: lt-allstars-v898
+PLAYED: Clock-in pass. Voltmeter school: direction bar pinned top, BLACK → COM / RED → VΩ, Equip ground landed on GND chip vanishes. System sandbox: parts LEFT Comp/Cond/TXV/Evap, standing tip, loop open no crash. Service calls: slim ticket rail, Hook gauges, next random ticket, system stays clickable. HUB present, no cover on gauges/COM. PC fills. Guided visible. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean)
+SHIPPED: clean playtest. No crash/leftover/layout/drop. sku branding-only. sandbox-ts no downgrade.
+STILL OPEN: manifold full guided hang-to-call sequence; phone hard-refresh confirm tip; offline list rebuild on pinned file change.
+TOMORROW: full manifold guided sequence; phone hard-refresh.
+
+
+DATE: 2026-10-24
 LIVE: v3.5.651
 SW: lt-allstars-v897
 PLAYED: Clock-in + System sandbox (parts LEFT, equalized tip). No crash.
