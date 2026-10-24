@@ -91,3 +91,19 @@
     max-width: 100% !important;
   }
 }
+
+/* v7 2026-10-24: stop gauge dials clipping on the right on phone */
+@media (max-width: 480px) {
+  #sandbox-root #sb-gauge-run #sb-analog canvas,
+  #sb-analog canvas,
+  #sb-g-low,
+  #sb-g-high {
+    width: min(20vw, 64px) !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+  }
+  #sandbox-root #sb-gauge-run {
+    left: 92px !important;
+    max-width: calc(100vw - 96px) !important;
+  }
+}
