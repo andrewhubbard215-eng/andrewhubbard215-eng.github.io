@@ -56,9 +56,9 @@
     setP("g-phigh", psi);
     if (sst) sst.textContent = "migrated to " + side + " " + cold + "\u00b0F";
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
-    if (method) method.textContent = "standing \u00b7 blue = red = cold coil " + cold + "\u00b0F \u00b7 PARTS LEFT \u00b7 no SH/SC until it runs \u00b7 equalized = meter first, do not recover";
+    if (method) method.textContent = "standing \u00b7 blue=red=cold coil " + cold + "\u00b0F \u00b7 PARTS LEFT \u00b7 meter first \u2014 do NOT recover or add \u00b7 no SH/SC until run";
     if (chip) {
-      chip.textContent = "EQUALIZED \u2014 charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). PARTS LEFT. Do not recover or add refrigerant. No SH/SC until it runs.";
+      chip.textContent = "EQUALIZED \u2014 charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). PARTS LEFT. Meter first. Do NOT recover or add refrigerant. No SH/SC until it runs.";
     }
   }
   setInterval(paint, 350);
