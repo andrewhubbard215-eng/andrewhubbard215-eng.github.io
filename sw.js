@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v893: align eq CORE) for Android / Windows PWA */
-const VER = "lt-allstars-v893";
+/* HVAC Allstars — offline cache (v894: phone diamond 58vh) for Android / Windows PWA */
+const VER = "lt-allstars-v894";
 const CORE = [
 "./",
 "./index.html",
@@ -12,7 +12,7 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=49",
+"./phone-floor.css?v=50",
 "./phone-p0.css?v=14",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
