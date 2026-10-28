@@ -1,4 +1,14 @@
 DATE: 2026-10-28
+LIVE: v3.5.710
+SW: lt-allstars-v957
+PLAYED: Clock-in + System sandbox (Manifold guided steps visible: hang gauges → seat → hook blue/red → cap yellow → purge → start → read → clamp → math) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's tips)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: phone hard-refresh confirm tip; offline list rebuild on pinned file change.
+TOMORROW: phone hard-refresh confirm tip.
+
+DATE: 2026-10-28
 LIVE: v3.5.701
 SW: lt-allstars-v947 (assumed from prior)
 PLAYED: Clock-in + System sandbox (Manifold guided steps visible: hang gauges → seat → hook blue/red → cap yellow → purge → start → read → clamp → math) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
