@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v952: recovery tip tighter — 80% stop never recover equalized, vacuum separate. Parts LEFT seat four first) for Android / Windows PWA */
-const VER = "lt-allstars-v952";
+const VER = "lt-allstars-v953";
 const CORE = [
 "./",
 "./index.html",
@@ -87,7 +87,7 @@ const CORE = [
 "./sandbox-ts.js?v=28",
 "./analog-gauges.js?v=13",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=234",
+"./shop-floor-copy.js?v=235",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
