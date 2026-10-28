@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v954: equalized tip tighter — STOP on blue=red, prove loop closed — 80% stop never recover equalized, vacuum separate. Parts LEFT seat four first) for Android / Windows PWA */
-const VER = "lt-allstars-v954";
+/* HVAC Allstars — offline cache (v955: recovery tip — equalized NEVER recovered, prove loop closed first. Parts LEFT seat four first) for Android / Windows PWA */
+const VER = "lt-allstars-v955";
 const CORE = [
 "./",
 "./index.html",
