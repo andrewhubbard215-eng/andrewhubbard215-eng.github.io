@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v956: float prove tip — CALL → drain FIRST → switch LAST, never jump without metering. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v956";
+/* HVAC Allstars — offline cache (v957: phone gauges: digital pressure and SH/SC stay readable, no right-edge clip. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v957";
 const CORE = [
 "./",
 "./index.html",
@@ -19,7 +19,7 @@ const CORE = [
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
 "./phone-gauges-233.css?v=9",
-"./phone-gauges-clip-233.css?v=9",
+"./phone-gauges-clip-233.css?v=10",
 "./phone-diamond.css?v=3",
 "./phone-morning.css?v=5",
 "./phone-hose-shsc.css?v=2",
