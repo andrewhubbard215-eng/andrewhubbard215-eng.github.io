@@ -1,0 +1,43 @@
+HVAC ALLSTARS — Google Play Console checklist (store SKU only)
+Package: com.hvacallstars.app
+Campus package edu.lincolntech.hvacallstars is SIDELOAD / PO only — never upload to Play.
+
+CREATE AS PAID FROM DAY ONE ($9.99). Play will not let Free → Paid later.
+
+ACCOUNT
+[ ] Pay Google Play developer fee (~$25 one-time) — Andrew clicks this
+[ ] Identity verification / government ID if prompted — Andrew clicks
+[ ] App signing: use YOUR Play upload keystore (debug AAB on the shop box is for build proof only)
+
+APP DETAILS
+[ ] App name: HVAC Allstars
+[ ] Type: App (not Game)
+[ ] Category: Education
+[ ] Ads: No
+[ ] Price: Paid $9.99
+[ ] Content rating: Teen (shop talk / HUB roast). No violence. No real explosives.
+[ ] Target audience: vocational students / apprentices / techs
+
+STORE LISTING
+[ ] Short description ≤80 chars (see store/listing.txt)
+[ ] Full description (see store/listing.txt)
+[ ] Icon 512 — store/icon-512.png
+[ ] Feature graphic 1024×500 — store/feature-graphic.png
+[ ] Phone screenshots from REAL labs (Clock In, sandbox LEFT tray, land-lugs, service call, All-Star Exam, voltmeter school, mini-split)
+[ ] Tablet screenshots if you have them
+
+PRIVACY / SUPPORT (must be PUBLIC https)
+[ ] Privacy URL + Support URL live on the internet
+    Ask Andrew once in truck language: "Play needs a public webpage it can open — Google Site or GitHub. Want GitHub?"
+    Wait for yes. Do not ask for a PAT / “Pages write token” jargon.
+[ ] Data safety: no collected data / no tracking SDK (declare none)
+
+TESTING TRACK
+[ ] Closed testing: upload STORE AAB (com.hvacallstars.app) only
+[ ] If personal developer account: 12+ testers for 14 days before production
+[ ] Then Andrew clicks Publish
+
+DUAL SKU GUARDRAILS
+[ ] Store build strips Lincoln marks (sku=store / html.sku-store)
+[ ] Campus AAB never goes to Play; lincoln/index.html is PO quote only (no cart)
+[ ] Gauges of God stays optional DLC — not required for labs

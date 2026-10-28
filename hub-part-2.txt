@@ -1,0 +1,96 @@
+        "Many modern systems are critical charge. Recover fully if needed, evacuate, weigh in nameplate amount plus lineset adder. Digital scale under the cylinder. Liquid charge into high side when appropriate with compressor off, or follow OEM. Then fine-tune with SC/SH as specified. Cans without a scale is cowboy math.",
+    },
+    {
+      tags: ["leak detect", "electronic leak", "sniffer", "ultraviolet", "dye"],
+      topic: "Finding leaks",
+      answer:
+        "Soap bubbles for joints you can reach. Electronic detector for trace. Ultrasonic in noisy environments with skill. UV dye only if acceptable to OEM/oil type — some compressors hate surprise dye. Nitrogen pressure test for new installs before vacuum. Check service ports, flares, schraders, coil returns, inverted traps.",
+    },
+    {
+      tags: ["mini split", "minisplit", "ductless", "flare install"],
+      topic: "Mini-split install order",
+      answer:
+        "Mount IDU → slope wall hole out → set ODU → flare & torque → N₂ test → deep vacuum ≤500 µm → decay → open service valves → power & comms → additional charge if needed → commission. Communication wire polarity matters. Condensate must drain. Don't leave UV-exposed foam to die in a summer.",
+    },
+    {
+      tags: ["flare", "flaring", "flare nut"],
+      topic: "Flaring copper",
+      answer:
+        "Nut on FIRST. Square cut. Deburr. Eccentric 45° flare. Inspect. Lube face lightly. Torque to OEM. Bad flare = #1 ductless leak. If it looks like a smashed penny, cut it off and redo. Pride is cheaper than a callback.",
+    },
+    {
+      tags: ["torque", "ft-lb", "ft lb"],
+      topic: "Torque",
+      answer:
+        "Use a torque wrench. Typical training ballparks (confirm OEM): ~12–13 ft-lb on 1/4″, higher on larger sizes. Backup wrench on the body. Over-tight cracks flares; under-tight weeps refrigerant all summer.",
+    },
+    {
+      tags: ["defrost", "frost", "ice outdoor", "heat pump defrost", "defrost sensor", "glacier"],
+      topic: "Heat pump defrost",
+      answer:
+        "In HEAT the outdoor coil is the evaporator — it ices below ~40°F. Defrost: board puts the 4-way into COOL, outdoor FAN OFF, compressor on, indoor often aux heat so the house isn't dumped with cold air. Time/temp or demand (coil vs outdoor). Terminate when the outdoor coil hits ~50–70°F or max time (~10 min). Never starts: bad coil sensor, outdoor sensor, or board. Never ends (steaming, cool air inside): sensor/board stuck. Don't add refrigerant to an iced ODU. Force defrost from the board, confirm RV shift + fan stop.",
+    },
+    {
+      tags: ["reversing", "reversing valve", "4-way", "4 way", "heat pump", "o/b", "stuck in heat"],
+      topic: "Heat pump reversing valve",
+      answer:
+        "The 4-way (reversing) valve swaps which coil is the condenser. Discharge is always the middle tube. Most brands energize O in COOL; Rheem/Ruud often energize B in HEAT. Diagnose: 1) 24V at the solenoid when the mode should shift. 2) Listen/feel the click. 3) Pressures and indoor vs outdoor coil roles must swap. Stuck slider = 24V present, no shift — replace the valve. Internal bleed = suction warm, capacity gone, discharge/suction closer than they should be — also replace the valve, not a charge problem. Don't condemn the compressor first.",
+    },
+    {
+      tags: ["nitrogen", "n2", "pressure test", "oxygen", "asphyxiation", "regulator"],
+      topic: "Nitrogen safety",
+      answer:
+        "N₂ SAFETY, not a suggestion: 1) Regulator on the cylinder — bottles are ~2200+ psig. Never open a bottle into a hose. 2) Dry nitrogen GAS only. Never oxygen. Never shop compressed air. Oil + oxygen can detonate. 3) Stay at or below OEM test pressure; watch the gauge; use the regulator relief. 4) Nitrogen displaces oxygen — confined space / van / crawl = asphyxiation. 5) Low-flow purge while brazing; standing test is a hold, not 'fill until it pops.' 6) This is not liquid nitrogen. If someone hands you an O2 bottle for a leak test, send them to class.",
+    },
+    {
+      tags: ["vacuum", "micron", "evacuate", "decay"],
+      topic: "Deep vacuum",
+      answer:
+        "Micron gauge at the system. ≤500 microns. Core tools out. Short fat hoses. Decay test 10–15 min. Rise forever = leak. High plateau = moisture. Triple evacuate with N₂ breaks when wet or long lines. Compound gauges are not micron gauges — stop cosplaying.",
+    },
+    {
+      tags: ["undercharge", "low on charge", "leak", "top off"],
+      topic: "Undercharge / leak",
+      answer:
+        "High SH + low SC fingerprint. Find leak, recover, repair, evacuate, charge correctly. Topping off a leaker funds the refrigerant company and your callback calendar. 🔍 Scan unit photos for oil stains; soap the joints.",
+    },
+    {
+      tags: ["overcharge", "too much refrigerant"],
+      topic: "Overcharge",
+      answer:
+        "Low SH + high SC — overcharge. Recover to nameplate. Don't vent to 'bleed it down.' Law + physics both say no. High head AND high SC is air/noncondensables — different fingerprint.",
+    },
+    {
+      tags: ["ice", "icing", "frozen", "frost"],
+      topic: "Icing",
+      answer:
+        "Usually low airflow or undercharge (or metering issues). Power off, thaw, fix filter/blower/coil first. Adding refrigerant to an airflow problem builds a bigger Otter Pop. 🔍 Scan unit if you want a second opinion on the frost pattern.",
+    },
+    {
+      tags: ["dirty condenser", "dirty coil", "high head"],
+      topic: "Dirty condenser",
+      answer:
+        "High head, SC about normal, high amps. Wash the coil, clear bushes, recheck. Do not pull gas to mask high head. 🔍 Scan unit photos often catch matted fins and juniper attacks.",
+    },
+    {
+      tags: ["txv", "restriction", "filter drier", "metering"],
+      topic: "Restriction / TXV",
+      answer:
+        "High SH and high SC — restriction / plugged drier. Cold at drier outlet. Do not add gas. TXV flash is at the seat, not the power head; stem in clockwise raises SH. Check drier delta-T, bulb strap, inlet screen. Replace drier anytime you open a burned-out or dirty system.",
+    },
+    {
+      tags: ["no cool", "not cooling", "warm air", "blowing warm"],
+      topic: "No cooling",
+      answer:
+        "Triage: thermostat → airflow → outdoor run → gauges SH/SC → electrical. Don't start at compressor replacement speeches. Start at 'is it even trying.'",
+    },
+    {
+      tags: ["electrical", "multimeter", "voltage", "amps", "comms"],
+      topic: "Electrical",
+      answer:
+        "Verify power with meter. Capacitor, contactor, voltage under load, amp draw vs RLA. Mini-split: swapped comms wires = classic no-cool. Dedicated breaker and proper disconnect. Electricity bites harder than customers.",
+    },
+    {
+      tags: ["epa", "608", "vent", "recover"],
+      topic: "EPA 608",
+      answer:

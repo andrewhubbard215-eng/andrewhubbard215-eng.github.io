@@ -1,0 +1,175 @@
+        .sort((a, b) => ({ high: 0, med: 1, low: 2 }[a.severity] - { high: 0, med: 1, low: 2 }[b.severity]))
+        .forEach((f, i) => {
+          const tag = f.severity === "high" ? "🔴" : f.severity === "med" ? "🟡" : "🟢";
+          lines.push(tag + " " + (i + 1) + ". " + f.title);
+          lines.push("   " + f.detail);
+          lines.push("");
+        });
+    } else {
+      lines.push("No strong visual red flags from pixel heuristics — doesn't mean the unit is healthy, just that the photo didn't scream ice/dirt/rust.");
+      lines.push("Shoot the coil face, suction line, filter slot, and nameplate if you want a better roast.");
+      lines.push("");
+    }
+
+    if (fields && (fields.model || fields.refrigerant || fields.brand)) {
+      lines.push("Nameplate crumbs I also pulled:");
+      if (fields.brand) lines.push("• Brand: " + fields.brand);
+      if (fields.model) lines.push("• Model: " + fields.model);
+      if (fields.refrigerant) lines.push("• Refrigerant: " + fields.refrigerant);
+      if (fields.charge) lines.push("• Charge: " + fields.charge);
+      if (fields.voltage) lines.push("• Voltage: " + fields.voltage);
+      lines.push("");
+    }
+
+    lines.push("Field checklist while you're there:");
+    lines.push("• Filter & indoor airflow");
+    lines.push("• Outdoor coil cleanliness & clearance");
+    lines.push("• Ice on suction / distributor");
+    lines.push("• Oil stains at joints (leak map)");
+    lines.push("• Breaker, disconnect, contactor, capacitor");
+    lines.push("• Gauges: SH + SC together, never one number heroics");
+    lines.push("");
+    lines.push("Stats nerd view — bright:" + stats.bright + "% dirt:" + stats.brownish + "% rust:" + stats.rusty + "% green:" + stats.greenish + "%");
+    lines.push("");
+    lines.push("I'm an AI with attitude, not a psychic. Confirm everything with gauges, a meter, and your own eyes before you order parts.");
+
+    return lines.join("\n");
+  }
+
+  async function scanUnitPhoto(file, mode) {
+    // mode: "label" | "problems" | "both"
+    mode = mode || "both";
+    pushHub({
+      topic: "Scanning unit",
+      text:
+        mode === "label"
+          ? "OCR on the nameplate… hold still, mortal."
+          : "Scanning for ice, dirt, rust, and other crimes against HVAC… plus OCR if there's a plate in frame.",
+    });
+
+    try {
+      const img = await loadImageFile(file);
+      const stats = analyzeImagePixels(img);
+
+      let raw = "";
+      try {
+        const Tesseract = await loadTesseract();
+        const result = await Tesseract.recognize(file, "eng", { logger: () => {} });
+        raw = ((result && result.data && result.data.text) || "")
+          .replace(/[|]/g, "I")
+          .replace(/\s+/g, " ")
+          .trim();
+      } catch (ocrErr) {
+        raw = "";
+      }
+
+      const fields = raw ? parseNameplate(raw) : {};
+
+      if (mode === "label") {
+        if (!raw || raw.length < 8) {
+          return {
+            topic: "Label blur",
+            text: "Couldn't read a plate. Get closer, more light, fill the frame with the sticker.",
+          };
+        }
+        return { topic: "Nameplate read", text: interpretLabel(raw, fields) };
+      }
+
+      const findings = visualProblems(stats, raw);
+      return {
+        topic: findings.length ? "Problems found" : "Scan complete",
+        text: formatProblemReport(findings, fields, stats, raw),
+      };
+    } catch (err) {
+      return {
+        topic: "Scan error",
+        text:
+          "Scan failed. " +
+          (err && err.message ? err.message : "Unknown error") +
+          ". Try a clearer photo; first OCR load needs network.",
+      };
+    }
+  }
+
+  async function readLabelImage(file) {
+    return scanUnitPhoto(file, "label");
+  }
+
+  let panel = null;
+  let getContext = () => null;
+
+  function ensurePanel() {
+    if (panel) return panel;
+    panel = document.createElement("div");
+    panel.id = "hub-ai-panel";
+    panel.className = "hub-ai-panel hidden";
+    panel.innerHTML = `
+      <header class="hub-ai-head">
+        <div class="hub-ai-title">
+          <img src="hub-portrait.jpg" alt="" class="hub-chip-av photo" />
+          <div>
+            <strong>Professor Andrew Hubbard</strong>
+            <em>Lincoln Tech - Install - Troubleshoot - Labels</em>
+          </div>
+        </div>
+        <button type="button" class="btn" id="hub-ai-close">Close</button>
+      </header>
+      <div class="hub-ai-log" id="hub-ai-log"></div>
+      <div class="hub-ai-quick" id="hub-ai-quick"></div>
+      <div class="hub-ai-photo-bar">
+        <label class="hub-ai-photo-btn" title="Read nameplate text from a photo">
+          📷 Read label
+          <input type="file" id="hub-ai-file-label" accept="image/*" capture="environment" hidden />
+        </label>
+        <label class="hub-ai-photo-btn hub-ai-photo-btn-scan" title="Scan photo for ice, dirt, rust, install issues">
+          🔍 Scan unit
+          <input type="file" id="hub-ai-file-scan" accept="image/*" capture="environment" hidden />
+        </label>
+        <span class="hub-ai-photo-hint">Field photos: plate or whole unit</span>
+      </div>
+      <form class="hub-ai-form" id="hub-ai-form">
+        <input id="hub-ai-input" maxlength="200" placeholder="Ask HUB or paste plate text…" autocomplete="off" />
+        <button class="btn primary" type="submit">Ask</button>
+      </form>
+    `;
+    document.getElementById("app").appendChild(panel);
+
+    panel.querySelector("#hub-ai-close").onclick = close;
+    panel.querySelector("#hub-ai-form").onsubmit = (e) => {
+      e.preventDefault();
+      const input = panel.querySelector("#hub-ai-input");
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = "";
+      pushUser(q);
+      // If it looks like pasted plate text, parse it directly
+      if (/model|serial|r-?410|r-?22|charge|mca|rla/i.test(q) && q.length > 40) {
+        const fields = parseNameplate(q);
+        pushHub({ topic: "Nameplate text", text: interpretLabel(q, fields) });
+      } else {
+        pushHub(ask(q, getContext()));
+      }
+    };
+
+    async function handlePhoto(file, mode) {
+      if (!file) return;
+      const tag = mode === "label" ? "📷 [Label]" : "🔍 [Unit scan]";
+      pushUser(tag + " " + (file.name || "camera"));
+      try {
+        const url = URL.createObjectURL(file);
+        const log = panel.querySelector("#hub-ai-log");
+        const row = document.createElement("div");
+        row.className = "hub-ai-msg user";
+        row.innerHTML = '<strong>You</strong><div class="hub-ai-thumb-wrap"><img class="hub-ai-thumb" alt="unit"/></div>';
+        row.querySelector("img").src = url;
+        log.appendChild(row);
+        log.scrollTop = log.scrollHeight;
+      } catch (_) {}
+      const res = await scanUnitPhoto(file, mode === "label" ? "label" : "both");
+      pushHub(res);
+    }
+
+    const fileLabel = panel.querySelector("#hub-ai-file-label");
+    const fileScan = panel.querySelector("#hub-ai-file-scan");
+    if (fileLabel) {
+      fileLabel.onchange = async () => {

@@ -1,0 +1,33 @@
+/* v2 2026-10-15 v3.5.531: SH/SC dials 56px -> 120px css so dial labels read on phone.
+   v1 2026-10-12 v3.5.483 phone only: hose-card SH and SC lines both show in full.
+   Fault labels ("28.0 °F SH (high — coil starved)") overran the nowrap cell and got clipped. */
+@media (max-width: 480px) {
+  #sandbox-root .sb-gauges .panel,
+  #sb-gauge-run .sb-gauges .panel { overflow: visible !important; max-height: none !important; }
+  #sandbox-root .sb-gauges #sb-sh,
+  #sandbox-root .sb-gauges #sb-sc {
+    display: block !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-height: none !important;
+    height: auto !important;
+    line-height: 1.25 !important;
+    font-size: 10.5px !important;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  html body #sandbox-root #sb-gauge-run #sb-analog,
+  html body #sandbox-root #sb-analog { min-width: 0 !important; flex-shrink: 0 !important; }
+  html body #sandbox-root #sb-gauge-run #sb-analog canvas,
+  html body #sandbox-root #sb-analog canvas,
+  html body #sandbox-root canvas#sb-g-low,
+  html body #sandbox-root canvas#sb-g-high {
+    width: 120px !important; height: 120px !important;
+    max-width: 120px !important; max-height: 120px !important;
+    min-width: 120px !important; flex: 0 0 120px !important;
+  }
+}

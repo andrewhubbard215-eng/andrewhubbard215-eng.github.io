@@ -1,0 +1,1 @@
+v3.5.669: Played phone-width and desktop. No crash. Sandbox, electrical ladder, exam, service calls, mini-split, no-cool sheet all reachable. Equalized tip locked: meter first, lockout if open, standing pressures lie. Parts LEFT. SW v916. Tech can clock in and run the bay.

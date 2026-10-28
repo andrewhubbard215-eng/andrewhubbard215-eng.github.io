@@ -1,0 +1,128 @@
+/* Phone Saturday — parts tray capped so the no-cool sheet stays on screen */
+@media (max-width: 900px) {
+  #screen-electrical.screen.active,
+  #electrical-root {
+    overflow: hidden !important;
+  }
+  #electrical-root .el-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+  #electrical-root .el-layout > aside.sb-palette,
+  #electrical-root aside.sb-palette {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 30vh !important;
+    max-height: 30vh !important;
+    min-height: 0 !important;
+    flex: 0 0 30vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(42, 54, 68, 0.9);
+    z-index: 4;
+  }
+  #electrical-root .el-modes {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  #electrical-root .el-modes .btn,
+  #electrical-root .el-modes button {
+    flex: 0 0 auto;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+  #electrical-root .el-layout > .el-main,
+  #electrical-root .el-board,
+  #electrical-root .el-jobs,
+  #electrical-root .el-stage,
+  #electrical-root .el-work {
+    position: relative !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1;
+  }
+  #electrical-root .el-jobs {
+    display: block !important;
+    padding-bottom: 18px;
+  }
+  /* Drawer CSS parks the DMM at translateY(110%). On Saturday that hides the sheet. */
+  #electrical-root .el-meter,
+  #electrical-root .el-dmm,
+  #electrical-root aside.el-meter {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-height: 22vh !important;
+    flex: 0 0 auto !important;
+    overflow: auto;
+    z-index: 5;
+    border-top: 2px solid #CE0034;
+  }
+}
+@media (max-width: 480px) {
+  #electrical-root .el-layout > aside.sb-palette,
+  #electrical-root aside.sb-palette {
+    height: 28vh !important;
+    max-height: 28vh !important;
+    flex-basis: 28vh !important;
+  }
+  #electrical-root .el-job-card,
+  #electrical-root .el-call-card,
+  #electrical-root [class*="job-card"] {
+    margin-left: 0 !important;
+    width: auto !important;
+  }
+  /* Ladder names were 14/10px — unreadable on a phone bench */
+  #electrical-root .el-ladder,
+  #electrical-root .el-ladder-wrap,
+  #electrical-root .ladder {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+  #electrical-root .el-node {
+    min-width: 88px;
+    min-height: 56px;
+  }
+  #electrical-root .el-node b {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+  #electrical-root .el-node small {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+  #electrical-root .el-ladder-kicker,
+  #electrical-root #el-ts-note {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+  #electrical-root .el-ladder-read {
+    font-size: 16px !important;
+  }
+}

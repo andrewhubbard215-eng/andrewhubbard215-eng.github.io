@@ -1,0 +1,30 @@
+/* Amber bench — black panels, warm amber chrome. Gauge colors stay blue/red. */
+html, body, #app {
+  background: #120e09 !important;
+  color: #f3e6cf !important;
+}
+.screen, .hub-head, .panel, .mode-card, .svc-card, #sandbox-root, #sb-gauge-run {
+  background: #1a140e !important;
+  color: #f3e6cf !important;
+  border-color: #c4842a !important;
+}
+.mode-card, .btn, button.btn {
+  border: 1px solid #c4842a !important;
+  background: #241910 !important;
+  color: #f7e7c8 !important;
+}
+.btn.primary, #sb-run, #sandbox-root #sb-run {
+  background: #c4842a !important;
+  color: #1a1208 !important;
+  border-color: #f3e6cf !important;
+}
+h1, h2, h3, .eyebrow, .version-strip {
+  color: #f0c27a !important;
+}
+#sb-eq-chip {
+  background: #2a1d10 !important;
+  color: #f0c27a !important;
+  border: 1px solid #c4842a !important;
+}
+#sandbox-root .sb-gauges #sb-ps { color: #38bdf8 !important; }
+#sandbox-root .sb-gauges #sb-ph { color: #f43f5e !important; }

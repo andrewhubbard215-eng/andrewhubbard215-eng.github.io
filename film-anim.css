@@ -1,0 +1,108 @@
+/* Component film cutaways — shop-floor motion */
+.film-cutaway { margin:12px; max-width:820px; }
+.film-cutaway-note { font-size:13px; opacity:.9; margin:0 0 8px; }
+.film-cutaway-stage {
+  background:#12181e;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+}
+.film-cutaway-stage svg { width:100%; height:auto; display:block; }
+.film-svg text { font-family:ui-sans-serif,system-ui,sans-serif; font-size:11px; fill:#c9d2d8; }
+.film-svg .film-muted { fill:#8b969e; font-size:10px; }
+.film-svg .film-hot { fill:#e07070; }
+.film-svg .film-cold { fill:#3ecfbf; }
+.film-svg .film-amber { fill:#e0b050; }
+.film-svg .film-line { fill:none; stroke:#6e7b84; stroke-width:3; }
+.film-svg .film-line-hot { fill:none; stroke:#e07070; stroke-width:3; }
+.film-svg .film-line-cold { fill:none; stroke:#3ecfbf; stroke-width:3; }
+.film-svg .film-box { fill:#1b242c; stroke:#4d5a63; stroke-width:1.5; }
+.film-svg .film-shell { fill:#1a2229; stroke:#8a949c; stroke-width:2; }
+.film-cutaway-stage svg [class*="film-move"],
+.film-cutaway-stage svg [class*="film-spin"],
+.film-cutaway-stage svg [class*="film-orbit"],
+.film-cutaway-stage svg [class*="film-reed"],
+.film-cutaway-stage svg [class*="film-pulse"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes film-piston {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(26px); }
+}
+@keyframes film-reed-suct {
+  0%,45%,100% { transform: rotate(0deg); }
+  55%,90% { transform: rotate(-28deg); }
+}
+@keyframes film-reed-dis {
+  0%,45% { transform: rotate(-26deg); }
+  55%,100% { transform: rotate(0deg); }
+}
+@keyframes film-orbit {
+  from { transform: rotate(0deg) translate(7px) rotate(0deg); }
+  to { transform: rotate(360deg) translate(7px) rotate(-360deg); }
+}
+@keyframes film-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes film-slide {
+  0%,40% { transform: translateX(0); }
+  50%,90% { transform: translateX(34px); }
+  100% { transform: translateX(0); }
+}
+@keyframes film-needle {
+  0%,100% { transform: translateY(0); }
+  35% { transform: translateY(7px); }
+  65% { transform: translateY(-4px); }
+}
+@keyframes film-flow {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@keyframes film-pulse {
+  0%,100% { opacity:.35; }
+  50% { opacity:1; }
+}
+@keyframes film-soo-1 { 0%,8% { opacity:.25; } 10%,100% { opacity:1; } }
+@keyframes film-soo-2 { 0%,18% { opacity:.25; } 20%,100% { opacity:1; } }
+@keyframes film-soo-3 { 0%,28% { opacity:.25; } 30%,100% { opacity:1; } }
+@keyframes film-soo-4 { 0%,38% { opacity:.25; } 40%,100% { opacity:1; } }
+@keyframes film-soo-5 { 0%,48% { opacity:.25; } 50%,100% { opacity:1; } }
+@keyframes film-soo-6 { 0%,62% { opacity:.25; } 64%,100% { opacity:1; } }
+@keyframes film-soo-7 { 0%,76% { opacity:.25; } 78%,100% { opacity:1; } }
+@keyframes film-spray {
+  0% { opacity:.2; transform: scaleY(.4); }
+  100% { opacity:.85; transform: scaleY(1); }
+}
+@keyframes film-impeller {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes film-dot {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+.film-move-piston { animation: film-piston 1.15s ease-in-out infinite; }
+.film-reed-suct { transform-origin: left center; animation: film-reed-suct 1.15s ease-in-out infinite; }
+.film-reed-dis { transform-origin: right center; animation: film-reed-dis 1.15s ease-in-out infinite; }
+.film-orbit { animation: film-orbit 1.7s linear infinite; }
+.film-spin { animation: film-spin 1.2s linear infinite; }
+.film-spin-slow { animation: film-spin 2.4s linear infinite; }
+.film-slide { animation: film-slide 3.2s ease-in-out infinite; }
+.film-needle { animation: film-needle 2.4s ease-in-out infinite; }
+.film-pulse { animation: film-pulse 1.4s ease-in-out infinite; }
+.film-soo-1 { animation: film-soo-1 7s linear infinite; }
+.film-soo-2 { animation: film-soo-2 7s linear infinite; }
+.film-soo-3 { animation: film-soo-3 7s linear infinite; }
+.film-soo-4 { animation: film-soo-4 7s linear infinite; }
+.film-soo-5 { animation: film-soo-5 7s linear infinite; }
+.film-soo-6 { animation: film-soo-6 7s linear infinite; }
+.film-soo-7 { animation: film-soo-7 7s linear infinite; }
+.film-spray { transform-origin: top center; animation: film-spray .7s ease-out infinite; }
+.film-impeller { animation: film-impeller .9s linear infinite; }
+.film-dot-a { offset-path: path("M260 40 L400 40 L400 110 L260 180 L120 110 L120 40 Z"); animation: film-dot 5s linear infinite; }
+.film-dot-b { offset-path: path("M260 40 L400 40 L400 110 L260 180 L120 110 L120 40 Z"); animation: film-dot 5s linear infinite; animation-delay:-1.6s; }
+.film-dot-c { offset-path: path("M260 40 L400 40 L400 110 L260 180 L120 110 L120 40 Z"); animation: film-dot 5s linear infinite; animation-delay:-3.2s; }
+.film-hy-dot { offset-path: path("M90 110 L210 110 L210 60 L360 60 L360 110 L430 110 L430 160 L90 160 Z"); animation: film-dot 6s linear infinite; }
+.film-hy-dot2 { offset-path: path("M90 110 L210 110 L210 60 L360 60 L360 110 L430 110 L430 160 L90 160 Z"); animation: film-dot 6s linear infinite; animation-delay:-3s; }

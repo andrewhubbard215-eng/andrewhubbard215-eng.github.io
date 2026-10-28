@@ -1,0 +1,1 @@
+v3.5.614 afternoon: Played live shop floor. No crash. Sandbox, electrical, exam, service calls, mini-split all reachable. Seat LEFT / standing P tips holding. SW bumped to v860. No combat. Preview left running.

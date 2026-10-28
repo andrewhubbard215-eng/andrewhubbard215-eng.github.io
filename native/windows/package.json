@@ -1,0 +1,11 @@
+{
+  "name": "lincoln-tech-hvac-allstars",
+  "version": "3.3.0",
+  "description": "Lincoln Tech HVAC Allstars — Windows desktop (Electron)",
+  "main": "main.js",
+  "author": "Professor Andrew Hubbard / Lincoln Tech",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron ."
+  }
+}

@@ -1,0 +1,1 @@
+Route 2026-10-28: Clock-in → Service calls → Hook gauges. Ticket fault loaded and matched fingerprint (Restriction high SH/SC). Next random ticket changed fault to Iced evaporator. Live Blue/Red, streak, pay stub, quote, radio kept. No crash. Palette LEFT, preview up. sku branding-only. No combat.

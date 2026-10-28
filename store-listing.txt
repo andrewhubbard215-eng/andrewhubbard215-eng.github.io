@@ -1,0 +1,47 @@
+HVAC Allstars — Google Play listing (paste into Play Console)
+
+Title (50)
+HVAC Allstars
+
+Short description (80)
+Shop-floor HVAC trainer. Clock In, films, EPA 608, electrical. Not a textbook.
+
+Full description
+HVAC Allstars is a vocational shop trainer for HVAC students and working techs.
+
+Clock In on the shop floor. Run the refrigeration sandbox. Land lugs on a real electrical box. Sit EPA 608 drills (Core / Type I / II / III) without dumping the live federal bank. Watch component film — host first, then internals — oil, gas, hydronic, cycle.
+
+Voice is Rex. Short sentences. Prove it with a meter.
+
+This is instructor-created practice, not official school curriculum and not ESCO or EPA exam questions.
+
+Privacy: https://andrewhubbard215-eng.github.io/privacy.html
+Support: https://andrewhubbard215-eng.github.io/support.html
+
+Category: Education
+Tags: HVAC, EPA 608, trade school, refrigeration, electrical
+Content rating: IARC questionnaire — typically Teen (shop language)
+Default language: English (United States)
+Countries: United States first
+
+Data safety (Play form)
+- App does not collect user data on a server we control
+- Data stored on device only (localStorage): callsign, scores, locker photo
+- No account required
+- No sale of data
+- No sharing with third parties
+- No encrypted-in-transit collection (nothing leaves the phone except the public website files)
+
+Package name
+com.hvachub.allstars
+
+Contact
+Andrew Hubbard — Philadelphia, PA
+GitHub: andrewhubbard215-eng
+
+Graphics
+- Icon: icon-512.png
+- Feature graphic: store-feature.jpg (1024 x 500)
+- Phone screenshots: store-shot-hub.png, store-shot-film.png, store-shot-hydronic.png
+
+Do not put Lincoln Tech in the Play title or icon.

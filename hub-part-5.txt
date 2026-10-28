@@ -1,0 +1,193 @@
+          fields.refrigerant +
+          " — use the matching PT chart and rated hoses/gauges. Don't freestyle mix."
+      );
+    }
+    if (fields.charge) {
+      lines.push(
+        "Factory charge " +
+          fields.charge +
+          " is for the rated lineset. Longer copper = weigh in extra per the chart, not vibes."
+      );
+    }
+    if (fields.mca || fields.mop) {
+      lines.push(
+        "Breaker / wire sizing: respect MCA and MOP on the plate. Upsizing breakers to 'make it stop tripping' is a villain move."
+      );
+    }
+    if (fields.voltage) {
+      lines.push("Confirm supply voltage matches the plate under load before you condemn a compressor.");
+    }
+
+    lines.push("");
+    lines.push("Raw OCR (so you can double-check):");
+    lines.push(rawText.slice(0, 500) + (rawText.length > 500 ? "…" : ""));
+
+    lines.push("");
+    lines.push("Pro tip: photo the plate on every job before you tear into it. Future-you sends a thank-you card.");
+
+    return lines.join("\n");
+  }
+
+  function loadTesseract() {
+    return new Promise((resolve, reject) => {
+      if (global.Tesseract) return resolve(global.Tesseract);
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";
+      s.onload = () => resolve(global.Tesseract);
+      s.onerror = () => reject(new Error("OCR library failed to load (need network once)"));
+      document.head.appendChild(s);
+    });
+  }
+
+  function analyzeImagePixels(img) {
+    const canvas = document.createElement("canvas");
+    const maxW = 320;
+    const scale = Math.min(1, maxW / img.width);
+    canvas.width = Math.max(1, Math.floor(img.width * scale));
+    canvas.height = Math.max(1, Math.floor(img.height * scale));
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let n = 0,
+      bright = 0,
+      dark = 0,
+      greenish = 0,
+      brownish = 0,
+      rusty = 0,
+      blueish = 0,
+      grayMetal = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i],
+        g = data[i + 1],
+        b = data[i + 2];
+      const max = Math.max(r, g, b),
+        min = Math.min(r, g, b);
+      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+      n++;
+      if (lum > 210 && max - min < 35) bright++; // ice / frost / white paint
+      if (lum < 45) dark++;
+      if (g > r + 15 && g > b + 10 && lum > 40 && lum < 180) greenish++; // algae / outdoor growth
+      if (r > 70 && g > 40 && b < 55 && r > b + 25 && lum < 160) brownish++; // dirt / dust
+      if (r > 100 && g < 90 && b < 70 && r > g + 20) rusty++; // rust
+      if (b > r + 10 && b > g + 5 && lum > 50 && lum < 190) blueish++; // copper patina / blue film
+      if (max - min < 25 && lum > 60 && lum < 170) grayMetal++;
+    }
+    const pct = (x) => Math.round((x / n) * 1000) / 10;
+    return {
+      bright: pct(bright),
+      dark: pct(dark),
+      greenish: pct(greenish),
+      brownish: pct(brownish),
+      rusty: pct(rusty),
+      blueish: pct(blueish),
+      grayMetal: pct(grayMetal),
+    };
+  }
+
+  function loadImageFile(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve(img);
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("Could not load image"));
+      };
+      img.src = url;
+    });
+  }
+
+  function visualProblems(stats, ocrText) {
+    const findings = [];
+    const up = (ocrText || "").toUpperCase();
+
+    if (stats.bright >= 18) {
+      findings.push({
+        id: "ice",
+        severity: "high",
+        title: "Possible ice / frost",
+        detail:
+          "Large bright/white regions — classic iced evaporator or suction line look. Kill power, thaw, check airflow (filter/blower/coil) and charge. Don't add gas to an ice rink.",
+      });
+    }
+    if (stats.brownish >= 12 || (stats.dark >= 25 && stats.brownish >= 6)) {
+      findings.push({
+        id: "dirt",
+        severity: "high",
+        title: "Dirty coil / heavy soil",
+        detail:
+          "Brown/dark texture dominance — outdoor or indoor coil likely fouled. High head, SC about normal, sad capacity. Wash the coil; do not pull gas to mask head pressure.",
+      });
+    }
+    if (stats.greenish >= 8) {
+      findings.push({
+        id: "growth",
+        severity: "med",
+        title: "Growth / vegetation near unit",
+        detail:
+          "Green tones in frame — algae, grass, or a bush eating the condenser. Clear 18–24\" service clearance. Uncle Ray's junipers are not an accessory.",
+      });
+    }
+    if (stats.rusty >= 7) {
+      findings.push({
+        id: "rust",
+        severity: "med",
+        title: "Rust / corrosion",
+        detail:
+          "Rust-colored pixels — cabinet, fasteners, or coil end plates aging out. Check for cabinet integrity, loose panels, and electrical ground paths.",
+      });
+    }
+    if (stats.dark >= 35 && stats.bright < 8) {
+      findings.push({
+        id: "dark",
+        severity: "low",
+        title: "Very dark photo / blocked view",
+        detail:
+          "Frame is mostly dark — either a night shot, closed cabinet, or something blocking the coil face. Retake with light, or open the panel safely with power off.",
+      });
+    }
+
+    // OCR-assisted problem cues
+    if (/\bLEAK\b|\bOIL\b|\bWET\b|\bSTAIN\b/i.test(ocrText || "")) {
+      findings.push({
+        id: "leak_text",
+        severity: "high",
+        title: "Leak-related text / oil cues in frame",
+        detail:
+          "OCR picked up leak/oil language near the unit. Look for oil stains at joints, schrader, and coil returns. Soap test; never use oxygen for pressure tests.",
+      });
+    }
+    if (/\bWARNING\b|\bHIGH\s*VOLTAGE\b|\bDANGER\b/i.test(ocrText || "")) {
+      findings.push({
+        id: "electrical",
+        severity: "med",
+        title: "Electrical hazard markings visible",
+        detail:
+          "Warning / high voltage markings in view. Kill power, verify with a meter, lockout if required before deep work.",
+      });
+    }
+    if (/\bR-?22\b/i.test(ocrText || "")) {
+      findings.push({
+        id: "r22",
+        severity: "med",
+        title: "R-22 equipment indicated",
+        detail:
+          "Plate or text suggests R-22. Plan recovery with correct cylinder, discuss retrofit vs replacement with the customer — don't treat it like 410A pressures.",
+      });
+    }
+
+    // de-dupe by id
+    const seen = {};
+    return findings.filter((f) => (seen[f.id] ? false : (seen[f.id] = true)));
+  }
+
+  function formatProblemReport(findings, fields, stats, raw) {
+    const lines = [];
+    lines.push("Unit photo scan complete. Here's what jumped out:");
+    lines.push("");
+
+    if (findings.length) {
+      findings

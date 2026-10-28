@@ -1,0 +1,5 @@
+2026-10-17 v3.5.572 / SW v815: played live — sandbox seats, ladder, land lugs all hold. No crash. Parts LEFT, SH/SC after close. Next: clearer seat labels (avoid double names).
+2026-10-16 v3.5.546 / SW v790 / shop-floor-copy v172: clearer LOOP OPEN seat tip (seat four LEFT then Start; standing P normal; airflow/filter first). Live play clean. Parts LEFT holds.
+2026-10-16 v3.5.545 / SW v789: phone analog dials 96px (was 72). Cache bust phone-floor?v=49.
+2026-10-15 v3.5.539 / SW v784: 28757e3 truncated shop-floor-copy.js (37 lines, syntax error). Restored v166 content from 2ba9238, cache-bust ?v=168. Overcharge tip deferred.
+2026-10-15 v3.5.528 / SW v773: live stuck on 'Loading' stub (Pages deploys for 97c6825/a7cc43a failed). Redeploy; sandbox-fp ?v=26 for restriction teach (fe946b9).

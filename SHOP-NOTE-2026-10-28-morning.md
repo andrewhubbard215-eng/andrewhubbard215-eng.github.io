@@ -1,0 +1,1 @@
+Morning 2026-10-28: phone diamond full visible, tray LEFT locked, HUB off labs, ladder readable. No crashes. One vocational: pressure-switch prove tip tighter — hose/trap/vent → 24V across → vacuum vs rating → switch LAST. SW 944. No combat.

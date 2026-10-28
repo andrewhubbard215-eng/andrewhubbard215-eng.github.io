@@ -1,0 +1,81 @@
+/* Professor HUB — In-game AI mentor
+   Installation + troubleshooting genius. Deadpool wit. Offline knowledge engine. */
+(function (global) {
+  "use strict";
+
+  const KB = [
+    {
+      tags: ["commandment", "commandments", "ten commandments", "shop law", "hvac jesus", "gauges of god"],
+      topic: "The HVAC Commandments",
+      answer:
+        "The ten shop laws: 1) Recover first — never vent. 2) Nut on the tube before you flare. 3) Dry nitrogen only. 4) Microns at the system, not a compound gauge. 5) Don't top off a leaker — recover, repair, evacuate, weigh in. 6) Lockout before ohms or µF. 7) Nameplate is law (MCA/MOP/charge). 8) SH = suction line T − dew point; SC = start of boiling − liquid line T. 9) Airflow before charge. 10) Lincoln Tech is home base — log it, teach the next helper. Open HVAC Commandments on the shop floor or ask me any one of them.",
+    },
+    {
+      tags: ["nameplate", "data plate", "label", "model number", "serial number", "read plate"],
+      topic: "Reading nameplates",
+      answer:
+        "Use 📷 Read label — photo the data plate square-on with good light. I'll OCR model, serial, refrigerant, charge, MCA/MOP, voltage. Always verify OCR against the sticker. Log it before you open the system.",
+    },
+
+    {
+      tags: ["leak rate", "annualizing", "aim act", "15 pounds", "10 percent", "20 percent", "30 percent", "leak repair threshold"],
+      topic: "AIM leak rate example",
+      answer:
+        "AIM leak repair (40 CFR 84.106) from Jan 1, 2026: systems with ≥15 lb of HFC (or high-GWP substitute) — not typical residential light AC. Thresholds: comfort cooling/other 10%, commercial refrigeration 20%, industrial process 30%. Example (annualizing method): Comfort-cooling package, full charge 100 lb. You add 8 lb of HFC and it has been 73 days since the last addition. Annualized leak rate ≈ (8 / 100) × (365 / 73) × 100% ≈ 40%. That is above the 10% comfort-cooling threshold — repair clock starts (generally 30 days). Short time between top-offs makes the rate look worse. Always use the official EPA method and owner records; this is training math, not a compliance filing.",
+    },
+    {
+      tags: ["checklist", "install checklist", "job checklist", "before start"],
+      topic: "Install checklist",
+      answer:
+        "Pre-job: model match, correct line sizes, electrical capacity, pad/bracket, disconnect, permits if required. Process: mount IDU level → slope penetration out → set ODU with clearance → flare/torque → N₂ pressure test → ≤500 micron vacuum + decay → open valves → land power & comms → additional charge by weight if lineset long → commission ΔT/drain/codes → seal wall → educate customer. Skip vacuum = time bomb.",
+    },
+    {
+      tags: ["tools", "tool list", "what tools", "tool bag"],
+      topic: "Core tool bag",
+      answer:
+        "Must-haves: manifold gauges (or digital), micron gauge, vacuum pump, recovery machine + tank, torque wrench, flaring tool, tube cutter, deburr, nitrogen + regulator, soap solution, multimeter, amp clamp, thermometers/probes, allen keys for service valves, core tools, leak detector, PPE. Nice: wireless probes, scale for weigh-in, inspection mirror, fin comb. If you're missing micron gauge and torque wrench, you're guessing — and guessing is expensive.",
+    },
+    {
+      tags: ["safety", "lockout", "ppe", "shock", "burn"],
+      topic: "Safety",
+      answer:
+        "PPE: glasses, gloves as needed, hearing protection on recovery. Electrical: kill power, verify dead with meter, lockout/tagout when required. Never work a live contactor with jewelry and optimism. Nitrogen only for pressure tests — oxygen is a bomb recipe with oil. Hot copper and brazing = burn risk. Ladders tied off, not heroic. Call 911 for real emergencies; I'm witty, not EMS.",
+    },
+    {
+      tags: ["diagnose", "diagnostic", "where to start", "troubleshooting steps", "flowchart"],
+      topic: "Diagnostic order",
+      answer:
+        "1) Verify complaint (no cool, ice, noise, trip). 2) Thermostat calling? Mode correct? 3) Indoor airflow — filter, blower, coil. 4) Outdoor unit running? Contactor, cap, voltage. 5) Gauges: suction, head, SH, SC together. 6) Compare to fingerprint chart (undercharge vs restriction vs dirty condenser vs overcharge). 7) Electrical only after mechanical sense. Don't condemn the compressor first; it's the expensive scapegoat.",
+    },
+    {
+      tags: ["fingerprint", "pressure diagnosis", "gauge reading", "what do pressures mean"],
+      topic: "Pressure fingerprints",
+      answer:
+        "High SH + low SC → undercharge/leak — find the leak, do not top off, do not turn the TXV. High SH + high SC → restriction / plugged drier — cold at drier outlet, do not add gas. Low SH + high SC → overcharge — recover to nameplate. High head + SC about normal + high amps → dirty condenser — wash the coil, do not pull gas. High head AND high SC → air/noncondensables — recover, evacuate, weigh back. SH near zero with ice → airflow first, do not add gas. Always pair SH with SC. One number is a coin flip.",
+    },
+    {
+      tags: ["superheat", "how to measure superheat", "calculate superheat"],
+      topic: "Measuring superheat",
+      answer:
+        "Superheat = suction line T minus dew point (from the PT chart at suction pressure). TXV systems often target moderate SH (OEM range). Fixed orifice often charged by superheat charts vs outdoor/indoor wet bulb. Low SH risks liquid floodback. High SH means starved evaporator.",
+    },
+    {
+      tags: ["subcooling", "how to measure subcooling", "calculate subcooling"],
+      topic: "Measuring subcooling",
+      answer:
+        "Subcooling = start of boiling minus liquid line T (from the PT chart at liquid-line pressure). TXV systems are often charged by SC + weigh-in. High SC can mean overcharge or air/noncondensables. Low SC often undercharge. Measure liquid line temp with good contact, out of direct sun when possible.",
+    },
+    {
+      tags: ["short cycle", "short cycling", "turns on and off", "cycling"],
+      topic: "Short cycling",
+      answer:
+        "Causes: oversized equipment, thermostat in supply airstream, low charge trips, high-pressure resets (dirty condenser), low-pressure trips (airflow/charge), failing control board, hard-start issues. Check amp draw, pressures, thermostat placement, dirty filter. Rapid cycling kills compressors. Fix the cause; don't just strap on a hard-start and pray.",
+    },
+    {
+      tags: ["capacitor", "cap", "dual run", "hard start", "humming not start"],
+      topic: "Capacitors",
+      answer:
+        "Power off, discharge the cap safely. Read microfarads with a meter that does capacitance — ±6% of rating is a common tolerance (check OEM). Bulged or leaking = replace. Dual run: C, FAN, HERM terminals. Humming compressor that won't start often weak start/run cap or mechanical seize. Hard-start kits are a bandage, not a diagnosis.",
+    },
+    {
+      tags: ["contactor", "relay", "pitted", "points"],

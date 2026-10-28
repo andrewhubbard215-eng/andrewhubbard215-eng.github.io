@@ -1,0 +1,1 @@
+Shop floor 2026-10-28 short: Tightened SHOP_FLOOR_COPY sandbox and service tips. Explicit "parts LEFT — shop stock only, do not invent or remove". Added "Match the ticket fault to the glass." on service calls. Cache-busted sw to v947, app ver v3.5.699. Live app plays. No combat. Preview stays up.

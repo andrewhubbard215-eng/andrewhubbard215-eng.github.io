@@ -1,0 +1,1 @@
+v3.5.614 morning: Prove Path Card shipped — pressure-switch (hose/trap/vent → 24V across → vacuum vs rating → switch last) and no-cool sheet. First-year tech walks the prove, not the jump. Phone diamond and ladder readable. No crashes. SW v859. Live shop floor stable. No combat.

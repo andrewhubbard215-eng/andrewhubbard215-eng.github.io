@@ -1,0 +1,1 @@
+SHOP 2026-10-26 short: Played live v3.5.673 no crash. Clarified equalized standing tip in shop-floor-copy (NEVER a charge — do not recover). Bumped to v3.5.674 / SW v922. Techs can run sandbox, exam, service calls, mini-split, electrical ladder. Next: tighten HPC/LPC prove path if needed.

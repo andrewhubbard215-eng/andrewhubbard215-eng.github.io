@@ -1,0 +1,123 @@
+/* Shop-floor TD + charge method on live gauges. */
+(function () {
+  "use strict";
+  function num(id, fallback) {
+    var el = document.getElementById(id);
+    var n = el ? Number(el.value) : fallback;
+    return isFinite(n) ? n : fallback;
+  }
+  function satFromLabel(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    var m = String(el.textContent || "").match(/(-?\d+)/);
+    return m ? Number(m[1]) : null;
+  }
+  function ensure(id, afterId) {
+    var el = document.getElementById(id);
+    if (el) return el;
+    var host = document.getElementById(afterId);
+    if (!host || !host.parentNode) return null;
+    el = document.createElement("div");
+    el.id = id;
+    host.parentNode.insertBefore(el, host.nextSibling);
+    return el;
+  }
+  function pistonSh(od, wb) {
+    return Math.max(6, Math.min(18, Math.round(20 - 0.08 * (od - 82) - 0.55 * (wb - 63))));
+  }
+  function compressorOn() {
+    var runBtn = document.getElementById("sb-run");
+    if (runBtn && /stop/i.test(runBtn.textContent || "")) return true;
+    var ps = document.getElementById("sb-ps-title");
+    if (ps && /LPC \/ Suction/i.test(ps.textContent || "")) return true;
+    var st = document.getElementById("sb-status");
+    if (st && /Compressor on/i.test(st.textContent || "")) return true;
+    var sh = document.getElementById("sb-sh");
+    if (sh && /\d/.test(sh.textContent || "") && !/off \(no SH\)/i.test(sh.textContent || "")) return true;
+    return false;
+  }
+  function meteringKind() {
+    var banner = document.getElementById("sb-sysbanner");
+    var btxt = (banner && banner.textContent) || "";
+    if (/PISTON/i.test(btxt)) return "piston";
+    if (/\bEEV\b/i.test(btxt)) return "eev";
+    if (window.LtActivePack && window.LtActivePack.metering) {
+      var pm = String(window.LtActivePack.metering);
+      if (pm === "piston" || pm === "orifice") return "piston";
+      if (pm === "eev") return "eev";
+      if (pm === "txv") return "txv";
+    }
+    if (window.LtMeteringKind === "orifice" || window.LtMeteringKind === "piston") return "piston";
+    if (window.LtMeteringKind === "eev") return "eev";
+    if (window.LtMeteringKind === "txv") return "txv";
+    var slot = document.querySelector('#sb-slots .sb-slot[data-slot="metering"]');
+    var blob = ((slot && (slot.textContent + " " + (slot.dataset.has || ""))) || "") +
+      " " +
+      ((document.getElementById("sb-sys") || {}).textContent || "") +
+      " " +
+      ((document.querySelector('#sandbox-root [data-part="metering"]') || {}).textContent || "");
+    if (/piston|orifice|cap-?tube|fixed/i.test(blob)) return "piston";
+    if (/eev|inverter|greenspeed/i.test(blob)) return "eev";
+    var tray = document.querySelector('#sandbox-root [data-part="metering"], #sandbox-root button');
+    var pressed = document.querySelector('#sandbox-root [data-part="metering"][aria-pressed="true"], #sandbox-root .sb-part.primary');
+    var label = ((pressed && pressed.textContent) || (tray && tray.textContent) || "TXV");
+    if (/piston|orifice/i.test(label)) return "piston";
+    if (/eev/i.test(label)) return "eev";
+    return "txv";
+  }
+  function paint() {
+    var running = compressorOn();
+    var od = num("sb-out", 95);
+    var idb = num("sb-in", 75);
+    var wb = num("sb-wb", 63);
+    var sst = satFromLabel("sb-sst");
+    var sct = satFromLabel("sb-sct");
+    var etd = ensure("sb-etd", "sb-sh");
+    var ctd = ensure("sb-ctd", "sb-sc");
+    var method = ensure("sb-method", "sb-etd");
+    if (etd) {
+      if (running && sst != null) {
+        var ev = Math.round(idb - sst);
+        var evNote = ev < 12 ? "low — airflow / load" : ev > 22 ? "high — dirty coil / low airflow" : "seat 15–20° air DX";
+        etd.textContent = "Evap TD " + ev + "\u00b0 (ID\u2212SST) \u00b7 " + evNote;
+      } else {
+        etd.textContent = "SH = suction line T \u2212 dew point — off until compressor runs";
+      }
+    }
+    if (ctd) {
+      if (running && sct != null) {
+        var cd = Math.round(sct - od);
+        var cdNote = cd < 15 ? "low — airflow / charge" : cd > 35 ? "high — dirty cond / low CFM" : "seat 20–30° air-cooled";
+        ctd.textContent = "Cond TD " + cd + "\u00b0 (SCT\u2212OD) \u00b7 " + cdNote;
+      } else {
+        ctd.textContent = "SC = start of boiling \u2212 liquid line T — off until compressor runs";
+      }
+    }
+    if (method) {
+      var tgt = pistonSh(od, wb);
+      var kind = meteringKind();
+      if (!running) {
+        method.textContent = "Standing pressures only — no SH/SC charge. Seat 4 LEFT, run the compressor, then charge by method.";
+      } else if (kind === "piston") {
+        method.textContent = "Piston \u00b7 charge by SH " + tgt + "\u00b0 (ODB " + Math.round(od) + " / WB " + Math.round(wb) + ") \u00b7 SC is a check";
+      } else if (kind === "eev") {
+        method.textContent = "EEV \u00b7 weigh-in \u00b7 SH/SC are checks only";
+      } else {
+        method.textContent = "TXV \u00b7 charge by SC 8\u201314\u00b0 \u00b7 SH is a check (seat 8\u201314)";
+      }
+    }
+  }
+  function armRun() {
+    var runBtn = document.getElementById("sb-run");
+    if (!runBtn || runBtn.dataset.tdArmed === "1") return;
+    runBtn.dataset.tdArmed = "1";
+    runBtn.addEventListener("click", function () {
+      setTimeout(paint, 0);
+      setTimeout(paint, 50);
+      setTimeout(paint, 160);
+    });
+  }
+  setInterval(function () { armRun(); paint(); }, 400);
+  armRun();
+  paint();
+})();
