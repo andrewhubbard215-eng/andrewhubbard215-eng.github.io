@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.702 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.705 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -9,6 +9,6 @@
     service: "Hook gauges first. Prove filter, coils, and clearances clear. Live SH/SC on the manifold — not the nameplate. Piston ~10-15° SH. TXV 8-14° SC. Do not charge from the sheet. Equalized = do not recover. Never jump a safety without metering the open first. Iced suction = airflow fault — power down, thaw, new filter, check blower & coil before recheck. Never add refrigerant to ice. Match the ticket fault to the glass.",
     minisplit: "Flare clean. Vacuum to microns. Weigh-in. Line-set path matters.",
     jesus: "HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
-    recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is NEVER a charge — do not recover or add. LOTO first. Parts LEFT — shop stock only."
+    recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is NEVER a charge — do not recover or add. LOTO first. Parts LEFT — shop stock only. Seat the four first."
   };
 })(typeof window !== "undefined" ? window : global);
