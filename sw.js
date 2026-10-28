@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v955: recovery tip — equalized NEVER recovered, prove loop closed first. Parts LEFT seat four first) for Android / Windows PWA */
-const VER = "lt-allstars-v955";
+/* HVAC Allstars — offline cache (v956: float prove tip — CALL → drain FIRST → switch LAST, never jump without metering. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v956";
 const CORE = [
 "./",
 "./index.html",
@@ -87,7 +87,7 @@ const CORE = [
 "./sandbox-ts.js?v=28",
 "./analog-gauges.js?v=13",
 "./teach-locks.js?v=2",
-"./shop-floor-copy.js?v=235",
+"./shop-floor-copy.js?v=237",
 "./nocool-lock.js?v=3",
 "./saturday-arm.js?v=3",
 "./sandbox-fp.js?v=28",
