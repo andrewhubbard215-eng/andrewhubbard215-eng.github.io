@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v971: zero gauges hoses fully off ports. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v971";
+/* HVAC Allstars — offline cache (v972: zero gauges hoses fully off ports before trust. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v972";
 const CORE = [
 "./",
 "./index.html",
