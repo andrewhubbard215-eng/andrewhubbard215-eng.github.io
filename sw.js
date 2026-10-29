@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v963: boot fix escape script tag. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v963";
+/* HVAC Allstars — offline cache (v964: LOOP OPEN tip — prove closed before recovery/add. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v964";
 const CORE = [
 "./",
 "./index.html",
