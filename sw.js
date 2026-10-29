@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v968: phone gauge zero clip polish — dials full, zero to ambient hoses off. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v968";
+/* HVAC Allstars — offline cache (v969: electrical why-right — prove path before switch swap. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v969";
 const CORE = [
 "./",
 "./index.html",
