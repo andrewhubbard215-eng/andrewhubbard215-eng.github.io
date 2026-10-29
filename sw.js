@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v970: mini-split flare nut first, vacuum microns, weigh-in. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v970";
+/* HVAC Allstars — offline cache (v971: zero gauges hoses fully off ports. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v971";
 const CORE = [
 "./",
 "./index.html",
