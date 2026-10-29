@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v961: zero gauges tip before read. phone hard-refresh confirm tip. phone gauges: digital pressure and SH/SC stay readable, no right-edge clip. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v961";
+/* HVAC Allstars — offline cache (v962: zero gauges tip before read. phone hard-refresh confirm tip. phone gauges: digital pressure and SH/SC stay readable, no right-edge clip. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v962";
 const CORE = [
 "./",
 "./index.html",
