@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.722 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.723 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -7,7 +7,7 @@
     callback: "No-cool sheet: meter the 24V string first. Isolate the open safety. Float prove: CALL → prove drain clear FIRST → meter the open switch LAST. Right path: drain clear before switch. Jumping the float hides a full pan and books the Saturday callback. Do not cut R or the compressor run. Saturday callback is character, not combat.",
     exam: "EPA 608 / electrical / charge. Pass the bay. Cutouts load. Wrong answers teach. Why right on cutouts: prove the open with the meter before you reset or swap — jumping hides the real open.",
     service: "Hook gauges first. Zero both gauges (blue and red) to ambient — hoses off, dials or digital at 0 — before you trust any reading. Phone: full dials visible, no clip. Prove filter, coils, and clearances clear. Live SH/SC on the manifold — not the nameplate. Piston ~10-15° SH (superheat). TXV 8-14° SC (subcooling). Read live on manifold after 5-10 min run.  Do not charge from the sheet. Equalized = do not recover. Never jump a safety without metering the open first. Iced suction = airflow fault — power down, thaw, new filter, check blower & coil before recheck. Never add refrigerant to ice. Match the ticket fault to the glass.",
-    minisplit: "Flare clean. Vacuum to microns. Weigh-in. Line-set path matters.",
+    minisplit: "Flare nut ON the tube first. Square cut, deburr, eccentric 45°. Torque to OEM. Nitrogen test, then vacuum <500 microns + decay. Weigh-in. Line-set path matters. Parts LEFT.",
     jesus: "HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
     recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is NEVER a charge and NEVER recovered — STOP. Prove loop closed first. LOTO first. Parts LEFT — shop stock only. Seat the four first."
   };
