@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v966: inducer prove tip — motor first, draft, then ignition. Never jump switch to force light. Gauges zero tip. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v966";
+/* HVAC Allstars — offline cache (v967: float prove why-right — drain clear FIRST then meter switch. Jump hides full pan. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v967";
 const CORE = [
 "./",
 "./index.html",

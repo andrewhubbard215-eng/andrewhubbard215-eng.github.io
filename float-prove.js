@@ -29,7 +29,7 @@
       '<button type="button" class="btn" id="el-float-close">Close</button></header>' +
       '<p class="eyebrow">' + step.label + " of " + STEPS.length + "</p><p>" + step.ask + "</p>" +
       '<div class="el-locker-opts">' + (Math.random() < 0.5 ? a + b : b + a) + "</div>" +
-      "<p class='hub-chip'>" + (why || "Don't jump the float. Prove the drain.") + "</p>" +
+      "<p class='hub-chip'>" + (why || "Right: drain clear FIRST, then meter the switch. Jump hides full pan.") + "</p>" +
       "<p class='muted'>Score " + score + "/" + tried + "</p>";
     wrap.querySelector("#el-float-close").onclick = function () { close(wrap); };
     wrap.querySelectorAll(".el-float-opt").forEach(function (btn) {
