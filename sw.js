@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v964: LOOP OPEN tip — prove closed before recovery/add. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v964";
+/* HVAC Allstars — offline cache (v965: HPC/LPC prove open before reset. Gauges zero tip. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v965";
 const CORE = [
 "./",
 "./index.html",
