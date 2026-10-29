@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v967: float prove why-right — drain clear FIRST then meter switch. Jump hides full pan. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v967";
+/* HVAC Allstars — offline cache (v968: phone gauge zero clip polish — dials full, zero to ambient hoses off. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v968";
 const CORE = [
 "./",
 "./index.html",
