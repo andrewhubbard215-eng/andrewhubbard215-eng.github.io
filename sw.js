@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v965: HPC/LPC prove open before reset. Gauges zero tip. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v965";
+/* HVAC Allstars — offline cache (v966: inducer prove tip — motor first, draft, then ignition. Never jump switch to force light. Gauges zero tip. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v966";
 const CORE = [
 "./",
 "./index.html",

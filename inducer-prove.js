@@ -31,6 +31,12 @@
       good: "Draft is short of the rating. Recheck the hose, trap, and vent termination. Do not replace the switch while vacuum is below the close point.",
       bad: "Replace the pressure switch. The manometer already proved the board is lying.",
       why: "A switch that is open at -0.20 when it is rated to close at -0.50 is doing its job. Weak draft is hose, trap, vent, or a weak wheel — switch last."
+    },
+    {
+      ask: "Inducer runs, vacuum is good, switch closes, but no ignition. What next?",
+      good: "Meter 120V at the ignitor. No voltage: board or harness. Voltage and no glow: ignitor. Never jump the switch to force ignition.",
+      bad: "Jump the pressure switch again so the board skips the prove.",
+      why: "Once the switch closes, the board should call the ignitor. Jumping after prove is how you light into a bad vent on the next call."
     }
   ];
 
