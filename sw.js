@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v981: float prove tip — meter the string, do not jump the float, wet is open until dry. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v981";
+/* HVAC Allstars — offline cache (v982: float prove tip — meter the string, do not jump the float, wet is open until dry (callback copy). Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v982";
 const CORE = [
 "./",
 "./index.html",
