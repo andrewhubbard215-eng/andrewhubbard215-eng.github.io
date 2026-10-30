@@ -8,13 +8,13 @@
   <link rel="icon" type="image/png" href="icon-192.png" />
   <script>
   (function () {
-    var APP_VER = "v3.5.732"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.733"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/49ce6e5/index.html";
     function patch(html) {
       html = html.replace(/sandbox-eq\.js\?v=\d+/g, "sandbox-eq.js?v=13");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=28");
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=979");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=980");
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=249");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=34");
       html = html.replace(/sandbox-poster\.js\?v=\d+/g, "sandbox-poster.js?v=3");
@@ -50,19 +50,20 @@
       html = html.replace(/phone-gauges-clip-233\.css\?v=\d+/g, "phone-gauges-clip-233.css?v=10");
       html = html.replace(/saturday-phone\.css\?v=\d+/g, "saturday-phone.css?v=4");
       html = html.replace(/v3\.5\.\d+/g, APP_VER);
-      html = html.replace("Live SH/SC - HPC/LPC cut out - parts LEFT", "Live SH/SC targets · HPC/LPC cutout — prove switch open before reset · parts LEFT — shop stock only · equalized blue=red: meter the 24V string first, lockout if open — do NOT recover or add. Standing pressures lie.");
+      html = html.replace("Live SH/SC - HPC/LPC cut out - parts LEFT", "Live SH/SC targets \u00b7 HPC/LPC cutout \u2014 prove switch open before reset \u00b7 parts LEFT \u2014 shop stock only \u00b7 equalized blue=red: meter the 24V string first, lockout if open \u2014 do NOT recover or add. Standing pressures lie.");
       html = html.replace("Equalized is never a charge, never a diagnosis, never a reason to recover.", "Equalized blue=red: STOP. Meter the 24V string first. Lockout if open. Standing pressures lie. Do NOT recover or add. Prove loop closed before Start.");
-      html = html.replace("Standing pressures lie.", "Standing pressures lie — equalized is migration, not charge. LOTO, meter 24V string, prove closed before any add or recover.");
-      html = html.replace("parts LEFT", "parts LEFT — shop stock only, do not invent or remove");
-      html = html.replace("LOOP OPEN — tap COMP · COND · TXV · EVAP LEFT then Start. Standing P/T only.", "LOOP OPEN — seat COMP · COND · TXV · EVAP LEFT first. Standing pressures only. Do not Start until the loop is closed. Equalized = not a charge. Prove closed before any recovery or add.");
-      html = html.replace("Do not charge from the sheet.", "Do not charge from the sheet. Prove filter, coils, and clearances clear first. Iced suction = airflow fault, not low charge — power down, thaw, check filter/coil before any charge. Never add refrigerant to ice. Then read live SH/SC on the manifold.");
-      html = html.replace("Hook gauges - read SH/SC - pick the fault", "Hook gauges first. Prove filter, coils, and clearances clear — never charge an iced suction. Power down and thaw first. Read live SH/SC on the manifold. Pick the fault. Do not charge from the sheet.");
-      html = html.replace("No-cool sheet", "No-cool sheet — meter first, lockout if open, isolate before swap");
-      html = html.replace("Hang the manifold", "Hang the manifold — blue suction left, red liquid right, yellow capped. Zero if needed. Prove gauges zeroed before reading.");
-      html = html.replace("HPC/LPC cut out", "HPC/LPC cutout — prove open with meter before reset. Do not jump or force.");
-      html = html.replace("Prove gauges zeroed before reading.", "Zero both gauges to ambient first. Prove zeroed — sticky needle lies. Blue suction left, red liquid right.");
-      html = html.replace(/HVAC Allstars - v3\.5\.\d+ - shop floor/g, "HVAC Allstars - " + APP_VER + " - shop floor · Phone: hard-refresh for latest tips");
-      html = html.replace("</body>", `<div id="lt-phone-tip" style="display:none;position:fixed;top:0;left:0;right:0;background:#CE0034;color:#fff;padding:10px 12px;font:14px/1.3 sans-serif;z-index:9999;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.4);">Phone tip: hard-refresh (pull down or clear site data) to load latest shop tips. <button id="lt-phone-tip-ok" style="margin-left:10px;background:#fff;color:#CE0034;border:none;padding:4px 12px;border-radius:4px;font-weight:bold;cursor:pointer;">Got it</button></div><script>(function(){if(window.innerWidth<540 && !localStorage.getItem("lt-phone-tip-718")){var t=document.getElementById("lt-phone-tip");if(t){t.style.display="block";var b=document.getElementById("lt-phone-tip-ok");if(b)b.onclick=function(){t.remove();localStorage.setItem("lt-phone-tip-718","1");};}}}())<\/script></body>`);
+      html = html.replace("Standing pressures lie.", "Standing pressures lie \u2014 equalized is migration, not charge. LOTO, meter 24V string, prove closed before any add or recover.");
+      html = html.replace("parts LEFT", "parts LEFT \u2014 shop stock only, do not invent or remove");
+      html = html.replace("LOOP OPEN \u2014 tap COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP LEFT then Start. Standing P/T only.", "LOOP OPEN \u2014 seat COMP \u00b7 COND \u00b7 TXV \u00b7 EVAP LEFT first. Standing pressures only. Do not Start until the loop is closed. Equalized = not a charge. Prove closed before any recovery or add.");
+      html = html.replace("Do not charge from the sheet.", "Do not charge from the sheet. Prove filter, coils, and clearances clear first. Iced suction = airflow fault, not low charge \u2014 power down, thaw, check filter/coil before any charge. Never add refrigerant to ice. Then read live SH/SC on the manifold.");
+      html = html.replace("Hook gauges - read SH/SC - pick the fault", "Hook gauges first. Prove filter, coils, and clearances clear \u2014 never charge an iced suction. Power down and thaw first. Read live SH/SC on the manifold. Pick the fault. Do not charge from the sheet.");
+      html = html.replace("No-cool sheet", "No-cool sheet \u2014 meter first, lockout if open, isolate before swap");
+      html = html.replace("Hang the manifold", "Hang the manifold \u2014 blue suction left, red liquid right, yellow capped. Zero if needed. Prove gauges zeroed before reading.");
+      html = html.replace("HPC/LPC cut out", "HPC/LPC cutout \u2014 prove open with meter before reset. Do not jump or force.");
+      html = html.replace("Prove gauges zeroed before reading.", "Zero both gauges to ambient first. Prove zeroed \u2014 sticky needle lies. Blue suction left, red liquid right.");
+      html = html.replace("Land the lugs", "Land the lugs \u2014 L1 LINE / L2 LINE / HERM / C R S. Torque to spec. No loose. Polarity and chips LEFT.");
+      html = html.replace(/HVAC Allstars - v3\.5\.\d+ - shop floor/g, "HVAC Allstars - " + APP_VER + " - shop floor \u00b7 Phone: hard-refresh for latest tips");
+      html = html.replace("</body>", `<div id="lt-phone-tip" style="display:none;position:fixed;top:0;left:0;right:0;background:#CE0034;color:#fff;padding:10px 12px;font:14px/1.3 sans-serif;z-index:9999;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.4);">Phone tip: hard-refresh (pull down or clear site data) to load latest shop tips. <button id="lt-phone-tip-ok" style="margin-left:10px;background:#fff;color:#CE0034;border:none;padding:4px 12px;border-radius:4px;font-weight:bold;cursor:pointer;">Got it</button></div><script>(function(){if(window.innerWidth<540 && !localStorage.getItem("lt-phone-tip-733")){var t=document.getElementById("lt-phone-tip");if(t){t.style.display="block";var b=document.getElementById("lt-phone-tip-ok");if(b)b.onclick=function(){t.remove();localStorage.setItem("lt-phone-tip-733","1");};}}}())<\/script></body>`);
       return html;
     }
     fetch(SRC, { cache: "no-store" })
@@ -73,14 +74,14 @@
         document.close();
       })
       .catch(function (e) {
-        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor · Phone: hard-refresh for latest tips</p>";
+        document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor \u00b7 Phone: hard-refresh for latest tips</p>";
       });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=979").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=980").catch(function () {});
   })();
   </script>
 </head>
 <body>
   <p style="font:16px/1.4 sans-serif;padding:24px;color:#f4e7c8;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.732 - shop floor · Phone: hard-refresh for latest tips</p>
+  <p class="version-strip">HVAC Allstars - v3.5.733 - shop floor \u00b7 Phone: hard-refresh for latest tips</p>
 </body>
 </html>

@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v979: recovery 80% stop tip. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v979";
+/* HVAC Allstars — offline cache (v980: land lugs torque tip. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v980";
 const CORE = [
 "./",
 "./index.html",
