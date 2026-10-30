@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.731 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.732 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -9,6 +9,6 @@
     service: "Hook gauges first. Zero both gauges (blue and red) to ambient — hoses completely disconnected from the unit ports, dials or digital at 0 — before you trust any reading. Reconnect after zero confirmed. Phone: full dials visible, no clip. Prove filter, coils, and clearances clear. Live SH/SC on the manifold — not the nameplate. Piston ~10-15° SH (superheat). TXV 8-14° SC (subcooling). Read live on manifold after 5-10 min run.  Do not charge from the sheet. Equalized = do not recover. Never jump a safety without metering the open first. Iced suction = airflow fault — power down, thaw, new filter, check blower & coil before recheck. Never add refrigerant to ice. Match the ticket fault to the glass.",
     minisplit: "Flare nut ON the tube first. Square cut, deburr, eccentric 45°. Torque to OEM. Nitrogen test, then vacuum <500 microns + decay. Weigh-in. Line-set path matters. Parts LEFT.",
     jesus: "Furnace SOO: W call → inducer motor → prove draft (PS close) → hot surface or spark → gas valve → flame sense → blower. Never jump the PS. HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
-    recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is NEVER a charge and NEVER recovered — STOP. Prove loop closed first. LOTO first. Parts LEFT — shop stock only. Seat the four first."
+    recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Overfill can vent and book a callback. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is NEVER a charge and NEVER recovered — STOP. Prove loop closed first. LOTO first. Parts LEFT — shop stock only. Seat the four first."
   };
 })(typeof window !== "undefined" ? window : global);
