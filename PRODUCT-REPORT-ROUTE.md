@@ -1,4 +1,12 @@
 DATE: 2026-10-30
+LIVE: v3.5.734
+SW: lt-allstars-v981
+PLAYED: Clock-in + System sandbox (Manifold: seat LEFT, loop, Start, live SH/SC) + Saturday callback (meter the open). No crash.
+FIXED: float prove tip — meter the string, do not jump the float, wet float is open until dry. Parts LEFT.
+SHIPPED: vocational tip. No combat. Dual SKU safe.
+STILL OPEN: phone hard-refresh confirm tip.
+NEXT: recovery 80% hard stop reinforce or gauges zero tip polish.
+DATE: 2026-10-30
 LIVE: v3.5.732
 SW: lt-allstars-v979
 PLAYED: Clock-in + System sandbox (Manifold guided: hang gauges → seat COMP/COND/TXV/EVAP LEFT, loop closed, Start, readings live SH/SC, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.

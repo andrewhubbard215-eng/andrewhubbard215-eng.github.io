@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v980: land lugs torque tip. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v980";
+/* HVAC Allstars — offline cache (v981: float prove tip — meter the string, do not jump the float, wet is open until dry. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v981";
 const CORE = [
 "./",
 "./index.html",
