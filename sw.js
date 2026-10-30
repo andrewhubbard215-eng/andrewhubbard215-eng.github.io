@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v984: service SH/SC after stable run — not standing, not nameplate. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v984";
+/* HVAC Allstars — offline cache (v985: clearer service-call SH/SC vocational callout — High SH+low SC=undercharge. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v985";
 const CORE = [
 "./",
 "./index.html",
