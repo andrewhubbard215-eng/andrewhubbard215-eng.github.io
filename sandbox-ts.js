@@ -1,5 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v28 — call tip stronger: equalized blue=red never recover or add. Standing lie. Meter first, lockout if open.
+   v29 — equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v27 — manifold guided: hang gauges, hook blue/red, cap yellow, purge, start, wait, read, clamp, math, call.
    v26 — standing tip: meter first, lockout, equalized never recover/add. lockout before recovery. Equalized is ambient, never a charge.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
@@ -15,7 +15,7 @@
     { n: "7", title: "Read", body: "Read blue suction psig and red liquid psig. Needles move. Digital windows readable." },
     { n: "8", title: "Clamp", body: "Clamp the thermocouple on the suction line for SH, liquid line for SC." },
     { n: "9", title: "Math", body: "SH = suction line T − dew point. SC = start of boiling − liquid line T." },
-    { n: "10", title: "Call", body: "Name the fingerprint from the numbers. High SH + low SC = leak. Equalized blue=red: meter first, lockout if open. Do NOT recover or add. Standing pressures lie. Callback if you do." }
+    { n: "10", title: "Call", body: "Name the fingerprint from the numbers. High SH + low SC = leak. Equalized blue=red = migration, not charge. LOTO 24V first. Meter, lockout if open. Do NOT recover or add. Standing pressures lie." }
   ];
   var named = false;
 
