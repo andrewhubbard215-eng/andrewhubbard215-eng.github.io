@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v983: mini-split flare torque + vacuum tip — meter the string, do not jump the float, wet is open until dry (callback copy). Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v983";
+/* HVAC Allstars — offline cache (v984: service SH/SC after stable run — not standing, not nameplate. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v984";
 const CORE = [
 "./",
 "./index.html",
