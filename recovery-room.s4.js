@@ -2,7 +2,7 @@ window.__LT_RC_SRC=(window.__LT_RC_SRC||"");
 window.__LT_RC_SRC+="say.textContent = state.finishedOnce\n        ? \"Professor HU"
 window.__LT_RC_SRC+="B: Nice pull. Scale was the proof. Play free — or walk it ag"
 window.__LT_RC_SRC+="ain.\"\n        : \"Professor HUB: Free play. Scale is the proo"
-window.__LT_RC_SRC+="f. 80% WC is a stop.\";\n      if (walk) walk.hidden = false;\n"
+window.__LT_RC_SRC+="f. 80% WC is a hard stop — scale is the proof.\";\n      if (walk) walk.hidden = false;\n"
 window.__LT_RC_SRC+="      return;\n    }\n    box.classList.remove(\"rc-guide-done\""
 window.__LT_RC_SRC+=");\n    if (walk) walk.hidden = true;\n    var g = GUIDE[Math."
 window.__LT_RC_SRC+="min(guideStep, GUIDE.length - 1)];\n    say.textContent = g.s"

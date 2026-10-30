@@ -12,7 +12,7 @@ window.__LT_RC_SRC+="erHTML =\n      '<div class=\"rc-wrap\">' +\n      '<div cl
 window.__LT_RC_SRC+="><h2>Recovery room</h2><button id=\"rc-reset\" class=\"btn\" type=\"butto"
 window.__LT_RC_SRC+="n\">Reset bay</button></div>' +\n      '<p class=\"rc-lede\">Blue low ho"
 window.__LT_RC_SRC+="se on LO. Red high hose on HI. Wrong port is one shop line. Scale is"
-window.__LT_RC_SRC+=" the proof. 80% WC is a stop. Vacuum is a separate tool.</p>' +\n    "
+window.__LT_RC_SRC+=" the proof. 80% WC is a hard stop — overfill risks tank rupture. Vacuum is a separate tool.</p>' +\n    "
 window.__LT_RC_SRC+="  '<div id=\"rc-guide\" class=\"rc-guide\"><p id=\"rc-guide-say\" class=\"r"
 window.__LT_RC_SRC+="c-guide-say\"></p>' +\n      '<div class=\"rc-guide-bar\"><button id=\"rc"
 window.__LT_RC_SRC+="-skip-guide\" class=\"btn\" type=\"button\">Skip guide</button>' +\n      "
