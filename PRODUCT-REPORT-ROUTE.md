@@ -1,4 +1,13 @@
 DATE: 2026-10-30
+LIVE: v3.5.741
+SW: lt-allstars-v988
+PLAYED: Clock-in after cache/SW bump for tonight's shop (restriction fault high SH+high SC, sandbox-ts v29). No crash.
+FIXED: sandbox-ts ?v= 28→29 so latest equalized tip loads; SW/register/APP_VER 987/740→988/741 so Pages serves current.
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: phone hard-refresh confirm tip; offline list rebuild on pinned file change.
+NEXT: phone hard-refresh confirm tip.
+
+DATE: 2026-10-30
 LIVE: v3.5.734
 SW: lt-allstars-v981
 PLAYED: Clock-in + System sandbox (Manifold: seat LEFT, loop, Start, live SH/SC) + Saturday callback (meter the open). No crash.
