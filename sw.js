@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v973: recovery 80% hard stop tip. Scale is the proof. Parts LEFT) for Android / Windows PWA */
-const VER = "lt-allstars-v973";
+/* HVAC Allstars — offline cache (v974: furnace SOO prove tip — inducer first, never jump PS. Parts LEFT) for Android / Windows PWA */
+const VER = "lt-allstars-v974";
 const CORE = [
 "./",
 "./index.html",
