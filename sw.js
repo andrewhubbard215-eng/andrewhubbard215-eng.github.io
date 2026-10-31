@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v993: equalized tip clarifies colder coil holds charge. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v993";
+/* HVAC Allstars — offline cache (v994: equalized tip: migration only, colder coil holds charge, STOP recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v994";
 const CORE = [
 "./",
 "./index.html",
