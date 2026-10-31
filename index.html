@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0f0a" />
-  <meta name="lt-app-ver" content="v3.5.748" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lincoln Tech HVAC Allstars</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/png" href="icon-192.png" />
@@ -20,6 +18,16 @@
       html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=253");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=34");
       html = html.replace(/sandbox-poster\.js\?v=\d+/g, "sandbox-poster.js?v=3");
+      html = html.replace(/sandbox-hunt\.js\?v=\d+/g, "sandbox-hunt.js?v=6");
+      html = html.replace(/sandbox-hook\.js\?v=\d+/g, "sandbox-hook.js?v=19");
+      html = html.replace(/sandbox-packs\.js\?v=\d+/g, "sandbox-packs.js?v=3");
+      html = html.replace(/sandbox-yell\.js\?v=\d+/g, "sandbox-yell.js?v=6");
+      html = html.replace(/lugs-lock\.js\?v=\d+/g, "lugs-lock.js?v=2");
+      html = html.replace(/clock-in-form\.js\?v=\d+/g, "clock-in-form.js?v=32");
+      html = html.replace(/clock-in-floor\.js\?v=\d+/g, "clock-in-floor.js?v=48");
+      html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=9");
+      html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
+      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=13");
       html = html.replace(/v3\.5\.\d+/g, APP_VER);
       html = html.replace(/HVAC Allstars - v3\.5\.\d+ - shop floor/g, "HVAC Allstars - " + APP_VER + " - shop floor \u00b7 Phone: hard-refresh for latest tips");
       return html;
@@ -40,6 +48,7 @@
   </script>
 </head>
 <body>
+  <p style="font:14px monospace;padding:24px;color:#1BFF80;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
   <p class="version-strip">HVAC Allstars - v3.5.748 - shop floor \u00b7 Phone: hard-refresh for latest tips</p>
 </body>
 </html>
