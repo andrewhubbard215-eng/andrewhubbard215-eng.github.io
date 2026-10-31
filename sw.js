@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v991: loop prove tip before Start. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v991";
+/* HVAC Allstars — offline cache (v992: equalized STOP tip on sandbox menu. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v992";
 const CORE = [
 "./",
 "./index.html",
