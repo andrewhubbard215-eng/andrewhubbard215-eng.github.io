@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v989: phone hard-refresh tip for SH/SC fingerprints. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v989";
+/* HVAC Allstars — offline cache (v990: phone hard-refresh tip for SH/SC fingerprints. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v990";
 const CORE = [
 "./",
 "./index.html",
