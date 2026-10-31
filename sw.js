@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1000: live rail callout switches piston/TXV targets when seated. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1000";
+/* HVAC Allstars — offline cache (v1001: zero both gauges reminder tighter. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1001";
 const CORE = [
 "./",
 "./index.html",
