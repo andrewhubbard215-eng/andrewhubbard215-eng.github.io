@@ -1,4 +1,13 @@
 DATE: 2026-10-30
+LIVE: v3.5.742
+SW: lt-allstars-v989
+PLAYED: Clock-in + shop floor menu (sandbox, service calls, mini-split, exam, HUB, Jesus). No crash.
+FIXED: phone hard-refresh tip — vocational callout that latest SH/SC fingerprints load only after hard-refresh. localStorage key bumped. Parts LEFT.
+SHIPPED: phone tip + version/SW bump. Dual SKU safe. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+NEXT: recovery 80% hard stop reinforce or gauges zero tip polish.
+
+DATE: 2026-10-30
 LIVE: v3.5.741
 SW: lt-allstars-v988
 PLAYED: Clock-in after cache/SW bump for tonight's shop (restriction fault high SH+high SC, sandbox-ts v29). No crash.

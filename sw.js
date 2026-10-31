@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v988: sandbox-ts v29 equalized tip locked. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v988";
+/* HVAC Allstars — offline cache (v989: phone hard-refresh tip for SH/SC fingerprints. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v989";
 const CORE = [
 "./",
 "./index.html",
