@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v994: equalized tip: migration only, colder coil holds charge, STOP recover. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v994";
+/* HVAC Allstars — offline cache (v995: float prove path clearer — drain FIRST then meter switch LAST. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v995";
 const CORE = [
 "./",
 "./index.html",
