@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1002: recovery scale proof tip tighter. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1002";
+/* HVAC Allstars — offline cache (v1003: zero gauges tip tighter. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1003";
 const CORE = [
 "./",
 "./index.html",
