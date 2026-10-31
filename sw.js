@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v995: float prove path clearer — drain FIRST then meter switch LAST. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v995";
+/* HVAC Allstars — offline cache (v996: float prove tip clearer — Parts LEFT on no-cool sheet. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v996";
 const CORE = [
 "./",
 "./index.html",
