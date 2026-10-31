@@ -1,4 +1,14 @@
 DATE: 2026-10-31
+LIVE: v3.5.756
+SW: lt-allstars-v1003
+PLAYED: Clock-in confirmed live (v3.5.756). System sandbox tips (zero gauges, piston/TXV, equalized) loaded. No crash.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's tips)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or gauges zero tip polish.
+
+DATE: 2026-10-31
 LIVE: v3.5.748
 SW: lt-allstars-v995
 PLAYED: Clock-in + System sandbox (Manifold guided: hang gauges → seat COMP/COND/TXV/EVAP LEFT, loop, Start, live SH/SC, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
