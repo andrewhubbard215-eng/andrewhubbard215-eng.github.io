@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v997: zero gauges callout clearer — Parts LEFT on no-cool sheet. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v997";
+/* HVAC Allstars — offline cache (v998: piston vs TXV targets clearer — match the device. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v998";
 const CORE = [
 "./",
 "./index.html",
