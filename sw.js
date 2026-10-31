@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v992: equalized STOP tip on sandbox menu. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v992";
+/* HVAC Allstars — offline cache (v993: equalized tip clarifies colder coil holds charge. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v993";
 const CORE = [
 "./",
 "./index.html",
