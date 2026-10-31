@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v996: float prove tip clearer — Parts LEFT on no-cool sheet. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v996";
+/* HVAC Allstars — offline cache (v997: zero gauges callout clearer — Parts LEFT on no-cool sheet. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v997";
 const CORE = [
 "./",
 "./index.html",

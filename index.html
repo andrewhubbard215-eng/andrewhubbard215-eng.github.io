@@ -8,14 +8,14 @@
   <link rel="icon" type="image/png" href="icon-192.png" />
   <script>
   (function () {
-    var APP_VER = "v3.5.749"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.750"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/49ce6e5/index.html";
     function patch(html) {
       html = html.replace(/sandbox-eq\.js\?v=\d+/g, "sandbox-eq.js?v=14");
       html = html.replace(/sandbox-ts\.js\?v=\d+/g, "sandbox-ts.js?v=29");
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=996");
-      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=254");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=997");
+      html = html.replace(/shop-floor-copy\.js\?v=\d+/g, "shop-floor-copy.js?v=255");
       html = html.replace(/sandbox-seats\.js\?v=\d+/g, "sandbox-seats.js?v=34");
       html = html.replace(/sandbox-poster\.js\?v=\d+/g, "sandbox-poster.js?v=3");
       html = html.replace(/sandbox-hunt\.js\?v=\d+/g, "sandbox-hunt.js?v=6");
@@ -42,13 +42,13 @@
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor \u00b7 Phone: hard-refresh for latest tips</p>";
       });
     }
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=996").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=997").catch(function () {});
     boot();
   })();
   </script>
 </head>
 <body>
   <p style="font:14px monospace;padding:24px;color:#1BFF80;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor…</p>
-  <p class="version-strip">HVAC Allstars - v3.5.749 - shop floor \u00b7 Phone: hard-refresh for latest tips</p>
+  <p class="version-strip">HVAC Allstars - v3.5.750 - shop floor \u00b7 Phone: hard-refresh for latest tips</p>
 </body>
 </html>
