@@ -74,7 +74,7 @@
     ctx.stroke();
     var start = Math.PI * 0.75, sweep = Math.PI * 1.5;
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "10px sans-serif";
+    ctx.font = "13px sans-serif";
     ctx.textAlign = "center";
     for (var i = 0; i <= 8; i++) {
       var a = start + (i / 8) * sweep;
@@ -101,11 +101,11 @@
     ctx.font = "bold 12px sans-serif";
     ctx.fillText(label, cx, cy + r + 8);
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "10px sans-serif";
+    ctx.font = "13px sans-serif";
     ctx.fillText("R-410A psig", cx, cy + r + 20);
-    ctx.font = "bold 16px sans-serif";
+    ctx.font = "bold 22px sans-serif";
     ctx.fillStyle = color;
-    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + 28);
+    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + 32);
   }
   function first(ids) {
     for (var i = 0; i < ids.length; i++) {

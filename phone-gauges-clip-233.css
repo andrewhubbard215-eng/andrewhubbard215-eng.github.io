@@ -46,9 +46,9 @@
   #sb-analog canvas,
   #sb-g-low,
   #sb-g-high {
-    width: min(28vw, 100px) !important;
-    max-width: 100px !important;
-    max-height: 100px !important;
+    width: min(32vw, 118px) !important;
+    max-width: 118px !important;
+    max-height: 118px !important;
   }
   #sandbox-root #sb-gauge-run {
     left: 92px !important;
