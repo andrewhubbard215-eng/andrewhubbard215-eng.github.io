@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v13: phone width 150px. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v14: phone width 160px. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -42,8 +42,8 @@
       "max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;";
     var lowCv = wrap.querySelector("#sb-g-low");
     var highCv = wrap.querySelector("#sb-g-high");
-    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(42vw,150px)!important;height:auto!important;max-height:none!important;";
-    if (highCv) highCv.style.cssText = "display:block!important;width:min(42vw,150px)!important;height:auto!important;max-height:none!important;";
+    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(42vw,160px)!important;height:auto!important;max-height:none!important;";
+    if (highCv) highCv.style.cssText = "display:block!important;width:min(42vw,160px)!important;height:auto!important;max-height:none!important;";
     var chip = document.getElementById("sb-eq-chip");
     if (!chip) {
       chip = document.createElement("div");
