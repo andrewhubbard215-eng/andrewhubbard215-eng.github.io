@@ -136,9 +136,9 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC.";
+        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first.";
       } else if (!on) {
-        chip.textContent = "STANDING — compressor off. No SH/SC until it runs.";
+        chip.textContent = "STANDING — compressor off. No SH/SC until it runs. Zero both gauges first (hoses off).";
       }
     }
   }
