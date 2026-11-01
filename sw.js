@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1009: phone dial numbers larger — 22px reading, scale 13px, canvas ~118px. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1009";
+/* HVAC Allstars — offline cache (v1010: phone dial numbers larger — 26px reading, 14px scale, canvas ~130px. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1010";
 const CORE = [
 "./",
 "./index.html",

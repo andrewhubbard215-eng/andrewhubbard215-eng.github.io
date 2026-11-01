@@ -42,8 +42,8 @@
       "max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;";
     var lowCv = wrap.querySelector("#sb-g-low");
     var highCv = wrap.querySelector("#sb-g-high");
-    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(34vw,140px)!important;height:auto!important;max-height:none!important;";
-    if (highCv) highCv.style.cssText = "display:block!important;width:min(34vw,140px)!important;height:auto!important;max-height:none!important;";
+    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(36vw,130px)!important;height:auto!important;max-height:none!important;";
+    if (highCv) highCv.style.cssText = "display:block!important;width:min(36vw,130px)!important;height:auto!important;max-height:none!important;";
     var chip = document.getElementById("sb-eq-chip");
     if (!chip) {
       chip = document.createElement("div");
@@ -74,7 +74,7 @@
     ctx.stroke();
     var start = Math.PI * 0.75, sweep = Math.PI * 1.5;
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "13px sans-serif";
+    ctx.font = "14px sans-serif";
     ctx.textAlign = "center";
     for (var i = 0; i <= 8; i++) {
       var a = start + (i / 8) * sweep;
@@ -101,11 +101,11 @@
     ctx.font = "bold 12px sans-serif";
     ctx.fillText(label, cx, cy + r + 8);
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "13px sans-serif";
+    ctx.font = "14px sans-serif";
     ctx.fillText("R-410A psig", cx, cy + r + 20);
-    ctx.font = "bold 22px sans-serif";
+    ctx.font = "bold 26px sans-serif";
     ctx.fillStyle = color;
-    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + 32);
+    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + 28);
   }
   function first(ids) {
     for (var i = 0; i < ids.length; i++) {
