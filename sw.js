@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1015: clearer seat-the-loop tip. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1015";
+/* HVAC Allstars — offline cache (v1016: tighter zero-gauges tip. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1016";
 const CORE = [
 "./",
 "./index.html",
