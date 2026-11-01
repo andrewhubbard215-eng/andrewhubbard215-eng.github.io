@@ -1,3 +1,13 @@
+DATE: 2026-11-01
+LIVE: v3.5.763
+SW: lt-allstars-v1010
+PLAYED: Clock-in + System sandbox (Manifold guided: hang gauges → seat COMP/COND/TXV/EVAP LEFT, loop closed, Start, readings 162/442 psig live SH/SC 10.0, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or gauges zero tip polish.
+
 DATE: 2026-10-31
 LIVE: v3.5.756
 SW: lt-allstars-v1003
