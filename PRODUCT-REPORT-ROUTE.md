@@ -1,4 +1,14 @@
 DATE: 2026-11-01
+LIVE: v3.5.769
+SW: lt-allstars-v1016
+PLAYED: Clock-in + System sandbox (standing pressures, seat LEFT tip, no crash) + menu (sandbox, electrical, exam, service, mini-split, HUB, Jesus). No crash. Directions visible.
+BROKE: none
+FIXED: tighter zero-gauges / equalized tip in shop-floor-copy sandbox — hoses OFF, prove zero, equalized = do not recover. Parts LEFT.
+SHIPPED: vocational tip polish + SW/version bump. Dual SKU safe. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+NEXT: offline list rebuild or recovery 80% hard stop reinforce.
+
+DATE: 2026-11-01
 LIVE: v3.5.763
 SW: lt-allstars-v1010
 PLAYED: Clock-in + System sandbox (Manifold guided: hang gauges → seat COMP/COND/TXV/EVAP LEFT, loop closed, Start, readings 162/442 psig live SH/SC 10.0, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
