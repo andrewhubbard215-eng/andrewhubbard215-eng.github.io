@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1017: zero gauges first. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1017";
+/* HVAC Allstars — offline cache (v1018: phone tap gauges. Zero first. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1018";
 const CORE = [
 "./",
 "./index.html",
