@@ -39,7 +39,7 @@
       minutes: 8,
       skill: "electrical",
       why: "Timed no-cool  -  meter the open  -  don't jump the float",
-      tip: "Saturday callback: meter the open. Don't jump the float or you own the next flood.",
+      tip: "Saturday callback: meter the 24V string first. Isolate the open. Float: drain clear FIRST, meter the switch LAST. Never jump — hides a full pan.",
     },
     {
       id: "service",
