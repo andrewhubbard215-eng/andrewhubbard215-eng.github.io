@@ -15,7 +15,7 @@
       name: "Trane / American Standard — flashes on this door",
       flash: "LED flashes",
       sticker: [
-        { code: "2", meaning: "Pressure switch failed to close", prove: "Hose, trap, vent, then 24V across the switch. Switch last.", open: "press" },
+        { code: "2", meaning: "Pressure switch failed to close", prove: "Hose/trap/vent clear FIRST → 24V across the switch → vacuum vs rating → switch LAST. Never jump to force ignition.", open: "press" },
         { code: "4", meaning: "Open limit", prove: "Filter, blower, heat exchanger path. Don't jump the limit.", open: "limit" }
       ]
     },
