@@ -1,4 +1,14 @@
 DATE: 2026-11-01
+LIVE: v3.5.771
+SW: lt-allstars-v1018
+PLAYED: Clock-in + System sandbox (phone tap gauges enlarges numbers, zero first, equalized tip). No crash.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's shop)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+NEXT: offline list rebuild or recovery 80% hard stop reinforce.
+
+DATE: 2026-11-01
 LIVE: v3.5.769
 SW: lt-allstars-v1016
 PLAYED: Clock-in + System sandbox (standing pressures, seat LEFT tip, no crash) + menu (sandbox, electrical, exam, service, mini-split, HUB, Jesus). No crash. Directions visible.
@@ -87,7 +97,7 @@ TOMORROW: phone hard-refresh confirm tip.
 DATE: 2026-10-29
 LIVE: v3.5.717
 SW: lt-allstars-v964
-PLAYED: Clock-in + System sandbox (Manifold guided: seat COMP/COND/TXV/EVAP LEFT, loop closed, Start, readings 162/442 psig live SH/SC, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground landed on GND chip vanishes, guided answers) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
+PLAYED: Clock-in + System sandbox (Manifold guided: hang gauges → seat COMP/COND/TXV/EVAP LEFT, loop closed, Start, readings 162/442 psig live SH/SC, directions visible) + Voltmeter school (BLACK→COM / RED→VΩ direction bar top, Equip ground landed on GND chip vanishes, guided answers) + Service calls (slim ticket rail, Hook gauges, next ticket changes fault, system clickable) + HUB. No crash. PC fills viewport. Directions visible. No leftover-box / hidden-directions / blocked-drop.
 BROKE: none
 FIXED: none this shift (clean playtest)
 SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
