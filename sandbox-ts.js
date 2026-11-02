@@ -1,12 +1,12 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v29 — equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
+   v30 — zero gauges first then hang.  equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v27 — manifold guided: hang gauges, hook blue/red, cap yellow, purge, start, wait, read, clamp, math, call.
    v26 — standing tip: meter first, lockout, equalized never recover/add. lockout before recovery. Equalized is ambient, never a charge.
    Advance only when the work is real: seat LEFT, run, read SH, read SC, name a fault. */
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Hang gauges", body: "Hang the manifold on the unit. Seat it so the hoses hang free. Blue suction, red liquid, yellow capped. Parts LEFT — shop stock only." },
+    { n: "1", title: "Zero & hang", body: "ZERO BOTH GAUGES FIRST — hoses completely OFF ports, dials at 0. Then hang manifold, seat hoses free. Blue suction, red liquid, yellow capped. Parts LEFT — shop stock only." },
     { n: "2", title: "Hook blue", body: "Hook the blue hose on the suction service port. Seat it. Do not open yet." },
     { n: "3", title: "Hook red", body: "Hook the red hose on the liquid service port. Seat it." },
     { n: "4", title: "Cap yellow", body: "Cap the yellow hose or leave it on the center port with the valve closed." },
