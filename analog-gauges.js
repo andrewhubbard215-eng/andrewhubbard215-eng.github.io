@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v15: phone width 170px. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v16: phone tap enlarges numbers. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -42,8 +42,18 @@
       "max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;";
     var lowCv = wrap.querySelector("#sb-g-low");
     var highCv = wrap.querySelector("#sb-g-high");
-    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;";
-    if (highCv) highCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;";
+    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
+    if (highCv) highCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
+    [lowCv, highCv].forEach(function(cv) {
+      if (!cv || cv.__tapBound) return;
+      cv.__tapBound = 1;
+      cv.addEventListener("click", function() {
+        var big = (cv.style.width || "").indexOf("220") >= 0;
+        cv.style.width = big ? "min(42vw,170px)" : "220px";
+        cv.style.height = "auto";
+        setTimeout(function() { if ((cv.style.width || "").indexOf("220") >= 0) cv.style.width = "min(42vw,170px)"; }, 2500);
+      });
+    });
     var chip = document.getElementById("sb-eq-chip");
     if (!chip) {
       chip = document.createElement("div");
@@ -138,7 +148,7 @@
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
         chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first.";
       } else if (!on) {
-        chip.textContent = "STANDING — compressor off. No SH/SC until it runs. Zero both gauges first (hoses off).";
+        chip.textContent = "STANDING \u2014 compressor off. No SH/SC until it runs. Zero both gauges first (hoses off).";
       }
     }
   }
