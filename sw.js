@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1022: Saturday callback tip tightened: meter 24V first, drain FIRST, switch LAST. Parts LEFT. No combat. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1022";
+/* HVAC Allstars — offline cache (v1023: tighter leak coaching — locate and repair, never top off a leaker. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1023";
 const CORE = [
 "./",
 "./index.html",
