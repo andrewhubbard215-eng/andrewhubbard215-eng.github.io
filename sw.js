@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1020: clearer PS prove path on board-code locker. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1020";
+/* HVAC Allstars — offline cache (v1021: tighter zero-both-dials tip in sandbox. Parts LEFT. No combat. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1021";
 const CORE = [
 "./",
 "./index.html",
