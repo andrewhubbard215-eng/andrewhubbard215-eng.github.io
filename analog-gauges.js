@@ -58,7 +58,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC.";
+      chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Phone: hard-refresh if tip lags.";
     }
     if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
     if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
@@ -146,7 +146,7 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first.";
+        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first. Phone: hard-refresh if tip lags.";
       } else if (!on) {
         chip.textContent = "STANDING \u2014 compressor off. No SH/SC until it runs. Zero both gauges first (hoses off).";
       }
