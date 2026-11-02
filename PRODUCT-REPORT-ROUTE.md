@@ -1,3 +1,13 @@
+DATE: 2026-11-02
+LIVE: v3.5.778
+SW: lt-allstars-v1025
+PLAYED: Clock-in + shop floor menu (sandbox, voltmeter, service calls, HUB). No crash. PC fills. Directions visible. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-01
 LIVE: v3.5.771
 SW: lt-allstars-v1018
