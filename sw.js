@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1040: equalized = do not recover. METER FIRST on no-cool sheet. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1040";
+/* HVAC Allstars — offline cache (v1041: equalized = do not recover. tighter SH/SC callout on service ticket. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1041";
 const CORE = [
 "./",
 "./index.html",
@@ -30,5 +30,5 @@ self.addEventListener("activate", function (e) {
   }).then(function () { return self.clients.claim(); }));
 });
 self.addEventListener("fetch", function (e) {
-  e.respondWith(fetch(e.request).catch(function () { return caches.match(e.request).then(function (r) { return r || caches.match(e.request, { ignoreSearch: true }); }).then(function (r) { return r || Response.error(); }); }));
+  e.respondWith(caches.match(e.request).then(function (r) { return r || fetch(e.request); }));
 });
