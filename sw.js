@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1034: equalized chip clearer — ZERO BOTH DIALS TO 0 FIRST hoses OFF. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1034";
+/* HVAC Allstars — offline cache (v1035: board-code door sticker law on furnace SOO tip. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1035";
 const CORE = [
 "./",
 "./index.html",
