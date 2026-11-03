@@ -58,7 +58,7 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "EQUALIZED standing · ZERO BOTH DIALS FIRST (hoses completely OFF ports) · migration only · blue=red · sat at cold coil " + cold + "°F · PARTS LEFT · LOTO then meter 24V string first · do NOT recover or add — STOP · no SH/SC until running after Start";
     if (chip) {
-      chip.textContent = "EQUALIZED — ZERO BOTH FIRST (hoses OFF). migration only. Colder coil holds charge (" + side + " " + cold + "°F, " + psi + " psig). PARTS LEFT. LOTO & meter 24V first. Do NOT recover or add — STOP. No SH/SC until running after Start.";
+      chip.textContent = "EQUALIZED — ZERO BOTH DIALS TO 0 FIRST (hoses completely OFF ports). Migration only — never recover or add. Colder coil holds charge (" + side + " " + cold + "°F, " + psi + " psig). PARTS LEFT. LOTO & meter 24V first. Do NOT recover or add — STOP. No SH/SC until running after Start.";
     }
   }
   setInterval(paint, 350);
