@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1032: recovery tip — equalized migration only, never hook/recover. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1032";
+/* HVAC Allstars — offline cache (v1033: tighter equalized tip — ZERO BOTH FIRST, hoses OFF, migration only never recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1033";
 const CORE = [
 "./",
 "./index.html",
