@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1039: equalized = do not recover. Meter open first. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1039";
+/* HVAC Allstars — offline cache (v1040: equalized = do not recover. METER FIRST on no-cool sheet. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1040";
 const CORE = [
 "./",
 "./index.html",

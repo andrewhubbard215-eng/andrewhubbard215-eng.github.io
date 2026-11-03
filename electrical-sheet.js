@@ -261,7 +261,7 @@
       ev.stopPropagation();
       ev.stopImmediatePropagation();
       lockReplace();
-      yell("Meter the 0.0 V box first. Shotgun is a callback.");
+      yell("METER FIRST: find the dark 0.0 V open before Replace. Shotgun = callback.");
     }
   }
 
@@ -298,15 +298,15 @@
         if (b.dataset.plainLabel && /Meter the 0/.test(b.textContent || "")) setText(b, b.dataset.plainLabel);
       } else {
         if (!b.disabled) b.disabled = true;
-        if (b.title !== "Meter the 0.0 V box first. Shotgun is a callback.") {
-          b.title = "Meter the 0.0 V box first. Shotgun is a callback.";
+        if (b.title !== "METER FIRST: find the dark 0.0 V open before Replace. Shotgun = callback.") {
+          b.title = "METER FIRST: find the dark 0.0 V open before Replace. Shotgun = callback.";
         }
         b.style.setProperty("opacity", "0.4", "important");
         b.style.setProperty("pointer-events", "none", "important");
         b.style.setProperty("filter", "grayscale(0.6)", "important");
         b.style.removeProperty("display");
         if (!b.dataset.plainLabel) b.dataset.plainLabel = (b.textContent || "").trim();
-        setText(b, document.querySelector("#el-ladder button.el-node[data-series-open='1']") ? "Meter the ~27 V across" : "Meter the 0.0 V open");
+        setText(b, document.querySelector("#el-ladder button.el-node[data-series-open='1']") ? "METER FIRST: ~27 V across" : "METER FIRST: 0.0 V open");
       }
     }
   }
