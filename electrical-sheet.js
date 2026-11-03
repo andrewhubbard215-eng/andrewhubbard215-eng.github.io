@@ -396,7 +396,7 @@
         } else if (/No-cool at 4:58/i.test(key)) {
           next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. C stays at transformer voltage.";
         } else {
-          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Don't jump the float.";
+          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Open is the dark 0.0 V box — meter it, do not shotgun. Don't jump the float.";
         }
         setText(k, next);
       }
