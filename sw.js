@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1036: nitrogen hold tip on mini-split (150-300 psi no drop before vacuum). Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1036";
+/* HVAC Allstars — offline cache (v1037: electrical tip — open is the dark 0.0 V box, meter it do not shotgun. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1037";
 const CORE = [
 "./",
 "./index.html",
