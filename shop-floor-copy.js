@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.785 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.788 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
@@ -8,7 +8,7 @@
     exam: "EPA 608 / electrical / charge. Pass the bay. Cutouts load. Wrong answers teach. Why right on cutouts: prove the open with the meter before you reset or swap — jumping hides the real open. Why wrong: a jumped safety looks closed on the board but the real open is still in the string.",
     service: "Hook gauges first. Zero both gauges (blue and red) to ambient — hoses completely disconnected from the unit ports, dials or digital at 0 — before you trust any reading. Reconnect after zero confirmed. Phone: tap or pinch dials to enlarge — full numbers, no clip. Prove filter, coils, and clearances clear. Live SH/SC on the manifold — not the nameplate. Piston targets ~10-15° SH (superheat). TXV targets 8-14° SC (subcooling). Match the device. High SH + low SC = undercharge/leak — find the leak, do not top off. High SH + high SC = restriction — cold at drier outlet, do not add gas. Read live SH/SC on the manifold after 5-10 min stable run — not standing, not nameplate. Do not charge from the sheet or equalized. Equalized = do not recover. Never jump a safety without metering the open first. Iced suction = airflow fault — power down, thaw, new filter, check blower & coil before recheck. Never add refrigerant to ice. Match the ticket fault to the glass. Next ticket only after you close the loop and seat LEFT. Do not leave hoses on.",
     minisplit: "Flare nut ON the tube first. Square cut, deburr, eccentric 45°. Torque to OEM. Nitrogen test, then vacuum <500 microns + decay. Weigh-in. Line-set path matters. Parts LEFT.",
-    jesus: "Furnace SOO: W call → inducer motor → prove draft (PS close) → hot surface or spark → gas valve → flame sense → blower. Never jump the PS. HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
+    jesus: "Furnace SOO: W call → inducer motor → prove draft (PS close) → hot surface or spark → gas valve → flame sense → blower. Never jump the PS. Board-code locker: door sticker is law — Carrier 2-digit, Trane flashes, mini-split letters. Never invent OEM codes. HVAC Jesus in work clothes. Recovery tank on the roof. Still recover. 80% stop on the scale.",
     recovery: "Scale is the proof. Stop at 80% of tank WC — never overfill. Overfill can vent and book a callback. Vacuum is separate after recovery is done and hoses cleared. Equalized standing (blue = red = ambient) is migration only — NEVER a charge and NEVER recovered — STOP. Do not hook gauges to an equalized system. Prove loop closed first. LOTO first. Parts LEFT — shop stock only. Seat the four first."
   };
 })(typeof window !== "undefined" ? window : global);
