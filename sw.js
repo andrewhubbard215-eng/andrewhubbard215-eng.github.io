@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1035: board-code door sticker law on furnace SOO tip. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1035";
+/* HVAC Allstars — offline cache (v1036: nitrogen hold tip on mini-split (150-300 psi no drop before vacuum). Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1036";
 const CORE = [
 "./",
 "./index.html",
