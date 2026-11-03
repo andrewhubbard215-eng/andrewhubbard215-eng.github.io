@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1042: equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1042";
+/* HVAC Allstars — offline cache (v1043: tare empty first. equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1043";
 const CORE = [
 "./",
 "./index.html",
