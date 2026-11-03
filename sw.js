@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1038: ladder tip — open is the dark 0.0 V box, meter it do not shotgun. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1038";
+/* HVAC Allstars — offline cache (v1039: equalized = do not recover. Meter open first. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1039";
 const CORE = [
 "./",
 "./index.html",
