@@ -1,0 +1,1 @@
+v3.5.801: Played phone-width and desktop. No crash. Tightened phone TS sheet max-height for less crowding on wait steps. Zero-first and equalized tips intact. Tech can run sandbox SH/SC, electrical ladder, exam, service calls, mini-split. SW v1048. No combat. Preview left running.

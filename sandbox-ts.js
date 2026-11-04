@@ -1,4 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
+   v31 — phone TS max-height bumped for readable wait step. zero gauges first then hang. equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v30 — zero gauges first then hang.  equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v27 — manifold guided: hang gauges, hook blue/red, cap yellow, purge, start, wait, read, clamp, math, call.
    v26 — standing tip: meter first, lockout, equalized never recover/add. lockout before recovery. Equalized is ambient, never a charge.
@@ -27,7 +28,7 @@
       document.head.appendChild(s);
     }
     s.textContent =
-      "#sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{list-style:none;margin:6px 0 0!important;padding:0!important;display:grid!important;gap:3px;min-height:32px!important;max-height:22vh!important;overflow-y:auto!important;flex:0 0 auto;visibility:visible!important}" +
+      "#sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{list-style:none;margin:6px 0 0!important;padding:0!important;display:grid!important;gap:3px;min-height:32px!important;max-height:28vh!important;overflow-y:auto!important;flex:0 0 auto;visibility:visible!important}" +
       "#sb-ts li{min-height:32px;padding:5px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:default;background:#14171a;border:1px solid #2a3138;border-radius:6px}" +
       "#sb-ts li.wait{outline:1px solid #e8c450;background:rgba(232,196,80,.08)}" +
       "#sb-ts li.done{opacity:.72}" +
@@ -37,7 +38,7 @@
       "#sb-ts li p{display:none;margin:0;flex:1 1 100%;font-size:12px;color:#9aa3ad}" +
       "#sb-ts li.wait p{display:block}" +
       ".sb-phone-vitals .pv-ts{flex:1 1 100%;font-size:11px;font-weight:600;color:#e8c450;letter-spacing:.02em}" +
-      "@media (max-width:480px){#sandbox-root #sb-ts,#sandbox-root #sb-ts:hover,#sandbox-root #sb-ts:focus-within{max-height:32vh!important;overflow-y:auto!important;display:grid!important;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:11px;line-height:1.3}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
+      "@media (max-width:480px){#sandbox-root #sb-ts,#sandbox-root #sb-ts:hover,#sandbox-root #sb-ts:focus-within{max-height:36vh!important;overflow-y:auto!important;display:grid!important;-webkit-overflow-scrolling:touch}#sb-ts li:not(.wait):not(.done){min-height:28px;padding:4px 6px}#sb-ts li.wait p{font-size:12px;line-height:1.35}#sb-fp,.sb-fp{order:3}#sb-sliders,.sb-sliders,#sb-run{order:2}}";
   }
 
   function mountList() {
@@ -69,7 +70,7 @@
     ol.style.setProperty("flex", "0 0 auto", "important");
     ol.style.setProperty("height", "auto", "important");
     ol.style.setProperty("min-height", pcRow ? "0" : "96px", "important");
-    ol.style.setProperty("max-height", pcRow ? "30px" : "22vh", "important");
+    ol.style.setProperty("max-height", pcRow ? "30px" : "28vh", "important");
     ol.style.setProperty("overflow-y", pcRow ? "hidden" : "auto", "important");
     ol.style.setProperty("visibility", "visible", "important");
     ol.style.setProperty("margin", pcRow ? "0" : "6px 0 0", "important");
