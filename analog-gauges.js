@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v19: phone default psig bigger (tap still enlarges canvas). */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v20: phone dial size up for SH/SC consistency (tap still enlarges canvas). */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -42,16 +42,16 @@
       "max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;";
     var lowCv = wrap.querySelector("#sb-g-low");
     var highCv = wrap.querySelector("#sb-g-high");
-    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
-    if (highCv) highCv.style.cssText = "display:block!important;width:min(42vw,170px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
+    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(48vw,190px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
+    if (highCv) highCv.style.cssText = "display:block!important;width:min(48vw,190px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
     [lowCv, highCv].forEach(function(cv) {
       if (!cv || cv.__tapBound) return;
       cv.__tapBound = 1;
       cv.addEventListener("click", function() {
         var big = (cv.style.width || "").indexOf("220") >= 0;
-        cv.style.width = big ? "min(42vw,170px)" : "220px";
+        cv.style.width = big ? "min(48vw,190px)" : "220px";
         cv.style.height = "auto";
-        setTimeout(function() { if ((cv.style.width || "").indexOf("220") >= 0) cv.style.width = "min(42vw,170px)"; }, 2500);
+        setTimeout(function() { if ((cv.style.width || "").indexOf("220") >= 0) cv.style.width = "min(48vw,190px)"; }, 2500);
       });
     });
     var chip = document.getElementById("sb-eq-chip");
@@ -114,7 +114,7 @@
     ctx.font = "14px sans-serif";
     ctx.fillText("R-410A psig", cx, cy + r + 20);
     var isPhone = window.innerWidth < 520;
-    ctx.font = "bold " + (isPhone ? "34" : "26") + "px sans-serif";
+    ctx.font = "bold " + (isPhone ? "36" : "26") + "px sans-serif";
     ctx.fillStyle = color;
     ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + (isPhone ? 32 : 28));
   }
