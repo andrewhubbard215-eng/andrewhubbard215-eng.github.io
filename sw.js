@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1058: phone zero-tap confirm on service tip. Parts LEFT. No combat)
-const VER = "lt-allstars-v1058";
+/* HVAC Allstars — offline cache (v1059: clearer PS prove first-move on furnace SOO. Parts LEFT. No combat)
+const VER = "lt-allstars-v1059";
 const CORE = [
 "./",
 "./index.html",
