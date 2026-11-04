@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1059: clearer PS prove first-move on furnace SOO. Parts LEFT. No combat)
-const VER = "lt-allstars-v1059";
+/* HVAC Allstars — offline cache (v1060: clearer sandbox load — ZERO BOTH FIRST (hoses OFF). Parts LEFT. No combat)
+const VER = "lt-allstars-v1060";
 const CORE = [
 "./",
 "./index.html",

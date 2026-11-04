@@ -194,7 +194,7 @@
     }, 280);
   }
   function afterBlob() {
-    rootPatch("sandbox-root", /Loading system bay/, "sb-load-hub", "Loading system bay\u2026 seat LEFT when the gauges paint.");
+    rootPatch("sandbox-root", /Loading system bay/, "sb-load-hub", "Loading system bay\u2026 ZERO BOTH GAUGES FIRST (hoses OFF the ports). Prove 0. Then seat LEFT.");
     rootPatch("electrical-root", /Loading land lugs/, "el-load-hub", "Loading land lugs\u2026 chips LEFT.");
     bindCards();
     setInterval(bindCards, 1000);
