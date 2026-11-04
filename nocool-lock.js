@@ -40,7 +40,7 @@
       return;
     }
     b.disabled = true;
-    b.textContent = "Meter the 0.0 V open first";
+    b.textContent = "Walk gold → dark 0.0 V open first";
     b.title = "Walk gold then dark. Shotgun is a callback.";
     b.style.removeProperty("display");
     b.style.setProperty("opacity", "0.55", "important");
