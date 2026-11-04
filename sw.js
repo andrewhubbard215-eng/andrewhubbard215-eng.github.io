@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v1055: larger gauge tick labels + main psig for phone readability. phone dial size up for SH/SC consistency. zero-first on callback tip. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1055";
+const VER = "lt-allstars-v1056";
 const CORE = [
 "./",
 "./index.html",

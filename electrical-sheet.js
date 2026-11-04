@@ -396,7 +396,7 @@
         } else if (/No-cool at 4:58/i.test(key)) {
           next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. C stays at transformer voltage.";
         } else {
-          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Open is the dark 0.0 V box — meter it, do not shotgun. Float prove: dry pan = 0 V across, open float ~27 V across. Do not jump the float.";
+          next = "Meter first. Gold is live. Dark after gold is the open — tap that 0.0 V box before Replace unlocks. Top rail 240, bottom 24V cool string. C stays live. Float: dry pan = 0 V across. Do not jump. Do not shotgun.";
         }
         setText(k, next);
       }
