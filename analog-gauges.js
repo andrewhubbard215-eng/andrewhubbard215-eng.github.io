@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v16: phone tap enlarges numbers. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v19: phone default psig bigger (tap still enlarges canvas). */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -113,9 +113,10 @@
     ctx.fillStyle = "#94a3b8";
     ctx.font = "14px sans-serif";
     ctx.fillText("R-410A psig", cx, cy + r + 20);
-    ctx.font = "bold 26px sans-serif";
+    var isPhone = window.innerWidth < 520;
+    ctx.font = "bold " + (isPhone ? "34" : "26") + "px sans-serif";
     ctx.fillStyle = color;
-    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + 28);
+    ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + (isPhone ? 32 : 28));
   }
   function first(ids) {
     for (var i = 0; i < ids.length; i++) {
