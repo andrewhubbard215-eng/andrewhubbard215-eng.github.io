@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v23 */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v24: float prove tip added to default kicker */
 (function () {
   var proved = {};
   var painting = false;
@@ -396,7 +396,7 @@
         } else if (/No-cool at 4:58/i.test(key)) {
           next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. C stays at transformer voltage.";
         } else {
-          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Open is the dark 0.0 V box — meter it, do not shotgun. Don't jump the float.";
+          next = "Meter first. Top rail is 240. Bottom is the 24V cool string. Don't slap a cap until T1 is hot. Open is the dark 0.0 V box — meter it, do not shotgun. Float prove: dry pan = 0 V across, open float ~27 V across. Do not jump the float.";
         }
         setText(k, next);
       }
