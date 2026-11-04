@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v20: phone dial size up for SH/SC consistency (tap still enlarges canvas). */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v21: larger tick labels for phone readability; phone dial size up for SH/SC consistency (tap still enlarges canvas). */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -84,7 +84,7 @@
     ctx.stroke();
     var start = Math.PI * 0.75, sweep = Math.PI * 1.5;
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "14px sans-serif";
+    ctx.font = "16px sans-serif";
     ctx.textAlign = "center";
     for (var i = 0; i <= 8; i++) {
       var a = start + (i / 8) * sweep;
@@ -111,10 +111,10 @@
     ctx.font = "bold 12px sans-serif";
     ctx.fillText(label, cx, cy + r + 8);
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "14px sans-serif";
+    ctx.font = "16px sans-serif";
     ctx.fillText("R-410A psig", cx, cy + r + 20);
     var isPhone = window.innerWidth < 520;
-    ctx.font = "bold " + (isPhone ? "36" : "26") + "px sans-serif";
+    ctx.font = "bold " + (isPhone ? "40" : "28") + "px sans-serif";
     ctx.fillStyle = color;
     ctx.fillText(psi == null ? "\u2014" : String(Math.round(psi)) + " psig", cx, cy + (isPhone ? 32 : 28));
   }
