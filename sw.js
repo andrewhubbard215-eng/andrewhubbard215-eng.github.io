@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1060: clearer sandbox load — ZERO BOTH FIRST (hoses OFF). Parts LEFT. No combat)
-const VER = "lt-allstars-v1060";
+/* HVAC Allstars — offline cache (v1061: stronger zero-first MUST 0.0 before hose or part in sandbox. Parts LEFT. No combat)
+const VER = "lt-allstars-v1061";
 const CORE = [
 "./",
 "./index.html",
