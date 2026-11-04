@@ -113,6 +113,24 @@
       "Why it's wrong: the LPC is telling you suction is low. Jumper it on a starved low side and you pull the compressor into a vacuum or burn it up on a leak. Gauge first."
     ]
   };
+  var PS_PROVE = {
+    q: "Furnace no heat. Inducer running. Pressure switch open. Hose clear, trap dry, vent open. 24V across the switch. Manometer on the hose reads under the switch rating. What is the call?",
+    choices: [
+      "Draft is short. Prove hose/trap/vent first, then vacuum against the rating. Switch is last. Do not replace the switch yet.",
+      "Replace the pressure switch. 24V across means it is bad.",
+      "Replace the board. It is not closing the switch.",
+      "Jumper the switch and light the furnace to prove heat."
+    ],
+    a: 0,
+    why: "Prove path: hose, trap, vent first. Then 24V across the open switch is normal. Then manometer: vacuum under the printed rating means the inducer is not pulling enough draft. Switch is last. A new switch on short draft stays open.",
+    whyWrong: "Hose/trap/vent → 24V across → vacuum vs rating → switch last. Never jumper a draft prove.",
+    wrong: [
+      null,
+      "Why it's wrong: 24V across an open switch in a live string is normal. It means the switch is open, not broken. Vacuum under rating says draft is short.",
+      "Why it's wrong: the board ran the inducer and is waiting on the close. 24V is already at the switch. The board is doing its job.",
+      "Why it's wrong: the pressure switch proves the flue is venting. Jumper it and you can fill the house with CO. Never light it on a jumper."
+    ]
+  };
   function fill(it) {
     if (!it || !it.q || it.wrong) return;
     var list = W[it.q];
@@ -135,6 +153,7 @@
       if (Array.isArray(bank[k])) bank[k].forEach(fill);
     });
     if (!bank[key].some(function (q) { return q && q.q === METER.q; })) bank[key].push(METER);
+    if (!bank[key].some(function (q) { return q && q.q === PS_PROVE.q; })) bank[key].push(PS_PROVE);
     return true;
   }
   var n = 0;
