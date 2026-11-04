@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1051: float prove tip on no-cool sheet — dry pan = 0 V across, open ~27 V. loading tip equalized = do not recover, meter first. phone TS sheet less crowded. callback tip — meter the open, do not shotgun. zero both dials first. equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1051";
+/* HVAC Allstars — offline cache (v1052: phone SH/SC psig numbers bigger by default. float prove tip on no-cool sheet — dry pan = 0 V across, open ~27 V. loading tip equalized = do not recover, meter first. phone TS sheet less crowded. callback tip — meter the open, do not shotgun. zero both dials first. equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1052";
 const CORE = [
 "./",
 "./index.html",
