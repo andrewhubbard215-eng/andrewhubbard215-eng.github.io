@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1048: phone TS sheet less crowded. callback tip — meter the open, do not shotgun. zero both dials first. equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
-const VER = "lt-allstars-v1048";
+/* HVAC Allstars — offline cache (v1049: loading tip equalized = do not recover, meter first. phone TS sheet less crowded. callback tip — meter the open, do not shotgun. zero both dials first. equalized = do not recover. tare scale empty first on recovery tank. tighter SH/SC. METER FIRST. Equalized = do not recover. Parts LEFT. No combat) for Android / Windows PWA */
+const VER = "lt-allstars-v1049";
 const CORE = [
 "./",
 "./index.html",
