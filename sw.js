@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v1069: tighter equalized tip — migration only, do not recover. Parts LEFT. No combat)
-const VER = "lt-allstars-v1069";
+const VER = "lt-allstars-v1070";
 const CORE = [
 "./",
 "./index.html",
