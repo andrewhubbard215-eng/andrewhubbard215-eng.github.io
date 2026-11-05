@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1064: sandbox tip notes 0.0 PROVEN in green when zeroed. Parts LEFT. No combat)
-const VER = "lt-allstars-v1064";
+/* HVAC Allstars — offline cache (v1065: sandbox tip notes 0.0 PROVEN in green when zeroed. Parts LEFT. No combat)
+const VER = "lt-allstars-v1065";
 const CORE = [
 "./",
 "./index.html",
