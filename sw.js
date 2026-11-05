@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1068: phone long-press dial forces zero-check reminder for first-years. Parts LEFT. No combat)
-const VER = "lt-allstars-v1068";
+/* HVAC Allstars — offline cache (v1069: tighter equalized tip — migration only, do not recover. Parts LEFT. No combat)
+const VER = "lt-allstars-v1069";
 const CORE = [
 "./",
 "./index.html",
