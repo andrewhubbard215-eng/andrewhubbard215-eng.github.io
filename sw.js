@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1074: callback no-cool open isolation polish. Parts LEFT. No combat)
-const VER = "lt-allstars-v1074";
+/* HVAC Allstars — offline cache (v1075: electrical ladder land-after-meter tip polish. Parts LEFT. No combat)
+const VER = "lt-allstars-v1075";
 const CORE = [
 "./",
 "./index.html",
