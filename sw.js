@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1075: electrical ladder land-after-meter tip polish. Parts LEFT. No combat)
-const VER = "lt-allstars-v1075";
+/* HVAC Allstars — offline cache (v1076: service tip stable-run + name the fault polish. Parts LEFT. No combat)
+const VER = "lt-allstars-v1076";
 const CORE = [
 "./",
 "./index.html",
