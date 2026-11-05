@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v22: zero shows 0.0 PROVEN in green for phone readability; phone dial size up for SH/SC consistency (tap still enlarges canvas). */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v23: long-press dial forces zero-check reminder for phone first-years. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -53,6 +53,21 @@
         cv.style.height = "auto";
         setTimeout(function() { if ((cv.style.width || "").indexOf("220") >= 0) cv.style.width = "min(48vw,190px)"; }, 2500);
       });
+      var holdTimer;
+      cv.addEventListener("touchstart", function(e) {
+        holdTimer = setTimeout(function() {
+          var psi = (cv.dataset.psig ? Number(cv.dataset.psig) : null);
+          var isZero = psi != null && Math.abs(psi) < 1;
+          var msg = document.createElement("div");
+          msg.style.cssText = "position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:#0b1220;color:#22c55e;padding:16px 20px;border:2px solid #22c55e;border-radius:8px;z-index:9999;font:bold 18px sans-serif;text-align:center;max-width:80vw;";
+          msg.textContent = isZero ? "0.0 PROVEN \u2014 hoses OFF. Safe to seat." : "ZERO FIRST \u2014 hoses completely OFF ports. Dial must read 0.0 PROVEN green before any seat.";
+          document.body.appendChild(msg);
+          setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 2200);
+        }, 600);
+      });
+      cv.addEventListener("touchend", function() { clearTimeout(holdTimer); });
+      cv.addEventListener("touchcancel", function() { clearTimeout(holdTimer); });
+      cv.addEventListener("contextmenu", function(e) { e.preventDefault(); });
     });
     var chip = document.getElementById("sb-eq-chip");
     if (!chip) {
@@ -149,9 +164,9 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first. Phone: hard-refresh if tip lags.";
+        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Start, wait stable SH/SC. Zero both first. Phone: long-press dial for zero check.";
       } else if (!on) {
-        chip.textContent = "STANDING \u2014 compressor off. No SH/SC until it runs. Zero both gauges first (hoses off).";
+        chip.textContent = "STANDING \u2014 compressor off. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: long-press dial.";
       }
     }
   }
