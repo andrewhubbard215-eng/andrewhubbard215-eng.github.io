@@ -1,3 +1,13 @@
+DATE: 2026-11-05
+LIVE: v3.5.823
+SW: lt-allstars-v1070
+PLAYED: Manifold/service guided (Zero & hang, Hook blue, Hook red, Cap yellow, Purge, directions visible) + Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND present) + Sandbox (parts LEFT available, loop close) + Service calls (slim rail, Hook gauges, system stays visible/clickable) + HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-04
 LIVE: v3.5.808
 SW: lt-allstars-v1055
