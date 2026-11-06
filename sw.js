@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1082: equalized tip clearer for first-years. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1082";
+/* HVAC Allstars — offline cache (v1083: recovery tip tighter LOTO + scale zero. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1083";
 const CORE = [
 "./",
 "./index.html",
