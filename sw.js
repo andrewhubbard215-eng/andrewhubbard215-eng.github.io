@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1079: sandbox tip phone lines tighter. Parts LEFT. No combat)
-const VER = "lt-allstars-v1079";
+/* HVAC Allstars — offline cache (v1080: board-code locker tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1080";
 const CORE = [
 "./",
 "./index.html",
