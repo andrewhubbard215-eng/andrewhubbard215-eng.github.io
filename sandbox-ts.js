@@ -1,5 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v32 — phone TS max-height 40vh on small screens for less crowding on wait/read. zero gauges first then hang. equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
+   v33 — Call step: Equalized blue=red is migration (not charge). LOTO 24V, meter first, do NOT recover or add. Standing pressures lie. Parts LEFT. No combat.
    v31 — phone TS max-height bumped for readable wait step. zero gauges first then hang. equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v30 — zero gauges first then hang.  equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v27 — manifold guided: hang gauges, hook blue/red, cap yellow, purge, start, wait, read, clamp, math, call.
@@ -17,7 +17,7 @@
     { n: "7", title: "Read", body: "Read blue suction psig and red liquid psig. Needles move. Digital windows readable." },
     { n: "8", title: "Clamp", body: "Clamp the thermocouple on the suction line for SH, liquid line for SC." },
     { n: "9", title: "Math", body: "SH = suction line T − dew point. SC = start of boiling − liquid line T." },
-    { n: "10", title: "Call", body: "Name the fingerprint from the numbers. High SH + low SC = leak. Equalized blue=red = migration, not charge. LOTO 24V first. Meter, lockout if open. Do NOT recover or add. Standing pressures lie." }
+    { n: "10", title: "Call", body: "Name the fingerprint from the numbers. High SH + low SC = leak. Equalized blue=red = migration, NOT a charge. LOTO 24V first. Meter. Do NOT recover or add refrigerant. Standing pressures lie — equalized = do not recover." }
   ];
   var named = false;
 

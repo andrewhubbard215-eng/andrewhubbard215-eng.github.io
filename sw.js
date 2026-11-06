@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1087: sandbox equalized tip tighter — ZERO DIALS (hoses OFF), LOTO first, do NOT recover. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1087";
+/* HVAC Allstars — offline cache (v1088: sandbox Call step — equalized = migration NOT charge, LOTO 24V first, do NOT recover. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1088";
 const CORE = [
 "./",
 "./index.html",
