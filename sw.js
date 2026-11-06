@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1089: boot tip Equalized = do not recover, Parts LEFT, LOTO 24V first. No combat) */
-const VER = "lt-allstars-v1089";
+/* HVAC Allstars — offline cache (v1090: sandbox zero-gauge tip tightened, Equalized = do not recover, Parts LEFT, LOTO 24V first. No combat) */
+const VER = "lt-allstars-v1090";
 const CORE = [
 "./",
 "./index.html",
