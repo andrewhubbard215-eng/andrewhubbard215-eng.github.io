@@ -11,7 +11,7 @@ window.__LT_RC_SRC+="umulator.png\", bay: \"parts/accumulator.png\", optional: t
 window.__LT_RC_SRC+="}\n  ];\n\n  var GUIDE = [\n    { say: \"Professor HUB: Drag the "
 window.__LT_RC_SRC+="machine photo onto the outdoor unit.\", need: \"machineBay\", h"
 window.__LT_RC_SRC+="ighlight: \"[data-rc-part='machine']\" },\n    { say: \"Professo"
-window.__LT_RC_SRC+="r HUB: Drag the tank onto the scale — tare it empty first (hoses OFF, zero dial). Scale is the proof. 80% hard stop.\", "
+window.__LT_RC_SRC+="r HUB: LOTO first. Drag the tank onto the scale — prove it reads 0.0 empty (hoses OFF, zero dial). Scale is the proof. 80% hard stop.\", "
 window.__LT_RC_SRC+="need: \"tankOnScale\", highlight: \"[data-rc-part='tank'],[data"
 window.__LT_RC_SRC+="-rc-part='scale']\" },\n    { say: \"Professor HUB: Drag the bl"
 window.__LT_RC_SRC+="ue low hose onto LO, then the red high hose onto HI.\", need:"

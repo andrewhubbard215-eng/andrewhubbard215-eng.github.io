@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1084: recovery tip tighter LOTO + scale zero. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1084";
+/* HVAC Allstars — offline cache (v1085: recovery tip LOTO first + prove scale 0.0 empty. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1085";
 const CORE = [
 "./",
 "./index.html",
