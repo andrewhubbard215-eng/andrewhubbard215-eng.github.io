@@ -1,10 +1,10 @@
-/* HVAC Allstars — offline cache (v1096: sandbox tip: FIRST YEAR STOP equalized = do not recover. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1096";
+/* HVAC Allstars — offline cache (v1097: sandbox tip FIRST YEAR STOP equalized = do not recover. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1097";
 const CORE = [
 "./",
 "./index.html",
 "./icon-192.png",
-"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/49ce6e5/index.html",
+"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/015e4eafa4bc2ab80dfbea157aa10fad84541f42/index.html",
 "./sku.js?v=17",
 "./style.css?v=147",
 "./svc-rail.css?v=1",
