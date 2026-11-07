@@ -1,3 +1,13 @@
+DATE: 2026-11-06
+LIVE: v3.5.845
+SW: lt-allstars-v1093
+PLAYED: Clock In confirmed live (v3.5.845). Versions matched (no stale ?v=). SW consistent. No crash. PC fills. Parts LEFT. No combat.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's shop)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-05
 LIVE: v3.5.830
 SW: lt-allstars-v1078
