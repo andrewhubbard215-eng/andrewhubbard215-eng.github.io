@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1101: prove filter/coils before undercharge tip on equalized chip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1101";
+/* HVAC Allstars — offline cache (v1102: green ring = 0.0 PROVEN before any hose seats. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1102";
 const CORE = [
 "./",
 "./index.html",
