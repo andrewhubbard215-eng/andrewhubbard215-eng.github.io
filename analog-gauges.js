@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v25: PC mouse-hold + phone long-press for 0.0 PROVEN green. Safe to seat only after green. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v26: prove filter/coils before undercharge tip. PC mouse-hold + phone long-press for 0.0 PROVEN green. Safe to seat only after green. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -77,7 +77,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Start, wait stable SH/SC.";
+      chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Prove filter & coils clear before undercharge. Start, wait stable SH/SC.";
     }
     if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
     if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
@@ -175,7 +175,7 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Start, wait stable SH/SC.";
+        chip.textContent = "EQUALIZED = DO NOT RECOVER. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Prove filter & coils clear before undercharge. Start, wait stable SH/SC.";
       } else if (!on) {
         chip.textContent = "STANDING \u2014 compressor off. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: long-press dial.";
       }
