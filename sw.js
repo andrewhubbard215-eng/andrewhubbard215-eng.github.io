@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1097: sandbox tip FIRST YEAR STOP equalized = do not recover. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1097";
+/* HVAC Allstars — offline cache (v1098: gauge zero-proven green ring + larger text. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1098";
 const CORE = [
 "./",
 "./index.html",

@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v23: long-press dial forces zero-check reminder for phone first-years. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v24: zero-proven green ring + larger text. Long-press confirms safe to seat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -60,7 +60,7 @@
           var isZero = psi != null && Math.abs(psi) < 1;
           var msg = document.createElement("div");
           msg.style.cssText = "position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:#0b1220;color:#22c55e;padding:16px 20px;border:2px solid #22c55e;border-radius:8px;z-index:9999;font:bold 18px sans-serif;text-align:center;max-width:80vw;";
-          msg.textContent = isZero ? "0.0 PROVEN \u2014 hoses OFF. Safe to seat." : "ZERO FIRST \u2014 hoses completely OFF ports. Dial must read 0.0 PROVEN green before any seat.";
+          msg.textContent = isZero ? "0.0 PROVEN GREEN — hoses OFF. Safe to seat the hose." : "ZERO FIRST — hoses completely OFF ports. Dial must read 0.0 PROVEN green before any seat.";
           document.body.appendChild(msg);
           setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 2200);
         }, 600);
@@ -130,7 +130,14 @@
     ctx.fillText("R-410A psig", cx, cy + r + 20);
     var isPhone = window.innerWidth < 520;
     var isZero = psi != null && Math.abs(psi) < 1;
-    ctx.font = "bold " + (isPhone ? "40" : "28") + "px sans-serif";
+    if (isZero) {
+      ctx.strokeStyle = "#22c55e";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(cx, cy + (isPhone ? 10 : 6), isPhone ? 52 : 40, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.font = "bold " + (isZero ? (isPhone ? "44" : "32") : (isPhone ? "40" : "28")) + "px sans-serif";
     ctx.fillStyle = isZero ? "#22c55e" : color;
     var numTxt = psi == null ? "\u2014" : (isZero ? "0.0 PROVEN" : String(Math.round(psi)) + " psig");
     ctx.fillText(numTxt, cx, cy + (isPhone ? 32 : 28));
