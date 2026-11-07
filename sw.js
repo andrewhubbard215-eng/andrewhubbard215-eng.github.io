@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1099: LOTO/meter 24V before hose + filter before undercharge. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1099";
+/* HVAC Allstars — offline cache (v1100: LOTO/meter 24V before hose + filter before undercharge. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1100";
 const CORE = [
 "./",
 "./index.html",
