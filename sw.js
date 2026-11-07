@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1103: LOTO / meter 24V first on equalized tip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1103";
+/* HVAC Allstars — offline cache (v1104: LOTO / meter 24V first leads equalized tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1104";
 const CORE = [
 "./",
 "./index.html",
