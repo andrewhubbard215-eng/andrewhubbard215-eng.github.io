@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1104: LOTO / meter 24V first leads equalized tip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1104";
+/* HVAC Allstars — offline cache (v1105: iced suction NEVER add; prove filter/coils CLEAR first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1105";
 const CORE = [
 "./",
 "./index.html",
