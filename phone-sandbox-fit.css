@@ -77,3 +77,16 @@
     color: #fbbf24 !important; /* amber standing */
   }
 }
+
+/* evening 2026-11-06: tighter LEFT parts tray 18vh on phone so gauges and Start stay above fold. Parts LEFT. No combat. */
+@media (max-width: 480px) {
+  #sandbox-root .sb-parts, #sandbox-root #sb-bin, #sandbox-root .parts-left {
+    max-height: 18vh !important;
+    overflow-y: auto !important;
+  }
+  #sandbox-root [data-part] {
+    min-height: 34px !important;
+    font-size: 9.5px !important;
+  }
+}
+

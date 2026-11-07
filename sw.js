@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1092: LOOP OPEN zero-gauges first + migration reminder. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1092";
+/* HVAC Allstars — offline cache (v1093: phone parts tray 18vh less crowding. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1093";
 const CORE = [
 "./",
 "./index.html",
