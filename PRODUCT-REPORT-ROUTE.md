@@ -1,3 +1,13 @@
+DATE: 2026-11-07
+LIVE: v3.5.851
+SW: lt-allstars-v1099
+PLAYED: Manifold/sandbox (seat COMP/COND/TXV/EVAP LEFT, loop open tip, zero gauges) + Meter school (BLACK → COM / RED → VΩ bar top, Equip ground landed GND chip vanishes) + Service calls (slim rail, Hook gauges, system stays visible/clickable) + HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-06
 LIVE: v3.5.845
 SW: lt-allstars-v1093
