@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1094: sandbox tip: seat four LEFT first then zero gauges. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1094";
+/* HVAC Allstars — offline cache (v1095: sandbox tip: FIRST YEAR equalized = do not recover. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1095";
 const CORE = [
 "./",
 "./index.html",
