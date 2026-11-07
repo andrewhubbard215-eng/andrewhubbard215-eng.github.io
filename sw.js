@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1102: green ring = 0.0 PROVEN before any hose seats. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1102";
+/* HVAC Allstars — offline cache (v1103: LOTO / meter 24V first on equalized tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1103";
 const CORE = [
 "./",
 "./index.html",
