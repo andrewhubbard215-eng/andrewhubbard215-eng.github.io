@@ -40,7 +40,7 @@
       "Why it's wrong: visible flame proves the valve opened and gas burned. The drop is on sense, so the rod, porcelain, and ground are the prove. Meter \u00b5A first."
     ],
     "Contactor is in. Compressor hums, no start. What do you do before you cut a winding?": [
-      "Why it's wrong: you never cut a winding. That destroys the compressor. Hum with the contactor in is a start prove, and the cap is first.",
+      "Why it's wrong: you never cut a winding. That destroys the compressor. LOTO first. Hum with the contactor in is a start prove — meter the dual run cap (HERM µF) before anything else.",
       "Why it's wrong: a hard-start helps a good cap kick a tight compressor. On a dead cap the run winding still has no help once it starts. Replace the cap.",
       "Why it's wrong: jumping HERM to C shorts the cap terminals and can blow the cap or the breaker. It is not a repair. Lock out and meter the cap."
     ],
