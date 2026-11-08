@@ -131,6 +131,24 @@
       "Why it's wrong: the pressure switch proves the flue is venting. Jumper it and you can fill the house with CO. Never light it on a jumper."
     ]
   };
+  var BOARD = {
+    q: "Carrier door sticker shows code 31. What does THIS door say it means, and what do you prove first?",
+    choices: [
+      "High-pressure switch open. Prove dirty OD coil / dead OD fan / overcharge before you condemn the board or add gas.",
+      "Low-pressure switch open. Add a couple pounds and see.",
+      "Limit switch open. Jump it so the heat runs.",
+      "Board failure. Order a new board."
+    ],
+    a: 0,
+    why: "Door sticker is law. Code 31 on this Carrier door = high-pressure switch open. Prove the coil is clean, OD fan is spinning, and charge is right (not over) before parts. High head trips HPC — don't shotgun the board.",
+    whyWrong: "Never invent OEM codes. Read THIS sticker. Prove the path the code points to.",
+    wrong: [
+      null,
+      "Why it's wrong: 31 is HPC on this door, not LPC. Adding gas on a high-head trip makes it worse.",
+      "Why it's wrong: limit is a different code. Jumping a limit hides a real airflow or heat-exchanger problem.",
+      "Why it's wrong: the board is reporting the open. Prove the high-pressure path first — dirty coil or dead fan is cheaper than a board."
+    ]
+  };
   function fill(it) {
     if (!it || !it.q || it.wrong) return;
     var list = W[it.q];
@@ -154,6 +172,7 @@
     });
     if (!bank[key].some(function (q) { return q && q.q === METER.q; })) bank[key].push(METER);
     if (!bank[key].some(function (q) { return q && q.q === PS_PROVE.q; })) bank[key].push(PS_PROVE);
+    if (!bank[key].some(function (q) { return q && q.q === BOARD.q; })) bank[key].push(BOARD);
     return true;
   }
   var n = 0;
