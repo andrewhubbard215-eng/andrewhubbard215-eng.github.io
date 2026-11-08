@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1108: Parts LEFT chip lead — Parts LEFT. No combat) */
-const VER = "lt-allstars-v1108";
+/* HVAC Allstars — offline cache (v1109: board-code exam item Carrier 31. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1109";
 const CORE = [
 "./",
 "./index.html",
