@@ -1,3 +1,13 @@
+DATE: 2026-11-08
+LIVE: v3.5.865
+SW: lt-allstars-v1114
+PLAYED: Clock In + shop floor. Service calls (Hook gauges, system visible/clickable, next ticket). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND present). Sandbox parts LEFT. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. Parts LEFT. No combat.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-07
 LIVE: v3.5.859
 SW: lt-allstars-v1107
