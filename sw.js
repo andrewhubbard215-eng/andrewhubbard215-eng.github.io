@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1106: exam why-wrong polish — LOTO first on hum/no-start; meter HERM µF before cut. Parts LEFT. No combat Parts LEFT. No combat) */
-const VER = "lt-allstars-v1106";
+/* HVAC Allstars — offline cache (v1107: phone-floor cache sync — Parts LEFT. No combat) */
+const VER = "lt-allstars-v1107";
 const CORE = [
 "./",
 "./index.html",

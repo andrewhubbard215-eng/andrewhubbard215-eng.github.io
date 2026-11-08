@@ -1,4 +1,14 @@
 DATE: 2026-11-07
+LIVE: v3.5.859
+SW: lt-allstars-v1107
+PLAYED: Clock In confirmed live (v3.5.859). phone-floor.css ?v= bumped 50→51 to match CORE. Versions matched. SW consistent. No crash. PC fills. Parts LEFT. No combat.
+BROKE: none
+FIXED: phone-floor cache sync (stale ?v=50 vs CORE 51)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
+DATE: 2026-11-07
 LIVE: v3.5.851
 SW: lt-allstars-v1099
 PLAYED: Manifold/sandbox (seat COMP/COND/TXV/EVAP LEFT, loop open tip, zero gauges) + Meter school (BLACK → COM / RED → VΩ bar top, Equip ground landed GND chip vanishes) + Service calls (slim rail, Hook gauges, system stays visible/clickable) + HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop.
