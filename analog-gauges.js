@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v28: Parts LEFT first on equalized tip. LOTO / meter 24V first. PC mouse-hold + phone long-press for 0.0 PROVEN green. Safe to seat only after green. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v29: Clearer equalized banner (bold red when pressures match). Parts LEFT first. LOTO / meter 24V first. PC mouse-hold + phone long-press for 0.0 PROVEN green. Safe to seat only after green. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -176,8 +176,12 @@
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
         chip.textContent = "Parts LEFT. EQUALIZED = DO NOT RECOVER. LOTO / meter 24V first. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Prove filter & coils CLEAR (no dirt, no ice) before undercharge. NEVER add to ice. Start, wait stable SH/SC.";
+        chip.style.cssText = "display:block;background:#7f1d1d;color:#fef2f2;border:2px solid #f87171;font:800 15px/1.4 sans-serif;padding:10px 12px;margin:6px 0;border-radius:6px;text-align:center;";
       } else if (!on) {
         chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: long-press dial.";
+        chip.style.cssText = "display:block;background:#1e293b;color:#e2e8f0;border:1px solid #475569;font:700 13px/1.35 sans-serif;padding:8px 10px;margin:6px 0;border-radius:4px;";
+      } else {
+        chip.style.display = "none";
       }
     }
   }
