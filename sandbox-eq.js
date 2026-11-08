@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Not outdoor sat. Parts LEFT. Do not recover. */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. v3.5.866 */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -11,7 +11,7 @@
   }
   function sat(t) {
     if (t <= TP[0]) return PP[0];
-    if (t >= TP[TP.length - 1]) return PP[PP.length - 1];
+    if (t >= TP[TP.length - 1]) return PP[TP.length - 1];
     var i = 0;
     while (i < TP.length - 1 && t > TP[i + 1]) i++;
     var span = TP[i + 1] - TP[i];
@@ -56,9 +56,9 @@
     setP("g-phigh", psi);
     if (sst) sst.textContent = "migrated to " + side + " " + cold + "\u00b0F";
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
-    if (method) method.textContent = "LOTO/meter 24V FIRST · EQUALIZED · blue=red · migration to cold coil " + cold + "°F · ZERO DIALS (hoses OFF) · PARTS LEFT · do NOT recover or add — STOP · no SH/SC until Start";
+    if (method) method.textContent = "LOTO/meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
-      chip.textContent = "LOTO & meter 24V FIRST. EQUALIZED — ZERO DIALS (hoses OFF). Migration only. Cold coil " + side + " " + cold + "°F / " + psi + " psig. PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
+      chip.textContent = "LOTO & meter 24V FIRST. EQUALIZED — AMBIENT SAT ONLY. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
     }
   }
   setInterval(paint, 350);
