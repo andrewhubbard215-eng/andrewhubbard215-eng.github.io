@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1121: Equalized = migration only, never recover standing. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1121";
+/* HVAC Allstars — offline cache (v1122: Equalized = migration only, never recover standing. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1122";
 const CORE = [
 "./",
 "./index.html",
