@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v30: STOP — DO NOT RECOVER leads equalized banner. Parts LEFT first. LOTO / meter 24V first. PC mouse-hold + phone long-press for 0.0 PROVEN green. Safe to seat only after green. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -77,7 +77,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.textContent = "STOP — DO NOT RECOVER. Parts LEFT. EQUALIZED = ambient only. LOTO / meter 24V first. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Prove filter & coils CLEAR (no dirt, no ice) before undercharge. NEVER add to ice. Start, wait stable SH/SC.";
+      chip.textContent = "STOP — DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
     }
     if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
     if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
@@ -175,7 +175,7 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "STOP — DO NOT RECOVER. Parts LEFT. EQUALIZED = ambient only. LOTO / meter 24V first. Unit off. Blue = red ambient only (migration). Never a charge. Zero both (green ring) before any hose. Hold dial for 0.0 PROVEN. Prove filter & coils CLEAR (no dirt, no ice) before undercharge. NEVER add to ice. Start, wait stable SH/SC.";
+        chip.textContent = "STOP — DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
         chip.style.cssText = "display:block;background:#7f1d1d;color:#fef2f2;border:2px solid #f87171;font:800 15px/1.4 sans-serif;padding:10px 12px;margin:6px 0;border-radius:6px;text-align:center;";
       } else if (!on) {
         chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: long-press dial.";
