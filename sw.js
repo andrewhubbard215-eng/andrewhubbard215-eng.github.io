@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1133: loading tip Clock In first. Equalized blue=red=ambient SAT ONLY. STOP do not recover. LOTO meter 24V string first. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1133";
+/* HVAC Allstars — offline cache (v1134: Allstars UI identical to Legends. Campus SKU has Lincoln Tech curriculum only. No combat) */
+const VER = "lt-allstars-v1134";
 const CORE = [
 "./",
 "./index.html",
