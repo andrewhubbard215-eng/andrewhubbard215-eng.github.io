@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1134: Allstars UI identical to Legends. Campus SKU has Lincoln Tech curriculum only. No combat) */
-const VER = "lt-allstars-v1134";
+/* HVAC Allstars — offline cache (v1135: Allstars UI identical to Legends. Campus SKU has Lincoln Tech curriculum only. No combat) */
+const VER = "lt-allstars-v1135";
 const CORE = [
 "./",
 "./index.html",
