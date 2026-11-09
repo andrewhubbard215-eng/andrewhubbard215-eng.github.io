@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1131: clearer FIRST seat LEFT then ZERO. Equalized blue=red=ambient SAT ONLY. STOP do not recover. LOTO meter 24V string first. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1131";
+/* HVAC Allstars — offline cache (v1132: clearer FIRST seat LEFT then ZERO. Equalized blue=red=ambient SAT ONLY. STOP do not recover. LOTO meter 24V string first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1132";
 const CORE = [
 "./",
 "./index.html",
