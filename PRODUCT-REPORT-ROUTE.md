@@ -1,3 +1,13 @@
+DATE: 2026-11-09
+LIVE: v3.5.874
+SW: lt-allstars-v1123
+PLAYED: Clock In confirmed live (v3.5.874). Versions matched after bump (phone-floor 51, SW register 1123). SW consistent. No crash. PC fills. Parts LEFT. No combat.
+BROKE: none
+FIXED: SW register 1121→1123 to match VER, phone-floor cache sync.
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or recovery 80% hard stop reinforce.
+
 DATE: 2026-11-08
 LIVE: v3.5.865
 SW: lt-allstars-v1114
