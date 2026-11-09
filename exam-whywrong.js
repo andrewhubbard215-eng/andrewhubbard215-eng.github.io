@@ -149,6 +149,24 @@
       "Why it's wrong: the board is reporting the open. Prove the high-pressure path first — dirty coil or dead fan is cheaper than a board."
     ]
   };
+  var INDUCER = {
+    q: "Furnace call for heat. W closed at thermostat. Inducer does not start. 24V is at the inducer terminals. What do you prove before the board?",
+    choices: [
+      "Inducer motor or capacitor. Voltage is there; prove the motor spins or the cap is good before blaming the board.",
+      "Replace the board. No inducer means the board is dead.",
+      "Jumper W to force the inducer and see.",
+      "Check the pressure switch first. It must close before the inducer runs."
+    ],
+    a: 0,
+    why: "Prove path: thermostat W, then 24V at inducer. Voltage present means board sent the call. Meter the inducer winding or dual-cap (if present) before condemning the board. Inducer must run and prove draft before any gas.",
+    whyWrong: "24V at the inducer terminals means the board did its job. Prove the motor next.",
+    wrong: [
+      null,
+      "Why it's wrong: 24V is already at the inducer. The board is calling. A dead board would not put voltage there.",
+      "Why it's wrong: jumpering W bypasses the thermostat safety. Prove the call the right way — meter it.",
+      "Why it's wrong: the pressure switch proves draft AFTER the inducer runs. It cannot start the inducer. Sequence is W → inducer → PS close → ignitor → valve."
+    ]
+  };
   function fill(it) {
     if (!it || !it.q || it.wrong) return;
     var list = W[it.q];
@@ -173,6 +191,7 @@
     if (!bank[key].some(function (q) { return q && q.q === METER.q; })) bank[key].push(METER);
     if (!bank[key].some(function (q) { return q && q.q === PS_PROVE.q; })) bank[key].push(PS_PROVE);
     if (!bank[key].some(function (q) { return q && q.q === BOARD.q; })) bank[key].push(BOARD);
+    if (!bank[key].some(function (q) { return q && q.q === INDUCER.q; })) bank[key].push(INDUCER);
     return true;
   }
   var n = 0;
