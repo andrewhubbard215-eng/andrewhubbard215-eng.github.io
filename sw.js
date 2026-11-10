@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1149: clean playtest v3.5.900. ZERO BOTH FIRST, seat 4 LEFT, equalized = DO NOT RECOVER. Parts LEFT. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1149";
+/* HVAC Allstars — offline cache (v1150: recovery hose sequence tip — ZERO scale first, blue LO only, red HI only, never cross, yellow after. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1150";
 const CORE = [
 "./",
 "./index.html",
