@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1141: PS prove path card deepened. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1141";
+/* HVAC Allstars — offline cache (v1142: sandbox tip sequence four LEFT → zero → power. Campus SKU Lincoln only. No combat) */
+const VER = "lt-allstars-v1142";
 const CORE = [
 "./",
 "./index.html",
