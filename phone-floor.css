@@ -109,3 +109,5 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
     display: none !important;
   }
 }
+/* evening 2026-11-09: bigger phone seat touch targets */
+@media (max-width: 900px) { #sb-seats .sb-seat { min-width: 64px !important; min-height: 64px !important; padding: 4px; } #sb-seats .sb-seat span { font-size: 11px !important; } }
