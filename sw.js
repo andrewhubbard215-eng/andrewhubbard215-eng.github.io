@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1145: sandbox tip sequence zero both (hoses OFF) → seat four LEFT → power. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1145";
+/* HVAC Allstars — offline cache (v1146: recovery hose color tip — blue low / red high / yellow center, never cross. Campus SKU Lincoln only. No combat) */
+const VER = "lt-allstars-v1146";
 const CORE = [
 "./",
 "./index.html",
