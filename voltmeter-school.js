@@ -91,7 +91,7 @@
       id: "unguided",
       label: "6 - Unguided call",
       ask: "No-cool. Indoor fan runs. Outdoor quiet. R–C 24V, Y–C 24V at the outdoor board, L1–L2 240V, contactor coil 24V, T1–T2 0V. What's open?",
-      good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing to the compressor circuit.",
+      good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing. Prove the open on T1–T2 with the meter — dark 0.0 V is the break. Never jump the contactor.",
       bad: "Bad thermostat — Y never left the house.",
       whyWrong: "You already have Y and coil voltage at the outdoor. The break is after the coil — contacts or load side. Meter the open. Never jump the contactor.",
       drip: "meter_open",
