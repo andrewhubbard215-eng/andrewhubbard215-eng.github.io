@@ -12,17 +12,18 @@
     card.style.cssText = "position:fixed;inset:12px;z-index:9999;background:#1a140c;color:#f4e7c8;border:2px solid #d4a017;border-radius:8px;padding:16px;overflow:auto;font:15px/1.4 sans-serif;max-width:480px;margin:auto;box-shadow:0 8px 32px #000a;";
     var title = kind === "ps" ? "Pressure-switch prove path" : "No-cool diagnostic sheet";
     var steps = kind === "ps" ? [
-      "1. Hose / trap / vent — clear the path. Wet trap or plugged hose keeps the switch open.",
-      "2. Inducer spins — prove the motor runs and creates vacuum.",
-      "3. Meter 24V across the switch. Open = ~24V sitting there. Closed = near 0.",
-      "4. Pull vacuum and compare to the switch rating on the door sticker.",
-      "5. Replace the switch LAST. Never jump it to keep heat on."
+      "1. Hose / trap — pull the hose, clear water or kink. Wet trap kills vacuum at the barb.",
+      "2. Vent path — check termination, bird nest, ice, shared vent. Restricted vent = weak vacuum.",
+      "3. Inducer — confirm it spins and pulls. Voltage at the plug, amp if it hums. No pull = no close.",
+      "4. 24V across — meter the two switch wires with inducer running. 24V sitting there = still open.",
+      "5. Vacuum vs rating — manometer pull vs the number on the switch (door sticker is law). Weak draft ≠ bad switch.",
+      "6. Switch LAST — only after hose/trap/vent/inducer/24V/rating all check out. Never jump."
     ] : [
       "Call → 240V at disconnect → R–C 24V → Y call → HPC → LPC → float → contactor coil → T1 → compressor.",
       "Dark after gold is the open. Meter across the part, not to ground.",
       "HPC/LPC open reads ~24V across. Do not jump the float. Prove airflow before charge."
     ];
-    var why = kind === "ps" ? "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the switch:</b> Lights into a dead vent or wet trap. Customer gets heat tonight, you get the CO callback Saturday. Path before parts.</p>" : "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the float:</b> Hides a full pan. Wet ceiling and a Saturday callback. Drain first, switch last.</p>";
+    var why = kind === "ps" ? "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the switch:</b> Lights into a dead vent or wet trap. Customer gets heat tonight, you get the CO callback Saturday. Path before parts. Switch last.</p>" : "<p style='margin:10px 0;color:#fbbf24'><b>WHY WRONG — jumping the float:</b> Hides a full pan. Wet ceiling and a Saturday callback. Drain first, switch last.</p>";
     card.innerHTML = "<h3 style='margin:0 0 8px;color:#d4a017'>" + title + "</h3>" +
       steps.map(function (s) { return "<p style='margin:6px 0'>" + s + "</p>"; }).join("") +
       why +
