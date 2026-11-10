@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1146: recovery hose color tip — blue low / red high / yellow center, never cross. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1146";
+/* HVAC Allstars — offline cache (v1147: parts LEFT = shop stock only, drag from LEFT rail — do not invent. Campus SKU Lincoln only. No combat) */
+const VER = "lt-allstars-v1147";
 const CORE = [
 "./",
 "./index.html",
