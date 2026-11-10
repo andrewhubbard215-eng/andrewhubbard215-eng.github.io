@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1151: voltmeter unguided — meter the open, never jump contacts. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1151";
+/* HVAC Allstars — offline cache (v1152: recovery scale prove 0.0 hoses OFF first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1152";
 const CORE = [
 "./",
 "./index.html",
