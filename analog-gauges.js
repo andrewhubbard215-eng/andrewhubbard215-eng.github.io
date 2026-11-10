@@ -179,7 +179,7 @@
         chip.textContent = "STOP — DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
         chip.style.cssText = "display:block;background:#7f1d1d;color:#fef2f2;border:2px solid #f87171;font:800 15px/1.4 sans-serif;padding:10px 12px;margin:6px 0;border-radius:6px;text-align:center;";
       } else if (!on) {
-        chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: long-press dial.";
+        chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: tap dial to enlarge · long-press for 0.0 check.";
         chip.style.cssText = "display:block;background:#1e293b;color:#e2e8f0;border:1px solid #475569;font:700 13px/1.35 sans-serif;padding:8px 10px;margin:6px 0;border-radius:4px;";
       } else {
         chip.style.display = "none";
