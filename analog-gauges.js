@@ -34,7 +34,8 @@
       wrap.setAttribute("data-sb-gauges", "1");
       wrap.innerHTML =
         '<canvas id="sb-g-low" width="220" height="220" aria-label="LOW / LPC"></canvas>' +
-        '<canvas id="sb-g-high" width="220" height="220" aria-label="HIGH / HPC"></canvas>';
+        '<canvas id="sb-g-high" width="220" height="220" aria-label="HIGH / HPC"></canvas>' +
+        '<div style="grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px">ZERO BOTH FIRST (hoses OFF) → seat 4 LEFT → then power</div>';
     }
     wrap.style.cssText =
       "display:grid!important;grid-template-columns:1fr 1fr!important;grid-column:1/-1!important;" +
