@@ -58,7 +58,7 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
-      chip.textContent = "FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. EQUALIZED blue=red=ambient SAT ONLY — migration, STOP do NOT recover. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
+      chip.textContent = "STOP: EQUALIZED blue=red=ambient = DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. EQUALIZED blue=red=ambient SAT ONLY — migration, STOP do NOT recover. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
     }
   }
   setInterval(paint, 350);
