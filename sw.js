@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1144: sandbox tip sequence four LEFT → zero → power. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1144";
+/* HVAC Allstars — offline cache (v1145: sandbox tip sequence zero both (hoses OFF) → seat four LEFT → power. Campus SKU Lincoln only. No combat) */
+const VER = "lt-allstars-v1145";
 const CORE = [
 "./",
 "./index.html",
