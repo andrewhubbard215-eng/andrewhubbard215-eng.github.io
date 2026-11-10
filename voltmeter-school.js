@@ -91,7 +91,7 @@
       id: "unguided",
       label: "6 - Unguided call",
       ask: "No-cool. Indoor fan runs. Outdoor quiet. R–C 24V, Y–C 24V at the outdoor board, L1–L2 240V, contactor coil 24V, T1–T2 0V. What's open?",
-      good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing. Prove the open on T1–T2 with the meter — dark 0.0 V is the break. Never jump the contactor.",
+      good: "Contactor contacts (or wiring after the contactor). Coil pulled in but power not passing to the compressor circuit.",
       bad: "Bad thermostat — Y never left the house.",
       whyWrong: "You already have Y and coil voltage at the outdoor. The break is after the coil — contacts or load side. Meter the open. Never jump the contactor.",
       drip: "meter_open",
@@ -118,17 +118,11 @@
     s.id = "vm-school-css";
     s.textContent =
       "#voltmeter-root{padding:52px 28px 28px;max-width:none;width:100%;box-sizing:border-box;min-height:0;margin:0}" +
-      "#screen-voltmeter.screen.active,#screen-voltmeter.screen-on{display:block;width:100%;min-height:100vh;overflow:auto}" +
-      "#voltmeter-root .el-locker-opts{display:flex;flex-direction:column;gap:10px;margin:12px 0}" +
-      "#voltmeter-root .vm-opt,#voltmeter-root .btn.vm-opt{" +
-      "text-align:left;white-space:normal;min-height:56px;padding:14px 16px;" +
-      "font-size:16px;line-height:1.35;touch-action:manipulation;-webkit-tap-highlight-color:transparent}" +
-      "#voltmeter-root #vm-close{min-height:44px;min-width:44px;touch-action:manipulation}" +
       "#voltmeter-root .vm-probe-bar{position:fixed;top:0;left:0;right:0;z-index:50;margin:0;padding:10px 16px;" +
-      "background:#CE0034;color:#fff;font-size:14px;letter-spacing:.02em;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.35)}" +
+      "background:#c41e3a;color:#fff;font:700 13px/1.3 system-ui,sans-serif;text-align:center}" +
       "#voltmeter-root .vm-probe-bar b{color:#fff}" +
-      "#voltmeter-root .vm-gnd-tray{display:flex;gap:8px;align-items:center;margin:0 0 10px}" +
-      "#voltmeter-root .vm-gnd-chip{font:700 12px/1 system-ui,sans-serif;padding:6px 10px;border-radius:999px;background:#efe6d6;color:#1a1612;border:2px solid #CE0034;cursor:pointer}" +
+      "#voltmeter-root .vm-gnd-tray{display:flex;gap:8px;align-items:center;margin:8px 0}" +
+      "#voltmeter-root .vm-gnd-chip{font:700 12px/1 system-ui,sans-serif;padding:6px 10px;border-radius:6px;background:#1a2430;color:#f4e7c8;border:1px solid #f4e7c8;cursor:pointer}" +
       "#voltmeter-root .vm-gnd-chip.armed{outline:2px solid #fff}" +
       "#voltmeter-root .vm-gnd-pad{font:700 12px/1 system-ui,sans-serif;padding:6px 10px;border-radius:6px;background:#1a2430;color:#fff;border:1px dashed #f4e7c8;cursor:pointer}" +
       "#voltmeter-root .vm-gnd-pad.landed{border-style:solid;color:#8fef9a}" +
@@ -138,7 +132,7 @@
       "#voltmeter-root .vm-face strong{display:block;font-size:28px;line-height:1;color:#7ad0ff}" +
       "#voltmeter-root .vm-face span{font-size:11px;letter-spacing:.08em;color:#8aa}" +
       "#voltmeter-root .vm-string{flex:1;min-width:200px;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;" +
-      "padding:8px 10px;border-radius:10px;background:#101820;border:1px solid #243040;font-size:13px}" +
+      "padding:10px 12px;border-radius:10px;background:#0b1220;border:1px solid #2a3a4a;font-size:13px}" +
       "#voltmeter-root .vm-string i{font-style:normal;color:#8aa}" +
       "#voltmeter-root .vm-string b{font-weight:700;color:#e8eef4}" +
       "#voltmeter-root .vm-sheet{margin:0 0 10px;padding:8px 10px;border-radius:10px;background:#0d1610;border:1px solid #1e3a28;font-size:13px;color:#cfe8d4}" +
@@ -148,98 +142,101 @@
   }
 
   function stringHtml(step) {
-    var rows = step.string || [];
-    var inner = rows.map(function (r) {
-      return "<i>" + r[0] + "</i><b>" + r[1] + "</b>";
+    var rows = (step.string || []).map(function (r) {
+      return "<div><i>" + r[0] + "</i><b>" + r[1] + "</b></div>";
     }).join("");
-    return '<div class="vm-bay">' +
-      '<div class="vm-face"><strong>' + (step.face || "—") + "</strong><span>" + (step.unit || "VAC") + "</span></div>" +
-      '<div class="vm-string">' + inner + "</div></div>";
+    return '<div class="vm-bay"><div class="vm-face"><strong>' + (step.face || "---") + '</strong><span>' + (step.unit || "VAC") + '</span></div><div class="vm-string">' + rows + '</div></div>';
   }
 
+  function sheetHtml() {
+    if (!sheet.length) return '<p class="vm-sheet"><b>Sheet</b> — nothing proven yet. Meter first.</p>';
+    return '<p class="vm-sheet"><b>Sheet</b> — ' + sheet.join(" · ") + "</p>";
+  }
+
+  function trayHtml() {
+    if (gndLanded) return '<div class="vm-gnd-tray"><span class="vm-gnd-pad landed">GND — landed</span></div>';
+    return '<div class="vm-gnd-tray"><button type="button" class="vm-gnd-chip' + (gndArmed ? " armed" : "") + '" id="vm-gnd-chip">Equip ground</button><button type="button" class="vm-gnd-pad" id="vm-gnd-pad">GND</button></div>';
+  }
+
+  function stamp(step) {
+    var marks = {
+      meter: "Meter proved live",
+      scale: "Scale VAC > line",
+      line: "L2-G 0 — open leg",
+      control: "Y-C 0 — no call",
+      drop: "Coil loaded 18V drop",
+      unguided: "T1-T2 0 — contacts"
+    };
+    var line = marks[step.id];
+    if (line && sheet.indexOf(line) < 0) sheet.push(line);
+  }
+
+  function close() {
+    try {
+      document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
+      var hub = document.getElementById("screen-hub");
+      if (hub) hub.classList.add("active");
+      if (typeof window.ltGoHub === "function") window.ltGoHub();
+      else if (typeof window.ltPlay === "function") window.ltPlay("hub");
+    } catch (_) {}
+  }
+
+  var host, pi, score, tried, why, guided, sheet, gndArmed, gndLanded;
+
   function mount() {
-    var host = document.getElementById("voltmeter-root");
-    if (!host) return;
     fatCss();
-    var pi = 0, score = 0, tried = 0, why = "", guided = true;
-    var sheet = [];
-    var gndLanded = false;
-    var gndArmed = false;
-    function sheetHtml() {
-      if (!sheet.length) return '<p class="vm-sheet">Sheet: nothing proven yet. Meter first.</p>';
-      return '<p class="vm-sheet"><b>Sheet</b> — ' + sheet.join(" · ") + "</p>";
-    }
-    function trayHtml() {
-      if (gndLanded) return '<div class="vm-gnd-tray"><span class="vm-gnd-pad landed">GND — landed</span></div>';
-      return '<div class="vm-gnd-tray"><button type="button" class="vm-gnd-chip' + (gndArmed ? " armed" : "") + '" id="vm-gnd-chip">Equip ground</button><button type="button" class="vm-gnd-pad" id="vm-gnd-pad">GND</button></div>';
-    }
-    function stamp(step) {
-      var marks = {
-        meter: "Meter proved live",
-        scale: "Scale VAC > line",
-        line: "L2-G 0 — open leg",
-        control: "Y-C 0 — no call",
-        drop: "Coil loaded 18V drop",
-        unguided: "T1-T2 0 — contacts"
-      };
-      var line = marks[step.id];
-      if (line && sheet.indexOf(line) < 0) sheet.push(line);
-    }
-    function close() {
-      try {
-        document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
-        var hub = document.getElementById("screen-hub");
-        if (hub) hub.classList.add("active");
-        if (typeof window.ltGoHub === "function") window.ltGoHub();
-        else if (typeof window.ltPlay === "function") window.ltPlay("hub");
-      } catch (_) {}
-    }
-    function draw() {
-      var step = STEPS[pi % STEPS.length];
-      host.innerHTML =
-        '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
-        '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
-        '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
-        '<p class="vm-probe-bar"><b>BLACK → COM</b>  ·  <b>RED → VΩ</b>  ·  equip ground last · do this: land the chip on GND</p>' +
-        trayHtml() +
-        stringHtml(step) +
-        sheetHtml() +
-        '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided") + " - " + step.label + " of " + STEPS.length + "</p>" +
-        "<p>" + step.ask + "</p>" +
-        '<div class="el-locker-opts">' +
-        (Math.random() < 0.5
-          ? '<button type="button" class="btn vm-opt" data-ok="1">' + step.good + "</button>" +
-            '<button type="button" class="btn vm-opt" data-ok="0">' + step.bad + "</button>"
-          : '<button type="button" class="btn vm-opt" data-ok="0">' + step.bad + "</button>" +
-            '<button type="button" class="btn vm-opt" data-ok="1">' + step.good + "</button>") +
-        "</div>" +
-        "<p class='hub-chip' style='margin-top:12px'>" +
-        (why || "Prove the meter, then the string. Don't shotgun parts.") +
-        "</p><p class='muted'>Score " + score + "/" + tried + "</p>";
-      host.querySelector("#vm-close").onclick = close;
-      var chip = host.querySelector("#vm-gnd-chip");
-      var pad = host.querySelector("#vm-gnd-pad");
-      if (chip) chip.onclick = function () { gndArmed = true; draw(); };
-      if (pad && !gndLanded) pad.onclick = function () {
-        if (!gndArmed) { gndArmed = true; draw(); return; }
-        gndLanded = true;
-        gndArmed = false;
+    host = document.getElementById("voltmeter-root");
+    if (!host) return;
+    pi = 0; score = 0; tried = 0; why = ""; guided = true;
+    sheet = []; gndArmed = false; gndLanded = false;
+    draw();
+  }
+
+  function draw() {
+    var step = STEPS[pi % STEPS.length];
+    host.innerHTML =
+      '<header class="sb-toolbar"><strong>Voltmeter school</strong>' +
+      '<span class="muted"> 24V control - 240V power - guided then unguided</span>' +
+      '<button type="button" class="btn" id="vm-close" style="margin-left:auto">Shop floor</button></header>' +
+      '<p class="vm-probe-bar"><b>BLACK → COM</b>  ·  <b>RED → VΩ</b>  ·  equip ground last · do this: land the chip on GND' +
+      (guided && pi < 5 ? "" : " · UNGUIDED: meter the open — never jump contacts") + "</p>" +
+      trayHtml() +
+      stringHtml(step) +
+      sheetHtml() +
+      '<p class="eyebrow">' + (guided && pi < 5 ? "Guided" : "Unguided — prove open, no jump") + " - " + step.label + " of " + STEPS.length + "</p>" +
+      "<p>" + step.ask + "</p>" +
+      '<div class="el-locker-opts">' +
+      (Math.random() < 0.5
+        ? '<button type="button" class="btn vm-opt" data-ok="1">' + step.good + "</button>" +
+          '<button type="button" class="btn vm-opt" data-ok="0">' + step.bad + "</button>"
+        : '<button type="button" class="btn vm-opt" data-ok="0">' + step.bad + "</button>" +
+          '<button type="button" class="btn vm-opt" data-ok="1">' + step.good + "</button>") +
+      "</div>" +
+      "<p class='hub-chip' style='margin-top:12px'>" +
+      (why || "Prove the meter, then the string. Don't shotgun parts.") +
+      "</p><p class='muted'>Score " + score + "/" + tried + "</p>";
+    host.querySelector("#vm-close").onclick = close;
+    var chip = host.querySelector("#vm-gnd-chip");
+    var pad = host.querySelector("#vm-gnd-pad");
+    if (chip) chip.onclick = function () { gndArmed = true; draw(); };
+    if (pad && !gndLanded) pad.onclick = function () {
+      if (!gndArmed) { gndArmed = true; draw(); return; }
+      gndLanded = true;
+      gndArmed = false;
+      draw();
+    };
+    host.querySelectorAll(".vm-opt").forEach(function (b) {
+      b.onclick = function () {
+        tried += 1;
+        var ok = b.getAttribute("data-ok") === "1";
+        if (ok) { score += 1; stamp(step); }
+        why = ok ? "RIGHT — " + step.good : "WRONG — " + step.whyWrong + " Right path: " + step.good;
+        drip(step.drip || "meter_open");
+        pi += 1;
+        if (pi >= 5) guided = false;
         draw();
       };
-      host.querySelectorAll(".vm-opt").forEach(function (b) {
-        b.onclick = function () {
-          tried += 1;
-          var ok = b.getAttribute("data-ok") === "1";
-          if (ok) { score += 1; stamp(step); }
-          why = ok ? "RIGHT — " + step.good : "WRONG — " + step.whyWrong + " Right path: " + step.good;
-          drip(step.drip || "meter_open");
-          pi += 1;
-          if (pi >= 5) guided = false;
-          draw();
-        };
-      });
-    }
-    draw();
+    });
   }
 
   function open() {

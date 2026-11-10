@@ -1,4 +1,4 @@
-/* HVAC Allstars — offline cache (v1151: voltmeter unguided — prove T1–T2 open with meter, never jump. Parts LEFT. No combat) */
+/* HVAC Allstars — offline cache (v1151: voltmeter unguided — meter the open, never jump contacts. Parts LEFT. No combat) */
 const VER = "lt-allstars-v1151";
 const CORE = [
 "./",
@@ -18,8 +18,7 @@ const CORE = [
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
-"./manifest.webmanifest",
-"./sw.js"
+"./manifest.webmanifest"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return Promise.all(CORE.map(function (u) { return c.add(u).catch(function () { return null; }); })); }).then(function () { return self.skipWaiting(); }));
