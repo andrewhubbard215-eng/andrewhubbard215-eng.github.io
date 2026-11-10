@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1148: phone dial tip — tap to enlarge, long-press for 0.0 check. Parts LEFT. Campus SKU Lincoln only. No combat) */
-const VER = "lt-allstars-v1148";
+/* HVAC Allstars — offline cache (v1149: clean playtest v3.5.900. ZERO BOTH FIRST, seat 4 LEFT, equalized = DO NOT RECOVER. Parts LEFT. Campus SKU Lincoln only. No combat) */
+const VER = "lt-allstars-v1149";
 const CORE = [
 "./",
 "./index.html",
