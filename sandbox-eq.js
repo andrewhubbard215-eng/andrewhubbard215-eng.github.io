@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. v3.5.870 */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. v3.5.911 */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -58,7 +58,7 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
-      chip.textContent = "STOP: EQUALIZED blue=red=ambient = DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. EQUALIZED blue=red=ambient SAT ONLY — migration, STOP do NOT recover. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
+      chip.textContent = "STOP: EQUALIZED blue=red=ambient SAT ONLY = DO NOT RECOVER. Ambient match = migration only. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
     }
   }
   setInterval(paint, 350);
