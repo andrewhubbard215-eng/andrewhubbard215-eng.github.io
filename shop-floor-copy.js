@@ -1,4 +1,4 @@
-/* HVAC Allstars shop-floor vocational tips — v3.5.914 */
+/* HVAC Allstars shop-floor vocational tips — v3.5.918 */
 (function (global) {
   "use strict";
   global.SHOP_FLOOR_COPY = {
