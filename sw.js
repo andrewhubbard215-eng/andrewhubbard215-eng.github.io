@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1155: recovery scale tip polish — 0.0 green proven, hoses OFF. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1155";
+/* HVAC Allstars — offline cache (v1156: PS prove path sharpened — hose/trap/vent FIRST, switch LAST — 0.0 green proven, hoses OFF. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1156";
 const CORE = [
 "./",
 "./index.html",
