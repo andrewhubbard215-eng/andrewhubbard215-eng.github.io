@@ -1,51 +1,40 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
     if (!el) return null;
-    var m = String(el.textContent || el.value || "").match(/(-?\d+)/);
+    var m = String(el.textContent || "").match(/(-?\d+(?:\.\d+)?)/);
     return m ? Number(m[1]) : null;
   }
-  function fromWin() {
-    var s = window.LTSandbox || window.sandboxState || window.SB || null;
-    if (!s) return { lo: null, hi: null };
-    var lo = s.lpc != null ? s.lpc : s.ps != null ? s.ps : s.low;
-    var hi = s.hpc != null ? s.hpc : s.ph != null ? s.ph : s.high;
-    if (typeof lo === "number" && typeof hi === "number") return { lo: lo, hi: hi };
-    return { lo: lo == null ? null : Number(lo), hi: hi == null ? null : Number(hi) };
-  }
-  function running() {
-    var runBtn = document.getElementById("sb-run");
-    if (runBtn && /stop/i.test(runBtn.textContent || "")) return true;
-    var title = document.getElementById("sb-ps-title");
-    if (title && /Suction/i.test(title.textContent || "")) return true;
-    var st = document.getElementById("sb-status");
-    if (st && /Compressor on/i.test(st.textContent || "")) return true;
-    return false;
-  }
-  function ensure() {
-    var box = document.querySelector("#sandbox-root .sb-gauges") || document.getElementById("sb-gauge-run");
-    if (!box) return null;
-    var wrap = document.getElementById("sb-analog");
-    if (!wrap || !document.getElementById("sb-g-low") || !document.getElementById("sb-g-high")) {
-      if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+  function ensureWrap(box) {
+    var wrap = document.getElementById("sb-analog-wrap");
+    if (!wrap) {
       wrap = document.createElement("div");
-      wrap.id = "sb-analog";
-      wrap.setAttribute("data-sb-gauges", "1");
-      wrap.innerHTML =
-        '<canvas id="sb-g-low" width="220" height="220" aria-label="LOW / LPC"></canvas>' +
-        '<canvas id="sb-g-high" width="220" height="220" aria-label="HIGH / HPC"></canvas>' +
-        '<div style="grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px">ZERO BOTH FIRST (hoses OFF) → seat 4 LEFT → then power</div>';
+      wrap.id = "sb-analog-wrap";
+      wrap.style.cssText = "display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;justify-items:center;";
+      var blue = document.createElement("canvas");
+      blue.id = "sb-gauge-blue";
+      blue.width = 180; blue.height = 160;
+      blue.style.cssText = "width:min(48vw,190px);height:auto;touch-action:manipulation;cursor:pointer;";
+      blue.dataset.label = "SUCTION / LPC";
+      blue.dataset.color = "#38bdf8";
+      blue.dataset.max = "400";
+      var red = document.createElement("canvas");
+      red.id = "sb-gauge-red";
+      red.width = 180; red.height = 160;
+      red.style.cssText = "width:min(48vw,190px);height:auto;touch-action:manipulation;cursor:pointer;";
+      red.dataset.label = "LIQUID / HPC";
+      red.dataset.color = "#f87171";
+      red.dataset.max = "600";
+      wrap.appendChild(blue);
+      wrap.appendChild(red);
+      var tip = document.createElement("div");
+      tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
+      tip.textContent = "ZERO BOTH FIRST (hoses OFF) \u2192 seat 4 LEFT \u2192 then power";
+      wrap.appendChild(tip);
     }
-    wrap.style.cssText =
-      "display:grid!important;grid-template-columns:1fr 1fr!important;grid-column:1/-1!important;" +
-      "justify-items:center!important;gap:6px!important;width:100%!important;" +
-      "max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;";
-    var lowCv = wrap.querySelector("#sb-g-low");
-    var highCv = wrap.querySelector("#sb-g-high");
-    if (lowCv) lowCv.style.cssText = "display:block!important;width:min(48vw,190px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
-    if (highCv) highCv.style.cssText = "display:block!important;width:min(48vw,190px)!important;height:auto!important;max-height:none!important;cursor:pointer;";
-    [lowCv, highCv].forEach(function(cv) {
+    ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
+      var cv = document.getElementById(id);
       if (!cv || cv.__tapBound) return;
       cv.__tapBound = 1;
       cv.addEventListener("click", function() {
@@ -61,7 +50,7 @@
         var isZero = psi != null && Math.abs(psi) < 1;
         var msg = document.createElement("div");
         msg.style.cssText = "position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);background:#0b1220;color:#22c55e;padding:20px 24px;border:3px solid #22c55e;border-radius:10px;z-index:9999;font:bold 20px sans-serif;text-align:center;max-width:85vw;box-shadow:0 0 20px #22c55e55;";
-        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>hoses OFF · safe to seat" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
+        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>hoses OFF \u00b7 safe to seat" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
         document.body.appendChild(msg);
         setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 2800);
       }
@@ -69,8 +58,8 @@
         clearTimeout(holdTimer);
         if (holdProgress && holdProgress.parentNode) holdProgress.parentNode.removeChild(holdProgress);
         holdProgress = document.createElement("div");
-        holdProgress.style.cssText = "position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#0b1220ee;color:#22c55e;padding:4px 10px;border-radius:6px;font:bold 12px sans-serif;z-index:10;pointer-events:none;";
-        holdProgress.textContent = "holding for 0.0 check…";
+        holdProgress.style.cssText = "position:absolute;top:4px;left:50%;transform:translateX(-50%);background:#0b1220ee;color:#22c55e;padding:6px 12px;border-radius:6px;font:bold 16px sans-serif;z-index:10;pointer-events:none;";
+        holdProgress.textContent = "HOLD for 0.0 PROVEN check\u2026";
         cv.style.position = "relative";
         cv.appendChild(holdProgress);
         holdTimer = setTimeout(showZeroMsg, 650);
@@ -92,7 +81,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.textContent = "STOP — DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
+      chip.textContent = "STOP \u2014 DO NOT RECOVER. FIRST: seat COMP\u00b7COND\u00b7TXV\u00b7EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
     }
     if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
     if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
@@ -118,111 +107,65 @@
     ctx.stroke();
     var start = Math.PI * 0.75, sweep = Math.PI * 1.5;
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "16px sans-serif";
+    ctx.font = "11px sans-serif";
     ctx.textAlign = "center";
-    for (var i = 0; i <= 8; i++) {
-      var a = start + (i / 8) * sweep;
-      ctx.strokeStyle = "#64748b";
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * (r - 4), cy + Math.sin(a) * (r - 4));
-      ctx.lineTo(cx + Math.cos(a) * (r - 14), cy + Math.sin(a) * (r - 14));
-      ctx.stroke();
-      ctx.fillText(String(Math.round((i / 8) * max)), cx + Math.cos(a) * (r - 26), cy + Math.sin(a) * (r - 26) + 3);
-    }
-    var p = psi == null ? 0 : Math.max(0, Math.min(max, psi));
-    var ang = start + (p / max) * sweep;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(ang) * (r - 18), cy + Math.sin(ang) * (r - 18));
-    ctx.stroke();
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#e2e8f0";
-    ctx.font = "bold 12px sans-serif";
-    ctx.fillText(label, cx, cy + r + 8);
-    ctx.fillStyle = "#94a3b8";
-    ctx.font = "16px sans-serif";
-    ctx.fillText("R-410A psig", cx, cy + r + 20);
-    var isPhone = window.innerWidth < 520;
+    var ticks = [0, 50, 100, 150, 200, 250, 300, 350, 400];
+    if (max > 450) ticks = [0, 100, 200, 300, 400, 500, 600];
+    ticks.forEach(function (t) {
+      if (t > max) return;
+      var ang = start + sweep * (t / max);
+      var tx = cx + Math.cos(ang) * (r - 18);
+      var ty = cy + Math.sin(ang) * (r - 18);
+      ctx.fillText(String(t), tx, ty);
+    });
     var isZero = psi != null && Math.abs(psi) < 1;
     if (isZero) {
       ctx.strokeStyle = "#22c55e";
       ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.arc(cx, cy + (isPhone ? 10 : 6), isPhone ? 52 : 40, 0, Math.PI * 2);
+      ctx.arc(cx, cy, r + 6, 0, Math.PI * 2);
       ctx.stroke();
     }
+    var isPhone = window.innerWidth < 700;
     ctx.font = "bold " + (isZero ? (isPhone ? "44" : "32") : (isPhone ? "40" : "28")) + "px sans-serif";
     ctx.fillStyle = isZero ? "#22c55e" : color;
     var numTxt = psi == null ? "\u2014" : (isZero ? "0.0 PROVEN" : String(Math.round(psi)) + " psig");
-    ctx.fillText(numTxt, cx, cy + (isPhone ? 32 : 28));
-  }
-  function first(ids) {
-    for (var i = 0; i < ids.length; i++) {
-      var v = parsePsig(document.getElementById(ids[i]));
-      if (v != null && !isNaN(v)) return v;
+    ctx.fillText(numTxt, cx, cy + 6);
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillStyle = "#e2e8f0";
+    ctx.fillText(label, cx, cy + 28);
+    if (psi != null && !isZero) {
+      var ang = start + sweep * Math.min(1, Math.max(0, psi / max));
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(ang) * (r - 28), cy + Math.sin(ang) * (r - 28));
+      ctx.stroke();
     }
-    return null;
   }
-  var last = "";
-  function tick() {
-    if (!document.getElementById("sandbox-root")) return;
-    if (!ensure()) return;
-    var win = fromWin();
-    var lo = first(["sb-ps", "g-plow", "sb-lpc"]);
-    var hi = first(["sb-ph", "g-phigh", "sb-hpc"]);
-    if (lo == null && win.lo != null && !isNaN(win.lo)) lo = win.lo;
-    if (hi == null && win.hi != null && !isNaN(win.hi)) hi = win.hi;
-    var on = running();
-    var key = lo + "|" + hi + "|" + on;
-    if (key === last && document.getElementById("sb-g-low").dataset.psig != null) return;
-    last = key;
-    var lowCv = document.getElementById("sb-g-low"), highCv = document.getElementById("sb-g-high");
-    draw(lowCv, lo, 200, "#38bdf8", on ? "LOW / LPC suction" : "LOW / LPC standing");
-    draw(highCv, hi, 600, "#f43f5e", on ? "HIGH / HPC head" : "HIGH / HPC standing");
-    if (lowCv) lowCv.dataset.psig = lo == null ? "" : String(Math.round(lo));
-    if (highCv) highCv.dataset.psig = hi == null ? "" : String(Math.round(hi));
+  function paint() {
+    var box = document.getElementById("sb-readout") || document.getElementById("sandbox-bay") || document.querySelector(".sandbox-bay");
+    if (!box) return;
+    var wrap = ensureWrap(box);
+    var blue = document.getElementById("sb-gauge-blue");
+    var red = document.getElementById("sb-gauge-red");
+    var lp = parsePsig(document.getElementById("sb-lpc"));
+    var hp = parsePsig(document.getElementById("sb-hpc"));
+    if (blue) { blue.dataset.psig = lp == null ? "" : String(lp); draw(blue, lp, 400, "#38bdf8", "SUCTION / LPC"); }
+    if (red) { red.dataset.psig = hp == null ? "" : String(hp); draw(red, hp, 600, "#f87171", "LIQUID / HPC"); }
     var chip = document.getElementById("sb-eq-chip");
     if (chip) {
-      chip.style.display = on ? "none" : "block";
-      if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "STOP — DO NOT RECOVER. FIRST: seat COMP·COND·TXV·EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
-        chip.style.cssText = "display:block;background:#7f1d1d;color:#fef2f2;border:2px solid #f87171;font:800 15px/1.4 sans-serif;padding:10px 12px;margin:6px 0;border-radius:6px;text-align:center;";
-      } else if (!on) {
-        chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: tap dial to enlarge · long-press for 0.0 check.";
-        chip.style.cssText = "display:block;background:#1e293b;color:#e2e8f0;border:1px solid #475569;font:700 13px/1.35 sans-serif;padding:8px 10px;margin:6px 0;border-radius:4px;";
+      var eq = lp != null && hp != null && Math.abs(lp - hp) < 8;
+      if (eq) {
+        chip.textContent = "STOP \u2014 DO NOT RECOVER. FIRST: seat COMP\u00b7COND\u00b7TXV\u00b7EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR (no dirt, no ice) before naming undercharge. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC.";
+        chip.style.color = "#fbbf24";
       } else {
-        chip.style.display = "none";
+        chip.textContent = "STANDING \u2014 compressor off. Parts LEFT. No SH/SC until it runs. Zero both gauges first (hoses off). Phone: tap dial to enlarge \u00b7 long-press for 0.0 check.";
+        chip.style.color = "#94a3b8";
       }
     }
   }
-  var mo = null;
-  function watch() {
-    var root = document.getElementById("sandbox-root");
-    if (!root || typeof MutationObserver === "undefined") return;
-    if (mo && mo.__root === root) return;
-    if (mo) mo.disconnect();
-    mo = new MutationObserver(function () { tick(); });
-    mo.__root = root;
-    mo.observe(root, { childList: true, subtree: true, characterData: true });
-  }
-  setInterval(function () { watch(); tick(); }, 250);
-  document.addEventListener("click", function (e) {
-    var t = e.target;
-    if (!t) return;
-    var id = t.id || "";
-    var txt = (t.textContent || "");
-    if (id === "sb-run" || /start compressor|stop compressor/i.test(txt)) {
-      last = "";
-      setTimeout(tick, 30);
-      setTimeout(tick, 200);
-      setTimeout(tick, 500);
-    }
-  }, true);
-  if (document.readyState === "complete") { watch(); tick(); }
-  else window.addEventListener("load", function () { watch(); tick(); });
+  setInterval(paint, 400);
+  document.addEventListener("DOMContentLoaded", paint);
 })();
