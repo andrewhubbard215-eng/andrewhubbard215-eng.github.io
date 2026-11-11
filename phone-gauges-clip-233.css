@@ -84,3 +84,5 @@
     white-space: nowrap !important;
   }
 }
+/* v8 evening: phone gauges overflow visible, no clip on dials. Parts LEFT. No combat. */
+@media (max-width: 480px) { #sandbox-root .sb-gauges { overflow: visible !important; max-height: none !important; } }

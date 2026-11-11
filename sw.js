@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1153: recovery scale: hoses OFF, zero dial, prove 0.0 before seat. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1153";
+/* HVAC Allstars — offline cache (v1154: recovery scale: hoses OFF, zero dial, prove 0.0 before seat. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1154";
 const CORE = [
 "./",
 "./index.html",
