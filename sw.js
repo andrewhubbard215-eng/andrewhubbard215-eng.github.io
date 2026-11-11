@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1162: ambient SAT ONLY is migration, STOP. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1162";
+/* HVAC Allstars — offline cache (v1163: ambient SAT ONLY is migration, STOP. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1163";
 const CORE = [
 "./",
 "./index.html",
