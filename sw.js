@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1159: iced-suction tip polish. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1159";
+/* HVAC Allstars — offline cache (v1160: ambient match tip on equalized. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1160";
 const CORE = [
 "./",
 "./index.html",
