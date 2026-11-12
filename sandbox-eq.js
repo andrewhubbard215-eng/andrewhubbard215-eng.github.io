@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.921 */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.934 */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -60,7 +60,7 @@
     if (method) method.textContent = "STOP RECOVERY: LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · 80% tank stop is law · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
       chip.textContent = "STOP RECOVERY NOW: EQUALIZED blue=red=ambient SAT ONLY = DO NOT RECOVER. Ambient match = migration only. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. 80% recovery tank stop is law. Do NOT recover or add — STOP. No SH/SC until Start.";
-      chip.style.background = "#3a0a0a";
+      chip.style.background = "#ffcc00"; chip.style.color = "#000";
       chip.style.border = "2px solid #ff3b30";
       chip.style.animation = "eqPulse 1.2s ease-in-out infinite";
     }
@@ -68,7 +68,7 @@
   if (!document.getElementById("eq-pulse-style")) {
     var st = document.createElement("style");
     st.id = "eq-pulse-style";
-    st.textContent = "@keyframes eqPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.7)} 50%{box-shadow:0 0 0 8px rgba(255,59,48,0)} }";
+    st.textContent = "@keyframes eqPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,204,0,.9); background:#ffcc00; color:#000} 50%{box-shadow:0 0 0 12px rgba(255,59,48,0); background:#ff3b30; color:#fff} }";
     document.head.appendChild(st);
   }
   setInterval(paint, 350);

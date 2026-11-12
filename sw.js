@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1182: ZERO BOTH FIRST (hoses OFF, green 0.0 PROVEN) then seat LEFT. Equalized = migration, DO NOT RECOVER. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1182";
+/* HVAC Allstars — offline cache (v1183: Harder equalized yellow/red flash on standing blue=red. Do not recover. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1183";
 const CORE = [
 "./",
 "./index.html",
