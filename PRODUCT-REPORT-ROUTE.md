@@ -1,4 +1,14 @@
 DATE: 2026-11-12
+LIVE: v3.5.927
+SW: lt-allstars-v1176
+PLAYED: Manifold/sandbox (seat COMP/COND/TXV/EVAP LEFT, loop open tip) + Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND present) + Service calls (slim rail, Hook gauges, system stays visible/clickable, next ticket) + HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. Parts LEFT. No combat.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish.
+
+DATE: 2026-11-12
 LIVE: v3.5.923
 SW: lt-allstars-v1172
 PLAYED: Clock In loads. No crash. Menu full (sandbox, exam, service, mini-split, HUB, Jesus, electrical). Parts LEFT. No combat.
