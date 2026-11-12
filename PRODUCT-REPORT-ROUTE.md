@@ -1,3 +1,13 @@
+DATE: 2026-11-12
+LIVE: v3.5.921
+SW: lt-allstars-v1170
+PLAYED: Clock In + sandbox (parts LEFT, equalized chip) + service calls (Hook gauges, system stays). No crash. Versions matched after bump. Parts LEFT. No combat.
+BROKE: none
+FIXED: equalized chip + method cue — 80% recovery tank stop is law. Reinforced STOP on ambient SAT only.
+SHIPPED: vocational cue on equalized standing P/T. sku branding-only. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish.
+
 DATE: 2026-11-11
 LIVE: v3.5.920
 SW: lt-allstars-v1169
