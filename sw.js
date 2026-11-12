@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1172: recovery tip — SCALE IS LAW 80% HARD STOP. No combat) */
-const VER = "lt-allstars-v1172";
+/* HVAC Allstars — offline cache (v1173: equalized ambient SAT tip — migration STOP. No combat) */
+const VER = "lt-allstars-v1173";
 const CORE = [
 "./",
 "./index.html",
