@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1168: Equalized red pulse cue. No combat) */
-const VER = "lt-allstars-v1168";
+/* HVAC Allstars — offline cache (v1169: Equalized = do not recover cue tighter. No combat) */
+const VER = "lt-allstars-v1169";
 const CORE = [
 "./",
 "./index.html",
