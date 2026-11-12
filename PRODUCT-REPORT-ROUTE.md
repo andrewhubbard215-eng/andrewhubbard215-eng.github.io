@@ -1,4 +1,14 @@
 DATE: 2026-11-12
+LIVE: v3.5.923
+SW: lt-allstars-v1172
+PLAYED: Clock In loads. No crash. Menu full (sandbox, exam, service, mini-split, HUB, Jesus, electrical). Parts LEFT. No combat.
+BROKE: none
+FIXED: recovery tip polish — SCALE IS LAW, HARD STOP 80% by weight, never guess the fill.
+SHIPPED: vocational cue on recovery scale stop. sku branding-only. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish.
+
+DATE: 2026-11-12
 LIVE: v3.5.921
 SW: lt-allstars-v1170
 PLAYED: Clock In + sandbox (parts LEFT, equalized chip) + service calls (Hook gauges, system stays). No crash. Versions matched after bump. Parts LEFT. No combat.
