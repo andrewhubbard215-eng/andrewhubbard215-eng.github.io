@@ -1,5 +1,5 @@
 /* HVAC Allstars — offline cache (v1175: zero tip — never add on standing. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1175";
+const VER = "lt-allstars-v1176";
 const CORE = [
 "./",
 "./index.html",

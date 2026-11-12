@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -58,8 +58,8 @@
         clearTimeout(holdTimer);
         if (holdProgress && holdProgress.parentNode) holdProgress.parentNode.removeChild(holdProgress);
         holdProgress = document.createElement("div");
-        holdProgress.style.cssText = "position:absolute;top:4px;left:50%;transform:translateX(-50%);background:#0b1220ee;color:#22c55e;padding:6px 12px;border-radius:6px;font:bold 16px sans-serif;z-index:10;pointer-events:none;";
-        holdProgress.textContent = "HOLD for 0.0 PROVEN check\u2026";
+        holdProgress.style.cssText = "position:absolute;top:2px;left:50%;transform:translateX(-50%);background:#0b1220;color:#22c55e;padding:8px 14px;border:2px solid #22c55e;border-radius:8px;font:bold 18px sans-serif;z-index:10;pointer-events:none;box-shadow:0 0 8px #22c55e88;";
+        holdProgress.textContent = "HOLD for 0.0 PROVEN";
         cv.style.position = "relative";
         cv.appendChild(holdProgress);
         holdTimer = setTimeout(showZeroMsg, 650);
