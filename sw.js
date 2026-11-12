@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1170: Equalized 80% recovery stop is law. No combat) */
-const VER = "lt-allstars-v1170";
+/* HVAC Allstars — offline cache (v1171: Equalized 80% recovery stop is law. No combat) */
+const VER = "lt-allstars-v1171";
 const CORE = [
 "./",
 "./index.html",
