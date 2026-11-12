@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1167: Parts LEFT only tip. No combat) */
-const VER = "lt-allstars-v1167";
+/* HVAC Allstars — offline cache (v1168: Equalized red pulse cue. No combat) */
+const VER = "lt-allstars-v1168";
 const CORE = [
 "./",
 "./index.html",

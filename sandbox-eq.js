@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. v3.5.917 */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. v3.5.919 */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -41,6 +41,7 @@
     if (ph) ph.textContent = on ? "Red hose \u2014 liquid / HPC" : "Red hose \u2014 liquid / HPC standing";
     if (on) {
       if (method && /standing|migrat/i.test(method.textContent || "")) method.textContent = "Wait 5\u201310 min for stable SH/SC. Do not call charge on first glass.";
+      if (chip) { chip.style.background = ""; chip.style.border = ""; chip.style.animation = ""; }
       return;
     }
     var od = numF("sb-out-v");
@@ -59,7 +60,16 @@
     if (method) method.textContent = "STOP RECOVERY: LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
       chip.textContent = "STOP RECOVERY NOW: EQUALIZED blue=red=ambient SAT ONLY = DO NOT RECOVER. Ambient match = migration only. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. Do NOT recover or add — STOP. No SH/SC until Start.";
+      chip.style.background = "#3a0a0a";
+      chip.style.border = "2px solid #ff3b30";
+      chip.style.animation = "eqPulse 1.2s ease-in-out infinite";
     }
+  }
+  if (!document.getElementById("eq-pulse-style")) {
+    var st = document.createElement("style");
+    st.id = "eq-pulse-style";
+    st.textContent = "@keyframes eqPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.7)} 50%{box-shadow:0 0 0 8px rgba(255,59,48,0)} }";
+    document.head.appendChild(st);
   }
   setInterval(paint, 350);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", paint);
