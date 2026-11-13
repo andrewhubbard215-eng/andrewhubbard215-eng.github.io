@@ -1,4 +1,4 @@
-/* HVAC Allstars — offline cache (v1199: phone equalized STOP chip visible. Parts LEFT. No combat) */
+/* HVAC Allstars — offline cache (v1199: no-cool METER FIRST ALWAYS clearer + equalized STOP. Parts LEFT. No combat) */
 const VER = "lt-allstars-v1199";
 const CORE = [
 "./",
