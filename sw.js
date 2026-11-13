@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1193: clean playtest 2026-11-13. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1193";
+/* HVAC Allstars — offline cache (v1194: version align + equalized law 2026-11-13. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1194";
 const CORE = [
 "./",
 "./index.html",
