@@ -76,9 +76,17 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 #sandbox-root .sb-toolbar{order: 5 !important;max-height: 40px !important;position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sb-analog canvas { width: 96px !important; height: 96px !important; }}
-@media (max-width: 900px){#sandbox-root #sb-eq-chip,
+@media (max-width: 900px){
 #sandbox-root #sb-formula,
-#sandbox-root #sb-shsc-formula { display: none !important; }}
+#sandbox-root #sb-shsc-formula { display: none !important; }
+#sandbox-root #sb-eq-chip{
+  display:block !important; max-height:none !important; height:auto !important;
+  margin:4px 6px !important; padding:6px 8px !important; overflow:hidden !important;
+  font-size:12px !important; line-height:1.25 !important; font-weight:800 !important;
+  white-space:normal !important; border-radius:6px !important; z-index:12 !important;
+  position:relative !important;
+}
+}
 @media (max-width: 900px){#sandbox-root .sb-main { overflow: hidden !important; }
 #sandbox-root .sb-gauges{max-height: 26vh !important;min-height: 0 !important;}}
 @media (max-width: 900px){#sandbox-root .sb-gauges{order: unset !important;max-height: 28vh !important;min-height: 0 !important;position: relative !important;transform: none !important;}
