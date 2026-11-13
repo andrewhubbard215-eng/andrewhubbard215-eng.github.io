@@ -7,12 +7,12 @@ max-height:none !important;min-height:420px !important;flex:1 1 auto !important;
 #sandbox-root .sb-main{overflow:hidden !important;height:calc(100dvh - 48px);}}
 #sandbox-root #sb-ts{max-height:0 !important;overflow:hidden !important;margin:0 !important;padding:0 !important;}
 @media (max-width:900px){
-#sandbox-root #sb-canvas{min-height:0!important;max-height:26vh!important;padding-top:4px!important;flex:0 0 auto!important;}
-#sb-canvas-wrap{min-height:0!important;max-height:26vh!important;flex:0 0 auto!important;height:26vh!important;}
+#sandbox-root #sb-canvas{min-height:0!important;max-height:42vh!important;padding-top:4px!important;flex:0 0 auto!important;}
+#sb-canvas-wrap{min-height:0!important;max-height:42vh!important;flex:0 0 auto!important;height:42vh!important;}
 #sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{display:none!important;max-height:0!important;}}
 @media (max-width:900px){
-#sandbox-root #sb-canvas{min-height:0!important;max-height:26vh!important;padding-top:4px!important;flex:0 0 auto!important;}
-#sb-canvas-wrap{min-height:0!important;max-height:26vh!important;flex:0 0 auto!important;height:26vh!important;}
+#sandbox-root #sb-canvas{min-height:0!important;max-height:42vh!important;padding-top:4px!important;flex:0 0 auto!important;}
+#sb-canvas-wrap{min-height:0!important;max-height:42vh!important;flex:0 0 auto!important;height:42vh!important;}
 #sandbox-root #sb-ts,#sandbox-root #sb-ts:focus-within,#sandbox-root #sb-ts:hover{display:none!important;max-height:0!important;}
 #sb-gauge-run{max-height:36vh!important;overflow:hidden!important;flex-wrap:nowrap!important;}
 #sb-gauge-run .sb-gauges,#sandbox-root .sb-gauges{max-height:34vh!important;min-height:0!important;overflow:hidden!important;}
@@ -33,4 +33,4 @@ position:relative !important; z-index:10 !important; background:rgba(11,18,32,0.
 #sandbox-root .sb-gauges,#sandbox-root [data-sb-gauges]{padding-bottom:8px!important;margin:0!important;}}
 @media (max-width:900px){
 #sandbox-root .sb-layout{grid-template-columns:84px minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;}
-#sandbox-root #sb-canvas,#sb-canvas-wrap{max-height:22vh!important;height:22vh!important;flex:0 0 auto!important;min-height:0!important;}}
+#sandbox-root #sb-canvas,#sb-canvas-wrap{max-height:42vh!important;height:42vh!important;flex:0 0 auto!important;min-height:0!important;}}
