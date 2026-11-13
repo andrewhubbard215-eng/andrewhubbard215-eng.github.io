@@ -1,4 +1,14 @@
 DATE: 2026-11-13
+LIVE: v3.5.943
+SW: lt-allstars-v1193
+PLAYED: Clock In. Manifold/sandbox (parts LEFT COMP/COND/TXV/EVAP, loop seats). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND). Service calls (slim rail, Hook gauges, system stays visible/clickable, next ticket). HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish.
+
+DATE: 2026-11-13
 LIVE: v3.5.939
 SW: lt-allstars-v1188
 PLAYED: Clock In loads. Sandbox (seat COMP/COND/TXV/EVAP LEFT, loop closed, start, 162/442 psig SH/SC 10.0). Service calls (Hook gauges, system stays). No crash. Parts LEFT. No combat.
@@ -17,4 +27,3 @@ FIXED: none this shift (versions matched; cache/SW consistent with tonight's sho
 SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
 STILL OPEN: offline list rebuild on pinned file change.
 TOMORROW: offline list rebuild or exam why-wrong polish.
-

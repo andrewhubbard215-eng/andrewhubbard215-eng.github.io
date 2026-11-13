@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1192: 80% recovery tank stop is law. Equalized = migration only — do not recover. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1192";
+/* HVAC Allstars — offline cache (v1193: clean playtest 2026-11-13. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1193";
 const CORE = [
 "./",
 "./index.html",
