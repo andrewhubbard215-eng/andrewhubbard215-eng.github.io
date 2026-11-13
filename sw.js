@@ -1,10 +1,10 @@
-/* HVAC Allstars — offline cache (v1195: version align + equalized law 2026-11-13. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1195";
+/* HVAC Allstars — offline cache (v1196: restore full app SRC, boot fixed. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1196";
 const CORE = [
 "./",
 "./index.html",
 "./icon-192.png",
-"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/015e4eafa4bc2ab80dfbea157aa10fad84541f42/index.html",
+"https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html",
 "./sku.js?v=17",
 "./style.css?v=147",
 "./svc-rail.css?v=1",
