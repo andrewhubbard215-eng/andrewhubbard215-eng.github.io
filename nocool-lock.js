@@ -40,8 +40,8 @@
       return;
     }
     b.disabled = true;
-    b.textContent = "Walk gold → dark 0.0 V open first";
-    b.title = "Walk gold then dark. Shotgun is a callback.";
+    b.textContent = "Meter gold → dark 0.0 V open FIRST";
+    b.title = "Walk the gold path to the dark 0.0 V open. Meter first. Shotgun = callback.";
     b.style.removeProperty("display");
     b.style.setProperty("opacity", "0.55", "important");
     b.style.setProperty("pointer-events", "none", "important");

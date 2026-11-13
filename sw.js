@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1200: no-cool METER FIRST ALWAYS clearer + equalized STOP. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1200";
+/* HVAC Allstars — offline cache (v1201: no-cool replace button clearer meter-first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1201";
 const CORE = [
 "./",
 "./index.html",
