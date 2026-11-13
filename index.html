@@ -4,17 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0c0a07" />
-  <meta name="lt-app-ver" content="v3.5.947" />
+  <meta name="lt-app-ver" content="v3.5.948" />
   <title>HVAC Allstars</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon-192.png" />
   <script>
   (function () {
-    var APP_VER = "v3.5.947"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.948"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=1197");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=1198");
       html = html.replace(/sku\.js\?v=\d+/g, "sku.js?v=17");
       html = html.replace(/style\.css\?v=\d+/g, "style.css?v=147");
       html = html.replace(/svc-rail\.css\?v=\d+/g, "svc-rail.css?v=1");
@@ -37,7 +37,7 @@
       html = html.replace(/clock-in-floor\.js\?v=\d+/g, "clock-in-floor.js?v=48");
       html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=9");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
-      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=35");
+      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=36");
       html = html.replace(/exam-whywrong\.js\?v=\d+/g, "exam-whywrong.js?v=5");
       html = html.replace(/phone-floor\.css\?v=\d+/g, "phone-floor.css?v=51");
       html = html.replace(/voltmeter-school\.js\?v=\d+/g, "voltmeter-school.js?v=2");
@@ -55,13 +55,13 @@
         document.body.innerHTML = "<p style='font:16px sans-serif;padding:24px'>HVAC Allstars boot failed. Hard-refresh. " + String(e) + "</p><p class='version-strip'>HVAC Allstars - " + APP_VER + " - shop floor \u00b7 Equalized = do not recover</p>";
       });
     }
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=1197").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=1198").catch(function () {});
     boot();
   })();
   </script>
 </head>
 <body>
   <p style="font:14px monospace;padding:24px;color:#1BFF80;background:#0c0a07;min-height:80vh">Loading HVAC Allstars shop floor… Clock In. FIRST: ZERO BOTH DIALS — hoses COMPLETELY OFF ports, green 0.0 PROVEN on both before any seat. Prove zero every hook-up. Seat COMP·COND·TXV·EVAP LEFT. STOP: Equalized (blue=red=ambient SAT ONLY) = migration only — DO NOT RECOVER or ADD charge. Never add on standing. Parts LEFT only. 80% recovery tank stop is law. LOTO + meter 24V before any hose. No-cool sheet: meter first.</p>
-  <p class="version-strip">HVAC Allstars - v3.5.947 - shop floor · Equalized = do not recover</p>
+  <p class="version-strip">HVAC Allstars - v3.5.948 - shop floor · Equalized = do not recover</p>
 </body>
 </html>

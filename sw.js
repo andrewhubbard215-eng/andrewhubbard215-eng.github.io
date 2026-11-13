@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1197: sharper green 0.0 PROVEN tip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1197";
+/* HVAC Allstars — offline cache (v1198: both dials must be proven green 0.0. sharper tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1198";
 const CORE = [
 "./",
 "./index.html",
