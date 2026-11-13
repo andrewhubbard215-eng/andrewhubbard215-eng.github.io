@@ -1,5 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v36 — Zero step: never add charge on standing. Ambient SAT ONLY = migration STOP. LOTO. Parts LEFT. v34 — Zero step: LOTO reminder + equalized STOP in first tip. v33 — Call step: Equalized blue=red is migration (not charge). LOTO 24V, meter first, do NOT recover or add. Standing pressures lie. Parts LEFT. No combat.
+   v37 — Zero step: never recover or add on standing. Ambient SAT ONLY = migration STOP. LOTO. Parts LEFT. v34 — Zero step: LOTO reminder + equalized STOP in first tip. v33 — Call step: Equalized blue=red is migration (not charge). LOTO 24V, meter first, do NOT recover or add. Standing pressures lie. Parts LEFT. No combat.
    v31 — phone TS max-height bumped for readable wait step. zero gauges first then hang. equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v30 — zero gauges first then hang.  equalized tip: migration not charge, LOTO 24V first. Never recover or add on standing.
    v27 — manifold guided: hang gauges, hook blue/red, cap yellow, purge, start, wait, read, clamp, math, call.
@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Zero & hang", body: "ZERO BOTH GAUGES FIRST — hoses completely OFF ports, dials at 0. LOTO if power is on. Then hang manifold, seat hoses free. Blue suction, red liquid, yellow capped. Parts LEFT — shop stock only. Equalized (blue=red=ambient SAT ONLY) = DO NOT RECOVER. Ambient SAT ONLY match = migration — STOP. Never add charge on standing." },
+    { n: "1", title: "Zero & hang", body: "ZERO BOTH GAUGES FIRST — hoses completely OFF ports, dials at 0. LOTO if power is on. Then hang manifold, seat hoses free. Blue suction, red liquid, yellow capped. Parts LEFT — shop stock only. Equalized (blue=red=ambient SAT ONLY) = DO NOT RECOVER or ADD. Ambient SAT ONLY match = migration — STOP. Never recover or add on standing pressures. LOTO first." },
     { n: "2", title: "Hook blue", body: "Hook the blue hose on the suction service port. Seat it. Do not open yet." },
     { n: "3", title: "Hook red", body: "Hook the red hose on the liquid service port. Seat it." },
     { n: "4", title: "Cap yellow", body: "Cap the yellow hose or leave it on the center port with the valve closed." },

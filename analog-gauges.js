@@ -30,7 +30,7 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST (hoses OFF) \u2192 seat 4 LEFT \u2192 then power";
+      tip.textContent = "ZERO BOTH FIRST (hoses OFF) → seat 4 LEFT → then power. Equalized SAT ONLY = STOP — do not recover";
       wrap.appendChild(tip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {

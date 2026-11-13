@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1185: ZERO BOTH FIRST + meter first tip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1185";
+/* HVAC Allstars — offline cache (v1186: ZERO + equalized STOP tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1186";
 const CORE = [
 "./",
 "./index.html",
