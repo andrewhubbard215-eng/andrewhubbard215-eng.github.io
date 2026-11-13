@@ -62,9 +62,16 @@ body:has(#screen-hub.active){overflow: hidden !important;height: 100dvh !importa
 #sandbox-root #sb-ts:hover,
 #sandbox-root #sb-formula,
 #sandbox-root #sb-shsc-formula,
-#sandbox-root #sb-eq-chip,
 #sandbox-root #sb-howto,
 #sandbox-root .sb-labboard{display: none !important;max-height: 0 !important;height: 0 !important;margin: 0 !important;padding: 0 !important;overflow: hidden !important;}
+@media (max-width: 900px){
+#sandbox-root #sb-eq-chip{
+  display:block !important; max-height:none !important; height:auto !important;
+  margin:4px 6px !important; padding:6px 8px !important; overflow:hidden !important;
+  font-size:12px !important; line-height:1.25 !important; font-weight:800 !important;
+  white-space:normal !important; border-radius:6px !important; z-index:12 !important;
+}
+}
 #sandbox-root #sb-status,
 #sandbox-root #sb-fault{flex: 0 0 auto !important;order: 6 !important;max-height: 22px !important;overflow: hidden !important;font-size: 10px !important;margin: 0 !important;}}
 #sb-seats .sb-seat.on,
