@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1198: both dials must be proven green 0.0. sharper tip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1198";
+/* HVAC Allstars — offline cache (v1199: phone equalized STOP chip visible. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1199";
 const CORE = [
 "./",
 "./index.html",
@@ -12,8 +12,8 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=51",
-"./phone-p0.css?v=14",
+"./phone-floor.css?v=52",
+"./phone-p0.css?v=15",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
