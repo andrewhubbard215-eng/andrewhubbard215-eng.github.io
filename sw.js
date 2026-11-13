@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1196: restore full app SRC, boot fixed. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1196";
+/* HVAC Allstars — offline cache (v1197: sharper green 0.0 PROVEN tip. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1197";
 const CORE = [
 "./",
 "./index.html",
