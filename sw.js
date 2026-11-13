@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1194: version align + equalized law 2026-11-13. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1194";
+/* HVAC Allstars — offline cache (v1195: version align + equalized law 2026-11-13. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1195";
 const CORE = [
 "./",
 "./index.html",
