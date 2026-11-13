@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.934 */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.949 phone chip visible */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -59,7 +59,10 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "STOP RECOVERY: LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · ZERO DIALS (hoses OFF) · PARTS LEFT · 80% tank stop is law · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
-      chip.textContent = "STOP RECOVERY NOW: EQUALIZED blue=red=ambient SAT ONLY = DO NOT RECOVER. Ambient match = migration only. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. 80% recovery tank stop is law. Do NOT recover or add — STOP. No SH/SC until Start.";
+      var phone = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+      chip.textContent = phone
+        ? "STOP — EQUALIZED blue=red=ambient · DO NOT RECOVER · migration only · seat 4 LEFT · ZERO both · LOTO 24V"
+        : "STOP RECOVERY NOW: EQUALIZED blue=red=ambient SAT ONLY = DO NOT RECOVER. Ambient match = migration only. FIRST: seat COMP·COND·TXV·EVAP LEFT. LOTO / meter 24V string. Migration to cold coil " + side + " " + cold + "°F / " + psi + " psig. ZERO DIALS (hoses OFF). PARTS LEFT. 80% recovery tank stop is law. Do NOT recover or add — STOP. No SH/SC until Start.";
       chip.style.background = "#ffcc00"; chip.style.color = "#000";
       chip.style.border = "2px solid #ff3b30";
       chip.style.animation = "eqPulse 1.2s ease-in-out infinite";
