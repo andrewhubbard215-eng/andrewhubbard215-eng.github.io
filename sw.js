@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1204: 80% recovery tank stop law reinforced — never fill past. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1204";
+/* HVAC Allstars — offline cache (v1205: furnace PS prove path. Hose/trap/vent → 24V across → vacuum vs rating → switch last. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1205";
 const CORE = [
 "./",
 "./index.html",
