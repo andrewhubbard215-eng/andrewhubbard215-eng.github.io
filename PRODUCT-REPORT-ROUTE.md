@@ -1,3 +1,13 @@
+DATE: 2026-11-13 evening
+LIVE: v3.5.952
+SW: lt-allstars-v1202
+PLAYED: Clock In. System sandbox (standing equalized 218/218, ZERO BOTH tip, seat COMP/COND/TXV/EVAP LEFT, loop open). Saturday callback (meter the open, 24V string, no-cool sheet). Phone-width and desktop. No crash. Parts LEFT. No combat.
+BROKE: none
+FIXED: tighter boot tip — ZERO BOTH FIRST + equalized migration STOP + phone diamond note.
+SHIPPED: vocational cue on boot. SW bump. Parts LEFT. No combat. sku branding-only. No new modules.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
 DATE: 2026-11-13
 LIVE: v3.5.943
 SW: lt-allstars-v1193
