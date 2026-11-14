@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1209: gauge tip - prove zero every hook-up · equalized = migration only. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1209";
+/* HVAC Allstars — offline cache (v1210: standing is NOT a charge — equalized = migration only. Prove zero every hook-up. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1210";
 const CORE = [
 "./",
 "./index.html",
