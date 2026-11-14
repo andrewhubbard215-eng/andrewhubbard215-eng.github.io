@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v36: tip adds prove zero every hook-up. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v38: tip clearer — hoses COMPLETELY OFF, 0.0 PROVEN, LOTO if powered. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -30,7 +30,7 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST (hoses OFF) \u2192 seat 4 LEFT \u2192 then power. Prove zero every hook-up. Equalized SAT ONLY = STOP \u2014 do not recover";
+      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN. Then seat 4 LEFT. LOTO if power on. Prove zero every hook-up. Equalized SAT ONLY = STOP — do not recover";
       wrap.appendChild(tip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
