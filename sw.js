@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1212: 80% recovery tank stop is law. Equalized = migration only. Prove zero every hook-up. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1212";
+/* HVAC Allstars — offline cache (v1213: recovery scale is the only proof — weigh it. Equalized = migration only. Prove zero every hook-up. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1213";
 const CORE = [
 "./",
 "./index.html",
