@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v36: tip adds prove zero every hook-up. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -30,7 +30,7 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST (hoses OFF) → seat 4 LEFT → then power. Equalized SAT ONLY = STOP — do not recover";
+      tip.textContent = "ZERO BOTH FIRST (hoses OFF) \u2192 seat 4 LEFT \u2192 then power. Prove zero every hook-up. Equalized SAT ONLY = STOP \u2014 do not recover";
       wrap.appendChild(tip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
@@ -50,7 +50,7 @@
         var isZero = psi != null && Math.abs(psi) < 1;
         var msg = document.createElement("div");
         msg.style.cssText = "position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);background:#0b1220;color:#22c55e;padding:20px 24px;border:3px solid #22c55e;border-radius:10px;z-index:9999;font:bold 20px sans-serif;text-align:center;max-width:85vw;box-shadow:0 0 20px #22c55e55;";
-        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>this dial OK · prove BOTH · hoses OFF" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
+        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>this dial OK \u00b7 prove BOTH \u00b7 hoses OFF" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
         document.body.appendChild(msg);
         setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 2800);
       }

@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1205: furnace PS prove path. Hose/trap/vent → 24V across → vacuum vs rating → switch last. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1205";
+/* HVAC Allstars — offline cache (v1206: gauge tip - prove zero every hook-up. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1206";
 const CORE = [
 "./",
 "./index.html",
