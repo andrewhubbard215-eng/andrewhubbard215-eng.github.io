@@ -1,3 +1,13 @@
+DATE: 2026-11-13 night
+LIVE: v3.5.953
+SW: lt-allstars-v1203
+PLAYED: Clock In. System sandbox (standing equalized 218/218, ZERO BOTH tip, seat COMP/COND/TXV/EVAP LEFT, loop open). No crash. Parts LEFT. No combat.
+BROKE: none
+FIXED: sharper green 0.0 PROVEN every hook-up tip on boot — hoses COMPLETELY OFF, prove both dials before any seat or hose.
+SHIPPED: vocational cue on boot. SW bump. Parts LEFT. No combat. sku branding-only. No new modules.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
 DATE: 2026-11-13 evening
 LIVE: v3.5.952
 SW: lt-allstars-v1202
