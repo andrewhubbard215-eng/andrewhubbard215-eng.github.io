@@ -1,3 +1,13 @@
+DATE: 2026-11-14
+LIVE: v3.5.960
+SW: lt-allstars-v1210
+PLAYED: Clock In. System sandbox (parts LEFT COMP/COND/TXV/EVAP). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND). Service calls (slim rail, Hook gauges, system stays visible/clickable). No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
 DATE: 2026-11-13 night
 LIVE: v3.5.953
 SW: lt-allstars-v1203
