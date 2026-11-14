@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1215: clearer Clock In first actions — ZERO both dials hoses OFF, seat 4 LEFT. Equalized = migration only. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1215";
+/* HVAC Allstars — offline cache (v1216: clearer Clock In first actions — ZERO both dials hoses OFF, seat 4 LEFT. Equalized = migration only. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1216";
 const CORE = [
 "./",
 "./index.html",
