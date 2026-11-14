@@ -1,4 +1,4 @@
-/* HVAC Allstars — Start compressor blocked until parts seated LEFT (v6: no auto-seat on Start) */
+/* HVAC Allstars — Start compressor blocked until parts seated LEFT (v7: equalized + prove zero reinforced) */
 (function () {
   "use strict";
   function seated(id) {
@@ -36,7 +36,7 @@
       ban.style.cssText = "position:fixed;left:148px;right:12px;top:56px;z-index:80;background:#7f1d1d;color:#fff;padding:10px 14px;border-radius:8px;font:700 14px/1.35 sans-serif;box-shadow:0 8px 24px #0008";
       (document.getElementById("sandbox-root") || document.body).appendChild(ban);
     }
-    ban.textContent = "PARTS LEFT — seat " + miss.map(pretty).join(", ") + " on the rail. Compressor stays off. Standing P/T only. No SH/SC until the loop is closed.";
+    ban.textContent = "PARTS LEFT — seat " + miss.map(pretty).join(", ") + " on the rail. Compressor stays off. Standing P/T only. Prove ZERO both dials every hook-up. No SH/SC until the loop is closed.";
     clearTimeout(ban._t);
     ban._t = setTimeout(function () {
       if (ban.parentNode) ban.parentNode.removeChild(ban);
@@ -69,7 +69,7 @@
     /* Start never seats parts for the tech: the loop stays open until all four are seated LEFT. */
     yell(miss);
     var st = document.getElementById("sb-status");
-    if (st) st.textContent = "STANDING EQUALIZED — migration only · DO NOT RECOVER · seat 4 LEFT";
+    if (st) st.textContent = "STANDING EQUALIZED — migration only · DO NOT RECOVER · PROVE ZERO every hook-up · seat 4 LEFT";
   }
   if (!window.__ltYellCap) {
     window.__ltYellCap = 1;

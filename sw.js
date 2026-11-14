@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1213: recovery scale is the only proof — weigh it. Equalized = migration only. Prove zero every hook-up. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1213";
+/* HVAC Allstars — offline cache (v1214: prove zero every hook-up reinforced in sandbox yell. Equalized = migration only. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1214";
 const CORE = [
 "./",
 "./index.html",
