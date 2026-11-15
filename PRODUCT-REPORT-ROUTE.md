@@ -1,4 +1,14 @@
 DATE: 2026-11-15
+LIVE: v3.5.978
+SW: lt-allstars-v1229
+PLAYED: Clock In. System sandbox (parts LEFT COMP/COND/TXV/EVAP). No crash. Menu full. Vocational core intact.
+BROKE: none
+FIXED: reinforced LEFT rail only / never invent parts on boot tip and sandbox copy.
+SHIPPED: vocational cue on boot. SW bump. Parts LEFT. No combat. sku branding-only. No new modules.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
+DATE: 2026-11-15
 LIVE: v3.5.975
 SW: lt-allstars-v1226
 PLAYED: Clock In. System sandbox (standing equalized 218/218, ZERO BOTH tip, parts LEFT). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND). No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
