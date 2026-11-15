@@ -1,3 +1,13 @@
+DATE: 2026-11-14 night
+LIVE: v3.5.968
+SW: lt-allstars-v1218
+PLAYED: Clock In. Versions matched on bootstrap and SW CORE. Hard-refresh live site confirmed v3.5.968. Parts LEFT. No combat.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's shop)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
 DATE: 2026-11-14
 LIVE: v3.5.960
 SW: lt-allstars-v1210
