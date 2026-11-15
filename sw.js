@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1229: LEFT rail only reinforced on boot 2026-11-15. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1229";
+/* HVAC Allstars — offline cache (v1230: LOTO before any hose 2026-11-15. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1230";
 const CORE = [
 "./",
 "./index.html",
