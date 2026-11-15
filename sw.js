@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1217: ladder kicker leads with VOCATIONAL FIRST MOVE LOTO disconnect + meter 24V string. clearer Clock In first actions — ZERO both dials hoses OFF, seat 4 LEFT. Equalized = migration only. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1217";
+/* HVAC Allstars — offline cache (v1218: zero both dials hoses OFF proven before seat. Equalized = migration only. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1218";
 const CORE = [
 "./",
 "./index.html",
