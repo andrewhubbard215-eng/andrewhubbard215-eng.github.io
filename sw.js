@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1222: clearer zero tip LOTO+meter — meter first diagnostic sheet drill. Meter first. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1222";
+/* HVAC Allstars — offline cache (v1223: stronger meter-first reminder on boot + zero tip — meter first diagnostic sheet drill. Meter first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1223";
 const CORE = [
 "./",
 "./index.html",
