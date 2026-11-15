@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1228: never-jump reinforced in tips 2026-11-15. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1228";
+/* HVAC Allstars — offline cache (v1229: LEFT rail only reinforced on boot 2026-11-15. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1229";
 const CORE = [
 "./",
 "./index.html",
