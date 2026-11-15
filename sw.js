@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1224: never-jump-safety reinforced on boot. Meter first. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1225";
+/* HVAC Allstars — offline cache (v1226: clean playtest 2026-11-15. Meter first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1226";
 const CORE = [
 "./",
 "./index.html",
