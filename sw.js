@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1226: clean playtest 2026-11-15. Meter first. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1226";
+/* HVAC Allstars — offline cache (v1227: meter-first reminder 2026-11-15. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1227";
 const CORE = [
 "./",
 "./index.html",
