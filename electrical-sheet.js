@@ -1,4 +1,4 @@
-/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v24: float prove tip added to default kicker */
+/* Shop-floor no-cool law on the ladder. Loads after electrical.js. v25: default kicker leads with LOTO disconnect + meter 24V string before any land */
 (function () {
   var proved = {};
   var painting = false;
@@ -396,7 +396,7 @@
         } else if (/No-cool at 4:58/i.test(key)) {
           next = "No-cool at 4:58. Prove path: call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Dark after gold is the open. C stays at transformer voltage.";
         } else {
-          next = "Meter first. Gold is live. Dark after gold is the open — tap that 0.0 V box before Replace unlocks. Top rail 240, bottom 24V cool string. C stays live. Float: dry pan = 0 V across. Do not jump. Do not shotgun.";
+          next = "VOCATIONAL FIRST MOVE: LOTO the disconnect. Meter the 24V string. Prove the open (dark 0.0 V) before any lug lands. Gold is live. Dark after gold is the open — tap that 0.0 V box before Replace unlocks. Top rail 240, bottom 24V cool string. C stays live. Float: dry pan = 0 V across. Do not jump. Do not shotgun.";
         }
         setText(k, next);
       }
