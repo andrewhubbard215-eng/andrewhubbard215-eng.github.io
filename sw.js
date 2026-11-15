@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1230: LOTO before any hose 2026-11-15. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1231";
+/* HVAC Allstars — offline cache (v1232: LOTO before any hose 2026-11-15. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1232";
 const CORE = [
 "./",
 "./index.html",

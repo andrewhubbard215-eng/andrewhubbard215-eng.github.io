@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v41: both-zero chip + NEVER JUMP. v40: tip clearer LOTO+meter — hoses COMPLETELY OFF, 0.0 PROVEN, LOTO if powered. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v41: both-zero chip + NEVER JUMP. v40: tip clearer LOTO+meter — hoses COMPLETELY OFF, 0.0 PROVEN, LOTO if powered. Standing ≠ charge. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -30,12 +30,12 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. Then seat 4 LEFT. LOTO + meter 24V if powered. Prove zero every hook-up. Equalized SAT ONLY = STOP — do not recover. NEVER JUMP A SAFETY.";
+      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. Then seat 4 LEFT. LOTO + meter 24V if powered. Prove zero every hook-up. Equalized SAT ONLY = STOP — do not recover. NEVER JUMP A SAFETY. Standing is NOT a charge — never add refrigerant on standing pressures.";
       wrap.appendChild(tip);
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
       bothChip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 13px sans-serif;color:#22c55e;margin-top:2px;display:none";
-      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. Seat loop LEFT. LOTO if powered.";
+      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. Seat loop LEFT. LOTO if powered. Standing ≠ charge.";
       wrap.appendChild(bothChip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
