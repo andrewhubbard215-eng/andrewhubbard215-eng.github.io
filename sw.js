@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1219: zero both dials hoses OFF proven before seat. Equalized = migration only. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1219";
+/* HVAC Allstars — offline cache (v1220: no-cool diagnostic sheet drill. Meter first. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1220";
 const CORE = [
 "./",
 "./index.html",
