@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1235: standing is NOT a charge — never add on equalized. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1235";
+/* HVAC Allstars — offline cache (v1236: standing is NOT a charge — never add on equalized. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1236";
 const CORE = [
 "./",
 "./index.html",
