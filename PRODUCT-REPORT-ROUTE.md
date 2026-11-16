@@ -1,3 +1,13 @@
+DATE: 2026-11-16
+LIVE: v3.5.983
+SW: lt-allstars-v1234
+PLAYED: Clock In. Hard-refresh live site confirmed v3.5.983. Menu full. Parts LEFT. No crash. Vocational core intact.
+BROKE: none
+FIXED: none this shift (versions already matched; cache/SW consistent with tonight's shop. Phone gauges 112px loaded.)
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
 DATE: 2026-11-15
 LIVE: v3.5.978
 SW: lt-allstars-v1229
