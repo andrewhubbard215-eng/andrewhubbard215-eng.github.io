@@ -1,4 +1,14 @@
 DATE: 2026-11-16
+LIVE: v3.5.994
+SW: lt-allstars-v1245
+PLAYED: Clock In. System sandbox (parts LEFT COMP/COND/TXV/EVAP). No crash. Menu full. Vocational core intact.
+BROKE: none
+FIXED: stronger standing is NOT a charge lock on boot tip and version strip — NEVER ADD on standing or equalized. Only after run + proven SH/SC.
+SHIPPED: vocational cue on boot. SW bump. Parts LEFT. No combat. sku branding-only. No new modules.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
+DATE: 2026-11-16
 LIVE: v3.5.990
 SW: lt-allstars-v1234
 PLAYED: Clock In. System sandbox (seat COMP/COND/TXV/EVAP LEFT, loop closed, start, 162/442 psig SH/SC 10.0). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND landed). Service calls (slim rail, Hook gauges, system stays visible/clickable, next ticket changes). HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
