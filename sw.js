@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1241: stronger zero-prove — hoses completely off ports before green 0.0 both dials. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1241";
+/* HVAC Allstars — offline cache (v1242: both-zero chip larger + PARTS LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1242";
 const CORE = [
 "./",
 "./index.html",

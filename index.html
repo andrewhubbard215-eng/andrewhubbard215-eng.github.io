@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0c0a07" />
-  <meta name="lt-app-ver" content="v3.5.990" />
+  <meta name="lt-app-ver" content="v3.5.991" />
   <title>HVAC Allstars</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon-192.png" />
   <style>body{margin:0;background:#0c0a07;color:#1BFF80;font:14px monospace}</style>
   <script>
   (function () {
-    var APP_VER = "v3.5.990"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
+    var APP_VER = "v3.5.991"; /* ONE version source: every footer reads <meta name="lt-app-ver"> */
     window.LT_APP_VER = APP_VER;
     var SRC = "https://raw.githubusercontent.com/andrewhubbard215-eng/andrewhubbard215-eng.github.io/19929303c1ba1e1a0a9063add9063123282320a2/index.html";
     function patch(html) {
-      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=1241");
+      html = html.replace(/sw\.js\?v=\d+/g, "sw.js?v=1242");
       html = html.replace(/sku\.js\?v=\d+/g, "sku.js?v=17");
       html = html.replace(/style\.css\?v=\d+/g, "style.css?v=147");
       html = html.replace(/svc-rail\.css\?v=\d+/g, "svc-rail.css?v=1");
@@ -37,7 +37,7 @@
       html = html.replace(/clock-in-floor\.js\?v=\d+/g, "clock-in-floor.js?v=48");
       html = html.replace(/sandbox-cutout\.js\?v=\d+/g, "sandbox-cutout.js?v=9");
       html = html.replace(/sandbox-td\.js\?v=\d+/g, "sandbox-td.js?v=8");
-      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=42");
+      html = html.replace(/analog-gauges\.js\?v=\d+/g, "analog-gauges.js?v=43");
       html = html.replace(/exam-whywrong\.js\?v=\d+/g, "exam-whywrong.js?v=5");
       html = html.replace(/voltmeter-school\.js\?v=\d+/g, "voltmeter-school.js?v=2");
       html = html.replace(/<\/body>/i, '<script src="no-cool-prove.js?v=1"><\/script></body>');
