@@ -1,4 +1,14 @@
 DATE: 2026-11-16
+LIVE: v3.5.990
+SW: lt-allstars-v1234
+PLAYED: Clock In. System sandbox (seat COMP/COND/TXV/EVAP LEFT, loop closed, start, 162/442 psig SH/SC 10.0). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground / GND landed). Service calls (slim rail, Hook gauges, system stays visible/clickable, next ticket changes). HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
+BROKE: none
+FIXED: none this shift (clean playtest)
+SHIPPED: clean playtest. sku branding-only. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
+DATE: 2026-11-16
 LIVE: v3.5.983
 SW: lt-allstars-v1234
 PLAYED: Clock In. Hard-refresh live site confirmed v3.5.983. Menu full. Parts LEFT. No crash. Vocational core intact.
