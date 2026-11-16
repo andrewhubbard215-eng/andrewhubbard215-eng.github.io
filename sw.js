@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1240: sandbox zero tip + 80% tank scale. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1240";
+/* HVAC Allstars — offline cache (v1241: stronger zero-prove — hoses completely off ports before green 0.0 both dials. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1241";
 const CORE = [
 "./",
 "./index.html",
