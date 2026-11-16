@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1243: stronger never-add on equalized/standing. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1243";
+/* HVAC Allstars — offline cache (v1244: zero-dials reminder locked. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1244";
 const CORE = [
 "./",
 "./index.html",
