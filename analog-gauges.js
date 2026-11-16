@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v43: both-zero chip larger + PARTS LEFT callout. v42: stronger 80% tank + standing ≠ charge on zero tip. v41: both-zero chip + NEVER JUMP. v40: tip clearer LOTO+meter — hoses COMPLETELY OFF, 0.0 PROVEN, LOTO if powered. Standing ≠ charge. v35: both dials must be proven green 0.0. v34: hold progress larger + higher contrast on phone for 0.0 PROVEN. v33: long-press hold progress bigger + clearer on phone. v32: long-press 0.0 check clearer on phone + hold progress. v31: clearer FIRST seat LEFT + ZERO green before hose. Equalized STOP do not recover. LOTO meter 24V. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v44: stronger never-add on equalized/standing. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -30,12 +30,12 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. Then seat 4 LEFT. LOTO + meter 24V if powered. Prove zero every hook-up. Equalized SAT ONLY = STOP — do not recover. Standing is NOT a charge — never add refrigerant on standing. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY.";
+      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. Then seat 4 LEFT. LOTO + meter 24V if powered. Prove zero every hook-up. Equalized (blue=red) = migration ONLY — DO NOT RECOVER or ADD. Standing is NOT a charge — never add refrigerant on equalized or standing. Only charge after run with proven SH/SC. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY. Parts LEFT only.";
       wrap.appendChild(tip);
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
       bothChip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 15px sans-serif;color:#22c55e;margin-top:2px;display:none;background:#0a1a0a;padding:4px;border-radius:4px";
-      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. SEAT LOOP LEFT. PARTS LEFT. LOTO if powered. Standing ≠ charge. 80% tank = scale only.";
+      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. SEAT LOOP LEFT. PARTS LEFT. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% tank = scale only.";
       wrap.appendChild(bothChip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
@@ -138,7 +138,7 @@
     if (chip) {
       var amb = 75;
       var eq = lp != null && hp != null && Math.abs(lp - hp) < 8 && Math.abs(lp - amb) < 12;
-      chip.textContent = eq ? "STOP — DO NOT RECOVER. FIRST: seat COMP\u00b7COND\u00b7TXV\u00b7EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR — no dirt, no ice — before naming undercharge. Iced suction = DO NOT ADD or RECOVER. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC." : "Prove ZERO both dials every hook-up. Seat 4 LEFT. LOTO first.";
+      chip.textContent = eq ? "STOP — DO NOT RECOVER or ADD. FIRST: seat COMP\u00b7COND\u00b7TXV\u00b7EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR — no dirt, no ice — before naming undercharge. Iced suction = DO NOT ADD or RECOVER. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC. Parts LEFT only." : "Prove ZERO both dials every hook-up. Seat 4 LEFT. LOTO first. Standing is NOT a charge.";
     }
   }
   setInterval(tick, 400);
