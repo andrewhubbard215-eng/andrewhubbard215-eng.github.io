@@ -72,10 +72,10 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 @media (max-width: 900px){#sandbox-root .sb-main{overflow-y: auto !important;max-height: 100dvh !important;}
 #sandbox-root #sb-canvas-wrap,
 #sandbox-root #sb-canvas{min-height: 62vh !important;max-height: none !important;height: auto !important;flex: 1 1 auto !important;}
-#sandbox-root .sb-gauges{max-height: 26vh !important;min-height: 0 !important;order: unset !important;overflow: hidden !important;}
+#sandbox-root .sb-gauges{max-height: 28vh !important;min-height: 0 !important;order: unset !important;overflow: hidden !important;}
 #sandbox-root .sb-toolbar{order: 5 !important;max-height: 40px !important;position: relative !important;bottom: auto !important;z-index: 3 !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;z-index: 3 !important;}
-#sb-analog canvas { width: 96px !important; height: 96px !important; }}
+#sb-analog canvas { width: 112px !important; height: 112px !important; }}
 @media (max-width: 900px){
 #sandbox-root #sb-formula,
 #sandbox-root #sb-shsc-formula { display: none !important; }
@@ -88,8 +88,8 @@ body.lab-open .version-strip{left: 108px;padding-left: 8px;z-index: 6;}
 }
 }
 @media (max-width: 900px){#sandbox-root .sb-main { overflow: hidden !important; }
-#sandbox-root .sb-gauges{max-height: 26vh !important;min-height: 0 !important;}}
-@media (max-width: 900px){#sandbox-root .sb-gauges{order: unset !important;max-height: 28vh !important;min-height: 0 !important;position: relative !important;transform: none !important;}
+#sandbox-root .sb-gauges{max-height: 28vh !important;min-height: 0 !important;}}
+@media (max-width: 900px){#sandbox-root .sb-gauges{order: unset !important;max-height: 30vh !important;min-height: 0 !important;position: relative !important;transform: none !important;}
 #sandbox-root .sb-toolbar{order: 5 !important;position: relative !important;bottom: auto !important;max-height: 48px !important;}
 #sandbox-root #sb-run{position: relative !important;bottom: auto !important;}
 #sandbox-root .sb-gauges .panel{margin: 0 !important;padding: 4px 6px !important;max-width: none !important;}}
