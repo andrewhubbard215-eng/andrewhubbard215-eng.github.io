@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1246: zero-prove hold 500ms. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1246";
+/* HVAC Allstars — offline cache (v1247: no-cool LOTO first step. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1247";
 const CORE = [
 "./",
 "./index.html",
@@ -18,7 +18,8 @@ const CORE = [
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
-"./manifest.webmanifest"
+"./manifest.webmanifest",
+"./no-cool-prove.js?v=2"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return Promise.all(CORE.map(function (u) { return c.add(u).catch(function () { return null; }); })); }).then(function () { return self.skipWaiting(); }));

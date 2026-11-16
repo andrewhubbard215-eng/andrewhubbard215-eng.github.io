@@ -1,7 +1,13 @@
-/* No-cool diagnostic sheet — call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. */
+/* No-cool diagnostic sheet — LOTO → call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. */
 (function () {
   "use strict";
   var STEPS = [
+    {
+      ask: "Customer says no cool. Before you open the disconnect or touch the unit, first safety move?",
+      good: "LOTO the disconnect. Verify zero energy with your meter. Then start the sheet.",
+      bad: "Open the panel and start metering live.",
+      why: "Lockout-tagout first. A live unit bites. Prove dead before you prove the fault."
+    },
     {
       ask: "Customer says no cool. Thermostat is set to cool and calling. First meter move before you open the unit?",
       good: "Confirm 240V at the disconnect. No voltage there and the outdoor never starts — power first.",
@@ -61,7 +67,7 @@
             if (i < STEPS.length - 1) {
               setTimeout(function () { i += 1; paint(); }, 700);
             } else {
-              why.textContent = "RIGHT — sheet complete. Open isolated. Never jump a safety. Do not shotgun the compressor.";
+              why.textContent = "RIGHT — sheet complete. LOTO first. Open isolated. Never jump a safety. Do not shotgun the compressor.";
             }
           } else {
             why.textContent = "WRONG — " + s.why + " Right path: " + s.good;
