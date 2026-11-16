@@ -1,4 +1,4 @@
-/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.949 phone chip visible */
+/* Standing P/T: unit off, charge migrates to the colder coil. Ambient sat only. Parts LEFT. Do not recover. 80% tank stop is law. v3.5.986 standing NOT charge on method text */
 (function () {
   "use strict";
   var TP = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
@@ -57,7 +57,7 @@
     setP("g-phigh", psi);
     if (sst) sst.textContent = "migrated to " + side + " " + cold + "\u00b0F";
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
-    if (method) method.textContent = "STOP RECOVERY: LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · PROVE ZERO EVERY HOOK-UP · ZERO DIALS (hoses OFF) · PARTS LEFT · 80% tank stop is law · do NOT recover or add — STOP · no SH/SC until Start";
+    if (method) method.textContent = "STANDING IS NOT A CHARGE — NEVER ADD on equalized. STOP RECOVERY: LOTO / meter 24V FIRST · EQUALIZED · blue=red · AMBIENT SAT ONLY (migration to cold coil " + cold + "°F) · PROVE ZERO EVERY HOOK-UP · ZERO DIALS (hoses OFF) · PARTS LEFT · 80% tank stop is law · do NOT recover or add — STOP · no SH/SC until Start";
     if (chip) {
       var phone = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
       chip.textContent = phone
