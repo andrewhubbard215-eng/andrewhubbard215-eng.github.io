@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v44: stronger never-add on equalized/standing. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v45: 500ms hold for 0.0 proven. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -76,7 +76,7 @@
         holdProgress.style.cssText = "position:fixed;bottom:18%;left:50%;transform:translateX(-50%);background:#0b1220;color:#fbbf24;padding:10px 16px;border:2px solid #fbbf24;border-radius:8px;z-index:9998;font:bold 16px sans-serif;text-align:center;";
         holdProgress.textContent = "HOLD for 0.0 PROVEN";
         document.body.appendChild(holdProgress);
-        holdTimer = setTimeout(showZeroMsg, 700);
+        holdTimer = setTimeout(showZeroMsg, 500);
       }
       function endHold() {
         clearTimeout(holdTimer);
