@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1245: standing is NOT a charge lock. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1245";
+/* HVAC Allstars — offline cache (v1246: zero-prove hold 500ms. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1246";
 const CORE = [
 "./",
 "./index.html",
