@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1233: standing ≠ charge tip 2026-11-15. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1233";
+/* HVAC Allstars — offline cache (v1234: phone gauges 112px — 0.0 clearer. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1234";
 const CORE = [
 "./",
 "./index.html",
@@ -12,7 +12,7 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=52",
+"./phone-floor.css?v=53",
 "./phone-p0.css?v=15",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
