@@ -1,4 +1,14 @@
 DATE: 2026-11-16
+LIVE: v3.5.998
+SW: lt-allstars-v1250
+PLAYED: Clock In. Versions aligned on bootstrap and SW CORE (phone-floor 54, phone-p0 16). Hard-refresh pending.
+BROKE: none
+FIXED: index.html ?v= lagged SW CORE on phone-floor.css and phone-p0.css; SW register lagged. Aligned. SW bump.
+SHIPPED: cache/SW consistency. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
+DATE: 2026-11-16
 LIVE: v3.5.994
 SW: lt-allstars-v1245
 PLAYED: Clock In. System sandbox (parts LEFT COMP/COND/TXV/EVAP). No crash. Menu full. Vocational core intact.
