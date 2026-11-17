@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1254: self-contained index, no remote fetch. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1254";
+/* HVAC Allstars — offline cache (v1255: self-contained index, no remote fetch. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1255";
 const CORE = [
 "./",
 "./index.html",
@@ -18,7 +18,7 @@ const CORE = [
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
 "./manifest.webmanifest",
-"./no-cool-prove.js?v=3",
+"./no-cool-prove.js?v=4",
 "./ps-prove.js?v=1"
 ];
 self.addEventListener("install", function (e) {
