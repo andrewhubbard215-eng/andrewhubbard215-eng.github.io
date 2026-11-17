@@ -73,7 +73,7 @@
             if (i < STEPS.length - 1) {
               setTimeout(function () { i += 1; paint(); }, 700);
             } else {
-              why.textContent = "RIGHT — sheet complete. LOTO first. Open isolated. Never jump a safety. Standing is NOT a charge. Only charge after stable run + proven SH/SC.";
+              why.textContent = "RIGHT — sheet complete. LOTO first. Open isolated. Never jump a safety. Standing is NOT a charge. Only charge after stable run + proven SH/SC. Parts LEFT only — never invent.";
             }
           } else {
             why.textContent = "WRONG — " + s.why + " Right path: " + s.good;
