@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1249: phone parts tray 100px wider for better LEFT drag targets. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1249";
+/* HVAC Allstars — offline cache (v1250: align phone-floor/phone-p0 ?v= with index. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1250";
 const CORE = [
 "./",
 "./index.html",
