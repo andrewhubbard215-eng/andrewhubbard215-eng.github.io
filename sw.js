@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1247: no-cool LOTO first step. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1247";
+/* HVAC Allstars — offline cache (v1248: only charge after stable run + proven SH/SC — never on standing. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1248";
 const CORE = [
 "./",
 "./index.html",
