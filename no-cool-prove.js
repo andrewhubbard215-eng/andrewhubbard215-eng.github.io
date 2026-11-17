@@ -1,4 +1,4 @@
-/* No-cool diagnostic sheet — LOTO → call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. */
+/* No-cool diagnostic sheet — LOTO → call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. Only charge after run + SH/SC. */
 (function () {
   "use strict";
   var STEPS = [
@@ -37,6 +37,12 @@
       good: "High pressure cutout. Dirty outdoor coil, dead outdoor fan, or overcharge. Prove airflow and pressures. Do not jump the HPC.",
       bad: "Jumper the HPC so the customer gets cool air now.",
       why: "An open HPC is protecting the system. Jumping it can destroy the compressor. Find why pressure went high."
+    },
+    {
+      ask: "Compressor is running. Gauges show equalized or standing pressures. Do you add charge?",
+      good: "NO. Standing or equalized is NOT a charge. Only charge after stable run with proven SH/SC. Prove zero on both dials first.",
+      bad: "Add a little refrigerant. Standing looks low.",
+      why: "Standing pressures are ambient. Equalized means migration only. Never add or recover on standing. Charge only after the system is running and SH/SC is proven."
     }
   ];
 
@@ -55,7 +61,7 @@
         "<p>" + s.ask + "</p>" +
         "<button type='button' data-ok='1' style='display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border-radius:8px;border:1px solid #3d6'>" + s.good + "</button>" +
         "<button type='button' data-ok='0' style='display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border-radius:8px;border:1px solid #633'>" + s.bad + "</button>" +
-        "<p id='nocool-why' style='min-height:3em;color:#f4e7c8'>Call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor.</p>" +
+        "<p id='nocool-why' style='min-height:3em;color:#f4e7c8'>Call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Standing is NOT a charge.</p>" +
         "<button type='button' id='nocool-back' style='margin-top:12px;padding:10px 14px'>Shop floor</button>";
       root.querySelectorAll("[data-ok]").forEach(function (b) {
         b.onclick = function () {
@@ -67,7 +73,7 @@
             if (i < STEPS.length - 1) {
               setTimeout(function () { i += 1; paint(); }, 700);
             } else {
-              why.textContent = "RIGHT — sheet complete. LOTO first. Open isolated. Never jump a safety. Do not shotgun the compressor.";
+              why.textContent = "RIGHT — sheet complete. LOTO first. Open isolated. Never jump a safety. Standing is NOT a charge. Only charge after stable run + proven SH/SC.";
             }
           } else {
             why.textContent = "WRONG — " + s.why + " Right path: " + s.good;
