@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1251: no-cool sheet standing-is-not-charge step. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1251";
+/* HVAC Allstars — offline cache (v1252: furnace PS prove sheet. Hose/trap/vent first, switch last. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1252";
 const CORE = [
 "./",
 "./index.html",
@@ -19,7 +19,8 @@ const CORE = [
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
 "./manifest.webmanifest",
-"./no-cool-prove.js?v=3"
+"./no-cool-prove.js?v=3",
+"./ps-prove.js?v=1"
 ];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VER).then(function (c) { return Promise.all(CORE.map(function (u) { return c.add(u).catch(function () { return null; }); })); }).then(function () { return self.skipWaiting(); }));
