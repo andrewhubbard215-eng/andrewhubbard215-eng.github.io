@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1248: only charge after stable run + proven SH/SC — never on standing. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1248";
+/* HVAC Allstars — offline cache (v1249: phone parts tray 100px wider for better LEFT drag targets. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1249";
 const CORE = [
 "./",
 "./index.html",
@@ -12,8 +12,8 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=53",
-"./phone-p0.css?v=15",
+"./phone-floor.css?v=54",
+"./phone-p0.css?v=16",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
