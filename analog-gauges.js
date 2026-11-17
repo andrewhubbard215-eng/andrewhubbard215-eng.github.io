@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v45: 500ms hold for 0.0 proven. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v46: clearer seat LEFT on both-zero chip. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -35,7 +35,7 @@
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
       bothChip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 15px sans-serif;color:#22c55e;margin-top:2px;display:none;background:#0a1a0a;padding:4px;border-radius:4px";
-      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. SEAT LOOP LEFT. PARTS LEFT. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% tank = scale only.";
+      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. SEAT 4 LEFT. PARTS LEFT. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% tank = scale only."; bothChip.style.border = "2px solid #22c55e";
       wrap.appendChild(bothChip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {

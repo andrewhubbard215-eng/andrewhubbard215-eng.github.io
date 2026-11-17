@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1253: self-contained index, no remote fetch. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1253";
+/* HVAC Allstars — offline cache (v1254: self-contained index, no remote fetch. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1254";
 const CORE = [
 "./",
 "./index.html",
