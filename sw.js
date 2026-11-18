@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1257: 80% recovery tank scale weight only tip polished. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1257";
+/* HVAC Allstars — offline cache (v1258: 80% recovery tank scale weight only tip polished. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1258";
 const CORE = [
 "./",
 "./index.html",
