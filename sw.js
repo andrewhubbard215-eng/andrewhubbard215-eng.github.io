@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1262: seat 4 LEFT explicit on zero chip. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1262";
+/* HVAC Allstars — offline cache (v1263: equalized standing never recovered. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1263";
 const CORE = [
 "./",
 "./index.html",
