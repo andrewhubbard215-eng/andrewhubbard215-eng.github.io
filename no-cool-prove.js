@@ -27,6 +27,12 @@
       why: "Y is the cooling call. An open HPC, LPC, or float sits in that path. Find the dark box before you condemn the compressor."
     },
     {
+      ask: "Y has 24V but float is open on the ladder. What does that mean?",
+      good: "Float switch open — pan is full or switch failed. Clear the drain, prove the switch closed, then continue. Do not jumper the float.",
+      bad: "Jumper the float so the system runs while you look for the clog later.",
+      why: "An open float is protecting the house from a flood. Jumping it can water-damage the ceiling. Clear the path first."
+    },
+    {
       ask: "Y has 24V. Contactor pulls. Compressor does not start. Next prove?",
       good: "Meter T1 to T2 at the contactor. Voltage there and no start: compressor or capacitor. No voltage: contactor contacts or wiring.",
       bad: "Add refrigerant. Low charge is the only thing that stops a compressor.",
