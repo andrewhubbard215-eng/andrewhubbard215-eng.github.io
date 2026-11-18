@@ -1,4 +1,4 @@
-/* No-cool diagnostic sheet — LOTO → call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. Only charge after run + SH/SC. */
+/* No-cool diagnostic sheet — LOTO → call → 240 → disconnect → R–C → Y → HPC → LPC → float → coil → T1 → compressor. Meter first. Zero gauges before any charge decision. Only charge after run + SH/SC. */
 (function () {
   "use strict";
   var STEPS = [
@@ -43,6 +43,12 @@
       good: "High pressure cutout. Dirty outdoor coil, dead outdoor fan, or overcharge. Prove airflow and pressures. Do not jump the HPC.",
       bad: "Jumper the HPC so the customer gets cool air now.",
       why: "An open HPC is protecting the system. Jumping it can destroy the compressor. Find why pressure went high."
+    },
+    {
+      ask: "Compressor is running. Before you trust the gauges, what must you prove?",
+      good: "Hoses completely OFF the ports. Both dials read green 0.0. Then seat and hook. Zero every hook-up.",
+      bad: "Hook the gauges while they are still sitting on the truck and start reading.",
+      why: "A gauge that is not zeroed lies. Prove 0.0 on both dials with hoses off before you call any pressure real. LOTO if power is on."
     },
     {
       ask: "Compressor is running. Gauges show equalized or standing pressures. Do you add charge?",

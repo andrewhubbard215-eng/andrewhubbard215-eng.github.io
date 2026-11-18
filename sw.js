@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1259: no-cool sheet + float prove step. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1259";
+/* HVAC Allstars — offline cache (v1260: no-cool zero-prove step. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1260";
 const CORE = [
 "./",
 "./index.html",
@@ -18,7 +18,7 @@ const CORE = [
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
 "./manifest.webmanifest",
-"./no-cool-prove.js?v=5",
+"./no-cool-prove.js?v=6",
 "./ps-prove.js?v=1"
 ];
 self.addEventListener("install", function (e) {
