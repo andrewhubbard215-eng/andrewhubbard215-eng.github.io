@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1258: 80% recovery tank scale weight only tip polished. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1258";
+/* HVAC Allstars — offline cache (v1259: no-cool sheet + float prove step. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1259";
 const CORE = [
 "./",
 "./index.html",
@@ -18,7 +18,7 @@ const CORE = [
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
 "./manifest.webmanifest",
-"./no-cool-prove.js?v=4",
+"./no-cool-prove.js?v=5",
 "./ps-prove.js?v=1"
 ];
 self.addEventListener("install", function (e) {
