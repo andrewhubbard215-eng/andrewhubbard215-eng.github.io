@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1265: PARTS LEFT chips stay LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1265";
+/* HVAC Allstars — offline cache (v1266: SW sync, ZERO prove clear, PARTS LEFT. No combat) */
+const VER = "lt-allstars-v1266";
 const CORE = [
 "./",
 "./index.html",
