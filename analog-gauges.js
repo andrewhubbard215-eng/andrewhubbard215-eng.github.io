@@ -30,12 +30,12 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. FIRST YEAR: LOTO disconnect + meter 24V string before any hose. Then seat 4 LEFT. Prove zero every hook-up. Equalized (blue=red) = migration ONLY — DO NOT RECOVER or ADD. Standing is NOT a charge — never add refrigerant on equalized or standing. Only charge after run with proven SH/SC. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY. Parts LEFT only.";
+      tip.textContent = "LOTO FIRST (disconnect + meter 24V) then ZERO BOTH — hoses COMPLETELY OFF, green 0.0 PROVEN BOTH. Then seat COMP · COND · TXV · EVAP from LEFT rail only. Prove zero every hook-up. Equalized (blue=red) = migration ONLY — DO NOT RECOVER or ADD. Standing is NOT a charge — never add refrigerant on equalized or standing. Only charge after run with proven SH/SC. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY. Parts LEFT only.";
       wrap.appendChild(tip);
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
       bothChip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 15px sans-serif;color:#22c55e;margin-top:2px;display:none;background:#0a1a0a;padding:4px;border-radius:4px";
-      bothChip.textContent = "BOTH DIALS 0.0 PROVEN GREEN — hoses OFF. SEAT COMP · COND · TXV · EVAP LEFT. Loop first. PARTS LEFT only. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% recovery = SCALE WEIGHT ONLY."; bothChip.style.border = "2px solid #22c55e";
+      bothChip.textContent = "BOTH 0.0 GREEN PROVEN — NOW SEAT COMP COND TXV EVAP FROM LEFT RAIL ONLY. Loop first. No inventing parts. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% = SCALE ONLY."; bothChip.style.border = "2px solid #22c55e";
       wrap.appendChild(bothChip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {

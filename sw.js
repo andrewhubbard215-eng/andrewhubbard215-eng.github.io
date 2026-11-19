@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1268: first-year LOTO tip on zero coach. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1268";
+/* HVAC Allstars — offline cache (v1269: LOTO first then zero then seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1269";
 const CORE = [
 "./",
 "./index.html",
