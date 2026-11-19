@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v48: seat COMP COND TXV EVAP LEFT explicit explicit on both-zero chip. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v49: first-year LOTO explicit on zero tip. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -30,7 +30,7 @@
       wrap.appendChild(red);
       var tip = document.createElement("div");
       tip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 12px sans-serif;color:#22c55e;margin-top:4px";
-      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. Then seat 4 LEFT. LOTO + meter 24V if powered. Prove zero every hook-up. Equalized (blue=red) = migration ONLY — DO NOT RECOVER or ADD. Standing is NOT a charge — never add refrigerant on equalized or standing. Only charge after run with proven SH/SC. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY. Parts LEFT only.";
+      tip.textContent = "ZERO BOTH FIRST — hoses COMPLETELY OFF ports, green 0.0 PROVEN on BOTH. FIRST YEAR: LOTO disconnect + meter 24V string before any hose. Then seat 4 LEFT. Prove zero every hook-up. Equalized (blue=red) = migration ONLY — DO NOT RECOVER or ADD. Standing is NOT a charge — never add refrigerant on equalized or standing. Only charge after run with proven SH/SC. 80% recovery tank is scale weight ONLY — never gauge or feel. NEVER JUMP A SAFETY. Parts LEFT only.";
       wrap.appendChild(tip);
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
