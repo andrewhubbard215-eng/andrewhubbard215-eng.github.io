@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1270: clean playtest. LOTO first then zero then seat LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1270";
+/* HVAC Allstars — offline cache (v1271: first-year sequence locked on both-zero chip. LOTO → both 0.0 proven → seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1271";
 const CORE = [
 "./",
 "./index.html",

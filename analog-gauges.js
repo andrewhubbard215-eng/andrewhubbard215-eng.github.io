@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v49: first-year LOTO explicit on zero tip. Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v50: first-year sequence locked on both-zero chip (LOTO → both 0.0 proven → seat LEFT). Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -35,7 +35,7 @@
       var bothChip = document.createElement("div");
       bothChip.id = "sb-both-zero-chip";
       bothChip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 15px sans-serif;color:#22c55e;margin-top:2px;display:none;background:#0a1a0a;padding:4px;border-radius:4px";
-      bothChip.textContent = "BOTH 0.0 GREEN PROVEN — NOW SEAT COMP COND TXV EVAP FROM LEFT RAIL ONLY. Loop first. No inventing parts. LOTO if powered. Standing ≠ charge. Never add on equalized. 80% = SCALE ONLY."; bothChip.style.border = "2px solid #22c55e";
+      bothChip.textContent = "BOTH 0.0 GREEN PROVEN — FIRST YEAR SEQUENCE: LOTO disconnect + meter 24V string. Hoses OFF. Green 0.0 BOTH dials. THEN seat COMP·COND·TXV·EVAP from LEFT rail only. Never invent parts. Standing ≠ charge. Never add on equalized. 80% = SCALE ONLY. Prove SH/SC after stable run."; bothChip.style.border = "2px solid #22c55e";
       wrap.appendChild(bothChip);
     }
     ["sb-gauge-blue", "sb-gauge-red"].forEach(function (id) {
