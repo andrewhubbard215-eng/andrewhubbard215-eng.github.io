@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1272: punchier first-year both-zero chip. LOTO → both 0.0 proven → seat LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1272";
+/* HVAC Allstars — offline cache (v1273: punchier first-year clock-in LOTO→both 0.0→LEFT reminder. LOTO → both 0.0 proven → seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1273";
 const CORE = [
 "./",
 "./index.html",
