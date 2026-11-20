@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1289: clearer phone equalized chip). Parts LEFT. No combat */
-const VER = "lt-allstars-v1289";
+/* HVAC Allstars — offline cache (v1290: eq chip border + larger for phone). Parts LEFT. No combat */
+const VER = "lt-allstars-v1290";
 const CORE = [
 "./",
 "./index.html",
