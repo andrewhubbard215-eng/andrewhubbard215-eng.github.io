@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1288: clearer FIRST YEAR LOCK wording. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1288";
+/* HVAC Allstars — offline cache (v1289: clearer phone equalized chip). Parts LEFT. No combat */
+const VER = "lt-allstars-v1289";
 const CORE = [
 "./",
 "./index.html",

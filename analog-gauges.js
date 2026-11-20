@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v52: punchier phone HOLD 0.0 PROVEN (hoses OFF then seat LEFT). Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v53: clearer eq chip (larger + bg for phone). Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -131,7 +131,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 11px sans-serif;color:#fbbf24;margin-top:2px;max-width:92vw";
+      chip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 13px sans-serif;color:#fbbf24;background:#1a1508;padding:4px;border-radius:4px;margin-top:2px;max-width:92vw";
       var wrap = document.getElementById("sb-analog-wrap");
       if (wrap) wrap.appendChild(chip);
     }
