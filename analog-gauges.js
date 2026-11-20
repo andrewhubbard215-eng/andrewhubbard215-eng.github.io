@@ -55,7 +55,7 @@
         var isZero = psi != null && Math.abs(psi) < 1;
         var msg = document.createElement("div");
         msg.style.cssText = "position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);background:#0b1220;color:#22c55e;padding:20px 24px;border:3px solid #22c55e;border-radius:10px;z-index:9999;font:bold 20px sans-serif;text-align:center;max-width:85vw;box-shadow:0 0 20px #22c55e55;";
-        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>this dial OK · prove BOTH · hoses OFF" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
+        msg.innerHTML = isZero ? "0.0 PROVEN GREEN<br>this dial OK · prove BOTH · hoses OFF<br>THEN seat COMP·COND·TXV·EVAP LEFT" : "ZERO BOTH FIRST<br>hoses completely OFF ports<br>must read 0.0 PROVEN green";
         if (isZero) {
           cv.dataset.zeroProven = "1";
           var blue = document.getElementById("sb-gauge-blue");
@@ -74,7 +74,7 @@
         if (holdProgress && holdProgress.parentNode) holdProgress.parentNode.removeChild(holdProgress);
         holdProgress = document.createElement("div");
         holdProgress.style.cssText = "position:fixed;bottom:18%;left:50%;transform:translateX(-50%);background:#0b1220;color:#fbbf24;padding:10px 16px;border:2px solid #fbbf24;border-radius:8px;z-index:9998;font:bold 16px sans-serif;text-align:center;";
-        holdProgress.textContent = "HOLD for 0.0 PROVEN · hoses OFF · then seat LEFT";
+        holdProgress.textContent = "HOLD for 0.0 PROVEN · hoses OFF · then seat LEFT rail only";
         document.body.appendChild(holdProgress);
         holdTimer = setTimeout(showZeroMsg, 500);
       }
