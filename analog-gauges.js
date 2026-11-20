@@ -1,4 +1,4 @@
-/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v53: clearer eq chip (larger + bg for phone). Parts LEFT. No combat. */
+/* Analog manifold faces — both sides always visible, follow live LPC/HPC. v54: eq chip larger font + border when active. Parts LEFT. No combat. */
 (function () {
   "use strict";
   function parsePsig(el) {
@@ -131,7 +131,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 13px sans-serif;color:#fbbf24;background:#1a1508;padding:4px;border-radius:4px;margin-top:2px;max-width:92vw";
+      chip.style.cssText = "grid-column:1/-1;text-align:center;font:bold 14px sans-serif;color:#fbbf24;background:#1a1508;padding:6px;border-radius:4px;margin-top:2px;max-width:92vw";
       var wrap = document.getElementById("sb-analog-wrap");
       if (wrap) wrap.appendChild(chip);
     }
@@ -139,6 +139,8 @@
       var amb = 75;
       var eq = lp != null && hp != null && Math.abs(lp - hp) < 8 && Math.abs(lp - amb) < 12;
       chip.textContent = eq ? "STOP — DO NOT RECOVER or ADD. FIRST: seat COMP\u00b7COND\u00b7TXV\u00b7EVAP LEFT. ZERO both (green 0.0 PROVEN, hoses OFF). LOTO + meter 24V string. Unit off. Blue=red=ambient = migration only. Never recover, never add. Prove filter & coils CLEAR — no dirt, no ice — before naming undercharge. Iced suction = DO NOT ADD or RECOVER. NEVER add to ice. Then power on, wait 5-10 min stable SH/SC. Parts LEFT only." : "Prove ZERO both dials every hook-up. Seat 4 LEFT. LOTO first. Standing is NOT a charge.";
+      chip.style.border = eq ? "2px solid #fbbf24" : "none";
+      chip.style.fontSize = eq ? "15px" : "14px";
     }
   }
   setInterval(tick, 400);
