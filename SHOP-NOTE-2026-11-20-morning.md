@@ -1,0 +1,1 @@
+Morning shift 2026-11-20: played live, no crashes. Phone diamond visible, parts LEFT drag, ladder readable, HUB clear. Shipped board-code locker first-year prove lock (meter the open, door sticker law, why-wrong explicit). v3.5.1028 SW v1281. Parts LEFT. No combat.
