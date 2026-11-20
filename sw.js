@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1281: board-code locker tighter first-year prove. Meter the open. Door sticker is law. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1281";
+/* HVAC Allstars — offline cache (v1282: clearer first-year LOTO → hoses OFF ports → HOLD green 0.0 BOTH proven → seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1282";
 const CORE = [
 "./",
 "./index.html",
