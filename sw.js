@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1277: metering match tip on strip. Piston by chart SH, TXV by SC 8-14. First-year lock. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1277";
+/* HVAC Allstars — offline cache (v1278: punchier first-year lock. LOTO → hoses OFF → green 0.0 BOTH → seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1278";
 const CORE = [
 "./",
 "./index.html",
