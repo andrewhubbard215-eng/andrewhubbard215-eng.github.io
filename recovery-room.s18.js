@@ -10,7 +10,7 @@ window.__LT_RC_SRC+="\n  }\n\n  function build() {\n    var root = document.getE
 window.__LT_RC_SRC+="ecovery-root\");\n    if (!root) return;\n    ensureCss();\n    root.inn"
 window.__LT_RC_SRC+="erHTML =\n      '<div class=\"rc-wrap\">' +\n      '<div class=\"rc-head\""
 window.__LT_RC_SRC+="><h2>Recovery room</h2><button id=\"rc-reset\" class=\"btn\" type=\"butto"
-window.__LT_RC_SRC+="n\">Reset bay</button></div>' +\n      '<p class=\"rc-lede\">ZERO scale first (hoses COMPLETELY OFF ports). Blue → LO only. Red → HI only. Never cross hoses. Yellow after recovery. 80% tank hard stop is law. Scale is the only proof — weigh it, don't guess.</p>' +\n    "
+window.__LT_RC_SRC+="n\">Reset bay</button></div>' +\n      '<p class=\"rc-lede\">ZERO scale first (hoses COMPLETELY OFF ports). Blue → LO only. Red → HI only. Never cross hoses. Yellow after recovery. SCALE WEIGHT is law — hard STOP at 80% WC. Weigh every cylinder. Overfill hydro-locks. Scale is the only proof — never trust the tank gauge.</p>' +\n    "
 window.__LT_RC_SRC+="  '<div id=\"rc-guide\" class=\"rc-guide\"><p id=\"rc-guide-say\" class=\"r"
 window.__LT_RC_SRC+="c-guide-say\"></p>' +\n      '<div class=\"rc-guide-bar\"><button id=\"rc"
 window.__LT_RC_SRC+="-skip-guide\" class=\"btn\" type=\"button\">Skip guide</button>' +\n      "
