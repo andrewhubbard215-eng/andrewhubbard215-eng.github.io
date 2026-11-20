@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1284: first-year lock punch — Prove ZERO every hook-up before seat LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1284";
+/* HVAC Allstars — offline cache (v1285: punchier phone HOLD 0.0 PROVEN then seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1285";
 const CORE = [
 "./",
 "./index.html",
@@ -12,6 +12,7 @@ const CORE = [
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
 "./phone-floor.css?v=54",
+"./phone-sandbox-fit.css?v=3",
 "./phone-p0.css?v=16",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",

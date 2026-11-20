@@ -91,13 +91,14 @@
 }
 
 
-/* v3.5.1022 phone zero-prove: larger both-zero chip so first-year sees green 0.0 BOTH proven */
+/* v3.5.1032 phone zero-prove: larger both-zero chip + hold so first-year sees green 0.0 BOTH proven */
 @media (max-width: 480px) {
   #sb-both-zero-chip, .sb-both-zero-chip {
-    font-size: 12px !important;
-    line-height: 1.2 !important;
-    padding: 8px 10px !important;
-    max-width: 92vw !important;
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+    padding: 10px 12px !important;
+    max-width: 94vw !important;
     z-index: 210 !important;
+    border-width: 3px !important;
   }
 }
