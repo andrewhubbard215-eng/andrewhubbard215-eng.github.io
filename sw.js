@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1282: clearer first-year LOTO → hoses OFF ports → HOLD green 0.0 BOTH proven → seat LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1282";
+/* HVAC Allstars — offline cache (v1283: punchier first-year LOTO → hoses OFF → HOLD green 0.0 BOTH proven before seat LEFT. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1283";
 const CORE = [
 "./",
 "./index.html",
