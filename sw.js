@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1286: recovery 80% scale-weight tip polish. Punchier phone HOLD phone HOLD 0.0 PROVEN then seat LEFT. Parts LEFT. No combat) */
-const VER = "lt-allstars-v1286";
+/* HVAC Allstars — offline cache (v1287: phone long-press HOLD zero in first-year lock. Parts LEFT. No combat) */
+const VER = "lt-allstars-v1287";
 const CORE = [
 "./",
 "./index.html",
