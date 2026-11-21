@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1296: LOTO + meter 24V string first then zero both). Parts LEFT. No combat */
-const VER = "lt-allstars-v1296";
+/* HVAC Allstars — offline cache (v1297: restored index shell + first-year lock copy). Parts LEFT. No combat */
+const VER = "lt-allstars-v1297";
 const CORE = [
 "./",
 "./index.html",
