@@ -1,7 +1,9 @@
 # SHOP-NOTE 2026-11-21 short shift
 
-Live was PLACEHOLDER. Restored full shop-floor index.html (dual SKU, first-year lock copy, all modes). Bumped SW to v1297.
+Live played clean — clock in → sandbox (parts LEFT, real SH/SC, LOTO/zero), all modes present, no combat.
 
-Tech can play: clock in → sandbox (parts LEFT, real SH/SC), ladder/lugs, no-cool sheet, exam, service, mini-split, HUB AI, HVAC Jesus work clothes. No combat.
+Shipped: loaded inducer-prove.js so the Inducer prove card mounts on the shop floor next to PS/SOO. Six-step path: call → motor voltage/amps → hose/trap/vent → 24V → vacuum vs rating → switch LAST. Why-wrong keeps techs off jumping safeties or condemning boards first.
 
-Next: inducer diagnostics deeper on furnace SOO, or board-code why-wrong polish.
+Tech can play: same bay + deeper inducer diagnostics without leaving the floor.
+
+Next: board-code why-wrong polish, or one more SOO limit/rollout µA edge case.

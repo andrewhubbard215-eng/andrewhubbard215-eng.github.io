@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1297: restored index shell + first-year lock copy). Parts LEFT. No combat */
-const VER = "lt-allstars-v1297";
+/* HVAC Allstars — offline cache (v1298: inducer prove card on shop floor). Parts LEFT. No combat */
+const VER = "lt-allstars-v1298";
 const CORE = [
 "./",
 "./index.html",
