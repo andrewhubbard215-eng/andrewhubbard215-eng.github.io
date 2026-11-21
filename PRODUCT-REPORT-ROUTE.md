@@ -1,4 +1,14 @@
 DATE: 2026-11-20
+LIVE: v3.5.1040
+SW: lt-allstars-v1293
+PLAYED: Clock In. Versions aligned on bootstrap, SW CORE, and live Pages. Hard-refresh confirmed v3.5.1040. Parts LEFT. No combat.
+BROKE: none
+FIXED: none this shift (versions already matched)
+SHIPPED: cache/SW consistency check. sku branding-only. sandbox-ts no older hook. No new modules. No combat.
+STILL OPEN: offline list rebuild on pinned file change.
+TOMORROW: offline list rebuild or exam why-wrong polish or phone drag tighten.
+
+DATE: 2026-11-20
 LIVE: v3.5.1032
 SW: lt-allstars-v1285
 PLAYED: Clock In. System sandbox (parts LEFT COMP/COND/TXV/EVAP). Meter school (BLACK → COM / RED → VΩ bar top, Equip ground lands on GND, chip vanishes). Service calls (slim rail, Hook gauges, system stays visible/clickable). HUB. No crash. PC fills. No leftover-box / hidden-directions / blocked-drop. No combat.
