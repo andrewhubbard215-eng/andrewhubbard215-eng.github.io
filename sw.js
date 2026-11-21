@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1294: first-year lock + equalized migration exam item). Parts LEFT. No combat */
-const VER = "lt-allstars-v1294";
+/* HVAC Allstars — offline cache (v1295: phone whole DX diamond visible + zero-prove). Parts LEFT. No combat */
+const VER = "lt-allstars-v1295";
 const CORE = [
 "./",
 "./index.html",
@@ -12,7 +12,7 @@ const CORE = [
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
 "./phone-floor.css?v=54",
-"./phone-sandbox-fit.css?v=3",
+"./phone-sandbox-fit.css?v=4",
 "./phone-p0.css?v=16",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",
