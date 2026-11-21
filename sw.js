@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1293: first-year LOTO+meter 24V then HOLD 0.0 BOTH then seat LEFT). Parts LEFT. No combat */
-const VER = "lt-allstars-v1293";
+/* HVAC Allstars — offline cache (v1294: first-year lock + equalized migration exam item). Parts LEFT. No combat */
+const VER = "lt-allstars-v1294";
 const CORE = [
 "./",
 "./index.html",

@@ -167,6 +167,26 @@
       "Why it's wrong: the pressure switch proves draft AFTER the inducer runs. It cannot start the inducer. Sequence is W → inducer → PS close → ignitor → valve."
     ]
   };
+
+  var EQUALIZED = {
+    q: "Unit is off. Gauges hooked, both dials read the same ambient psig (blue = red). What is the call?",
+    choices: [
+      "Equalized = migration only. Standing pressures are ambient. Do not recover or add gas. Seat parts LEFT, start, then charge only after stable run with proven SH/SC.",
+      "Recover to empty and weigh in a new charge. Equalized means it is flat.",
+      "Add a couple pounds so it has something to start on.",
+      "Jump the LPC and start it to see if pressures separate."
+    ],
+    a: 0,
+    why: "Equalized (blue=red) on a stopped unit is migration only — refrigerant has equalized to ambient. Standing is NOT a charge. Never recover or add on standing pressures. LOTO, prove zero both dials with hoses OFF, seat COMP·COND·TXV·EVAP from LEFT rail only, start the unit, wait for stable run, then name the charge by SH/SC (piston by chart SH, TXV by SC 8-14). 80% recovery tank stop is scale weight only.",
+    whyWrong: "Equalized = migration only. Standing is NOT a charge. Do not recover or add until the system is running and SH/SC is proven.",
+    wrong: [
+      null,
+      "Why it's wrong: equalized is not a flat system. It is migration to ambient. Recovering a good charge wastes refrigerant and leaves you short after you start. Prove zero first, then run it.",
+      "Why it's wrong: adding gas on standing pressures has no SH/SC to aim at. You will overcharge or undercharge blind. Start the unit and charge by the math.",
+      "Why it's wrong: jumping a safety is never the first move. Equalized pressures are normal with the unit off. Start it the right way and read SH/SC."
+    ]
+  };
+
   function fill(it) {
     if (!it || !it.q || it.wrong) return;
     var list = W[it.q];
@@ -192,6 +212,7 @@
     if (!bank[key].some(function (q) { return q && q.q === PS_PROVE.q; })) bank[key].push(PS_PROVE);
     if (!bank[key].some(function (q) { return q && q.q === BOARD.q; })) bank[key].push(BOARD);
     if (!bank[key].some(function (q) { return q && q.q === INDUCER.q; })) bank[key].push(INDUCER);
+    if (!bank[key].some(function (q) { return q && q.q === EQUALIZED.q; })) bank[key].push(EQUALIZED);
     return true;
   }
   var n = 0;
