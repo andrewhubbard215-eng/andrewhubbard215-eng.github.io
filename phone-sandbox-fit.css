@@ -90,7 +90,6 @@
   }
 }
 
-
 /* v3.5.1032 phone zero-prove: larger both-zero chip + hold so first-year sees green 0.0 BOTH proven */
 @media (max-width: 480px) {
   #sb-both-zero-chip, .sb-both-zero-chip {
@@ -100,5 +99,19 @@
     max-width: 94vw !important;
     z-index: 210 !important;
     border-width: 3px !important;
+  }
+}
+
+/* morning 2026-11-21: whole DX diamond visible on phone. Shrink main loop area so seats + gauges + Start fit one screen. Drag from LEFT rail. */
+@media (max-width: 480px) {
+  #sandbox-root .sb-main, #sandbox-root .sb-diamond, #sandbox-root .sb-loop {
+    max-height: 42vh !important;
+    overflow: visible !important;
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+  #sandbox-root .sb-layout {
+    height: 100vh !important;
+    overflow: hidden !important;
   }
 }
