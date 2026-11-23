@@ -1,4 +1,4 @@
-/* HVAC Allstars — offline cache (v1327: align with v3.5.1071 float prove sheet). Parts LEFT. No combat */
+/* HVAC Allstars — offline cache (v1327: LOOP OPEN seat names + shop-floor-copy restore. Align v3.5.1072 float prove sheet). Parts LEFT. No combat */
 const VER = "lt-allstars-v1327";
 const CORE = [
 "./",
