@@ -1,0 +1,107 @@
+/* Phone rail — full part names LEFT, diamond stays on glass */
+@media (max-width: 480px) {
+  .sb-layout {
+    grid-template-columns: 108px minmax(0, 1fr) !important;
+  }
+  .sb-palette, .parts-tray, .sb-tray, [data-parts-tray] {
+    width: 108px !important;
+    max-width: 108px !important;
+  }
+  .sb-palette .btn,
+  .parts-tray .btn,
+  [data-parts-tray] .btn {
+    font-size: 12px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.15 !important;
+  }
+  body.lab-open #hub-ai,
+  body.lab-open .hub-ai-dock,
+  body.lab-open .hub-chat {
+    max-width: 42vw;
+    max-height: 22vh;
+  }
+}
+
+/* Dispatch sits above the hose drop. Palette stays left. Preview stays up. */
+@media (max-width: 480px) {
+  #lt-dispatch, .svc-rail, #screen-service .svc-card {
+    position: relative !important;
+    bottom: auto !important;
+  }
+  #svc-system-host { padding-bottom: 96px; }
+  #lt-dispatch, #sb-dispatch { position: relative !important; bottom: auto !important; top: auto !important; }
+  .lt-hose, .lt-port, .sb-palette, .parts-tray { position: relative; z-index: 6; }
+  .lt-palette, .sb-palette { left: 0 !important; }
+  #lt-preview { position: sticky; top: 0; z-index: 5; }
+}
+
+/* Phone: sheet scrolls inside 26vh so Hook gauges, preview, and hose drop stay on the glass. Choices stay tappable inside the sheet. */
+@media (max-width: 720px) {
+  #screen-service .svc-rail,
+  #screen-service .svc-card {
+    position: relative !important;
+    z-index: 8 !important;
+    max-height: 26vh !important;
+    overflow: auto !important;
+  }
+  #screen-service .svc-choice { position: relative; z-index: 9; pointer-events: auto; }
+  #lt-g-low, #lt-g-high { pointer-events: none; max-height: 96px; }
+  #lt-ticket-bay { position: relative; z-index: 1; }
+  #lt-dispatch, #sb-dispatch {
+    position: relative !important;
+    bottom: auto !important;
+    top: auto !important;
+    max-height: 52px;
+    overflow: hidden;
+    width: auto !important;
+    pointer-events: auto;
+  }
+  #lt-quote { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70vw; }
+  #lt-preview { position: sticky; top: 0; z-index: 5; }
+  .lt-floor { grid-template-columns: 92px minmax(0, 1fr) !important; }
+  .lt-palette {
+    position: relative !important;
+    left: 0 !important;
+    min-height: 148px;
+    z-index: 6;
+    pointer-events: auto;
+  }
+  .lt-hose, .lt-port { min-height: 44px; pointer-events: auto; position: relative; z-index: 7; }
+}
+
+/* v3.5.549 phone: LEFT seat plates — one compact name per plate, no overlap before seating. Positions untouched. */
+@media (max-width: 480px) {
+  #sb-seats .sb-seat:not(.on) span {
+    display: block; max-width: 64px; margin: 0 auto;
+    font: 700 9px/1.1 sans-serif !important; letter-spacing: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    background: rgba(15,23,42,.85); border-radius: 4px; padding: 1px 3px;
+  }
+  #sb-seats .sb-seat.on span { display: none; }
+  #sb-seats .sb-seat:focus, #sb-seats .sb-seat:hover { z-index: 3; }
+}
+
+/* v3.5.552 LEFT rail stays put when a part seats: same box before/after, scrollbar space reserved. */
+#sandbox-root .sb-palette, #sandbox-root .parts-tray, #sandbox-root [data-parts-tray] { scrollbar-gutter: stable; overflow-anchor: none; }
+#sandbox-root .sb-palette [data-part], #sandbox-root .parts-tray [data-part], #sandbox-root [data-parts-tray] [data-part] {
+  box-sizing: border-box !important; border-width: 2px !important; border-style: solid !important;
+  min-height: 44px; margin-top: 0; margin-bottom: 4px; transform: none !important;
+}
+#sandbox-root .sb-palette [data-part].primary, #sandbox-root .sb-palette [data-part][aria-pressed="true"],
+#sandbox-root .parts-tray [data-part].primary, #sandbox-root [data-parts-tray] [data-part].primary {
+  border-width: 2px !important; margin-bottom: 4px;
+}
+
+/* v3.5.564 phone PACKS list: no hard-cut button sliver at the bottom edge. Soft fade says more below; buttons snap whole; last one clears the fade. */
+@media (max-width: 720px) {
+  #sandbox-root .sb-zone-b {
+    padding-bottom: 32px !important;
+    scroll-snap-type: y proximity;
+    scroll-padding: 4px 0 32px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+  }
+  #sandbox-root .sb-zone-b > * { scroll-snap-align: start; flex-shrink: 0; }
+}

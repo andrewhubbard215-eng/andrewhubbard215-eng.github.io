@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hvachub.allstars",
+      "sha256_cert_fingerprints": [
+        "41:45:C4:50:1C:DA:E7:A7:CD:ED:1B:4F:A2:DF:55:DA:CA:61:57:6D:6F:DB:97:C7:B2:F6:A9:F8:B0:EB:BE:7A"
+      ]
+    }
+  }
+]

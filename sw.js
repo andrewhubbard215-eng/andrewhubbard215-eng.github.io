@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1323: align register + version strip for shop commits load). Parts LEFT. No combat */
-const VER = "lt-allstars-v1323";
+/* HVAC Allstars — offline cache (v1324: align register + version strip for shop commits load). Parts LEFT. No combat */
+const VER = "lt-allstars-v1324";
 const CORE = [
 "./",
 "./index.html",

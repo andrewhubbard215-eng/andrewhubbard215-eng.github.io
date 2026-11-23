@@ -1,0 +1,1 @@
+v3.5.626: Played live. No crash. Sandbox card now tips equalized = do not recover (parts LEFT). Tech can run sandbox, electrical ladder, exam, service calls, mini-split, HUB AI, HVAC Jesus. SW v871. No combat. Preview left running.

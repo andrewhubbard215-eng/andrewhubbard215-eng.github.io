@@ -1,0 +1,1 @@
+v3.5.623: Played live shop floor. No crash. Sandbox equalized tip now says parts LEFT, do not recover or add on standing blue=red. Tech can run sandbox, electrical, exam, service, mini-split. SW v869. No combat. Preview left running.
