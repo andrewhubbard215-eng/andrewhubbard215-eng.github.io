@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1330: tighter standing tip: LOTO+meter first then HOLD zero prove before seat LEFT). Parts LEFT. No combat */
-const VER = "lt-allstars-v1330";
+/* HVAC Allstars — offline cache (v1331: SW register cache-bust aligned so latest first-year lock tips load. Parts LEFT. No combat). Parts LEFT. No combat */
+const VER = "lt-allstars-v1331";
 const CORE = [
 "./",
 "./index.html",
