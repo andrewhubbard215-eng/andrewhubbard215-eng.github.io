@@ -1,5 +1,5 @@
 /* Shop save — TS sheet follows the bay, not a free tap.
-   v22 — standing tip tighter: equalized is never a charge. Phone max-height holds.
+   v23 — standing first body names LOTO+meter then HOLD green 0.0 proven before seat LEFT: equalized is never a charge. Phone max-height holds.
    v20 — standing wait clearer: 5–10 min for stable after start: blue=red is not a diagnosis: equalized is not a charge or diagnosis. Phone max-height still holds.
    v16 — cutout step names the plant on the fault line. Generic fingerprint is not a call.
    v15 — HPC/LPC cutout is not standing. Button no longer says Stop, sheet stayed on step 1.
@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Standing first", body: "Unit off. Blue = red = equalized. Equalized is never a charge and never a diagnosis. Start the compressor, wait 5–10 min for stable SH/SC, then read." },
+    { n: "1", title: "Standing first", body: "LOTO first + meter outdoor 24V R-C/Y BEFORE any hose. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat four LEFT, Start, wait 5–10 min stable, then read SH/SC. Equalized standing is never a charge or diagnosis." },
     { n: "2", title: "Seat the four LEFT", body: "Four parts LEFT green before Start: compressor, condenser, TXV, evaporator. Then start the compressor." },
     { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },

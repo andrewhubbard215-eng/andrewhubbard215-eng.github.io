@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1332: clearer HOLD full-green-bar tip in shop-floor-copy. Parts LEFT. No combat). Parts LEFT. No combat */
-const VER = "lt-allstars-v1332";
+/* HVAC Allstars — offline cache (v1333: standing first step names LOTO+meter then HOLD green 0.0 proven before seat LEFT. Parts LEFT. No combat). Parts LEFT. No combat */
+const VER = "lt-allstars-v1333";
 const CORE = [
 "./",
 "./index.html",
