@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1329: clearer HOLD — do not release until green bar is FULL for zero prove. Align v3.5.1074 float prove sheet). Parts LEFT. No combat */
-const VER = "lt-allstars-v1329";
+/* HVAC Allstars — offline cache (v1330: tighter standing tip: LOTO+meter first then HOLD zero prove before seat LEFT). Parts LEFT. No combat */
+const VER = "lt-allstars-v1330";
 const CORE = [
 "./",
 "./index.html",
