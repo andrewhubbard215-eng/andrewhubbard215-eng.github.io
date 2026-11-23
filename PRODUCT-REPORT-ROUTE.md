@@ -1,12 +1,12 @@
-DATE: 2026-11-22
-LIVE: v3.5.1069
-SW: lt-allstars-v1324
-PLAYED: Clock In. App loaded (cached). Scripts 404 on fresh load — main branch stripped of assets.
-BROKE: Supporting JS/CSS/images missing on main (404). Fresh visits broken. Cached SW hid it.
-FIXED: Restored full asset tree from master onto main. Bumped version/SW. Parts LEFT. No combat.
-SHIPPED: Asset restore + cache bump. Shop floor loads again for new techs.
+DATE: 2026-11-23
+LIVE: v3.5.1075
+SW: lt-allstars-v1330
+PLAYED: Clock In. Shop floor loaded. Service calls opened. Hook gauges button present. System sandbox button present. Voltmeter school present.
+BROKE: Service-root empty on open (possible init delay or missing paint). No full gauges needles visible in snapshot.
+FIXED: None this shift. Asset tree present. No crash on load.
+SHIPPED: Report only. Parts LEFT. No combat.
 sku branding-only.
 No new modules.
 No combat.
-STILL OPEN: offline list rebuild on pinned file change.
-TOMORROW: exam why-wrong polish or phone drag tighten.
+STILL OPEN: service screen full paint / gauges digital window on first open. Offline list rebuild. Phone drag.
+TOMORROW: verify gauges needles + digital psig in service/sandbox. Check meter school direction bar.
