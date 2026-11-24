@@ -1,4 +1,4 @@
-/* Clock-in floor v48 — cards start sandbox / PS prove / furnace SOO. No remote blob. */
+/* Clock-in floor v49 — service shell so start() paints. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -19,6 +19,24 @@
       try { window.ltGoHub(); return; } catch (_) {}
     }
     show("hub");
+  }
+  function ensureServiceShell() {
+    var root = document.getElementById("service-root");
+    if (!root) return;
+    if (root.querySelector("#svc-name")) return;
+    root.innerHTML = '<div class="svc-card panel" style="padding:12px;max-width:720px;margin:0 auto">' +
+      '<p id="svc-eyebrow" class="eyebrow">Service call</p>' +
+      '<h2 id="svc-title">On site</h2>' +
+      '<div style="display:flex;gap:12px;align-items:center"><span id="svc-avatar" style="font-size:32px">🏠</span><div><strong id="svc-name">Customer</strong><p id="svc-job">Job</p></div></div>' +
+      '<p id="svc-quote" style="font-style:italic"></p>' +
+      '<p id="svc-vitals"></p>' +
+      '<p id="svc-prompt"></p>' +
+      '<div id="svc-choices"></div>' +
+      '<div id="svc-feedback" class="svc-feedback"></div>' +
+      '<p id="svc-score"></p><p id="svc-rating"></p><p id="svc-pay" style="font-size:12px;color:#c9b48a"></p>' +
+      '<button type="button" class="btn" id="btn-svc-hub">Shop floor</button>' +
+      '<label style="display:block;margin-top:8px;font-size:12px">Roast <input id="svc-roast" type="range" min="0" max="3" value="0" /></label>' +
+      '</div>';
   }
   function openMode(m) {
     if (!m || m === "character") return;
@@ -71,8 +89,9 @@
     }
     if (m === "service") {
       show("service");
+      ensureServiceShell();
       try {
-        var host = document.getElementById("screen-service");
+        var host = document.getElementById("service-root") || document.getElementById("screen-service");
         if (host && window.ServiceCalls && typeof window.ServiceCalls.start === "function") {
           window.ServiceCalls.start(host, { onHub: goHub });
         }
@@ -122,8 +141,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "48") return;
-      card.setAttribute("data-lt-bound", "48");
+      if (card.getAttribute("data-lt-bound") === "49") return;
+      card.setAttribute("data-lt-bound", "49");
       card.addEventListener(
         "click",
         function (e) {
