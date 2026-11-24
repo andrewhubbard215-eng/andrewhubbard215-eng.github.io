@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1339: tighter first-year HOLD dial tip on title + strip. Parts LEFT. No combat). Parts LEFT. No combat */
-const VER = "lt-allstars-v1339";
+/* HVAC Allstars — offline cache (v1340: morning first-year prove tip + PS switch LAST on strip. Parts LEFT. No combat). */
+const VER = "lt-allstars-v1340";
 const CORE = [
 "./",
 "./index.html",
