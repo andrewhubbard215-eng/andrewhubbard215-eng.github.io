@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1338: evening save tighter first-year HOLD tip before seat. Parts LEFT. No combat). Parts LEFT. No combat */
-const VER = "lt-allstars-v1338";
+/* HVAC Allstars — offline cache (v1339: tighter first-year HOLD dial tip on title + strip. Parts LEFT. No combat). Parts LEFT. No combat */
+const VER = "lt-allstars-v1339";
 const CORE = [
 "./",
 "./index.html",
