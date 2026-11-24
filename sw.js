@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1336: standing first step names LOTO+meter then HOLD green 0.0 proven before seat LEFT. Parts LEFT. No combat). Parts LEFT. No combat */
-const VER = "lt-allstars-v1336";
+/* HVAC Allstars — offline cache (v1337: shorter phone version-strip for first-year lock readability. Parts LEFT. No combat). Parts LEFT. No combat */
+const VER = "lt-allstars-v1337";
 const CORE = [
 "./",
 "./index.html",
