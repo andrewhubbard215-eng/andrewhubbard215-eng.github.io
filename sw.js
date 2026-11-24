@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1348: tighter standing tip: LOTO+meter then HOLD 0.0 before seat LEFT. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1348";
+/* HVAC Allstars — offline cache (v1349: fix standing tip regex for LOTO+HOLD before seat LEFT. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1349";
 const CORE = [
 "./",
 "./index.html",
