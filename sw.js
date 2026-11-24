@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1346: tighter prove ZERO + seat LEFT. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1346";
+/* HVAC Allstars — offline cache (v1347: cleaner seat labels on diamond. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1347";
 const CORE = [
 "./",
 "./index.html",
