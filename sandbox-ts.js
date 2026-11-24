@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Standing first", body: "LOTO first + meter outdoor 24V R-C/Y BEFORE any hose. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat four LEFT, Start, wait 5–10 min stable, then read SH/SC. Equalized standing is never a charge or diagnosis." },
+    { n: "1", title: "Standing first", body: "LOTO first + meter outdoor 24V R-C/Y BEFORE any hose. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat four LEFT, Start, wait 5–10 min stable, then read SH/SC. Equalized standing is never a charge or diagnosis. No-cool prove order locked: call → 240 → R–C → Y → HPC → LPC → float → coil → T1 → compressor." },
     { n: "2", title: "Seat the four LEFT", body: "Four parts LEFT green before Start: compressor, condenser, TXV, evaporator. Then start the compressor." },
     { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
