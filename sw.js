@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1343: no-cool prove order locked on strip + standing tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1343";
+/* HVAC Allstars — offline cache (v1344: no-cool prove order +T1 on strip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1344";
 const CORE = [
 "./",
 "./index.html",
