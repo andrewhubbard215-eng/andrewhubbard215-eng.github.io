@@ -1,4 +1,4 @@
-/* HVAC Allstars — offline cache (v1351: phone status tip readability + tighter standing tip. Parts LEFT. No combat. */
+/* HVAC Allstars — offline cache (v1351: HOLD zero-prove green bars under gauges (phone visible). Parts LEFT. No combat. */
 const VER = "lt-allstars-v1351";
 const CORE = [
 "./",
