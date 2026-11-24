@@ -1,4 +1,4 @@
-/* Shop floor copy — vocational status tips (v53). Parts LEFT. No combat. */
+/* Shop floor copy — vocational status tips (v54). Parts LEFT. No combat. */
 (function () {
   "use strict";
   function setStatus(msg) {
@@ -11,7 +11,7 @@
     if (!root) return;
     var st = document.getElementById("sb-status");
     if (st && /Standing pressures - Tech - seat the four LEFT/i.test(st.textContent || "")) {
-      setStatus("LOTO + meter 24V first. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat COMP · COND · TXV · EVAP LEFT, then Start.");
+      setStatus("Prove ZERO first: LOTO + meter 24V. Hoses completely OFF — HOLD each dial solid (green bar FULL ~0.8s) until BOTH gauges show green 0.0. Only then seat COMP · COND · TXV · EVAP from LEFT rail. Never seat with hoses on or pressure showing.");
     }
   }
   if (document.readyState === "loading") {
