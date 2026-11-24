@@ -77,3 +77,4 @@
     color: #fbbf24 !important; /* amber standing */
   }
 }
+/* phone status readability */ @media (max-width: 700px) { #sb-status { font-size: 14px !important; line-height: 1.4 !important; padding: 8px !important; background: #1a1a1a; color: #fff; border-radius: 6px; margin: 4px; } }

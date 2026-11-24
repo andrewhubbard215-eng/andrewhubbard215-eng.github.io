@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1350: phone HOLD zero-prove tip tightened. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1350";
+/* HVAC Allstars — offline cache (v1351: phone status tip readability + tighter standing tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1351";
 const CORE = [
 "./",
 "./index.html",
