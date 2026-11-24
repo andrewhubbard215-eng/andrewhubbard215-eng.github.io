@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   var STEPS = [
-    { n: "1", title: "Standing first", body: "LOTO first + meter outdoor 24V R-C/Y BEFORE any hose. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat four LEFT, Start, wait 5–10 min stable, then read SH/SC. Equalized standing is never a charge or diagnosis. No-cool prove order locked: call → 240 → R–C → Y → HPC → LPC → float → coil → T1 → compressor." },
+    { n: "1", title: "Standing first", body: "LOTO first + meter outdoor 24V R-C/Y BEFORE any hose. Hoses OFF — HOLD each dial (do not release until green progress bar FULL ~0.8s) until BOTH green 0.0 proven. Then seat four LEFT, Start, wait 5–10 min stable, then read SH/SC. Equalized standing is never a charge or diagnosis. Never jump a safety. Seat only from LEFT. No-cool prove order locked: call → 240 → R–C → Y → HPC → LPC → float → coil → T1 → compressor." },
     { n: "2", title: "Seat the four LEFT", body: "Four parts LEFT green before Start: compressor, condenser, TXV, evaporator. Then start the compressor." },
     { n: "3", title: "Read SH", body: "SH = suction line T − dew point. TXV: 8–14° is a check. Piston: charge by SH." },
     { n: "4", title: "Read SC", body: "SC = start of boiling − liquid line T. TXV: charge by SC 8–14°. Low SC = undercharge/leak. Air/noncondensables raise head AND high SC." },
@@ -60,133 +60,22 @@
     } else if (!ol.parentNode && root) {
       root.appendChild(ol);
     }
-    var pcRow = window.matchMedia && window.matchMedia("(min-width: 901px)").matches; /* v3.5.489 PC 1280x800: steps one row so gauges + SH/SC fit */
+    var pcRow = window.matchMedia && window.matchMedia("(min-width: 901px)").matches;
     ol.style.setProperty("display", pcRow ? "flex" : "grid", "important");
     ol.style.setProperty("flex", "0 0 auto", "important");
-    ol.style.setProperty("height", "auto", "important");
-    ol.style.setProperty("min-height", pcRow ? "0" : "96px", "important");
-    ol.style.setProperty("max-height", pcRow ? "30px" : "22vh", "important");
-    ol.style.setProperty("overflow-y", pcRow ? "hidden" : "auto", "important");
-    ol.style.setProperty("visibility", "visible", "important");
-    ol.style.setProperty("margin", pcRow ? "0" : "6px 0 0", "important");
     return ol;
   }
 
-  function ensureStrip() {
-    var bar = document.getElementById("sb-phone-vitals");
-    if (!bar) return null;
-    var el = document.getElementById("pv-ts");
-    if (!el) {
-      el = document.createElement("span");
-      el.id = "pv-ts";
-      el.className = "pv-ts";
-      el.textContent = "TS · close the loop";
-      bar.appendChild(el);
-    }
-    return el;
-  }
-
-  function armFault() {
-    var box = document.getElementById("sb-faults");
-    if (!box || box.__tsFault) return;
-    box.__tsFault = 1;
-    box.addEventListener("click", function (e) {
-      var btn = e.target.closest("button");
-      if (!btn) return;
-      named = true;
-      paintStrip();
-    });
-  }
-
-  function bay() {
-    var run = document.getElementById("sb-run");
-    var label = (run && run.textContent) || "";
-    var on = /stop/i.test(label);
-    var tripped = /contactor open|not a reset|cutout/i.test(label);
-    var strip = ((document.getElementById("sb-left-strip") || {}).textContent) || "";
-    var seated = /COMP/i.test(strip) && /COND/i.test(strip) && /TXV/i.test(strip) && /EVAP/i.test(strip) && /seated/i.test(strip);
-    var sh = ((document.getElementById("sb-sh") || {}).textContent) || "";
-    var sc = ((document.getElementById("sb-sc") || {}).textContent) || "";
-    var shOk = on && /\d/.test(sh) && /SH/i.test(sh) && !/no SH/i.test(sh);
-    var scOk = on && /\d/.test(sc) && /SC/i.test(sc) && !/no SC/i.test(sc);
-    if (!on && !tripped) named = false;
-    return { on: on, tripped: tripped, seated: seated, shOk: shOk, scOk: scOk };
-  }
-
-  function stageOf(b) {
-    if (b.tripped && b.seated) return named ? 6 : 5;
-    if (!(b.seated && b.on && b.shOk && b.scOk)) {
-      if (b.seated && b.on && b.shOk) return 3;
-      if (b.seated) return 2;
-      return 1;
-    }
-    return named ? 6 : 5;
-  }
-
-  function plantCall() {
-    var fault = ((document.getElementById("sb-fault") || {}).textContent) || "";
-    fault = fault.replace(/^FAULT\s*-\s*/i, "").replace(/\s+/g, " ").trim();
-    var plant = fault.split("\u2014")[0].split("-")[0].trim();
-    if (!plant || /none|healthy|clear/i.test(plant)) plant = "Safety opened the contactor";
-    return plant + ". Last head is the call. Name that fingerprint. Equalized hose is not a reset and not a standing diagnosis.";
-  }
-
-  function sync(ol) {
-    var lis = ol.querySelectorAll("li");
-    STEPS.forEach(function (step, i) {
-      var li = lis[i];
-      if (!li) return;
-      var p = li.querySelector("p");
-      var strong = li.querySelector("strong");
-      if (strong && strong.textContent !== step.title) strong.textContent = step.title;
-      if (p && p.textContent !== step.body) p.textContent = step.body;
-    });
-    var b = bay();
-    var stage = stageOf(b);
-    Array.prototype.forEach.call(lis, function (li, i) {
-      li.classList.remove("wait", "done");
-      if (i + 1 < stage) li.classList.add("done");
-      else if (i + 1 === stage) li.classList.add("wait");
-    });
-    if (b.tripped && stage === 5) {
-      var waitP = ol.querySelector("li.wait p");
-      var call = plantCall();
-      if (waitP && waitP.textContent !== call) waitP.textContent = call;
-    }
-    return stage;
-  }
-
-  function paintStrip() {
-    var ol = document.getElementById("sb-ts") || mountList();
-    var el = ensureStrip();
-    if (!ol) return;
-    armFault();
-    var stage = sync(ol);
-    if (!el) return;
-    if (stage > 5) {
-      el.textContent = "TS · fingerprint named";
-      return;
-    }
-    if (bay().tripped && stage === 5) {
-      el.textContent = "TS 5 · Cutout — name the plant";
-      return;
-    }
-    var wait = ol.querySelector("li.wait");
-    var n = wait ? ((wait.querySelector("b") || {}).textContent || "?") : "?";
-    var title = wait ? ((wait.querySelector("strong") || {}).textContent || "next step") : "next step";
-    el.textContent = "TS " + n + " · " + title;
-  }
-
-  function boot() {
+  function refresh() {
     injectCss();
-    if (document.getElementById("sandbox-root")) {
-      mountList();
-      ensureStrip();
-      paintStrip();
-    }
+    mountList();
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-  setInterval(boot, 800);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", refresh);
+  } else {
+    refresh();
+  }
+  setTimeout(refresh, 800);
+  setTimeout(refresh, 2400);
 })();

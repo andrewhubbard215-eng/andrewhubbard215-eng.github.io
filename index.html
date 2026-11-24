@@ -62,7 +62,7 @@
         <button class="mode-card" data-mode="recovery" type="button"><h3>Recovery room</h3><p>Drag hoses · scale is proof · 80% stop · vacuum separate</p></button>
         <button class="mode-card" data-mode="epa608" type="button"><h3>EPA 608 tutor</h3><p>Core / I / II / III - recovery law</p></button>
         <button class="mode-card" data-mode="commandments" type="button"><h3>HVAC Commandments</h3><p>Shop rules that keep you from a callback</p></button>
-        <button class="mode-card" data-mode="lugs" type="button"><h3>Land lugs</h3><p>L1 LINE / L2 LINE / HERM / C R S - chips LEFT</p></button>
+        <button class="mode-card" data-mode="landlugs" type="button"><h3>Land lugs</h3><p>L1 LINE / L2 LINE / HERM / C R S - chips LEFT</p></button>
         <button class="mode-card" data-mode="rapture" type="button"><h3>HVAC Jesus</h3><p>Work clothes - roof racks - recovery tank</p></button>
       </div>
     </section>
@@ -86,7 +86,7 @@
     <section id="screen-epa608" class="screen"><div id="epa608-root"></div></section>
     <section id="screen-commandments" class="screen"><div id="commandments-root"></div></section>
     <section id="screen-rapture" class="screen"><img src="jesus.png" alt="HVAC Jesus" /><p id="rapture-copy"></p><button class="btn" id="btn-rapture-hub">Shop floor</button></section>
-    <p class="version-strip">HVAC Allstars - v3.5.1090 - shop floor · FIRST YEAR LOCK: LOTO+meter 24V before hoses. Hoses OFF → HOLD dials full green ~0.8s BOTH 0.0 proven → seat LEFT. Parts LEFT. Prove ZERO. No-cool: call→240→R-C→Y→HPC→LPC→float→coil→T1. Standing≠charge. 80% tank. Never jump safety.</p>
+    <p class="version-strip">HVAC Allstars - v3.5.1091 - shop floor · FIRST YEAR LOCK: LOTO+meter 24V before hoses. Hoses OFF → HOLD dials full green ~0.8s BOTH 0.0 proven → seat LEFT. Parts LEFT. Prove ZERO. No-cool: call→240→R-C→Y→HPC→LPC→float→coil→T1. Standing≠charge. 80% tank. Never jump safety.</p>
   </div>
   <script src="sku.js?v=17"></script>
   <script src="commandments.js?v=120"></script>
@@ -183,14 +183,12 @@
         el.classList.add("screen-on");
       }
     };
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=1344").catch(function () {});
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=1345").catch(function () {});
     if (!window.LtFilm) {
       var s = document.createElement("script");
       s.src = "film.js?v=7";
       document.body.appendChild(s);
     }
   </script>
-  <script src="nocool-lock.js?v=2"></script>
-  <script src="saturday-arm.js?v=1"></script>
 </body>
 </html>
