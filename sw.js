@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1353: phone parts LEFT tap size. No combat. */
-const VER = "lt-allstars-v1353";
+/* HVAC Allstars — offline cache (v1354: tighter standing tip (LOTO+24V then HOLD 0.0). No combat. */
+const VER = "lt-allstars-v1354";
 const CORE = [
 "./",
 "./index.html",
