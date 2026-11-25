@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1362: SH/SC textbook fingerprint tip on standing status. No skip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1362";
+/* HVAC Allstars — offline cache (v1363: tighter RUNNING SH/SC fingerprint tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1363";
 const CORE = [
 "./",
 "./index.html",
