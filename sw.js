@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1355: phone diamond clearer. No combat. */
-const VER = "lt-allstars-v1355";
+/* HVAC Allstars — offline cache (v1356: tighter first-year LOCK tip (meter 24V before hose). No combat. */
+const VER = "lt-allstars-v1356";
 const CORE = [
 "./",
 "./index.html",
