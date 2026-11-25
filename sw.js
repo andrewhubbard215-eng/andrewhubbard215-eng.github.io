@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1354: tighter standing tip (LOTO+24V then HOLD 0.0). No combat. */
-const VER = "lt-allstars-v1354";
+/* HVAC Allstars — offline cache (v1355: phone diamond clearer. No combat. */
+const VER = "lt-allstars-v1355";
 const CORE = [
 "./",
 "./index.html",
@@ -12,7 +12,7 @@ const CORE = [
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
 "./phone-floor.css?v=55",
-"./phone-sandbox-fit.css?v=5",
+"./phone-sandbox-fit.css?v=6",
 "./phone-p0.css?v=16",
 "./phone-rail.css?v=7",
 "./saturday-phone.css?v=4",

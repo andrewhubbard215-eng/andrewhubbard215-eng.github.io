@@ -3,7 +3,7 @@
 @media (max-width: 480px) {
   #screen-sandbox #sandbox-root .sb-layout > .sb-main { padding-bottom: 12px !important; }
   /* canvases carry inline !important widths; zoom shrinks the pair without JS */
-  #sandbox-root #sb-gauge-run #sb-analog { zoom: 0.72; }
+  #sandbox-root #sb-gauge-run #sb-analog { zoom: 0.68; }
   #sandbox-root #sb-gauge-run .sb-gauges > .panel,
   #sandbox-root .sb-gauges .panel { max-height: none !important; }
   #sandbox-root .sb-gauges #sb-sh,
@@ -19,12 +19,12 @@
 /* evening save: tighter parts tray on phone so LEFT seats don't crowd the gauges */
 @media (max-width: 480px) {
   #sandbox-root .sb-parts, #sandbox-root #sb-bin, #sandbox-root .parts-left {
-    max-height: 26vh !important;
+    max-height: 24vh !important;
     overflow-y: auto !important;
     font-size: 11px !important;
   }
   #sandbox-root .sb-part, #sandbox-root [data-part], #sandbox-root button[data-part] {
-    min-height: 40px !important;
+    min-height: 42px !important;
     margin: 1px 0 !important;
     padding: 4px 2px !important;
   }
@@ -50,11 +50,11 @@
 /* evening 2026-10-18: tighter LEFT parts tray on phone so seats stay hittable, less crowding under gauges */
 @media (max-width: 480px) {
   #sandbox-root .sb-parts, #sandbox-root #sb-bin {
-    max-height: 22vh !important;
+    max-height: 20vh !important;
     overflow-y: auto !important;
   }
   #sandbox-root [data-part] {
-    min-height: 36px !important;
+    min-height: 38px !important;
     font-size: 10px !important;
     line-height: 1.05 !important;
   }
@@ -78,3 +78,11 @@
   }
 }
 /* phone status readability */ @media (max-width: 700px) { #sb-status { font-size: 14px !important; line-height: 1.4 !important; padding: 8px !important; background: #1a1a1a; color: #fff; border-radius: 6px; margin: 4px; } }
+/* v3.5.1101 morning: diamond seats more visible, less clip on phone */
+@media (max-width: 480px) {
+  #sandbox-root #sb-seats, #sandbox-root .sb-diamond {
+    transform: scale(0.92);
+    transform-origin: center top;
+    margin: 0 auto;
+  }
+}
