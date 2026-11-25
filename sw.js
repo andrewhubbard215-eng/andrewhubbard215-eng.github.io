@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1356: tighter first-year LOCK tip (meter 24V before hose). No combat. */
-const VER = "lt-allstars-v1356";
+/* HVAC Allstars — offline cache (v1357: clearer FIRST YEAR LOCK standing tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1357";
 const CORE = [
 "./",
 "./index.html",

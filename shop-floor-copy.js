@@ -1,4 +1,4 @@
-/* Shop floor copy — vocational status tips (v58). Parts LEFT. No combat. */
+/* Shop floor copy — vocational status tips (v59). Parts LEFT. No combat. */
 (function () {
   "use strict";
   function setStatus(msg) {
@@ -11,7 +11,7 @@
     if (!root) return;
     var st = document.getElementById("sb-status");
     if (st && /Standing pressures\s+-\s+Tech\s+-\s+seat the four LEFT/i.test(st.textContent || "")) {
-      setStatus("LOTO+meter 24V R-C/Y first. Hoses OFF. HOLD full green 0.0 both. Seat LEFT. Parts LEFT only.");
+      setStatus("FIRST YEAR LOCK: LOTO + meter 24V R-C/Y BEFORE any hose. Hoses OFF. HOLD full green 0.0 BOTH. Then seat COMP · COND · TXV · EVAP LEFT only. Parts LEFT. Prove ZERO.");
     }
   }
   if (document.readyState === "loading") {

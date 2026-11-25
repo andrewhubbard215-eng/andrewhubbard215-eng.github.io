@@ -1,3 +1,4 @@
+2026-11-25 v3.5.1103 / SW v1357: played live — Clock In to sandbox OK, no crash. Parts LEFT. Shipped clearer FIRST YEAR LOCK standing tip (meter 24V before hose, HOLD 0.0 BOTH, seat LEFT). Next: hard-refresh, confirm tip and banner. Keep parts LEFT. Do not start Gauges of God.
 2026-10-17 v3.5.572 / SW v815: played live — sandbox seats, ladder, land lugs all hold. No crash. Parts LEFT, SH/SC after close. Next: clearer seat labels (avoid double names).
 2026-10-16 v3.5.546 / SW v790 / shop-floor-copy v172: clearer LOOP OPEN seat tip (seat four LEFT then Start; standing P normal; airflow/filter first). Live play clean. Parts LEFT holds.
 2026-10-16 v3.5.545 / SW v789: phone analog dials 96px (was 72). Cache bust phone-floor?v=49.
