@@ -3,20 +3,17 @@
   "use strict";
   function setStatus(msg) {
     var st = document.getElementById("sb-status");
-    if (st && msg) st.textContent = msg;
+    if (st) st.textContent = msg;
   }
-  /* Initial standing tip if sandbox loads with open loop */
-  function bootTip() {
+  function boot() {
     var root = document.getElementById("sandbox-root");
     if (!root) return;
     var st = document.getElementById("sb-status");
     if (st && /Standing pressures\s+-\s+Tech\s+-\s+seat the four LEFT/i.test(st.textContent || "")) {
-      setStatus("FIRST YEAR LOCK: LOTO + meter 24V R-C/Y BEFORE any hose. Hoses OFF. HOLD full green 0.0 BOTH. Then seat COMP · COND · TXV · EVAP LEFT only. Parts LEFT. Prove ZERO. Start compressor, wait stable, then read SH/SC fingerprint: lowSH+highSC=over · highSH+highSC=restrict · highSH+lowSC=low. Standing≠charge.");
+      setStatus("FIRST YEAR LOCK: LOTO + meter 24V R-C/Y BEFORE any hose. Hoses OFF. HOLD full green 0.0 BOTH. Then seat COMP · COND · TXV · EVAP LEFT only. Parts LEFT. Prove ZERO. Start compressor, wait 2 min stable, then read SH/SC fingerprint: lowSH+highSC=over · highSH+highSC=restrict · highSH+lowSC=low. Standing≠charge.");
     }
   }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bootTip);
-  } else {
-    setTimeout(bootTip, 400);
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  setInterval(boot, 800);
 })();
