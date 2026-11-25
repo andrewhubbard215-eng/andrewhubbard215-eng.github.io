@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1352: parts LEFT only, zero-prove HOLD green. No combat. */
-const VER = "lt-allstars-v1352";
+/* HVAC Allstars — offline cache (v1353: phone parts LEFT tap size. No combat. */
+const VER = "lt-allstars-v1353";
 const CORE = [
 "./",
 "./index.html",
@@ -11,7 +11,7 @@ const CORE = [
 "./sandbox-pc.css?v=12",
 "./truck-pouch.css?v=8",
 "./board-codes.css?v=4",
-"./phone-floor.css?v=54",
+"./phone-floor.css?v=55",
 "./phone-sandbox-fit.css?v=5",
 "./phone-p0.css?v=16",
 "./phone-rail.css?v=7",

@@ -44,6 +44,7 @@ body.lab-open [data-hub-dock],
 #sb-seats .sb-seat:not(.on) img{width: 32px !important;height: 32px !important;}
 .sb-layout{display: grid !important;grid-template-columns: 84px minmax(0, 1fr) !important;grid-template-rows: minmax(0, 1fr) !important;height: 100%;max-height: 100dvh;min-height: 0;}
 .sb-palette, .parts-tray, .sb-tray, [data-parts-tray]{grid-column: 1 !important;grid-row: 1 !important;width: 84px !important;max-width: 84px !important;overflow-y: auto;-webkit-overflow-scrolling: touch;order: 0 !important;position: relative !important;transform: none !important;}
+.sb-palette .btn, .parts-tray .btn, [data-part]{min-height: 44px !important;font-size: 11px !important;padding: 6px 4px !important;line-height: 1.1 !important;}
 .sb-main{grid-column: 2 !important;grid-row: 1 !important;min-height: 0;}
 .sb-gauges{max-height: 32vh;}
 .el-ladder, .ladder, #ladder, .el-ladder-wrap{font-size: 12px;line-height: 1.3;overflow: auto;max-height: 68vh;}}
