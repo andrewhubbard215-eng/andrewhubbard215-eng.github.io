@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1360: tighter no-cool locked meter-each tip. No skip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1360";
+/* HVAC Allstars — offline cache (v1361: clearer EQUALIZED DO NOT RECOVER chip. No skip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1361";
 const CORE = [
 "./",
 "./index.html",
