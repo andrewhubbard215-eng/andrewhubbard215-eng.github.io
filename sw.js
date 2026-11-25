@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1361: clearer EQUALIZED DO NOT RECOVER chip. No skip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1361";
+/* HVAC Allstars — offline cache (v1362: SH/SC textbook fingerprint tip on standing status. No skip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1362";
 const CORE = [
 "./",
 "./index.html",
