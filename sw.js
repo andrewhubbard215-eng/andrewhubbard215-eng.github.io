@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1363: tighter RUNNING SH/SC fingerprint tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1363";
+/* HVAC Allstars — offline cache (v1364: clearer start+wait stable before SH/SC fingerprint. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1364";
 const CORE = [
 "./",
 "./index.html",

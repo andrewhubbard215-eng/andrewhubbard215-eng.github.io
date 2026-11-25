@@ -11,7 +11,7 @@
     if (!root) return;
     var st = document.getElementById("sb-status");
     if (st && /Standing pressures\s+-\s+Tech\s+-\s+seat the four LEFT/i.test(st.textContent || "")) {
-      setStatus("FIRST YEAR LOCK: LOTO + meter 24V R-C/Y BEFORE any hose. Hoses OFF. HOLD full green 0.0 BOTH. Then seat COMP · COND · TXV · EVAP LEFT only. Parts LEFT. Prove ZERO. Run for SH/SC: low SH+high SC=overcharge · high SH+high SC=restriction · high SH+low SC=low charge.");
+      setStatus("FIRST YEAR LOCK: LOTO + meter 24V R-C/Y BEFORE any hose. Hoses OFF. HOLD full green 0.0 BOTH. Then seat COMP · COND · TXV · EVAP LEFT only. Parts LEFT. Prove ZERO. Start compressor, wait stable, then read SH/SC fingerprint: lowSH+highSC=over · highSH+highSC=restrict · highSH+lowSC=low. Standing≠charge.");
     }
   }
   if (document.readyState === "loading") {
