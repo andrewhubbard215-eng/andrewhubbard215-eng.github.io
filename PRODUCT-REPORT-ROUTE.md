@@ -1,6 +1,6 @@
 DATE: 2026-11-24
-LIVE: v3.5.1086
-SW: lt-allstars-v1340
+LIVE: v3.5.1099
+SW: lt-allstars-v1353
 PLAYED: Clock In → shop floor → Service calls. Skeleton now injects so ticket, name, quote, vitals, choices paint on open. Next random ticket changes fault (Dave open-system → Delgado undercharge SH 28/SC 4). Hook gauges parks sandbox on service screen, dispatch radio + streak + live Blue/Red/SH/SC present. Parts LEFT. Palette left. Preview up. No Lincoln marks forced on store SKU.
 BROKE: On first open service-root was empty (missing #svc-* elements) so start() threw and painted nothing. After skeleton: standing equalized until parts seated + compressor started. Status claimed "SH high - SC low" but live glass showed ~12/12 until deeper fault application. Phone drag still fragile. Dispatch bar relative but can crowd on small screens.
 FIXED: clock-in-floor.js v49 injects service skeleton before start(). Version bump on index so cache busts. Dual SKU scrub already hides Lincoln on store.
