@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1365: wait 2 min stable before SH/SC fingerprint. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1365";
+/* HVAC Allstars — offline cache (v1366: equalized DO NOT RECOVER tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1366";
 const CORE = [
 "./",
 "./index.html",
