@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1372: tighter EQUALIZED standing ≠ charge DO NOT RECOVER + seat-then-start tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1372";
+/* HVAC Allstars — offline cache (v1373: tighter EQUALIZED standing ≠ charge DO NOT RECOVER + hoses OFF prove 0.0 tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1373";
 const CORE = [
 "./",
 "./index.html",

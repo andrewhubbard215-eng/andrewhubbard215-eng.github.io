@@ -48,7 +48,7 @@
     if (!chip) {
       chip = document.createElement("div");
       chip.id = "sb-eq-chip";
-      chip.textContent = "EQUALIZED — DO NOT RECOVER. Unit off. Same P both sides (colder coil). Seat LEFT, start compressor, wait stable SH/SC.";
+      chip.textContent = "EQUALIZED standing ≠ charge — DO NOT RECOVER. Hoses OFF, prove 0.0 both sides, seat LEFT, start, wait 2 min stable THEN SH/SC.";
     }
     if (chip.parentNode !== box) box.insertBefore(chip, box.firstChild);
     if (wrap.parentNode !== box) box.insertBefore(wrap, chip.nextSibling);
@@ -136,7 +136,7 @@
     if (chip) {
       chip.style.display = on ? "none" : "block";
       if (!on && lo != null && hi != null && Math.abs(lo - hi) <= 8) {
-        chip.textContent = "EQUALIZED — DO NOT RECOVER. Unit off. Same P both sides (colder coil). Seat LEFT, start compressor, wait stable SH/SC.";
+        chip.textContent = "EQUALIZED standing ≠ charge — DO NOT RECOVER. Hoses OFF, prove 0.0 both sides, seat LEFT, start, wait 2 min stable THEN SH/SC.";
       } else if (!on) {
         chip.textContent = "STANDING — compressor off. No SH/SC until it runs.";
       }
