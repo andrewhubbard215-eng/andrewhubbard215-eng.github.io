@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1373: tighter EQUALIZED standing ≠ charge DO NOT RECOVER + hoses OFF prove 0.0 tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1373";
+/* HVAC Allstars — offline cache (v1374: TS wait locked to 2 min stable THEN SH/SC. Equalized ≠ charge. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1374";
 const CORE = [
 "./",
 "./index.html",
