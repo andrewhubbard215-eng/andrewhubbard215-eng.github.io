@@ -1,6 +1,6 @@
-/* clock-in-fix gzip loader v33 — two chunks for ladder fallback */
+/* clock-in-fix gzip loader v33 — 4 chunks for ladder fallback */
 (function(){
-  var n=2, i=0, b64="";
+  var n=4, i=0, b64="";
   function next(){
     if(i>=n){
       try{
