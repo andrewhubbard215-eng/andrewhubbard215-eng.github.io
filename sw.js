@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1369: tighter HOLD zero-prove + equalized not charge tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1369";
+/* HVAC Allstars — offline cache (v1370: ladder fallback paints usable 24V land lugs. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1370";
 const CORE = [
 "./",
 "./index.html",
