@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1371: clearer equalized DO NOT RECOVER + seat-then-start tip paints usable 24V land lugs. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1371";
+/* HVAC Allstars — offline cache (v1372: tighter EQUALIZED standing ≠ charge DO NOT RECOVER + seat-then-start tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1372";
 const CORE = [
 "./",
 "./index.html",
