@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1374: TS wait locked to 2 min stable THEN SH/SC. Equalized ≠ charge. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1374";
+/* HVAC Allstars — offline cache (v1375: SH/SC fingerprint only after 2 min stable. Equalized ≠ charge. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1375";
 const CORE = [
 "./",
 "./index.html",
