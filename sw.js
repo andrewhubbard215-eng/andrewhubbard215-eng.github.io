@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1367: tighter never-jump-safety + meter-each-step tip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1367";
+/* HVAC Allstars — offline cache (v1368: tighter HOLD zero-prove + equalized not charge tip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1368";
 const CORE = [
 "./",
 "./index.html",
