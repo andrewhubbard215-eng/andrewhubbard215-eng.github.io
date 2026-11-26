@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1378: ready pulse + clearer All 4 seated tip. Equalized ≠ charge. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1378";
+/* HVAC Allstars — offline cache (v1379: tighter BOTH gauges HOLD full green 0.0 proven BEFORE any seat LEFT. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1379";
 const CORE = [
 "./",
 "./index.html",
