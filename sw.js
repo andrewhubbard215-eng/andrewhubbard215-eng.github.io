@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1376: version sync + tip clarity. Equalized ≠ charge. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1376";
+/* HVAC Allstars — offline cache (v1377: clearer Start after seat tip. Equalized ≠ charge. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1377";
 const CORE = [
 "./",
 "./index.html",
