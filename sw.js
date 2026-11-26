@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1380: tighter BOTH gauges full green 0.0 proven BEFORE any seat LEFT. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1380";
+/* HVAC Allstars — offline cache (v1381: tighter HOLD zero-prove tip. Hoses COMPLETELY OFF ports, solid FULL green ~0.8s until BOTH 0.0 proven BEFORE any seat LEFT. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1381";
 const CORE = [
 "./",
 "./index.html",
