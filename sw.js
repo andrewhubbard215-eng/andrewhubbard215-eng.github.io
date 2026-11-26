@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1370: ladder fallback paints usable 24V land lugs. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1370";
+/* HVAC Allstars — offline cache (v1371: clearer equalized DO NOT RECOVER + seat-then-start tip paints usable 24V land lugs. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1371";
 const CORE = [
 "./",
 "./index.html",
