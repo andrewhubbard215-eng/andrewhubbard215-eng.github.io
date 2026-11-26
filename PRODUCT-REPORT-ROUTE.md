@@ -1,9 +1,9 @@
-DATE: 2026-11-25
-LIVE: v3.5.1106
-SW: lt-allstars-v1360
-PLAYED: Clock In → shop floor → Service calls (ticket paints, Hook gauges path, Next changes). System sandbox (parts LEFT, brands, drag pads). Voltmeter school (BLACK	o COM, Equip ground on GND, direction tip). No crash. Layout fills. No leftover box on land.
-BROKE: none new. Prior: full SH/SC needle match on service without seat-all. Phone drop fragile under rail.
-FIXED: none this shift (no crash/leftover/hidden-dir/PC-layout/blocked-drop hit).
-SHIPPED: existing service skeleton, FIRST YEAR tip, parts LEFT.
+DATE: 2026-11-26
+LIVE: v3.5.1121
+SW: lt-allstars-v1375
+PLAYED: Clock In → shop floor → System sandbox (parts LEFT, brands, seats, standing P/T). Voltmeter school (BLACK	o COM, RED	o VΩ, Equip ground on GND, direction tip pinned). On the job P/T gauges (analog + center digital, 118/400 psig R-410A). Service calls ticket. No crash. Layout fills PC. No leftover box. Directions visible. Drops land.
+BROKE: none new.
+FIXED: none this shift (no crash/leftover/hidden-dir/PC-layout/blocked-drop).
+SHIPPED: existing FIRST YEAR LOCK tip, parts LEFT, EQUALIZED=DO NOT RECOVER.
 STILL OPEN: Full needle + extreme SH/SC on every ticket without manual seat. Phone hose/parts drop under dispatch. Direction bar pin on all meter views.
-TOMORROW: Confirm gauges needles + digital psig live update on run for ticket fingerprint. Seat-all more obvious.
+TOMORROW: Confirm service call gauges needles + digital live on run. Seat-all more obvious.
