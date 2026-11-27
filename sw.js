@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1389: red bold EQUALIZED DO NOT RECOVER banner in sandbox standing. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1389";
+/* HVAC Allstars — offline cache (v1390: clearer phone diamond seat labels (11px, higher contrast). Parts LEFT. No combat. */
+const VER = "lt-allstars-v1390";
 const CORE = [
 "./",
 "./index.html",
@@ -14,7 +14,7 @@ const CORE = [
 "./phone-floor.css?v=55",
 "./phone-sandbox-fit.css?v=6",
 "./phone-p0.css?v=16",
-"./phone-rail.css?v=7",
+"./phone-rail.css?v=8",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
