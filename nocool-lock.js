@@ -1,4 +1,4 @@
-/* No-cool sheet lock: meter the 0.0 V open before Replace. */
+/* No-cool sheet lock: meter the 0.0 V open before Replace. v2 — clearer floor language. */
 (function () {
   var proved = false;
 
@@ -20,7 +20,7 @@
       el.dataset.openPlain = raw;
       el.textContent = raw.replace(/OPEN\s*[·•:\-]\s*/i, "");
       el.dataset.nocoolMasked = "1";
-      el.title = "Meter this box. Dark after gold is the open.";
+      el.title = "Meter this box. Dark after gold is the open. Click to prove.";
     }
   }
 
@@ -37,11 +37,12 @@
       b.style.removeProperty("pointer-events");
       b.style.removeProperty("filter");
       b.removeAttribute("title");
+      b.title = "Open proved. Replace only after the meter shows the break.";
       return;
     }
     b.disabled = true;
-    b.textContent = "Meter the 0.0 V open first";
-    b.title = "Walk gold then dark. Shotgun is a callback.";
+    b.textContent = "Meter the dark 0.0 V open first";
+    b.title = "Walk gold then dark. Click the open box. Shotgun is a callback.";
     b.style.removeProperty("display");
     b.style.setProperty("opacity", "0.55", "important");
     b.style.setProperty("pointer-events", "none", "important");

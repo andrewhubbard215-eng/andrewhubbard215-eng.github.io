@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1395: v3.5.1140 EQUALIZED standing ≠ charge DO NOT RECOVER + hoses OFF prove 0.0 before seat LEFT. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1395";
+/* HVAC Allstars — offline cache (v1396: v3.5.1141 tighter no-cool meter-the-open-first lock language. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1396";
 const CORE = [
 "./",
 "./index.html",
