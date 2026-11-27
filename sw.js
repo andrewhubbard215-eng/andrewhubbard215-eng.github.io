@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1387: tighter HOLD full green ~0.8s until BOTH 0.0 proven (hoses OFF) BEFORE any seat LEFT. EQUALIZED standing ≠ charge — DO NOT RECOVER. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1387";
+/* HVAC Allstars — offline cache (v1388: tighter HOLD full green ~0.8s until BOTH 0.0 proven (hoses OFF) BEFORE any seat LEFT. EQUALIZED standing ≠ charge — DO NOT RECOVER. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1388";
 const CORE = [
 "./",
 "./index.html",
