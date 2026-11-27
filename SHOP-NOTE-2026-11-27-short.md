@@ -1,9 +1,11 @@
-# Short shift 2026-11-27
+# SHOP-NOTE 2026-11-27 short
 
-Played live. No crashes. Clock-in → hub → sandbox loads clean. Parts LEFT, seats, SH/SC path open.
+Played live: https://andrewhubbard215-eng.github.io/ — clock-in, hub load clean. No crash/blocker.
 
-Fixed: phone diamond seat labels under 480px no longer clip (nowrap/ellipsis removed; 10px wrap, visible overflow, wider max). phone-rail.css v9, version strip v3.5.1136, SW lt-allstars-v1391.
+Shipped: trimmed version strip (removed repetition) for better floor readability. Bumped v3.5.1137 / SW v1392.
 
-Tech can play: System sandbox (real pressures/faults, parts LEFT, prove 0.0, SH/SC after stable), electrical ladder/lugs, no-cool callback sheet, All-Star Exam, service calls, mini-split install, HUB AI, HVAC Jesus in work clothes.
+Tech can play: full sandbox (real SH/SC, HPC/LPC, parts LEFT), 24V ladder, Land lugs, Saturday callback, no-cool sheet, All-Star Exam, service calls, mini-split, board-code locker, prove paths, HUB AI, HVAC Jesus in work clothes.
 
-Next job: confirm seat plate labels stay single-line readable on 360px without wrapping into diamond. No combat. Dual SKU intact. Preview left running.
+Dual SKU clean. No combat. Gauges of God still DLC.
+
+Next job: board-code flash quiz or tighter no-cool prove lock. Preview left running.
