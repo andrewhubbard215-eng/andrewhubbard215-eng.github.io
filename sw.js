@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1391: phone diamond seat labels no-clip under 480px (wrap, 10px, visible). Parts LEFT. No combat. */
-const VER = "lt-allstars-v1391";
+/* HVAC Allstars — offline cache (v1392: trimmed version strip for floor readability. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1392";
 const CORE = [
 "./",
 "./index.html",
