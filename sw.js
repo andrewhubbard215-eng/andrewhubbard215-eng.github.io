@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1383: tighter BOTH 0.0 proven with hoses OFF before any seat LEFT. Hoses COMPLETELY OFF, solid FULL green ~0.8s until BOTH 0.0 proven BEFORE any seat LEFT. Seat all 4 LEFT, tap Start, wait 2 min stable THEN SH/SC. EQUALIZED ≠ charge — DO NOT RECOVER. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1383";
+/* HVAC Allstars — offline cache (v1384: tighter BOTH 0.0 proven with hoses OFF before any seat LEFT. Hoses COMPLETELY OFF, solid FULL green ~0.8s until BOTH 0.0 proven BEFORE any seat LEFT. Seat all 4 LEFT, tap Start, wait 2 min stable THEN SH/SC. EQUALIZED ≠ charge — DO NOT RECOVER. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1384";
 const CORE = [
 "./",
 "./index.html",
