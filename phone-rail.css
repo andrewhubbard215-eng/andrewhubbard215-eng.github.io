@@ -71,12 +71,12 @@
   .lt-hose, .lt-port { min-height: 44px; pointer-events: auto; position: relative; z-index: 7; }
 }
 
-/* v3.5.1135 phone: LEFT seat plates clearer labels — one compact name per plate, no overlap before seating. Positions untouched. */
+/* v3.5.1136 phone: LEFT seat plates labels fully readable under 480px — wrap if needed, no ellipsis clip, 10px bold. Positions untouched. */
 @media (max-width: 480px) {
   #sb-seats .sb-seat:not(.on) span {
-    display: block; max-width: 64px; margin: 0 auto;
-    font: 700 11px/1.15 sans-serif !important; letter-spacing: 0;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    display: block; max-width: 72px; margin: 0 auto;
+    font: 700 10px/1.2 sans-serif !important; letter-spacing: 0;
+    white-space: normal; overflow: visible; text-overflow: clip;
     background: rgba(11,18,32,.92); border-radius: 4px; padding: 1px 3px;
   }
   #sb-seats .sb-seat.on span { display: none; }
