@@ -65,7 +65,7 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "standing \u00b7 blue = red = cold coil " + cold + "\u00b0F \u00b7 parts LEFT \u00b7 no SH/SC until it runs";
     if (chip) {
-      chip.textContent = "EQUALIZED \u2014 DO NOT RECOVER. Charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). Parts LEFT. No SH/SC until it runs.";
+      chip.textContent = "EQUALIZED — DO NOT RECOVER. Charge sat at colder coil (" + side + " " + cold + "°F, " + psi + " psig). Hoses OFF prove 0.0 both BEFORE seat LEFT. Parts LEFT. No SH/SC until it runs.";
       chip.style.background = "#8B0000";
       chip.style.color = "#fff";
       chip.style.fontWeight = "bold";
