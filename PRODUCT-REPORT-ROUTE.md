@@ -1,6 +1,6 @@
 DATE: 2026-11-26
-LIVE: v3.5.1126
-SW: lt-allstars-v1380
+LIVE: v3.5.1129
+SW: lt-allstars-v1383
 PLAYED: Clock In → shop floor → System sandbox (parts LEFT, brands, seats, standing P/T). Voltmeter school. On the job. Service calls. No crash. Layout fills PC. No leftover box. Directions visible. Drops land.
 BROKE: none new.
 FIXED: tighter BOTH gauges full green 0.0 proven BEFORE any seat LEFT tip on standing status. Parts LEFT. No combat.
