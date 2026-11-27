@@ -93,6 +93,29 @@
       "Why it's wrong: 24V across any open switch in a live string is normal. It means the switch is open, not that it is broken. Vacuum under the rating says the draft is short, not the switch.",
       "Why it's wrong: 24V reaching one side of the switch proves the board is sending the call. The board is fine. The draft is not.",
       "Why it's wrong: a running inducer does not prove draft. The switch does. The gas valve stays closed until the switch closes."
+    ],
+    "Gas furnace. Call for heat. Sequence of operation prove path?": [
+      "Why it's wrong: jumping the pressure switch lights the burner without draft prove. CO risk. Prove hose/trap/vent first.",
+      "Why it's wrong: the board does not light the burner until the switch closes. Inducer must pull, switch must close, then ignitor, then gas valve.",
+      "Why it's wrong: flame sense is after the valve opens. Prove the draft path before you call a bad board or valve."
+    ]
+  };
+  var SOO = {
+    q: "Gas furnace. Call for heat. Sequence of operation prove path?",
+    choices: [
+      "W call → inducer runs → pressure switch closes (hose/trap/vent proven) → ignitor → gas valve → flame sense → blower",
+      "Jump the pressure switch to light the burner faster",
+      "Replace the board if the switch stays open",
+      "Check flame sense first before the inducer"
+    ],
+    a: 0,
+    why: "Prove path: inducer must establish draft. Hose, trap, and vent path first. Then 24V across the switch while running. Vacuum must beat the rating. Switch last. Only then ignitor and valve.",
+    whyWrong: "Never jump the pressure switch. Prove the draft path. Switch last.",
+    wrong: [
+      null,
+      "Why it's wrong: jumping the pressure switch lights the burner without draft prove. CO risk. Prove hose/trap/vent first.",
+      "Why it's wrong: the board does not light the burner until the switch closes. Inducer must pull, switch must close, then ignitor, then gas valve.",
+      "Why it's wrong: flame sense is after the valve opens. Prove the draft path before you call a bad board or valve."
     ]
   };
   var METER = {
@@ -135,6 +158,7 @@
       if (Array.isArray(bank[k])) bank[k].forEach(fill);
     });
     if (!bank[key].some(function (q) { return q && q.q === METER.q; })) bank[key].push(METER);
+    if (!bank[key].some(function (q) { return q && q.q === SOO.q; })) bank[key].push(SOO);
     return true;
   }
   var n = 0;
