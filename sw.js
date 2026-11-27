@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1390: clearer phone diamond seat labels (11px, higher contrast). Parts LEFT. No combat. */
-const VER = "lt-allstars-v1390";
+/* HVAC Allstars — offline cache (v1391: phone diamond seat labels no-clip under 480px (wrap, 10px, visible). Parts LEFT. No combat. */
+const VER = "lt-allstars-v1391";
 const CORE = [
 "./",
 "./index.html",
@@ -14,7 +14,7 @@ const CORE = [
 "./phone-floor.css?v=55",
 "./phone-sandbox-fit.css?v=6",
 "./phone-p0.css?v=16",
-"./phone-rail.css?v=8",
+"./phone-rail.css?v=9",
 "./saturday-phone.css?v=4",
 "./theme-amber-bench.css?v=2",
 "./exam-epa.css?v=2",
