@@ -41,6 +41,13 @@
     if (ph) ph.textContent = on ? "Red hose \u2014 liquid / HPC" : "Red hose \u2014 liquid / HPC standing";
     if (on) {
       if (method && /standing|migrat/i.test(method.textContent || "")) method.textContent = "Wait 5\u201310 min for stable SH/SC. Do not call charge on first glass.";
+      if (chip) {
+        chip.textContent = "";
+        chip.style.background = "";
+        chip.style.color = "";
+        chip.style.fontWeight = "";
+        chip.style.padding = "";
+      }
       return;
     }
     var od = numF("sb-out-v");
@@ -58,7 +65,14 @@
     if (sct) sct.textContent = "same P as blue hose \u2014 cold-coil sat";
     if (method) method.textContent = "standing \u00b7 blue = red = cold coil " + cold + "\u00b0F \u00b7 parts LEFT \u00b7 no SH/SC until it runs";
     if (chip) {
-      chip.textContent = "EQUALIZED \u2014 charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). Parts LEFT. Do not recover or add refrigerant. No SH/SC until it runs.";
+      chip.textContent = "EQUALIZED \u2014 DO NOT RECOVER. Charge sat at colder coil (" + side + " " + cold + "\u00b0F, " + psi + " psig). Parts LEFT. No SH/SC until it runs.";
+      chip.style.background = "#8B0000";
+      chip.style.color = "#fff";
+      chip.style.fontWeight = "bold";
+      chip.style.padding = "8px 12px";
+      chip.style.borderRadius = "4px";
+      chip.style.display = "block";
+      chip.style.margin = "8px 0";
     }
   }
   setInterval(paint, 350);
