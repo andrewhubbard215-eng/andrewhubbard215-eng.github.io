@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1398: Saturday no-cool sheet playable. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1398";
+/* HVAC Allstars — offline cache (v1399: FIRST YEAR LOCK step 6 — EQUALIZED ≠ charge DO NOT RECOVER. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1399";
 const CORE = [
 "./",
 "./index.html",
