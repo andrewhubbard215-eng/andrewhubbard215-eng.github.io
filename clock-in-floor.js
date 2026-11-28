@@ -1,4 +1,4 @@
-/* Clock-in floor v49 — service shell so start() paints. No remote blob. */
+/* Clock-in floor v50 — Saturday no-cool sheet paints. Service shell so start() paints. No remote blob. */
 (function () {
   function show(id) {
     document.querySelectorAll(".screen").forEach(function (s) {
@@ -55,6 +55,40 @@
     }
     if ((m === "truck-pouch" || m === "truck") && window.TruckPouch && typeof window.TruckPouch.open === "function") {
       try { window.TruckPouch.open(); return; } catch (_) {}
+    }
+    if (m === "saturday") {
+      show("saturday");
+      var root = document.getElementById("saturday-root");
+      if (root && !root.querySelector(".sat-sheet")) {
+        root.innerHTML = '<div class="panel sat-sheet" style="padding:16px;max-width:480px;margin:20px auto;background:#1a1a1a;color:#e8e0d0;border:1px solid #555">' +
+          '<h2 style="margin-top:0">Saturday callback — No-cool sheet</h2>' +
+          '<p>Meter first. Isolate the open. Never jump. Parts LEFT.</p>' +
+          '<ol id="sat-steps" style="line-height:1.8;padding-left:20px">' +
+          '<li data-step="call" style="cursor:pointer">Call for cool (stat Y)</li>' +
+          '<li data-step="240" style="cursor:pointer">240V at disconnect / contactor L1-L2</li>' +
+          '<li data-step="rc" style="cursor:pointer">24V R-C outdoor</li>' +
+          '<li data-step="y" style="cursor:pointer">Y to contactor coil</li>' +
+          '<li data-step="hpc" style="cursor:pointer">HPC closed</li>' +
+          '<li data-step="lpc" style="cursor:pointer">LPC closed</li>' +
+          '<li data-step="float" style="cursor:pointer">Float switch closed</li>' +
+          '<li data-step="coil" style="cursor:pointer">Contactor coil pulls</li>' +
+          '<li data-step="t1" style="cursor:pointer">T1 / compressor run</li>' +
+          '</ol>' +
+          '<p id="sat-status">Tap each step after you meter it green.</p>' +
+          '<button type="button" class="btn" id="sat-floor" style="margin-top:12px">Shop floor</button>' +
+          '</div>';
+        var steps = root.querySelectorAll("#sat-steps li");
+        for (var i = 0; i < steps.length; i++) {
+          steps[i].onclick = function () {
+            this.style.textDecoration = "line-through";
+            this.style.color = "#4caf50";
+            this.style.fontWeight = "bold";
+          };
+        }
+        var bf = document.getElementById("sat-floor");
+        if (bf) bf.onclick = function (e) { if (e) e.preventDefault(); goHub(); };
+      }
+      return;
     }
     if (m === "soo") {
       var BCS = window.BoardCodes || window.LtBoardCodes;
@@ -141,8 +175,8 @@
   }
   function bindCards() {
     document.querySelectorAll(".mode-card").forEach(function (card) {
-      if (card.getAttribute("data-lt-bound") === "49") return;
-      card.setAttribute("data-lt-bound", "49");
+      if (card.getAttribute("data-lt-bound") === "50") return;
+      card.setAttribute("data-lt-bound", "50");
       card.addEventListener(
         "click",
         function (e) {

@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1397: v3.5.1142 clearer FIRST YEAR LOCK steps on title + strip. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1397";
+/* HVAC Allstars — offline cache (v1398: Saturday no-cool sheet playable. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1398";
 const CORE = [
 "./",
 "./index.html",
