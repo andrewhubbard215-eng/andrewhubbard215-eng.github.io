@@ -126,6 +126,8 @@
   <script src="analog-gauges.js?v=9"></script>
   <script src="teach-locks.js?v=2"></script>
   <script src="shop-floor-copy.js?v=67"></script>
+  <script src="shop-labs-data.js?v=1"></script>
+  <script src="shop-labs-floor.js?v=1"></script>
   <script>
     window.ltGo = function (id) {
       if ((id === "hub" || id === "shop" || id === "floor") && typeof window.ltGoHub === "function") {
@@ -141,6 +143,13 @@
       if (el) {
         el.classList.add("active");
         el.classList.add("screen-on");
+        if (id === "shoplabs" && window.ShopLabs && typeof window.ShopLabs.start === "function") {
+          var root = document.getElementById("shoplabs-root");
+          if (root && !root.dataset.started) {
+            window.ShopLabs.start(root);
+            root.dataset.started = "1";
+          }
+        }
       }
     };
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=1398").catch(function () {});
