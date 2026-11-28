@@ -136,6 +136,25 @@
       "Why it's wrong: the LPC is telling you suction is low. Jumper it on a starved low side and you pull the compressor into a vacuum or burn it up on a leak. Gauge first."
     ]
   };
+
+  var PS_PROVE = {
+    q: "Furnace. Inducer is running. Pressure switch stays open. Prove path in order?",
+    choices: [
+      "Hose/trap/vent clear → 24V across switch while inducer runs → vacuum beats switch rating → switch last (never first, never jumper)",
+      "Replace the pressure switch first — it is the most common failure",
+      "Jumper the switch to get heat while you order a board",
+      "Pull the inducer and replace it before checking the hose"
+    ],
+    a: 0,
+    why: "Prove path (door sticker is law): clear the hose, trap, and vent first. Then meter 24V across the switch with the inducer running. Vacuum must exceed the rating printed on the switch. Only after draft is proven do you call the switch. Never jumper a pressure switch — CO risk.",
+    whyWrong: "Hose/trap/vent → 24V → vacuum vs rating → switch last. Never jumper.",
+    wrong: [
+      null,
+      "Why it's wrong: a new switch on a wet trap or kinked hose stays open. Prove the draft path before you spend the money.",
+      "Why it's wrong: jumpering the pressure switch lights the burner with no draft prove. You can fill the house with CO. Never light on a jumper.",
+      "Why it's wrong: the inducer is already running. Prove hose, trap, and vent before you pull the motor. Draft path first."
+    ]
+  };
   function fill(it) {
     if (!it || !it.q || it.wrong) return;
     var list = W[it.q];
@@ -159,6 +178,7 @@
     });
     if (!bank[key].some(function (q) { return q && q.q === METER.q; })) bank[key].push(METER);
     if (!bank[key].some(function (q) { return q && q.q === SOO.q; })) bank[key].push(SOO);
+    if (!bank[key].some(function (q) { return q && q.q === PS_PROVE.q; })) bank[key].push(PS_PROVE);
     return true;
   }
   var n = 0;

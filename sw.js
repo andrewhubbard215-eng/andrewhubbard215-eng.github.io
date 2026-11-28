@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1399: FIRST YEAR LOCK step 6 — EQUALIZED ≠ charge DO NOT RECOVER. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1399";
+/* HVAC Allstars — offline cache (v1400: PS prove exam item (hose/trap/vent → 24V → vacuum vs rating → switch last) with why-wrong.  FIRST YEAR LOCK step 6 — EQUALIZED ≠ charge DO NOT RECOVER. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1400";
 const CORE = [
 "./",
 "./index.html",
