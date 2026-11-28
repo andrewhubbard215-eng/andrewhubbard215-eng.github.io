@@ -1,5 +1,5 @@
-/* HVAC Allstars — offline cache (v1396: v3.5.1141 tighter no-cool meter-the-open-first lock language. Parts LEFT. No combat. */
-const VER = "lt-allstars-v1396";
+/* HVAC Allstars — offline cache (v1397: v3.5.1142 clearer FIRST YEAR LOCK steps on title + strip. Parts LEFT. No combat. */
+const VER = "lt-allstars-v1397";
 const CORE = [
 "./",
 "./index.html",
